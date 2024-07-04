@@ -20,18 +20,17 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun SecondaryButton(
+    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean,
     onClick: () -> Unit
 ){
-    val modifier = Modifier
-        .fillMaxWidth()
-        .wrapContentHeight()
-    
     OutlinedButton(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
         onClick = onClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 13.dp),
-        modifier = modifier,
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.outlinedButtonColors(
@@ -41,8 +40,8 @@ fun SecondaryButton(
         border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
     ) {
         Text(
+            modifier = modifier.fillMaxWidth(),
             text = text,
-            modifier = modifier,
             style = MaterialTheme.typography.headlineSmall.copy(color = MaterialTheme.colorScheme.primary),
             textAlign = TextAlign.Center
         )
@@ -51,8 +50,12 @@ fun SecondaryButton(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-private fun SecondaryButton_test() {
+private fun SecondaryButtonPreview() {
     VodimobileTheme(darkTheme = false) {
-        SecondaryButton(text = "Hello", enabled = false, onClick = {})
+        SecondaryButton(
+            text = "Hello",
+            enabled = false,
+            onClick = {},
+            )
     }
 }

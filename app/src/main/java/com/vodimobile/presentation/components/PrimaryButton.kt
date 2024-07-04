@@ -18,17 +18,17 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun PrimaryButton(
+    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean,
     onClick: () -> Unit,
 ) {
-    val modifier = Modifier
-        .fillMaxWidth()
-        .wrapContentHeight()
     Button(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
         onClick = onClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 13.dp),
-        modifier = modifier,
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
@@ -39,8 +39,8 @@ fun PrimaryButton(
         )
     ) {
         Text(
+            modifier = modifier.fillMaxWidth(),
             text = text,
-            modifier = modifier,
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center
         )
@@ -49,8 +49,12 @@ fun PrimaryButton(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-private fun PrimaryButton_test() {
+private fun PrimaryButtonPreview() {
     VodimobileTheme(darkTheme = false) {
-        PrimaryButton(text = "Hello", enabled = false, onClick = {})
+        PrimaryButton(
+            text = "Hello",
+            enabled = false,
+            onClick = {},
+            )
     }
 }

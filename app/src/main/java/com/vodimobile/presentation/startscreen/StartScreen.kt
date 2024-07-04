@@ -62,7 +62,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true)
 @Composable
-private fun p() {
+private fun StartScreenPreview() {
     VodimobileTheme {
         Scaffold {
             StartScreen(startScreenViewModel = StartScreenViewModel())
