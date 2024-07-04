@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Водимобиль</string>
+    <string name="requister_str">Зарегистрироваться</string>
+    <string name="login_str">Войти</string>
 </resources>
