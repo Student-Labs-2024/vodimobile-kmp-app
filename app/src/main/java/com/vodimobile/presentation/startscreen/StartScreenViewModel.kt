@@ -8,6 +8,7 @@ class StartScreenViewModel : ViewModel() {
         when (intent) {
             Intent.ClickLogin -> {}
             Intent.ClickRegistration -> {}
+            Intent.CloseClick -> {}
         }
     }
 }
