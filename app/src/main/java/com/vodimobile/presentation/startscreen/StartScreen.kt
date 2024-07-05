@@ -81,7 +81,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
 @Preview(showBackground = true)
 @Composable
 private fun StartScreenPreview() {
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false){
         Scaffold {
             StartScreen(startScreenViewModel = StartScreenViewModel())
         }

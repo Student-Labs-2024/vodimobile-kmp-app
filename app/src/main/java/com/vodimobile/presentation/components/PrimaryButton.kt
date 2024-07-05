@@ -50,10 +50,10 @@ fun PrimaryButton(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 private fun PrimaryButtonPreview() {
-    VodimobileTheme(darkTheme = false) {
+    VodimobileTheme(darkTheme = false, dynamicColor = false) {
         PrimaryButton(
             text = "Hello",
-            enabled = false,
+            enabled = true,
             onClick = {},
             )
     }
