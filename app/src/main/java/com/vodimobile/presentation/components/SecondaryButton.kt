@@ -51,7 +51,7 @@ fun SecondaryButton(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 private fun SecondaryButtonPreview() {
-    VodimobileTheme(darkTheme = false) {
+    VodimobileTheme(darkTheme = false,dynamicColor = false) {
         SecondaryButton(
             text = "Hello",
             enabled = false,
