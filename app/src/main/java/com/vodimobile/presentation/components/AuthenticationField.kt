@@ -113,8 +113,7 @@ fun AuthenticationField(
                         onClick = {
                             onValueChange("")
                             showClearIcon = false
-                        },
-                        modifier = Modifier.align(Alignment.End)
+                        }
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
@@ -139,7 +138,7 @@ fun AuthenticationField(
 
 @Preview
 @Composable
-fun AuthenticationFieldPreview() {
+private fun AuthenticationFieldPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary

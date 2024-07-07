@@ -41,7 +41,7 @@ fun RegistrationBlock(
 
 @Preview
 @Composable
-fun RegistrationBlockPreview() {
+private fun RegistrationBlockPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary

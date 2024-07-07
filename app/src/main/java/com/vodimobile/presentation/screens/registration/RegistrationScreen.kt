@@ -21,6 +21,8 @@ import com.vodimobile.presentation.screens.registration.components.AgreementBloc
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.EmailValidator
+import com.vodimobile.presentation.utils.PhoneNumberValidator
 
 @Composable
 fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
@@ -75,7 +77,7 @@ fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
 
 @Preview
 @Composable
-fun RegistrationScreenPreview() {
+private fun RegistrationScreenPreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(
@@ -83,7 +85,10 @@ fun RegistrationScreenPreview() {
             color = MaterialTheme.colorScheme.onPrimary
         ) {
             RegistrationScreen(
-                viewModel = RegistrationScreenViewModel()
+                viewModel = RegistrationScreenViewModel(
+                    emailValidator = EmailValidator(),
+                    phoneNumberValidator = PhoneNumberValidator()
+                )
             )
         }
     }

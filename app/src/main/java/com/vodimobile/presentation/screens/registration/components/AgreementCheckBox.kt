@@ -112,7 +112,7 @@ fun AgreementCheckBox(
 
 @Preview
 @Composable
-fun AgreementCheckBoxFalsePreview() {
+private fun AgreementCheckBoxFalsePreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(
@@ -128,7 +128,7 @@ fun AgreementCheckBoxFalsePreview() {
 
 @Preview
 @Composable
-fun AgreementCheckBoxTruePreview() {
+private fun AgreementCheckBoxTruePreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(

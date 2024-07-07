@@ -35,7 +35,7 @@ fun PhoneField(
 
 @Preview
 @Composable
-fun PhoneFieldPreview() {
+private fun PhoneFieldPreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(

@@ -56,7 +56,7 @@ fun ScreenHeader(
 
 @Preview
 @Composable
-fun PageHeaderPreview() {
+private fun PageHeaderPreview() {
 
     VodimobileTheme {
 

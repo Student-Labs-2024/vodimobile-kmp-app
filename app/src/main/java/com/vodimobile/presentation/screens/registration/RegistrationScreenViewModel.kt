@@ -1,11 +1,15 @@
 package com.vodimobile.presentation.screens.registration
 
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
+import com.vodimobile.presentation.utils.EmailValidator
+import com.vodimobile.presentation.utils.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class RegistrationScreenViewModel : ViewModel() {
+class RegistrationScreenViewModel(
+    private val emailValidator: EmailValidator,
+    private val phoneNumberValidator: PhoneNumberValidator
+) : ViewModel() {
 
     private val _registrationFieldsState = MutableStateFlow(RegistrationFieldsState())
     val registrationFieldsState: StateFlow<RegistrationFieldsState> = _registrationFieldsState
@@ -17,7 +21,7 @@ class RegistrationScreenViewModel : ViewModel() {
             RegistrationScreenIntent.ReturnBack -> {}
 
             is RegistrationScreenIntent.EmailChange -> {
-                val isValidEmail = isValidEmail(intent.value)
+                val isValidEmail = validateEmail(intent.value)
                 _registrationFieldsState.value = _registrationFieldsState.value.copy(
                     email = intent.value,
                     emailError = !isValidEmail
@@ -25,8 +29,7 @@ class RegistrationScreenViewModel : ViewModel() {
             }
 
             is RegistrationScreenIntent.PhoneNumberChange -> {
-
-                val isValidPhoneNumber = isValidPhoneNumber(intent.value)
+                val isValidPhoneNumber = validatePhoneNumber(intent.value)
                 _registrationFieldsState.value = _registrationFieldsState.value.copy(
                     phoneNumber = intent.value,
                     phoneNumberError = !isValidPhoneNumber
@@ -35,13 +38,11 @@ class RegistrationScreenViewModel : ViewModel() {
         }
     }
 
-    private fun isValidEmail(email: String): Boolean {
-        return email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    private fun validateEmail(email: String): Boolean {
+        return emailValidator.isValidEmail(email)
     }
 
-    private fun isValidPhoneNumber(phoneNumber: String): Boolean {
-        return phoneNumber.isNotEmpty() &&
-                phoneNumber.length == 12 &&
-                Patterns.PHONE.matcher(phoneNumber).matches()
+    private fun validatePhoneNumber(phoneNumber: String): Boolean {
+        return phoneNumberValidator.isValidPhoneNumber(phoneNumber)
     }
 }

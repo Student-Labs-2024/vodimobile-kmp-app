@@ -31,7 +31,7 @@ fun EmailField(
 
 @Preview
 @Composable
-fun EmailFieldPreview() {
+private fun EmailFieldPreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(
