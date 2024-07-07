@@ -19,14 +19,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.resources.Res
+import com.vodimobile.resources.close_button_content_description
+import com.vodimobile.resources.login_str
+import com.vodimobile.resources.logoapp
+import com.vodimobile.resources.requister_str
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StartScreen(startScreenViewModel: StartScreenViewModel) {
@@ -47,7 +51,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Close,
-                    contentDescription = stringResource(id = R.string.close_button_content_description)
+                    contentDescription = stringResource(resource = Res.string.close_button_content_description)
                 )
             }
         }
@@ -56,20 +60,20 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
                 .height(20.dp),
         )
         Image(
-            painter = painterResource(id = R.drawable.logoapp),
+            painter = painterResource(resource = Res.drawable.logoapp),
             contentDescription = null,
             modifier = Modifier
                 .padding(vertical = 58.dp)
                 .size(width = 250.dp, height = 133.33.dp)
         )
         PrimaryButton(
-            text = stringResource(R.string.requister_str),
+            text = stringResource(resource = Res.string.requister_str),
             enabled = true,
             onClick = {
                 startScreenViewModel.onIntent(Intent.ClickRegistration)
             })
         SecondaryButton(
-            text = stringResource(R.string.login_str),
+            text = stringResource(resource = Res.string.login_str),
             enabled = true,
             onClick = {
                 startScreenViewModel.onIntent(Intent.ClickLogin)
@@ -81,7 +85,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
 @Preview(showBackground = true)
 @Composable
 private fun StartScreenPreview() {
-    VodimobileTheme(dynamicColor = false){
+    VodimobileTheme(dynamicColor = false) {
         Scaffold {
             StartScreen(startScreenViewModel = StartScreenViewModel())
         }
