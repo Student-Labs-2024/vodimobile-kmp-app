@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 @Composable
 fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
 
-    val registrationState = viewModel.registrationFieldsState.value
+    val registrationState = viewModel.registrationFieldsState.collectAsState()
     val isButtonClicked = remember { mutableStateOf(false) }
 
     fun resetButtonClicked() {
@@ -46,7 +47,7 @@ fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
         )
         Spacer(modifier = Modifier.height(100.dp))
         RegistrationBlock(
-            registrationState = registrationState,
+            registrationState = registrationState.value,
             isShowError = isButtonClicked.value,
             onEmailChanged = {
                 viewModel.onIntent(RegistrationScreenIntent.EmailChange(it))
@@ -65,7 +66,7 @@ fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
             },
             onClickNextButton = {
                 isButtonClicked.value = true
-                if (!registrationState.emailError && !registrationState.phoneNumberError)
+                if (!registrationState.value.emailError && !registrationState.value.phoneNumberError)
                     viewModel.onIntent(RegistrationScreenIntent.SmsVerification)
             }
         )

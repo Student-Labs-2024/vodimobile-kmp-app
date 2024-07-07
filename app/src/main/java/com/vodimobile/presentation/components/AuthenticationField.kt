@@ -3,7 +3,6 @@ package com.vodimobile.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +14,9 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,10 +57,37 @@ fun AuthenticationField(
         Text(
             text = label,
             style = MaterialTheme.typography.titleLarge,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Box(
+        OutlinedTextField(
+            value = value,
+            onValueChange = {
+                onValueChange(it)
+                showClearIcon = it.isNotEmpty()
+            },
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            },
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                cursorColor = MaterialTheme.colorScheme.onBackground,
+                errorContainerColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent,
+                errorCursorColor = MaterialTheme.colorScheme.onBackground
+            ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = keyboardType
+            ),
+            visualTransformation = maskVisualTransformation ?: VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
@@ -77,62 +103,29 @@ fun AuthenticationField(
                     ),
                     shape = MaterialTheme.shapes.small
                 )
-        ) {
-            TextField(
-                value = value,
-                onValueChange = {
-                    onValueChange(it)
-                    showClearIcon = it.isNotEmpty()
+                .onFocusChanged {
+                    isFocused = it.isFocused
                 },
-                placeholder = {
-                    Text(
-                        text = placeholder,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                },
-                colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    cursorColor = Color.Black,
-                    errorContainerColor = Color.Transparent,
-                    errorIndicatorColor = Color.Transparent,
-                    errorCursorColor = Color.Black
-                ),
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = keyboardType
-                ),
-                visualTransformation = maskVisualTransformation ?: VisualTransformation.None,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .onFocusChanged {
-                        isFocused = it.isFocused
-                    },
-                singleLine = true,
-                trailingIcon = {
-                    if (showClearIcon) {
-                        IconButton(
-                            onClick = {
-                                onValueChange("")
-                                showClearIcon = false
-                            },
-                            modifier = Modifier.align(Alignment.CenterEnd)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Close,
-                                contentDescription = stringResource(R.string.clear_registration_input),
-                                tint = MaterialTheme.colorScheme.tertiary
-                            )
-                        }
+            singleLine = true,
+            trailingIcon = {
+                if (showClearIcon) {
+                    IconButton(
+                        onClick = {
+                            onValueChange("")
+                            showClearIcon = false
+                        },
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = stringResource(R.string.clear_registration_input),
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
                     }
-                },
-                isError = isError,
-            )
-        }
+                }
+            },
+            isError = isError,
+        )
         if (isError) {
             Text(
                 text = errorMessage,

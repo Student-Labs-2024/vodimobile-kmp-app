@@ -1,12 +1,14 @@
 package com.vodimobile.presentation.screens.registration
 
 import android.util.Patterns
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class RegistrationScreenViewModel : ViewModel() {
 
-    val registrationFieldsState = mutableStateOf(RegistrationFieldsState())
+    private val _registrationFieldsState = MutableStateFlow(RegistrationFieldsState())
+    val registrationFieldsState: StateFlow<RegistrationFieldsState> = _registrationFieldsState
 
     fun onIntent(intent: RegistrationScreenIntent) {
         when (intent) {
@@ -15,23 +17,20 @@ class RegistrationScreenViewModel : ViewModel() {
             RegistrationScreenIntent.ReturnBack -> {}
 
             is RegistrationScreenIntent.EmailChange -> {
-
                 val isValidEmail = isValidEmail(intent.value)
-                registrationFieldsState.value =
-                    registrationFieldsState.value.copy(
-                        email = intent.value,
-                        emailError = !isValidEmail
-                    )
+                _registrationFieldsState.value = _registrationFieldsState.value.copy(
+                    email = intent.value,
+                    emailError = !isValidEmail
+                )
             }
 
             is RegistrationScreenIntent.PhoneNumberChange -> {
 
                 val isValidPhoneNumber = isValidPhoneNumber(intent.value)
-                registrationFieldsState.value =
-                    registrationFieldsState.value.copy(
-                        phoneNumber = intent.value,
-                        phoneNumberError = !isValidPhoneNumber
-                    )
+                _registrationFieldsState.value = _registrationFieldsState.value.copy(
+                    phoneNumber = intent.value,
+                    phoneNumberError = !isValidPhoneNumber
+                )
             }
         }
     }
