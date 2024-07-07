@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Водимобиль"
-include(":app")
+include(":androidApp")
