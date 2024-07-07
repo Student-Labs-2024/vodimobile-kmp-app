@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.R
+import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -36,7 +36,7 @@ fun ScreenHeader(
             onClick = onNavigateBack
         ) {
             Icon(
-                imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
+                imageVector = Icons.Rounded.ArrowBack,
                 contentDescription = stringResource(id = R.string.header_back_content_desc),
                 modifier = Modifier.size(32.dp)
             )

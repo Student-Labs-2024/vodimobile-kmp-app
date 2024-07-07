@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.vodimobile.R
+import com.vodimobile.android.R
 
 internal val mainFont: FontFamily = FontFamily(Font(R.font.akzidenzgroteskpro_regular))
 

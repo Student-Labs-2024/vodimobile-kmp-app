@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.startscreen
+package com.vodimobile.presentation.screens.startscreen
 
 sealed class Intent {
     data object ClickRegistration : Intent()

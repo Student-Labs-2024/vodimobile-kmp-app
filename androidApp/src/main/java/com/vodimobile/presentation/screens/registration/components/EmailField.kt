@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.vodimobile.R
+import com.vodimobile.android.R
 import com.vodimobile.presentation.components.AuthenticationField
 import com.vodimobile.presentation.theme.VodimobileTheme
 

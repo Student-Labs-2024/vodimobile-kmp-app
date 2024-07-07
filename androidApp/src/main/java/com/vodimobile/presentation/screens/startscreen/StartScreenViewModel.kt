@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.startscreen
+package com.vodimobile.presentation.screens.startscreen
 
 import androidx.lifecycle.ViewModel
 
