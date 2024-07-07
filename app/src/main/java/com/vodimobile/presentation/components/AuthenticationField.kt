@@ -3,10 +3,11 @@ package com.vodimobile.presentation.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -26,9 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.R
+import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun AuthenticationField(
@@ -38,15 +44,15 @@ fun AuthenticationField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     keyboardType: KeyboardType,
-    clearIconContentDescription: String,
-    maskVisualTransformation: VisualTransformation? = null
+    maskVisualTransformation: VisualTransformation? = null,
+    isError: Boolean,
+    errorMessage: String
 ) {
     var isFocused by remember { mutableStateOf(false) }
     var showClearIcon by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text(
@@ -54,19 +60,22 @@ fun AuthenticationField(
             style = MaterialTheme.typography.titleLarge,
             color = Color.Black
         )
+        Spacer(modifier = Modifier.height(8.dp))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = Color(0xFFF6F6F6),
-                    shape = MaterialTheme.shapes.extraSmall
+                    color = MaterialTheme.colorScheme.secondaryContainer,
+                    shape = MaterialTheme.shapes.small
                 )
                 .border(
                     BorderStroke(
                         width = 1.dp,
-                        color = if (isFocused) Color(0XFF9CA3B0) else Color.Transparent
+                        color = if (isError) MaterialTheme.colorScheme.error
+                        else if (value.isNotEmpty() || isFocused) MaterialTheme.colorScheme.tertiary
+                        else Color.Transparent
                     ),
-                    shape = MaterialTheme.shapes.extraSmall
+                    shape = MaterialTheme.shapes.small
                 )
         ) {
             TextField(
@@ -78,7 +87,7 @@ fun AuthenticationField(
                 placeholder = {
                     Text(
                         text = placeholder,
-                        color = Color(0xFF939BAA),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         style = MaterialTheme.typography.bodySmall
                     )
                 },
@@ -88,6 +97,10 @@ fun AuthenticationField(
                     disabledContainerColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
+                    cursorColor = Color.Black,
+                    errorContainerColor = Color.Transparent,
+                    errorIndicatorColor = Color.Transparent,
+                    errorCursorColor = Color.Black
                 ),
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = keyboardType
@@ -99,24 +112,54 @@ fun AuthenticationField(
                     .onFocusChanged {
                         isFocused = it.isFocused
                     },
-                singleLine = true
+                singleLine = true,
+                trailingIcon = {
+                    if (showClearIcon) {
+                        IconButton(
+                            onClick = {
+                                onValueChange("")
+                                showClearIcon = false
+                            },
+                            modifier = Modifier.align(Alignment.CenterEnd)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = stringResource(R.string.clear_registration_input),
+                                tint = MaterialTheme.colorScheme.tertiary
+                            )
+                        }
+                    }
+                },
+                isError = isError,
             )
+        }
+        if (isError) {
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.padding(start = 10.dp, top = 3.dp)
+            )
+        }
+    }
+}
 
-            if (showClearIcon) {
-                IconButton(
-                    onClick = {
-                        onValueChange("")
-                        showClearIcon = false
-                    },
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = clearIconContentDescription,
-                        tint = Color(0xFF9CA3B0)
-                    )
-                }
-            }
+@Preview
+@Composable
+fun AuthenticationFieldPreview() {
+    VodimobileTheme(dynamicColor = false) {
+        Surface(
+            color = MaterialTheme.colorScheme.onPrimary
+        ) {
+            AuthenticationField(
+                label = "Email",
+                value = "",
+                onValueChange = {},
+                placeholder = "example@gmail.com",
+                keyboardType = KeyboardType.Email,
+                errorMessage = "Такой почты не существует. Повторите попытку",
+                isError = true
+            )
         }
     }
 }

@@ -1,39 +1,40 @@
 package com.vodimobile.presentation.screens.registration.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.presentation.screens.registration.RegistrationFieldsState
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun RegistrationBlock() {
-
-    var emailState by remember { mutableStateOf("") }
-    var phoneNumberState by remember { mutableStateOf("") }
-
+fun RegistrationBlock(
+    registrationState: RegistrationFieldsState,
+    isShowError: Boolean,
+    onEmailChanged: (String) -> Unit,
+    onPhoneNumberChanged: (String) -> Unit
+) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(28.dp)
     ) {
         EmailField(
-            emailState = emailState,
-            onEmailChanged = { emailState = it }
+            value = registrationState.email,
+            isError = registrationState.emailError,
+            isShowError = isShowError,
+            onEmailChanged = onEmailChanged,
         )
-        Spacer(modifier = Modifier.height(28.dp))
         PhoneField(
-            phoneNumberState = phoneNumberState,
-            onPhoneNumberChanged = { phoneNumberState = it }
+            value = registrationState.phoneNumber,
+            isError = registrationState.phoneNumberError,
+            isShowError = isShowError,
+            onPhoneNumberChanged = onPhoneNumberChanged
         )
     }
 }
@@ -41,11 +42,16 @@ fun RegistrationBlock() {
 @Preview
 @Composable
 fun RegistrationBlockPreview() {
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary
         ) {
-            RegistrationBlock()
+            RegistrationBlock(
+                registrationState = RegistrationFieldsState(),
+                isShowError = false,
+                onEmailChanged = {},
+                onPhoneNumberChanged = {}
+            )
         }
     }
 }

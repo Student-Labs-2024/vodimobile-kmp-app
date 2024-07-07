@@ -6,11 +6,13 @@
 
     <string name="registration_label_email">Email</string>
     <string name="placeholder_email">example@gmail.com</string>
-    <string name="clear_email_field_content_desc">Очистить ввод почты</string>
+    <string name="email_error">Такой почты не существует. Повторите попытку</string>
 
     <string name="registration_label_phoneNumber">Номер телефона</string>
     <string name="placeholder_phoneNumber">+7</string>
-    <string name="clear_phoneNumber_field_content_desc">Очистить ввод номера телефона</string>
+    <string name="phoneNumber_error">Такого номера не существует. Повторите попытку</string>
+
+    <string name="clear_registration_input">Очистить ввод</string>
 
     <string name="agreement_checkBox_desc">Согласие на обработку данных</string>
     <string name="agreement_text">Я прочитал и согласен с условиями\nПользовательского Соглашения</string>

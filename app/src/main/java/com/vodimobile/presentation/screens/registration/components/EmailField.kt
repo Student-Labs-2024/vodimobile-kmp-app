@@ -13,16 +13,19 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun EmailField(
-    emailState: String,
+    value: String,
+    isError: Boolean,
+    isShowError: Boolean,
     onEmailChanged: (String) -> Unit
 ) {
     AuthenticationField(
         label = stringResource(id = R.string.registration_label_email),
-        value = emailState,
+        value = value,
         onValueChange = onEmailChanged,
         placeholder = stringResource(id = R.string.placeholder_email),
         keyboardType = KeyboardType.Email,
-        clearIconContentDescription = stringResource(id = R.string.clear_email_field_content_desc)
+        isError = isError && isShowError,
+        errorMessage = stringResource(id = R.string.email_error)
     )
 }
 
@@ -30,13 +33,14 @@ fun EmailField(
 @Composable
 fun EmailFieldPreview() {
 
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary
         ) {
-
             EmailField(
-                emailState = "",
+                value = "",
+                isError = true,
+                isShowError = true,
                 onEmailChanged = {}
             )
         }

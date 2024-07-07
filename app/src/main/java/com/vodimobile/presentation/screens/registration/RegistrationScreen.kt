@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +23,13 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
+
+    val registrationState = viewModel.registrationFieldsState.value
+    val isButtonClicked = remember { mutableStateOf(false) }
+
+    fun resetButtonClicked() {
+        if (isButtonClicked.value) isButtonClicked.value = false
+    }
 
     Column(
         modifier = Modifier
@@ -36,14 +45,28 @@ fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
             }
         )
         Spacer(modifier = Modifier.height(100.dp))
-        RegistrationBlock()
+        RegistrationBlock(
+            registrationState = registrationState,
+            isShowError = isButtonClicked.value,
+            onEmailChanged = {
+                viewModel.onIntent(RegistrationScreenIntent.EmailChange(it))
+                resetButtonClicked()
+            },
+            onPhoneNumberChanged = {
+                viewModel.onIntent(RegistrationScreenIntent.PhoneNumberChange(it))
+                resetButtonClicked()
+            }
+        )
         Spacer(modifier = Modifier.height(28.dp))
         AgreementBlock(
             onClickUserAgreement = {
                 viewModel.onIntent(RegistrationScreenIntent.OpenUserAgreement)
+
             },
             onClickNextButton = {
-                viewModel.onIntent(RegistrationScreenIntent.SmsVerification)
+                isButtonClicked.value = true
+                if (!registrationState.emailError && !registrationState.phoneNumberError)
+                    viewModel.onIntent(RegistrationScreenIntent.SmsVerification)
             }
         )
     }
@@ -53,7 +76,7 @@ fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
 @Composable
 fun RegistrationScreenPreview() {
 
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.onPrimary

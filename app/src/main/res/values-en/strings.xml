@@ -7,11 +7,13 @@
 
     <string name="registration_label_email">Email</string>
     <string name="placeholder_email">example@gmail.com</string>
-    <string name="clear_email_field_content_desc">Clear email input</string>
+    <string name="email_error">There is no such mail. Please try again</string>
 
     <string name="registration_label_phoneNumber">Phone Number</string>
     <string name="placeholder_phoneNumber">+7</string>
-    <string name="clear_phoneNumber_field_content_desc">Clear phone number input</string>
+    <string name="phoneNumber_error">There is no such phone number. Please try again</string>
+
+    <string name="clear_registration_input">Clear input</string>
 
     <string name="agreement_checkBox_desc">Consent to data processing</string>
     <string name="agreement_text">I have read and agree to the terms\nUser Agreement</string>

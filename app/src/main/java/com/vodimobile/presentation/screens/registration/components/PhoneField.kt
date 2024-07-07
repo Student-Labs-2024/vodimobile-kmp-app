@@ -16,17 +16,20 @@ import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
 
 @Composable
 fun PhoneField(
-    phoneNumberState: String,
+    value: String,
+    isError: Boolean,
+    isShowError: Boolean,
     onPhoneNumberChanged: (String) -> Unit
 ) {
     AuthenticationField(
         label = stringResource(id = R.string.registration_label_phoneNumber),
-        value = phoneNumberState,
+        value = value,
         onValueChange = onPhoneNumberChanged,
         placeholder = stringResource(id = R.string.placeholder_phoneNumber),
         keyboardType = KeyboardType.Phone,
-        clearIconContentDescription = stringResource(id = R.string.clear_phoneNumber_field_content_desc),
-        maskVisualTransformation = PhoneMaskVisualTransformation(InputMasks.PHONE_MASK)
+        maskVisualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK),
+        isError = isError && isShowError,
+        errorMessage = stringResource(id = R.string.phoneNumber_error),
     )
 }
 
@@ -34,12 +37,14 @@ fun PhoneField(
 @Composable
 fun PhoneFieldPreview() {
 
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary
         ) {
             PhoneField(
-                phoneNumberState = "",
+                value = "",
+                isError = true,
+                isShowError = true,
                 onPhoneNumberChanged = {}
             )
         }

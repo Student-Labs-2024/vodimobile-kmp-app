@@ -7,18 +7,21 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.R
+import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.splitAgreementText
 
 
@@ -53,10 +57,10 @@ fun AgreementCheckBox(
                 .border(
                     BorderStroke(
                         width = 1.dp,
-                        color = if (checkBoxState.value) Color(0xFF1958EE)
-                        else Color(0xFF939BAA)
+                        color = if (checkBoxState.value) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.onPrimaryContainer
                     ),
-                    shape = RoundedCornerShape(6.dp)
+                    shape = MaterialTheme.shapes.extraSmall
                 )
                 .size(24.dp)
                 .background(Color.Transparent)
@@ -68,7 +72,7 @@ fun AgreementCheckBox(
             if (checkBoxState.value)
                 Icon(
                     Icons.Default.Check,
-                    tint = Color(0xFF1958EE),
+                    tint = MaterialTheme.colorScheme.primary,
                     contentDescription = stringResource(id = R.string.agreement_checkBox_desc)
                 )
         }
@@ -85,40 +89,55 @@ fun AgreementCheckBox(
             Text(
                 text = agreementTextPart1,
                 style = MaterialTheme.typography.labelMedium,
-                color = Color(0xFF939BAA),
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-
-            Text(
-                text = agreementTextPart2,
-                style = MaterialTheme.typography.labelMedium,
-                color = Color(0xFF1958EE),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.clickable(onClick = onClickUserAgreement)
-            )
+            TextButton(
+                onClick = onClickUserAgreement,
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.height(18.dp)
+            ) {
+                Text(
+                    text = agreementTextPart2,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }
-
 
 @Preview
 @Composable
 fun AgreementCheckBoxFalsePreview() {
 
-    AgreementCheckBox(
-        isChecked = false,
-        onCheckedChange = {},
-        onClickUserAgreement = {})
+    VodimobileTheme(dynamicColor = false) {
+        Surface(
+            color = MaterialTheme.colorScheme.onPrimary
+        ) {
+            AgreementCheckBox(
+                isChecked = false,
+                onCheckedChange = {},
+                onClickUserAgreement = {})
+        }
+    }
 }
 
 @Preview
 @Composable
 fun AgreementCheckBoxTruePreview() {
 
-    AgreementCheckBox(
-        isChecked = true,
-        onCheckedChange = {},
-        onClickUserAgreement = {})
+    VodimobileTheme(dynamicColor = false) {
+        Surface(
+            color = MaterialTheme.colorScheme.onPrimary
+        ) {
+            AgreementCheckBox(
+                isChecked = true,
+                onCheckedChange = {},
+                onClickUserAgreement = {})
+        }
+    }
 }

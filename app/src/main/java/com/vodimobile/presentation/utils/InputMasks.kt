@@ -1,5 +1,5 @@
 package com.vodimobile.presentation.utils
 
 object InputMasks {
-    const val PHONE_MASK = "+7 ### ### ##-##"
+    const val RU_PHONE_MASK = "## ### ### ##-##"
 }
