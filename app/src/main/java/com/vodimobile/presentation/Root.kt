@@ -11,7 +11,7 @@ import com.vodimobile.presentation.components.BottomBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen() {
+fun Root() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
