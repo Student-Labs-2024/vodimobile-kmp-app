@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Text
@@ -26,7 +27,7 @@ import com.vodimobile.presentation.BottomAppBarAlpha
 
 @Composable
 fun BottomBar(
-    modifier: Modifier = Modifier.fillMaxHeight(),
+    modifier: Modifier = Modifier.wrapContentHeight(),
     navController: NavController
 ) {
     val navigationItems = listOf(
@@ -43,7 +44,7 @@ fun BottomBar(
         BottomNavigation(
             Modifier
                 .fillMaxWidth()
-                .height(82.dp), MaterialTheme.colorScheme.onPrimary
+                .wrapContentHeight(), MaterialTheme.colorScheme.onPrimary
         ) {
             val backStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
             val currentRoute = backStackEntry?.destination?.route
