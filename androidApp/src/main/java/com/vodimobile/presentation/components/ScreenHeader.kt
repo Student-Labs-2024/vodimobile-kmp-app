@@ -14,13 +14,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.resources.Res
-import com.vodimobile.resources.header_back_content_desc
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ScreenHeader(
@@ -38,7 +37,7 @@ fun ScreenHeader(
         ) {
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = stringResource(resource = Res.string.header_back_content_desc),
+                contentDescription = stringResource(R.string.header_back_content_desc),
                 modifier = Modifier.size(32.dp)
             )
         }
@@ -66,7 +65,7 @@ private fun PageHeaderPreview() {
         ) {
             ScreenHeader(
                 modifier = Modifier.fillMaxWidth(),
-                title = stringResource(resource = Res.string.header_back_content_desc),
+                title = stringResource(R.string.header_back_content_desc),
                 onNavigateBack = {}
             )
         }
