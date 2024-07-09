@@ -13,17 +13,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.android.R
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.EmailValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
-import com.vodimobile.resources.Res
-import com.vodimobile.resources.title_screen_registration
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
@@ -41,8 +40,7 @@ fun RegistrationScreen(viewModel: RegistrationScreenViewModel) {
             .padding(vertical = 64.dp, horizontal = 16.dp)
     ) {
         ScreenHeader(
-            title = stringResource(
-                resource = Res.string.title_screen_registration
+            title = stringResource(id = R.string.title_screen_registration
             ),
             onNavigateBack = {
                 viewModel.onIntent(RegistrationScreenIntent.ReturnBack)

@@ -10,11 +10,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PrimaryButton
-import com.vodimobile.resources.Res
-import com.vodimobile.resources.text_next_button
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AgreementBlock(
@@ -29,7 +28,7 @@ fun AgreementBlock(
             .fillMaxWidth()
     ) {
         PrimaryButton(
-            text = stringResource(resource = Res.string.text_next_button),
+            text = stringResource(id = R.string.text_next_button),
             enabled = isAgreementChecked,
             onClick = onClickNextButton
         )

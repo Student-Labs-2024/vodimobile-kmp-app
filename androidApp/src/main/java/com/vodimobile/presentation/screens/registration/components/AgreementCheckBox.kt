@@ -28,15 +28,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.splitAgreementText
-import com.vodimobile.resources.Res
-import com.vodimobile.resources.agreement_checkBox_desc
-import com.vodimobile.resources.agreement_text
-import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -75,7 +73,7 @@ fun AgreementCheckBox(
                 Icon(
                     Icons.Default.Check,
                     tint = MaterialTheme.colorScheme.primary,
-                    contentDescription = stringResource(resource = Res.string.agreement_checkBox_desc)
+                    contentDescription = stringResource(id = R.string.agreement_checkBox_desc)
                 )
         }
 
@@ -83,7 +81,7 @@ fun AgreementCheckBox(
 
         val (agreementTextPart1, agreementTextPart2) =
             splitAgreementText(
-                agreementText = stringResource(resource = Res.string.agreement_text),
+                agreementText = stringResource(id = R.string.agreement_text),
                 delimiterChar = '\n'
             )
 
