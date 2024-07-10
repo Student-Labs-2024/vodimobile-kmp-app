@@ -35,18 +35,31 @@ extension Font {
     public static let paragraph3: Font = .custom("AkzidenzGroteskPro-Light", size: 14)
     public static let paragraph4: Font = .custom("AkzidenzGroteskPro-Regular", size: 14)
     public static let paragraph5: Font = .custom("AkzidenzGroteskPro-Light", size: 14)
+    public static let paragraph6: Font = .custom("AkzidenzGroteskPro-Light", size: 12)
 }
 
 struct FilledBtnStyle: ButtonStyle {
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(configuration.isPressed ? Color.blueDarkColor: .blueColor)
-            .foregroundColor(.white)
-            .cornerRadius(15)
-            .font(.button)
+
+    public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
+        MyButton(configuration: configuration)
+    }
+
+    struct MyButton: View {
+
+        let configuration: ButtonStyle.Configuration
+
+        @Environment(\.isEnabled) private var isEnabled: Bool
+
+        var body: some View {
+            configuration.label
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(isEnabled ? (configuration.isPressed ? Color.blueDarkColor : Color.blueColor) : Color.blueLightColor)
+                .foregroundColor(.white)
+                .cornerRadius(15)
+                .font(.button)
+                .disabled(!isEnabled)
+        }
     }
 }
 
@@ -65,6 +78,27 @@ struct BorderedBtnStyle: ButtonStyle {
             .border(Color.blueColor, width: configuration.isPressed ? 0 : 2)
             .cornerRadius(15)
             .font(.button)
+    }
+}
+
+struct CustomTextFieldStyle: TextFieldStyle {
+    var text: String
+    var isFocused: Bool
+    var isValid: Bool
+    
+    func _body(configuration: TextField<_Label>) -> some View {
+        configuration
+            .frame(alignment: .leading)
+            .font(.paragraph4)
+            .padding(16)
+            .foregroundStyle(Color.black)
+            .multilineTextAlignment(.leading)
+            .background(Color.grayLightColor)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(!isValid && !text.isEmpty ? Color.redColor : Color.grayDarkColor, lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+            )
     }
 }
 

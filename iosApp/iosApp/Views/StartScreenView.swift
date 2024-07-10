@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct StartScreenView: View {
+    @State private var isButtonEnabled: Bool = true
     
     var body: some View {
         NavigationView {
@@ -41,24 +42,4 @@ struct StartScreenView: View {
 
 #Preview {
     StartScreenView()
-}
-
-struct RootPresentationModeKey: EnvironmentKey {
-    static let defaultValue: Binding<RootPresentationMode> = .constant(RootPresentationMode())
-}
-
-extension EnvironmentValues {
-    var rootPresentationMode: Binding<RootPresentationMode> {
-        get { return self[RootPresentationModeKey.self] }
-        set { self[RootPresentationModeKey.self] = newValue }
-    }
-}
-
-typealias RootPresentationMode = Bool
-
-extension RootPresentationMode {
-    
-    public mutating func dismiss() {
-        self.toggle()
-    }
 }

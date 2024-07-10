@@ -9,70 +9,78 @@
 import SwiftUI
 
 struct RegistrationScreenView: View {
-    @State private var emailFieldFocused = false
-    @State private var phoneFieldFocused = false
     @State private var emailFieldText = ""
+    @State private var emailIsValid = false
     @State private var phoneFieldText = ""
+    @State private var phoneIsValid = false
     @State private var checkboxSelected = false
+    @State private var isButtonEnabled: Bool = false
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationLink(destination: MainScreenView()) {
+        VStack(spacing: 10) {
             VStack(spacing: 18) {
-                VStack(spacing: 28) {
-                    CustomTextFieldView(fieldType: .email)
-                        .onTapGesture {
-                            emailFieldFocused = true
-                        }
-                    
-                    CustomTextFieldView(fieldType: .phone)
-                        .onTapGesture {
-                            phoneFieldFocused = true
-                        }
-                    
-                    NavigationLink(destination: RegistrationScreenView()) {
-                        Text(LocalizedStringKey("nextBtnName"))
+                CustomTextFieldView(fieldContent: $emailFieldText, isValid: $emailIsValid, fieldType: .email)
+                    .onChange(of: emailIsValid) { _ in
+                        toggleButtonEnabled()
                     }
-                    .buttonStyle(FilledBtnStyle())
-                    .disabled(!emailFieldFocused || !phoneFieldFocused || !checkboxSelected)
-                }
                 
-                HStack(spacing: 16) {
-                    CheckboxView(isChecked: $checkboxSelected).padding(.leading, 12)
-                    
-                    VStack(alignment: .leading) {
-                        Text(LocalizedStringKey("conditionText"))
-                            .font(.paragraph5)
-                            .foregroundStyle(Color.grayDarkColor)
-                        
-                        NavigationLink(destination: ConditionScreenView()) {
-                            Text(LocalizedStringKey("conditionLink"))
-                                .foregroundColor(.blueColor)
-                                .font(.buttonCheckBox)
-                        }
+                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
+                    .onChange(of: phoneIsValid) { _ in
+                        toggleButtonEnabled()
                     }
-                    Spacer()
+                
+                NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
+                    Text(LocalizedStringKey("nextBtnName"))
                 }
+                .buttonStyle(FilledBtnStyle())
+                .disabled(!isButtonEnabled)
             }
-            .padding(.horizontal, 16)
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading){
-                    Button(action: {
-                        dismiss()
-                    }, label: {
-                        Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWidth(.standard)
-                    })
-                }
+            
+            HStack(spacing: 16) {
+                CheckboxView(isChecked: $checkboxSelected).padding(.leading, 12)
+                    .onChange(of: checkboxSelected) { _ in
+                        toggleButtonEnabled()
+                    }
                 
-                ToolbarItem(placement: .principal) {
-                    Text(LocalizedStringKey("regScreenTitle"))
-                        .font(.header1)
-                        .foregroundColor(Color.black)
+                VStack(alignment: .leading) {
+                    Text(LocalizedStringKey("conditionText"))
+                        .font(.paragraph5)
+                        .foregroundStyle(Color.grayDarkColor)
+                    
+                    NavigationLink(destination: ConditionScreenView()) {
+                        Text(LocalizedStringKey("conditionLink"))
+                            .foregroundColor(.blueColor)
+                            .font(.buttonCheckBox)
+                    }
                 }
+                Spacer()
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 120)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading){
+                Button(action: {
+                    dismiss()
+                }, label: {
+                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
+                })
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text(LocalizedStringKey("regScreenTitle"))
+                    .font(.header1)
+                    .foregroundColor(Color.black)
             }
         }
+    }
+    
+    private func toggleButtonEnabled() {
+        isButtonEnabled = emailIsValid && phoneIsValid && checkboxSelected
     }
 }
 

@@ -15,12 +15,12 @@ enum TextFieldType {
 }
 
 extension TextFieldType {
-    var localizedStr: LocalizedStringKey {
+    var localizedStr: String {
         switch self {
         case .email:
-            return LocalizedStringKey("email")
+            return String(localized: String.LocalizationValue(stringLiteral: "email"))
         case .phone:
-            return LocalizedStringKey("phone")
+            return String(localized: String.LocalizationValue(stringLiteral: "phone"))
         default:
             return ""
         }
@@ -28,24 +28,35 @@ extension TextFieldType {
 }
 
 struct CustomTextFieldView: View {
-    @State var fieldContent: String = ""
-    @State var isEditing: Bool = false
+    @Binding var fieldContent: String
+    @Binding var isValid: Bool
+    @State private var errorMessage: String = ""
+    @State private var isEditing: Bool = false
     @FocusState private var isFocused: Bool
     
-    private let fieldName: LocalizedStringKey
-    private let placeholder: LocalizedStringKey
+    private let fieldName: String
+    private let placeholder: String
+    private let keyboardType: UIKeyboardType
+    private let regex: String
     
-    init(fieldType: TextFieldType) {
+    init(fieldContent: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
+        self._fieldContent = fieldContent
+        self._isValid = isValid
+        fieldName = fieldType.localizedStr
+        
         switch fieldType {
         case .email:
-            fieldName = fieldType.localizedStr
             placeholder = "example@gmail.com"
+            keyboardType = .emailAddress
+            regex = emailRegex
         case .phone:
-            fieldName = fieldType.localizedStr
             placeholder = "+7"
+            keyboardType = .phonePad
+            regex = phoneRegex
         default:
-            fieldName = fieldType.localizedStr
             placeholder = ""
+            keyboardType = .default
+            regex = ""
         }
     }
     
@@ -54,15 +65,28 @@ struct CustomTextFieldView: View {
             Text(fieldName).font(.header4).foregroundStyle(Color.black)
             
             TextField(placeholder, text: $fieldContent)
-                .textFieldStyle(CustomTextFieldStyle(isFocused: isFocused))
+                .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                .keyboardType(keyboardType)
+                .textInputAutocapitalization(.never)
+                .onChange(of: fieldContent, perform: { oldValue in
+                    if fieldName == TextFieldType.phone.localizedStr {
+                        fieldContent = format(with: "+X XXX XXX-XX-XX", phone: oldValue)
+                        validateInput()
+                    } else {
+                        validateInput()
+                    }
+                })
                 .focused($isFocused)
                 .onSubmit {
                     isFocused = false
-                }.overlay(
+                    validateInput()
+                }
+                .overlay(
                     HStack {
                         Spacer()
                         Button(action: {
                             self.fieldContent = ""
+                            validateInput()
                         }) {
                             Image(systemName: "xmark")
                                 .foregroundColor(Color.grayDarkColor)
@@ -79,31 +103,42 @@ struct CustomTextFieldView: View {
                     self.isEditing = false
                 }
             
-            
+            Text(errorMessage)
+                .font(.paragraph6)
+                .foregroundStyle(Color.redColor)
+                .padding(.horizontal, 10)
         }
         .padding(.all, 0)
     }
-}
-
-struct CustomTextFieldStyle: TextFieldStyle {
-    var isFocused: Bool
     
-    func _body(configuration: TextField<_Label>) -> some View {
-        configuration
-            .frame(alignment: .leading)
-            .font(.paragraph4)
-            .padding(16)
-            .foregroundStyle(Color.black)
-            .multilineTextAlignment(.leading)
-            .background(Color.grayLightColor)
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.grayDarkColor, lineWidth: isFocused ? 1 : 0)
-            )
+    func format(with mask: String, phone: String) -> String {
+        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        var result = ""
+        var index = numbers.startIndex
+        
+        for ch in mask where index < numbers.endIndex {
+            if ch == "X" {
+                result.append(numbers[index])
+                
+                index = numbers.index(after: index)
+                
+            } else {
+                result.append(ch)
+            }
+        }
+        return result
     }
-}
-
-#Preview {
-    CustomTextFieldView(fieldType: .email)
+    
+    private func validateInput() {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
+        
+        isValid = predicate.evaluate(with: fieldContent)
+        
+        if !isValid && !fieldContent.isEmpty {
+            errorMessage = "\(errorResult)\(fieldName.lowercased())"
+        } else {
+            errorMessage = ""
+        }
+    }
 }

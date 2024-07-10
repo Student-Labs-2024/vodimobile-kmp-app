@@ -26,6 +26,9 @@
 		934F0D5D2C3D8BCC000B256E /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5C2C3D8BCC000B256E /* MainScreenView.swift */; };
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
+		93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DED2C3E932E001CFB7D /* Constants.swift */; };
+		93654DF22C3EC5D5001CFB7D /* terms_and_conditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */; };
+		93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +66,9 @@
 		934F0D5C2C3D8BCC000B256E /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
+		93654DED2C3E932E001CFB7D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terms_and_conditions.txt; sourceTree = "<group>"; };
+		93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,11 +143,13 @@
 		934F0D4B2C3D52EE000B256E /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				934D5DF92C3D3FA30070904B /* AppTheme.swift */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				934D5DF22C3D3D8B0070904B /* Font */,
 				934F0D532C3D6A94000B256E /* Localizable.xcstrings */,
+				93654DED2C3E932E001CFB7D /* Constants.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -155,6 +163,7 @@
 				934F0D572C3D76E3000B256E /* AuthScreenView.swift */,
 				934F0D5C2C3D8BCC000B256E /* MainScreenView.swift */,
 				934F0D602C3D93B3000B256E /* ConditionScreenView.swift */,
+				93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +249,7 @@
 				934D5DF82C3D3D8B0070904B /* AkzidenzRegular.ttf in Resources */,
 				934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */,
 				934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */,
+				93654DF22C3EC5D5001CFB7D /* terms_and_conditions.txt in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 				934D5DF72C3D3D8B0070904B /* AkzidenzRegEx.otf in Resources */,
@@ -276,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
+				93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */,
 				934F0D512C3D692A000B256E /* SceneDelegate.swift in Sources */,
 				934F0D502C3D692A000B256E /* AppDelegate.swift in Sources */,
 				934D5DFA2C3D3FA30070904B /* AppTheme.swift in Sources */,
@@ -285,6 +296,7 @@
 				7555FF83242A565900829871 /* StartScreenView.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainScreenView.swift in Sources */,
+				93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +425,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = MA2R32826U;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -429,7 +442,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.jgjhguig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -442,6 +455,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = MA2R32826U;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -458,7 +472,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.jgjhguig;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
