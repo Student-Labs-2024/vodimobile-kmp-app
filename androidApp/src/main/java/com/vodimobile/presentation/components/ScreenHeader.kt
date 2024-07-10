@@ -58,7 +58,7 @@ fun ScreenHeader(
 @Composable
 private fun PageHeaderPreview() {
 
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
 
         Surface(
             color = MaterialTheme.colorScheme.onPrimary
