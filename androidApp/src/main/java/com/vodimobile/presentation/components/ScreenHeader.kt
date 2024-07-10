@@ -64,8 +64,7 @@ private fun PageHeaderPreview() {
             color = MaterialTheme.colorScheme.onPrimary
         ) {
             ScreenHeader(
-                modifier = Modifier.fillMaxWidth(),
-                title = stringResource(R.string.header_back_content_desc),
+                title = stringResource(id = R.string.title_screen_registration),
                 onNavigateBack = {}
             )
         }
