@@ -63,7 +63,7 @@ struct PinCodeView: View {
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: MainScreenView()) {
+                NavigationLink(destination: MainTabbarView()) {
                     Text(LocalizedStringKey("nextBtnName"))
                 }
                 .buttonStyle(FilledBtnStyle())

@@ -120,8 +120,31 @@
         }
       }
     },
-    "Hello, World!" : {
+    "Hello, MainView!" : {
 
+    },
+    "Hello, MyOrdersView!" : {
+
+    },
+    "Hello, ProfileView!" : {
+
+    },
+    "homeTabItem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Главная"
+          }
+        }
+      }
     },
     "inputCodeText" : {
       "extractionState" : "manual",
@@ -153,6 +176,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Введите "
+          }
+        }
+      }
+    },
+    "myOrdersTabItem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My orders"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мои заказы"
           }
         }
       }
@@ -204,6 +244,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Номер телефона"
+          }
+        }
+      }
+    },
+    "profileTabItem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Профиль"
           }
         }
       }
