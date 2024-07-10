@@ -21,9 +21,9 @@ struct MainTabbarView: View {
         GeometryReader { geometry in
             ZStack(alignment: Alignment.bottom) {
                 TabView(selection: $selectedTab) {
-                    main.tag(TabType.main)
-                    myOrders.tag(TabType.myOrders)
-                    profile.tag(TabType.profile)
+                    MainView().tag(TabType.main)
+                    MyOrdersView().tag(TabType.myOrders)
+                    ProfileView().tag(TabType.profile)
                 }
                 
                 HStack(spacing: 0) {
@@ -43,7 +43,7 @@ struct MainTabbarView: View {
                         selectedTab = .myOrders
                     }
                     
-                    TabBarItem(icon: Image(systemName: "person"),
+                    TabBarItem(icon: Image(systemName: "person.fill"),
                                title: String(localized: String.LocalizationValue(stringLiteral: "profileTabItem")),
                                badgeCount: 0,
                                isSelected: selectedTab == .profile,
@@ -54,27 +54,6 @@ struct MainTabbarView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-    }
-    
-    private var main: some View {
-        MainView()
-            .tabItem {
-                Label(LocalizedStringKey("homeTabItem"), image: "home")
-            }
-    }
-    
-    private var myOrders: some View {
-        MyOrdersView()
-            .tabItem {
-                Label(LocalizedStringKey("myOrdersTabItem"), image: "car")
-            }
-    }
-    
-    private var profile: some View {
-        ProfileView()
-            .tabItem {
-                Label(LocalizedStringKey("profileTabItem"), systemImage: "person")
-            }
     }
 }
 
