@@ -36,4 +36,16 @@
     <string name="home_screen_label">Home</string>
     <string name="orders_screen_label">My orders</string>
     <string name="profile_screen_label">Profile</string>
+    <string name="str_rules_and_conditions_title">Rules and conditions</string>
+
+    <string name="str_rules">Rules and conditions</string>
+    <string name="str_arrowforward">Go over</string>
+
+    <string name="str_rules1">Rental conditions for drivers</string>
+    <string name="str_rules2">Stages of car rental</string>
+
+    <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
+    <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
+
+
 </resources>

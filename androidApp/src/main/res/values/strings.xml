@@ -34,4 +34,14 @@
     <string name="home_screen_label">Главная</string>
     <string name="orders_screen_label">Мои заказы</string>
     <string name="profile_screen_label">Профиль</string>
+    <string name="str_rules">Правила и условия</string>
+    <string name="str_arrowforward">Перейти</string>
+    <string name="str_rules_and_conditions_title">Правила и условия</string>
+
+    <string name="str_rules1">Условия аренды для водителей</string>
+    <string name="str_rules2">Этапы аренды автомобиля</string>
+    <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
+    <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
+
+
 </resources>
