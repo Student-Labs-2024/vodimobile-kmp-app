@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.screens.profile.components.AnotherDataBlock
+import com.vodimobile.presentation.screens.profile.components.ContactsFaqRulesBlock
 import com.vodimobile.presentation.screens.profile.components.ExitBlock
 import com.vodimobile.presentation.screens.profile.components.PersonalDataCard
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
@@ -32,7 +32,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
                 style = MaterialTheme.typography.headlineMedium,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .fillMaxWidth(1.0f)
+                    .fillMaxWidth()
                     .padding(top = 23.dp)
                     .padding(vertical = 11.dp)
             )
@@ -53,23 +53,23 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
         ) {
             PersonalDataCard(
                 onEditClick = {
-                    profileViewModel.onIntent(ProfileIntent.personalDataClick)
+                    profileViewModel.onIntent(ProfileIntent.PersonalDataClick)
                 }
             )
-            AnotherDataBlock(
+            ContactsFaqRulesBlock(
                 onRulesClick = {
-                    profileViewModel.onIntent(ProfileIntent.rulesClick)
+                    profileViewModel.onIntent(ProfileIntent.RulesClick)
                 },
                 onFAQClick = {
-                    profileViewModel.onIntent(ProfileIntent.faqClick)
+                    profileViewModel.onIntent(ProfileIntent.FaqClick)
                 },
                 onContactsClick = {
-                    profileViewModel.onIntent(ProfileIntent.constantsClick)
+                    profileViewModel.onIntent(ProfileIntent.ConstantsClick)
                 }
             )
             ExitBlock(
                 onClick = {
-                    profileViewModel.onIntent(ProfileIntent.appExitClick)
+                    profileViewModel.onIntent(ProfileIntent.AppExitClick)
                 }
             )
         }

@@ -7,11 +7,11 @@ class ProfileViewModel : ViewModel() {
 
     fun onIntent(intent: ProfileIntent) {
         when (intent) {
-            ProfileIntent.appExitClick -> {}
-            ProfileIntent.constantsClick -> {}
-            ProfileIntent.faqClick -> {}
-            ProfileIntent.personalDataClick -> {}
-            ProfileIntent.rulesClick -> {}
+            ProfileIntent.AppExitClick -> {}
+            ProfileIntent.ConstantsClick -> {}
+            ProfileIntent.FaqClick -> {}
+            ProfileIntent.PersonalDataClick -> {}
+            ProfileIntent.RulesClick -> {}
         }
     }
 }

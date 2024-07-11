@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AnotherDataItem(
+fun ContactsFaqRulesItem(
     modifier: Modifier = Modifier,
     title: String,
     onClick: () -> Unit,
@@ -59,7 +59,7 @@ fun AnotherDataItem(
                 textAlign = TextAlign.Start,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
-                    .weight(1.0f)
+                    .fillMaxWidth()
             )
 
             Icon(

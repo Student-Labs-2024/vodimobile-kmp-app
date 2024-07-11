@@ -15,7 +15,7 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun AnotherDataBlock(
+fun ContactsFaqRulesBlock(
     modifier: Modifier = Modifier,
     onRulesClick: () -> Unit,
     onFAQClick: () -> Unit,
@@ -25,7 +25,7 @@ fun AnotherDataBlock(
         shape = MaterialTheme.shapes.small,
         modifier = modifier,
     ) {
-        AnotherDataItem(
+        ContactsFaqRulesItem(
             onClick = onRulesClick,
             title = stringResource(id = R.string.rules_and_conditions)
         ) {
@@ -35,7 +35,7 @@ fun AnotherDataBlock(
                 tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.612f)
             )
         }
-        AnotherDataItem(
+        ContactsFaqRulesItem(
             title = stringResource(id = R.string.faq),
             onClick = onFAQClick
         ) {
@@ -45,7 +45,7 @@ fun AnotherDataBlock(
                 tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.612f)
             )
         }
-        AnotherDataItem(
+        ContactsFaqRulesItem(
             title = stringResource(id = R.string.contacts),
             onClick = onContactsClick
         ) {
@@ -62,6 +62,6 @@ fun AnotherDataBlock(
 @Preview(showBackground = true, showSystemUi = true)
 fun AnotherDataBlockPreview() {
     VodimobileTheme(dynamicColor = false) {
-        AnotherDataBlock(modifier = Modifier, {}, {}, {})
+        ContactsFaqRulesBlock(modifier = Modifier, {}, {}, {})
     }
 }
