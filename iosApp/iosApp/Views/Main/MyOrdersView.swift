@@ -10,7 +10,14 @@ import SwiftUI
 
 struct MyOrdersView: View {
     var body: some View {
-        Text("Hello, MyOrdersView!")
+        VStack {
+            Spacer()
+            Text("Hello, MyOrdersView!")
+                .frame(maxWidth: .infinity)
+            Spacer()
+        }
+        .padding(0)
+        .background(Color.grayLightColor)
     }
 }
 

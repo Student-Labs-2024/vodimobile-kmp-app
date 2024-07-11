@@ -13,6 +13,7 @@ extension Color {
     public static let blueColor: Color = Color(UIColor(rgb: 0x1958EE))
     public static let blueDarkColor: Color = Color(UIColor(rgb: 0x154CCF))
     public static let blueLightColor: Color = Color(UIColor(rgb: 0xA5BCF2))
+    public static let blueBoxColor: Color = Color(UIColor(rgb: 0xF3F6FE))
     public static let redColor: Color = Color(UIColor(rgb: 0xFF3B30))
     public static let grayTextColor: Color = Color(UIColor(rgb: 0x939BAA))
     public static let grayDarkColor: Color = Color(UIColor(rgb: 0x9CA3B0))

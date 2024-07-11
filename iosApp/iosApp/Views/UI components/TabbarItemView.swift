@@ -41,10 +41,12 @@ struct TabBarItem: View {
                             .offset(x: 16.0, y: -8.0)
                     }
                 }
+                
                 Text(title)
                     .font(.buttonTabbar)
                     .foregroundColor(isSelected ? Color.blueColor : Color.grayDarkColor)
             }
+            .padding(.top, 15)
             .frame(width: itemWidth)
         }
         .buttonStyle(.plain)
