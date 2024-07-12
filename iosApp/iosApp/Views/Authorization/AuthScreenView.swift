@@ -25,7 +25,7 @@ struct AuthScreenView: View {
                     }
                 
                 NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
-                    Text(LocalizedStringKey("nextBtnName"))
+                    Text(String.Buttons.nextButton)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -57,19 +57,7 @@ struct AuthScreenView: View {
         .padding(.top, 120)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
-                })
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(LocalizedStringKey("authScreenTitle"))
-                    .font(.header1)
-                    .foregroundColor(Color.black)
-            }
+            CustomToolbar(title: String.ScreenTitles.authScreenTitle)
         }
     }
     

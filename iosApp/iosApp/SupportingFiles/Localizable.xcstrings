@@ -4,6 +4,9 @@
     "%@" : {
 
     },
+    "© 2016-2022 Водимобиль" : {
+
+    },
     "authBtnName" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -140,6 +143,74 @@
         }
       }
     },
+    "exitAlertText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will not be able to rent cars without an account"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Вы не сможете арендовать автомобили без аккаунта"
+          }
+        }
+      }
+    },
+    "exitAlertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to log out of your account?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Вы уверены, что хотите выйти из аккаунта?"
+          }
+        }
+      }
+    },
+    "exitFirstBtnText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Выйти"
+          }
+        }
+      }
+    },
+    "exitSecondBtnText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Отмена"
+          }
+        }
+      }
+    },
     "exitText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -190,16 +261,19 @@
         }
       }
     },
+    "Hello, FAQScreen!" : {
+
+    },
     "Hello, MainView!" : {
 
     },
     "Hello, MyOrdersView!" : {
 
     },
-    "Hello, PersonDataView!" : {
+    "Hello, RulesAndConditionsView!" : {
 
     },
-    "homeTabItem" : {
+    "homeScreenTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -250,7 +324,7 @@
         }
       }
     },
-    "myOrdersTabItem" : {
+    "myOrdersScreenTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -301,18 +375,35 @@
         }
       }
     },
+    "officeLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Russia, Omsk city, Dmitrieva street, 5/6"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "г. Омск, ул. Дмитриева, 5/6"
+          }
+        }
+      }
+    },
     "personData" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Person data"
+            "value" : "Personal data"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Личные данные"
           }
         }
@@ -335,7 +426,7 @@
         }
       }
     },
-    "profileTabItem" : {
+    "profileScreenTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -436,6 +527,33 @@
           }
         }
       }
+    },
+    "Telegram" : {
+
+    },
+    "Whatsapp" : {
+
+    },
+    "Адрес офиса:" : {
+
+    },
+    "Ваши данные" : {
+
+    },
+    "Версия 0.00.0" : {
+
+    },
+    "Вконтакте" : {
+
+    },
+    "Наши соцсети:" : {
+
+    },
+    "Номер телефона:" : {
+
+    },
+    "Почта:" : {
+
     }
   },
   "version" : "1.0"

@@ -9,10 +9,14 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var showAlert: Bool = false
+    
     var body: some View {
         NavigationView {
             VStack {
-                Text(LocalizedStringKey("profileTabItem")).font(.header1).foregroundStyle(Color.black)
+                Text(String.ScreenTitles.profileScreenTitle)
+                    .font(.header1)
+                    .foregroundStyle(Color.black)
                 
                 Spacer()
                 
@@ -45,9 +49,12 @@ struct ProfileView: View {
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
                     
                     VStack(spacing: 30) {
-                        Button(action: {}, label: {
+                        NavigationLink(destination: RulesAndConditionsView()) {
                             HStack(spacing: 20) {
-                                Image(systemName: "doc.text").frame(width: 24, height: 24).fontWeight(.bold)
+                                Image(systemName: "doc.text")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 20, height: 20)
                                 
                                 Text(LocalizedStringKey("rulesText")).font(.paragraph2).foregroundStyle(Color.black)
                                 
@@ -56,11 +63,14 @@ struct ProfileView: View {
                                 Image(systemName: "chevron.right")
                             }
                             .foregroundStyle(Color.grayDarkColor)
-                        })
+                        }
                         
-                        Button(action: {}, label: {
+                        NavigationLink(destination: FAQScreenView()) {
                             HStack(spacing: 20) {
-                                Image(systemName: "info.circle").frame(width: 24, height: 24).fontWeight(.bold)
+                                Image(systemName: "info.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 20, height: 20)
                                 
                                 Text(LocalizedStringKey("FAQ")).font(.paragraph2).foregroundStyle(Color.black)
                                 
@@ -69,11 +79,14 @@ struct ProfileView: View {
                                 Image(systemName: "chevron.right")
                             }
                             .foregroundStyle(Color.grayDarkColor)
-                        })
+                        }
                         
-                        Button(action: {}, label: {
+                        NavigationLink(destination: ContactsView()) {
                             HStack(spacing: 20) {
-                                Image(systemName: "envelope").frame(width: 24, height: 24).fontWeight(.bold)
+                                Image(systemName: "envelope")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 20, height: 20)
                                 
                                 Text(LocalizedStringKey("contacts")).font(.paragraph2).foregroundStyle(Color.black)
                                 
@@ -82,13 +95,15 @@ struct ProfileView: View {
                                 Image(systemName: "chevron.right")
                             }
                             .foregroundStyle(Color.grayDarkColor)
-                        })
+                        }
                     }
                     .padding(28)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
                     
                     VStack {
-                        Button(action: {}, label: {
+                        Button(action: {
+                            showAlert.toggle()
+                        }, label: {
                             HStack(spacing: 20) {
                                 Image("exitIcon")
                                 
@@ -101,13 +116,22 @@ struct ProfileView: View {
                     }
                     .padding(18)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
+                    .alert(LocalizedStringKey("exitAlertTitle"), isPresented: $showAlert) {
+                        Button(LocalizedStringKey("exitFirstBtnText"), role: .destructive) {}
+                        
+                        Button(LocalizedStringKey("exitSecondBtnText"), role: .cancel) {
+                            showAlert.toggle()
+                        }
+                    } message: {
+                        Text(LocalizedStringKey("exitAlertText"))
+                    }
                 }
                 
                 Spacer()
             }
             .padding(.horizontal, 16)
             .background(Color.grayLightColor)
-        .navigationBarBackButtonHidden()
+            .navigationBarBackButtonHidden()
         }
     }
 }

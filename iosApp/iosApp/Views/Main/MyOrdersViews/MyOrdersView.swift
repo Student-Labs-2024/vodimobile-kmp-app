@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  MyOrdersView.swift
 //  iosApp
 //
 //  Created by Sergey Ivanov on 11.07.2024.
@@ -8,19 +8,18 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct MyOrdersView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("Hello, MainView!")
+            Text("Hello, MyOrdersView!")
                 .frame(maxWidth: .infinity)
             Spacer()
         }
-        .padding(0)
         .background(Color.grayLightColor)
     }
 }
 
 #Preview {
-    MainView()
+    MyOrdersView()
 }

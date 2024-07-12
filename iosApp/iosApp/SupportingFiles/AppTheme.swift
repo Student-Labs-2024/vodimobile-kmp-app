@@ -39,6 +39,39 @@ extension Font {
     public static let paragraph6: Font = .custom("AkzidenzGroteskPro-Light", size: 12)
 }
 
+extension Image {
+    struct Tabbar {
+        public static let home: Image = Image("home")
+        public static let myOrders: Image = Image("car")
+    }
+}
+
+extension String {
+    struct ScreenTitles {
+        public static let authScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "authScreenTitle"))
+        public static let regScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "regScreenTitle"))
+        public static let confirmScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "confirmScreenTitle"))
+        public static let personalDataScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "personData"))
+        public static let contactsScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "contacts"))
+        public static let conditionsScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "conditionsScreenTitle"))
+        public static let profileScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "profileScreenTitle"))
+        public static let homeScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "homeScreenTitle"))
+        public static let myOrdersScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "myOrdersScreenTitle"))
+        public static let faqScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "FAQ"))
+        public static let rulesScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "rulesText"))
+    }
+    
+    struct Buttons {
+        public static let nextButton: String = String(localized: String.LocalizationValue(stringLiteral: "nextBtnName"))
+        public static let regButton: String = String(localized: String.LocalizationValue(stringLiteral: "regBtnName"))
+        public static let authButton: String = String(localized: String.LocalizationValue(stringLiteral: "authBtnName"))
+        public static let resendCodeButton: String = String(localized: String.LocalizationValue(stringLiteral: "resendBtnText"))
+    }
+    
+    public static let myOrders: String = String(localized: String.LocalizationValue(stringLiteral: "myOrdersTabItem"))
+    
+}
+
 struct FilledBtnStyle: ButtonStyle {
 
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
@@ -82,7 +115,7 @@ struct BorderedBtnStyle: ButtonStyle {
     }
 }
 
-struct CustomTextFieldStyle: TextFieldStyle {
+struct BorderedTextFieldStyle: TextFieldStyle {
     var text: String
     var isFocused: Bool
     var isValid: Bool

@@ -65,7 +65,7 @@ struct CustomTextFieldView: View {
             Text(fieldName).font(.header4).foregroundStyle(Color.black)
             
             TextField(placeholder, text: $fieldContent)
-                .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                 .keyboardType(keyboardType)
                 .textInputAutocapitalization(.never)
                 .onChange(of: fieldContent, perform: { oldValue in

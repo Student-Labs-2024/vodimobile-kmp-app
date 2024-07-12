@@ -36,26 +36,7 @@ struct PinCodeView: View {
                 
                 HStack(spacing: 16) {
                     ForEach(0..<4) { index in
-                        TextField("", text: $pin[index])
-                            .keyboardType(.numberPad)
-                            .multilineTextAlignment(.center)
-                            .font(.paragraph1)
-                            .frame(width: 56, height: 56)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.grayLightColor)
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(focusedField == index ? Color.blueColor : Color.grayDarkColor, lineWidth: pin[index].isEmpty && focusedField != index ? 0 : 2)
-                            )
-                            .focused($focusedField, equals: index)
-                            .onChange(of: pin[index]) { newValue in
-                                if newValue.count == 1, index < 3 {
-                                    focusedField = index + 1
-                                } else if newValue.isEmpty, index > 0 {
-                                    focusedField = index - 1
-                                }
-                            }
+                        createTextField(index: index)
                     }
                 }
                 .padding(.vertical, 20)
@@ -77,7 +58,7 @@ struct PinCodeView: View {
                 Button(action: {
                     print("Отправить код повторно нажат")
                 }) {
-                    Text(LocalizedStringKey("resendBtnText"))
+                    Text(String.Buttons.resendCodeButton)
                         .foregroundColor(.blueColor)
                         .font(.buttonText)
                         .underline()
@@ -92,20 +73,37 @@ struct PinCodeView: View {
         }
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
-                })
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(LocalizedStringKey("confirmScreenTitle"))
-                    .font(.header1)
-                    .foregroundColor(Color.black)
-            }
+            CustomToolbar(title: String.ScreenTitles.confirmScreenTitle)
         }
+    }
+    
+    @ViewBuilder
+    private func createTextField(index: Int) -> some View {
+        let isFieldFocused = focusedField == index
+        let strokeColor = isFieldFocused ? Color.blueColor : Color.grayDarkColor
+        let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2
+        
+        TextField("", text: $pin[index])
+            .keyboardType(.numberPad)
+            .multilineTextAlignment(.center)
+            .font(.paragraph1)
+            .frame(width: 56, height: 56)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.grayLightColor)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(strokeColor, lineWidth: lineWidth)
+            )
+            .focused($focusedField, equals: index)
+            .onChange(of: pin[index]) { newValue in
+                if newValue.count == 1, index < 3 {
+                    focusedField = index + 1
+                } else if newValue.isEmpty, index > 0 {
+                    focusedField = index - 1
+                }
+            }
     }
     
     private func toggleButtonEnabled() {

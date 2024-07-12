@@ -27,16 +27,16 @@ struct MainTabbarView: View {
                 }
                 
                 HStack(spacing: 0) {
-                    TabBarItem(icon: Image("home"),
-                               title: String(localized: String.LocalizationValue(stringLiteral: "homeTabItem")),
+                    TabBarItem(icon: Image.Tabbar.home,
+                               title: String.ScreenTitles.homeScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab ==  .main,
                                itemWidth: geometry.size.width / 3) {
                         selectedTab = .main
                     }
                     
-                    TabBarItem(icon: Image("car"),
-                               title: String(localized: String.LocalizationValue(stringLiteral: "myOrdersTabItem")),
+                    TabBarItem(icon: Image.Tabbar.myOrders,
+                               title: String.ScreenTitles.myOrdersScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab ==  .myOrders,
                                itemWidth: geometry.size.width / 3) {
@@ -44,7 +44,7 @@ struct MainTabbarView: View {
                     }
                     
                     TabBarItem(icon: Image(systemName: "person.fill"),
-                               title: String(localized: String.LocalizationValue(stringLiteral: "profileTabItem")),
+                               title: String.ScreenTitles.profileScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab == .profile,
                                itemWidth: geometry.size.width / 3) {

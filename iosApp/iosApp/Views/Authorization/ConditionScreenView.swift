@@ -26,19 +26,7 @@ struct ConditionScreenView: View {
         .padding([.leading, .bottom, .trailing], 24)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
-                })
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(LocalizedStringKey("conditionsScreenTitle"))
-                    .font(.header1)
-                    .foregroundColor(Color.black)
-            }
+            CustomToolbar(title: String.ScreenTitles.conditionsScreenTitle)
         }
     }
     

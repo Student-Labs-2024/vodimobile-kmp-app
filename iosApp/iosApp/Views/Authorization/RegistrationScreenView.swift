@@ -32,7 +32,7 @@ struct RegistrationScreenView: View {
                     }
                 
                 NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
-                    Text(LocalizedStringKey("nextBtnName"))
+                    Text(String.Buttons.nextButton)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -63,19 +63,7 @@ struct RegistrationScreenView: View {
         .padding(.top, 120)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
-                })
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(LocalizedStringKey("regScreenTitle"))
-                    .font(.header1)
-                    .foregroundColor(Color.black)
-            }
+            CustomToolbar(title: String.ScreenTitles.regScreenTitle)
         }
     }
     

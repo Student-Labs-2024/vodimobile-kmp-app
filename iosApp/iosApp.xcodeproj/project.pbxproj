@@ -34,6 +34,11 @@
 		93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DED2C3E932E001CFB7D /* Constants.swift */; };
 		93654DF22C3EC5D5001CFB7D /* terms_and_conditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */; };
 		93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */; };
+		93745BC52C41A57700889B42 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC42C41A57600889B42 /* FAQView.swift */; };
+		93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */; };
+		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
+		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
+		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +84,11 @@
 		93654DED2C3E932E001CFB7D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terms_and_conditions.txt; sourceTree = "<group>"; };
 		93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
+		93745BC42C41A57600889B42 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
+		93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsView.swift; sourceTree = "<group>"; };
+		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
+		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
+		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +197,8 @@
 				934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */,
 				934F0D5E2C3D9136000B256E /* CheckboxView.swift */,
 				936198882C3F133E00B0198D /* TabbarItemView.swift */,
+				939D49152C41615000BD65E1 /* CustomToolbar.swift */,
+				93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -206,13 +218,40 @@
 		936198872C3F0CE500B0198D /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				93A257752C40F24B00316EDE /* ProfileViews */,
+				93A257742C40F24000316EDE /* MyOrdersViews */,
+				93A257732C40F22700316EDE /* HomeViews */,
 				934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */,
-				936198852C3F0CDF00B0198D /* ProfileView.swift */,
-				936198832C3F0CD200B0198D /* MyOrdersView.swift */,
-				936198812C3F0CA100B0198D /* MainView.swift */,
-				9351F2262C3FC024003A0BCB /* PersonDataView.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		93A257732C40F22700316EDE /* HomeViews */ = {
+			isa = PBXGroup;
+			children = (
+				936198812C3F0CA100B0198D /* MainView.swift */,
+			);
+			path = HomeViews;
+			sourceTree = "<group>";
+		};
+		93A257742C40F24000316EDE /* MyOrdersViews */ = {
+			isa = PBXGroup;
+			children = (
+				936198832C3F0CD200B0198D /* MyOrdersView.swift */,
+			);
+			path = MyOrdersViews;
+			sourceTree = "<group>";
+		};
+		93A257752C40F24B00316EDE /* ProfileViews */ = {
+			isa = PBXGroup;
+			children = (
+				936198852C3F0CDF00B0198D /* ProfileView.swift */,
+				9351F2262C3FC024003A0BCB /* PersonDataView.swift */,
+				93A257762C40F27900316EDE /* ContactsView.swift */,
+				93745BC42C41A57600889B42 /* FAQView.swift */,
+				93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */,
+			);
+			path = ProfileViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +358,8 @@
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
 				936198822C3F0CA100B0198D /* MainView.swift in Sources */,
 				93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */,
+				939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */,
+				93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */,
 				936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */,
 				934F0D512C3D692A000B256E /* SceneDelegate.swift in Sources */,
 				936198892C3F133E00B0198D /* TabbarItemView.swift in Sources */,
@@ -331,8 +372,11 @@
 				934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */,
 				7555FF83242A565900829871 /* StartScreenView.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
+				93A257772C40F27900316EDE /* ContactsView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
+				93745BC52C41A57700889B42 /* FAQView.swift in Sources */,
 				93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */,
+				93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
