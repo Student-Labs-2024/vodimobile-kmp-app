@@ -22,6 +22,15 @@
     <string name="title_screen_registration">Регистрация</string>
 
     <string name="close_button_content_description">Закрыть</string>
+
+    <string name="rules_and_conditions">Правила и условия</string>
+    <string name="faq">FAQ</string>
+    <string name="contacts">Контакты</string>
+    <string name="profile_title">Профиль</string>
+    <string name="exit_account">Выход из аккаунта</string>
+    <string name="personal_data_title">Личная информация</string>
+    <string name="personal_data_subtitle">ФИО, номер телефона, почта</string>
+    <string name="edit_personal_data_content_desc">Редактировать личные данные</string>
     <string name="home_screen_label">Главная</string>
     <string name="orders_screen_label">Мои заказы</string>
     <string name="profile_screen_label">Профиль</string>

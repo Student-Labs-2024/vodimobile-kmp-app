@@ -9,6 +9,7 @@ import com.vodimobile.presentation.Routing
 import com.vodimobile.presentation.screens.home.HomeScreen
 import com.vodimobile.presentation.screens.orders.OrdersScreen
 import com.vodimobile.presentation.screens.profile.ProfileScreen
+import com.vodimobile.presentation.screens.profile.ProfileViewModel
 
 @Composable
 fun NavGraph(
@@ -26,7 +27,7 @@ fun NavGraph(
             OrdersScreen()
         }
         composable(Routing.PROFILE_SCREEN) {
-            ProfileScreen()
+            ProfileScreen(profileViewModel = ProfileViewModel())
         }
     }
 }
