@@ -1,9 +1,11 @@
 package com.vodimobile.presentation.screens.profile
 
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
+import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(private val navController: NavHostController) : ViewModel() {
 
     fun onIntent(intent: ProfileIntent) {
         when (intent) {
@@ -11,7 +13,9 @@ class ProfileViewModel : ViewModel() {
             ProfileIntent.ConstantsClick -> {}
             ProfileIntent.FaqClick -> {}
             ProfileIntent.PersonalDataClick -> {}
-            ProfileIntent.RulesClick -> {}
+            ProfileIntent.RulesClick -> {
+                navController.navigate(LeafScreen.RULES_SCREEN)
+            }
         }
     }
 }
