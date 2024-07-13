@@ -9,5 +9,5 @@
 import Foundation
 
 public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
-public let phoneRegex = #"^\+\d \d{3} \d{3}-\d{2}-\d{2}"#
+public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import iPhoneNumberField
 
 enum TextFieldType {
     case email
@@ -64,76 +65,112 @@ struct CustomTextFieldView: View {
         VStack(alignment: .leading) {
             Text(fieldName).font(.header4).foregroundStyle(Color.black)
             
-            TextField(placeholder, text: $fieldContent)
-                .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
-                .keyboardType(keyboardType)
-                .textInputAutocapitalization(.never)
-                .onChange(of: fieldContent, perform: { oldValue in
-                    if fieldName == TextFieldType.phone.localizedStr {
-                        fieldContent = format(with: "+X XXX XXX-XX-XX", phone: oldValue)
-                        validateInput()
-                    } else {
-                        validateInput()
-                    }
-                })
-                .focused($isFocused)
-                .onSubmit {
-                    isFocused = false
-                    validateInput()
-                }
-                .overlay(
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            self.fieldContent = ""
-                            validateInput()
-                        }) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(Color.grayDarkColor)
-                                .padding(8)
+            if fieldName == TextFieldType.phone.localizedStr {
+                iPhoneNumberField(placeholder, text: $fieldContent)
+                    .formatted()
+                    .prefixHidden(false)
+                    .clearButtonMode(.never)
+                    .maximumDigits(14)
+                    .onEditingBegan { _ in
+                        if fieldName == TextFieldType.phone.localizedStr && fieldContent.isEmpty {
+                            fieldContent = "+"
                         }
                     }
-                        .padding(.trailing, 8)
-                        .opacity(self.isEditing ? 1 : 0)
-                )
-                .onTapGesture {
-                    self.isEditing = true
-                }
-                .onDisappear {
-                    self.isEditing = false
-                }
+                    .onEditingEnded { _ in
+                        if fieldName == TextFieldType.phone.localizedStr && fieldContent == "+" {
+                            fieldContent = ""
+                        }
+                    }
+                    .onEdit { _ in
+                        validateInput()
+                    }
+                    .font(.paragraph4)
+                    .padding(16)
+                    .foregroundStyle(Color.black)
+                    .multilineTextAlignment(.leading)
+                    .background(Color.grayLightColor)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(!isValid && !fieldContent.isEmpty ? Color.redColor : Color.grayDarkColor, lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0)
+                    )
+                    .tint(.black)
+                    .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                    .keyboardType(keyboardType)
+                    .textInputAutocapitalization(.never)
+                    .focused($isFocused)
+//                    .onChange(of: fieldContent, perform: { _ in
+//                        validateInput()
+//                    })
+                    .onSubmit {
+                        isFocused = false
+                        validateInput()
+                    }
+                    .overlay(
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.fieldContent = ""
+                                validateInput()
+                            }) {
+                                Image(systemName: "xmark")
+                                    .foregroundColor(Color.grayDarkColor)
+                                    .padding(8)
+                            }
+                        }
+                            .padding(.trailing, 8)
+                            .opacity(self.isEditing ? 1 : 0)
+                    )
+            } else {
+                TextField(placeholder, text: $fieldContent)
+                    .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                    .keyboardType(keyboardType)
+                    .textInputAutocapitalization(.never)
+                    .onChange(of: fieldContent, perform: { oldValue in
+                        validateInput()
+                    })
+                    .focused($isFocused)
+                    .onSubmit {
+                        isFocused = false
+                        validateInput()
+                    }
+                    .overlay(
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.fieldContent = ""
+                                validateInput()
+                            }) {
+                                Image(systemName: "xmark")
+                                    .foregroundColor(Color.grayDarkColor)
+                                    .padding(8)
+                            }
+                        }
+                            .padding(.trailing, 8)
+                            .opacity(self.isEditing ? 1 : 0)
+                    )
+                    .onTapGesture {
+                        self.isEditing = true
+                    }
+                    .onDisappear {
+                        self.isEditing = false
+                    }
+            }
+            
             
             Text(errorMessage)
                 .font(.paragraph6)
                 .foregroundStyle(Color.redColor)
                 .padding(.horizontal, 10)
         }
-        .padding(.all, 0)
-    }
-    
-    func format(with mask: String, phone: String) -> String {
-        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var result = ""
-        var index = numbers.startIndex
-        
-        for ch in mask where index < numbers.endIndex {
-            if ch == "X" {
-                result.append(numbers[index])
-                
-                index = numbers.index(after: index)
-                
-            } else {
-                result.append(ch)
-            }
-        }
-        return result
     }
     
     private func validateInput() {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
+        let cleanedStr = fieldContent.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
         
-        isValid = predicate.evaluate(with: fieldContent)
+        isValid = predicate.evaluate(with: cleanedStr)
         
         if !isValid && !fieldContent.isEmpty {
             errorMessage = "\(errorResult)\(fieldName.lowercased())"

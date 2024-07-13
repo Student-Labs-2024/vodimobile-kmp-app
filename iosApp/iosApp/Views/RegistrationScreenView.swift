@@ -27,9 +27,6 @@ struct RegistrationScreenView: View {
                     }
                 
                 CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
-                    .onChange(of: phoneIsValid) { _ in
-                        toggleButtonEnabled()
-                    }
                 
                 NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
                     Text(LocalizedStringKey("nextBtnName"))

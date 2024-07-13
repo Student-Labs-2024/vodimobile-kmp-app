@@ -1,0 +1,24 @@
+{
+  "originHash" : "dfafabe9eb2f82df194905da7bcf8588b98ed393efaa5134e1fcb892e06d86c8",
+  "pins" : [
+    {
+      "identity" : "iphonenumberfield",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MojtabaHs/iPhoneNumberField",
+      "state" : {
+        "revision" : "cd961621559393c5220c6c955690ecc52318e753",
+        "version" : "0.10.4"
+      }
+    },
+    {
+      "identity" : "phonenumberkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marmelroy/PhoneNumberKit",
+      "state" : {
+        "revision" : "0a025521711539e3a6e0e725ac868ac84a4983e1",
+        "version" : "3.7.11"
+      }
+    }
+  ],
+  "version" : 3
+}
