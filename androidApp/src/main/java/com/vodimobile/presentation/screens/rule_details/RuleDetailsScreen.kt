@@ -58,7 +58,7 @@ fun RuleDetailsScreen(
 
 @Preview
 @Composable
-private fun RentalConditionScreenPreview() {
+private fun RuleDetailsScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
             RuleDetailsScreen(

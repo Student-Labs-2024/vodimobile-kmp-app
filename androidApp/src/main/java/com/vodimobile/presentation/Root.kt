@@ -31,7 +31,7 @@ fun Root() {
 
 @Preview
 @Composable
-fun RootPreview() {
+private fun RootPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
             Root()

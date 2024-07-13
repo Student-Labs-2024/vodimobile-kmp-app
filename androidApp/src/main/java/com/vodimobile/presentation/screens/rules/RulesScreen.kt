@@ -49,7 +49,7 @@ fun RuleScreen(viewModel: RuleViewModel) {
 
 @Composable
 @Preview(showBackground = true)
-fun RulesScreenPreview() {
+private fun RulesScreenPreview() {
     VodimobileTheme {
         RuleScreen(viewModel = RuleViewModel(navController = rememberNavController()))
     }
