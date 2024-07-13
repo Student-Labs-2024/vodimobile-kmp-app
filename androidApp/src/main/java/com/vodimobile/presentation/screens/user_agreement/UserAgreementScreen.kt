@@ -18,6 +18,7 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.theme.VodimobileTheme
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun UserAgreementScreen(viewModel: UserAgreementViewModel) {
 
