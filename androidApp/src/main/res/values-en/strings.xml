@@ -50,5 +50,7 @@
     <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
     <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
 
-
+    <string name="faq_title_1">Question-answer</string>
+    <string name="faq_title_2">from driver</string>
+    <string name="faq_subtitle">Find the answer to any question you are interested in.</string>
 </resources>
