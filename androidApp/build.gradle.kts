@@ -57,4 +57,9 @@ dependencies {
 
     // Navigation
     implementation (libs.androidx.navigation.compose)
+
+    //Android UI tests
+    implementation(libs.androidx.ui.test.junit4.android)
+    androidTestImplementation(libs.testng)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }

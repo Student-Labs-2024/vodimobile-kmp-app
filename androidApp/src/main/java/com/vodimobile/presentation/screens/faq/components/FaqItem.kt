@@ -36,6 +36,8 @@ import com.vodimobile.presentation.screens.faq.Dimensions
 import com.vodimobile.presentation.theme.VodimobileTheme
 import androidx.compose.material3.Card
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.testTag
+import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.theme.divider
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,12 +61,11 @@ fun FaqItem(faqModel: FaqModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
     ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .testTag(tag = TestTags.FaqItem.questionCard),
             shape = MaterialTheme.shapes.small,
             colors = CardDefaults.cardColors(
                 containerColor = if (expanded) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent
@@ -79,7 +80,6 @@ fun FaqItem(faqModel: FaqModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
                     .padding(Dimensions.faqItemRowPadding)
             ) {
                 Row(
@@ -117,7 +117,8 @@ fun FaqItem(faqModel: FaqModel) {
                         text = faqModel.answer,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .wrapContentHeight(),
+                            .wrapContentHeight()
+                            .testTag(tag = TestTags.FaqItem.answerText),
                         color = MaterialTheme.colorScheme.onBackground,
                         style = MaterialTheme.typography.labelMedium,
                         textAlign = TextAlign.Start
