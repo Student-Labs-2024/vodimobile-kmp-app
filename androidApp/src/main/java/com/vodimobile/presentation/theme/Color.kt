@@ -73,3 +73,8 @@ val surfaceContainerLowDark = Color(0xFF1A1B21)
 val surfaceContainerDark = Color(0xFF1E1F25)
 val surfaceContainerHighDark = Color(0xFF292A2F)
 val surfaceContainerHighestDark = Color(0xFF34343A)
+
+val divider = Color(0xFFCAC4D0)
+
+val headerBackLight = Color(0xFFF3F6FE)
+val questionCardLight = Color(0xFFF6F6F6)

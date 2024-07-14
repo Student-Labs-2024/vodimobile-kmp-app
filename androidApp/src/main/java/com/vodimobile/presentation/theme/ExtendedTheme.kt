@@ -30,7 +30,7 @@ fun ExtendedTheme(
         )
     else
         ExtendedColors(
-            headerBack = Color(0xFFF3F6FE),
+            headerBack = headerBackLight
         )
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
