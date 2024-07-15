@@ -10,11 +10,33 @@ import SwiftUI
 
 struct UnderlineTextField: View {
     @Binding var text: String
-    var title: String
-    var placeholder: String
+    var fieldType: TextFieldType
+    private var title: String
+    private let keyboardType: UIKeyboardType
+    private let regex: String
     
     @FocusState private var isFocused: Bool
     @State private var isPlaceholderVisible: Bool = true
+    
+    init(text: Binding<String>, fieldType: TextFieldType) {
+        self._text = text
+        self.fieldType = fieldType
+        
+        switch fieldType {
+        case .email:
+            title = TextFieldType.email.localizedStr
+            keyboardType = .emailAddress
+            regex = emailRegex
+        case .phone:
+            title = TextFieldType.phone.localizedStr
+            keyboardType = .phonePad
+            regex = phoneRegex
+        case .fullName:
+            title = TextFieldType.fullName.localizedStr
+            keyboardType = .default
+            regex = ""
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -25,7 +47,7 @@ struct UnderlineTextField: View {
             
             ZStack(alignment: .leading) {
                 if isPlaceholderVisible {
-                    Text(placeholder)
+                    Text(title)
                         .font(.paragraph5)
                         .foregroundColor(.grayTextColor)
                         .onTapGesture {
@@ -45,7 +67,7 @@ struct UnderlineTextField: View {
                     }
                     .onChange(of: text) { newValue in
                         withAnimation {
-                            isPlaceholderVisible = text.isEmpty
+                            isPlaceholderVisible = text.isEmpty && !isFocused
                         }
                     }
             }

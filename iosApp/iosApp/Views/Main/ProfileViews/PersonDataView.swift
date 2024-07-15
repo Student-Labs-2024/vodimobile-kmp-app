@@ -10,40 +10,65 @@ import SwiftUI
 
 struct PersonDataView: View {
     @State private var userInput = UserInputData()
+    @State private var isLoading: Bool = false
+    @State private var showAlert: Bool = false
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading, spacing: 25) {
-                Text("Ваши данные").font(.header3)
+        ZStack {
+            VStack {
+                VStack(alignment: .leading, spacing: 25) {
+                    Text("Ваши данные").font(.header3)
+                    
+                    UnderlineTextField(text: $userInput.fullName, fieldType: .fullName)
+                    UnderlineTextField(text: $userInput.email, fieldType: .email)
+                    UnderlineTextField(text: $userInput.phone, fieldType: .phone)
+                }
+                .padding(.horizontal, 32)
+                .padding(.vertical, 40)
+                .background(Color.white)
+                .cornerRadius(20)
+                .padding(.horizontal, 16)
+                .padding(.top, 50)
                 
-                UnderlineTextField(text: $userInput.fullName, title: "ФИО", placeholder: "ФИО")
-                UnderlineTextField(text: $userInput.email, title: "Почта", placeholder: "Почта")
-                UnderlineTextField(text: $userInput.phone, title: "Телефон", placeholder: "Номер телефона")
+                Spacer()
             }
-            .padding(.horizontal, 32)
-            .padding(.vertical, 40)
-            .background(Color.white)
-            .cornerRadius(20)
-            .padding(.horizontal, 16)
-            .padding(.top, 50)
+            .alert(LocalizedStringKey("alertSavePersonDataText"), isPresented: $showAlert) {
+                Button(LocalizedStringKey("closeButton"), role: .cancel) {
+                    showAlert.toggle()
+                }
+            }
             
-            Spacer()
+            if isLoading {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8, style: .circular)
+                        .opacity(0.5)
+                        .frame(width: 160, height: 160)
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .tint(.white)
+                    .scaleEffect(2)
+                }
+            }
         }
         .background(Color.grayLightColor.ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.profileScreenTitle)
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {}) {
-                    Image(systemName: "checkmark")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 18, height: 18)
-                        .fontWeight(.bold)
-                        .foregroundStyle(!userInput.phone.isEmpty && !userInput.email.isEmpty  && !userInput.fullName.isEmpty  ? Color.blueColor : Color.grayDarkColor)
-                }
-            }
+            CustomToolbar(
+                title: String.ScreenTitles.profileScreenTitle,
+                trailingToolbarItem: TrailingToolbarItem(
+                    image: Image(systemName: "checkmark"),
+                    control: $userInput,
+                    actionAfterTapping: makeFakeNetworkRequest)
+            )
+        }
+    }
+    
+    private func makeFakeNetworkRequest() {
+        isLoading = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            isLoading = false
+            showAlert = true
         }
     }
 }
@@ -52,6 +77,10 @@ struct UserInputData {
     var fullName: String = ""
     var email: String = ""
     var phone: String = ""
+    
+    func checkEmpty() -> Bool {
+        email.isEmpty && fullName.isEmpty && phone.isEmpty
+    }
 }
 
 #Preview {

@@ -18,6 +18,7 @@ extension Color {
     public static let grayTextColor: Color = Color(UIColor(rgb: 0x939BAA))
     public static let grayDarkColor: Color = Color(UIColor(rgb: 0x9CA3B0))
     public static let grayLightColor: Color = Color(UIColor(rgb: 0xF6F6F6))
+    public static let grayBackgroundtColor: Color = Color(UIColor(rgb: 0x9C9C9C))
 }
 
 extension Font {

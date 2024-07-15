@@ -7,6 +7,23 @@
     "© 2016-2022 Водимобиль" : {
 
     },
+    "alertSavePersonDataText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your data has been successfully saved"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ваши данные успешно сохранены"
+          }
+        }
+      }
+    },
     "authBtnName" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -37,6 +54,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Вход"
+          }
+        }
+      }
+    },
+    "closeButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрыть"
           }
         }
       }
@@ -257,6 +291,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ФИО, номер телефона, почта"
+          }
+        }
+      }
+    },
+    "fullName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fullname"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ФИО"
           }
         }
       }

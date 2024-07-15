@@ -11,7 +11,7 @@ import SwiftUI
 enum TextFieldType {
     case email
     case phone
-    case other
+    case fullName
 }
 
 extension TextFieldType {
@@ -21,8 +21,8 @@ extension TextFieldType {
             return String(localized: String.LocalizationValue(stringLiteral: "email"))
         case .phone:
             return String(localized: String.LocalizationValue(stringLiteral: "phone"))
-        default:
-            return ""
+        case .fullName:
+            return String(localized: String.LocalizationValue(stringLiteral: "fullName"))
         }
     }
 }
