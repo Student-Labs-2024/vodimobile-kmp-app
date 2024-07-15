@@ -5,37 +5,37 @@ struct StartScreenView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
+            VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
                 HStack {
                     Spacer()
                     Button(action: {
                         print("Button has been pressed")
                     }) {
+                        
                         Image(systemName: "xmark")
                             .resizable()
                             .foregroundColor(Color.black)
-                            .frame(width: 15, height: 15)
+                            .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)
                     }
-                    .padding(.top, 10.0)
+                    .padding(.top, StartScreenConfig.xmarkTopPadding)
                 }
                 
-                Image(uiImage: UIImage(named: "logo") ?? UIImage())
+                Image(R.image.logo)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding(.horizontal, 50.0)
+                    .padding(.horizontal, StartScreenConfig.logoHorizontalPadding)
                 
                 NavigationLink(destination: RegistrationScreenView()) {
-                    Text(LocalizedStringKey("regBtnName"))
+                    Text(R.string.localizable.regButtonTitle)
                 }.buttonStyle(FilledBtnStyle())
                 
                 NavigationLink(destination: AuthScreenView()) {
-                    Text(LocalizedStringKey("authBtnName"))
+                    Text(R.string.localizable.authButtonTitle)
                 }.buttonStyle(BorderedBtnStyle())
                 
                 Spacer()
             }
-            .padding(.horizontal, 16.0)
-            .padding(.vertical, 0)
+            .padding(.horizontal, horizontalPadding)
         }
     }
 }

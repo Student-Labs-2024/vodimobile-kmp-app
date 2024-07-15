@@ -8,6 +8,7 @@
 
 import SwiftUI
 import iPhoneNumberField
+import RswiftResources
 
 enum TextFieldType {
     case email
@@ -19,9 +20,9 @@ extension TextFieldType {
     var localizedStr: String {
         switch self {
         case .email:
-            return String(localized: String.LocalizationValue(stringLiteral: "email"))
+            return R.string.localizable.email.callAsFunction()
         case .phone:
-            return String(localized: String.LocalizationValue(stringLiteral: "phone"))
+            return R.string.localizable.phone.callAsFunction()
         default:
             return ""
         }

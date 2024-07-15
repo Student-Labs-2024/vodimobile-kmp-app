@@ -17,15 +17,15 @@ struct PinCodeView: View {
     @Environment(\.dismiss) private var dismiss
     
     private var sendCodeOnPhoneText: String {
-        "\(String(localized: String.LocalizationValue(stringLiteral: "sendCodeMsg"))) \n \(phoneNumber)"
+        "\(R.string.localizable.sendCodeMsg.callAsFunction()) \n \(phoneNumber)"
     }
     
     var body: some View {
-        VStack(spacing: 10) {
-            VStack(spacing: 25) {
-                Text(LocalizedStringKey("inputCodeText"))
+        VStack(spacing: PinCodeConfig.spacingBetweenGroupAndResendText) {
+            VStack(spacing: PinCodeConfig.spacingBetweenMainComponents) {
+                Text(R.string.localizable.inputCodeText)
                     .font(.header2)
-                    .padding(.top, 40)
+                    .padding(.top, PinCodeConfig.contentTopPadding)
                     .foregroundColor(Color.black)
                     .multilineTextAlignment(.center)
                 
@@ -34,13 +34,13 @@ struct PinCodeView: View {
                     .foregroundColor(Color.grayTextColor)
                     .multilineTextAlignment(.center)
                 
-                HStack(spacing: 16) {
+                HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
                     ForEach(0..<4) { index in
                         TextField("", text: $pin[index])
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.center)
                             .font(.paragraph1)
-                            .frame(width: 56, height: 56)
+                            .frame(width: PinCodeConfig.pincodeCellsSize, height: PinCodeConfig.pincodeCellsSize)
                             .background(
                                 RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.grayLightColor)
                             )
@@ -58,26 +58,26 @@ struct PinCodeView: View {
                             }
                     }
                 }
-                .padding(.vertical, 20)
+                .padding(.vertical, PinCodeConfig.verticalSpacingBetweenPincodeField)
                 .onChange(of: pin) { _ in
                     toggleButtonEnabled()
                 }
                 
                 NavigationLink(destination: MainScreenView()) {
-                    Text(LocalizedStringKey("nextBtnName"))
+                    Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
             }
             
             HStack {
-                Text(LocalizedStringKey("notGetCodeText"))
+                Text(R.string.localizable.notGetCodeText)
                     .foregroundColor(.black)
                     .font(.paragraph4)
                 Button(action: {
                     print("Отправить код повторно нажат")
                 }) {
-                    Text(LocalizedStringKey("resendBtnText"))
+                    Text(R.string.localizable.resendBtnText)
                         .foregroundColor(.blueColor)
                         .font(.buttonText)
                         .underline()
@@ -101,7 +101,7 @@ struct PinCodeView: View {
             }
             
             ToolbarItem(placement: .principal) {
-                Text(LocalizedStringKey("confirmScreenTitle"))
+                Text(R.string.localizable.confirmScreenTitle)
                     .font(.header1)
                     .foregroundColor(Color.black)
             }

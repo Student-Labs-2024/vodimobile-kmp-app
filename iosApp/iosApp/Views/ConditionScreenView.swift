@@ -12,6 +12,12 @@ struct ConditionScreenView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var conditionText: String = ""
     
+    var viewModel: ConditionScreenViewModel
+    
+    init() {
+        self.viewModel = ConditionScreenViewModel()
+    }
+    
     var body: some View {
         NavigationLink(destination: MainScreenView()) {
             ScrollView(.vertical, showsIndicators: false) {
@@ -21,10 +27,10 @@ struct ConditionScreenView: View {
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.leading)
                     .onAppear {
-                        loadUserAgreement()
+                        viewModel.loadUserAgreement(content: $conditionText)
                     }
             }
-            .padding([.leading, .bottom, .trailing], 24)
+            .padding([.leading, .bottom, .trailing], ConditionScreenConfig.paddings)
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading){
@@ -36,21 +42,10 @@ struct ConditionScreenView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text(LocalizedStringKey("conditionsScreenTitle"))
+                    Text(R.string.localizable.conditionsScreenTitle)
                         .font(.header1)
                         .foregroundColor(Color.black)
                 }
-            }
-        }
-    }
-    
-    private func loadUserAgreement() {
-        if let filePath = Bundle.main.path(forResource: "terms_and_conditions", ofType: "txt") {
-            do {
-                let contents = try String(contentsOfFile: filePath)
-                conditionText = contents
-            } catch {
-                print("Error loading user agreement text")
             }
         }
     }

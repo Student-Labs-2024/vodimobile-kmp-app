@@ -18,7 +18,7 @@ struct CheckboxView: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(isChecked ? Color.blueColor : Color.grayDarkColor, lineWidth: 1)
-                    .frame(width: 22, height: 22)
+                    .frame(width: checkboxSize, height: checkboxSize)
                 
                 if isChecked {
                     Image(systemName: "checkmark")
@@ -26,7 +26,8 @@ struct CheckboxView: View {
                         .imageScale(.small)
                 }
             }
-            .padding(4)
+//            .padding(4)
+            .padding(.leading, checkboxLeadingPadding)
         }
     }
 }
