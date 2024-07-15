@@ -8,6 +8,7 @@ androidx-activityCompose = "1.8.0"
 composePlugin = "1.6.11"
 foundationAndroid = "1.6.8"
 composeCompiler = "2.0.0"
+kotlinxCoroutinesCore = "1.8.1"
 material = "compose"
 navigationCompose = "2.7.7"
 
@@ -23,6 +24,7 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
