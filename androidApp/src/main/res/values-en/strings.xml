@@ -22,5 +22,33 @@
     <string name="header_back_content_desc">Back</string>
     <string name="title_screen_registration">Registration</string>
 
+    <string name="title_user_agreement">Terms of the agreement</string>
+    <string name="text_user_agreement">User agreement</string>
+
     <string name="close_button_content_description">Close</string>
+
+    <string name="rules_and_conditions">Rules and conditions</string>
+    <string name="faq">FAQ</string>
+    <string name="contacts">Contacts</string>
+    <string name="profile_title">Profile</string>
+    <string name="exit_account">Exit account</string>
+    <string name="personal_data_title">Personal data</string>
+    <string name="personal_data_subtitle">Full name, phone number, email</string>
+    <string name="edit_personal_data_content_desc">Edit personal data</string>
+
+    <string name="home_screen_label">Home</string>
+    <string name="orders_screen_label">My orders</string>
+    <string name="profile_screen_label">Profile</string>
+    <string name="str_rules_and_conditions_title">Rules and conditions</string>
+
+    <string name="str_rules">Rules and conditions</string>
+    <string name="str_arrowforward">Go over</string>
+
+    <string name="str_rules1">Rental conditions for drivers</string>
+    <string name="str_rules2">Stages of car rental</string>
+
+    <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
+    <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
+
+
 </resources>

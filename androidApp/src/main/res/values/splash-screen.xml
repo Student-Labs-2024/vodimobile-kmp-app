@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Водимобиль.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FAF8FF</item>
+        <item name="postSplashScreenTheme">@android:style/Theme.Material.NoActionBar</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/vodimobile_splash_logo</item>
+        <item name="splashScreenIconSize">250dp</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>
