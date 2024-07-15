@@ -20,12 +20,14 @@ import com.vodimobile.presentation.screens.faq.components.FaqItem
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun FaqScreen() {
+fun FaqScreen(faqViewModel: FaqViewModel) {
 
     val faqList: List<FaqModel> = FaqModel.getFaqList(LocalContext.current.resources)
 
     Scaffold(topBar = {
-        ScreenHeader(title = stringResource(id = R.string.faq), onNavigateBack = {})
+        ScreenHeader(
+            title = stringResource(id = R.string.faq),
+            onNavigateBack = { faqViewModel.onIntent(FaqIntent.BackClick) })
     }) { scaffoldPadding ->
         LazyColumn(
             modifier = Modifier
@@ -49,7 +51,7 @@ fun FaqScreen() {
 private fun FaqScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqScreen()
+            FaqScreen(faqViewModel = FaqViewModel())
         }
     }
 }
@@ -60,7 +62,7 @@ private fun FaqScreenPreviewLight() {
 private fun FaqScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqScreen()
+            FaqScreen(faqViewModel = FaqViewModel())
         }
     }
 }
