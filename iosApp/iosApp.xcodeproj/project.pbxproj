@@ -39,6 +39,7 @@
 		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
 		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
 		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
+		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +90,7 @@
 		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
 		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
+		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				934D5DF22C3D3D8B0070904B /* Font */,
 				934F0D532C3D6A94000B256E /* Localizable.xcstrings */,
 				93654DED2C3E932E001CFB7D /* Constants.swift */,
+				93AA80DF2C45697600D5061E /* Launch Screen.storyboard */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */,
 				93654DF22C3EC5D5001CFB7D /* terms_and_conditions.txt in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
+				93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 				934D5DF72C3D3D8B0070904B /* AkzidenzRegEx.otf in Resources */,
 				934D5DF62C3D3D8B0070904B /* AkzidenzMedium.ttf in Resources */,
