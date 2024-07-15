@@ -52,4 +52,12 @@ dependencies {
     implementation(libs.compose.foundation)
     implementation(libs.androidx.foundation.android)
     debugImplementation(libs.compose.ui.tooling)
+
+    implementation(libs.androidx.material)
+
+    // Navigation
+    implementation (libs.androidx.navigation.compose)
+
+    //Splash screen
+    implementation(libs.androidx.core.splashscreen)
 }

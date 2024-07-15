@@ -16,21 +16,18 @@ val Typography = Typography(
         fontSize = 20.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Normal,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
     headlineMedium = TextStyle(
         fontSize = 18.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.ExtraBold,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
     headlineSmall = TextStyle(
         fontSize = 16.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Medium,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
 
@@ -38,7 +35,6 @@ val Typography = Typography(
         fontSize = 15.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Normal,
-        lineHeight = 0.04.sp,
         letterSpacing = 0.05.sp
     ),
 
@@ -46,21 +42,18 @@ val Typography = Typography(
         fontSize = 18.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Medium,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
     bodyMedium = TextStyle(
         fontSize = 16.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Normal,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
     bodySmall = TextStyle(
         fontSize = 14.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Light,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
 
@@ -68,14 +61,12 @@ val Typography = Typography(
         fontSize = 14.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Normal,
-        lineHeight = 0.03.sp,
         letterSpacing = 0.05.sp
     ),
     labelSmall = TextStyle(
         fontSize = 12.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Light,
-        lineHeight = 0.05.sp,
         letterSpacing = 0.05.sp
     ),
 
@@ -83,7 +74,6 @@ val Typography = Typography(
         fontSize = 12.sp,
         fontFamily = mainFont,
         fontWeight = FontWeight.Medium,
-        lineHeight = 0.03.sp,
         letterSpacing = 0.05.sp
     )
 )
