@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.faq.components
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -8,6 +9,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,8 +37,11 @@ import com.vodimobile.domain.model.FaqModel
 import com.vodimobile.presentation.screens.faq.Dimensions
 import com.vodimobile.presentation.theme.VodimobileTheme
 import androidx.compose.material3.Card
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.theme.divider
 
@@ -55,12 +60,13 @@ fun FaqItem(faqModel: FaqModel) {
 
     Column(
         verticalArrangement = Arrangement.spacedBy(
-            space = Dimensions.faqItemSpace,
+            space = 8.dp,
             alignment = Alignment.CenterVertically
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
+            .padding(PaddingValues(horizontal = 16.dp, vertical = 6.dp))
     ) {
         Card(
             modifier = Modifier
@@ -74,18 +80,18 @@ fun FaqItem(faqModel: FaqModel) {
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(
-                    space = Dimensions.faqItemButtonItemsSpace,
+                    space = 12.dp,
                     alignment = Alignment.CenterVertically
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Dimensions.faqItemRowPadding)
+                    .padding(PaddingValues(horizontal = 12.dp, vertical = 9.dp))
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(
-                        space = Dimensions.faqItemButtonItemsSpace,
+                        space = 12.dp,
                         alignment = Alignment.Start
                     ),
                     modifier = Modifier
@@ -129,34 +135,30 @@ fun FaqItem(faqModel: FaqModel) {
 
         Divider(
             modifier = Modifier.fillMaxWidth(),
-            thickness = Dimensions.faqItemThickness,
+            thickness = 1.dp,
             color = divider
         )
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun FaqItemLight() {
     VodimobileTheme(dynamicColor = false) {
-        FaqItem(
-            faqModel = FaqModel(
-                question = "Куда можно ездить?",
-                answer = "Ограничений по поездкам внутри Сибирского федерального округа - нет. Пересечение Сибирского федерального округа, как и границ РФ - согласовывается с менеджером."
-            )
-        )
+        Scaffold {
+            FaqItem(faqModel = FaqModel.getFaqList(LocalContext.current.resources)[0])
+        }
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun FaqItemNight() {
     VodimobileTheme(dynamicColor = false) {
-        FaqItem(
-            faqModel = FaqModel(
-                question = "Куда можно ездить?",
-                answer = "Ограничений по поездкам внутри Сибирского федерального округа - нет. Пересечение Сибирского федерального округа, как и границ РФ - согласовывается с менеджером."
-            )
-        )
+        Scaffold {
+            FaqItem(faqModel = FaqModel.getFaqList(LocalContext.current.resources)[0])
+        }
     }
 }

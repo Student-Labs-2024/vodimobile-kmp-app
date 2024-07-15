@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -20,9 +21,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.BottomAppBarAlpha
-import com.vodimobile.presentation.screens.faq.Dimensions
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
@@ -43,9 +44,9 @@ fun FaqHeader() {
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .background(ExtendedTheme.colorScheme.headerBack)
-                .padding(Dimensions.headerPadding),
+                .padding(PaddingValues(horizontal = 28.dp, vertical = 32.dp)),
             verticalArrangement = Arrangement.spacedBy(
-                space = Dimensions.spaceByHeader,
+                space = 24.dp,
                 alignment = Alignment.CenterVertically
             ),
             horizontalAlignment = Alignment.CenterHorizontally
