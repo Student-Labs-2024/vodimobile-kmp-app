@@ -15,7 +15,7 @@
         <activity
             android:name="com.vodimobile.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Водимобиль">
+            android:theme="@style/Theme.Водимобиль.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
