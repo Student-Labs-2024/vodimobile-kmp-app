@@ -60,8 +60,10 @@
     <string name="telephone1_str">+7 (950) 783 14-40</string>
     <string name="adress_str">Office address:</string>
     <string name="adress2_str">Omsk, Dmitrieva str., 5/6</string>
-    <string name="version_str">Version 0.00.0</string>
-    <string name="version1_str">© 2016-2022 Vodomobile</string>
+    <string name="version_str">Version %s</string>
+
+    <string name="version_year_str">© 2016</string>
+    <string name="version1_str">Vodimobile</string>
     <string name="title_contact_screen">Contacts</string>
 
 

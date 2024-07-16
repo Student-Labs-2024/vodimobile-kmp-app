@@ -31,16 +31,13 @@ fun ListContactItem(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Row {
-            Text(
-                text = stringResource(R.string.title_list_contact),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 32.dp, vertical = 12.dp),
-                fontSize = 16.sp,
-                style = MaterialTheme.typography.headlineMedium
-            )
-        }
+        Text(
+            text = stringResource(R.string.title_list_contact),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp, vertical = 12.dp),
+            style = MaterialTheme.typography.headlineMedium.copy(fontSize = 16.sp)
+        )
 
         ContactItem(
             title = stringResource(R.string.vk_str),
@@ -48,7 +45,7 @@ fun ListContactItem(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.vk),
-                contentDescription = null,
+                contentDescription = stringResource(id = R.string.vk_str),
                 modifier = Modifier
                     .padding(4.dp)
                     .size(32.dp)
@@ -60,7 +57,7 @@ fun ListContactItem(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.whatsapp),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.whatsapp_str),
                 modifier = Modifier
                     .padding(4.dp)
                     .size(32.dp)
@@ -72,7 +69,7 @@ fun ListContactItem(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.telegram),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.telegram_str),
                 modifier = Modifier
                     .padding(4.dp)
                     .size(32.dp)
@@ -84,7 +81,7 @@ fun ListContactItem(
 
 @Preview(showBackground = true)
 @Composable
-fun ListContactItemPreview() {
+private fun ListContactItemPreview() {
     VodimobileTheme {
         ListContactItem(modifier = Modifier, {}, {}, {})
     }

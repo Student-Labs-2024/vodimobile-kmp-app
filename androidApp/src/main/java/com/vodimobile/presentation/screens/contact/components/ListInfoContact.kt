@@ -33,7 +33,7 @@ fun ListInfoContact(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.email),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.mail_str),
                 modifier = Modifier
                     .size(24.dp)
             )
@@ -44,7 +44,7 @@ fun ListInfoContact(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.telephone),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.telephone_str),
                 modifier = Modifier
                     .size(24.dp)
             )
@@ -55,7 +55,7 @@ fun ListInfoContact(
         ) {
             Image(
                 painter = painterResource(id = R.drawable.telegram1),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.adress_str),
                 modifier = Modifier
                     .size(24.dp)
             )
@@ -65,7 +65,7 @@ fun ListInfoContact(
 
 @Preview(showBackground = true)
 @Composable
-fun ListInfoContactPreview() {
+private fun ListInfoContactPreview() {
     VodimobileTheme {
         ListInfoContact()
     }

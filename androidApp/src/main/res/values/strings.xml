@@ -55,8 +55,10 @@
     <string name="telephone1_str">+7 (950) 783 14-40</string>
     <string name="adress_str">Адрес офиса:</string>
     <string name="adress2_str">г. Омск, ул. Дмитриева, 5/6</string>
-    <string name="version_str">Версия 0.00.0</string>
-    <string name="version1_str">© 2016-2022 Водимобиль</string>
+    <string name="version_str">Версия %s</string>
+
+    <string name="version_year_str">© 2016</string>
+    <string name="version1_str"> Водимобиль</string>
     <string name="title_contact_screen">Контакты</string>
 
 

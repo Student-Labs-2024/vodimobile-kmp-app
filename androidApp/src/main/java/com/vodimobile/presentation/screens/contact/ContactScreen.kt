@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,14 +24,14 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ContactScreen(ContactViewModel: ContactViewModel) {
+fun ContactScreen(сontactViewModel: ContactViewModel) {
     Scaffold(
         topBar = {
             ScreenHeader(
                 modifier = Modifier.padding(top = 23.dp),
                 title = stringResource(R.string.title_contact_screen),
                 onNavigateBack = {
-                    ContactViewModel.onIntent(ContactIntent.BackClick)
+                    сontactViewModel.onIntent(ContactIntent.BackClick)
                 }
             )
         }
@@ -52,13 +52,13 @@ fun ContactScreen(ContactViewModel: ContactViewModel) {
             Spacer(modifier = Modifier.height(12.dp))
             ListContactItem(
                 onVkClick = {
-                    ContactViewModel.onIntent(ContactIntent.VkClick)
+                    сontactViewModel.onIntent(ContactIntent.VkClick)
                 },
                 onWhatsappClick = {
-                    ContactViewModel.onIntent(ContactIntent.WhatsappClick)
+                    сontactViewModel.onIntent(ContactIntent.WhatsappClick)
                 },
                 onTelegramClick = {
-                    ContactViewModel.onIntent(ContactIntent.TelegramClick)
+                    сontactViewModel.onIntent(ContactIntent.TelegramClick)
                 }
             )
         }
@@ -67,9 +67,9 @@ fun ContactScreen(ContactViewModel: ContactViewModel) {
 
 @Composable
 @Preview(showBackground = true)
-fun ContactScreenPreview() {
+private fun ContactScreenPreview() {
     VodimobileTheme {
-        ContactScreen(ContactViewModel = ContactViewModel())
+        ContactScreen(сontactViewModel = ContactViewModel())
     }
 
 }
