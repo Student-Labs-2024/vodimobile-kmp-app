@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.vodimobile.android.BuildConfig
 import com.vodimobile.android.R
 import com.vodimobile.presentation.BottomAppBarAlpha
+import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import java.time.LocalDate.now
 
@@ -37,60 +38,61 @@ fun VersionItem() {
     val startYear = stringResource(id = R.string.version_year_str)
     val currentYear = now().year
     val versionYear = "$startYear-$currentYear"
-    Card(
-        modifier = Modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ),
-        shape = RectangleShape
+    ExtendedTheme {
+        Card(
+            modifier = Modifier,
+            colors = CardDefaults.cardColors(
+                containerColor = ExtendedTheme.colorScheme.headerBack
+            ),
+            shape = RectangleShape
 
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(vertical = 20.dp)
-                .wrapContentHeight()
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
-            Card(
-                modifier = Modifier
-                    .size(48.dp),
-                shape = MaterialTheme.shapes.small,
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary
-                )
-            ) {
-                Image(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 4.dp)
-                        .size(48.dp),
-                    painter = painterResource(id = R.drawable.logo3),
-                    contentDescription = null
-                )
-            }
-            Spacer(modifier = Modifier.height(24.dp))
-
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .padding(vertical = 20.dp)
+                    .wrapContentHeight()
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.version_str, versionName),
-                    color = MaterialTheme.colorScheme.onBackground.copy(BottomAppBarAlpha.BACKGROUND_ALPHA)
-                )
+                Card(
+                    modifier = Modifier
+                        .size(48.dp),
+                    shape = MaterialTheme.shapes.small,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 4.dp)
+                            .size(48.dp),
+                        painter = painterResource(id = R.drawable.logo3),
+                        contentDescription = null
+                    )
+                }
+                Spacer(modifier = Modifier.height(24.dp))
 
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text =  versionYear + " " + stringResource(id = R.string.version1_str),
-                    color = MaterialTheme.colorScheme.onBackground.copy(BottomAppBarAlpha.BACKGROUND_ALPHA)
-                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = stringResource(R.string.version_str, versionName),
+                        color = ExtendedTheme.colorScheme.hintText
+                    )
+
+                    Text(
+                        style = MaterialTheme.typography.labelMedium,
+                        text = versionYear + " " + stringResource(id = R.string.version1_str),
+                        color = ExtendedTheme.colorScheme.hintText
+                    )
+                }
             }
         }
     }
 }
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
