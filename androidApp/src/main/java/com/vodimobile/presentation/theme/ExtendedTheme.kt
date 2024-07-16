@@ -32,14 +32,14 @@ fun ExtendedTheme(
 ) {
     val extendedColors = if (darkTheme)
         ExtendedColors(
-            headerBack = surfaceVariantDark,
+            headerBack = onSecondaryBackgroundDark,
             secondaryBackground = secondaryBackgroundDark,
             onSecondaryBackground = onSecondaryBackgroundDark,
             hintText = hintTextDark
         )
     else
         ExtendedColors(
-            headerBack = headerBackLight,
+            headerBack = backgroundLight,
             secondaryBackground = secondaryBackgroundLight,
             onSecondaryBackground = onSecondaryBackgroundLight,
             hintText = hintTextLight
