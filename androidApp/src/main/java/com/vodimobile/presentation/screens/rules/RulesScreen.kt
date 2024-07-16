@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.model.mockList
+import com.vodimobile.domain.model.mockList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rules.components.RulesItem
 import com.vodimobile.presentation.theme.VodimobileTheme

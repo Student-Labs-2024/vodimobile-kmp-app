@@ -1,4 +1,4 @@
-package com.vodimobile.model
+package com.vodimobile.domain.model
 
 import com.vodimobile.android.R
 

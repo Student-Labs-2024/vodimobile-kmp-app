@@ -8,9 +8,10 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.vodimobile.presentation.ProgressDialog
-import com.vodimobile.presentation.screens.rules.RulesScreen
-import com.vodimobile.presentation.screens.rules.RulesViewModel
+import com.vodimobile.presentation.screens.rules.RuleScreen
+import com.vodimobile.presentation.screens.rules.RuleViewModel
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -40,7 +41,7 @@ fun ProgressDialog(
 private fun ProgressDialogNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RulesScreen(viewModel = RulesViewModel())
+            RuleScreen(viewModel = RuleViewModel(rememberNavController()))
         }
     }
 }
@@ -50,7 +51,7 @@ private fun ProgressDialogNightPreview() {
 private fun ProgressDialogLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RulesScreen(viewModel = RulesViewModel())
+            RuleScreen(viewModel = RuleViewModel(rememberNavController()))
         }
     }
 }
