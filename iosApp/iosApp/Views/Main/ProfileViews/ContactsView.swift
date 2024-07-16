@@ -15,11 +15,16 @@ struct ContactsView: View {
         VStack(spacing: 20) {
             
             VStack {
-                Image("logoSmallIcon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 48, height: 48)
-                    .padding(.bottom, 20)
+                ZStack {
+                    Image("logoSmall")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 40, height: 48)
+                }
+                .frame(width: 48, height: 48)
+                .background(RoundedRectangle(cornerRadius: 10, style: .circular).fill(Color.white))
+                .padding(.bottom, 20)
+                
                 Text("Версия 0.00.0")
                     .font(.paragraph4)
                     .foregroundStyle(Color.grayTextColor)

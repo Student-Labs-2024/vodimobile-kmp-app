@@ -106,6 +106,10 @@ struct PinCodeView: View {
                     focusedField = index + 1
                 } else if newValue.isEmpty, index > 0 {
                     focusedField = index - 1
+                } else if newValue.count > 1 {
+                    pin[index] = String(newValue.prefix(1))
+                } else if index == pin.count - 1 && !pin[index].isEmpty {
+                    focusedField = nil
                 }
             }
     }
