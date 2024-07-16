@@ -78,13 +78,13 @@ fun VersionItem() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         text = stringResource(R.string.version_str, versionName),
                         color = ExtendedTheme.colorScheme.hintText
                     )
 
                     Text(
-                        style = MaterialTheme.typography.labelMedium,
+                        style = MaterialTheme.typography.bodySmall,
                         text = versionYear + " " + stringResource(id = R.string.version1_str),
                         color = ExtendedTheme.colorScheme.hintText
                     )

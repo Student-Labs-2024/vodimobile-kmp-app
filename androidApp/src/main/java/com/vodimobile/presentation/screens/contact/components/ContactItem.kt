@@ -58,7 +58,7 @@ fun ContactItem(
                     .weight(1.0f)
                     .padding(vertical = 9.5.dp),
                 text = title,
-                style = MaterialTheme.typography.titleLarge.copy(fontSize = 16.sp)
+                style = MaterialTheme.typography.bodyMedium
             )
             Icon(
                 imageVector = Icons.Rounded.KeyboardArrowRight,
