@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.splitAgreementText
+import com.vodimobile.presentation.utils.splitTextByDelimiter
 
 
 @Composable
@@ -80,9 +80,9 @@ fun AgreementCheckBox(
         Spacer(modifier = Modifier.width(16.dp))
 
         val (agreementTextPart1, agreementTextPart2) =
-            splitAgreementText(
-                agreementText = stringResource(id = R.string.agreement_text),
-                delimiterChar = '\n'
+            splitTextByDelimiter(
+                text = stringResource(id = R.string.agreement_text),
+                delimiter = '\n'
             )
 
         Column(modifier = Modifier.fillMaxWidth()) {

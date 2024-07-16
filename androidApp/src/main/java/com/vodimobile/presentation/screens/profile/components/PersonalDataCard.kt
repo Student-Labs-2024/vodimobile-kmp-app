@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
+import com.vodimobile.presentation.BottomAppBarAlpha.BACKGROUND_ALPHA
+import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,7 +35,10 @@ fun PersonalDataCard(onEditClick: () -> Unit) {
         onClick = onEditClick,
         modifier = Modifier
             .wrapContentHeight()
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = ExtendedTheme.colorScheme.onSecondaryBackground
+        )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -59,23 +66,24 @@ fun PersonalDataCard(onEditClick: () -> Unit) {
             ) {
                 Text(
                     text = stringResource(id = R.string.personal_data_title),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
                     modifier = Modifier
                         .wrapContentHeight()
                 )
                 Text(
                     text = stringResource(id = R.string.personal_data_subtitle),
                     style = MaterialTheme.typography.labelSmall.copy(
-                        color = MaterialTheme.typography.labelSmall.color.copy(
-                            alpha = 0.612f
-                        )
+                        color = ExtendedTheme.colorScheme.hintText
                     ),
                     softWrap = true
                 )
             }
 
             IconButton(
-                onClick = onEditClick
+                onClick = onEditClick,
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground.copy(alpha = BACKGROUND_ALPHA)
+                )
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.edit_grey),

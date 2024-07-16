@@ -19,38 +19,35 @@ struct RegistrationScreenView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(spacing: 10) {
-            VStack(spacing: 18) {
+        VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
+            VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
                 CustomTextFieldView(fieldContent: $emailFieldText, isValid: $emailIsValid, fieldType: .email)
                     .onChange(of: emailIsValid) { _ in
                         toggleButtonEnabled()
                     }
                 
                 CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
-                    .onChange(of: phoneIsValid) { _ in
-                        toggleButtonEnabled()
-                    }
-                
+
                 NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
-                    Text(String.Buttons.nextButton)
+                    Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
             }
             
-            HStack(spacing: 16) {
-                CheckboxView(isChecked: $checkboxSelected).padding(.leading, 12)
+            HStack(spacing: spacingBetweenCheckboxAndText) {
+                CheckboxView(isChecked: $checkboxSelected)
                     .onChange(of: checkboxSelected) { _ in
                         toggleButtonEnabled()
                     }
                 
                 VStack(alignment: .leading) {
-                    Text(LocalizedStringKey("conditionText"))
+                    Text(R.string.localizable.conditionText)
                         .font(.paragraph5)
                         .foregroundStyle(Color.grayDarkColor)
                     
                     NavigationLink(destination: ConditionScreenView()) {
-                        Text(LocalizedStringKey("conditionLink"))
+                        Text(R.string.localizable.conditionLink)
                             .foregroundColor(.blueColor)
                             .font(.buttonCheckBox)
                     }
@@ -59,8 +56,8 @@ struct RegistrationScreenView: View {
             }
             Spacer()
         }
-        .padding(.horizontal, 16)
-        .padding(.top, 120)
+        .padding(.horizontal, horizontalPadding)
+        .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: String.ScreenTitles.regScreenTitle)

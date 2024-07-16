@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  iosApp
+
+  Created by Sergey Ivanov on 15.07.2024.
+  Copyright © 2024 orgName. All rights reserved.
+*/
+
+"regButtonTitle" = "Sign up";
+"regScreenTitle" = "Sign up";
+"authButtonTitle" = " Log in";
+"authScreenTitle" = " Log in";
+"conditionLink" = "the user agreement";
+"conditionsScreenTitle" = "Terms of the agreement";
+"conditionText" = "I have read and agree to the terms of ";
+"confirmScreenTitle" = "Сonfirmation";
+"email" = "Email";
+"inputCodeText" = "Enter SMS code";
+"inputErrorMsg" = "Input ";
+"nextBtnName" = "Next";
+"notGetCodeText" = "Didn't get the code?";
+"phone" = "Phone";
+"resendBtnText" = "Resend";
+"sendCodeMsg" = "We sent it to the number";

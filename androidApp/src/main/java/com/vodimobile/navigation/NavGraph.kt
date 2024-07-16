@@ -5,11 +5,17 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.vodimobile.presentation.Routing
+import androidx.navigation.navigation
+import com.vodimobile.presentation.LeafScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.screens.home.HomeScreen
 import com.vodimobile.presentation.screens.orders.OrdersScreen
 import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
+import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
+import com.vodimobile.presentation.screens.rule_details.RulesDetailsViewModel
+import com.vodimobile.presentation.screens.rules.RuleScreen
+import com.vodimobile.presentation.screens.rules.RuleViewModel
 
 @Composable
 fun NavGraph(
@@ -18,16 +24,31 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Routing.HOME_SCREEN
+        startDestination = RootScreen.HOME_SCREEN
     ) {
-        composable(Routing.HOME_SCREEN) {
+        composable(RootScreen.HOME_SCREEN) {
             HomeScreen()
         }
-        composable(Routing.ORDERS_SCREEN) {
+        composable(RootScreen.ORDERS_SCREEN) {
             OrdersScreen()
         }
-        composable(Routing.PROFILE_SCREEN) {
-            ProfileScreen(profileViewModel = ProfileViewModel())
+        navigation(
+            route = RootScreen.PROFILE_SCREEN,
+            startDestination = LeafScreen.PROFILE_SCREEN
+        ) {
+            composable(route = LeafScreen.PROFILE_SCREEN) {
+                ProfileScreen(profileViewModel = ProfileViewModel(navHostController))
+            }
+            composable(route = LeafScreen.RULES_SCREEN) {
+                RuleScreen(viewModel = RuleViewModel(navHostController))
+            }
+            composable("${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}") { backStackEntry ->
+                val ruleId = backStackEntry.arguments?.getInt("ruleId")!!
+                RuleDetailsScreen(
+                    viewModel = RulesDetailsViewModel(navHostController),
+                    ruleId = ruleId
+                )
+            }
         }
     }
 }

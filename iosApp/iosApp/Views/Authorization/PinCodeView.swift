@@ -16,17 +16,17 @@ struct PinCodeView: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.isAuthorized) private var isAuthorized
-    
+
     private var sendCodeOnPhoneText: String {
-        "\(String(localized: String.LocalizationValue(stringLiteral: "sendCodeMsg"))) \n \(phoneNumber)"
+        "\(R.string.localizable.sendCodeMsg.callAsFunction()) \n \(phoneNumber)"
     }
     
     var body: some View {
-        VStack(spacing: 10) {
-            VStack(spacing: 25) {
-                Text(LocalizedStringKey("inputCodeText"))
+        VStack(spacing: PinCodeConfig.spacingBetweenGroupAndResendText) {
+            VStack(spacing: PinCodeConfig.spacingBetweenMainComponents) {
+                Text(R.string.localizable.inputCodeText)
                     .font(.header2)
-                    .padding(.top, 40)
+                    .padding(.top, PinCodeConfig.contentTopPadding)
                     .foregroundColor(Color.black)
                     .multilineTextAlignment(.center)
                 
@@ -35,18 +35,18 @@ struct PinCodeView: View {
                     .foregroundColor(Color.grayTextColor)
                     .multilineTextAlignment(.center)
                 
-                HStack(spacing: 16) {
+                HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
                     ForEach(0..<4) { index in
                         createTextField(index: index)
                     }
                 }
-                .padding(.vertical, 20)
+                .padding(.vertical, PinCodeConfig.verticalSpacingBetweenPincodeField)
                 .onChange(of: pin) { _ in
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: MainTabbarView()) {
-                    Text(LocalizedStringKey("nextBtnName"))
+                NavigationLink(destination: MainScreenView()) {
+                    Text(R.string.localizable.nextBtnName)
                 }
                 .onTapGesture {
                     self.environment(\.isAuthorized, true)
@@ -56,13 +56,13 @@ struct PinCodeView: View {
             }
             
             HStack {
-                Text(LocalizedStringKey("notGetCodeText"))
+                Text(R.string.localizable.notGetCodeText)
                     .foregroundColor(.black)
                     .font(.paragraph4)
                 Button(action: {
                     print("Отправить код повторно нажат")
                 }) {
-                    Text(String.Buttons.resendCodeButton)
+                    Text(R.string.localizable.resendBtnText)
                         .foregroundColor(.blueColor)
                         .font(.buttonText)
                         .underline()
@@ -80,13 +80,13 @@ struct PinCodeView: View {
             CustomToolbar(title: String.ScreenTitles.confirmScreenTitle)
         }
     }
-    
+
     @ViewBuilder
     private func createTextField(index: Int) -> some View {
         let isFieldFocused = focusedField == index
         let strokeColor = isFieldFocused ? Color.blueColor : Color.grayDarkColor
         let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2
-        
+
         TextField("", text: $pin[index])
             .keyboardType(.numberPad)
             .multilineTextAlignment(.center)

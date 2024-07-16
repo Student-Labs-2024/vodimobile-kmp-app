@@ -76,25 +76,7 @@ extension String {
 struct FilledBtnStyle: ButtonStyle {
 
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        MyButton(configuration: configuration)
-    }
-
-    struct MyButton: View {
-
-        let configuration: ButtonStyle.Configuration
-
-        @Environment(\.isEnabled) private var isEnabled: Bool
-
-        var body: some View {
-            configuration.label
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(isEnabled ? (configuration.isPressed ? Color.blueDarkColor : Color.blueColor) : Color.blueLightColor)
-                .foregroundColor(.white)
-                .cornerRadius(15)
-                .font(.button)
-                .disabled(!isEnabled)
-        }
+        FilledButton(configuration: configuration)
     }
 }
 

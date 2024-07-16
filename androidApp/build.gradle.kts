@@ -22,6 +22,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -60,4 +61,9 @@ dependencies {
 
     //Splash screen
     implementation(libs.androidx.core.splashscreen)
+
+    //Android UI tests
+    implementation(libs.androidx.ui.test.junit4.android)
+    androidTestImplementation(libs.testng)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
