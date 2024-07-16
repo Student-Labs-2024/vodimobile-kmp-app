@@ -49,6 +49,22 @@
 
     <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
     <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
+    <string name="whatsapp_str">Whatsapp</string>
+    <string name="telegram_str">Telegram</string>
+
+    <string name="title_list_contact">Our social networks</string>
+    <string name="vk_str">Vkontakte</string>
+    <string name="mail_str">mail</string>
+    <string name="mail1_str">vodimobil@vodimobil.ru</string>
+    <string name="telephone_str">Phone number</string>
+    <string name="telephone1_str">+7 (950) 783 14-40</string>
+    <string name="adress_str">Office address:</string>
+    <string name="adress2_str">Omsk, Dmitrieva str., 5/6</string>
+    <string name="version_str">Version %s</string>
+
+    <string name="version_year_str">© 2016</string>
+    <string name="version1_str">Vodimobile</string>
+    <string name="title_contact_screen">Contacts</string>
 
     <string name="faq_title">Question-answer from driver</string>
     <string name="faq_subtitle">Find the answer to any question you are interested in.</string>
