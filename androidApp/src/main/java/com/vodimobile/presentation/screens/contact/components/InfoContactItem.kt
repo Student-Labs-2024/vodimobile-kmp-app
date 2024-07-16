@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vodimobile.presentation.BottomAppBarAlpha
+import com.vodimobile.presentation.theme.divider
 
 
 @Composable
@@ -65,7 +66,7 @@ fun InfoContactItem(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp),
-                    color = MaterialTheme.colorScheme.onBackground.copy(BottomAppBarAlpha.BACKGROUND_ALPHA),
+                    color = divider,
                     thickness = 1.dp
                 )
             }
