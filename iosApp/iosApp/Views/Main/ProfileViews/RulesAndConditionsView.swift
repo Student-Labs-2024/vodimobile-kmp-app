@@ -9,14 +9,29 @@
 import SwiftUI
 
 struct RulesAndConditionsView: View {
+    private var viewModel: RulesAndConditionsViewModel
+    
+    init() {
+        self.viewModel = RulesAndConditionsViewModel()
+    }
+    
     var body: some View {
         VStack {
-            Spacer()
-            Text("Hello, RulesAndConditionsView!")
-                .frame(maxWidth: .infinity)
-            Spacer()
+            List(viewModel.listOfRules, id: \.self) { rule in
+                NavigationLink(destination: DetailRuleView(rule: rule), label: {
+                    HStack {
+                        Text(rule.title)
+                            .font(.paragraph2)
+                            .foregroundStyle(Color.black)
+                    }
+                })
+                .listRowSeparator(.hidden)
+                .listRowInsets(.init(top: 25, leading: 40, bottom: 25, trailing: 40))
+            }
+            .listStyle(.plain)
         }
-        .background(Color.grayLightColor.ignoresSafeArea())
+        .padding(.vertical, 15)
+        .background(Color.white.ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: String.ScreenTitles.rulesScreenTitle)

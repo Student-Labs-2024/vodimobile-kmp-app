@@ -15,6 +15,7 @@ struct PinCodeView: View {
     @Binding var phoneNumber: String
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.isAuthorized) private var isAuthorized
     
     private var sendCodeOnPhoneText: String {
         "\(String(localized: String.LocalizationValue(stringLiteral: "sendCodeMsg"))) \n \(phoneNumber)"
@@ -46,6 +47,9 @@ struct PinCodeView: View {
                 
                 NavigationLink(destination: MainTabbarView()) {
                     Text(LocalizedStringKey("nextBtnName"))
+                }
+                .onTapGesture {
+                    self.environment(\.isAuthorized, true)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
