@@ -78,3 +78,10 @@ val divider = Color(0xFFCAC4D0)
 
 val headerBackLight = Color(0xFFF3F6FE)
 val questionCardLight = Color(0xFFF6F6F6)
+
+val secondaryBackgroundLight = Color(0xFFF6F6F6)
+val secondaryBackgroundDark = Color(0xFF141218)
+val onSecondaryBackgroundLight = Color(0xFFFFFFFF)
+val onSecondaryBackgroundDark = Color(0xFF1D1B20)
+val hintTextLight = Color(0xFF939BAA)
+val hintTextDark = Color(0xFF939BAA)

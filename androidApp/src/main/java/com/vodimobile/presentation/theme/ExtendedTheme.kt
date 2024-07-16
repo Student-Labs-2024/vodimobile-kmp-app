@@ -11,11 +11,17 @@ import androidx.compose.ui.graphics.Color
 @Immutable
 data class ExtendedColors(
     val headerBack: Color,
+    val secondaryBackground: Color,
+    val onSecondaryBackground: Color,
+    val hintText: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
     ExtendedColors(
         headerBack = Color.Unspecified,
+        secondaryBackground = Color.Unspecified,
+        onSecondaryBackground = Color.Unspecified,
+        hintText = Color.Unspecified
     )
 }
 
@@ -27,10 +33,16 @@ fun ExtendedTheme(
     val extendedColors = if (darkTheme)
         ExtendedColors(
             headerBack = surfaceVariantDark,
+            secondaryBackground = secondaryBackgroundDark,
+            onSecondaryBackground = onSecondaryBackgroundDark,
+            hintText = hintTextDark
         )
     else
         ExtendedColors(
-            headerBack = headerBackLight
+            headerBack = headerBackLight,
+            secondaryBackground = secondaryBackgroundLight,
+            onSecondaryBackground = onSecondaryBackgroundLight,
+            hintText = hintTextLight
         )
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
