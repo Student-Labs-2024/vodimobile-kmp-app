@@ -12,7 +12,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.vodimobile.model.mockList
+import com.vodimobile.domain.model.mockList
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.splitTextIntoIntervalsByDelimiter
 

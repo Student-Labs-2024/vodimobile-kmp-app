@@ -26,16 +26,25 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.splitTextIntoIntervalsByDelimiter
 
 @Composable
 fun FaqHeader() {
+
+    val splitTextIntoIntervalsByDelimiter: Pair<String, String> = splitTextIntoIntervalsByDelimiter(
+        text = stringResource(id = R.string.faq_title),
+        delimiter = ' ',
+        countWordsPart1 = 1,
+        countWordsPart2 = 2
+    )
+
     val annotatedString = buildAnnotatedString {
         withStyle(SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-            append(stringResource(id = R.string.faq_title_1))
+            append(splitTextIntoIntervalsByDelimiter.first)
         }
         append(" ")
         withStyle(SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
-            append(stringResource(id = R.string.faq_title_2))
+            append(splitTextIntoIntervalsByDelimiter.second)
         }
     }
     ExtendedTheme {
