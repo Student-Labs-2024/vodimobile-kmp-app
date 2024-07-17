@@ -95,7 +95,7 @@ fun NavGraph(
                 val rulesViewModel: RuleViewModel =
                     koinViewModel { parametersOf(rulesOutput) }
 
-                RuleScreen(viewModel = rulesViewModel)
+                RuleScreen(viewModel = rulesViewModel, rules = rulesAndConditionList)
             }
             composable(route = "${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}") { backStackEntry ->
                 val rulesDetailsOutput = { out: RulesDetailsOutput ->
@@ -111,8 +111,6 @@ fun NavGraph(
 
                 RuleDetailsScreen(
                     viewModel = rulesDetailsViewModel,
-                    ruleId = ruleId
-                    viewModel = RulesDetailsViewModel(navHostController),
                     ruleId = ruleId,
                     rules = rulesAndConditionList
                 )

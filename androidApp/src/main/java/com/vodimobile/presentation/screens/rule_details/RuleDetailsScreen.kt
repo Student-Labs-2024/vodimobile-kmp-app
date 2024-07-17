@@ -66,8 +66,7 @@ private fun RuleDetailsScreenPreview() {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
             RuleDetailsScreen(
                 ruleId = 0,
-                viewModel = RulesDetailsViewModel(navController = rememberNavController()),
-                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources),
                 viewModel = RulesDetailsViewModel({})
             )
         }

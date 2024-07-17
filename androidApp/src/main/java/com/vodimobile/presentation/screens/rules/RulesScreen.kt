@@ -12,12 +12,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rules.components.RulesItem
-import com.vodimobile.presentation.screens.rules.store.RulesIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -54,7 +52,9 @@ fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
 @Preview(showBackground = true)
 private fun RulesScreenPreview() {
     VodimobileTheme {
-        RuleScreen(viewModel = RuleViewModel(navController = rememberNavController()), rules=RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
-        RuleScreen(viewModel = RuleViewModel({}))
+        RuleScreen(
+            viewModel = RuleViewModel(output = {}),
+            rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+        )
     }
 }
