@@ -1,9 +1,8 @@
 package com.vodimobile.presentation.screens.startscreen
 
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavHostController
 
-class StartScreenViewModel(private val navController: NavHostController) : ViewModel() {
+class StartScreenViewModel : ViewModel() {
 
     fun onIntent(intent: Intent) {
         when (intent) {

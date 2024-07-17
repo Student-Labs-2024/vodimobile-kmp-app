@@ -84,7 +84,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
 private fun StartScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            StartScreen(startScreenViewModel = StartScreenViewModel(rememberNavController()))
+            StartScreen(startScreenViewModel = StartScreenViewModel())
         }
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -58,7 +59,7 @@ fun LogOutConfirmationDialog(
             )
             Row(
                 modifier = Modifier.padding(vertical = 12.dp, horizontal = 24.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Spacer(modifier = Modifier.weight(1f))
                 TextButton(onClick = onDismiss) {
@@ -90,7 +91,7 @@ fun LogOutConfirmationDialog(
 
 @Preview
 @Composable
-fun LogOutConfirmationDialogPreview() {
+private fun LogOutConfirmationDialogPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary

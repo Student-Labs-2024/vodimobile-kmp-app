@@ -49,7 +49,7 @@ fun NavGraph(
             }
             dialog(route = DialogIdentifiers.LOG_OUT_DIALOG) {
                 LogOutConfirmationDialog(
-                    onDismiss = { navHostController.popBackStack() },
+                    onDismiss = { navHostController.navigateUp() },
                     onConfirm = { navHostController.navigate(RootScreen.START_SCREEN) })
             }
             composable("${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}") { backStackEntry ->
