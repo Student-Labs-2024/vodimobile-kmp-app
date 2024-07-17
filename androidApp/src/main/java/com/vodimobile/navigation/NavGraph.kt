@@ -61,7 +61,7 @@ fun NavGraph(
             }
         }
         composable(route = RootScreen.START_SCREEN) {
-            StartScreen(startScreenViewModel = StartScreenViewModel(navHostController))
+            StartScreen(startScreenViewModel = StartScreenViewModel())
         }
     }
 }

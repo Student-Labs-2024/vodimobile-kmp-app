@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
