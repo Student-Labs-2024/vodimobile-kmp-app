@@ -29,14 +29,17 @@ import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import java.time.LocalDate.now
+import java.util.Calendar
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun VersionItem() {
     val versionName = BuildConfig.VERSION_NAME
     val startYear = stringResource(id = R.string.version_year_str)
-    val currentYear = now().year
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = System.currentTimeMillis()
+    val year = cal.get(Calendar.YEAR)
+    val currentYear = year
     val versionYear = "$startYear-$currentYear"
     ExtendedTheme {
         Card(
@@ -94,7 +97,7 @@ fun VersionItem() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Preview(showBackground = true)
 @Composable
 private fun VersionItemPreview() {
