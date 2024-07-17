@@ -1,6 +1,4 @@
-package com.vodimobile.presentation.screens.rules
-
-import com.vodimobile.domain.model.RulesAndCondition
+package com.vodimobile.presentation.screens.rules.store
 
 sealed class RulesIntent {
     data object BackClick : RulesIntent()

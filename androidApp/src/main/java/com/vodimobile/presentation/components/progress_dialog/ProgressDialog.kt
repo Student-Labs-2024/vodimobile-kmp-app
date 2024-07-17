@@ -41,7 +41,7 @@ fun ProgressDialog(
 private fun ProgressDialogNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RuleScreen(viewModel = RuleViewModel(rememberNavController()))
+            RuleScreen(viewModel = RuleViewModel({}))
         }
     }
 }
@@ -51,7 +51,7 @@ private fun ProgressDialogNightPreview() {
 private fun ProgressDialogLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RuleScreen(viewModel = RuleViewModel(rememberNavController()))
+            RuleScreen(viewModel = RuleViewModel({}))
         }
     }
 }

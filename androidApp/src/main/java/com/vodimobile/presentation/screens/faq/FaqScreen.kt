@@ -17,6 +17,7 @@ import com.vodimobile.domain.model.FaqModel
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.faq.components.FaqHeader
 import com.vodimobile.presentation.screens.faq.components.FaqItem
+import com.vodimobile.presentation.screens.faq.store.FaqIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -51,7 +52,7 @@ fun FaqScreen(faqViewModel: FaqViewModel) {
 private fun FaqScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqScreen(faqViewModel = FaqViewModel())
+            FaqScreen(faqViewModel = FaqViewModel({}))
         }
     }
 }
@@ -62,7 +63,7 @@ private fun FaqScreenPreviewLight() {
 private fun FaqScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqScreen(faqViewModel = FaqViewModel())
+            FaqScreen(faqViewModel = FaqViewModel({}))
         }
     }
 }

@@ -14,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.contact.components.ListContactItem
 import com.vodimobile.presentation.screens.contact.components.ListInfoContact
 import com.vodimobile.presentation.screens.contact.components.VersionItem
+import com.vodimobile.presentation.screens.contact.store.ContactIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 
@@ -69,7 +71,7 @@ fun ContactScreen(сontactViewModel: ContactViewModel) {
 @Preview(showBackground = true)
 private fun ContactScreenPreview() {
     VodimobileTheme {
-        ContactScreen(сontactViewModel = ContactViewModel())
+        ContactScreen(сontactViewModel = ContactViewModel({}))
     }
 
 }

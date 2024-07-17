@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.contact
+package com.vodimobile.presentation.screens.contact.store
 
 sealed class ContactIntent {
     data object BackClick : ContactIntent()

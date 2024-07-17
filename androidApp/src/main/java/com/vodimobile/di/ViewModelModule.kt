@@ -17,7 +17,7 @@ To use injected view models write for example -
 val startScreenViewModel: StartScreenViewModel by viewModel()
 
 To use injected view models with parameters write for example -
-val profileViewModel: ProfileViewModel by viewModel{ parametersOf(navController)}
+val profileViewModel: ProfileViewModel = koinViewModel{ parametersOf(navController)}
  */
 
 val viewModelModule = module {
@@ -26,9 +26,10 @@ val viewModelModule = module {
     viewModelOf(::FaqViewModel)
     viewModelOf(::ContactViewModel)
 
-    viewModel { parameters -> ProfileViewModel(navController = parameters.get()) }
-    viewModel { RegistrationScreenViewModel(emailValidator = get(), phoneNumberValidator = get()) }
-    viewModel { parameters -> RulesDetailsViewModel(navController = parameters.get()) }
-    viewModel { parameters -> RuleViewModel(navController = parameters.get()) }
+    viewModel { parameters -> ProfileViewModel(output = parameters.get()) }
+    viewModel { parameters -> RegistrationScreenViewModel(output = parameters.get()) }
+    viewModel { parameters -> RulesDetailsViewModel(output = parameters.get()) }
+    viewModel { parameters -> RuleViewModel(output = parameters.get()) }
+    viewModel { parameters -> ContactViewModel(output = parameters.get()) }
 }
 

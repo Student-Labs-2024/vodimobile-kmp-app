@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.registration
+package com.vodimobile.presentation.screens.registration.store
 
 sealed class RegistrationScreenIntent {
     data object OpenUserAgreement : RegistrationScreenIntent()

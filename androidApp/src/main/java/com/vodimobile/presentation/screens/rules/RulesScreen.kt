@@ -16,6 +16,7 @@ import com.vodimobile.android.R
 import com.vodimobile.domain.model.mockList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rules.components.RulesItem
+import com.vodimobile.presentation.screens.rules.store.RulesIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -51,6 +52,6 @@ fun RuleScreen(viewModel: RuleViewModel) {
 @Preview(showBackground = true)
 private fun RulesScreenPreview() {
     VodimobileTheme {
-        RuleScreen(viewModel = RuleViewModel(navController = rememberNavController()))
+        RuleScreen(viewModel = RuleViewModel({}))
     }
 }

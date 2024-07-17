@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
+import com.vodimobile.presentation.screens.startscreen.store.StartScreenIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -42,7 +43,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
             Spacer(modifier = Modifier.weight(1.0f))
             IconButton(
                 onClick = {
-                    startScreenViewModel.onIntent(Intent.CloseClick)
+                    startScreenViewModel.onIntent(StartScreenIntent.CloseClick)
                 }
             ) {
                 Icon(
@@ -66,13 +67,13 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
             text = stringResource(id = R.string.requister_str),
             enabled = true,
             onClick = {
-                startScreenViewModel.onIntent(Intent.ClickRegistration)
+                startScreenViewModel.onIntent(StartScreenIntent.ClickRegistration)
             })
         SecondaryButton(
             text = stringResource(id = R.string.login_str),
             enabled = true,
             onClick = {
-                startScreenViewModel.onIntent(Intent.ClickLogin)
+                startScreenViewModel.onIntent(StartScreenIntent.ClickLogin)
             })
     }
 }
@@ -83,7 +84,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
 private fun StartScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            StartScreen(startScreenViewModel = StartScreenViewModel())
+            StartScreen(startScreenViewModel = StartScreenViewModel({}))
         }
     }
 }

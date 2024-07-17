@@ -20,6 +20,7 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
 import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.screens.registration.store.RegistrationScreenIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.EmailValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
@@ -85,8 +86,7 @@ private fun RegistrationScreenPreview() {
         ) {
             RegistrationScreen(
                 viewModel = RegistrationScreenViewModel(
-                    emailValidator = EmailValidator(),
-                    phoneNumberValidator = PhoneNumberValidator()
+                    {}
                 )
             )
         }

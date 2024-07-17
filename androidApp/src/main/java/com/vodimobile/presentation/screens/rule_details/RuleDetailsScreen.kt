@@ -19,6 +19,7 @@ import com.vodimobile.domain.model.mockList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rule_details.components.RuleInformationItem
 import com.vodimobile.presentation.screens.rule_details.components.RuleTitleItem
+import com.vodimobile.presentation.screens.rule_details.store.RulesDetailsIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -63,7 +64,7 @@ private fun RuleDetailsScreenPreview() {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
             RuleDetailsScreen(
                 ruleId = 0,
-                viewModel = RulesDetailsViewModel(navController = rememberNavController())
+                viewModel = RulesDetailsViewModel({})
             )
         }
     }
