@@ -16,7 +16,7 @@ struct ContactsView: View {
             
             VStack {
                 ZStack {
-                    Image("logoSmall")
+                    Image(R.image.logoSmall)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40, height: 48)
@@ -25,30 +25,30 @@ struct ContactsView: View {
                 .background(RoundedRectangle(cornerRadius: 10, style: .circular).fill(Color.white))
                 .padding(.bottom, 20)
                 
-                Text("Версия 0.00.0")
+                Text("\(R.string.localizable.version) \(appVersion)")
                     .font(.paragraph4)
-                    .foregroundStyle(Color.grayTextColor)
-                Text("© 2016-2022 Водимобиль")
+                    .foregroundStyle(Color(R.color.grayTextColor))
+                Text(R.string.localizable.brandLabel)
                     .font(.paragraph4)
-                    .foregroundStyle(Color.grayTextColor)
+                    .foregroundStyle(Color(R.color.grayTextColor))
                 
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 25)
-            .background(Color.blueBoxColor)
+            .background(Color(R.color.blueBoxColor))
             .padding(.top, 40)
             
             VStack(alignment: .leading, spacing: 20) {
                 HStack(spacing: 15) {
-                    Image("gmailIcon")
+                    Image(R.image.gmailIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                     
                     VStack(alignment: .leading) {
-                        Text("Почта:")
+                        Text("\(R.string.localizable.emailText):")
                             .font(.paragraph5)
-                            .foregroundStyle(Color.grayTextColor)
+                            .foregroundStyle(Color(R.color.grayTextColor))
                         
                         Link(destination: URL(string: contactEmail)!) {
                             HStack {
@@ -59,7 +59,7 @@ struct ContactsView: View {
                                 Spacer()
                             }.overlay {
                                 Rectangle()
-                                    .fill(Color.grayDarkColor)
+                                    .fill(Color(R.color.grayDarkColor))
                                     .frame(height: 0.5, alignment: .bottom)
                                     .offset(y: 10)
                             }
@@ -70,13 +70,15 @@ struct ContactsView: View {
                 }
                 
                 HStack(spacing: 15)  {
-                    Image("phoneIcon")
+                    Image(R.image.phoneIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                     
                     VStack(alignment: .leading) {
-                        Text("Номер телефона:").font(.paragraph5).foregroundStyle(Color.grayTextColor)
+                        Text("\(R.string.localizable.phone):")
+                            .font(.paragraph5)
+                            .foregroundStyle(Color(R.color.grayTextColor))
                         
                         Link(destination: URL(string: "tel:\(cleanPhoneNumber(contactPhone))")!) {
                             HStack {
@@ -87,7 +89,7 @@ struct ContactsView: View {
                                 Spacer()
                             }.overlay {
                                 Rectangle()
-                                    .fill(Color.grayDarkColor)
+                                    .fill(Color(R.color.grayDarkColor))
                                     .frame(height: 0.5, alignment: .bottom)
                                     .offset(y: 10)
                             }
@@ -98,13 +100,13 @@ struct ContactsView: View {
                 }
                 
                 HStack(spacing: 15)  {
-                    Image("telegramIcon")
+                    Image(R.image.telegramIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 24, height: 24)
                     
                     VStack(alignment: .leading) {
-                        Text("Адрес офиса:").font(.paragraph5).foregroundStyle(Color.grayTextColor)
+                        Text("\(R.string.localizable.officeLocationText):").font(.paragraph5).foregroundStyle(Color(R.color.grayTextColor))
                         
                         HStack {
                             Text(contactLocation)
@@ -113,7 +115,7 @@ struct ContactsView: View {
                             Spacer()
                         }.overlay {
                             Rectangle()
-                                .fill(Color.grayDarkColor)
+                                .fill(Color(R.color.grayDarkColor))
                                 .frame(height: 0.5, alignment: .bottom)
                                 .offset(y: 10)
                         }
@@ -126,48 +128,48 @@ struct ContactsView: View {
             .padding(.vertical, 20)
             
             VStack(alignment: .leading) {
-                Text("Наши соцсети:").font(.header3)
+                Text("\(R.string.localizable.ourMediaText):").font(.header3)
                 
                 VStack(alignment: .leading, spacing: 25) {
                     Link(destination: URL(string: vkLink)!) {
                         HStack(spacing: 20) {
-                            Image("vkIcon")
+                            Image(R.image.vkIcon)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 32, height: 32)
-                            Text("Вконтакте").font(.paragraph2).foregroundStyle(Color.black)
+                            Text("\(R.string.localizable.vk)").font(.paragraph2).foregroundStyle(Color.black)
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right").foregroundStyle(Color.grayDarkColor).fontWeight(.bold)
+                            Image(systemName: "chevron.right").foregroundStyle(Color(R.color.grayDarkColor)).fontWeight(.bold)
                         }
                     }
                     
                     Link(destination: URL(string: whatsappLink)!) {
                         HStack(spacing: 20) {
-                            Image("whatsappIcon")
+                            Image(R.image.whatsappIcon)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 32, height: 32)
-                            Text("Whatsapp").font(.paragraph2).foregroundStyle(Color.black)
+                            Text("\(R.string.localizable.whatsapp)").font(.paragraph2).foregroundStyle(Color.black)
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right").foregroundStyle(Color.grayDarkColor).fontWeight(.bold)
+                            Image(systemName: "chevron.right").foregroundStyle(Color(R.color.grayDarkColor)).fontWeight(.bold)
                         }
                     }
                     
                     Link(destination: URL(string: tgLink)!) {
                         HStack(spacing: 20) {
-                            Image("telegramIcon")
+                            Image(R.image.telegramIcon)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 32, height: 32)
-                            Text("Telegram").font(.paragraph2).foregroundStyle(Color.black)
+                            Text("\(R.string.localizable.telegram)").font(.paragraph2).foregroundStyle(Color.black)
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right").foregroundStyle(Color.grayDarkColor).fontWeight(.bold)
+                            Image(systemName: "chevron.right").foregroundStyle(Color(R.color.grayDarkColor)).fontWeight(.bold)
                         }
                     }
                 }
@@ -178,7 +180,7 @@ struct ContactsView: View {
         }
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.contactsScreenTitle)
+            CustomToolbar(title: R.string.localizable.contactsScreenTitle)
         }
     }
     

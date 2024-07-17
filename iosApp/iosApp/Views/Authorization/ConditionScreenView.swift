@@ -26,7 +26,7 @@ struct ConditionScreenView: View {
         .padding([.leading, .bottom, .trailing], 24)
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.conditionsScreenTitle)
+            CustomToolbar(title: R.string.localizable.conditionsScreenTitle)
         }
     }
     

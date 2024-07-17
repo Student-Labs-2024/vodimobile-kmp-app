@@ -27,16 +27,16 @@ struct MainTabbarView: View {
                 }
                 
                 HStack(spacing: 0) {
-                    TabBarItem(icon: Image.Tabbar.home,
-                               title: String.ScreenTitles.homeScreenTitle,
+                    TabBarItem(icon: Image(R.image.home),
+                               title: R.string.localizable.homeScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab ==  .main,
                                itemWidth: geometry.size.width / 3) {
                         selectedTab = .main
                     }
                     
-                    TabBarItem(icon: Image.Tabbar.myOrders,
-                               title: String.ScreenTitles.myOrdersScreenTitle,
+                    TabBarItem(icon: Image(R.image.car),
+                               title: R.string.localizable.myOrdersScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab ==  .myOrders,
                                itemWidth: geometry.size.width / 3) {
@@ -44,7 +44,7 @@ struct MainTabbarView: View {
                     }
                     
                     TabBarItem(icon: Image(systemName: "person.fill"),
-                               title: String.ScreenTitles.profileScreenTitle,
+                               title: R.string.localizable.profileScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab == .profile,
                                itemWidth: geometry.size.width / 3) {

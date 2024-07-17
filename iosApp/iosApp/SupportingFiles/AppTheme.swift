@@ -8,18 +8,7 @@
 
 import UIKit
 import SwiftUI
-
-extension Color {
-    public static let blueColor: Color = Color(UIColor(rgb: 0x1958EE))
-    public static let blueDarkColor: Color = Color(UIColor(rgb: 0x154CCF))
-    public static let blueLightColor: Color = Color(UIColor(rgb: 0xA5BCF2))
-    public static let blueBoxColor: Color = Color(UIColor(rgb: 0xF3F6FE))
-    public static let redColor: Color = Color(UIColor(rgb: 0xFF3B30))
-    public static let grayTextColor: Color = Color(UIColor(rgb: 0x939BAA))
-    public static let grayDarkColor: Color = Color(UIColor(rgb: 0x9CA3B0))
-    public static let grayLightColor: Color = Color(UIColor(rgb: 0xF6F6F6))
-    public static let grayBackgroundtColor: Color = Color(UIColor(rgb: 0x9C9C9C))
-}
+import RswiftResources
 
 extension Font {
     public static let header1: Font = .custom("AkzidenzGroteskPro-MdEx", size: 18)
@@ -40,39 +29,6 @@ extension Font {
     public static let paragraph6: Font = .custom("AkzidenzGroteskPro-Light", size: 12)
 }
 
-extension Image {
-    struct Tabbar {
-        public static let home: Image = Image("home")
-        public static let myOrders: Image = Image("car")
-    }
-}
-
-extension String {
-    struct ScreenTitles {
-        public static let authScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "authScreenTitle"))
-        public static let regScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "regScreenTitle"))
-        public static let confirmScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "confirmScreenTitle"))
-        public static let personalDataScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "personData"))
-        public static let contactsScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "contacts"))
-        public static let conditionsScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "conditionsScreenTitle"))
-        public static let profileScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "profileScreenTitle"))
-        public static let homeScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "homeScreenTitle"))
-        public static let myOrdersScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "myOrdersScreenTitle"))
-        public static let faqScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "FAQ"))
-        public static let rulesScreenTitle: String = String(localized: String.LocalizationValue(stringLiteral: "rulesText"))
-    }
-    
-    struct Buttons {
-        public static let nextButton: String = String(localized: String.LocalizationValue(stringLiteral: "nextBtnName"))
-        public static let regButton: String = String(localized: String.LocalizationValue(stringLiteral: "regBtnName"))
-        public static let authButton: String = String(localized: String.LocalizationValue(stringLiteral: "authBtnName"))
-        public static let resendCodeButton: String = String(localized: String.LocalizationValue(stringLiteral: "resendBtnText"))
-    }
-    
-    public static let myOrders: String = String(localized: String.LocalizationValue(stringLiteral: "myOrdersTabItem"))
-    
-}
-
 struct FilledBtnStyle: ButtonStyle {
 
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
@@ -86,13 +42,13 @@ struct BorderedBtnStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .background(configuration.isPressed ? Color.blueColor: .white)
-            .foregroundColor(configuration.isPressed ? .white : .blueColor)
+            .background(configuration.isPressed ? Color(uiColor: R.color.blueColor.callAsFunction() ?? .clear): .white)
+            .foregroundColor(configuration.isPressed ? .white : Color(R.color.blueColor))
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.blueColor, lineWidth: configuration.isPressed ? 0 : 2)
+                    .stroke(Color(R.color.blueColor), lineWidth: configuration.isPressed ? 0 : 2)
             )
-            .border(Color.blueColor, width: configuration.isPressed ? 0 : 2)
+            .border(Color(R.color.blueColor), width: configuration.isPressed ? 0 : 2)
             .cornerRadius(15)
             .font(.button)
     }
@@ -110,11 +66,32 @@ struct BorderedTextFieldStyle: TextFieldStyle {
             .padding(16)
             .foregroundStyle(Color.black)
             .multilineTextAlignment(.leading)
-            .background(Color.grayLightColor)
+            .background(Color(R.color.grayLightColor))
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(!isValid && !text.isEmpty ? Color.redColor : Color.grayDarkColor, lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+                    .stroke(!isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+            )
+    }
+}
+
+struct CustomTextFieldStyle: TextFieldStyle {
+    var text: String
+    var isFocused: Bool
+    var isValid: Bool
+    
+    func _body(configuration: TextField<_Label>) -> some View {
+        configuration
+            .frame(alignment: .leading)
+            .font(.paragraph4)
+            .padding(16)
+            .foregroundStyle(Color.black)
+            .multilineTextAlignment(.leading)
+            .background(Color(R.color.grayLightColor))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(!isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
             )
     }
 }

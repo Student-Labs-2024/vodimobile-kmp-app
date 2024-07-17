@@ -58,9 +58,12 @@ struct PinCodeConfig {
     static let pincodeCellsSize: CGFloat = 56
     static let verticalSpacingBetweenPincodeField: CGFloat = 20
 }
+
+// Contact info
 public let contactPhone = "+7 (950) 783 14-40"
 public let contactEmail = "vodimobil@vodimobil.ru"
-public let contactLocation = String(localized: String.LocalizationValue(stringLiteral: "officeLocation"))
+public let contactLocation = R.string.localizable.officeLocation.callAsFunction()
 public let whatsappLink = "https://wa.me/79507831440"
 public let vkLink = "https://vk.com/vodimobil"
 public let tgLink = "https://t.me/vodimobilomsk"
+let appVersion = "1.0.0"

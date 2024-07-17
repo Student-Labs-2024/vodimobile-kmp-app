@@ -2,23 +2,62 @@
   Localizable.strings
   iosApp
 
-  Created by Sergey Ivanov on 15.07.2024.
+  Created by Sergey Ivanov on 17.07.2024.
   Copyright © 2024 orgName. All rights reserved.
 */
 
-"regButtonTitle" = "Зарегистрироваться";
+// ScreenTitles
 "regScreenTitle" = "Регистрация";
-"authButtonTitle" = "Войти";
 "authScreenTitle" = "Вход";
-"conditionLink" = "Пользовательского соглашения";
 "conditionsScreenTitle" = "Условия соглашения";
-"conditionText" = "Я прочитал и согласен с условиями ";
 "confirmScreenTitle" = "Подтверждение";
+"profileScreenTitle" = "Профиль";
+"contactsScreenTitle" = "Контакты";
+"faqScreenTitle" = "FAQ";
+"rulesScreenTitle" = "Правила и условия";
+"homeScreenTitle" = "Главная";
+"myOrdersScreenTitle" = "Мои заказы";
+
+// Buttons titles
+"authButtonTitle" = "Войти";
+"regButtonTitle" = "Зарегистрироваться";
+"nextBtnName" = "Далее";
+"resendBtnText" = "Отправить повторно";
+"closeButton" = "Закрыть";
+
+// Field names
 "email" = "Email";
+"phone" = "Номер телефона";
+"fullName" = "ФИО";
+
+// Alert text
+"exitAlertTitle" = "Вы уверены, что хотите выйти из аккаунта?";
+"exitFirstBtnText" = "Выйти";
+"exitSecondBtnText" = "Отмена";
+"exitAlertText" = "Вы не сможете арендовать автомобили без аккаунта";
+"alertSavePersonDataTitle" = "Ошибка сохранения";
+"alertSavePersonDataText" = "Ваши данные не были сохранены. Повторите попытку";
+
+// Info strings
+"conditionLink" = "Пользовательского соглашения";
+"conditionText" = "Я прочитал и согласен с условиями ";
 "inputCodeText" = "Введите СМС-код";
 "inputErrorMsg" = "Введите ";
-"nextBtnName" = "Далее";
 "notGetCodeText" = "Не пришёл код?";
-"phone" = "Номер телефона";
-"resendBtnText" = "Отправить повторно";
 "sendCodeMsg" = "Мы отправили его на номер";
+"personData" = "Личные данные";
+"personDataText" = "ФИО, номер телефона, почта";
+"rulesText" = "Правила и условия";
+"FAQ" = "FAQ";
+"contacts" = "Контакты";
+"exitText" = "Выйти из аккаунта";
+"yourDataText" = "Ваши данные";
+"officeLocation" = "г. Омск, ул. Дмитриева, 5/6";
+"version" = "Версия";
+"brandLabel" = "© 2016-2022 Водимобиль";
+"emailText" = "Почта";
+"officeLocationText" = "Адрес офиса";
+"ourMediaText" = "Наши соцсети";
+"vk" = "Вконтакте";
+"whatsapp" = "Whatsapp";
+"telegram" = "Телеграм";

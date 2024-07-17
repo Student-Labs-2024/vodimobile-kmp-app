@@ -34,7 +34,7 @@ struct RulesAndConditionsView: View {
         .background(Color.white.ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.rulesScreenTitle)
+            CustomToolbar(title: R.string.localizable.rulesScreenTitle)
         }
     }
 }

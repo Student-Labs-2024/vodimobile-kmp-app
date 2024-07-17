@@ -6,7 +6,7 @@
 //  Copyright © 2024 orgName. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 final class RulesAndConditionsViewModel {
     let listOfRules: [Rule] = Rule.mockRulesData
@@ -21,7 +21,7 @@ struct Rule: Hashable {
         attributedString.font = .header3
         
         if let range = attributedString.range(of: attributedPartOfTitle) {
-            attributedString[range].foregroundColor = .blueColor
+            attributedString[range].foregroundColor = Color(R.color.blueColor)
         }
         
         return attributedString

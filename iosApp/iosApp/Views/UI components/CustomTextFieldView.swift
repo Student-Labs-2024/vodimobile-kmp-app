@@ -24,7 +24,7 @@ extension TextFieldType {
         case .phone:
             return R.string.localizable.phone.callAsFunction()
         case .fullName:
-            return String(localized: String.LocalizationValue(stringLiteral: "fullName"))
+            return R.string.localizable.fullName.callAsFunction()
         }
     }
 }
@@ -89,20 +89,17 @@ struct CustomTextFieldView: View {
                     .padding(16)
                     .foregroundStyle(Color.black)
                     .multilineTextAlignment(.leading)
-                    .background(Color.grayLightColor)
+                    .background(Color(R.color.grayLightColor))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(!isValid && !fieldContent.isEmpty ? Color.redColor : Color.grayDarkColor, lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0)
+                            .stroke(!isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0)
                     )
                     .tint(.black)
                     .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                     .keyboardType(keyboardType)
                     .textInputAutocapitalization(.never)
                     .focused($isFocused)
-//                    .onChange(of: fieldContent, perform: { _ in
-//                        validateInput()
-//                    })
                     .onSubmit {
                         isFocused = false
                         validateInput()
@@ -115,7 +112,7 @@ struct CustomTextFieldView: View {
                                 validateInput()
                             }) {
                                 Image(systemName: "xmark")
-                                    .foregroundColor(Color.grayDarkColor)
+                                    .foregroundColor(Color(R.color.grayDarkColor))
                                     .padding(8)
                             }
                         }
@@ -143,7 +140,7 @@ struct CustomTextFieldView: View {
                                 validateInput()
                             }) {
                                 Image(systemName: "xmark")
-                                    .foregroundColor(Color.grayDarkColor)
+                                    .foregroundColor(Color(R.color.grayDarkColor))
                                     .padding(8)
                             }
                         }
@@ -161,7 +158,7 @@ struct CustomTextFieldView: View {
             
             Text(errorMessage)
                 .font(.paragraph6)
-                .foregroundStyle(Color.redColor)
+                .foregroundStyle(Color(R.color.redColor))
                 .padding(.horizontal, 10)
         }
     }

@@ -16,7 +16,7 @@ struct MainView: View {
                 .frame(maxWidth: .infinity)
             Spacer()
         }
-        .background(Color.grayLightColor)
+        .background(Color(R.color.grayLightColor))
     }
 }
 

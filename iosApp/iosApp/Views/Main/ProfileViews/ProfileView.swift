@@ -14,7 +14,7 @@ struct ProfileView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(String.ScreenTitles.profileScreenTitle)
+                Text(R.string.localizable.profileScreenTitle)
                     .font(.header1)
                     .foregroundStyle(Color.black)
                 
@@ -30,18 +30,18 @@ struct ProfileView: View {
                                         .fontWeight(.bold)
                                 }
                                 .frame(width: 48, height: 48, alignment: .center)
-                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.blueBoxColor))
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor)))
                                 
                                 VStack(alignment: .leading) {
-                                    Text(LocalizedStringKey("personData")).font(.paragraph2).foregroundStyle(Color.black)
-                                    Text(LocalizedStringKey("fioText")).font(.paragraph5).foregroundStyle(Color.grayTextColor)
+                                    Text(R.string.localizable.personData).font(.paragraph2).foregroundStyle(.black)
+                                    Text(R.string.localizable.personDataText).font(.paragraph5).foregroundStyle(Color(R.color.grayTextColor))
                                 }
                                 
                                 Spacer()
                                 
-                                Image("editIcon").frame(width: 24, height: 24)
+                                Image(R.image.editIcon).frame(width: 24, height: 24)
                             }
-                            .foregroundStyle(Color.grayDarkColor)
+                            .foregroundStyle(Color(R.color.grayDarkColor))
                         }
                     }
                     .padding(.horizontal, 20)
@@ -56,13 +56,13 @@ struct ProfileView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 20, height: 20)
                                 
-                                Text(LocalizedStringKey("rulesText")).font(.paragraph2).foregroundStyle(Color.black)
+                                Text(R.string.localizable.rulesText).font(.paragraph2).foregroundStyle(Color.black)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "chevron.right")
                             }
-                            .foregroundStyle(Color.grayDarkColor)
+                            .foregroundStyle(Color(R.color.grayDarkColor))
                         }
                         
                         NavigationLink(destination: FAQScreenView()) {
@@ -72,13 +72,13 @@ struct ProfileView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 20, height: 20)
                                 
-                                Text(LocalizedStringKey("FAQ")).font(.paragraph2).foregroundStyle(Color.black)
+                                Text(R.string.localizable.faQ).font(.paragraph2).foregroundStyle(Color.black)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "chevron.right")
                             }
-                            .foregroundStyle(Color.grayDarkColor)
+                            .foregroundStyle(Color(R.color.grayDarkColor))
                         }
                         
                         NavigationLink(destination: ContactsView()) {
@@ -88,13 +88,13 @@ struct ProfileView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 20, height: 20)
                                 
-                                Text(LocalizedStringKey("contacts")).font(.paragraph2).foregroundStyle(Color.black)
+                                Text(R.string.localizable.contacts).font(.paragraph2).foregroundStyle(Color.black)
                                 
                                 Spacer()
                                 
                                 Image(systemName: "chevron.right")
                             }
-                            .foregroundStyle(Color.grayDarkColor)
+                            .foregroundStyle(Color(R.color.grayDarkColor))
                         }
                     }
                     .padding(28)
@@ -105,32 +105,32 @@ struct ProfileView: View {
                             showAlert.toggle()
                         }, label: {
                             HStack(spacing: 20) {
-                                Image("exitIcon")
+                                Image(R.image.exitIcon)
                                 
-                                Text(LocalizedStringKey("exitText"))
+                                Text(R.string.localizable.exitText)
                                 
                                 Spacer()
                             }
-                            .foregroundStyle(Color.redColor)
+                            .foregroundStyle(Color(R.color.redColor))
                         })
                     }
                     .padding(18)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
-                    .alert(LocalizedStringKey("exitAlertTitle"), isPresented: $showAlert) {
-                        Button(LocalizedStringKey("exitFirstBtnText"), role: .destructive) {}
+                    .alert(R.string.localizable.exitAlertTitle.callAsFunction(), isPresented: $showAlert) {
+                        Button(R.string.localizable.exitFirstBtnText.callAsFunction(), role: .destructive) {}
                         
-                        Button(LocalizedStringKey("exitSecondBtnText"), role: .cancel) {
+                        Button(R.string.localizable.exitSecondBtnText.callAsFunction(), role: .cancel) {
                             showAlert.toggle()
                         }
                     } message: {
-                        Text(LocalizedStringKey("exitAlertText"))
+                        Text(R.string.localizable.exitAlertText)
                     }
                 }
                 
                 Spacer()
             }
             .padding(.horizontal, 16)
-            .background(Color.grayLightColor)
+            .background(Color(R.color.grayLightColor))
             .navigationBarBackButtonHidden()
         }
     }

@@ -28,7 +28,7 @@ struct DetailRuleView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 25)
                 .padding(.horizontal, 28)
-                .background(RoundedRectangle(cornerRadius: 30, style: .circular).fill(Color.blueBoxColor))
+                .background(RoundedRectangle(cornerRadius: 30, style: .circular).fill(Color(R.color.blueBoxColor)))
                 
                 Spacer()
             }
@@ -37,7 +37,7 @@ struct DetailRuleView: View {
         .padding(.horizontal, 16)
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.rulesScreenTitle)
+            CustomToolbar(title: R.string.localizable.rulesScreenTitle)
         }
     }
 }

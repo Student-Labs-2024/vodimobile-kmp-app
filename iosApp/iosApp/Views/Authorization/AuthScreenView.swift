@@ -40,11 +40,11 @@ struct AuthScreenView: View {
                 VStack(alignment: .leading) {
                     Text(R.string.localizable.conditionText)
                         .font(.paragraph5)
-                        .foregroundStyle(Color.grayDarkColor)
+                        .foregroundStyle(Color(R.color.grayDarkColor))
                     
                     NavigationLink(destination: ConditionScreenView()) {
                         Text(R.string.localizable.conditionLink)
-                            .foregroundColor(.blueColor)
+                            .foregroundColor(Color(R.color.blueColor))
                             .font(.buttonCheckBox)
                     }
                 }
@@ -56,7 +56,7 @@ struct AuthScreenView: View {
         .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.authScreenTitle)
+            CustomToolbar(title: R.string.localizable.authScreenTitle)
         }
     }
     

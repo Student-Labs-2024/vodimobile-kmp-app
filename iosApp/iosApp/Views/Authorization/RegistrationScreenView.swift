@@ -44,11 +44,11 @@ struct RegistrationScreenView: View {
                 VStack(alignment: .leading) {
                     Text(R.string.localizable.conditionText)
                         .font(.paragraph5)
-                        .foregroundStyle(Color.grayDarkColor)
+                        .foregroundStyle(Color(R.color.grayDarkColor))
                     
                     NavigationLink(destination: ConditionScreenView()) {
                         Text(R.string.localizable.conditionLink)
-                            .foregroundColor(.blueColor)
+                            .foregroundColor(Color(R.color.blueColor))
                             .font(.buttonCheckBox)
                     }
                 }
@@ -60,7 +60,7 @@ struct RegistrationScreenView: View {
         .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.regScreenTitle)
+            CustomToolbar(title: R.string.localizable.regScreenTitle)
         }
     }
     

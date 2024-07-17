@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import RswiftResources
 
 struct CustomToolbar: ToolbarContent {
     let title: String
@@ -14,8 +15,8 @@ struct CustomToolbar: ToolbarContent {
     
     @Environment(\.dismiss) private var dismiss
     
-    init(title: String, trailingToolbarItem: TrailingToolbarItem? = nil) {
-        self.title = title
+    init(title: StringResource, trailingToolbarItem: TrailingToolbarItem? = nil) {
+        self.title = title.callAsFunction()
         self.trailingToolbarItem = trailingToolbarItem
     }
     
@@ -57,7 +58,7 @@ struct TrailingToolbarItem {
     let image: Image
     @Binding var control: UserInputData {
         mutating didSet {
-            foregroundColor = control.checkEmpty() ? Color.grayDarkColor : Color.blueColor
+            foregroundColor = control.checkEmpty() ? Color(R.color.grayDarkColor) : Color(R.color.blueColor)
             disableItem = control.checkEmpty()
         }
     }
@@ -69,7 +70,7 @@ struct TrailingToolbarItem {
         self.image = image
         self._control = control
         self.actionAfterTapping = actionAfterTapping
-        self.foregroundColor = control.wrappedValue.checkEmpty() ? Color.grayDarkColor : Color.blueColor
+        self.foregroundColor = control.wrappedValue.checkEmpty() ? Color(R.color.grayDarkColor) : Color(R.color.blueColor)
         self.disableItem = control.wrappedValue.checkEmpty()
     }
 }

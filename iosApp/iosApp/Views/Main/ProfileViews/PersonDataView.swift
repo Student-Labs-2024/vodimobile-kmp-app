@@ -9,19 +9,21 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @State private var userInput = UserInputData()
-    @State private var isLoading: Bool = false
-    @State private var showAlert: Bool = false
+    @ObservedObject var viewModel: PersonalDataViewModel
+    
+    init(viewModel: PersonalDataViewModel = .init()) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ZStack {
             VStack {
                 VStack(alignment: .leading, spacing: 25) {
-                    Text("Ваши данные").font(.header3)
+                    Text(R.string.localizable.yourDataText).font(.header3)
                     
-                    UnderlineTextField(text: $userInput.fullName, fieldType: .fullName)
-                    UnderlineTextField(text: $userInput.email, fieldType: .email)
-                    UnderlineTextField(text: $userInput.phone, fieldType: .phone)
+                    UnderlineTextField(text: $viewModel.userInput.fullName, fieldType: .fullName)
+                    UnderlineTextField(text: $viewModel.userInput.email, fieldType: .email)
+                    UnderlineTextField(text: $viewModel.userInput.phone, fieldType: .phone)
                 }
                 .padding(.horizontal, 32)
                 .padding(.vertical, 40)
@@ -32,13 +34,15 @@ struct PersonDataView: View {
                 
                 Spacer()
             }
-            .alert(LocalizedStringKey("alertSavePersonDataText"), isPresented: $showAlert) {
-                Button(LocalizedStringKey("closeButton"), role: .cancel) {
-                    showAlert.toggle()
+            .alert(R.string.localizable.alertSavePersonDataTitle.callAsFunction(), isPresented: $viewModel.showAlert) {
+                Button(R.string.localizable.closeButton.callAsFunction(), role: .cancel) {
+                    $viewModel.showAlert.wrappedValue.toggle()
                 }
+            } message: {
+                Text(R.string.localizable.alertSavePersonDataText)
             }
             
-            if isLoading {
+            if $viewModel.isLoading.wrappedValue {
                 ZStack {
                     RoundedRectangle(cornerRadius: 8, style: .circular)
                         .opacity(0.5)
@@ -50,25 +54,16 @@ struct PersonDataView: View {
                 }
             }
         }
-        .background(Color.grayLightColor.ignoresSafeArea())
+        .background(Color(R.color.grayLightColor).ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(
-                title: String.ScreenTitles.profileScreenTitle,
+                title: R.string.localizable.profileScreenTitle,
                 trailingToolbarItem: TrailingToolbarItem(
                     image: Image(systemName: "checkmark"),
-                    control: $userInput,
-                    actionAfterTapping: makeFakeNetworkRequest)
+                    control: $viewModel.userInput,
+                    actionAfterTapping: viewModel.makeFakeNetworkRequest)
             )
-        }
-    }
-    
-    private func makeFakeNetworkRequest() {
-        isLoading = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            isLoading = false
-            showAlert = true
         }
     }
 }

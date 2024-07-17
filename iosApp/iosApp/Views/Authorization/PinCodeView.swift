@@ -32,7 +32,7 @@ struct PinCodeView: View {
                 
                 Text(sendCodeOnPhoneText)
                     .font(.paragraph2)
-                    .foregroundColor(Color.grayTextColor)
+                    .foregroundColor(Color(R.color.grayTextColor))
                     .multilineTextAlignment(.center)
                 
                 HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
@@ -45,7 +45,7 @@ struct PinCodeView: View {
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: MainScreenView()) {
+                NavigationLink(destination: MainTabbarView()) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .onTapGesture {
@@ -63,7 +63,7 @@ struct PinCodeView: View {
                     print("Отправить код повторно нажат")
                 }) {
                     Text(R.string.localizable.resendBtnText)
-                        .foregroundColor(.blueColor)
+                        .foregroundColor(Color(R.color.blueColor))
                         .font(.buttonText)
                         .underline()
                 }
@@ -77,14 +77,14 @@ struct PinCodeView: View {
         }
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: String.ScreenTitles.confirmScreenTitle)
+            CustomToolbar(title: R.string.localizable.confirmScreenTitle)
         }
     }
 
     @ViewBuilder
     private func createTextField(index: Int) -> some View {
         let isFieldFocused = focusedField == index
-        let strokeColor = isFieldFocused ? Color.blueColor : Color.grayDarkColor
+        let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)
         let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2
 
         TextField("", text: $pin[index])
@@ -94,7 +94,7 @@ struct PinCodeView: View {
             .frame(width: 56, height: 56)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.grayLightColor)
+                    .fill(Color(R.color.grayLightColor))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

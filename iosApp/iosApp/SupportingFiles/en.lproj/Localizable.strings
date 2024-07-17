@@ -2,23 +2,62 @@
   Localizable.strings
   iosApp
 
-  Created by Sergey Ivanov on 15.07.2024.
+  Created by Sergey Ivanov on 17.07.2024.
   Copyright © 2024 orgName. All rights reserved.
 */
 
-"regButtonTitle" = "Sign up";
+// Screen titles
 "regScreenTitle" = "Sign up";
-"authButtonTitle" = " Log in";
 "authScreenTitle" = " Log in";
-"conditionLink" = "the user agreement";
 "conditionsScreenTitle" = "Terms of the agreement";
-"conditionText" = "I have read and agree to the terms of ";
 "confirmScreenTitle" = "Сonfirmation";
+"profileScreenTitle" = "Profile";
+"contactsScreenTitle" = "Contacts";
+"faqScreenTitle" = "FAQ";
+"rulesScreenTitle" = "Rules and conditions";
+"homeScreenTitle" = "Home";
+"myOrdersScreenTitle" = "My orders";
+
+// Buttons titles
+"regButtonTitle" = "Sign up";
+"authButtonTitle" = " Log in";
+"nextBtnName" = "Next";
+"resendBtnText" = "Resend";
+"closeButton" = "OK";
+
+// Field names
 "email" = "Email";
+"phone" = "Phone";
+"fullName" = "Full name";
+
+// Alert text
+"exitAlertTitle" = "Are you sure you want to log out of your account?";
+"exitFirstBtnText" = "Exit";
+"exitSecondBtnText" = "Cancel";
+"exitAlertText" = "You will not be able to rent cars without an account";
+"alertSavePersonDataTitle" = "Saving error";
+"alertSavePersonDataText" = "Your data has not been saved. Please try again";
+
+// Info strings
+"conditionLink" = "the user agreement";
+"conditionText" = "I have read and agree to the terms of ";
 "inputCodeText" = "Enter SMS code";
 "inputErrorMsg" = "Input ";
-"nextBtnName" = "Next";
 "notGetCodeText" = "Didn't get the code?";
-"phone" = "Phone";
-"resendBtnText" = "Resend";
 "sendCodeMsg" = "We sent it to the number";
+"personData" = "Personal data";
+"personDataText" = "Full name, phone number, email";
+"rulesText" = "Rules and conditions";
+"FAQ" = "FAQ";
+"contacts" = "Contacts";
+"exitText" = "Exit from account";
+"yourDataText" = "Your data";
+"officeLocation" = "Omsk, Dmitrieva str., 5/6";
+"version" = "Version";
+"brandLabel" = "© 2016-2022 Vodimobile";
+"emailText" = "Email";
+"officeLocationText" = "Office location";
+"ourMediaText" = "Our social media";
+"vk" = "Vkontakte";
+"whatsapp" = "Whatsapp";
+"telegram" = "Telegram";
