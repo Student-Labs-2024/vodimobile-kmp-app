@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.ProgressDialog
 import com.vodimobile.presentation.screens.rules.RuleScreen
 import com.vodimobile.presentation.screens.rules.RuleViewModel
@@ -41,7 +43,7 @@ fun ProgressDialog(
 private fun ProgressDialogNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RuleScreen(viewModel = RuleViewModel(rememberNavController()))
+            RuleScreen(viewModel = RuleViewModel(rememberNavController()), rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
         }
     }
 }
@@ -51,7 +53,7 @@ private fun ProgressDialogNightPreview() {
 private fun ProgressDialogLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RuleScreen(viewModel = RuleViewModel(rememberNavController()))
+            RuleScreen(viewModel = RuleViewModel(rememberNavController()), rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
         }
     }
 }

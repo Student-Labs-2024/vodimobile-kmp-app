@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="rules">
+        <item>Rental conditions for drivers</item>
+        <item>Stages of car rental</item>
+        <item>Security Service</item>
+        <item>Payment and deposit of the reserved car</item>
+        <item>Car delivery</item>
+        <item>Application for overnight rental</item>
+        <item>Time to transfer the car:</item>
+        <item>Daily mileage</item>
+        <item>The territory of movement</item>
+        <item>Car rental extension</item>
+        <item>Transfer of the car to the second driver</item>
+        <item>Insurance and liability</item>
+        <item>Gasoline and refueling</item>
+        <item>Car wash</item>
+        <item>Fines when renting a car</item>
+        <item>Additional equipment</item>
+
+    </array>
+
+
+    <array name="title">
+        <item><![CDATA[Age from 22 years and at least 2 years of experience of a category B driver`s license.]]></item>
+        <item>Car rental takes place in several stages:</item>
+        <item>Each application undergoes a thorough document verification procedure before renting.</item>
+        <item>Payment is made at the time of signing the contract in cash or by transfer by phone number to any bank. There is no card payment via the terminal. At the request of the client, we provide cash receipts with a QR code.</item>
+        <item>Vodimobile offers car delivery to any point in the city of Omsk around the clock.</item>
+        <item>Applications for overnight rentals are accepted until 18:00 of the current day.</item>
+        <item>15 minutes is the time we have to meet with you.</item>
+        <item>There is a daily mileage limit of 200 km, which is included in the rental price.</item>
+        <item>There are no restrictions on travel within the Siberian Federal District.</item>
+        <item>The car rental extension is as follows:</item>
+        <item><![CDATA[The transfer of the car to the second driver is possible if it meets the requirements of the Vodimobile rental conditions.]]></item>
+        <item>The cars are insured by the CTP policy.</item>
+        <item>The tenant refuels the car on his own, only with AI-95 gasoline.</item>
+        <item>Car washing is paid separately - 1,500 rubles.</item>
+        <item>Fines for traffic violations are paid by the client.</item>
+        <item>Child safety seat, phone holder, charging - free of charge.</item>
+
+    </array>
+
+
+    <array name="condition">
+        <item>These are all the conditions that a driver who takes on the responsibility of driving a car must meet.</item>
+        <item>1. You choose the car you like;
+            2. Get acquainted with the terms of car rental on the website, or consult with the manager by phone or messenger;
+            3. Send the documents for verification by the security service. This stage takes no more than 20 minutes;
+            4. The manager confirms the reservation with a reply message.
+            1. You choose the car you like;
+            2. Get acquainted with the terms of car rental on the website, or consult with the manager by phone or messenger;
+            3. Send the documents for verification by the security service. This stage takes no more than 20 minutes;
+            4. The manager confirms the reservation with a reply message.</item>
+        <item><![CDATA[Based on the results of the document verification, the security service informs us about the client`s trustworthiness. In order to maintain a comfortable environment, we do not provide services to people with a negative reputation (being wanted or on the lists of unscrupulous clients, with a criminal record for car theft or theft, to clients without documents).]]></item>
+        <item><![CDATA[You can pay for the booked car using a credit card, cash or bank transfer, payment is made for the entire period of car rental. If the car is returned earlier than the specified period, we will recalculate, while only the time of use is paid.
+            A pledge is a guarantee of the renter`s performance of the contract. The security deposit is not part of the rental price and is paid separately. The deposit is a fixed amount of money - a car in the Economy section - 5,000 rubles, a car in the Comfort and Premium sections - 10,000 rubles. Personal belongings, passport, and other documents are not collateral. We will refund the deposit to you at the time of handing over the car and signing the acceptance /transfer certificate, so you will not have to wait.]]></item>
+        <item>If you need to pick up a car in the city, then you pay for it separately at the following rates:
+            Free of charge - pick up from the office during the day
+            500 – pickup from the office at night
+            1000 – any point of the city daytime
+            2000 – any point of the city at night
+            Daytime - from 9:00 to 20:00
+            Night time - from 20:00 to 9:00</item>
+        <item>If you want to book a car with overnight pickup, you must leave a request in advance. Applications are accepted for consideration until 18:00 of the current day. That is, if you left a booking request with submission from 20:00 to 9:00 of the current day, but did it after 18:00, then, unfortunately, we will not be able to consider it.</item>
+        <item>The large flow of customers does not allow us to devote more time to signing the contract. All information about the technical condition of the car, terms, payment procedure and lease extension, terms of use of the car and other issues are listed on our website and in the contract.</item>
+        <item><![CDATA[You can exceed this limit, in which case the mileage is calculated at the rate of 5 rubles/km (economy), 10 rubles/km (comfort and premium).]]></item>
+        <item>The crossing of the Siberian Federal District, as well as the borders of the Russian Federation, is coordinated with the manager.</item>
+        <item>1. During the day, you warn the manager about your intention to extend the car for the nth number of days;
+            2. The manager calculates the amount and sends you the details for transferring funds for the extended rental period;
+            3. All you have to do is pay and send a payment receipt to the manager – the lease has been extended.</item>
+        <item>In this case, we will add a second driver to the contract. The cost of drawing up a contract for a second driver is 300 rubles.</item>
+        <item>If the accident was not your fault, and all certificates from the accident site are provided, the amount of liability is zero.
+            If the accident was caused by the client, then the responsibility for compensation for damage falls on the client. If it is impossible to prove the guilt of a third party, the responsibility also falls on the client.
+            In case of an accident, the client himself must resolve the situation with the second participant in the accident, without the participation of the landlord.</item>
+        <item>The car is supplied with the amount of fuel that remains after previous use. Accordingly, it is necessary to return the car with the same level. If there is less fuel in the tank than it was when the car was handed over to you, then payment is made at the rate of 50 rubles — one liter. A car with a full tank is provided exclusively upon the customer`s request.</item>
+        <item>In which case does the customer pay for the car wash:
+            1. The car is dirty outside and inside;
+            2. The car is clean on the outside, but dirty on the inside (mats, crumbs, stains);
+            3. The car is clean inside, but dirty outside (thresholds, rims, separate parts of the car);
+            4. The car is in sand or dust.
+            Weather conditions are not a condition for non-fulfillment of contractual obligations related to the car wash.
+            If the car is in a dirty condition at the time of booking, we suggest that you choose in which form to rent a car in order to save your money for a car wash.
+            Emergency car delivery (30 – 90 minutes) does not guarantee the delivery of the car in its pure form, because the time for car washing takes at least 2 hours. Therefore, we recommend booking a car in advance.</item>
+        <item><![CDATA[After the fine arrives to us, the manager sends you information about it. You only need to transfer the amount of the fine according to the details of the landlord.
+            Fine for smoking in the cabin – 5000
+            Fine for late payment of car renewal – 1000 rubles /day
+            The penalty for the loss of documents is 10000 rubles/unit
+            The penalty for the loss of the key/alarm is 10000 rubles/unit]]></item>
+        <item>The Vodimobile will provide any additional equipment for free. It is important to clarify beforehand what equipment you will need before renting.</item>
+
+    </array>
+
+</resources>
