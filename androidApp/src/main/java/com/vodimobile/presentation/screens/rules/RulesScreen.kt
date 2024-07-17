@@ -8,12 +8,13 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.domain.model.mockList
+import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rules.components.RulesItem
 import com.vodimobile.presentation.screens.rules.store.RulesIntent
@@ -21,7 +22,8 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun RuleScreen(viewModel: RuleViewModel) {
+fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
+
     Scaffold(
         topBar = {
             ScreenHeader(
@@ -38,8 +40,8 @@ fun RuleScreen(viewModel: RuleViewModel) {
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
-            itemsIndexed(mockList) { index, item ->
-                RulesItem(title = stringResource(id = item.title), onNavigate = {
+            itemsIndexed(rules) { index, item ->
+                RulesItem(title = item.title, onNavigate = {
                     viewModel.onIntent(RulesIntent.RuleClick(ruleId = index))
                 })
             }
@@ -52,6 +54,7 @@ fun RuleScreen(viewModel: RuleViewModel) {
 @Preview(showBackground = true)
 private fun RulesScreenPreview() {
     VodimobileTheme {
+        RuleScreen(viewModel = RuleViewModel(navController = rememberNavController()), rules=RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
         RuleScreen(viewModel = RuleViewModel({}))
     }
 }

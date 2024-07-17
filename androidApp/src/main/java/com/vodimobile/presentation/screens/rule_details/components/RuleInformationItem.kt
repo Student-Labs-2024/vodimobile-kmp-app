@@ -12,10 +12,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.domain.model.mockList
+import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -54,10 +54,10 @@ fun RuleInformationItem(
 private fun RulesInformationItemPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
-            val item = mockList[0]
+            val item = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)[0]
             RuleInformationItem(
-                condition = stringResource(id = item.subtitle),
-                conclusion = stringResource(id = item.description)
+                condition = item.title,
+                conclusion = item.condition
             )
         }
     }

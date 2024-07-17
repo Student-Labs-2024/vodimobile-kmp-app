@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.rules.store
+package com.vodimobile.presentation.screens.rules
 
 sealed class RulesIntent {
     data object BackClick : RulesIntent()

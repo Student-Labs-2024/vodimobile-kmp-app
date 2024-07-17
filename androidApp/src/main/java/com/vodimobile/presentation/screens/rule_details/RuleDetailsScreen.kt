@@ -10,12 +10,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.domain.model.mockList
+import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rule_details.components.RuleInformationItem
 import com.vodimobile.presentation.screens.rule_details.components.RuleTitleItem
@@ -24,6 +25,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun RuleDetailsScreen(
+    rules: List<RulesAndConditionModel>,
     ruleId: Int,
     viewModel: RulesDetailsViewModel
 ) {
@@ -47,11 +49,11 @@ fun RuleDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RuleTitleItem(title = stringResource(id = mockList[ruleId].title))
+            RuleTitleItem(title = rules[ruleId].rule)
 
             RuleInformationItem(
-                condition = stringResource(id = mockList[ruleId].subtitle),
-                conclusion = stringResource(id = mockList[ruleId].description)
+                condition = rules[ruleId].title,
+                conclusion = rules[ruleId].condition
             )
         }
     }
@@ -64,6 +66,8 @@ private fun RuleDetailsScreenPreview() {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
             RuleDetailsScreen(
                 ruleId = 0,
+                viewModel = RulesDetailsViewModel(navController = rememberNavController()),
+                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
                 viewModel = RulesDetailsViewModel({})
             )
         }
