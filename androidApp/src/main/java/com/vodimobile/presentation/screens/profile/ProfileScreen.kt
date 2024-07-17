@@ -37,7 +37,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 23.dp)
+                        .padding(top = 12.dp)
                         .padding(vertical = 11.dp)
                 )
             },

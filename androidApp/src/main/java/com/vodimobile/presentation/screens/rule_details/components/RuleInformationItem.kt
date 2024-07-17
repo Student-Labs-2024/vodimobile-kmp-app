@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.theme.containerBackLight
 
 @Composable
 fun RuleInformationItem(
@@ -28,7 +29,7 @@ fun RuleInformationItem(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(30.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = containerBackLight
         )
     ) {
         Column(

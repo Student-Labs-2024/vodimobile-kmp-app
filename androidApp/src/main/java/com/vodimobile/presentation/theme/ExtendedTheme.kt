@@ -39,7 +39,7 @@ fun ExtendedTheme(
         )
     else
         ExtendedColors(
-            headerBack = headerBackLight,
+            headerBack = containerBackLight,
             secondaryBackground = secondaryBackgroundLight,
             onSecondaryBackground = onSecondaryBackgroundLight,
             hintText = hintTextLight
