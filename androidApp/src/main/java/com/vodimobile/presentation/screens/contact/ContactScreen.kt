@@ -67,22 +67,27 @@ fun ContactScreen(сontactViewModel: ContactViewModel) {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun ContactScreenPreviewLight() {
-    VodimobileTheme {
-        ContactScreen(сontactViewModel = ContactViewModel({}))
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            ContactScreen(сontactViewModel = ContactViewModel({}))
+        }
     }
 
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun ContactScreenPreviewNight() {
-    VodimobileTheme {
-        ContactScreen(сontactViewModel = ContactViewModel({}))
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            ContactScreen(сontactViewModel = ContactViewModel({}))
+        }
     }
-
 }
 
 
