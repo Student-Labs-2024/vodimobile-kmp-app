@@ -25,7 +25,7 @@ import com.vodimobile.presentation.BottomAppBarAlpha
 
 @Composable
 fun BottomBar(
-    modifier: Modifier = Modifier.wrapContentHeight(),
+    modifier: Modifier = Modifier,
     navController: NavController
 ) {
     val navigationItems = listOf(
@@ -49,8 +49,10 @@ fun BottomBar(
 
             navigationItems.forEach { item->
                 BottomNavigationItem(
-                    modifier = modifier.fillMaxWidth(),
-                    selected = currentRoute == item.route,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    selected = currentRoute == item.route || item.list.any { subitem -> currentRoute == subitem },
                     onClick = {
                         navController.navigate(item.route)
                     },
