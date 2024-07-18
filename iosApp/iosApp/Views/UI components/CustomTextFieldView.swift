@@ -111,7 +111,7 @@ struct CustomTextFieldView: View {
                                 self.fieldContent = ""
                                 validateInput()
                             }) {
-                                Image(systemName: "xmark")
+                                Image.xmark
                                     .foregroundColor(Color(R.color.grayDarkColor))
                                     .padding(8)
                             }
@@ -139,7 +139,7 @@ struct CustomTextFieldView: View {
                                 self.fieldContent = ""
                                 validateInput()
                             }) {
-                                Image(systemName: "xmark")
+                                Image.xmark
                                     .foregroundColor(Color(R.color.grayDarkColor))
                                     .padding(8)
                             }

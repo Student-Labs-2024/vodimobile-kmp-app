@@ -21,7 +21,7 @@ struct CheckboxView: View {
                     .frame(width: checkboxSize, height: checkboxSize)
                 
                 if isChecked {
-                    Image(systemName: "checkmark")
+                    Image.checkmark
                         .foregroundColor(Color(R.color.blueColor))
                         .imageScale(.small)
                 }

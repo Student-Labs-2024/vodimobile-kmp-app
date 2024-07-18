@@ -25,7 +25,7 @@ struct CustomToolbar: ToolbarContent {
             Button(action: {
                 dismiss()
             }, label: {
-                Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
+                Image.chevronLeft.foregroundStyle(Color.black).fontWeight(.bold)
             })
         }
         

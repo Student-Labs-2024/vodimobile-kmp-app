@@ -24,7 +24,7 @@ struct ProfileCellView: View {
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right")
+                Image.chevronRight
             }
             .foregroundStyle(Color(R.color.grayDarkColor))
         }

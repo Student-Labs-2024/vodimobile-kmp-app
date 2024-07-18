@@ -11,6 +11,18 @@ import SwiftUI
 import RswiftResources
 
 
+extension Image {
+    static let xmark: Image = Image(systemName: "xmark")
+    static let checkmark: Image = Image(systemName: "checkmark")
+    static let chevronLeft: Image = Image(systemName: "chevron.left")
+    static let chevronRight: Image = Image(systemName: "chevron.right")
+    static let docText: Image = Image(systemName: "doc.text")
+    static let infoCircle: Image = Image(systemName: "info.circle")
+    static let letter: Image = Image(systemName: "envelope")
+    static let person: Image = Image(systemName: "person")
+    static let personFill: Image = Image(systemName: "person.fill")
+}
+
 extension Font {
     public static let header1: Font = Font(R.font.akzidenzGroteskProMdEx(size: 18) ?? .systemFont(ofSize: 18))
     public static let header2: Font = Font(R.font.akzidenzGroteskProRegular(size: 20) ?? .systemFont(ofSize: 20))

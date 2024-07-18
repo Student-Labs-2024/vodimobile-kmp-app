@@ -37,7 +37,7 @@ struct PinCodeView: View {
                 
                 HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
                     ForEach(0..<4) { index in
-                        createTextField(index: index)
+                        PinCodeTextField(index: index)
                     }
                 }
                 .padding(.vertical, PinCodeConfig.verticalSpacingBetweenPincodeField)
@@ -82,7 +82,7 @@ struct PinCodeView: View {
     }
 
     @ViewBuilder
-    private func createTextField(index: Int) -> some View {
+    private func PinCodeTextField(index: Int) -> some View {
         let isFieldFocused = focusedField == index
         let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)
         let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2

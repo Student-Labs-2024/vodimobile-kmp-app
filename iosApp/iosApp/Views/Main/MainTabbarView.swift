@@ -43,7 +43,7 @@ struct MainTabbarView: View {
                         selectedTab = .myOrders
                     }
                     
-                    TabBarItem(icon: Image(systemName: "person.fill"),
+                    TabBarItem(icon: Image.personFill,
                                title: R.string.localizable.profileScreenTitle,
                                badgeCount: 0,
                                isSelected: selectedTab == .profile,

@@ -60,7 +60,7 @@ struct PersonDataView: View {
             CustomToolbar(
                 title: R.string.localizable.profileScreenTitle,
                 trailingToolbarItem: TrailingToolbarItem(
-                    image: Image(systemName: "checkmark"),
+                    image: Image.checkmark,
                     control: $viewModel.userInput,
                     actionAfterTapping: viewModel.makeFakeNetworkRequest)
             )

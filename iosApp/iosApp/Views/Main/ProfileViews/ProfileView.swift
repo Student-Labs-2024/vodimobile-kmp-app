@@ -30,7 +30,7 @@ struct ProfileView: View {
                         NavigationLink(destination: PersonDataView()) {
                             HStack(spacing: ProfileConfig.horizontalSpacingAvatarAndText) {
                                 ZStack(alignment: .center) {
-                                    Image(systemName: "person")
+                                    Image.person
                                         .frame(width: ProfileConfig.avatarIconSize, height: ProfileConfig.avatarIconSize)
                                         .fontWeight(.bold)
                                 }

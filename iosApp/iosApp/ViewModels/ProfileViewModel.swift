@@ -24,8 +24,8 @@ struct ProfileMenuCell: Identifiable {
     }
     
     static let profileMenuCells = [
-        ProfileMenuCell(id: 1, icon: Image(systemName: "doc.text"), title: R.string.localizable.rulesText()),
-        ProfileMenuCell(id: 2, icon: Image(systemName: "info.circle"), title: R.string.localizable.faQ()),
-        ProfileMenuCell(id: 3, icon: Image(systemName: "envelope"), title: R.string.localizable.contacts())
+        ProfileMenuCell(id: 1, icon: Image.docText, title: R.string.localizable.rulesText()),
+        ProfileMenuCell(id: 2, icon: Image.infoCircle, title: R.string.localizable.faQ()),
+        ProfileMenuCell(id: 3, icon: Image.letter, title: R.string.localizable.contacts())
     ]
 }

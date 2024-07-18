@@ -10,7 +10,7 @@ struct StartScreenView: View {
                 HStack {
                     Spacer()
                     NavigationLink(destination: MainTabbarView()) {
-                        Image(systemName: "xmark")
+                        Image.xmark
                             .resizable()
                             .foregroundColor(Color.black)
                             .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)

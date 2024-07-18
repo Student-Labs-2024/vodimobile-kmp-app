@@ -10,18 +10,19 @@ import SwiftUI
 
 struct ConditionScreenView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var conditionText: String = ""
+    @ObservedObject private var viewModel: ConditionViewModel
+    
+    init(viewModel: ConditionViewModel = .init()) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            Text(conditionText)
+            Text(viewModel.conditionText)
                 .font(.paragraph2)
                 .foregroundStyle(Color.black)
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.leading)
-                .onAppear {
-                    loadUserAgreement()
-                }
         }
         .padding([.leading, .bottom, .trailing], 24)
         .navigationBarBackButtonHidden()
@@ -29,19 +30,8 @@ struct ConditionScreenView: View {
             CustomToolbar(title: R.string.localizable.conditionsScreenTitle)
         }
     }
-    
-    private func loadUserAgreement() {
-        if let filePath = Bundle.main.path(forResource: "terms_and_conditions", ofType: "txt") {
-            do {
-                let contents = try String(contentsOfFile: filePath)
-                conditionText = contents
-            } catch {
-                print("Error loading user agreement text")
-            }
-        }
-    }
 }
 
 #Preview {
-    ConditionScreenView()
+    ConditionScreenView(viewModel: .init())
 }
