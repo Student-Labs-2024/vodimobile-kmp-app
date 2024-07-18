@@ -22,8 +22,8 @@ struct DetailRuleView: View {
                     .multilineTextAlignment(.leading)
                 
                 VStack(alignment: .leading, spacing: 24) {
-                    Text(viewModel.rule.mainText).font(.paragraph2)
-                    Text(viewModel.rule.trailingText).font(.paragraph4)
+                    Text(viewModel.rule.ruleTitle).font(.paragraph2)
+                    Text(viewModel.rule.ruleBody).font(.paragraph4)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 25)

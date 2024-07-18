@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @ObservedObject var viewModel: PersonalDataViewModel
+    @ObservedObject private var viewModel: PersonalDataViewModel
     
     init(viewModel: PersonalDataViewModel = .init()) {
         self.viewModel = viewModel

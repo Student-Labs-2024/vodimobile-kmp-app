@@ -9,10 +9,7 @@ struct StartScreenView: View {
             VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
                 HStack {
                     Spacer()
-                    Button(action: {
-                        print("Button has been pressed")
-                    }) {
-                        
+                    NavigationLink(destination: MainTabbarView()) {
                         Image(systemName: "xmark")
                             .resizable()
                             .foregroundColor(Color.black)
