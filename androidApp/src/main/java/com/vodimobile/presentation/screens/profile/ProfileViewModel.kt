@@ -1,8 +1,6 @@
 package com.vodimobile.presentation.screens.profile
 
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavHostController
-import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
 import com.vodimobile.presentation.screens.profile.store.ProfileOutput
 

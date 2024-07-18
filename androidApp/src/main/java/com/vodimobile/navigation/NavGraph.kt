@@ -6,11 +6,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import androidx.navigation.navigation
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.screens.home.HomeScreen
+import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.orders.OrdersScreen
 import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
@@ -18,6 +21,8 @@ import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
 import com.vodimobile.presentation.screens.rule_details.RulesDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RuleScreen
 import com.vodimobile.presentation.screens.rules.RuleViewModel
+import com.vodimobile.presentation.screens.startscreen.StartScreen
+import com.vodimobile.presentation.screens.startscreen.StartScreenViewModel
 import org.koin.core.parameter.parametersOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -105,6 +110,12 @@ fun NavGraph(
                         }
                     }
                 }
+            dialog(route = DialogIdentifiers.LOG_OUT_DIALOG) {
+                LogOutConfirmationDialog(
+                    onDismiss = { navHostController.navigateUp() },
+                    onConfirm = { navHostController.navigate(RootScreen.START_SCREEN) })
+            }
+            composable("${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}") { backStackEntry ->
                 val ruleId = backStackEntry.arguments?.getInt("ruleId")!!
                 val rulesDetailsViewModel: RulesDetailsViewModel =
                     koinViewModel { parametersOf(rulesDetailsOutput) }
@@ -144,6 +155,9 @@ fun NavGraph(
 
                 ContactScreen(сontactViewModel = contactViewModel)
             }
+        }
+        composable(route = RootScreen.START_SCREEN) {
+            StartScreen(startScreenViewModel = StartScreenViewModel())
         }
     }
 }
