@@ -9,7 +9,12 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @ObservedObject private var viewModel: ProfileViewModel
     @State private var showAlert: Bool = false
+    
+    init(viewModel: ProfileViewModel = .init()) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         NavigationView {
@@ -20,16 +25,16 @@ struct ProfileView: View {
                 
                 Spacer()
                 
-                VStack(spacing: 30) {
+                VStack(spacing: ProfileConfig.spacingBetweenBlocks) {
                     VStack {
                         NavigationLink(destination: PersonDataView()) {
-                            HStack(spacing: 10) {
+                            HStack(spacing: ProfileConfig.horizontalSpacingAvatarAndText) {
                                 ZStack(alignment: .center) {
                                     Image(systemName: "person")
-                                        .frame(width: 24, height: 24)
+                                        .frame(width: ProfileConfig.avatarIconSize, height: ProfileConfig.avatarIconSize)
                                         .fontWeight(.bold)
                                 }
-                                .frame(width: 48, height: 48, alignment: .center)
+                                .frame(width: ProfileConfig.avatarFrameSize, height: ProfileConfig.avatarFrameSize, alignment: .center)
                                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor)))
                                 
                                 VStack(alignment: .leading) {
@@ -39,7 +44,7 @@ struct ProfileView: View {
                                 
                                 Spacer()
                                 
-                                Image(R.image.editIcon).frame(width: 24, height: 24)
+                                Image(R.image.editIcon).frame(width: ProfileConfig.editIconSize, height: ProfileConfig.editIconSize)
                             }
                             .foregroundStyle(Color(R.color.grayDarkColor))
                         }
@@ -48,56 +53,12 @@ struct ProfileView: View {
                     .padding(.vertical, 25)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
                     
-                    VStack(spacing: 30) {
-                        NavigationLink(destination: RulesAndConditionsView()) {
-                            HStack(spacing: 20) {
-                                Image(systemName: "doc.text")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 20, height: 20)
-                                
-                                Text(R.string.localizable.rulesText).font(.paragraph2).foregroundStyle(Color.black)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                            }
-                            .foregroundStyle(Color(R.color.grayDarkColor))
-                        }
-                        
-                        NavigationLink(destination: FAQScreenView()) {
-                            HStack(spacing: 20) {
-                                Image(systemName: "info.circle")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 20, height: 20)
-                                
-                                Text(R.string.localizable.faQ).font(.paragraph2).foregroundStyle(Color.black)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                            }
-                            .foregroundStyle(Color(R.color.grayDarkColor))
-                        }
-                        
-                        NavigationLink(destination: ContactsView()) {
-                            HStack(spacing: 20) {
-                                Image(systemName: "envelope")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 20, height: 20)
-                                
-                                Text(R.string.localizable.contacts).font(.paragraph2).foregroundStyle(Color.black)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                            }
-                            .foregroundStyle(Color(R.color.grayDarkColor))
+                    VStack(spacing: ProfileConfig.spacingBetweenBlocks) {
+                        ForEach(viewModel.profileMenuData) { cell in
+                            ProfileCellView(cell: cell)
                         }
                     }
-                    .padding(28)
+                    .padding(ProfileConfig.insetPaddingBlock)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
                     
                     VStack {
@@ -114,7 +75,7 @@ struct ProfileView: View {
                             .foregroundStyle(Color(R.color.redColor))
                         })
                     }
-                    .padding(18)
+                    .padding(ProfileConfig.insetPaddingExitButton)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
                     .alert(R.string.localizable.exitAlertTitle(), isPresented: $showAlert) {
                         Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {}
@@ -129,7 +90,7 @@ struct ProfileView: View {
                 
                 Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, horizontalPadding)
             .background(Color(R.color.grayLightColor))
             .navigationBarBackButtonHidden()
         }

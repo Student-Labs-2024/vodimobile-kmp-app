@@ -13,6 +13,8 @@
 		931FDDA62C46F8BF007954FC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FDDA52C46F8BF007954FC /* R.generated.swift */; };
 		931FDDB12C46FA6D007954FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931FDDAF2C46FA6D007954FC /* Localizable.strings */; };
 		931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FDDB32C46FBE8007954FC /* FilledButton.swift */; };
+		93328FB92C4947A1008EADB4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */; };
+		93328FBB2C4953E3008EADB4 /* ProfileCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */; };
 		93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 93351C852C42F7C100DD882A /* iPhoneNumberField */; };
 		933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
@@ -77,6 +79,8 @@
 		931FDDB02C46FA6D007954FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		931FDDB22C46FA8A007954FC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		931FDDB32C46FBE8007954FC /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
+		93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellView.swift; sourceTree = "<group>"; };
 		933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewModel.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 				931FDDB32C46FBE8007954FC /* FilledButton.swift */,
 				934D957C2C4911FE0027DFC8 /* ContactCellView.swift */,
 				934D957E2C4913290027DFC8 /* MediaCellView.swift */,
+				93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				936B184D2C465392000AC6F8 /* FAQViewModel.swift */,
 				933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */,
 				934D957A2C4902A20027DFC8 /* ContactsViewModel.swift */,
+				93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				936198892C3F133E00B0198D /* TabbarItemView.swift in Sources */,
 				934F0D502C3D692A000B256E /* AppDelegate.swift in Sources */,
 				934D5DFA2C3D3FA30070904B /* AppTheme.swift in Sources */,
+				93328FBB2C4953E3008EADB4 /* ProfileCellView.swift in Sources */,
 				936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */,
 				936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */,
 				934F0D5B2C3D775F000B256E /* CustomTextFieldView.swift in Sources */,
@@ -440,6 +447,7 @@
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,
 				934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */,
 				7555FF83242A565900829871 /* StartScreenView.swift in Sources */,
+				93328FB92C4947A1008EADB4 /* ProfileViewModel.swift in Sources */,
 				934D957F2C4913290027DFC8 /* MediaCellView.swift in Sources */,
 				931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,

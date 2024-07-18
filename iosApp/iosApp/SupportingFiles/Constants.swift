@@ -59,6 +59,18 @@ struct PinCodeConfig {
     static let verticalSpacingBetweenPincodeField: CGFloat = 20
 }
 
+struct ProfileConfig {
+    static let spacingBetweenBlocks: CGFloat = 30
+    static let horizontalSpacingAvatarAndText: CGFloat = 10
+    static let avatarIconSize: CGFloat = 24
+    static let avatarFrameSize: CGFloat = 48
+    static let editIconSize: CGFloat = 24
+    static let horizontalSpacingBetweenIconAndText: CGFloat = 20
+    static let mainIconsSize: CGFloat = 20
+    static let insetPaddingBlock: CGFloat = 28
+    static let insetPaddingExitButton: CGFloat = 18
+}
+
 // Contact info
 public let contactPhone = "+7 (950) 783 14-40"
 public let contactEmail = "vodimobil@vodimobil.ru"
