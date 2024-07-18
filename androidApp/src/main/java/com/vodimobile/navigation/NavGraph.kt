@@ -3,9 +3,11 @@ package com.vodimobile.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.domain.model.RulesAndConditionModel
@@ -104,7 +106,12 @@ fun NavGraph(
 
                 RuleScreen(viewModel = rulesViewModel, rules = rulesAndConditionList)
             }
-            composable(route = "${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}") { backStackEntry ->
+            composable(
+                route = "${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}",
+                arguments = listOf(
+                    navArgument(name = "ruleId") { type = NavType.IntType }
+                )
+            ) { backStackEntry ->
                 val rulesDetailsOutput = { out: RulesDetailsOutput ->
                     when (out) {
                         RulesDetailsOutput.ReturnBack -> {
