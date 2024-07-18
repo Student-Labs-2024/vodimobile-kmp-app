@@ -20,6 +20,7 @@ import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rule_details.components.RuleInformationItem
 import com.vodimobile.presentation.screens.rule_details.components.RuleTitleItem
+import com.vodimobile.presentation.screens.rule_details.store.RulesDetailsIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
@@ -65,8 +66,8 @@ private fun RuleDetailsScreenPreview() {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
             RuleDetailsScreen(
                 ruleId = 0,
-                viewModel = RulesDetailsViewModel(navController = rememberNavController()),
-                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources),
+                viewModel = RulesDetailsViewModel({})
             )
         }
     }

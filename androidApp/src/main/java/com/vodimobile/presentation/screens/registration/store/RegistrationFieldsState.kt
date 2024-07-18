@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.registration
+package com.vodimobile.presentation.screens.registration.store
 
 data class RegistrationFieldsState(
     val email: String = "",

@@ -7,11 +7,11 @@ object RootScreen {
     const val START_SCREEN = "start_root"
 }
 object LeafScreen {
-    const val HOME_SCREEN = "home"
-    const val ORDERS_SCREEN = "order"
     const val PROFILE_SCREEN = "profile"
     const val RULES_SCREEN = "rules"
     const val RULE_DETAILS_SCREEN = "rule_details"
+    const val FAQ_SCREEN = "faq"
+    const val CONTACTS_SCREEN = "contacts"
 }
 object DialogIdentifiers {
     const val LOG_OUT_DIALOG = "logout"

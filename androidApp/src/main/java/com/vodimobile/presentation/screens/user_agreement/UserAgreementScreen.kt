@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementScreenIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -57,7 +58,7 @@ private fun UserAgreementScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.onPrimary
         ) {
-            UserAgreementScreen(viewModel = UserAgreementViewModel())
+            UserAgreementScreen(viewModel = UserAgreementViewModel({}))
         }
     }
 }

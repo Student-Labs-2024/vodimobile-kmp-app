@@ -85,7 +85,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun ProfileScreenPreviewLight() {
     VodimobileTheme {
-        ProfileScreen(profileViewModel = ProfileViewModel(navController = rememberNavController()))
+        ProfileScreen(profileViewModel = ProfileViewModel({}))
     }
 }
 
@@ -93,6 +93,6 @@ private fun ProfileScreenPreviewLight() {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun ProfileScreenPreviewNight() {
     VodimobileTheme {
-        ProfileScreen(profileViewModel = ProfileViewModel(navController = rememberNavController()))
+        ProfileScreen(profileViewModel = ProfileViewModel({}))
     }
 }

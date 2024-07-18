@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.presentation.screens.registration.RegistrationFieldsState
+import com.vodimobile.presentation.screens.registration.store.RegistrationFieldsState
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable

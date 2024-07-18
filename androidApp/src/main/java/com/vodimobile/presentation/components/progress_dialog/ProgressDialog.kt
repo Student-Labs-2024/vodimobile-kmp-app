@@ -43,7 +43,7 @@ fun ProgressDialog(
 private fun ProgressDialogNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RuleScreen(viewModel = RuleViewModel(rememberNavController()), rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
+            RuleScreen(viewModel = RuleViewModel({}), rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
         }
     }
 }
@@ -53,7 +53,7 @@ private fun ProgressDialogNightPreview() {
 private fun ProgressDialogLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         ProgressDialog(isLoading = true) {
-            RuleScreen(viewModel = RuleViewModel(rememberNavController()), rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
+            RuleScreen(viewModel = RuleViewModel({}), rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources))
         }
     }
 }
