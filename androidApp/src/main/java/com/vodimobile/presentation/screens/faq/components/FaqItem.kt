@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.vodimobile.domain.model.FaqModel
-import com.vodimobile.presentation.screens.faq.Dimensions
 import com.vodimobile.presentation.theme.VodimobileTheme
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
@@ -42,6 +41,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.vodimobile.presentation.Anim
+import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.theme.divider
 
@@ -55,7 +56,7 @@ fun FaqItem(faqModel: FaqModel) {
     val degrees by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
         label = "",
-        animationSpec = tween(Dimensions.animationDuration)
+        animationSpec = tween(Anim.fastAnimDuration)
     )
 
     Column(
@@ -110,14 +111,14 @@ fun FaqItem(faqModel: FaqModel) {
                         imageVector = Icons.Rounded.KeyboardArrowDown,
                         modifier = Modifier.rotate(degrees),
                         contentDescription = "",
-                        tint = LocalContentColor.current.copy(alpha = Dimensions.faqIconButtonAlpha)
+                        tint = LocalContentColor.current.copy(alpha = BottomAppBarAlpha.BACKGROUND_ALPHA)
                     )
                 }
 
                 AnimatedVisibility(
                     visible = expanded,
-                    enter = fadeIn(animationSpec = tween(Dimensions.animationDuration)),
-                    exit = fadeOut(animationSpec = tween(Dimensions.animationDuration))
+                    enter = fadeIn(animationSpec = tween(Anim.fastAnimDuration)),
+                    exit = fadeOut(animationSpec = tween(Anim.fastAnimDuration))
                 ) {
                     Text(
                         text = faqModel.answer,

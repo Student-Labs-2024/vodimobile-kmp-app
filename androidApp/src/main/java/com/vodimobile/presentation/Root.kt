@@ -5,7 +5,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.navigation.NavGraph
 import com.vodimobile.presentation.components.BottomBar
@@ -17,7 +20,10 @@ fun Root() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomBar(navController = navController)
+            val backStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
+            val currentRoute = backStackEntry?.destination?.route
+            if (currentRoute != RootScreen.START_SCREEN)
+                BottomBar(navController = navController)
         }
     ) {
         NavGraph(
