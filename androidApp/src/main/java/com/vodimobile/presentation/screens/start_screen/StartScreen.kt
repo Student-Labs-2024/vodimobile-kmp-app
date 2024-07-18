@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.startscreen
+package com.vodimobile.presentation.screens.start_screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
-import com.vodimobile.presentation.screens.startscreen.store.StartScreenIntent
+import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable

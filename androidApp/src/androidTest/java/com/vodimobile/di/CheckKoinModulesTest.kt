@@ -1,6 +1,6 @@
 package com.vodimobile.di
 
-import com.vodimobile.presentation.screens.startscreen.StartScreenViewModel
+import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

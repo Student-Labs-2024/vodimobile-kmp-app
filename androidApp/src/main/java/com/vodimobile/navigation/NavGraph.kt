@@ -22,8 +22,8 @@ import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
 import com.vodimobile.presentation.screens.rule_details.RulesDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RuleScreen
 import com.vodimobile.presentation.screens.rules.RuleViewModel
-import com.vodimobile.presentation.screens.startscreen.StartScreen
-import com.vodimobile.presentation.screens.startscreen.StartScreenViewModel
+import com.vodimobile.presentation.screens.start_screen.StartScreen
+import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import org.koin.core.parameter.parametersOf
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
@@ -34,7 +34,7 @@ import com.vodimobile.presentation.screens.faq.store.FaqOutput
 import com.vodimobile.presentation.screens.profile.store.ProfileOutput
 import com.vodimobile.presentation.screens.rule_details.store.RulesDetailsOutput
 import com.vodimobile.presentation.screens.rules.store.RulesOutput
-import com.vodimobile.presentation.screens.startscreen.store.StartScreenOutput
+import com.vodimobile.presentation.screens.start_screen.store.StartScreenOutput
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
