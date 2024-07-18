@@ -1,6 +1,7 @@
 package com.vodimobile.presentation.screens.contact
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.contact.components.ListContactItem
@@ -43,7 +43,7 @@ fun ContactScreen(сontactViewModel: ContactViewModel) {
                 .fillMaxSize()
                 .padding(it)
                 .padding(top = 16.dp)
-                .background(color = MaterialTheme.colorScheme.onPrimary)
+                .background(color = MaterialTheme.colorScheme.background)
         ) {
             VersionItem()
 
@@ -67,13 +67,27 @@ fun ContactScreen(сontactViewModel: ContactViewModel) {
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-@Preview(showBackground = true)
-private fun ContactScreenPreview() {
-    VodimobileTheme {
-        ContactScreen(сontactViewModel = ContactViewModel({}))
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+private fun ContactScreenPreviewLight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            ContactScreen(сontactViewModel = ContactViewModel({}))
+        }
     }
 
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+private fun ContactScreenPreviewNight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            ContactScreen(сontactViewModel = ContactViewModel({}))
+        }
+    }
 }
 
 

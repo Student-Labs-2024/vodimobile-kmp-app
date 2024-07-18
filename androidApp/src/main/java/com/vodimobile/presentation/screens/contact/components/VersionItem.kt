@@ -59,7 +59,7 @@ fun VersionItem() {
                         .size(48.dp),
                     shape = MaterialTheme.shapes.small,
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.onPrimary
+                        containerColor = MaterialTheme.colorScheme.background
                     )
                 ) {
                     Image(

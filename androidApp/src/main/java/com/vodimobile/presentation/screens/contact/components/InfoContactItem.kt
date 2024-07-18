@@ -30,7 +30,7 @@ fun InfoContactItem(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(horizontal = 16.dp)
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

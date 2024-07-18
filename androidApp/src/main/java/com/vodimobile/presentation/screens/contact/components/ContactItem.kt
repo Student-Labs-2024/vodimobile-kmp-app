@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowRight
@@ -17,9 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.vodimobile.presentation.BottomAppBarAlpha
 
 
@@ -28,16 +26,13 @@ fun ContactItem(
     modifier: Modifier = Modifier,
     title: String,
     onClick: () -> Unit,
-    icon: @Composable () -> Unit,
-
-
-
-    ) {
+    icon: @Composable () -> Unit
+) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent,
+            containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onBackground
         ),
         contentPadding = PaddingValues(start = 24.dp, top = 8.dp, end = 16.dp, bottom = 8.dp),
