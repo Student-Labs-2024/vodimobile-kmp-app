@@ -49,10 +49,10 @@ fun RuleDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RuleTitleItem(title = rules[ruleId].rule)
+            RuleTitleItem(title = rules[ruleId].title)
 
             RuleInformationItem(
-                condition = rules[ruleId].title,
+                condition = rules[ruleId].rule,
                 conclusion = rules[ruleId].condition
             )
         }

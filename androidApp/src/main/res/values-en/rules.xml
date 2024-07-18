@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="rules">
-        <item>Rental conditions for drivers</item>
-        <item>Stages of car rental</item>
-        <item>Security Service</item>
-        <item>Payment and deposit of the reserved car</item>
-        <item>Car delivery</item>
-        <item>Application for overnight rental</item>
-        <item>Time to transfer the car:</item>
-        <item>Daily mileage</item>
-        <item>The territory of movement</item>
-        <item>Car rental extension</item>
-        <item>Transfer of the car to the second driver</item>
-        <item>Insurance and liability</item>
-        <item>Gasoline and refueling</item>
-        <item>Car wash</item>
-        <item>Fines when renting a car</item>
-        <item>Additional equipment</item>
+        <item>Rental conditions ~for drivers</item>
+        <item>Stages of ~car rental</item>
+        <item>Security ~Service</item>
+        <item>Payment and deposit ~of the reserved car</item>
+        <item>Car delivery~</item>
+        <item>Application for overnight rental~</item>
+        <item>Time to transfer ~the car</item>
+        <item>Daily mileage~</item>
+        <item>The territory of movement~</item>
+        <item>Car rental ~extension</item>
+        <item>Transfer ~of the car to the second driver</item>
+        <item>Insurance and liability~</item>
+        <item>Gasoline and refueling~</item>
+        <item>Car wash~</item>
+        <item>Fines ~when renting a car</item>
+        <item>Additional ~equipment</item>
 
     </array>
 

@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.startscreen.store
+package com.vodimobile.presentation.screens.start_screen.store
 
 sealed class StartScreenOutput {
     data object ClickRegistration : StartScreenOutput()

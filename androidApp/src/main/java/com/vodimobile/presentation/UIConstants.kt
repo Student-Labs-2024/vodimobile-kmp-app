@@ -12,3 +12,7 @@ object ProgressDialog {
     val PROGRESS_DIALOG_CARD_DP_SIZE = DpSize(width = 100.dp, height = 100.dp)
     val PADDING = 23.dp
 }
+
+object Anim{
+    const val fastAnimDuration = 200
+}

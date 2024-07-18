@@ -1,6 +1,6 @@
 package com.vodimobile.di
 
-import com.vodimobile.presentation.screens.startscreen.StartScreenViewModel
+import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.contact.ContactViewModel

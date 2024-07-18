@@ -39,7 +39,7 @@ fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             itemsIndexed(rules) { index, item ->
-                RulesItem(title = item.title, onNavigate = {
+                RulesItem(title = item.title.replace("~", ""), onNavigate = {
                     viewModel.onIntent(RulesIntent.RuleClick(ruleId = index))
                 })
             }

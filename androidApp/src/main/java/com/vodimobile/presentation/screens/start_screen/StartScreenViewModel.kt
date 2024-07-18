@@ -1,8 +1,8 @@
-package com.vodimobile.presentation.screens.startscreen
+package com.vodimobile.presentation.screens.start_screen
 
 import androidx.lifecycle.ViewModel
-import com.vodimobile.presentation.screens.startscreen.store.StartScreenIntent
-import com.vodimobile.presentation.screens.startscreen.store.StartScreenOutput
+import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
+import com.vodimobile.presentation.screens.start_screen.store.StartScreenOutput
 
 class StartScreenViewModel(private val output: (StartScreenOutput) -> Unit) : ViewModel() {
 
