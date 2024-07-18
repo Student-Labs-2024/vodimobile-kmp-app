@@ -24,8 +24,6 @@ import com.vodimobile.presentation.screens.rules.RuleViewModel
 import com.vodimobile.presentation.screens.startscreen.StartScreen
 import com.vodimobile.presentation.screens.startscreen.StartScreenViewModel
 import org.koin.core.parameter.parametersOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.contact.store.ContactOutput
@@ -35,6 +33,7 @@ import com.vodimobile.presentation.screens.faq.store.FaqOutput
 import com.vodimobile.presentation.screens.profile.store.ProfileOutput
 import com.vodimobile.presentation.screens.rule_details.store.RulesDetailsOutput
 import com.vodimobile.presentation.screens.rules.store.RulesOutput
+import com.vodimobile.presentation.screens.startscreen.store.StartScreenOutput
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -42,8 +41,10 @@ fun NavGraph(
     navHostController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val rulesAndConditionList: List<RulesAndConditionModel> = RulesAndConditionModel.getRulesAndConditionModelList(
-        LocalContext.current.resources)
+    val rulesAndConditionList: List<RulesAndConditionModel> =
+        RulesAndConditionModel.getRulesAndConditionModelList(
+            LocalContext.current.resources
+        )
 
     NavHost(
         navController = navHostController,
@@ -62,7 +63,10 @@ fun NavGraph(
             composable(route = LeafScreen.PROFILE_SCREEN) {
                 val profileOutput = { out: ProfileOutput ->
                     when (out) {
-                        ProfileOutput.AppExitClick -> {}
+                        ProfileOutput.AppExitClick -> {
+                            navHostController.navigate(route = DialogIdentifiers.LOG_OUT_DIALOG)
+                        }
+
                         ProfileOutput.ConstantsClick -> {
                             navHostController.navigate(route = LeafScreen.CONTACTS_SCREEN)
                         }
@@ -110,12 +114,6 @@ fun NavGraph(
                         }
                     }
                 }
-            dialog(route = DialogIdentifiers.LOG_OUT_DIALOG) {
-                LogOutConfirmationDialog(
-                    onDismiss = { navHostController.navigateUp() },
-                    onConfirm = { navHostController.navigate(RootScreen.START_SCREEN) })
-            }
-            composable("${LeafScreen.RULE_DETAILS_SCREEN}/{ruleId}") { backStackEntry ->
                 val ruleId = backStackEntry.arguments?.getInt("ruleId")!!
                 val rulesDetailsViewModel: RulesDetailsViewModel =
                     koinViewModel { parametersOf(rulesDetailsOutput) }
@@ -125,6 +123,11 @@ fun NavGraph(
                     ruleId = ruleId,
                     rules = rulesAndConditionList
                 )
+            }
+            dialog(route = DialogIdentifiers.LOG_OUT_DIALOG) {
+                LogOutConfirmationDialog(
+                    onDismiss = { navHostController.navigateUp() },
+                    onConfirm = { navHostController.navigate(RootScreen.START_SCREEN) })
             }
             composable(route = LeafScreen.FAQ_SCREEN) {
                 val faqOutput = { out: FaqOutput ->
@@ -157,7 +160,18 @@ fun NavGraph(
             }
         }
         composable(route = RootScreen.START_SCREEN) {
-            StartScreen(startScreenViewModel = StartScreenViewModel())
+            val startScreenOut = { out: StartScreenOutput ->
+                when (out) {
+                    StartScreenOutput.ClickLogin -> {}
+                    StartScreenOutput.ClickRegistration -> {}
+                    StartScreenOutput.CloseClick -> {
+                        navHostController.navigateUp()
+                    }
+                }
+            }
+            val startScreenViewModel: StartScreenViewModel =
+                koinViewModel { parametersOf(startScreenOut) }
+            StartScreen(startScreenViewModel = startScreenViewModel)
         }
     }
 }
