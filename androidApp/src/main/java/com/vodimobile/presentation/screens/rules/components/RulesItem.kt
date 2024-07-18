@@ -1,12 +1,14 @@
 package com.vodimobile.presentation.screens.rules.components
 
+import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Scaffold
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,7 +37,10 @@ fun RulesItem(
         modifier = modifier.fillMaxWidth(),
         onClick = onNavigate,
         shape = MaterialTheme.shapes.small,
-        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent, contentColor = MaterialTheme.colorScheme.onBackground),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Transparent,
+            contentColor = MaterialTheme.colorScheme.onBackground
+        ),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
 
@@ -62,10 +67,24 @@ fun RulesItem(
     }
 }
 
-@Preview(showBackground = true)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun RulesItemPreview() {
-    VodimobileTheme {
-        RulesItem(title = "Условия аренды для водителей") {}
+fun RulesItemPreviewNight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            RulesItem(title = "Условия аренды для водителей") {}
+        }
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+fun RulesItemPreviewLight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            RulesItem(title = "Условия аренды для водителей") {}
+        }
     }
 }

@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vodimobile.domain.model.RulesAndConditionModel
+import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.splitTextByDelimiter
 
@@ -49,7 +51,8 @@ fun RuleTitleItem(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 12.dp),
+            .padding(all = 12.dp)
+            .testTag(tag = TestTags.RuleTitleItem.ruleTitleItemText),
         textAlign = TextAlign.Start
     )
 }
