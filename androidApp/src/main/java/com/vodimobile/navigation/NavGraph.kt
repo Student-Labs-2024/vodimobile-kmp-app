@@ -1,7 +1,6 @@
 package com.vodimobile.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -38,8 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NavGraph(
-    navHostController: NavHostController,
-    modifier: Modifier = Modifier
+    navHostController: NavHostController
 ) {
     val rulesAndConditionList: List<RulesAndConditionModel> =
         RulesAndConditionModel.getRulesAndConditionModelList(
