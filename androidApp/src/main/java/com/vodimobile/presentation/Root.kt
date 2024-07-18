@@ -1,6 +1,5 @@
 package com.vodimobile.presentation
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -13,7 +12,6 @@ import com.vodimobile.navigation.NavGraph
 import com.vodimobile.presentation.components.BottomBar
 import com.vodimobile.presentation.theme.VodimobileTheme
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Root() {
     val navController = rememberNavController()

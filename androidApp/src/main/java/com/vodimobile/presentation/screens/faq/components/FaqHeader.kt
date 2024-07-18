@@ -52,7 +52,7 @@ fun FaqHeader() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(ExtendedTheme.colorScheme.headerBack)
+                .background(ExtendedTheme.colorScheme.containerBack)
                 .padding(PaddingValues(horizontal = 28.dp, vertical = 32.dp)),
             verticalArrangement = Arrangement.spacedBy(
                 space = 24.dp,
