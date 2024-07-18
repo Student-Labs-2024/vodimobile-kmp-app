@@ -1,11 +1,12 @@
 package com.vodimobile.presentation.screens.rules
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,12 +22,12 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
-
     Scaffold(
         topBar = {
             ScreenHeader(
                 modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
-                title = stringResource(R.string.str_rules_and_conditions_title), onNavigateBack = {
+                title = stringResource(R.string.str_rules_and_conditions_title),
+                onNavigateBack = {
                     viewModel.onIntent(RulesIntent.BackClick)
                 }
             )
@@ -39,22 +40,41 @@ fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             itemsIndexed(rules) { index, item ->
-                RulesItem(title = item.title.replace("~", ""), onNavigate = {
-                    viewModel.onIntent(RulesIntent.RuleClick(ruleId = index))
-                })
+                RulesItem(title = item.title.replace("~", ""),
+                    onNavigate = {
+                        viewModel.onIntent(RulesIntent.RuleClick(ruleId = index))
+                    }
+                )
             }
         }
     }
 
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-@Preview(showBackground = true)
-private fun RulesScreenPreview() {
-    VodimobileTheme {
-        RuleScreen(
-            viewModel = RuleViewModel(output = {}),
-            rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
-        )
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+private fun RulesScreenPreviewNight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            RuleScreen(
+                viewModel = RuleViewModel(output = {}),
+                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+            )
+        }
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+private fun RulesScreenPreviewLight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            RuleScreen(
+                viewModel = RuleViewModel(output = {}),
+                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+            )
+        }
     }
 }

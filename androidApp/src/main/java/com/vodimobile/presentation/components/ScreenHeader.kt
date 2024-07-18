@@ -1,5 +1,7 @@
 package com.vodimobile.presentation.components
 
+import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +11,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -54,15 +56,26 @@ fun ScreenHeader(
     }
 }
 
-@Preview
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun PageHeaderPreview() {
-
+private fun PageHeaderPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
+        Scaffold{
+            ScreenHeader(
+                title = stringResource(id = R.string.title_screen_registration),
+                onNavigateBack = {}
+            )
+        }
+    }
+}
 
-        Surface(
-            color = MaterialTheme.colorScheme.onPrimary
-        ) {
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+private fun PageHeaderPreviewLight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold{
             ScreenHeader(
                 title = stringResource(id = R.string.title_screen_registration),
                 onNavigateBack = {}

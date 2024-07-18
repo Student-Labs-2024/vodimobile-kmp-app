@@ -5,4 +5,8 @@ object TestTags {
         val questionCard = "questionCard"
         val answerText = "answerText"
     }
+
+    object RuleTitleItem {
+        val ruleTitleItemText = "ruleTitleItemText"
+    }
 }
