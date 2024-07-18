@@ -20,11 +20,11 @@ extension TextFieldType {
     var localizedStr: String {
         switch self {
         case .email:
-            return R.string.localizable.email.callAsFunction()
+            return R.string.localizable.email()
         case .phone:
-            return R.string.localizable.phone.callAsFunction()
+            return R.string.localizable.phone()
         case .fullName:
-            return R.string.localizable.fullName.callAsFunction()
+            return R.string.localizable.fullName()
         }
     }
 }

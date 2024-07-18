@@ -18,7 +18,7 @@ struct PinCodeView: View {
     @Environment(\.isAuthorized) private var isAuthorized
 
     private var sendCodeOnPhoneText: String {
-        "\(R.string.localizable.sendCodeMsg.callAsFunction()) \n \(phoneNumber)"
+        "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
     }
     
     var body: some View {

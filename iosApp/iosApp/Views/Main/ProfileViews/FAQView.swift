@@ -13,10 +13,10 @@ struct FAQScreenView: View {
     
     private var viewModel: FAQViewModel
     var attributedTitle: AttributedString {
-        var attributedString = AttributedString("Вопрос-ответ от \"Водимобиль\"")
+        var attributedString = AttributedString(R.string.localizable.questionAndAnswerTitle())
         attributedString.font = .header3
         
-        if let range = attributedString.range(of: "Вопрос-ответ") {
+        if let range = attributedString.range(of: R.string.localizable.questionAndAnswerAttributedPartOfTitle()) {
             attributedString[range].foregroundColor = Color(R.color.blueColor)
         }
         
@@ -34,7 +34,7 @@ struct FAQScreenView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     Text(attributedTitle)
                         .font(.header3)
-                    Text("Найдите ответ на любой интересующий Вас вопрос.")
+                    Text(R.string.localizable.questionAndAnswerText)
                         .font(.paragraph4)
                         .foregroundStyle(Color(R.color.grayTextColor))
                 }

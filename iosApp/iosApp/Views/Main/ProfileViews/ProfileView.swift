@@ -116,10 +116,10 @@ struct ProfileView: View {
                     }
                     .padding(18)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
-                    .alert(R.string.localizable.exitAlertTitle.callAsFunction(), isPresented: $showAlert) {
-                        Button(R.string.localizable.exitFirstBtnText.callAsFunction(), role: .destructive) {}
+                    .alert(R.string.localizable.exitAlertTitle(), isPresented: $showAlert) {
+                        Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {}
                         
-                        Button(R.string.localizable.exitSecondBtnText.callAsFunction(), role: .cancel) {
+                        Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {
                             showAlert.toggle()
                         }
                     } message: {

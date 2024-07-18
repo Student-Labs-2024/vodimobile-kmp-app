@@ -61,3 +61,6 @@
 "vk" = "Vkontakte";
 "whatsapp" = "Whatsapp";
 "telegram" = "Telegram";
+"questionAndAnswerTitle" = "FAQ from \"Vodimobile\"";
+"questionAndAnswerAttributedPartOfTitle" = "FAQ";
+"questionAndAnswerText" = "Find answer on any your questions.";

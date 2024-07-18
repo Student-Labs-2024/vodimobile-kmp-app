@@ -34,8 +34,8 @@ struct PersonDataView: View {
                 
                 Spacer()
             }
-            .alert(R.string.localizable.alertSavePersonDataTitle.callAsFunction(), isPresented: $viewModel.showAlert) {
-                Button(R.string.localizable.closeButton.callAsFunction(), role: .cancel) {
+            .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.showAlert) {
+                Button(R.string.localizable.closeButton(), role: .cancel) {
                     $viewModel.showAlert.wrappedValue.toggle()
                 }
             } message: {

@@ -61,3 +61,6 @@
 "vk" = "Вконтакте";
 "whatsapp" = "Whatsapp";
 "telegram" = "Телеграм";
+"questionAndAnswerTitle" = "Вопрос-ответ от \"Водимобиль\"";
+"questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
+"questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";

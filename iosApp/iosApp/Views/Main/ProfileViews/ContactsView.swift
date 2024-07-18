@@ -141,7 +141,9 @@ struct ContactsView: View {
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right").foregroundStyle(Color(R.color.grayDarkColor)).fontWeight(.bold)
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .fontWeight(.bold)
                         }
                     }
                     
@@ -155,7 +157,9 @@ struct ContactsView: View {
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right").foregroundStyle(Color(R.color.grayDarkColor)).fontWeight(.bold)
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .fontWeight(.bold)
                         }
                     }
                     
@@ -165,11 +169,15 @@ struct ContactsView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 32, height: 32)
-                            Text("\(R.string.localizable.telegram)").font(.paragraph2).foregroundStyle(Color.black)
+                            Text("\(R.string.localizable.telegram)")
+                                .font(.paragraph2)
+                                .foregroundStyle(Color.black)
                             
                             Spacer()
                             
-                            Image(systemName: "chevron.right").foregroundStyle(Color(R.color.grayDarkColor)).fontWeight(.bold)
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .fontWeight(.bold)
                         }
                     }
                 }

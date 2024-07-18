@@ -26,7 +26,6 @@ struct CheckboxView: View {
                         .imageScale(.small)
                 }
             }
-//            .padding(4)
             .padding(.leading, checkboxLeadingPadding)
         }
     }

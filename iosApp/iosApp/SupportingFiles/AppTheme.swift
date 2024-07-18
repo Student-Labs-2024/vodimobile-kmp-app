@@ -10,27 +10,28 @@ import UIKit
 import SwiftUI
 import RswiftResources
 
+
 extension Font {
-    public static let header1: Font = .custom("AkzidenzGroteskPro-MdEx", size: 18)
-    public static let header2: Font = .custom("AkzidenzGroteskPro-Regular", size: 20)
-    public static let header3: Font = .custom("AkzidenzGroteskPro-MdEx", size: 16)
-    public static let header4: Font = .custom("AkzidenzGroteskPro-Ext", size: 15)
+    public static let header1: Font = Font(R.font.akzidenzGroteskProMdEx(size: 18) ?? .systemFont(ofSize: 18))
+    public static let header2: Font = Font(R.font.akzidenzGroteskProRegular(size: 20) ?? .systemFont(ofSize: 20))
+    public static let header3: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
+    public static let header4: Font = Font(R.font.akzidenzGroteskProExt(size: 15) ?? .systemFont(ofSize: 15))
     
-    public static let button: Font = .custom("AkzidenzGroteskPro-MdEx", size: 16)
-    public static let buttonText: Font = .custom("AkzidenzGroteskPro-Light", size: 14)
-    public static let buttonCheckBox: Font = .custom("AkzidenzGroteskPro-Light", size: 14)
-    public static let buttonTabbar: Font = .custom("AkzidenzGroteskPro-Md", size: 12)
+    public static let button: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
+    public static let buttonText: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let buttonCheckBox: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let buttonTabbar: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
     
-    public static let paragraph1: Font = .custom("AkzidenzGroteskPro-Md", size: 18)
-    public static let paragraph2: Font = .custom("AkzidenzGroteskPro-Regular", size: 16)
-    public static let paragraph3: Font = .custom("AkzidenzGroteskPro-Light", size: 14)
-    public static let paragraph4: Font = .custom("AkzidenzGroteskPro-Regular", size: 14)
-    public static let paragraph5: Font = .custom("AkzidenzGroteskPro-Light", size: 14)
-    public static let paragraph6: Font = .custom("AkzidenzGroteskPro-Light", size: 12)
+    public static let paragraph1: Font = Font(R.font.akzidenzGroteskProMd(size: 18) ?? .systemFont(ofSize: 18))
+    public static let paragraph2: Font = Font(R.font.akzidenzGroteskProRegular(size: 16) ?? .systemFont(ofSize: 16))
+    public static let paragraph3: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph4: Font = Font(R.font.akzidenzGroteskProRegular(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph5: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph6: Font = Font(R.font.akzidenzGroteskProLight(size: 12) ?? .systemFont(ofSize: 12))
 }
 
 struct FilledBtnStyle: ButtonStyle {
-
+    
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         FilledButton(configuration: configuration)
     }
@@ -42,7 +43,7 @@ struct BorderedBtnStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .background(configuration.isPressed ? Color(uiColor: R.color.blueColor.callAsFunction() ?? .clear): .white)
+            .background(configuration.isPressed ? Color(uiColor: R.color.blueColor() ?? .clear): .white)
             .foregroundColor(configuration.isPressed ? .white : Color(R.color.blueColor))
             .overlay(
                 RoundedRectangle(cornerRadius: 15)

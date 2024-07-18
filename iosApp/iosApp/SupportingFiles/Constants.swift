@@ -62,7 +62,7 @@ struct PinCodeConfig {
 // Contact info
 public let contactPhone = "+7 (950) 783 14-40"
 public let contactEmail = "vodimobil@vodimobil.ru"
-public let contactLocation = R.string.localizable.officeLocation.callAsFunction()
+public let contactLocation = R.string.localizable.officeLocation()
 public let whatsappLink = "https://wa.me/79507831440"
 public let vkLink = "https://vk.com/vodimobil"
 public let tgLink = "https://t.me/vodimobilomsk"

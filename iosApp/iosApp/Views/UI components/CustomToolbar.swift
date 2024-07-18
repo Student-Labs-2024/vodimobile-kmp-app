@@ -16,7 +16,7 @@ struct CustomToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
     
     init(title: StringResource, trailingToolbarItem: TrailingToolbarItem? = nil) {
-        self.title = title.callAsFunction()
+        self.title = title()
         self.trailingToolbarItem = trailingToolbarItem
     }
     
