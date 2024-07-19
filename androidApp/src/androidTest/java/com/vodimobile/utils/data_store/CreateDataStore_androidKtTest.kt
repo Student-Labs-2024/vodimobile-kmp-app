@@ -1,12 +1,16 @@
 package com.vodimobile.utils.data_store
 
 import android.content.Context
+import androidx.activity.ComponentActivity
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.vodimobile.MainActivity
 import com.vodimobile.presentation.TestTags
+import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
@@ -29,7 +33,7 @@ import kotlin.test.assertNotNull
 class CreateDataStore_androidKtTest {
 
     @get:Rule
-    val rule = createAndroidComposeRule<MainActivity>()
+    val rule = createAndroidComposeRule<ComponentActivity>()
 
     private lateinit var context: Context
     private lateinit var dispatcher: TestDispatcher
@@ -59,33 +63,40 @@ class CreateDataStore_androidKtTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun editDataStoreData() = runTest {
-        val dataStore: DataStore<Preferences> = createDataStore(context = context)
+        rule.setContent {
+            VodimobileTheme {
+                val dataStore: DataStore<Preferences> =
+                    remember { createDataStore(context = context) }
 
-        // 1. Запускаем редактирование в отдельном сопрограмме
-        launch(dispatcher) {
-            dataStore.edit { preferences ->
-                preferences[TestTags.TestDataStore.PREFERENCES_KEY_TEST] =
-                    TestTags.TestDataStore.CreateDataStore_androidKtTest.mock_editDataStoreData
+                LaunchedEffect(key1 = Unit) {
+                    // 1. Запускаем редактирование в отдельном сопрограмме
+                    launch(dispatcher) {
+                        dataStore.edit { preferences ->
+                            preferences[TestTags.TestDataStore.PREFERENCES_KEY_TEST] =
+                                TestTags.TestDataStore.CreateDataStore_androidKtTest.mock_editDataStoreData
+                        }
+                    }
+
+                    // 2. Ждем, пока редактирование завершится
+                    advanceUntilIdle()
+
+                    // 3. Получаем значение из flow
+                    val stringFlow: Flow<String> = dataStore.data.map { preferences ->
+                        preferences[TestTags.TestDataStore.PREFERENCES_KEY_TEST] ?: ""
+                    }
+
+                    // 4. Собираем данные из flow и ждем, пока значение будет получено
+                    stringFlow.collect { value ->
+                        assertEquals(
+                            expected = TestTags.TestDataStore.CreateDataStore_androidKtTest.expect_editDataStoreData,
+                            actual = value,
+                            message = TestTags.TestDataStore.CreateDataStore_androidKtTest.msg_editDataStoreData
+                        )
+                        // Важно: завершаем collect, чтобы тест не завис
+                        advanceUntilIdle()
+                    }
+                }
             }
-        }
-
-        // 2. Ждем, пока редактирование завершится
-        advanceUntilIdle()
-
-        // 3. Получаем значение из flow
-        val stringFlow: Flow<String> = dataStore.data.map { preferences ->
-            preferences[TestTags.TestDataStore.PREFERENCES_KEY_TEST] ?: ""
-        }
-
-        // 4. Собираем данные из flow и ждем, пока значение будет получено
-        stringFlow.collect { value ->
-            assertEquals(
-                expected = TestTags.TestDataStore.CreateDataStore_androidKtTest.expect_editDataStoreData,
-                actual = value,
-                message = TestTags.TestDataStore.CreateDataStore_androidKtTest.msg_editDataStoreData
-            )
-            // Важно: завершаем collect, чтобы тест не завис
-            advanceUntilIdle()
         }
     }
 }
