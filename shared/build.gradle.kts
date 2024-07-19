@@ -26,6 +26,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             //put your multiplatform dependencies here
+
+            //Data store
             api(libs.androidx.datastore)
             api(libs.androidx.datastore.preferences)
         }
@@ -45,4 +47,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+dependencies {
+    implementation(libs.androidx.junit.ktx)
 }

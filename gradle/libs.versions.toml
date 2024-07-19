@@ -9,6 +9,7 @@ androidx-activityCompose = "1.8.0"
 composePlugin = "1.6.11"
 foundationAndroid = "1.6.8"
 composeCompiler = "2.0.0"
+kotlinxCoroutinesTest = "1.9.0-RC"
 material = "compose"
 navigationCompose = "2.7.7"
 testng = "6.9.6"
@@ -16,6 +17,7 @@ uiTestJunit4Android = "1.6.8"
 
 #Koin
 koin = "3.6.0-Beta4"
+junitKtx = "1.2.1"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -31,6 +33,7 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 testng = { group = "org.testng", name = "testng", version.ref = "testng" }
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
 androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
@@ -41,6 +44,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 koin-android-test = { module = "io.insert-koin:koin-android-test", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
