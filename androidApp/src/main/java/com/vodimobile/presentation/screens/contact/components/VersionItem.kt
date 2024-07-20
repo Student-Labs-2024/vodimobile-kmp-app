@@ -17,26 +17,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.android.BuildConfig
 import com.vodimobile.android.R
+import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import java.util.Calendar
 
 
 @Composable
-fun VersionItem() {
-    val versionName = BuildConfig.VERSION_NAME
-    val startYear = stringResource(id = R.string.version_year_str)
-    val cal = Calendar.getInstance()
-    cal.timeInMillis = System.currentTimeMillis()
-    val year = cal.get(Calendar.YEAR)
-    val currentYear = year
-    val versionYear = "$startYear-$currentYear"
+fun VersionItem(contactViewModel: ContactViewModel) {
+    val versionName = contactViewModel.getVersionName()
+    val versionYear = contactViewModel.getVersionYear(LocalContext.current)
     ExtendedTheme {
         Card(
             modifier = Modifier,
@@ -98,6 +93,6 @@ fun VersionItem() {
 @Composable
 private fun VersionItemPreview() {
     VodimobileTheme {
-        VersionItem()
+        VersionItem(contactViewModel = ContactViewModel())
     }
 }

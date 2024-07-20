@@ -45,7 +45,7 @@ fun ContactScreen(сontactViewModel: ContactViewModel) {
                 .padding(top = 16.dp)
                 .background(color = MaterialTheme.colorScheme.background)
         ) {
-            VersionItem()
+            VersionItem(contactViewModel = ContactViewModel())
 
             Spacer(modifier = Modifier.height(20.dp))
             ListInfoContact()
@@ -73,7 +73,7 @@ fun ContactScreen(сontactViewModel: ContactViewModel) {
 private fun ContactScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            ContactScreen(сontactViewModel = ContactViewModel({}))
+            ContactScreen(сontactViewModel = ContactViewModel())
         }
     }
 
@@ -85,7 +85,7 @@ private fun ContactScreenPreviewLight() {
 private fun ContactScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            ContactScreen(сontactViewModel = ContactViewModel({}))
+            ContactScreen(сontactViewModel = ContactViewModel())
         }
     }
 }

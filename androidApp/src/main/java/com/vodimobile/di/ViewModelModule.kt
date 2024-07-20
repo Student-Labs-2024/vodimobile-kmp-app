@@ -30,6 +30,6 @@ val viewModelModule = module {
     viewModel { parameters -> RegistrationScreenViewModel(output = parameters.get()) }
     viewModel { parameters -> RulesDetailsViewModel(output = parameters.get()) }
     viewModel { parameters -> RuleViewModel(output = parameters.get()) }
-    viewModel { parameters -> ContactViewModel(output = parameters.get()) }
+    viewModel { parameters -> ContactViewModel() }
 }
 
