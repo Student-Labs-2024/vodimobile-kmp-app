@@ -30,6 +30,16 @@ kotlin {
             //Data store
             api(libs.androidx.datastore)
             api(libs.androidx.datastore.preferences)
+
+            //Coroutines
+            implementation(libs.kotlinx.coroutines.core)
+
+            //Koin
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.lifecycle.viewmodel)
+            implementation(libs.navigation.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
