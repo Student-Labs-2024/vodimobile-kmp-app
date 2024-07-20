@@ -19,6 +19,8 @@ struct MainTabbarView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            let tabWidthSize = geometry.size.width / 3
+            
             ZStack(alignment: Alignment.bottom) {
                 TabView(selection: $selectedTab) {
                     MainView().tag(TabType.main)
@@ -27,28 +29,34 @@ struct MainTabbarView: View {
                 }
                 
                 HStack(spacing: 0) {
-                    TabBarItem(icon: Image(R.image.home),
-                               title: R.string.localizable.homeScreenTitle,
-                               badgeCount: 0,
-                               isSelected: selectedTab ==  .main,
-                               itemWidth: geometry.size.width / 3) {
-                        selectedTab = .main
+                    TabBarItem(
+                        icon: Image(R.image.home),
+                        title: R.string.localizable.homeScreenTitle,
+                        badgeCount: 0,
+                        isSelected: selectedTab ==  .main,
+                        itemWidth: tabWidthSize
+                    ) {
+                        handleTabSelection(.main)
                     }
                     
-                    TabBarItem(icon: Image(R.image.car),
-                               title: R.string.localizable.myOrdersScreenTitle,
-                               badgeCount: 0,
-                               isSelected: selectedTab ==  .myOrders,
-                               itemWidth: geometry.size.width / 3) {
-                        selectedTab = .myOrders
+                    TabBarItem(
+                        icon: Image(R.image.car),
+                        title: R.string.localizable.myOrdersScreenTitle,
+                        badgeCount: 0,
+                        isSelected: selectedTab ==  .myOrders,
+                        itemWidth: tabWidthSize
+                    ) {
+                        handleTabSelection(.myOrders)
                     }
                     
-                    TabBarItem(icon: Image.personFill,
-                               title: R.string.localizable.profileScreenTitle,
-                               badgeCount: 0,
-                               isSelected: selectedTab == .profile,
-                               itemWidth: geometry.size.width / 3) {
-                        selectedTab = .profile
+                    TabBarItem(
+                        icon: Image.personFill,
+                        title: R.string.localizable.profileScreenTitle,
+                        badgeCount: 0,
+                        isSelected: selectedTab == .profile,
+                        itemWidth: tabWidthSize
+                    ) {
+                        handleTabSelection(.profile)
                     }
                 }
                 .background(Color.white)
@@ -65,6 +73,8 @@ struct MainTabbarView: View {
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
     }
+    
+    private func handleTabSelection(_ tab: TabType) { selectedTab = tab }
 }
 
 #Preview {

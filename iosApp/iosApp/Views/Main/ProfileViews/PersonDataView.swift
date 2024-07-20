@@ -68,16 +68,6 @@ struct PersonDataView: View {
     }
 }
 
-struct UserInputData {
-    var fullName: String = ""
-    var email: String = ""
-    var phone: String = ""
-    
-    func checkEmpty() -> Bool {
-        email.isEmpty && fullName.isEmpty && phone.isEmpty
-    }
-}
-
 #Preview {
     PersonDataView()
 }

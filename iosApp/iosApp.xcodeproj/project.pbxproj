@@ -180,6 +180,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		93328FBE2C495A34008EADB4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				934D957E2C4913290027DFC8 /* MediaCellView.swift */,
+				93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */,
+				934D957C2C4911FE0027DFC8 /* ContactCellView.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		93328FBF2C495A49008EADB4 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */,
+				934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
 		934D5DF22C3D3D8B0070904B /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,15 +241,12 @@
 		934F0D592C3D7740000B256E /* UI components */ = {
 			isa = PBXGroup;
 			children = (
-				934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */,
+				93328FBF2C495A49008EADB4 /* TextFields */,
+				93328FBE2C495A34008EADB4 /* Cells */,
 				934F0D5E2C3D9136000B256E /* CheckboxView.swift */,
 				936198882C3F133E00B0198D /* TabbarItemView.swift */,
 				939D49152C41615000BD65E1 /* CustomToolbar.swift */,
-				93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */,
 				931FDDB32C46FBE8007954FC /* FilledButton.swift */,
-				934D957C2C4911FE0027DFC8 /* ContactCellView.swift */,
-				934D957E2C4913290027DFC8 /* MediaCellView.swift */,
-				93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";

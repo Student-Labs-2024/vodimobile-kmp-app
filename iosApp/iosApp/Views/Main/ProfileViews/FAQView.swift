@@ -9,9 +9,8 @@
 import SwiftUI
 
 struct FAQScreenView: View {
-    @State private var expandedIndices: [Bool]
+    @StateObject private var viewModel: FAQViewModel = FAQViewModel()
     
-    private var viewModel: FAQViewModel
     var attributedTitle: AttributedString {
         var attributedString = AttributedString(R.string.localizable.questionAndAnswerTitle())
         attributedString.font = .header3
@@ -21,11 +20,6 @@ struct FAQScreenView: View {
         }
         
         return attributedString
-    }
-    
-    init() {
-        self.viewModel = FAQViewModel()
-        self.expandedIndices = Array(repeating: false, count: viewModel.listOfQuestions.count)
     }
     
     var body: some View {
@@ -44,7 +38,7 @@ struct FAQScreenView: View {
                 .padding(.top, 10)
                 
                 LazyVStack(alignment: .leading) {
-                    DisclosureListView(expandedIndices: $expandedIndices, listOfQuestions: viewModel.listOfQuestions)
+                    DisclosureListView(expandedIndices: $viewModel.expandedIndices, listOfQuestions: viewModel.listOfQuestions)
                 }
                 .padding(.horizontal, 40)
             }
@@ -70,7 +64,7 @@ struct DisclosureListView: View {
     }
     
     var body: some View {
-        ForEach(0..<expandedIndices.count, id: \.self) { index in
+        ForEach(Array(listOfQuestions.enumerated()), id: \.element.id) { index, question in
             DisclosureGroup(
                 isExpanded: $expandedIndices[index],
                 content: {
@@ -107,7 +101,6 @@ struct DisclosureListView: View {
                 Divider()
             }
         }
-        
-        
     }
 }
+
