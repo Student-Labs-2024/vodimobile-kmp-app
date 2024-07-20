@@ -6,4 +6,16 @@ data class User (
     val token : String,
     val phone: String,
     val email: String?
-)
+) {
+    companion object{
+        fun empty() : User {
+            return User(
+                "",
+                "",
+                "",
+                "",
+                ""
+            )
+        }
+    }
+}
