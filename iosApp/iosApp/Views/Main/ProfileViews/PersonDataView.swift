@@ -21,7 +21,7 @@ struct PersonDataView: View {
                 VStack(alignment: .leading, spacing: 25) {
                     Text(R.string.localizable.yourDataText).font(.header3)
                     
-                    UnderlineTextField(text: $viewModel.userInput.fullName, fieldType: .fullName)
+                    UnderlineTextField(text: $viewModel.userInput.fullname, fieldType: .fullName)
                     UnderlineTextField(text: $viewModel.userInput.email, fieldType: .email)
                     UnderlineTextField(text: $viewModel.userInput.phone, fieldType: .phone)
                 }
