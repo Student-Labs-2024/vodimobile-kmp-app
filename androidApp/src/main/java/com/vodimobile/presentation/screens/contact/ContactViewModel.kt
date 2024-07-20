@@ -12,8 +12,7 @@ class ContactViewModel : ViewModel() {
     fun getVersionName(): String = BuildConfig.VERSION_NAME
 
     fun getVersionYear(context: Context): String {
-        val startYearStringId = R.string.version_year_str
-        val startYear = context.getString(startYearStringId)
+        val startYear = context.getString(R.string.version_year_str)
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         return "$startYear-$currentYear"
     }
