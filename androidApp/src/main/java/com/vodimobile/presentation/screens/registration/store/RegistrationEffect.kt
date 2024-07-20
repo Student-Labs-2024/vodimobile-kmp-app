@@ -1,0 +1,7 @@
+package com.vodimobile.presentation.screens.registration.store
+
+sealed class RegistrationEffect {
+    data object OpenUserAgreement : RegistrationEffect()
+    data object SmsVerification : RegistrationEffect()
+    data object ReturnBack : RegistrationEffect()
+}

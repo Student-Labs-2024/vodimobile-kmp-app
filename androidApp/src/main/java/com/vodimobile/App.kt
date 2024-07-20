@@ -1,6 +1,7 @@
 package com.vodimobile
 
 import android.app.Application
+import com.vodimobile.di.repositoryModule
 import com.vodimobile.di.validatorModule
 import com.vodimobile.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -15,7 +16,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             androidLogger(level = Level.INFO) //Change it on release build to Level.NONE
-            modules(viewModelModule, validatorModule)
+            modules(viewModelModule, validatorModule, repositoryModule)
         }
     }
 }

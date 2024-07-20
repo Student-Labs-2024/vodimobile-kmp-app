@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.vodimobile.data.repository.faq.FaqRepositoryImpl
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.TestTags
@@ -148,7 +149,7 @@ fun FaqItem(faqModel: FaqModel) {
 private fun FaqItemLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqItem(faqModel = FaqModel.getFaqList(LocalContext.current.resources)[0])
+            FaqItem(faqModel = FaqRepositoryImpl(context = LocalContext.current).getFaqList()[0])
         }
     }
 }
@@ -159,7 +160,7 @@ private fun FaqItemLight() {
 private fun FaqItemNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqItem(faqModel = FaqModel.getFaqList(LocalContext.current.resources)[0])
+            FaqItem(faqModel = FaqRepositoryImpl(context = LocalContext.current).getFaqList()[0])
         }
     }
 }

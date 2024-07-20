@@ -8,27 +8,56 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.domain.model.RulesAndConditionModel
+import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
+import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rules.components.RulesItem
+import com.vodimobile.presentation.screens.rules.store.RulesEffect
+import com.vodimobile.presentation.screens.rules.store.RulesState
 import com.vodimobile.presentation.theme.VodimobileTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
+fun RuleScreen(
+    onRulesIntent: (RulesIntent) -> Unit,
+    rulesEffect: MutableSharedFlow<RulesEffect>,
+    rulesState: State<RulesState>,
+    navHostController: NavHostController
+) {
+
+    LaunchedEffect(key1 = Unit) {
+        rulesEffect.collect { effect ->
+            when (effect) {
+                RulesEffect.BackClick -> {
+                    navHostController.navigateUp()
+                }
+
+                is RulesEffect.RuleClick -> {
+                    navHostController.navigate("${LeafScreen.RULE_DETAILS_SCREEN}/${effect.ruleId}")
+                }
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             ScreenHeader(
                 modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
                 title = stringResource(R.string.str_rules_and_conditions_title),
                 onNavigateBack = {
-                    viewModel.onIntent(RulesIntent.BackClick)
+                    onRulesIntent(RulesIntent.BackClick)
                 }
             )
         }
@@ -39,10 +68,10 @@ fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
-            itemsIndexed(rules) { index, item ->
+            itemsIndexed(rulesState.value.rulesList) { index, item ->
                 RulesItem(title = item.title.replace("~", ""),
                     onNavigate = {
-                        viewModel.onIntent(RulesIntent.RuleClick(ruleId = index))
+                        onRulesIntent(RulesIntent.RuleClick(ruleId = index))
                     }
                 )
             }
@@ -57,9 +86,13 @@ fun RuleScreen(viewModel: RuleViewModel, rules: List<RulesAndConditionModel>) {
 private fun RulesScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val rulesViewModel =
+                RulesViewModel(rulesAndConditionRepository = RulesAndConditionRepositoryImpl(context = LocalContext.current))
             RuleScreen(
-                viewModel = RuleViewModel(output = {}),
-                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+                onRulesIntent = rulesViewModel::onIntent,
+                rulesEffect = rulesViewModel.rulesEffect,
+                rulesState = rulesViewModel.rulesState.collectAsState(),
+                navHostController = rememberNavController()
             )
         }
     }
@@ -71,9 +104,13 @@ private fun RulesScreenPreviewNight() {
 private fun RulesScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val rulesViewModel =
+                RulesViewModel(rulesAndConditionRepository = RulesAndConditionRepositoryImpl(context = LocalContext.current))
             RuleScreen(
-                viewModel = RuleViewModel(output = {}),
-                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)
+                onRulesIntent = rulesViewModel::onIntent,
+                rulesEffect = rulesViewModel.rulesEffect,
+                rulesState = rulesViewModel.rulesState.collectAsState(),
+                navHostController = rememberNavController()
             )
         }
     }

@@ -6,6 +6,7 @@ object RootScreen {
     const val PROFILE_SCREEN = "profile_root"
     const val START_SCREEN = "start_root"
 }
+
 object LeafScreen {
     const val PROFILE_SCREEN = "profile"
     const val RULES_SCREEN = "rules"
@@ -13,6 +14,13 @@ object LeafScreen {
     const val FAQ_SCREEN = "faq"
     const val CONTACTS_SCREEN = "contacts"
 }
+
+object RegistrationScreens {
+    const val REGISTRATION_SCREEN = "registration"
+    const val USER_AGREE_SCREEN = "user_agree"
+    const val START_SCREEN = "start_screen"
+}
+
 object DialogIdentifiers {
     const val LOG_OUT_DIALOG = "logout"
 }
