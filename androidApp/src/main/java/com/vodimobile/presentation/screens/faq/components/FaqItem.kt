@@ -146,7 +146,7 @@ fun FaqItem(faqModel: FaqModel) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-private fun FaqItemLight() {
+private fun FaqItemPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             FaqItem(faqModel = FaqRepositoryImpl(context = LocalContext.current).getFaqList()[0])
@@ -157,7 +157,7 @@ private fun FaqItemLight() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-private fun FaqItemNight() {
+private fun FaqItemPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             FaqItem(faqModel = FaqRepositoryImpl(context = LocalContext.current).getFaqList()[0])
