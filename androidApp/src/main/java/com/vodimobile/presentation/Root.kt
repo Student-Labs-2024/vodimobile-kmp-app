@@ -22,7 +22,7 @@ fun Root() {
         bottomBar = {
             val backStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
             val currentRoute = backStackEntry?.destination?.route
-            if (currentRoute != RootScreen.START_SCREEN)
+            if (getIsShowBottomBar(currentRoute))
                 BottomBar(navController = navController)
         }
     ) {
@@ -30,6 +30,12 @@ fun Root() {
             navHostController = navController,
         )
     }
+}
+
+private fun getIsShowBottomBar(currentRoute: String?): Boolean {
+    return currentRoute != RootScreen.START_SCREEN &&
+            currentRoute != RegistrationScreens.REGISTRATION_SCREEN &&
+            currentRoute != RegistrationScreens.USER_AGREE_SCREEN
 }
 
 @Preview

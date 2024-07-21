@@ -29,14 +29,8 @@ import java.util.Calendar
 
 
 @Composable
-fun VersionItem() {
-    val versionName = BuildConfig.VERSION_NAME
-    val startYear = stringResource(id = R.string.version_year_str)
-    val cal = Calendar.getInstance()
-    cal.timeInMillis = System.currentTimeMillis()
-    val year = cal.get(Calendar.YEAR)
-    val currentYear = year
-    val versionYear = "$startYear-$currentYear"
+fun VersionItem(version: String, validYear: String) {
+
     ExtendedTheme {
         Card(
             modifier = Modifier,
@@ -78,13 +72,13 @@ fun VersionItem() {
                 ) {
                     Text(
                         style = MaterialTheme.typography.bodySmall,
-                        text = stringResource(R.string.version_str, versionName),
+                        text = stringResource(R.string.version_str, version),
                         color = ExtendedTheme.colorScheme.hintText
                     )
 
                     Text(
                         style = MaterialTheme.typography.bodySmall,
-                        text = versionYear + " " + stringResource(id = R.string.version1_str),
+                        text = validYear + " " + stringResource(id = R.string.version1_str),
                         color = ExtendedTheme.colorScheme.hintText
                     )
                 }
@@ -98,6 +92,6 @@ fun VersionItem() {
 @Composable
 private fun VersionItemPreview() {
     VodimobileTheme {
-        VersionItem()
+        VersionItem("1.0", "2010")
     }
 }

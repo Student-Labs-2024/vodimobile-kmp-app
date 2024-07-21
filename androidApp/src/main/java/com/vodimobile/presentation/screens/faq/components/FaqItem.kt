@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.vodimobile.data.repository.faq.FaqRepositoryImpl
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.TestTags
@@ -145,10 +146,10 @@ fun FaqItem(faqModel: FaqModel) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-private fun FaqItemLight() {
+private fun FaqItemPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqItem(faqModel = FaqModel.getFaqList(LocalContext.current.resources)[0])
+            FaqItem(faqModel = FaqRepositoryImpl(context = LocalContext.current).getFaqList()[0])
         }
     }
 }
@@ -156,10 +157,10 @@ private fun FaqItemLight() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-private fun FaqItemNight() {
+private fun FaqItemPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            FaqItem(faqModel = FaqModel.getFaqList(LocalContext.current.resources)[0])
+            FaqItem(faqModel = FaqRepositoryImpl(context = LocalContext.current).getFaqList()[0])
         }
     }
 }

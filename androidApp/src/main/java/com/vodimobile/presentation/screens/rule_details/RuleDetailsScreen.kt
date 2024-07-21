@@ -8,33 +8,56 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
 import com.vodimobile.domain.model.RulesAndConditionModel
+import com.vodimobile.domain.repository.rules_and_condition.RulesAndConditionRepository
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rule_details.components.RuleInformationItem
 import com.vodimobile.presentation.screens.rule_details.components.RuleTitleItem
-import com.vodimobile.presentation.screens.rule_details.store.RulesDetailsIntent
+import com.vodimobile.presentation.screens.rule_details.store.RuleDetailsEffect
+import com.vodimobile.presentation.screens.rule_details.store.RuleDetailsIntent
+import com.vodimobile.presentation.screens.rule_details.store.RuleDetailsState
 import com.vodimobile.presentation.theme.VodimobileTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
 fun RuleDetailsScreen(
-    rules: List<RulesAndConditionModel>,
+    onRuleDetailsIntent: (RuleDetailsIntent) -> Unit,
+    ruleDetailsEffect: MutableSharedFlow<RuleDetailsEffect>,
+    ruleDetailsState: State<RuleDetailsState>,
+    navHostController: NavHostController,
     ruleId: Int,
-    viewModel: RulesDetailsViewModel
 ) {
+
+    LaunchedEffect(key1 = Unit) {
+        ruleDetailsEffect.collect { effect ->
+            when (effect) {
+                RuleDetailsEffect.BackClick -> {
+                    navHostController.navigateUp()
+                }
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             ScreenHeader(
                 modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
                 title = stringResource(R.string.str_rules_and_conditions_title),
                 onNavigateBack = {
-                    viewModel.onIntent(RulesDetailsIntent.ReturnBack)
+                    onRuleDetailsIntent(RuleDetailsIntent.ReturnBack)
                 }
             )
         }
@@ -48,11 +71,11 @@ fun RuleDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RuleTitleItem(title = rules[ruleId].title)
+            RuleTitleItem(title = ruleDetailsState.value.rulesAndConditionModelList[ruleId].title)
 
             RuleInformationItem(
-                condition = rules[ruleId].rule,
-                conclusion = rules[ruleId].condition
+                condition = ruleDetailsState.value.rulesAndConditionModelList[ruleId].rule,
+                conclusion = ruleDetailsState.value.rulesAndConditionModelList[ruleId].condition
             )
         }
     }
@@ -64,10 +87,14 @@ fun RuleDetailsScreen(
 private fun RuleDetailsScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val ruleDetailsViewModel =
+                RuleDetailsViewModel(ruleDetailsRepository = RulesAndConditionRepositoryImpl(context = LocalContext.current))
             RuleDetailsScreen(
-                ruleId = 0,
-                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources),
-                viewModel = RulesDetailsViewModel({})
+                onRuleDetailsIntent = ruleDetailsViewModel::onIntent,
+                ruleDetailsEffect = ruleDetailsViewModel.rulesDetailsEffect,
+                ruleDetailsState = ruleDetailsViewModel.ruleDetailsState.collectAsState(),
+                navHostController = rememberNavController(),
+                ruleId = 0
             )
         }
     }
@@ -79,10 +106,14 @@ private fun RuleDetailsScreenPreviewDark() {
 private fun RuleDetailsScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val ruleDetailsViewModel =
+                RuleDetailsViewModel(ruleDetailsRepository = RulesAndConditionRepositoryImpl(context = LocalContext.current))
             RuleDetailsScreen(
-                ruleId = 0,
-                rules = RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources),
-                viewModel = RulesDetailsViewModel({})
+                onRuleDetailsIntent = ruleDetailsViewModel::onIntent,
+                ruleDetailsEffect = ruleDetailsViewModel.rulesDetailsEffect,
+                ruleDetailsState = ruleDetailsViewModel.ruleDetailsState.collectAsState(),
+                navHostController = rememberNavController(),
+                ruleId = 0
             )
         }
     }

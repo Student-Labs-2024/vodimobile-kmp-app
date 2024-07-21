@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.rule_details.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,11 +12,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
+import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
 import com.vodimobile.domain.model.RulesAndConditionModel
+import com.vodimobile.presentation.screens.rules.RuleScreen
+import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
@@ -52,13 +58,15 @@ fun RuleInformationItem(
     }
 }
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Preview
 @Composable
 private fun RulesInformationItemPreview() {
     VodimobileTheme(dynamicColor = false) {
         Surface(color = MaterialTheme.colorScheme.onPrimary) {
-            val item =
-                RulesAndConditionModel.getRulesAndConditionModelList(resources = LocalContext.current.resources)[0]
+            val rulesViewModel =
+                RulesViewModel(rulesAndConditionRepository = RulesAndConditionRepositoryImpl(context = LocalContext.current))
+            val item = rulesViewModel.rulesState.value.rulesList[0]
             RuleInformationItem(
                 condition = item.title,
                 conclusion = item.condition

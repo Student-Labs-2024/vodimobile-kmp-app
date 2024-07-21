@@ -1,26 +1,35 @@
 package com.vodimobile.presentation.screens.start_screen
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.vodimobile.presentation.screens.start_screen.store.StartScreenEffect
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
-import com.vodimobile.presentation.screens.start_screen.store.StartScreenOutput
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
-class StartScreenViewModel(private val output: (StartScreenOutput) -> Unit) : ViewModel() {
+class StartScreenViewModel : ViewModel() {
+
+    val startScreenEffect = MutableSharedFlow<StartScreenEffect>()
 
     fun onIntent(startScreenIntent: StartScreenIntent) {
         when (startScreenIntent) {
             StartScreenIntent.ClickLogin -> {
-                onOutput(StartScreenOutput.ClickLogin)
+                viewModelScope.launch {
+                    startScreenEffect.emit(StartScreenEffect.ClickLogin)
+                }
             }
+
             StartScreenIntent.ClickRegistration -> {
-                onOutput(StartScreenOutput.ClickRegistration)
+                viewModelScope.launch {
+                    startScreenEffect.emit(StartScreenEffect.ClickRegistration)
+                }
             }
+
             StartScreenIntent.CloseClick -> {
-                onOutput(StartScreenOutput.CloseClick)
+                viewModelScope.launch {
+                    startScreenEffect.emit(StartScreenEffect.CloseClick)
+                }
             }
         }
-    }
-
-    private fun onOutput(o: StartScreenOutput) {
-        output(o)
     }
 }

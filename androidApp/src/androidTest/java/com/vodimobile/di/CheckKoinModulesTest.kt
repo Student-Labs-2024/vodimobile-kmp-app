@@ -19,20 +19,26 @@ class CheckKoinModulesTest : KoinTest {
     fun start() {
         stopKoin()
         startKoin {
-            modules(viewModelModule, validatorModule)
+            modules(viewModelModule, validatorModule, repositoryModule)
         }
     }
 
     @After
     fun shutDown() {
-        unloadKoinModules(listOf(viewModelModule, validatorModule))
+        unloadKoinModules(listOf(viewModelModule, validatorModule, repositoryModule))
         stopKoin()
     }
 
+    @OptIn(KoinExperimentalAPI::class)
+    @Test
+    fun checkRepositoryModule() {
+        repositoryModule.verify()
+    }
+
+    @OptIn(KoinExperimentalAPI::class)
     @Test
     fun checkViewModelModule() {
-        val startScreenViewModel: StartScreenViewModel by inject<StartScreenViewModel>()
-        assertNotNull(startScreenViewModel)
+        viewModelModule.verify()
     }
 
     @OptIn(KoinExperimentalAPI::class)

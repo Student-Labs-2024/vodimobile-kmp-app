@@ -1,20 +1,23 @@
 package com.vodimobile.presentation.screens.user_agreement
 
 import androidx.lifecycle.ViewModel
-import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementOutput
-import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementScreenIntent
+import androidx.lifecycle.viewModelScope
+import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementEffect
+import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementIntent
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
-class UserAgreementViewModel(private val output: (UserAgreementOutput) -> Unit) : ViewModel() {
+class UserAgreementViewModel : ViewModel() {
 
-    fun onIntent(intent: UserAgreementScreenIntent) {
+    val userAgreementEffect = MutableSharedFlow<UserAgreementEffect>()
+
+    fun onIntent(intent: UserAgreementIntent) {
         when (intent) {
-            UserAgreementScreenIntent.ReturnBack -> {
-                onOutput(UserAgreementOutput.ReturnBack)
+            UserAgreementIntent.ReturnBack -> {
+                viewModelScope.launch {
+                    userAgreementEffect.emit(UserAgreementEffect.ClickBack)
+                }
             }
         }
-    }
-
-    private fun onOutput(o: UserAgreementOutput) {
-        output(o)
     }
 }

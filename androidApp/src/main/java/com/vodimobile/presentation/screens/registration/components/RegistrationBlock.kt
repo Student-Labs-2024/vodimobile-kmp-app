@@ -9,12 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.presentation.screens.registration.store.RegistrationFieldsState
+import com.vodimobile.presentation.screens.registration.store.RegistrationState
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun RegistrationBlock(
-    registrationState: RegistrationFieldsState,
+    registrationState: RegistrationState,
     isShowError: Boolean,
     onEmailChanged: (String) -> Unit,
     onPhoneNumberChanged: (String) -> Unit
@@ -47,7 +47,7 @@ private fun RegistrationBlockPreview() {
             color = MaterialTheme.colorScheme.onPrimary
         ) {
             RegistrationBlock(
-                registrationState = RegistrationFieldsState(),
+                registrationState = RegistrationState(),
                 isShowError = false,
                 onEmailChanged = {},
                 onPhoneNumberChanged = {}
