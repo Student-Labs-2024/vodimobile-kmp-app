@@ -99,4 +99,32 @@ class CreateDataStore_androidKtTest {
             }
         }
     }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun getDataStoreUsingMutexTest() = runTest {
+        val dataStore: DataStore<Preferences> = getDataStore(context = context)
+
+        launch {
+            dataStore.edit { preferences ->
+                preferences[TestTags.TestDataStore.PREFERENCES_KEY_TEST] =
+                    TestTags.TestDataStore.CreateDataStore_androidKtTest.mock_editDataStoreData
+            }
+        }
+
+        advanceUntilIdle()
+
+        val stringFlow: Flow<String> = dataStore.data.map { preferences ->
+            preferences[TestTags.TestDataStore.PREFERENCES_KEY_TEST] ?: ""
+        }
+
+        stringFlow.collect { value ->
+            assertEquals(
+                expected = TestTags.TestDataStore.CreateDataStore_androidKtTest.expect_editDataStoreData,
+                actual = value,
+                message = TestTags.TestDataStore.CreateDataStore_androidKtTest.msg_editDataStoreData
+            )
+            advanceUntilIdle()
+        }
+    }
 }

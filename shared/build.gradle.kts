@@ -36,6 +36,9 @@ kotlin {
 
             //Koin
             api(libs.koin.core)
+
+            //Mutex
+            implementation(libs.atomicfu)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
