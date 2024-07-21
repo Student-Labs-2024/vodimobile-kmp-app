@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct StartScreenView: View {
     @State private var isButtonEnabled: Bool = true
     
@@ -8,11 +9,8 @@ struct StartScreenView: View {
             VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
                 HStack {
                     Spacer()
-                    Button(action: {
-                        print("Button has been pressed")
-                    }) {
-                        
-                        Image(systemName: "xmark")
+                    NavigationLink(destination: MainTabbarView()) {
+                        Image.xmark
                             .resizable()
                             .foregroundColor(Color.black)
                             .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)

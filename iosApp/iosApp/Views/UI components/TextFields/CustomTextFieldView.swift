@@ -13,18 +13,18 @@ import RswiftResources
 enum TextFieldType {
     case email
     case phone
-    case other
+    case fullName
 }
 
 extension TextFieldType {
     var localizedStr: String {
         switch self {
         case .email:
-            return R.string.localizable.email.callAsFunction()
+            return R.string.localizable.email()
         case .phone:
-            return R.string.localizable.phone.callAsFunction()
-        default:
-            return ""
+            return R.string.localizable.phone()
+        case .fullName:
+            return R.string.localizable.fullName()
         }
     }
 }
@@ -89,20 +89,17 @@ struct CustomTextFieldView: View {
                     .padding(16)
                     .foregroundStyle(Color.black)
                     .multilineTextAlignment(.leading)
-                    .background(Color.grayLightColor)
+                    .background(Color(R.color.grayLightColor))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(!isValid && !fieldContent.isEmpty ? Color.redColor : Color.grayDarkColor, lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0)
+                            .stroke(!isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0)
                     )
                     .tint(.black)
                     .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                     .keyboardType(keyboardType)
                     .textInputAutocapitalization(.never)
                     .focused($isFocused)
-//                    .onChange(of: fieldContent, perform: { _ in
-//                        validateInput()
-//                    })
                     .onSubmit {
                         isFocused = false
                         validateInput()
@@ -114,8 +111,8 @@ struct CustomTextFieldView: View {
                                 self.fieldContent = ""
                                 validateInput()
                             }) {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(Color.grayDarkColor)
+                                Image.xmark
+                                    .foregroundColor(Color(R.color.grayDarkColor))
                                     .padding(8)
                             }
                         }
@@ -142,8 +139,8 @@ struct CustomTextFieldView: View {
                                 self.fieldContent = ""
                                 validateInput()
                             }) {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(Color.grayDarkColor)
+                                Image.xmark
+                                    .foregroundColor(Color(R.color.grayDarkColor))
                                     .padding(8)
                             }
                         }
@@ -157,11 +154,11 @@ struct CustomTextFieldView: View {
                         self.isEditing = false
                     }
             }
-            
+
             
             Text(errorMessage)
                 .font(.paragraph6)
-                .foregroundStyle(Color.redColor)
+                .foregroundStyle(Color(R.color.redColor))
                 .padding(.horizontal, 10)
         }
     }
@@ -170,7 +167,7 @@ struct CustomTextFieldView: View {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
         let cleanedStr = fieldContent.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-        
+
         isValid = predicate.evaluate(with: cleanedStr)
         
         if !isValid && !fieldContent.isEmpty {
