@@ -23,7 +23,21 @@ struct ContactCellView: View {
                     .font(.paragraph5)
                     .foregroundStyle(Color(R.color.grayTextColor))
                 
-                Link(destination: URL(string: cell.contact)!) {
+                if let url = URL(string: cell.contact) {
+                    Link(destination: url) {
+                        HStack {
+                            Text(cell.contact)
+                                .font(.paragraph2)
+                                .foregroundStyle(Color.black)
+                            Spacer()
+                        }.overlay {
+                            Rectangle()
+                                .fill(Color(R.color.grayDarkColor))
+                                .frame(height: 0.5, alignment: .bottom)
+                                .offset(y: 10)
+                        }
+                    }
+                } else {
                     HStack {
                         Text(cell.contact)
                             .font(.paragraph2)
