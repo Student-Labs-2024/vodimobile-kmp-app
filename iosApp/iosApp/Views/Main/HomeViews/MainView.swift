@@ -17,7 +17,6 @@ struct MainView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            // Main Content
             ScrollView {
                 VStack {
                     ForEach(0..<20) { index in
@@ -31,7 +30,7 @@ struct MainView: View {
                             .padding(.vertical, 5)
                     }
                 }
-                .padding(.top, 150) // Padding to make room for the toolbar
+                .padding(.top, 150)
                 .background(
                     GeometryReader { geo in
                         Color.clear
@@ -71,14 +70,36 @@ struct MainView: View {
                 
                 if isExpanded {
                     VStack {
-                        VStack {
+                        VStack(spacing: 20) {
                             Text("Выберите даты аренды").font(.header3)
+                            
                             TextField("Select Date", value: $selectedDate, formatter: dateFormatter, onEditingChanged: { isEditing in
                                 if isEditing {
                                     showDatePicker = true
                                 }
                             })
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .textFieldStyle(BorderedDateTextFieldStyle())
+                            .overlay {
+                                
+                                HStack {
+                                    Image(R.image.calendar)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 30 , height: 30)
+                                        .foregroundColor(Color(R.color.grayDarkColor))
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: { showDatePicker = true }, label: {
+                                        Image.rightArrowCircleFill
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 30 , height: 30)
+                                            .foregroundColor(Color(R.color.blueDarkColor))
+                                    })
+                                }
+                                .padding(.horizontal, 14)
+                            }
                         }
                         .padding(.vertical, 28)
                         .padding(.horizontal, 16)
@@ -88,11 +109,6 @@ struct MainView: View {
                     .padding(.horizontal, 16)
                     .offset(y: isExpanded ? 0 : -UIScreen.main.bounds.height * 0.3)
                     .animation(.spring(), value: isExpanded)
-                    .onTapGesture {
-                        withAnimation {
-                            isExpanded.toggle()
-                        }
-                    }
                 }
                 
                 if !isExpanded {
