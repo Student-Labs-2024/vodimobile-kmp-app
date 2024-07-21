@@ -1,6 +1,7 @@
 package com.vodimobile.presentation.screens.user_agreement
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -10,18 +11,36 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
-import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementScreenIntent
+import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementEffect
+import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun UserAgreementScreen(viewModel: UserAgreementViewModel) {
+fun UserAgreementScreen(
+    onUserAgreementIntent: (UserAgreementIntent) -> Unit,
+    userAgreementEffect: MutableSharedFlow<UserAgreementEffect>,
+    navHostController: NavHostController
+) {
+
+    LaunchedEffect(key1 = Unit) {
+        userAgreementEffect.collect { effect ->
+            when (effect) {
+                UserAgreementEffect.ClickBack -> navHostController.navigateUp()
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -31,7 +50,7 @@ fun UserAgreementScreen(viewModel: UserAgreementViewModel) {
                     id = R.string.title_user_agreement
                 ),
                 onNavigateBack = {
-                    viewModel.onIntent(UserAgreementScreenIntent.ReturnBack)
+                    onUserAgreementIntent(UserAgreementIntent.ReturnBack)
                 },
             )
         }
@@ -49,16 +68,34 @@ fun UserAgreementScreen(viewModel: UserAgreementViewModel) {
     }
 }
 
-@Preview
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun UserAgreementScreenPreview() {
-
+private fun UserAgreementScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.onPrimary
-        ) {
-            UserAgreementScreen(viewModel = UserAgreementViewModel({}))
+        Scaffold {
+            val userAgreementViewModel = UserAgreementViewModel()
+            UserAgreementScreen(
+                onUserAgreementIntent = userAgreementViewModel::onIntent,
+                userAgreementEffect = userAgreementViewModel.userAgreementEffect,
+                navHostController = rememberNavController()
+            )
+        }
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+private fun UserAgreementScreenPreviewLight() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            val userAgreementViewModel = UserAgreementViewModel()
+            UserAgreementScreen(
+                onUserAgreementIntent = userAgreementViewModel::onIntent,
+                userAgreementEffect = userAgreementViewModel.userAgreementEffect,
+                navHostController = rememberNavController()
+            )
         }
     }
 }

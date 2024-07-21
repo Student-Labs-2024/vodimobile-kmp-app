@@ -17,20 +17,43 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
+import com.vodimobile.presentation.screens.start_screen.store.StartScreenEffect
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
-fun StartScreen(startScreenViewModel: StartScreenViewModel) {
+fun StartScreen(
+    onStartScreenIntent: (StartScreenIntent) -> Unit,
+    startScreenEffect: MutableSharedFlow<StartScreenEffect>,
+    navHostController: NavHostController
+) {
+
+    LaunchedEffect(key1 = Unit) {
+        startScreenEffect.collect { effect ->
+            when (effect) {
+                StartScreenEffect.CloseClick -> navHostController.navigateUp()
+                StartScreenEffect.ClickLogin -> {}
+                StartScreenEffect.ClickRegistration -> {
+                    navHostController.navigate(route = RegistrationScreens.REGISTRATION_SCREEN)
+                }
+            }
+        }
+    }
+
     Column(
         Modifier
             .fillMaxWidth()
@@ -43,7 +66,7 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
             Spacer(modifier = Modifier.weight(1.0f))
             IconButton(
                 onClick = {
-                    startScreenViewModel.onIntent(StartScreenIntent.CloseClick)
+                    onStartScreenIntent(StartScreenIntent.CloseClick)
                 }
             ) {
                 Icon(
@@ -67,13 +90,13 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
             text = stringResource(id = R.string.requister_str),
             enabled = true,
             onClick = {
-                startScreenViewModel.onIntent(StartScreenIntent.ClickRegistration)
+                onStartScreenIntent(StartScreenIntent.ClickRegistration)
             })
         SecondaryButton(
             text = stringResource(id = R.string.login_str),
             enabled = true,
             onClick = {
-                startScreenViewModel.onIntent(StartScreenIntent.ClickLogin)
+                onStartScreenIntent(StartScreenIntent.ClickLogin)
             })
     }
 }
@@ -84,7 +107,12 @@ fun StartScreen(startScreenViewModel: StartScreenViewModel) {
 private fun StartScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            StartScreen(startScreenViewModel = StartScreenViewModel({}))
+            val startScreenViewModel = StartScreenViewModel()
+            StartScreen(
+                onStartScreenIntent = startScreenViewModel::onIntent,
+                startScreenEffect = startScreenViewModel.startScreenEffect,
+                navHostController = rememberNavController()
+            )
         }
     }
 }
