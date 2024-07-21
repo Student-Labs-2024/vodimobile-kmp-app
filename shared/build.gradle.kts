@@ -36,10 +36,6 @@ kotlin {
 
             //Koin
             api(libs.koin.core)
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            implementation(libs.lifecycle.viewmodel)
-            implementation(libs.navigation.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -57,7 +53,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-}
-dependencies {
-    implementation(libs.androidx.junit.ktx)
 }
