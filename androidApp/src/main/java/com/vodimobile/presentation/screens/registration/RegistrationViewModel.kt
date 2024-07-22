@@ -30,7 +30,6 @@ class RegistrationViewModel(
 
             RegistrationIntent.SmsVerification -> {
                 viewModelScope.launch {
-
                     registrationEffect.emit(RegistrationEffect.SmsVerification)
                 }
             }
@@ -62,6 +61,12 @@ class RegistrationViewModel(
                             phoneNumberError = !isValidPhoneNumber
                         )
                     }
+                }
+            }
+
+            RegistrationIntent.AskPermission -> {
+                viewModelScope.launch {
+                    registrationEffect.emit(RegistrationEffect.AskPermission)
                 }
             }
         }

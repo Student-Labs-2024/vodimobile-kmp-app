@@ -75,6 +75,20 @@ fun NavGraph(
                     }
                 )
             }
+            composable(
+                route = "${RegistrationScreens.SMS_VERIFY}/{phone}",
+                arguments = listOf(navArgument("phone") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val smsViewModel: SmsViewModel = koinViewModel()
+
+                SmsScreen(
+                    smsState = smsViewModel.smsState.collectAsState(),
+                    smsEffect = smsViewModel.smsEffect,
+                    phone = backStackEntry.arguments?.getString("phone") ?: "",
+                    onIntent = smsViewModel::onIntent,
+                    navHostController = navHostController
+                )
+            }
         }
         composable(RootScreen.ORDERS_SCREEN) {
             OrdersScreen()

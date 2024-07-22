@@ -4,4 +4,5 @@ sealed class RegistrationEffect {
     data object OpenUserAgreement : RegistrationEffect()
     data object SmsVerification : RegistrationEffect()
     data object ReturnBack : RegistrationEffect()
+    data object AskPermission : RegistrationEffect()
 }

@@ -1,6 +1,7 @@
 package com.vodimobile.navigation
 
 import com.vodimobile.android.R
+import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RootScreen
 
@@ -14,7 +15,9 @@ sealed class BottomNavItemScreen(
         R.string.home_screen_label,
         R.drawable.home_icon,
         RootScreen.HOME_SCREEN,
-        emptyList()
+        listOf(
+            LeafHomeScreen.HOME_SCREEN
+        )
     )
 
     data object Order : BottomNavItemScreen(
