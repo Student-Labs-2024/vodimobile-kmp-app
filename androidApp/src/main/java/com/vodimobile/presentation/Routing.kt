@@ -19,6 +19,7 @@ object RegistrationScreens {
     const val REGISTRATION_SCREEN = "registration"
     const val USER_AGREE_SCREEN = "user_agree"
     const val START_SCREEN = "start_screen"
+    const val SMS_VERIFY = "sms_verify"
 }
 
 object DialogIdentifiers {
