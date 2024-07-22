@@ -53,6 +53,16 @@ class SmsViewModel : ViewModel() {
             is SmsIntent.SendSmsCode -> {
                 sendSms(phone = intent.phone, context = intent.context)
             }
+
+            is SmsIntent.OnInputPartCode -> {
+                val list = smsState.value.userCode
+                list.add(intent.partCode)
+                smsState.update {
+                    it.copy(
+                        userCode = list
+                    )
+                }
+            }
         }
     }
 

@@ -109,10 +109,17 @@ fun SmsScreen(
                         SmsField(
                             state = fieldState,
                             error = smsState.value.isIncorrectCode,
-                            onDone = {
+                            onDone = { partCode ->
                                 if (index < smsFields.size - 1) {
                                     smsFields[index + 1].focusRequester.requestFocus()
                                 }
+                                onIntent(
+                                    SmsIntent.OnInputPartCode(
+                                        partCode = Integer.parseInt(
+                                            partCode
+                                        )
+                                    )
+                                )
                             }
                         )
                     }

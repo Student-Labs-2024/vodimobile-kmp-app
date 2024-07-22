@@ -19,7 +19,7 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 fun RowScope.SmsField(
     state: SmsFieldState,
     error: Boolean = false,
-    onDone: () -> Unit
+    onDone: (String) -> Unit
 ) {
     val maxLength = 2
     val textFieldStyle = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
@@ -47,7 +47,7 @@ fun RowScope.SmsField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         keyboardActions = KeyboardActions(
             onDone = {
-                onDone()
+                onDone(state.text.value)
             }
         )
     )
