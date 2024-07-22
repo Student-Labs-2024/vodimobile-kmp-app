@@ -15,9 +15,10 @@ struct PinCodeView: View {
     @Binding var phoneNumber: String
     
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.isAuthorized) private var isAuthorized
+
     private var sendCodeOnPhoneText: String {
-        "\(R.string.localizable.sendCodeMsg.callAsFunction()) \n \(phoneNumber)"
+        "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
     }
     
     var body: some View {
@@ -31,31 +32,12 @@ struct PinCodeView: View {
                 
                 Text(sendCodeOnPhoneText)
                     .font(.paragraph2)
-                    .foregroundColor(Color.grayTextColor)
+                    .foregroundColor(Color(R.color.grayTextColor))
                     .multilineTextAlignment(.center)
                 
                 HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
                     ForEach(0..<4) { index in
-                        TextField("", text: $pin[index])
-                            .keyboardType(.numberPad)
-                            .multilineTextAlignment(.center)
-                            .font(.paragraph1)
-                            .frame(width: PinCodeConfig.pincodeCellsSize, height: PinCodeConfig.pincodeCellsSize)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Color.grayLightColor)
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(focusedField == index ? Color.blueColor : Color.grayDarkColor, lineWidth: pin[index].isEmpty && focusedField != index ? 0 : 2)
-                            )
-                            .focused($focusedField, equals: index)
-                            .onChange(of: pin[index]) { newValue in
-                                if newValue.count == 1, index < 3 {
-                                    focusedField = index + 1
-                                } else if newValue.isEmpty, index > 0 {
-                                    focusedField = index - 1
-                                }
-                            }
+                        PinCodeTextField(index: index)
                     }
                 }
                 .padding(.vertical, PinCodeConfig.verticalSpacingBetweenPincodeField)
@@ -63,8 +45,11 @@ struct PinCodeView: View {
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: MainScreenView()) {
+                NavigationLink(destination: MainTabbarView()) {
                     Text(R.string.localizable.nextBtnName)
+                }
+                .onTapGesture {
+                    self.environment(\.isAuthorized, true)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -78,7 +63,7 @@ struct PinCodeView: View {
                     print("Отправить код повторно нажат")
                 }) {
                     Text(R.string.localizable.resendBtnText)
-                        .foregroundColor(.blueColor)
+                        .foregroundColor(Color(R.color.blueColor))
                         .font(.buttonText)
                         .underline()
                 }
@@ -92,20 +77,41 @@ struct PinCodeView: View {
         }
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
-                })
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(R.string.localizable.confirmScreenTitle)
-                    .font(.header1)
-                    .foregroundColor(Color.black)
-            }
+            CustomToolbar(title: R.string.localizable.confirmScreenTitle)
         }
+    }
+
+    @ViewBuilder
+    private func PinCodeTextField(index: Int) -> some View {
+        let isFieldFocused = focusedField == index
+        let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)
+        let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2
+
+        TextField("", text: $pin[index])
+            .keyboardType(.numberPad)
+            .multilineTextAlignment(.center)
+            .font(.paragraph1)
+            .frame(width: 56, height: 56)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color(R.color.grayLightColor))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(strokeColor, lineWidth: lineWidth)
+            )
+            .focused($focusedField, equals: index)
+            .onChange(of: pin[index]) { newValue in
+                if newValue.count == 1, index < 3 {
+                    focusedField = index + 1
+                } else if newValue.isEmpty, index > 0 {
+                    focusedField = index - 1
+                } else if newValue.count > 1 {
+                    pin[index] = String(newValue.prefix(1))
+                } else if index == pin.count - 1 && !pin[index].isEmpty {
+                    focusedField = nil
+                }
+            }
     }
     
     private func toggleButtonEnabled() {
