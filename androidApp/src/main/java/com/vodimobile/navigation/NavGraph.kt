@@ -1,8 +1,10 @@
 package com.vodimobile.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -32,6 +34,8 @@ import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.sms.SmsScreen
+import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -146,6 +150,20 @@ fun NavGraph(
                 UserAgreementScreen(
                     onUserAgreementIntent = userAgreementViewModel::onIntent,
                     userAgreementEffect = userAgreementViewModel.userAgreementEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(
+                route = RegistrationScreens.SMS_VERIFY,
+                arguments = listOf(navArgument("phone") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val smsViewModel: SmsViewModel = koinViewModel()
+
+                SmsScreen(
+                    smsState = smsViewModel.smsState.collectAsState(),
+                    smsEffect = smsViewModel.smsEffect,
+                    phone = backStackEntry.arguments?.getString("phone") ?: "",
+                    onIntent = smsViewModel::onIntent,
                     navHostController = navHostController
                 )
             }

@@ -85,3 +85,9 @@ val onSecondaryBackgroundLight = Color(0xFFFFFFFF)
 val onSecondaryBackgroundDark = Color(0xFF1D1B20)
 val hintTextLight = Color(0xFF939BAA)
 val hintTextDark = Color(0xFF939BAA)
+
+val smsTextFieldBackLight = Color(0xFFF6F6F6)
+val smsTextFieldBackDark = Color(0xFF171d1e)
+
+val smsTextFieldBorderLight = Color(0xFF9CA3B0)
+val smsTextFieldBorderDark = Color(0xFF111418)

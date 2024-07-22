@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.registration
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.os.Bundle
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
@@ -53,7 +55,7 @@ fun RegistrationScreen(
                 }
 
                 RegistrationEffect.SmsVerification -> {
-
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}")
                 }
             }
         }
