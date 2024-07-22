@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.sms.components.SendCodeAgain
 import com.vodimobile.presentation.screens.sms.components.SmsField
@@ -70,7 +71,7 @@ fun SmsScreen(
         smsEffect.collect { effect ->
             when (effect) {
                 SmsEffect.SmsCodeCorrect -> {
-                    navHostController.navigate("")
+                    navHostController.navigate(RootScreen.HOME_SCREEN)
                 }
             }
         }
@@ -108,16 +109,42 @@ fun SmsScreen(
                     smsFields.forEachIndexed { index, fieldState ->
                         SmsField(
                             state = fieldState,
-                            error = smsState.value.isIncorrectCode,
+                            error = !smsState.value.isIncorrectCode,
+                            onValueChange = { partCode ->
+                                var part: Int = 0
+                                try {
+                                    part = Integer.parseInt(
+                                        partCode
+                                    )
+                                } catch (e: NumberFormatException) {
+
+                                }
+
+                                onIntent(
+                                    SmsIntent.OnInputPartCode(
+                                        partCode = part,
+                                        index = index
+                                    )
+                                )
+                            },
                             onDone = { partCode ->
                                 if (index < smsFields.size - 1) {
                                     smsFields[index + 1].focusRequester.requestFocus()
                                 }
+
+                                var part: Int = 0
+                                try {
+                                    part = Integer.parseInt(
+                                        partCode
+                                    )
+                                } catch (e: NumberFormatException) {
+
+                                }
+
                                 onIntent(
                                     SmsIntent.OnInputPartCode(
-                                        partCode = Integer.parseInt(
-                                            partCode
-                                        )
+                                        partCode = part,
+                                        index = index
                                     )
                                 )
                             }
@@ -125,7 +152,7 @@ fun SmsScreen(
                     }
                 }
 
-                if (smsState.value.isIncorrectCode) {
+                if (!smsState.value.isIncorrectCode) {
                     Text(
                         text = stringResource(id = R.string.incorrect_code),
                         style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.error)

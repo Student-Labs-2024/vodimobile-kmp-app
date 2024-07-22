@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.sms
 import android.content.Context
 import android.os.Build
 import android.telephony.SmsManager
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.android.R
@@ -28,16 +29,22 @@ class SmsViewModel : ViewModel() {
     fun onIntent(intent: SmsIntent) {
         when (intent) {
             SmsIntent.OnConfirmSmsCode -> {
-                val isIncorrectCode: Boolean = isCodeCorrect(
+                val isCodeCorrect: Boolean = isCodeCorrect(
                     generatedCode = smsState.value.code,
                     userCode = smsState.value.userCode
                 )
+
+                Log.d(
+                    "TAG",
+                    smsState.value.code.toString() + "   " + smsState.value.userCode.toString()
+                )
+
                 smsState.update {
                     it.copy(
-                        isIncorrectCode = isIncorrectCode
+                        isIncorrectCode = isCodeCorrect
                     )
                 }
-                if (isIncorrectCode) {
+                if (isCodeCorrect) {
                     viewModelScope.launch {
                         smsEffect.emit(SmsEffect.SmsCodeCorrect)
                     }
@@ -56,7 +63,12 @@ class SmsViewModel : ViewModel() {
 
             is SmsIntent.OnInputPartCode -> {
                 val list = smsState.value.userCode
-                list.add(intent.partCode)
+
+                if (list.size < 4) {
+                    list.add(index = intent.index, element = intent.partCode)
+                } else {
+                    list.set(index = intent.index, element = intent.partCode)
+                }
                 smsState.update {
                     it.copy(
                         userCode = list
@@ -80,6 +92,11 @@ class SmsViewModel : ViewModel() {
 
     private suspend fun countDownTimer() {
         if (smsState.value.countDownAgain == 0) {
+            smsState.update {
+                it.copy(
+                    code = phoneCodeGenerator()
+                )
+            }
             var count = 45
             repeat(45) {
                 delay(1.seconds)
@@ -101,6 +118,8 @@ class SmsViewModel : ViewModel() {
         }
 
         val msg = context.resources.getString(R.string.code, smsState.value.code)
+
+        Log.i("SMS_CODE", smsState.value.code.toString())
 
         smsManager.sendTextMessage(phone, null, msg, null, null)
     }

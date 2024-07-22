@@ -10,6 +10,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import com.vodimobile.presentation.screens.sms.SmsFieldState
@@ -19,7 +20,8 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 fun RowScope.SmsField(
     state: SmsFieldState,
     error: Boolean = false,
-    onDone: (String) -> Unit
+    onDone: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     val maxLength = 2
     val textFieldStyle = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
@@ -28,12 +30,14 @@ fun RowScope.SmsField(
         focusedContainerColor = ExtendedTheme.colorScheme.smsTextFieldBack,
         unfocusedContainerColor = ExtendedTheme.colorScheme.smsTextFieldBack,
         focusedTextColor = MaterialTheme.colorScheme.onBackground,
-        unfocusedTextColor = MaterialTheme.colorScheme.onBackground
+        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+        errorTextColor = MaterialTheme.colorScheme.onBackground
     )
     OutlinedTextField(
         value = state.text.value,
         onValueChange = { newText ->
             if (newText.length <= maxLength) state.text.value = newText
+            onValueChange(state.text.value)
         },
         isError = error,
         textStyle = textFieldStyle,
@@ -44,7 +48,10 @@ fun RowScope.SmsField(
             .weight(1.0f),
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
         keyboardActions = KeyboardActions(
             onDone = {
                 onDone(state.text.value)
