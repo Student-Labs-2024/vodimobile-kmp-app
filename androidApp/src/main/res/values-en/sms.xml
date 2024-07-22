@@ -4,7 +4,7 @@
     <string name="enter_sms_code">Write SMS code</string>
     <string name="we_send_sms_code">We sent SMS code to %s</string>
     <string name="confirm">Confirm</string>
-    <string name="not_get_code">Dit not get a code?</string>
+    <string name="not_get_code">Did not get a code?</string>
     <string name="send_again">Send again</string>
     <string name="incorrect_code">Incorrect code</string>
     <string name="send_code_in">Send again in %s sec</string>

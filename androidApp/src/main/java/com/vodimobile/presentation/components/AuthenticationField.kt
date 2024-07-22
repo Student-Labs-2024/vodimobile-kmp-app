@@ -82,7 +82,9 @@ fun AuthenticationField(
                 cursorColor = MaterialTheme.colorScheme.onBackground,
                 errorContainerColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
-                errorCursorColor = MaterialTheme.colorScheme.onBackground
+                errorCursorColor = MaterialTheme.colorScheme.onBackground,
+                focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground
             ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = keyboardType
