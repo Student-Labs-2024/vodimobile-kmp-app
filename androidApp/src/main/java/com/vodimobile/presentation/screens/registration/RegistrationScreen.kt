@@ -47,7 +47,7 @@ fun RegistrationScreen(
         registrationEffect.collect { effect ->
             when (effect) {
                 RegistrationEffect.OpenUserAgreement -> {
-                    navHostController.navigate("${RegistrationScreens.USER_AGREE_SCREEN}/${registrationState.value.phoneNumber}")
+                    navHostController.navigate(RegistrationScreens.USER_AGREE_SCREEN)
                 }
 
                 RegistrationEffect.ReturnBack -> {
@@ -55,7 +55,7 @@ fun RegistrationScreen(
                 }
 
                 RegistrationEffect.SmsVerification -> {
-                    navHostController.navigate(route = RegistrationScreens.SMS_VERIFY)
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}")
                 }
             }
         }
