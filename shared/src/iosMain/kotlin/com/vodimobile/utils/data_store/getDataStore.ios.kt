@@ -9,7 +9,7 @@ private lateinit var dataStore: DataStore<Preferences>
 
 private val lock = SynchronizedObject()
 
-fun getDataStore(): DataStore<Preferences> =
+fun getDataStore1(): DataStore<Preferences> =
     synchronized(lock) {
         if (::dataStore.isInitialized) {
             dataStore
