@@ -24,6 +24,7 @@
 "nextBtnName" = "Далее";
 "resendBtnText" = "Отправить повторно";
 "closeButton" = "Закрыть";
+"reconnectButton" = "Перезагрузить";
 
 // Field names
 "email" = "Email";
@@ -64,6 +65,10 @@
 "questionAndAnswerTitle" = "Вопрос-ответ от \"Водимобиль\"";
 "questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
 "questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";
+"connectErrorTitle" = "Ошибка соединения";
+"connectErrorText" = "Нет соединения с интернетом. Проверьте сеть и перезапустите приложение";
+"serverConnectErrorTitle" = "Ошибка на сервере";
+"serverConnectErrorText" = "Что-то пошло не так на стороне сервера. Перезагрузите приложение";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

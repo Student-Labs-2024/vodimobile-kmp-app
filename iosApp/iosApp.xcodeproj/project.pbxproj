@@ -37,6 +37,8 @@
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
 		9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2262C3FC024003A0BCB /* PersonDataView.swift */; };
+		935EE3012C4E28FD0039A2DC /* ConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3002C4E28FD0039A2DC /* ConnectErrorView.swift */; };
+		935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
@@ -103,6 +105,8 @@
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
 		9351F2262C3FC024003A0BCB /* PersonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataView.swift; sourceTree = "<group>"; };
+		935EE3002C4E28FD0039A2DC /* ConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectErrorView.swift; sourceTree = "<group>"; };
+		935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectErrorView.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 		934F0D4C2C3D5309000B256E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				935EE2FF2C4E28E70039A2DC /* Error Screens */,
 				936198872C3F0CE500B0198D /* Main */,
 				936198802C3F0B2E00B0198D /* Authorization */,
 				934F0D592C3D7740000B256E /* UI components */,
@@ -249,6 +254,15 @@
 				931FDDB32C46FBE8007954FC /* FilledButton.swift */,
 			);
 			path = "UI components";
+			sourceTree = "<group>";
+		};
+		935EE2FF2C4E28E70039A2DC /* Error Screens */ = {
+			isa = PBXGroup;
+			children = (
+				935EE3002C4E28FD0039A2DC /* ConnectErrorView.swift */,
+				935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */,
+			);
+			path = "Error Screens";
 			sourceTree = "<group>";
 		};
 		936198802C3F0B2E00B0198D /* Authorization */ = {
@@ -447,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935EE3012C4E28FD0039A2DC /* ConnectErrorView.swift in Sources */,
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
 				934D957B2C4902A20027DFC8 /* ContactsViewModel.swift in Sources */,
 				936198822C3F0CA100B0198D /* MainView.swift in Sources */,
@@ -459,6 +474,7 @@
 				934F0D502C3D692A000B256E /* AppDelegate.swift in Sources */,
 				934D5DFA2C3D3FA30070904B /* AppTheme.swift in Sources */,
 				93328FBB2C4953E3008EADB4 /* ProfileCellView.swift in Sources */,
+				935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */,
 				936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */,
 				936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */,
 				934F0D5B2C3D775F000B256E /* CustomTextFieldView.swift in Sources */,
