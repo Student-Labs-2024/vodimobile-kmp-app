@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sms_title">Подтверждение</string>
+    <string name="enter_sms_code">Введите СМС-код</string>
+    <string name="we_send_sms_code">Мы отправили его на номер %s</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="not_get_code">Не пришел код?</string>
+    <string name="send_again">Отправить повторно</string>
+    <string name="incorrect_code">Неверный код</string>
+    <string name="send_code_in">Отправить повторно через %s сек</string>
+</resources>
