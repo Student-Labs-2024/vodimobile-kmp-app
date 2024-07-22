@@ -24,7 +24,7 @@
 "nextBtnName" = "Next";
 "resendBtnText" = "Resend";
 "closeButton" = "OK";
-"reconnectButton" = "Retry";
+"reconnectButton" = "Try again";
 
 // Field names
 "email" = "Email";
@@ -65,10 +65,10 @@
 "questionAndAnswerTitle" = "FAQ from \"Vodimobile\"";
 "questionAndAnswerAttributedPartOfTitle" = "FAQ";
 "questionAndAnswerText" = "Find answer on any your questions.";
-"connectErrorTitle" = "Connection error";
-"connectErrorText" = "There is no internet connection. Check the network and restart the application";
-"serverConnectErrorTitle" = "Server error";
-"serverConnectErrorText" = "Something went wrong on the server side. Restart the application";
+"internetConnectErrorTitle" = "Connection error";
+"internetConnectErrorText" = "There is no internet connection. Check the network and try to connect again";
+"somethingWentWrongTitle" = "Something went wrong";
+"somethingWentWrongText" = "An error has occurred. Try the connection again.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct ServerConnectErrorView: View {
+struct NetworkErrorView: View {
     var body: some View {
         VStack(spacing: 36) {
-            Image(R.image.serverError)
+            Image(R.image.errorCloud)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)
@@ -19,9 +19,9 @@ struct ServerConnectErrorView: View {
                 .padding(.top, 20)
             
             VStack(alignment: .center, spacing: 24) {
-                Text(R.string.localizable.serverConnectErrorTitle).font(.header1).foregroundStyle(.black)
+                Text(R.string.localizable.somethingWentWrongTitle).font(.header1).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
-                Text(R.string.localizable.serverConnectErrorText)
+                Text(R.string.localizable.somethingWentWrongText)
                     .font(.paragraph2).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
             }
@@ -41,5 +41,5 @@ struct ServerConnectErrorView: View {
 }
 
 #Preview {
-    ServerConnectErrorView()
+    NetworkErrorView()
 }

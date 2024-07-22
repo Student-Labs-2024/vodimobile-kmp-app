@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct ConnectErrorView: View {
+struct InternetConnectErrorView: View {
     var body: some View {
         VStack(spacing: 36) {
-            Image(R.image.clientError)
+            Image(R.image.noInternet)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)
@@ -19,9 +19,9 @@ struct ConnectErrorView: View {
                 .padding(.top, 20)
             
             VStack(alignment: .center, spacing: 24) {
-                Text(R.string.localizable.connectErrorTitle).font(.header1).foregroundStyle(.black)
+                Text(R.string.localizable.internetConnectErrorTitle).font(.header1).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
-                Text(R.string.localizable.connectErrorText)
+                Text(R.string.localizable.internetConnectErrorText)
                     .font(.paragraph2).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
             }
@@ -41,5 +41,5 @@ struct ConnectErrorView: View {
 }
 
 #Preview {
-    ConnectErrorView()
+    InternetConnectErrorView()
 }
