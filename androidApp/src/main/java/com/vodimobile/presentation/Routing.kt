@@ -15,7 +15,7 @@ object LeafScreen {
     const val CONTACTS_SCREEN = "contacts"
 }
 
-object HomeScreen {
+object LeafHomeScreen {
     const val HOME_SCREEN = "home"
 }
 

@@ -1,11 +1,9 @@
 package com.vodimobile.navigation
 
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,7 +13,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
-import com.vodimobile.presentation.HomeScreen
+import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
@@ -51,8 +49,11 @@ fun NavGraph(
         navController = navHostController,
         startDestination = RootScreen.HOME_SCREEN
     ) {
-        navigation(route = RootScreen.HOME_SCREEN, startDestination = HomeScreen.HOME_SCREEN) {
-            composable(route = HomeScreen.HOME_SCREEN) { backEntry ->
+        navigation(
+            route = RootScreen.HOME_SCREEN,
+            startDestination = LeafHomeScreen.HOME_SCREEN
+        ) {
+            composable(route = LeafHomeScreen.HOME_SCREEN) { backEntry ->
                 val selectedDate: Long =
                     MutableStateFlow(backEntry.arguments?.getLong("selected-date")).collectAsState().value
                         ?: System.currentTimeMillis()
