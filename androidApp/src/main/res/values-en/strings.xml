@@ -54,7 +54,7 @@
 
     <string name="title_list_contact">Our social networks</string>
     <string name="vk_str">Vkontakte</string>
-    <string name="mail_str">mail</string>
+    <string name="mail_str">Mail</string>
     <string name="mail1_str">vodimobil@vodimobil.ru</string>
     <string name="telephone_str">Phone number</string>
     <string name="telephone1_str">+7 (950) 783 14-40</string>
@@ -73,4 +73,7 @@
     <string name="log_out_confirmation_body">You will not be able to rent cars without an account</string>
     <string name="confirmation_cancel_button">Cancel</string>
     <string name="confirmation_logout_button">Log out</string>
+    <string name="connection_error">Connection error</string>
+    <string name="connection_error_subtitle">There is no internet connection. Check the network and try the connection again.</string>
+    <string name="try_again_bt">Try again</string>
 </resources>
