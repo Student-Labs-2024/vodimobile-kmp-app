@@ -39,6 +39,11 @@ kotlin {
 
             //Mutex
             implementation(libs.atomicfu)
+
+            //Koin tests
+            implementation(libs.koin.test)
+            implementation(libs.koin.test.junit4)
+            implementation(libs.koin.android.test)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
