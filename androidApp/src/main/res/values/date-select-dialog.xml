@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="confirm">Сохранить</string>
+    <string name="save">Сохранить</string>
     <string name="cansel">Очистить</string>
     <string name="select_date">Выбор даты</string>
 </resources>
