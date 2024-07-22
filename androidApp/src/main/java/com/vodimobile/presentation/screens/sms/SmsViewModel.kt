@@ -1,7 +1,11 @@
 package com.vodimobile.presentation.screens.sms
 
+import android.content.Context
+import android.os.Build
+import android.telephony.SmsManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.android.R
 import com.vodimobile.presentation.screens.sms.store.SmsEffect
 import com.vodimobile.presentation.screens.sms.store.SmsIntent
 import com.vodimobile.presentation.screens.sms.store.SmsState
@@ -45,6 +49,10 @@ class SmsViewModel : ViewModel() {
                     countDownTimer()
                 }
             }
+
+            is SmsIntent.SendSmsCode -> {
+                sendSms(phone = intent.phone, context = intent.context)
+            }
         }
     }
 
@@ -73,5 +81,17 @@ class SmsViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    private fun sendSms(context: Context, phone: String) {
+        val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            context.getSystemService(SmsManager::class.java)
+        } else {
+            SmsManager.getDefault()
+        }
+
+        val msg = context.resources.getString(R.string.code, smsState.value.code)
+
+        smsManager.sendTextMessage(phone, null, msg, null, null)
     }
 }

@@ -8,4 +8,5 @@
     <string name="send_again">Отправить повторно</string>
     <string name="incorrect_code">Неверный код</string>
     <string name="send_code_in">Отправить повторно через %s сек</string>
+    <string name="code">Ваш код подтверждения %s для \"Водимобиль\". Не сообщайте его никому.</string>
 </resources>

@@ -8,4 +8,5 @@
     <string name="send_again">Send again</string>
     <string name="incorrect_code">Incorrect code</string>
     <string name="send_code_in">Send again in %s sec</string>
+    <string name="code">Your code is for \"Vodimobile\" %s. Do not show it to anyone.</string>
 </resources>
