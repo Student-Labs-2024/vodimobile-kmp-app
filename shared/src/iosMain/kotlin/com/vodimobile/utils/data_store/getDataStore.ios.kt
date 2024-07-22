@@ -14,7 +14,7 @@ fun getDataStore(): DataStore<Preferences> =
         if (::dataStore.isInitialized) {
             dataStore
         } else {
-            createDataStore(producePath = { Constants.DATA_STORE_FILE_NAME })
+            createDataStore()
                 .also { dataStore = it }
         }
     }

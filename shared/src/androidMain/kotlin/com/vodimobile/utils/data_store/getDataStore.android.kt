@@ -1,5 +1,6 @@
 package com.vodimobile.utils.data_store
 
+import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.atomicfu.locks.SynchronizedObject
@@ -9,12 +10,12 @@ private lateinit var dataStore: DataStore<Preferences>
 
 private val lock = SynchronizedObject()
 
-fun getDataStore(): DataStore<Preferences> =
+fun getDataStore(context: Context): DataStore<Preferences> =
     synchronized(lock) {
         if (::dataStore.isInitialized) {
             dataStore
         } else {
-            createDataStore(producePath = { Constants.DATA_STORE_FILE_NAME })
+            createDataStore(context = context)
                 .also { dataStore = it }
         }
     }

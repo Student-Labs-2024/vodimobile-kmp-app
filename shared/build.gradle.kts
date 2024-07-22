@@ -35,15 +35,15 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
 
             //Koin
-            api(libs.koin.core)
+//            api(libs.koin.core)
 
             //Mutex
             implementation(libs.atomicfu)
 
             //Koin tests
-            implementation(libs.koin.test)
-            implementation(libs.koin.test.junit4)
-            implementation(libs.koin.android.test)
+//            implementation(libs.koin.test)
+//            implementation(libs.koin.test.junit4)
+//            implementation(libs.koin.android.test)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

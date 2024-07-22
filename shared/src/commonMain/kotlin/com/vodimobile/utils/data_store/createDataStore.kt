@@ -5,4 +5,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import okio.Path.Companion.toPath
 
-internal expect fun createDataStore(context: Any? = null) : DataStore<Preferences>
+fun createDataStore(producePath: () -> String): DataStore<Preferences> =
+    PreferenceDataStoreFactory.createWithPath(
+        produceFile = { producePath().toPath() }
+    )
