@@ -27,6 +27,23 @@ kotlin {
         commonMain.dependencies {
             //put your multiplatform dependencies here
 
+            //Data store
+            api(libs.androidx.datastore)
+            api(libs.androidx.datastore.preferences)
+
+            //Coroutines
+            implementation(libs.kotlinx.coroutines.core)
+
+            //Koin
+//            api(libs.koin.core)
+
+            //Mutex
+            implementation(libs.atomicfu)
+
+            //Koin tests
+//            implementation(libs.koin.test)
+//            implementation(libs.koin.test.junit4)
+//            implementation(libs.koin.android.test)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

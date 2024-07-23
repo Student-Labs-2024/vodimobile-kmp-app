@@ -91,6 +91,9 @@ dependencies {
     implementation(libs.koin.test.junit4)
     implementation(libs.koin.android.test)
 
+    //Test coroutines
+    implementation(libs.kotlinx.coroutines.test)
+    
     //Lint
     lintChecks(libs.compose.lint.checks)
 }
