@@ -92,5 +92,5 @@ dependencies {
     implementation(libs.koin.android.test)
 
     //Lint
-    lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
+    lintChecks(libs.compose.lint.checks)
 }
