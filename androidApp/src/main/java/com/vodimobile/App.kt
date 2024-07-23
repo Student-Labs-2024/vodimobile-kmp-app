@@ -25,7 +25,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             androidLogger(level = Level.INFO) //Change it on release build to Level.NONE
-            modules(viewModelModule, validatorModule, androidModule)
+            modules(viewModelModule, validatorModule, androidModule, repositoryModule)
         }
     }
 }
