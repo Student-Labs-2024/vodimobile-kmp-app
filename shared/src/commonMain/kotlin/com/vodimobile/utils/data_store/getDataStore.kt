@@ -1,20 +1,22 @@
 package com.vodimobile.utils.data_store
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
+import okio.Path.Companion.toPath
 
 private lateinit var dataStore: DataStore<Preferences>
 
 private val lock = SynchronizedObject()
 
-fun getDataStore(): DataStore<Preferences> =
+fun getDataStore(producePath: () -> String): DataStore<Preferences> =
     synchronized(lock) {
         if (::dataStore.isInitialized) {
             dataStore
         } else {
-            createDataStore()
+            PreferenceDataStoreFactory.createWithPath(produceFile = { producePath().toPath() })
                 .also { dataStore = it }
         }
     }

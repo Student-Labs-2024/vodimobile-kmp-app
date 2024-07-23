@@ -10,7 +10,8 @@ import com.vodimobile.utils.data_store.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>) : UserDataStoreRepository {
+class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>) :
+    UserDataStoreRepository {
     override suspend fun editUserData(user: User) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName
@@ -21,7 +22,10 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
         }
     }
 
-    override suspend fun getUserData(): Flow<User> {
+    override suspend fun getUserData(): User {
+
+        var user: User = User.empty()
+
         val userFlow: Flow<User> = dataStore.data.map { preferences ->
             val fullName =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: ""
@@ -40,8 +44,10 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             )
         }
 
+        userFlow.collect { value ->
+            user = value
+        }
 
-
-        return userFlow
+        return user
     }
 }

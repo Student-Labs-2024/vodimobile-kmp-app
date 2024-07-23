@@ -6,16 +6,6 @@ import androidx.datastore.preferences.core.Preferences
 import kotlinx.atomicfu.locks.SynchronizedObject
 import kotlinx.atomicfu.locks.synchronized
 
-private lateinit var dataStore: DataStore<Preferences>
-
-private val lock = SynchronizedObject()
-
-fun getDataStore(context: Context): DataStore<Preferences> =
-    synchronized(lock) {
-        if (::dataStore.isInitialized) {
-            dataStore
-        } else {
-            createDataStore(context = context)
-                .also { dataStore = it }
-        }
-    }
+fun getDataStore(context: Context): DataStore<Preferences> = getDataStore(
+    producePath = { context.filesDir.resolve(Constants.DATA_STORE_FILE_NAME).absolutePath }
+)
