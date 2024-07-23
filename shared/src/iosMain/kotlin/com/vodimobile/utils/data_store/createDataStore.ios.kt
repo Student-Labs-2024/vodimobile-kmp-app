@@ -1,14 +1,14 @@
-@file:OptIn(ExperimentalForeignApi::class)
-
+@file:OptIn (ExperimentalForeignApi:: class)
 package com.vodimobile.utils.data_store
+
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSDocumentDirectory
+import platform. Foundation. NSFileManager
+import platform.Foundation.NSUserDomainMask
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
-import platform.Foundation.NSUserDomainMask
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 fun createDataStore(): DataStore<Preferences> = getDataStore(
