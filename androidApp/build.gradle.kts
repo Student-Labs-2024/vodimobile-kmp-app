@@ -41,6 +41,20 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    lint {
+        checkTestSources = true
+        ignoreTestSources = true
+        checkGeneratedSources = true
+        checkDependencies = true
+        targetSdk = 34
+
+        htmlReport = true
+        htmlOutput = file("lint-report.html")
+        textReport = true
+        absolutePaths = false
+        lintConfig = file("lint.xml")
+    }
 }
 
 dependencies {
@@ -76,4 +90,7 @@ dependencies {
     implementation(libs.koin.test)
     implementation(libs.koin.test.junit4)
     implementation(libs.koin.android.test)
+
+    //Lint
+    lintChecks("com.slack.lint.compose:compose-lint-checks:1.3.1")
 }
