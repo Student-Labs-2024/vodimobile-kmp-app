@@ -13,7 +13,9 @@ data class ExtendedColors(
     val containerBack: Color,
     val secondaryBackground: Color,
     val onSecondaryBackground: Color,
-    val hintText: Color
+    val hintText: Color,
+    val smsTextFieldBack: Color,
+    val smsTextFieldBorder: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
@@ -21,7 +23,9 @@ val LocalExtendedColors = staticCompositionLocalOf {
         containerBack = Color.Unspecified,
         secondaryBackground = Color.Unspecified,
         onSecondaryBackground = Color.Unspecified,
-        hintText = Color.Unspecified
+        hintText = Color.Unspecified,
+        smsTextFieldBack = Color.Unspecified,
+        smsTextFieldBorder = Color.Unspecified
     )
 }
 
@@ -35,14 +39,18 @@ fun ExtendedTheme(
             containerBack = onSecondaryBackgroundDark,
             secondaryBackground = secondaryBackgroundDark,
             onSecondaryBackground = onSecondaryBackgroundDark,
-            hintText = hintTextDark
+            hintText = hintTextDark,
+            smsTextFieldBack = smsTextFieldBackDark,
+            smsTextFieldBorder = smsTextFieldBorderDark
         )
     else
         ExtendedColors(
             containerBack = containerBackLight,
             secondaryBackground = secondaryBackgroundLight,
             onSecondaryBackground = onSecondaryBackgroundLight,
-            hintText = hintTextLight
+            hintText = hintTextLight,
+            smsTextFieldBack = smsTextFieldBackLight,
+            smsTextFieldBorder = smsTextFieldBorderLight
         )
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {

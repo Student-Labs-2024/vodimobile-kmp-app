@@ -17,16 +17,15 @@ struct CheckboxView: View {
         }) {
             ZStack {
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(isChecked ? Color.blueColor : Color.grayDarkColor, lineWidth: 1)
+                    .stroke(isChecked ? Color(R.color.blueColor) : Color(R.color.grayDarkColor), lineWidth: 1)
                     .frame(width: checkboxSize, height: checkboxSize)
                 
                 if isChecked {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.blueColor)
+                    Image.checkmark
+                        .foregroundColor(Color(R.color.blueColor))
                         .imageScale(.small)
                 }
             }
-//            .padding(4)
             .padding(.leading, checkboxLeadingPadding)
         }
     }

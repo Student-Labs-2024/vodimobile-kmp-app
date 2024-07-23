@@ -1,7 +1,11 @@
 package com.vodimobile.presentation.screens.registration
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Bundle
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,11 +19,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
@@ -41,6 +50,14 @@ fun RegistrationScreen(
     navHostController: NavHostController
 ) {
 
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            onRegistrationIntent(RegistrationIntent.SmsVerification)
+        }
+    }
+
     LaunchedEffect(key1 = Unit) {
         registrationEffect.collect { effect ->
             when (effect) {
@@ -53,7 +70,22 @@ fun RegistrationScreen(
                 }
 
                 RegistrationEffect.SmsVerification -> {
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}")
+                }
 
+                RegistrationEffect.AskPermission -> {
+                    when (PackageManager.PERMISSION_GRANTED) {
+                        ContextCompat.checkSelfPermission(
+                            App.INSTANCE,
+                            android.Manifest.permission.SEND_SMS
+                        ) -> {
+                            onRegistrationIntent(RegistrationIntent.SmsVerification)
+                        }
+
+                        else -> {
+                            launcher.launch(android.Manifest.permission.SEND_SMS)
+                        }
+                    }
                 }
             }
         }
@@ -99,7 +131,7 @@ fun RegistrationScreen(
             onClickNextButton = {
                 isButtonClicked.value = true
                 if (!registrationState.value.emailError && !registrationState.value.phoneNumberError)
-                    onRegistrationIntent(RegistrationIntent.SmsVerification)
+                    onRegistrationIntent(RegistrationIntent.AskPermission)
             }
         )
     }
