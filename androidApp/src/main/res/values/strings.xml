@@ -33,7 +33,7 @@
     <string name="exit_account">Выход из аккаунта</string>
     <string name="personal_data_title">Личная информация</string>
     <string name="personal_data_subtitle">ФИО, номер телефона, почта</string>
-    <string name="edit_personal_data_content_desc">Редактировать личные данные</string>
+    <string name="edit_data">Редактировать личные данные</string>
     <string name="home_screen_label">Главная</string>
     <string name="orders_screen_label">Мои заказы</string>
     <string name="profile_screen_label">Профиль</string>
@@ -79,4 +79,9 @@
     <string name="auto_tag_premium">Премиум</string>
     <string name="auto_tag_sedan">Седаны</string>
     <string name="auto_tag_off_road">Внедорожники</string>
+
+    <string name="choose_date_rent">Выберите даты аренды</string>
+    <string name="date_rent_placeholder">Когда?</string>
+    <string name="find_car_button">Найти машину</string>
+    <string name="icon_calendar">Календарь</string>
 </resources>

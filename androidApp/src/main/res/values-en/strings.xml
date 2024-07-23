@@ -34,7 +34,7 @@
     <string name="exit_account">Exit account</string>
     <string name="personal_data_title">Personal data</string>
     <string name="personal_data_subtitle">Full name, phone number, email</string>
-    <string name="edit_personal_data_content_desc">Edit personal data</string>
+    <string name="edit_data">Edit data</string>
 
     <string name="home_screen_label">Home</string>
     <string name="orders_screen_label">My orders</string>
@@ -84,4 +84,9 @@
     <string name="auto_tag_premium">Premium</string>
     <string name="auto_tag_sedan">Sedans</string>
     <string name="auto_tag_off_road">Off-road cars</string>
+
+    <string name="choose_date_rent">Select the rental dates</string>
+    <string name="date_rent_placeholder">When?</string>
+    <string name="find_car_button">Find a car</string>
+    <string name="icon_calendar">Calendar</string>
 </resources>
