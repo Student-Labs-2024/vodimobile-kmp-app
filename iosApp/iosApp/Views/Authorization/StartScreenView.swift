@@ -1,44 +1,43 @@
 import SwiftUI
 import shared
 
-final class KMPDataStorageWork {
-    let testUser = User(
+@MainActor
+final class KMPDataStorage: ObservableObject {
+    private let repository = UserDataStoreRepositoryImpl(dataStore: CreateDataStore_iosKt.createDataStore())
+    private let newUser = User(
         fullName: "test testov",
         password: "12344321",
-        token: "",
-        phone: "+79029994147",
-        email: "rekeylg@re.rt"
+        token: "token_test",
+        phone: "+79029994148",
+        email: "rele@df.df"
     )
-    let dataStorage = DataStoreHelper().userDataStoreStorage
-    
-    func editUserData() async throws -> Bool {
-        do {
-            try await dataStorage.edit(user: testUser)
-            return true
-        } catch {
-            return false
+    static let defaultUser = User.companion.empty()
+
+    func editUserData() {
+        Task {
+            try await repository.editUserData(user: newUser)
         }
     }
     
-    func getUser() async throws -> Kotlinx_coroutines_coreFlow? {
-        do {
-            let gettingUser = try await dataStorage.getUser()
-            return gettingUser
-        } catch {
-            return nil
+    func getUser() -> User {
+        var user: User = KMPDataStorage.defaultUser
+        Task {
+            user = try await repository.getUserData()
         }
+        return user
     }
 }
 
-
 struct StartScreenView: View {
     @State private var isButtonEnabled: Bool = true
-    @State private var dataStore = KMPDataStorageWork()
+    @ObservedObject private var dataStorage = KMPDataStorage()
+    @State private var userData: User = KMPDataStorage.defaultUser
     
     var body: some View {
         NavigationView {
             VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
                 HStack {
+                    Text(userData.description())
                     Spacer()
                     NavigationLink(destination: MainTabbarView()) {
                         Image.xmark
@@ -46,14 +45,10 @@ struct StartScreenView: View {
                             .foregroundColor(Color.black)
                             .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)
                     }
-                    .task {
-                        DispatchQueue.main.async {
-                            Task {
-                                await executeTasks()
-                            }
-                        }
-                    }
                     .padding(.top, StartScreenConfig.xmarkTopPadding)
+                }.task {
+                    print(dataStorage.editUserData())
+                    userData = dataStorage.getUser()
                 }
                 
                 Image(R.image.logo)
@@ -72,18 +67,6 @@ struct StartScreenView: View {
                 Spacer()
             }
             .padding(.horizontal, horizontalPadding)
-        }
-    }
-    
-    @MainActor
-    func executeTasks() async {
-        do {
-            print("dataStore.editUserData() \(try await dataStore.editUserData())")
-            if let userFlow = try await dataStore.getUser() {
-                print("dataStore.getUser() \(userFlow)")
-            }
-        } catch {
-            print(error)
         }
     }
 }
