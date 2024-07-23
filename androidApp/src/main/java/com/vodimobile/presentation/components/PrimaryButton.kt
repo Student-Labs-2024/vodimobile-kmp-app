@@ -29,7 +29,7 @@ fun PrimaryButton(
         onClick = onClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 13.dp),
         enabled = enabled,
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             disabledContainerColor = MaterialTheme.colorScheme.primaryContainer,
