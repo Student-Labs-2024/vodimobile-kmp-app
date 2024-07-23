@@ -10,7 +10,6 @@ import UIKit
 import SwiftUI
 import RswiftResources
 
-
 extension Image {
     static let xmark: Image = Image(systemName: "xmark")
     static let checkmark: Image = Image(systemName: "checkmark")
@@ -83,7 +82,10 @@ struct BorderedTextFieldStyle: TextFieldStyle {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(!isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+                    .stroke(
+                        !isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                        lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0
+                    )
             )
     }
 }
@@ -104,7 +106,10 @@ struct CustomTextFieldStyle: TextFieldStyle {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(!isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+                    .stroke(
+                        !isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                        lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0
+                    )
             )
     }
 }

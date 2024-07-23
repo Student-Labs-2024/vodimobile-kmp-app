@@ -33,7 +33,7 @@ struct ConditionScreenView: View {
             .padding([.leading, .bottom, .trailing], ConditionScreenConfig.paddings)
             .navigationBarBackButtonHidden()
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading){
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         dismiss()
                     }, label: {

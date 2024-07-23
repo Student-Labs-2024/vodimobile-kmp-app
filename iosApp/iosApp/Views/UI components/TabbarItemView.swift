@@ -16,7 +16,7 @@ struct TabBarItem: View {
     let badgeCount: Int
     let isSelected: Bool
     let itemWidth: CGFloat
-    let onTap: () -> ()
+    let onTap: () -> Void
     
     var body: some View {
         Button {

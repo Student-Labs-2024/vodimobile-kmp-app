@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct StartScreenView: View {
     @State private var isButtonEnabled: Bool = true
     

@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct MediaCellView: View {
     let cell: MediaLink
     

@@ -48,9 +48,6 @@ struct PinCodeView: View {
                 NavigationLink(destination: MainTabbarView()) {
                     Text(R.string.localizable.nextBtnName)
                 }
-                .onTapGesture {
-                    self.environment(\.isAuthorized, true)
-                }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
             }

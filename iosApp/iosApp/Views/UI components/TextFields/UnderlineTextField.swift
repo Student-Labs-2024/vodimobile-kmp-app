@@ -65,7 +65,7 @@ struct UnderlineTextField: View {
                             isPlaceholderVisible = !newValue && text.isEmpty
                         }
                     }
-                    .onChange(of: text) { newValue in
+                    .onChange(of: text) { _ in
                         withAnimation {
                             isPlaceholderVisible = text.isEmpty && !isFocused
                         }

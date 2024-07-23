@@ -51,6 +51,7 @@
 		93745BC52C41A57700889B42 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC42C41A57600889B42 /* FAQView.swift */; };
 		93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */; };
 		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
+		937DBD592C4FD38600C43A86 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 937DBD582C4FD38600C43A86 /* .swiftlint.yml */; };
 		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
 		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
 		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
@@ -117,6 +118,7 @@
 		93745BC42C41A57600889B42 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsView.swift; sourceTree = "<group>"; };
 		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
+		937DBD582C4FD38600C43A86 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
 		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				937DBD582C4FD38600C43A86 /* .swiftlint.yml */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
 				7555FFB0242A642200829871 /* Frameworks */,
@@ -324,9 +327,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
-				7555FFB5242A651A00829871 /* ShellScript */,
-				93D1E0552C44FD5B00919749 /* ShellScript */,
+				7555FFB5242A651A00829871 /* Run Gradlew Script */,
+				93D1E0552C44FD5B00919749 /* Run Rswift */,
 				7555FF77242A565900829871 /* Sources */,
+				937DBD562C4FD20000C43A86 /* Run Swiftlint */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				7555FFB4242A642300829871 /* Embed Frameworks */,
@@ -372,6 +376,7 @@
 			packageReferences = (
 				93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */,
+				9370C1932C501B6100C783D8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -387,6 +392,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				937DBD592C4FD38600C43A86 /* .swiftlint.yml in Resources */,
 				934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */,
 				934D5DF82C3D3D8B0070904B /* AkzidenzRegular.ttf in Resources */,
 				931FDDB12C46FA6D007954FC /* Localizable.strings in Resources */,
@@ -404,7 +410,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7555FFB5242A651A00829871 /* ShellScript */ = {
+		7555FFB5242A651A00829871 /* Run Gradlew Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -413,6 +419,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Gradlew Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -421,7 +428,7 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
-		93D1E0552C44FD5B00919749 /* ShellScript */ = {
+		937DBD562C4FD20000C43A86 /* Run Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -431,6 +438,26 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$(ls \"$SWIFT_PACKAGE_DIR\"/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint | head -n 1)\n\nif test -f \"$SWIFTLINT_CMD\" 2>&1\nthen\n    \"$SWIFTLINT_CMD\"\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+		93D1E0552C44FD5B00919749 /* Run Rswift */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Rswift";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -552,7 +579,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -608,7 +635,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -641,8 +668,12 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.jgjhguig;
+				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.kmmvodimobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -671,8 +702,12 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.jgjhguig;
+				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.kmmvodimobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -708,6 +743,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.10.4;
+			};
+		};
+		9370C1932C501B6100C783D8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.55.1;
 			};
 		};
 		93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */ = {
