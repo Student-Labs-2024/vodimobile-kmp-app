@@ -29,6 +29,8 @@
 "email" = "Email";
 "phone" = "Номер телефона";
 "fullName" = "ФИО";
+"dateTextFieldPlaceholder" = "Когда?";
+"dateTextFieldTitle" = "Выберите даты аренды";
 
 // Alert text
 "exitAlertTitle" = "Вы уверены, что хотите выйти из аккаунта?";
