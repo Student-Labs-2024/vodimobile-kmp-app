@@ -30,7 +30,7 @@ fun SecondaryButton(
         onClick = onClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 13.dp),
         enabled = enabled,
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.primary
