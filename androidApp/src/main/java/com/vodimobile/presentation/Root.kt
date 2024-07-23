@@ -35,7 +35,9 @@ fun Root() {
 private fun getIsShowBottomBar(currentRoute: String?): Boolean {
     return currentRoute != RootScreen.START_SCREEN &&
             currentRoute != RegistrationScreens.REGISTRATION_SCREEN &&
-            currentRoute != RegistrationScreens.USER_AGREE_SCREEN
+            currentRoute != RegistrationScreens.USER_AGREE_SCREEN &&
+            currentRoute != RegistrationScreens.SMS_VERIFY &&
+            currentRoute != RegistrationScreens.START_SCREEN
 }
 
 @Preview

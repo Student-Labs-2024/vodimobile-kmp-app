@@ -1,8 +1,11 @@
 package com.vodimobile.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,6 +15,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
@@ -28,14 +32,19 @@ import com.vodimobile.presentation.screens.start_screen.StartScreen
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
+import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
 import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.sms.SmsScreen
+import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NavGraph(
     navHostController: NavHostController
@@ -44,8 +53,42 @@ fun NavGraph(
         navController = navHostController,
         startDestination = RootScreen.HOME_SCREEN
     ) {
-        composable(RootScreen.HOME_SCREEN) {
-            HomeScreen()
+        navigation(
+            route = RootScreen.HOME_SCREEN,
+            startDestination = LeafHomeScreen.HOME_SCREEN
+        ) {
+            composable(route = LeafHomeScreen.HOME_SCREEN) { backEntry ->
+                val selectedDate: Long =
+                    MutableStateFlow(backEntry.arguments?.getLong("selected-date")).collectAsState().value
+                        ?: System.currentTimeMillis()
+                HomeScreen()
+            }
+            dialog(route = DialogIdentifiers.DATE_SELECT_DIALOG) { backEntry ->
+                DateSelectDialog(
+                    onDismissClick = { navHostController.navigateUp() },
+                    onConfirmClick = { selectedDate ->
+                        navHostController.currentBackStackEntry?.savedStateHandle?.set(
+                            "selected-date",
+                            selectedDate
+                        )
+                        navHostController.navigateUp()
+                    }
+                )
+            }
+            composable(
+                route = "${RegistrationScreens.SMS_VERIFY}/{phone}",
+                arguments = listOf(navArgument("phone") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val smsViewModel: SmsViewModel = koinViewModel()
+
+                SmsScreen(
+                    smsState = smsViewModel.smsState.collectAsState(),
+                    smsEffect = smsViewModel.smsEffect,
+                    phone = backStackEntry.arguments?.getString("phone") ?: "",
+                    onIntent = smsViewModel::onIntent,
+                    navHostController = navHostController
+                )
+            }
         }
         composable(RootScreen.ORDERS_SCREEN) {
             OrdersScreen()
@@ -146,6 +189,20 @@ fun NavGraph(
                 UserAgreementScreen(
                     onUserAgreementIntent = userAgreementViewModel::onIntent,
                     userAgreementEffect = userAgreementViewModel.userAgreementEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(
+                route = RegistrationScreens.SMS_VERIFY,
+                arguments = listOf(navArgument("phone") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val smsViewModel: SmsViewModel = koinViewModel()
+
+                SmsScreen(
+                    smsState = smsViewModel.smsState.collectAsState(),
+                    smsEffect = smsViewModel.smsEffect,
+                    phone = backStackEntry.arguments?.getString("phone") ?: "",
+                    onIntent = smsViewModel::onIntent,
                     navHostController = navHostController
                 )
             }

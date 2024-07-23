@@ -73,7 +73,15 @@
     <string name="log_out_confirmation_body">You will not be able to rent cars without an account</string>
     <string name="confirmation_cancel_button">Cancel</string>
     <string name="confirmation_logout_button">Log out</string>
+
     <string name="connection_error">Connection error</string>
     <string name="connection_error_subtitle">There is no internet connection. Check the network and try the connection again.</string>
     <string name="try_again_bt">Try again</string>
+
+    <string name="auto_tag_all">All cars</string>
+    <string name="auto_tag_economy">Economy</string>
+    <string name="auto_tag_comfort">Comfort</string>
+    <string name="auto_tag_premium">Premium</string>
+    <string name="auto_tag_sedan">Sedans</string>
+    <string name="auto_tag_off_road">Off-road cars</string>
 </resources>

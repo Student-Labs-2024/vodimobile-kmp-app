@@ -68,7 +68,15 @@
     <string name="log_out_confirmation_body">Вы не сможете арендовать\nавтомобили без аккаунта</string>
     <string name="confirmation_cancel_button">Отмена</string>
     <string name="confirmation_logout_button">Выйти</string>
+
     <string name="connection_error">Ошибка соединения</string>
     <string name="connection_error_subtitle">Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.</string>
     <string name="try_again_bt">Повторить попытку</string>
+
+    <string name="auto_tag_all">Все авто</string>
+    <string name="auto_tag_economy">Эконом</string>
+    <string name="auto_tag_comfort">Комфорт</string>
+    <string name="auto_tag_premium">Премиум</string>
+    <string name="auto_tag_sedan">Седаны</string>
+    <string name="auto_tag_off_road">Внедорожники</string>
 </resources>

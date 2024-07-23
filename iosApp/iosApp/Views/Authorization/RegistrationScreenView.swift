@@ -1,5 +1,5 @@
 //
-//  AuthScreenView.swift
+//  RegistrationScreenView.swift
 //  iosApp
 //
 //  Created by Sergey Ivanov on 09.07.2024.
@@ -8,10 +8,12 @@
 
 import SwiftUI
 
-struct AuthScreenView: View {
+struct RegistrationScreenView: View {
+    @State private var emailFieldText = ""
+    @State private var emailIsValid = false
     @State private var phoneFieldText = ""
-    @State private var phoneIsValid: Bool = false
-    @State private var checkboxSelected: Bool = false
+    @State private var phoneIsValid = false
+    @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
     
     @Environment(\.dismiss) private var dismiss
@@ -19,11 +21,13 @@ struct AuthScreenView: View {
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
-                    .onChange(of: phoneIsValid) { _ in
+                CustomTextFieldView(fieldContent: $emailFieldText, isValid: $emailIsValid, fieldType: .email)
+                    .onChange(of: emailIsValid) { _ in
                         toggleButtonEnabled()
                     }
                 
+                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
+
                 NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
                     Text(R.string.localizable.nextBtnName)
                 }
@@ -40,11 +44,11 @@ struct AuthScreenView: View {
                 VStack(alignment: .leading) {
                     Text(R.string.localizable.conditionText)
                         .font(.paragraph5)
-                        .foregroundStyle(Color.grayDarkColor)
+                        .foregroundStyle(Color(R.color.grayDarkColor))
                     
                     NavigationLink(destination: ConditionScreenView()) {
                         Text(R.string.localizable.conditionLink)
-                            .foregroundColor(.blueColor)
+                            .foregroundColor(Color(R.color.blueColor))
                             .font(.buttonCheckBox)
                     }
                 }
@@ -56,27 +60,15 @@ struct AuthScreenView: View {
         .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading){
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.left").foregroundStyle(Color.black).fontWeight(.bold)
-                })
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(R.string.localizable.authScreenTitle)
-                    .font(.header1)
-                    .foregroundColor(Color.black)
-            }
+            CustomToolbar(title: R.string.localizable.regScreenTitle)
         }
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = phoneIsValid && checkboxSelected
+        isButtonEnabled = emailIsValid && phoneIsValid && checkboxSelected
     }
 }
 
 #Preview {
-    AuthScreenView()
+    RegistrationScreenView()
 }

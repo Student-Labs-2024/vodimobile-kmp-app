@@ -6,4 +6,5 @@ sealed class RegistrationIntent {
     data object ReturnBack : RegistrationIntent()
     data class EmailChange(val value: String) : RegistrationIntent()
     data class PhoneNumberChange(val value: String) : RegistrationIntent()
+    data object AskPermission : RegistrationIntent()
 }

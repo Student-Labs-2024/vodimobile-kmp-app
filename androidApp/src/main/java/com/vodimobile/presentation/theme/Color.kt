@@ -39,7 +39,7 @@ val surfaceContainerHighLight = Color(0xFFE9E7EF)
 val surfaceContainerHighestLight = Color(0xFFE3E1E9)
 
 val primaryDark = Color(0xFFB6C4FF)
-val onPrimaryDark = Color(0xFF1D2D61)
+val onPrimaryDark = Color(0xFF1D1B20)
 val primaryContainerDark = Color(0xFF354479)
 val onPrimaryContainerDark = Color(0xFFDCE1FF)
 val secondaryDark = Color(0xFFC2C5DD)
@@ -85,3 +85,9 @@ val onSecondaryBackgroundLight = Color(0xFFFFFFFF)
 val onSecondaryBackgroundDark = Color(0xFF1D1B20)
 val hintTextLight = Color(0xFF939BAA)
 val hintTextDark = Color(0xFF939BAA)
+
+val smsTextFieldBackLight = Color(0xFFF6F6F6)
+val smsTextFieldBackDark = Color(0xFF171d1e)
+
+val smsTextFieldBorderLight = Color(0xFF9CA3B0)
+val smsTextFieldBorderDark = Color(0xFF111418)

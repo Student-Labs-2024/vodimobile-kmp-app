@@ -15,12 +15,18 @@ object LeafScreen {
     const val CONTACTS_SCREEN = "contacts"
 }
 
+object LeafHomeScreen {
+    const val HOME_SCREEN = "home"
+}
+
 object RegistrationScreens {
     const val REGISTRATION_SCREEN = "registration"
     const val USER_AGREE_SCREEN = "user_agree"
     const val START_SCREEN = "start_screen"
+    const val SMS_VERIFY = "sms_verify"
 }
 
 object DialogIdentifiers {
     const val LOG_OUT_DIALOG = "logout"
+    const val DATE_SELECT_DIALOG = "date_select"
 }
