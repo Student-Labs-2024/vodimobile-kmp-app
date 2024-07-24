@@ -89,4 +89,6 @@
     <string name="date_rent_placeholder">When?</string>
     <string name="find_car_button">Find a car</string>
     <string name="icon_calendar">Calendar</string>
+
+    <string name="notification_desc">Notifications</string>
 </resources>

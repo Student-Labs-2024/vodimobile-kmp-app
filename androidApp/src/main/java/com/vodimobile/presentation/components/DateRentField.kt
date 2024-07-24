@@ -2,7 +2,6 @@ package com.vodimobile.presentation.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -42,8 +41,10 @@ fun DateRentField(
                 )
             },
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = if (showTrailingIcon) ExtendedTheme.colorScheme.containerBack
+                else ExtendedTheme.colorScheme.onSecondaryBackground,
+                focusedContainerColor = if (showTrailingIcon) ExtendedTheme.colorScheme.containerBack
+                else ExtendedTheme.colorScheme.onSecondaryBackground,
                 disabledContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
@@ -56,11 +57,6 @@ fun DateRentField(
             ),
             modifier = modifier
                 .fillMaxWidth()
-                .background(
-                    color = if (showTrailingIcon) ExtendedTheme.colorScheme.containerBack
-                    else ExtendedTheme.colorScheme.onSecondaryBackground,
-                    shape = MaterialTheme.shapes.small
-                )
                 .then(
                     if (!showTrailingIcon) {
                         Modifier.border(
@@ -74,6 +70,7 @@ fun DateRentField(
                         Modifier
                     }
                 ),
+            shape = MaterialTheme.shapes.small,
             singleLine = true,
             leadingIcon = {
                 Icon(

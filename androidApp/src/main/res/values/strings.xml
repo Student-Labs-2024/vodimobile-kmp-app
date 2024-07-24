@@ -84,4 +84,6 @@
     <string name="date_rent_placeholder">Когда?</string>
     <string name="find_car_button">Найти машину</string>
     <string name="icon_calendar">Календарь</string>
+
+    <string name="notification_desc">Уведомления</string>
 </resources>
