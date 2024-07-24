@@ -27,6 +27,7 @@
 "clearButton" = "Clear";
 "saveButton" = "Save";
 "findAutoButton" = "Find auto";
+"allAutoButton" = "All auto >";
 
 // Field names
 "email" = "Email";
@@ -69,6 +70,7 @@
 "questionAndAnswerTitle" = "FAQ from \"Vodimobile\"";
 "questionAndAnswerAttributedPartOfTitle" = "FAQ";
 "questionAndAnswerText" = "Find answer on any your questions.";
+"popularAuto" = "Popular auto";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

@@ -16,23 +16,37 @@ struct MainView: View {
     @State private var scrollOffset: CGPoint = .zero
     @State private var headerHeight: CGFloat = 0
     @State private var dragOffset: CGSize = .zero
+    @State private var showModalCard: Bool = false
+    @ObservedObject private var viewModel: MainViewModel = MainViewModel()
     
     var body: some View {
         ZStack(alignment: .top) {
             ScrollViewWithOffset(onScroll: handleScroll) {
-                LazyVStack {
-                    ForEach(0..<20) { index in
-                        Text("Car \(index + 1)")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                            .padding(.horizontal)
-                            .padding(.vertical, 5)
+                LazyVStack(spacing: 20) {
+                    HStack {
+                        Text(R.string.localizable.popularAuto).font(.header3)
+                        Spacer()
+                        NavigationLink(R.string.localizable.allAutoButton()) {
+                            AutoListView()
+                        }
+                        .font(.buttonTabbar)
+                        .foregroundStyle(Color(R.color.blueColor))
                     }
+                    .padding(.bottom, 10)
+                    
+                    ForEach(AutoCard.autoCardsList.indices, id: \.self) { index in
+                        AutoCardView(
+                            image: AutoCard.autoCardsList[index].image,
+                            title: AutoCard.autoCardsList[index].title,
+                            price: AutoCard.autoCardsList[index].price,
+                            cardType: AutoCard.autoCardsList[index].cardType,
+                            trailingIcon: AutoCard.autoCardsList[index].trailingIcon
+                        )
+                    }
+                    
                 }
-                .padding(.top, headerHeight * 1.7)
+                .padding(.top, headerHeight * 1.75)
+                .padding(.horizontal, 24)
             }
             
             // Expandable Toolbar
@@ -54,6 +68,10 @@ struct MainView: View {
             }
         }
         .ignoresSafeArea(.container, edges: .top)
+        .background(Color(R.color.grayLightColor))
+        .sheet(isPresented: $showModalCard) {
+            
+        }
     }
     
     func handleScroll(_ offset: CGPoint) {

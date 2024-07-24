@@ -27,6 +27,7 @@
 "clearButton" = "Очистить";
 "saveButton" = "Сохранить";
 "findAutoButton" = "Найти машину";
+"allAutoButton" = "Все машины >";
 
 // Field names
 "email" = "Email";
@@ -69,6 +70,7 @@
 "questionAndAnswerTitle" = "Вопрос-ответ от \"Водимобиль\"";
 "questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
 "questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";
+"popularAuto" = "Популярные авто";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";
