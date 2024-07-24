@@ -24,11 +24,16 @@
 "nextBtnName" = "Next";
 "resendBtnText" = "Resend";
 "closeButton" = "OK";
+"clearButton" = "Clear";
+"saveButton" = "Save";
+"findAutoButton" = "Find auto";
 
 // Field names
 "email" = "Email";
 "phone" = "Phone";
 "fullName" = "Full name";
+"dateTextFieldPlaceholder" = "When?";
+"dateTextFieldTitle" = "Select the rental dates";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";
