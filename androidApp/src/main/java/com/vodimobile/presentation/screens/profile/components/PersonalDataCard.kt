@@ -87,7 +87,7 @@ fun PersonalDataCard(onEditClick: () -> Unit) {
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.edit_grey),
-                    contentDescription = stringResource(id = R.string.edit_personal_data_content_desc)
+                    contentDescription = stringResource(id = R.string.edit_data)
                 )
             }
         }

@@ -4,11 +4,14 @@ import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.contact.ContactViewModel
+import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
+import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RulesViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import com.vodimobile.presentation.screens.server_error.ServerErrorViewModel
+import com.vodimobile.presentation.screens.sms.SmsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -30,5 +33,8 @@ val viewModelModule = module {
     viewModelOf(::RegistrationViewModel)
     viewModelOf(::RuleDetailsViewModel)
     viewModelOf(::RulesViewModel)
+    viewModelOf(::SmsViewModel)
+    viewModelOf(::EditProfileViewModel)
+    viewModelOf(::ConnectionErrorViewModel)
+    viewModelOf(::ServerErrorViewModel)
 }
-
