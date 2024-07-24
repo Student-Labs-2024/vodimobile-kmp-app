@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.internet
 
 sealed class ConnectionStatus {
     object  Available : ConnectionStatus()

@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.internet
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

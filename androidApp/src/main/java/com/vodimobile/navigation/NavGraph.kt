@@ -38,6 +38,8 @@ import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
+import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
+import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.sms.SmsScreen
@@ -56,7 +58,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
     ) {
         navigation(
             route = RootScreen.HOME_SCREEN,
-            startDestination = LeafHomeScreen.HOME_SCREEN
+            startDestination = LeafHomeScreen.NO_INTERNET_SCREEN
         ) {
             composable(route = LeafHomeScreen.HOME_SCREEN) { backEntry ->
                 val selectedDate: Long =
@@ -87,6 +89,14 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     smsEffect = smsViewModel.smsEffect,
                     phone = backStackEntry.arguments?.getString("phone") ?: "",
                     onIntent = smsViewModel::onIntent,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = LeafHomeScreen.NO_INTERNET_SCREEN) {
+                val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
+                ConnectionErrorScreen(
+                    onNetworkErrorIntent = connectionErrorViewModel::onIntent,
+                    networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
                     navHostController = navHostController
                 )
             }
