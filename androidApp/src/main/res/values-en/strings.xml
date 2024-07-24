@@ -73,4 +73,12 @@
     <string name="log_out_confirmation_body">You will not be able to rent cars without an account</string>
     <string name="confirmation_cancel_button">Cancel</string>
     <string name="confirmation_logout_button">Log out</string>
+    <string name="tariff">from %s rub per day.</string>
+    <string name="car">%s liters</string>
+    <string name="spec_tile">Specifications:</string>
+    <string name="transmis">Gearbox</string>
+    <string name="wheel_drive">Drive</string>
+    <string name="year_of_release">Year of release</string>
+    <string name="tank_value">Tank </string>
+    <string name="to_book">To book</string>
 </resources>
