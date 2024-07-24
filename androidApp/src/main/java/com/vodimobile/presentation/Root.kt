@@ -39,7 +39,8 @@ private fun getIsShowBottomBar(currentRoute: String?): Boolean {
             currentRoute != RegistrationScreens.USER_AGREE_SCREEN &&
             currentRoute != RegistrationScreens.SMS_VERIFY &&
             currentRoute != RegistrationScreens.START_SCREEN &&
-            currentRoute != LeafHomeScreen.NO_INTERNET_SCREEN
+            currentRoute != LeafHomeScreen.NO_INTERNET_SCREEN &&
+            currentRoute != LeafHomeScreen.SERVER_ERROR_SCREEN
 }
 
 @Preview

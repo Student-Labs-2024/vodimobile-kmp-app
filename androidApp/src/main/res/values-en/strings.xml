@@ -91,4 +91,7 @@
     <string name="icon_calendar">Calendar</string>
 
     <string name="notification_desc">Notifications</string>
+
+    <string name="server_error">Error on the server</string>
+    <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
 </resources>

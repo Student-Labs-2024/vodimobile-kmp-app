@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
+import com.vodimobile.presentation.store.ConnectionErrorIntent
 
 @Composable
 fun ErrorItem(
@@ -73,7 +73,7 @@ fun ErrorItem(
                 text = stringResource(R.string.try_again_bt),
                 enabled = true,
                 onClick = {
-                    onNetworkErrorIntent(ConnectionErrorIntent.ClickRepetir)
+                    onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat)
                 }
             )
         }
