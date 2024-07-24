@@ -22,6 +22,8 @@ extension Image {
     static let person: Image = Image(systemName: "person")
     static let personFill: Image = Image(systemName: "person.fill")
     static let rightArrowCircleFill: Image = Image(systemName: "arrow.forward.circle.fill")
+    static let bell: Image = Image(systemName: "bell")
+    static let minus: Image = Image(systemName: "minus")
 }
 
 extension Font {

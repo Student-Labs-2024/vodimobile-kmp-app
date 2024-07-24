@@ -24,6 +24,9 @@
 "nextBtnName" = "Далее";
 "resendBtnText" = "Отправить повторно";
 "closeButton" = "Закрыть";
+"clearButton" = "Очистить";
+"saveButton" = "Сохранить";
+"findAutoButton" = "Найти машину";
 
 // Field names
 "email" = "Email";

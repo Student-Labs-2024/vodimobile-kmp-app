@@ -24,6 +24,9 @@
 "nextBtnName" = "Next";
 "resendBtnText" = "Resend";
 "closeButton" = "OK";
+"clearButton" = "Clear";
+"saveButton" = "Save";
+"findAutoButton" = "Find auto";
 
 // Field names
 "email" = "Email";
