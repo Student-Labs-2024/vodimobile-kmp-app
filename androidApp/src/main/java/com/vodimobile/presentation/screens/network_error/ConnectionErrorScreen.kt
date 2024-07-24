@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.network_error
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,33 +24,38 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.presentation.LeafScreen
+import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.components.ErrorItem
 import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorEffect
 import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.ConnectionStatus
-import com.vodimobile.presentation.utils.connectivityState
+import com.vodimobile.presentation.utils.internet.ConnectionStatus
+import com.vodimobile.presentation.utils.internet.connectivityState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
+@SuppressLint("ComposeModifierMissing")
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun ConnectionErrorScreen(
     onNetworkErrorIntent: (ConnectionErrorIntent) -> Unit,
-    networkErrorEffect: MutableSharedFlow<ConnectionErrorEffect>,
+    @SuppressLint("ComposeMutableParameters") networkErrorEffect: MutableSharedFlow<ConnectionErrorEffect>,
     navHostController: NavHostController
 ) {
     Scaffold {
         val connection by connectivityState()
-        val isConnected = connection === ConnectionStatus.Available
+
+        onNetworkErrorIntent(ConnectionErrorIntent.ClickRepetir)
 
         LaunchedEffect(key1 = Unit) {
-            networkErrorEffect.collect() { effect ->
+            networkErrorEffect.collect { effect ->
                 when (effect) {
                     ConnectionErrorEffect.CloseRepetir -> {
+                        val isConnected = connection === ConnectionStatus.Available
                         if (isConnected) {
-
-                        } else {
+                            navHostController.clearBackStack(route = LeafHomeScreen.NO_INTERNET_SCREEN)
+                            navHostController.navigate(route = LeafHomeScreen.HOME_SCREEN)
                         }
                     }
                 }
@@ -59,7 +65,6 @@ fun ConnectionErrorScreen(
         Column(
             Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
                 .padding(horizontal = 16.dp, vertical = 60.dp)
                 .padding(it),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,23 +74,25 @@ fun ConnectionErrorScreen(
             ErrorItem(
                 title = stringResource(R.string.connection_error),
                 subtitle = stringResource(R.string.connection_error_subtitle),
-            ) {
-                Image(
-                    modifier = Modifier
-                        .padding(vertical = 20.dp)
-                        .size(128.dp),
-                    painter = painterResource(id = R.drawable.nointernet),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
-                    contentDescription = stringResource(R.string.connection_error)
-                )
-            }
+                onNetworkErrorIntent = onNetworkErrorIntent,
+                icon = {
+                    Image(
+                        modifier = Modifier
+                            .padding(vertical = 20.dp)
+                            .size(128.dp),
+                        painter = painterResource(id = R.drawable.nointernet),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+                        contentDescription = stringResource(R.string.connection_error)
+                    )
+                }
+            )
         }
     }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun NetworkErrorScreenLight() {
+private fun NetworkErrorScreenLight() {
     VodimobileTheme(darkTheme = false, dynamicColor = false) {
         val connectionErrorViewModel = ConnectionErrorViewModel()
         ConnectionErrorScreen(
@@ -98,7 +105,7 @@ fun NetworkErrorScreenLight() {
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun NetworkErrorScreenNight() {
+private fun NetworkErrorScreenNight() {
     VodimobileTheme(dynamicColor = false) {
         val connectionErrorViewModel = ConnectionErrorViewModel()
         ConnectionErrorScreen(

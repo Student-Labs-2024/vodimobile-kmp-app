@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,24 +15,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 
 @Composable
 fun ErrorItem(
+    title: String,
+    subtitle: String,
+    icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    title : String,
-    subtitle : String,
-    icon: @Composable () -> Unit
+    onNetworkErrorIntent: (ConnectionErrorIntent) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(vertical = 20.dp)
-            .background(MaterialTheme.colorScheme.background),
+            .padding(vertical = 20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -66,15 +64,17 @@ fun ErrorItem(
 
         }
 
-        Spacer(modifier = Modifier.height(344.dp))
+        Spacer(modifier = Modifier.weight(1.0f))
         Row(
             modifier = Modifier
                 .padding(horizontal = 24.dp)
         ) {
             SecondaryButton(
                 text = stringResource(R.string.try_again_bt),
-                enabled = false,
-                onClick = {}
+                enabled = true,
+                onClick = {
+                    onNetworkErrorIntent(ConnectionErrorIntent.ClickRepetir)
+                }
             )
         }
     }

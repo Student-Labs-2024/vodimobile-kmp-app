@@ -5,6 +5,7 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
+import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
@@ -34,5 +35,6 @@ val viewModelModule = module {
     viewModelOf(::RulesViewModel)
     viewModelOf(::SmsViewModel)
     viewModelOf(::EditProfileViewModel)
+    viewModelOf(::ConnectionErrorViewModel)
 }
 
