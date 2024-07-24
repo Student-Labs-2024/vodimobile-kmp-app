@@ -56,7 +56,7 @@ class CreateDataStore_androidKtTest {
 
     @Test
     fun createDataStore() {
-        val dataStore: DataStore<Preferences> = createDataStore(context = context)
+        val dataStore: DataStore<Preferences> = getDataStore(context = context)
         assertNotNull(dataStore)
     }
 
@@ -66,7 +66,7 @@ class CreateDataStore_androidKtTest {
         rule.setContent {
             VodimobileTheme {
                 val dataStore: DataStore<Preferences> =
-                    remember { createDataStore(context = context) }
+                    getDataStore(context = context)
 
                 LaunchedEffect(key1 = Unit) {
                     // 1. Запускаем редактирование в отдельном сопрограмме
