@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.network_error
+package com.vodimobile.presentation.screens.server_error
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,14 +7,15 @@ import com.vodimobile.presentation.store.ConnectionErrorIntent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class ConnectionErrorViewModel : ViewModel() {
-    val connectionErrorEffect = MutableSharedFlow<ConnectionErrorEffect>()
+class ServerErrorViewModel : ViewModel() {
+
+    val serverErrorEffect = MutableSharedFlow<ConnectionErrorEffect>()
 
     fun onIntent(intent: ConnectionErrorIntent) {
         when (intent) {
             ConnectionErrorIntent.ClickRepeat -> {
                 viewModelScope.launch {
-                    connectionErrorEffect.emit(ConnectionErrorEffect.ClickRepeat)
+                    serverErrorEffect.emit(ConnectionErrorEffect.ClickRepeat)
                 }
             }
         }

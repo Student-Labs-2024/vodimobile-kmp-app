@@ -10,8 +10,8 @@ import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RulesViewModel
+import com.vodimobile.presentation.screens.server_error.ServerErrorViewModel
 import com.vodimobile.presentation.screens.sms.SmsViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -36,5 +36,5 @@ val viewModelModule = module {
     viewModelOf(::SmsViewModel)
     viewModelOf(::EditProfileViewModel)
     viewModelOf(::ConnectionErrorViewModel)
+    viewModelOf(::ServerErrorViewModel)
 }
-

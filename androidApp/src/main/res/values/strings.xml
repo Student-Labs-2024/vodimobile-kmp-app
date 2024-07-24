@@ -86,4 +86,7 @@
     <string name="icon_calendar">Календарь</string>
 
     <string name="notification_desc">Уведомления</string>
+
+    <string name="server_error">Ошибка на сервере</string>
+    <string name="server_error_subtitle">Что-то пошло не так на стороне сервера. Повторите попытку соединения.</string>
 </resources>

@@ -19,6 +19,7 @@ object LeafScreen {
 object LeafHomeScreen {
     const val HOME_SCREEN = "home"
     const val NO_INTERNET_SCREEN = "no_internet"
+    const val SERVER_ERROR_SCREEN = "server_error"
 }
 
 object RegistrationScreens {
