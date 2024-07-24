@@ -10,7 +10,6 @@ struct StartScreenView: View {
         NavigationView {
             VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
                 HStack {
-                    Text(userData.description())
                     Spacer()
                     NavigationLink(destination: MainTabbarView()) {
                         Image.xmark
@@ -19,9 +18,6 @@ struct StartScreenView: View {
                             .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)
                     }
                     .padding(.top, StartScreenConfig.xmarkTopPadding)
-                }.task {
-                    print(dataStorage.editUserData())
-                    userData = dataStorage.getUser()
                 }
                 
                 Image(R.image.logo)

@@ -13,36 +13,20 @@ enum AutoCardType {
 }
 
 struct AutoCardView: View {
-    let image: Image
-    let title: String
-    let price: String?
-    let cardType: AutoCardType
-    let trailingIcon: Image?
-    
-    init(
-        image: Image,
-        title: String,
-        price: String?,
-        cardType: AutoCardType,
-        trailingIcon: Image? = nil
-    ) {
-        self.image = image
-        self.title = title
-        self.price = price
-        self.cardType = cardType
-        self.trailingIcon = trailingIcon
-    }
+    let autoCard: AutoCard
+    @Binding var showModal: Bool
+    @Binding var selectedAuto: AutoCard
     
     var body: some View {
         VStack(spacing: 12) {
-            image
+            autoCard.auto.image
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(title).font(cardType == .simple ? .header3 : .header4)
-                    if let autoPrice = price {
+                    Text(autoCard.auto.title).font(autoCard.cardType == .simple ? .header3 : .header4)
+                    if let autoPrice = autoCard.auto.price {
                         Text(autoPrice)
                             .font(.header4)
                             .fontWeight(.bold)
@@ -51,14 +35,15 @@ struct AutoCardView: View {
                     }
                 }
                 Spacer()
-                if let trailingIcon = trailingIcon {
-                    trailingIcon
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 32, height: 32)
-                        .foregroundStyle(Color(R.color.blueColor))
+                if let trailingIcon = autoCard.trailingIcon {
+                    NavigationLink(destination: AutoListView()) {
+                        trailingIcon
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 32, height: 32)
+                            .foregroundStyle(Color(R.color.blueColor))
+                    }
                 } else {
-                    
                     ZStack {
                         Image.infoCircleFill
                             .resizable()
@@ -68,6 +53,10 @@ struct AutoCardView: View {
                     }
                     .frame(width: 40, height: 40)
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
+                    .onTapGesture {
+                        selectedAuto = autoCard
+                        showModal = true
+                    }
                 }
             }
         }

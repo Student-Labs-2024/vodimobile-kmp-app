@@ -28,6 +28,7 @@
 "saveButton" = "Сохранить";
 "findAutoButton" = "Найти машину";
 "allAutoButton" = "Все машины >";
+"bookButton" = "Забронировать";
 
 // Field names
 "email" = "Email";
@@ -71,6 +72,16 @@
 "questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
 "questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";
 "popularAuto" = "Популярные авто";
+"transmissionTitle" = "Коробка";
+"autoTransmissionType" = "АКПП-Автомат";
+"mechTransmissionType" = "МКПП-Механика";
+"driveTypeTitle" = "Привод";
+"frontDriveType" = "Передний";
+"rearDriveType" = "Задний";
+"allDriveType" = "Полный";
+"tankTitle" = "Бак";
+"yearOfManufactureTitle" = "Год выпуска";
+"characteristicsTitle" = "Характеристики:";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

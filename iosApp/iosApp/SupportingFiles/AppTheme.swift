@@ -32,18 +32,24 @@ extension Font {
     public static let header2: Font = Font(R.font.akzidenzGroteskProRegular(size: 20) ?? .systemFont(ofSize: 20))
     public static let header3: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
     public static let header4: Font = Font(R.font.akzidenzGroteskProExt(size: 15) ?? .systemFont(ofSize: 15))
+    public static let header5: Font = Font(R.font.akzidenzGroteskProExt(size: 14) ?? .systemFont(ofSize: 14))
     
     public static let button: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
+    public static let tag: Font = Font(R.font.akzidenzGroteskProMdEx(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonText: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonCheckBox: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonTabbar: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
     
+    public static let caption2: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
+    public static let caption1: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
+    
     public static let paragraph1: Font = Font(R.font.akzidenzGroteskProMd(size: 18) ?? .systemFont(ofSize: 18))
     public static let paragraph2: Font = Font(R.font.akzidenzGroteskProRegular(size: 16) ?? .systemFont(ofSize: 16))
     public static let paragraph3: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
-    public static let paragraph4: Font = Font(R.font.akzidenzGroteskProRegular(size: 14) ?? .systemFont(ofSize: 14))
-    public static let paragraph5: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph5: Font = Font(R.font.akzidenzGroteskProRegular(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph4: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let paragraph6: Font = Font(R.font.akzidenzGroteskProLight(size: 12) ?? .systemFont(ofSize: 12))
+    
 }
 
 struct FilledBtnStyle: ButtonStyle {

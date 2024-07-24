@@ -17,6 +17,7 @@ struct MainView: View {
     @State private var headerHeight: CGFloat = 0
     @State private var dragOffset: CGSize = .zero
     @State private var showModalCard: Bool = false
+    @State private var selectedAuto: AutoCard = AutoCard.empty
     @ObservedObject private var viewModel: MainViewModel = MainViewModel()
     
     var body: some View {
@@ -36,11 +37,9 @@ struct MainView: View {
                     
                     ForEach(AutoCard.autoCardsList.indices, id: \.self) { index in
                         AutoCardView(
-                            image: AutoCard.autoCardsList[index].image,
-                            title: AutoCard.autoCardsList[index].title,
-                            price: AutoCard.autoCardsList[index].price,
-                            cardType: AutoCard.autoCardsList[index].cardType,
-                            trailingIcon: AutoCard.autoCardsList[index].trailingIcon
+                            autoCard: AutoCard.autoCardsList[index],
+                            showModal: $showModalCard,
+                            selectedAuto: $selectedAuto
                         )
                     }
                     
@@ -70,7 +69,9 @@ struct MainView: View {
         .ignoresSafeArea(.container, edges: .top)
         .background(Color(R.color.grayLightColor))
         .sheet(isPresented: $showModalCard) {
-            
+            ModalAutoCardVIew(autoData: $selectedAuto, showModalView: $showModalCard)
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
         }
     }
     

@@ -38,6 +38,7 @@
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
 		9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2262C3FC024003A0BCB /* PersonDataView.swift */; };
 		935DC3BC2C516E22009CBA43 /* AutoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DC3BB2C516E21009CBA43 /* AutoListView.swift */; };
+		935DC3BE2C517AAA009CBA43 /* ModalAutoCardVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */; };
 		935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */; };
 		935E1A8E2C51365800A35E4E /* ExpantableToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */; };
 		935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */; };
@@ -111,6 +112,7 @@
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
 		9351F2262C3FC024003A0BCB /* PersonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataView.swift; sourceTree = "<group>"; };
 		935DC3BB2C516E21009CBA43 /* AutoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoListView.swift; sourceTree = "<group>"; };
+		935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAutoCardVIew.swift; sourceTree = "<group>"; };
 		935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithOffset.swift; sourceTree = "<group>"; };
 		935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpantableToolbar.swift; sourceTree = "<group>"; };
 		935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDatePickerView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */,
 				935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */,
 				935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */,
+				935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				93328FBB2C4953E3008EADB4 /* ProfileCellView.swift in Sources */,
 				936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */,
 				936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */,
+				935DC3BE2C517AAA009CBA43 /* ModalAutoCardVIew.swift in Sources */,
 				934F0D5B2C3D775F000B256E /* CustomTextFieldView.swift in Sources */,
 				934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */,
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,

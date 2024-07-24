@@ -28,6 +28,7 @@
 "saveButton" = "Save";
 "findAutoButton" = "Find auto";
 "allAutoButton" = "All auto >";
+"bookButton" = "Book";
 
 // Field names
 "email" = "Email";
@@ -71,6 +72,16 @@
 "questionAndAnswerAttributedPartOfTitle" = "FAQ";
 "questionAndAnswerText" = "Find answer on any your questions.";
 "popularAuto" = "Popular auto";
+"transmissionTitle" = "Transmission";
+"autoTransmissionType" = "Automatic";
+"mechTransmissionType" = "Mechanics";
+"driveTypeTitle" = "Drive";
+"frontDriveType" = "Front";
+"realDrivetype" = "Rear";
+"allDriveType" = "Full";
+"tankTitle" = "Tank";
+"yearOfManufactureTitle" = "Year of manufacture";
+"characteristicsTitle" = "Characteristics:";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";
