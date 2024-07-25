@@ -3,6 +3,8 @@ package com.vodimobile.presentation.screens.home
 import CarsCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,9 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.domain.model.Car
@@ -26,6 +30,7 @@ import com.vodimobile.presentation.screens.home.components.SnapVodimobileTopAppB
 import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.home.store.HomeState
+import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
@@ -58,28 +63,37 @@ fun HomeScreen(
         }
     }
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            SnapVodimobileTopAppBar(
-                date = selectedDate,
-                onNotificationButtonClick = { onHomeIntent(HomeIntent.NotificationButtonClick) },
-                onFieldClick = { onHomeIntent(HomeIntent.FieldClick) },
-                onButtonClick = {}
-            )
-        }) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .padding(paddingValues)
-                .testTag(TestTags.HomeScreen.contentScroll)
-        ) {
-            itemsIndexed(homeState.value.carList) { index, item: Car ->
-                CarsCard(
-                    carItem = item,
-                    onCarClick = { carItem -> onHomeIntent(HomeIntent.CarPreviewClick) }
+    ExtendedTheme {
+        Scaffold(
+            modifier = modifier,
+            containerColor = ExtendedTheme.colorScheme.secondaryBackground,
+            topBar = {
+                SnapVodimobileTopAppBar(
+                    date = selectedDate,
+                    onNotificationButtonClick = { onHomeIntent(HomeIntent.NotificationButtonClick) },
+                    onFieldClick = { onHomeIntent(HomeIntent.FieldClick) },
+                    onButtonClick = {}
                 )
+            }) { paddingValues ->
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(paddingValues)
+                    .testTag(TestTags.HomeScreen.contentScroll),
+                contentPadding = PaddingValues(start = 12.dp, end = 12.dp, top = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(
+                    space = 12.dp,
+                    alignment = Alignment.CenterVertically
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                itemsIndexed(homeState.value.carList) { index, item: Car ->
+                    CarsCard(
+                        carItem = item,
+                        onCarClick = { carItem -> onHomeIntent(HomeIntent.CarPreviewClick) }
+                    )
+                }
             }
         }
     }
