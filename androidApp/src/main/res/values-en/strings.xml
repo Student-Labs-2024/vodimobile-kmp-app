@@ -74,6 +74,16 @@
     <string name="confirmation_cancel_button">Cancel</string>
     <string name="confirmation_logout_button">Log out</string>
 
+    <string name="tariff">from %s rub per day.</string>
+    <string name="car">%s liters</string>
+    <string name="spec_tile">Specifications:</string>
+    <string name="transmis">Gearbox</string>
+    <string name="wheel_drive">Drive</string>
+    <string name="year_of_release">Year of release</string>
+    <string name="tank_value">Tank </string>
+    <string name="to_book">To book</string>
+
+
     <string name="connection_error">Connection error</string>
     <string name="connection_error_subtitle">There is no internet connection. Check the network and try the connection again.</string>
     <string name="try_again_bt">Try again</string>
@@ -94,4 +104,5 @@
 
     <string name="server_error">Error on the server</string>
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
+
 </resources>
