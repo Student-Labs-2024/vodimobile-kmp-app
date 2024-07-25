@@ -38,7 +38,9 @@ struct CustomToolbar: ToolbarContent {
         if let trailingToolbarItem = trailingToolbarItem {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    trailingToolbarItem.actionAfterTapping()
+                    Task {
+                        await trailingToolbarItem.actionAfterTapping()
+                    }
                 }) {
                     trailingToolbarItem.image
                         .resizable()
@@ -63,10 +65,10 @@ struct TrailingToolbarItem {
         }
     }
     var foregroundColor: Color
-    var actionAfterTapping: () -> Void
+    var actionAfterTapping: () async -> ()
     var disableItem: Bool = true
     
-    init(image: Image, control: Binding<UserInputData>, actionAfterTapping: @escaping () -> Void) {
+    init(image: Image, control: Binding<UserInputData>, actionAfterTapping: @escaping () async -> ()) {
         self.image = image
         self._control = control
         self.actionAfterTapping = actionAfterTapping

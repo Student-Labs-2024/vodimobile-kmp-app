@@ -16,11 +16,12 @@ struct UnderlineTextField: View {
     private let regex: String
     
     @FocusState private var isFocused: Bool
-    @State private var isPlaceholderVisible: Bool = true
+    @State private var isPlaceholderVisible: Bool
     
     init(text: Binding<String>, fieldType: TextFieldType) {
         self._text = text
         self.fieldType = fieldType
+        self.isPlaceholderVisible = text.wrappedValue.isEmpty
         
         switch fieldType {
         case .email:

@@ -9,11 +9,7 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @ObservedObject private var viewModel: PersonalDataViewModel
-    
-    init(viewModel: PersonalDataViewModel = .init()) {
-        self.viewModel = viewModel
-    }
+    @ObservedObject private var viewModel: PersonalDataViewModel = .init()
     
     var body: some View {
         ZStack {
@@ -24,6 +20,7 @@ struct PersonDataView: View {
                     UnderlineTextField(text: $viewModel.userInput.fullname, fieldType: .fullName)
                     UnderlineTextField(text: $viewModel.userInput.email, fieldType: .email)
                     UnderlineTextField(text: $viewModel.userInput.phone, fieldType: .phone)
+                        .disabled(true)
                 }
                 .padding(.horizontal, 32)
                 .padding(.vertical, 40)
@@ -62,7 +59,7 @@ struct PersonDataView: View {
                 trailingToolbarItem: TrailingToolbarItem(
                     image: Image.checkmark,
                     control: $viewModel.userInput,
-                    actionAfterTapping: viewModel.makeFakeNetworkRequest)
+                    actionAfterTapping: viewModel.saveChangedUserData)
             )
         }
     }
