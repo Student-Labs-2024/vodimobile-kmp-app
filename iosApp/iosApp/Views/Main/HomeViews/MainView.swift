@@ -69,16 +69,7 @@ struct MainView: View {
             .ignoresSafeArea(.container, edges: .top)
             .background(Color(R.color.grayLightColor))
             .sheet(isPresented: $showModalCard) {
-                if #available(iOS 16.4, *) {
-                    ModalAutoCardView(autoData: $selectedAuto, showModalView: $showModalCard)
-                        .presentationDetents([.fraction(0.65)])
-                        .presentationDragIndicator(.visible)
-                        .presentationCornerRadius(24)
-                } else {
-                    ModalAutoCardView(autoData: $selectedAuto, showModalView: $showModalCard)
-                        .presentationDetents([.fraction(0.65)])
-                        .presentationDragIndicator(.visible)
-                }
+                ModalAutoView(autoData: $selectedAuto, showModalView: $showModalCard)
             }
         }
     }

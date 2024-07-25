@@ -18,6 +18,12 @@
 "homeScreenTitle" = "Главная";
 "myOrdersScreenTitle" = "Мои заказы";
 "carParkScreenTitle" = "Автопарк";
+"allCarsScreenTitle" = "Все авто";
+"economyScreenTitle" = "Эконом";
+"comfortScreenTitle" = "Комфорт";
+"premiumScreenTitle" = "Премиум";
+"sedansScreenTitle" = "Седаны";
+"jeepsScreenTitle" = "Внедорожники";
 
 // Buttons titles
 "authButtonTitle" = "Войти";

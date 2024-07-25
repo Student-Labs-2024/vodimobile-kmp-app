@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AutoCardView: View {
+struct AutoCardWithButtonView: View {
     let autoCard: AutoCard
     @Binding var showModal: Bool
     @Binding var selectedAuto: AutoCard
@@ -31,28 +31,24 @@ struct AutoCardView: View {
                     }
                 }
                 Spacer()
-                if let trailingIcon = autoCard.trailingIcon {
-                    NavigationLink(destination: AutoListView()) {
-                        trailingIcon
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                            .foregroundStyle(Color(R.color.blueColor))
-                    }
-                } else {
-                    ZStack {
-                        Image.infoCircleFill
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundStyle(Color(R.color.grayDarkColor))
-                            .frame(width: 20, height: 20)
-                    }
-                    .frame(width: 40, height: 40)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
-                    .onTapGesture {
-                        selectedAuto = autoCard
-                        showModal = true
-                    }
+            }
+            
+            HStack {
+                Button(R.string.localizable.bookButton()) { }
+                    .buttonStyle(FilledBtnStyle(heightButton: 40))
+                    .padding(.trailing, 20)
+                ZStack {
+                    Image.infoCircleFill
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .frame(width: 20, height: 20)
+                }
+                .frame(width: 40, height: 40)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
+                .onTapGesture {
+                    selectedAuto = autoCard
+                    showModal = true
                 }
             }
         }

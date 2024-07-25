@@ -39,10 +39,6 @@ struct ScrollViewWithOffset<Content: View>: View {
     }
 }
 
-enum ScrollOffsetNamespace {
-    static let namespace = "scrollView"
-}
-
 struct ScrollOffsetPreferenceKey: PreferenceKey {
     static var defaultValue: CGPoint = .zero
     static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {}

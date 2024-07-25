@@ -27,12 +27,6 @@ struct ContactCell: Identifiable {
     let title: String
     let contact: String
     
-    enum CellType {
-        case email
-        case phone
-        case officeLocation
-    }
-    
     init(id: Int, cellType: CellType) {
         self.id = id
         self.cellType = cellType
@@ -67,12 +61,6 @@ struct MediaLink: Identifiable {
     let icon: RswiftResources.ImageResource
     let title: String
     let url: String
-    
-    enum MediaType {
-        case vk
-        case whatsapp
-        case tg
-    }
     
     init(id: Int, cellType: MediaType) {
         self.id = id

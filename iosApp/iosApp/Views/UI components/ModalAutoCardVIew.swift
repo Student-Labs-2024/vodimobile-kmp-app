@@ -8,6 +8,25 @@
 
 import SwiftUI
 
+struct ModalAutoView: View {
+    @Binding var autoData: AutoCard
+    @Binding var showModalView: Bool
+
+    var body: some View {
+        if #available(iOS 16.4, *) {
+            ModalAutoCardView(autoData: $autoData, showModalView: $showModalView)
+                .presentationDetents([.fraction(0.62)])
+                .presentationDragIndicator(.visible)
+                .presentationCornerRadius(24)
+        } else {
+            ModalAutoCardView(autoData: $autoData, showModalView: $showModalView)
+                .presentationDetents([.fraction(0.62)])
+                .presentationDragIndicator(.visible)
+        }
+    }
+}
+
+
 struct ModalAutoCardView: View {
     @Binding var autoData: AutoCard
     @Binding var showModalView: Bool
@@ -38,7 +57,7 @@ struct ModalAutoCardView: View {
                     showModalView.toggle()
                 }
             }
-            .padding(.top, 20)
+            .padding(.top, 10)
             
             VStack {
                 autoData.auto.image

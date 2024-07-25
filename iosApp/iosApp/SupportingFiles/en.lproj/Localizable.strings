@@ -18,6 +18,12 @@
 "homeScreenTitle" = "Home";
 "myOrdersScreenTitle" = "My orders";
 "carParkScreenTitle" = "Car park";
+"allCarsScreenTitle" = "All cars";
+"economyScreenTitle" = "Economy";
+"comfortScreenTitle" = "Comfort";
+"premiumScreenTitle" = "Premium";
+"sedansScreenTitle" = "Sedans";
+"jeepsScreenTitle" = "Jeeps";
 
 // Buttons titles
 "regButtonTitle" = "Sign up";

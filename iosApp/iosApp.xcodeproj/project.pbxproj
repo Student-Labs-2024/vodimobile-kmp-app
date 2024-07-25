@@ -37,6 +37,9 @@
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
 		9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2262C3FC024003A0BCB /* PersonDataView.swift */; };
+		935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481DD2C524C6B0085B6CE /* TopTabBarView.swift */; };
+		935481E02C5256770085B6CE /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481DF2C5256770085B6CE /* Enums.swift */; };
+		935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */; };
 		935DC3BC2C516E22009CBA43 /* AutoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DC3BB2C516E21009CBA43 /* AutoListView.swift */; };
 		935DC3BE2C517AAA009CBA43 /* ModalAutoCardVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */; };
 		935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */; };
@@ -48,7 +51,7 @@
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
 		936198892C3F133E00B0198D /* TabbarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198882C3F133E00B0198D /* TabbarItemView.swift */; };
-		93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DED2C3E932E001CFB7D /* Constants.swift */; };
+		93654DEE2C3E932E001CFB7D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DED2C3E932E001CFB7D /* AppConfig.swift */; };
 		93654DF22C3EC5D5001CFB7D /* terms_and_conditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */; };
 		93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */; };
 		936B18482C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */; };
@@ -111,6 +114,9 @@
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
 		9351F2262C3FC024003A0BCB /* PersonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataView.swift; sourceTree = "<group>"; };
+		935481DD2C524C6B0085B6CE /* TopTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBarView.swift; sourceTree = "<group>"; };
+		935481DF2C5256770085B6CE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCardWithButtonView.swift; sourceTree = "<group>"; };
 		935DC3BB2C516E21009CBA43 /* AutoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoListView.swift; sourceTree = "<group>"; };
 		935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAutoCardVIew.swift; sourceTree = "<group>"; };
 		935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithOffset.swift; sourceTree = "<group>"; };
@@ -122,7 +128,7 @@
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		936198882C3F133E00B0198D /* TabbarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItemView.swift; sourceTree = "<group>"; };
-		93654DED2C3E932E001CFB7D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		93654DED2C3E932E001CFB7D /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terms_and_conditions.txt; sourceTree = "<group>"; };
 		93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -182,6 +188,7 @@
 				937DBD532C4FCEBE00C43A86 /* KotlinHelpers */,
 				934F0D4E2C3D692A000B256E /* AppDelegate.swift */,
 				934F0D4F2C3D692A000B256E /* SceneDelegate.swift */,
+				935481DF2C5256770085B6CE /* Enums.swift */,
 				936B18462C4638B1000AC6F8 /* ViewModels */,
 				934F0D4C2C3D5309000B256E /* Views */,
 				934F0D4B2C3D52EE000B256E /* SupportingFiles */,
@@ -204,6 +211,7 @@
 				93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */,
 				934D957C2C4911FE0027DFC8 /* ContactCellView.swift */,
 				935E1A912C51443F00A35E4E /* AutoCardView.swift */,
+				935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -239,7 +247,7 @@
 				934D5DF92C3D3FA30070904B /* AppTheme.swift */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				934D5DF22C3D3D8B0070904B /* Font */,
-				93654DED2C3E932E001CFB7D /* Constants.swift */,
+				93654DED2C3E932E001CFB7D /* AppConfig.swift */,
 				93AA80DF2C45697600D5061E /* Launch Screen.storyboard */,
 				931FDDAF2C46FA6D007954FC /* Localizable.strings */,
 			);
@@ -269,6 +277,7 @@
 				935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */,
 				935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */,
 				935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */,
+				935481DD2C524C6B0085B6CE /* TopTabBarView.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -480,12 +489,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
+				935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */,
 				934D957B2C4902A20027DFC8 /* ContactsViewModel.swift in Sources */,
 				935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */,
 				936198822C3F0CA100B0198D /* MainView.swift in Sources */,
-				93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */,
+				93654DEE2C3E932E001CFB7D /* AppConfig.swift in Sources */,
 				939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */,
 				93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */,
+				935481E02C5256770085B6CE /* Enums.swift in Sources */,
 				936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */,
 				935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */,
 				935E1A8E2C51365800A35E4E /* ExpantableToolbar.swift in Sources */,
@@ -512,6 +523,7 @@
 				936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */,
 				937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */,
 				931FDDA62C46F8BF007954FC /* R.generated.swift in Sources */,
+				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
 				933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,

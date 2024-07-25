@@ -53,9 +53,14 @@ extension Font {
 }
 
 struct FilledBtnStyle: ButtonStyle {
+    let heightButton: CGFloat?
+    
+    init(heightButton: CGFloat? = nil) {
+        self.heightButton = heightButton
+    }
     
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        FilledButton(configuration: configuration)
+        FilledButton(configuration: configuration, height: heightButton)
     }
 }
 

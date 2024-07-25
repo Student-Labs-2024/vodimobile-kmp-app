@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 
-
 struct CustomEnvironmentKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
