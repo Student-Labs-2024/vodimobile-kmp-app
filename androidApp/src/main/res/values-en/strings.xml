@@ -94,4 +94,17 @@
 
     <string name="server_error">Error on the server</string>
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
+
+    <string name="title_change_password_screen">Changing password</string>
+    <string name="visibility_desc">Visibility</string>
+    <string name="old_password_label">Old password</string>
+    <string name="new_password_label">New password</string>
+    <string name="enter_password_placeholder">Enter the password</string>
+    <string name="create_password_placeholder">Create a password</string>
+    <string name="warning_password_level">Password level is</string>
+    <string name="warning_password_level_strong">Strong</string>
+    <string name="warning_password_level_weak">Weak</string>
+    <string name="remember_password_hint">Forgot your password?</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="text_save_button">Save</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.vodimobile.di
 
+import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.faq.FaqViewModel
@@ -37,4 +38,5 @@ val viewModelModule = module {
     viewModelOf(::EditProfileViewModel)
     viewModelOf(::ConnectionErrorViewModel)
     viewModelOf(::ServerErrorViewModel)
+    viewModelOf(::ChangePasswordViewModel)
 }

@@ -89,4 +89,17 @@
 
     <string name="server_error">Ошибка на сервере</string>
     <string name="server_error_subtitle">Что-то пошло не так на стороне сервера. Повторите попытку соединения.</string>
+
+    <string name="title_change_password_screen">Изменение пароля</string>
+    <string name="visibility_desc">Видимость</string>
+    <string name="old_password_label">Старый пароль</string>
+    <string name="new_password_label">Новый пароль</string>
+    <string name="enter_password_placeholder">Введите пароль</string>
+    <string name="create_password_placeholder">Придумайте пароль</string>
+    <string name="warning_password_level">Уровень пароля</string>
+    <string name="warning_password_level_strong">Сильный</string>
+    <string name="warning_password_level_weak">Слабый</string>
+    <string name="remember_password_hint">Забыли пароль?</string>
+    <string name="invalid_password">Неверный пароль</string>
+    <string name="text_save_button">Сохранить</string>
 </resources>
