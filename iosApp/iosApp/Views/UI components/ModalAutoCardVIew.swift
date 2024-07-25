@@ -8,15 +8,17 @@
 
 import SwiftUI
 
-struct ModalAutoCardVIew: View {
+struct ModalAutoCardView: View {
     @Binding var autoData: AutoCard
     @Binding var showModalView: Bool
     
+    let columns = [
+        GridItem(.flexible(), spacing: 20),
+        GridItem(.flexible(), spacing: 20)
+    ]
+    
     var body: some View {
         VStack(spacing: 16) {
-            Image.minus
-                .foregroundStyle(Color(R.color.grayDarkColor))
-                .frame(width: 50, height: 10)
             
             Spacer()
             
@@ -36,6 +38,7 @@ struct ModalAutoCardVIew: View {
                     showModalView.toggle()
                 }
             }
+            .padding(.top, 20)
             
             VStack {
                 autoData.auto.image
@@ -50,17 +53,17 @@ struct ModalAutoCardVIew: View {
                 }
                 .padding(.vertical, 20)
                 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 16) {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
                     
-                    HStack {
-                        HStack {
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
+                        HStack(spacing: 18) {
                             Image(R.image.transmission)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 6) {
                                 Text(R.string.localizable.transmissionTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -70,13 +73,13 @@ struct ModalAutoCardVIew: View {
                                     .fontWeight(.bold)
                             }
                         }
-                        Spacer()
-                        HStack {
+                        
+                        HStack(spacing: 18) {
                             Image(R.image.gear)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 6) {
                                 Text(R.string.localizable.driveTypeTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -86,32 +89,29 @@ struct ModalAutoCardVIew: View {
                                     .fontWeight(.bold)
                             }
                         }
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        HStack {
+                        
+                        HStack(spacing: 18) {
                             Image(R.image.calendarYear)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 6) {
                                 Text(R.string.localizable.yearOfManufactureTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text("\(autoData.auto.yearOfManufacture)")
+                                Text("\(autoData.auto.yearOfManufacture)".replacingOccurrences(of: " ", with: ""))
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
                             }
                         }
-                        Spacer()
-                        HStack {
+                        
+                        HStack(spacing: 18) {
                             Image(R.image.gasoline)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 6) {
                                 Text(R.string.localizable.tankTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -121,8 +121,8 @@ struct ModalAutoCardVIew: View {
                                     .fontWeight(.bold)
                             }
                         }
-                        Spacer()
                     }
+                    .padding(.vertical, 10)
                 }
             }
             

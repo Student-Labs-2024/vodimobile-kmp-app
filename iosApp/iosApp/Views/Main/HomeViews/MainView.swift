@@ -21,57 +21,65 @@ struct MainView: View {
     @ObservedObject private var viewModel: MainViewModel = MainViewModel()
     
     var body: some View {
-        ZStack(alignment: .top) {
-            ScrollViewWithOffset(onScroll: handleScroll) {
-                LazyVStack(spacing: 20) {
-                    HStack {
-                        Text(R.string.localizable.popularAuto).font(.header3)
-                        Spacer()
-                        NavigationLink(R.string.localizable.allAutoButton()) {
-                            AutoListView()
+        NavigationView {
+            ZStack(alignment: .top) {
+                ScrollViewWithOffset(onScroll: handleScroll) {
+                    LazyVStack(spacing: 20) {
+                        HStack {
+                            Text(R.string.localizable.popularAuto).font(.header3)
+                            Spacer()
+                            NavigationLink(R.string.localizable.allAutoButton()) {
+                                AutoListView()
+                            }
+                            .font(.buttonTabbar)
+                            .foregroundStyle(Color(R.color.blueColor))
                         }
-                        .font(.buttonTabbar)
-                        .foregroundStyle(Color(R.color.blueColor))
+                        .padding(.bottom, 10)
+                        
+                        ForEach(AutoCard.autoCardsList.indices, id: \.self) { index in
+                            AutoCardView(
+                                autoCard: AutoCard.autoCardsList[index],
+                                showModal: $showModalCard,
+                                selectedAuto: $selectedAuto
+                            )
+                        }
                     }
-                    .padding(.bottom, 10)
-                    
-                    ForEach(AutoCard.autoCardsList.indices, id: \.self) { index in
-                        AutoCardView(
-                            autoCard: AutoCard.autoCardsList[index],
-                            showModal: $showModalCard,
-                            selectedAuto: $selectedAuto
-                        )
-                    }
-                    
+                    .padding(.top, headerHeight * 1.75)
+                    .padding(.horizontal, 24)
                 }
-                .padding(.top, headerHeight * 1.75)
-                .padding(.horizontal, 24)
-            }
-            
-            // Expandable Toolbar
-            ExpandableToolbar(
-                isExpanded: $isExpanded,
-                dateRange: $dateRange,
-                showDatePicker: $showDatePicker,
-                notifBadgeCount: $notifBadgeCount,
-                headerHeight: $headerHeight,
-                dragOffset: $dragOffset
-            )
-            
-            // Date Picker Modal
-            if showDatePicker {
-                ModalDatePickerView(
+                
+                // Expandable Toolbar
+                ExpandableToolbar(
+                    isExpanded: $isExpanded,
+                    dateRange: $dateRange,
                     showDatePicker: $showDatePicker,
-                    dateRange: $dateRange
+                    notifBadgeCount: $notifBadgeCount,
+                    headerHeight: $headerHeight,
+                    dragOffset: $dragOffset
                 )
+                
+                // Date Picker Modal
+                if showDatePicker {
+                    ModalDatePickerView(
+                        showDatePicker: $showDatePicker,
+                        dateRange: $dateRange
+                    )
+                }
             }
-        }
-        .ignoresSafeArea(.container, edges: .top)
-        .background(Color(R.color.grayLightColor))
-        .sheet(isPresented: $showModalCard) {
-            ModalAutoCardVIew(autoData: $selectedAuto, showModalView: $showModalCard)
-                    .presentationDetents([.medium])
-                    .presentationDragIndicator(.visible)
+            .ignoresSafeArea(.container, edges: .top)
+            .background(Color(R.color.grayLightColor))
+            .sheet(isPresented: $showModalCard) {
+                if #available(iOS 16.4, *) {
+                    ModalAutoCardView(autoData: $selectedAuto, showModalView: $showModalCard)
+                        .presentationDetents([.fraction(0.6)])
+                        .presentationDragIndicator(.visible)
+                        .presentationCornerRadius(24)
+                } else {
+                    ModalAutoCardView(autoData: $selectedAuto, showModalView: $showModalCard)
+                        .presentationDetents([.fraction(0.6)])
+                        .presentationDragIndicator(.visible)
+                }
+            }
         }
     }
     

@@ -40,7 +40,7 @@ struct AutoCardView: View {
                         trailingIcon
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 30, height: 30)
                             .foregroundStyle(Color(R.color.blueColor))
                     }
                 } else {

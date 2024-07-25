@@ -17,6 +17,7 @@
 "rulesScreenTitle" = "Rules and conditions";
 "homeScreenTitle" = "Home";
 "myOrdersScreenTitle" = "My orders";
+"carParkScreenTitle" = "Car park";
 
 // Buttons titles
 "regButtonTitle" = "Sign up";

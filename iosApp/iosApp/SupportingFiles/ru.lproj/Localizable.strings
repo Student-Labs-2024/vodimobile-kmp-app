@@ -17,6 +17,7 @@
 "rulesScreenTitle" = "Правила и условия";
 "homeScreenTitle" = "Главная";
 "myOrdersScreenTitle" = "Мои заказы";
+"carParkScreenTitle" = "Автопарк";
 
 // Buttons titles
 "authButtonTitle" = "Войти";
