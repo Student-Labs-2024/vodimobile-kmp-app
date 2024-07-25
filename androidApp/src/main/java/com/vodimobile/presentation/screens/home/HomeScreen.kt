@@ -8,21 +8,56 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.screens.home.components.SnapVodimobileTopAppBar
+import com.vodimobile.presentation.screens.home.store.HomeEffect
+import com.vodimobile.presentation.screens.home.store.HomeIntent
+import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.theme.VodimobileTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    homeState: State<HomeState>,
+    @SuppressLint("ComposeMutableParameters") homeEffect: MutableSharedFlow<HomeEffect>,
+    onHomeIntent: (HomeIntent) -> Unit,
+    navHostController: NavHostController,
+    selectedDate: Long
+) {
+    LaunchedEffect(key1 = Unit) {
+        homeEffect.collect { effect ->
+            when (effect) {
+                HomeEffect.CarPreviewClick -> {
+
+                }
+
+                HomeEffect.FieldClick -> {
+                    navHostController.navigate(route = DialogIdentifiers.DATE_SELECT_DIALOG)
+                }
+
+                HomeEffect.NotificationButtonClick -> {
+
+                }
+            }
+        }
+    }
+
     Scaffold(topBar = {
         SnapVodimobileTopAppBar(
-            date = System.currentTimeMillis(),
-            onNotificationButtonClick = { /*TODO*/ },
-            onFieldClick = { /*TODO*/ },
+            date = selectedDate,
+            onNotificationButtonClick = { onHomeIntent(HomeIntent.NotificationButtonClick) },
+            onFieldClick = { onHomeIntent(HomeIntent.FieldClick) },
             onButtonClick = {}
         )
     }) { paddingValues ->
@@ -42,7 +77,14 @@ fun HomeScreen() {
 @Composable
 private fun HomeScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        HomeScreen()
+        val homeViewModel = HomeViewModel()
+        HomeScreen(
+            homeState = homeViewModel.homeState.collectAsState(),
+            homeEffect = homeViewModel.homeEffect,
+            onHomeIntent = homeViewModel::onIntent,
+            navHostController = rememberNavController(),
+            selectedDate = 0
+        )
     }
 }
 
@@ -50,6 +92,13 @@ private fun HomeScreenDarkPreview() {
 @Composable
 private fun HomeScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        HomeScreen()
+        val homeViewModel = HomeViewModel()
+        HomeScreen(
+            homeState = homeViewModel.homeState.collectAsState(),
+            homeEffect = homeViewModel.homeEffect,
+            onHomeIntent = homeViewModel::onIntent,
+            navHostController = rememberNavController(),
+            selectedDate = 0
+        )
     }
 }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -32,7 +33,7 @@ fun DateRentField(
     ExtendedTheme {
         OutlinedTextField(
             value = date,
-            onValueChange = { onFieldClick() },
+            onValueChange = { },
             placeholder = {
                 Text(
                     text = placeholder,
@@ -73,12 +74,16 @@ fun DateRentField(
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.calendar),
-                    contentDescription = stringResource(id = R.string.icon_calendar),
-                    modifier = Modifier.size(32.dp),
-                    tint = MaterialTheme.colorScheme.tertiary
-                )
+                IconButton(
+                    onClick = { onFieldClick.invoke() }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.calendar),
+                        contentDescription = stringResource(id = R.string.icon_calendar),
+                        modifier = Modifier.size(32.dp),
+                        tint = MaterialTheme.colorScheme.tertiary
+                    )
+                }
             },
             trailingIcon = {
                 if (showTrailingIcon) {

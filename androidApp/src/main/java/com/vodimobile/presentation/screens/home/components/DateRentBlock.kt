@@ -66,7 +66,7 @@ fun DateRentBlock(
             PrimaryButton(
                 text = stringResource(id = R.string.find_car_button),
                 enabled = date.isNotEmpty(),
-                onClick = { onButtonClick() }
+                onClick = onButtonClick
             )
         }
     }
