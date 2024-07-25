@@ -12,6 +12,17 @@ import kotlinx.coroutines.flow.map
 
 class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>) :
     UserDataStoreRepository {
+
+    val userFromFlow: Flow<User> = dataStore.data.map {
+        User(
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_TOKEN)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: ""
+        )
+    }
+
     override suspend fun editUserData(user: User) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName

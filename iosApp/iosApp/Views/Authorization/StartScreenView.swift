@@ -20,8 +20,8 @@ struct StartScreenView: View {
                     }
                     .padding(.top, StartScreenConfig.xmarkTopPadding)
                 }.task {
-                    print(dataStorage.editUserData())
-                    userData = dataStorage.getUser()
+                    await dataStorage.editUserData()
+                    userData = dataStorage.gettingUser
                 }
                 
                 Image(R.image.logo)

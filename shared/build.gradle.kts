@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.skie)
     alias(libs.plugins.androidLibrary)
 }
 
@@ -33,6 +34,7 @@ kotlin {
 
             //Coroutines
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.skie.annotations)
 
             //Koin
 //            api(libs.koin.core)

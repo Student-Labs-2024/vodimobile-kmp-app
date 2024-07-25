@@ -3,7 +3,7 @@ package com.vodimobile.utils.data_store
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
-import platform. Foundation. NSFileManager
+import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 
 import androidx.datastore.core.DataStore
