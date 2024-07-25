@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.screens.home.components
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
