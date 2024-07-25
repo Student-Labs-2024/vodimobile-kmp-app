@@ -87,7 +87,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     homeEffect = homeViewModel.homeEffect,
                     onHomeIntent = homeViewModel::onIntent,
                     navHostController = navHostController,
-                    selectedDate = selectedDate
+                    selectedDate = selectedDate,
+                    modifier = modifier
                 )
             }
             dialog(

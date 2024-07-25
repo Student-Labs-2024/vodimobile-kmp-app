@@ -2,7 +2,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -43,7 +42,7 @@ fun CarInfo(
             modifier = Modifier
                 .fillMaxWidth()
                 .size(height = 123.dp, width = 341.dp),
-            painter = painterResource(id = R.drawable.ca1),
+            painter = painterResource(id = R.drawable.car1),
             contentDescription = null
         )
         CarsTitle(

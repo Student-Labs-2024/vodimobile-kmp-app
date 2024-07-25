@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    val homeState = MutableStateFlow(HomeState())
+    val homeState = MutableStateFlow(HomeState(
+        carList = PopularCarsPreview.getPopularCarsPreview()
+    ))
     val homeEffect = MutableSharedFlow<HomeEffect>()
 
     fun onIntent(intent: HomeIntent) {

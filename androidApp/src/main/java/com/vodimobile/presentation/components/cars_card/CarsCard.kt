@@ -33,10 +33,10 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 @ExperimentalMaterial3Api
 @Composable
 fun CarsCard(
+    carItem: Car,
     modifier: Modifier = Modifier,
-    carItem : Car,
-
-    ) {
+    onCarClick: (Car) -> Unit
+) {
     ExtendedTheme {
         Card(
             modifier = Modifier
@@ -58,7 +58,7 @@ fun CarsCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(height = 96.dp, width = 328.dp),
-                    painter = painterResource(id = R.drawable.ca1),
+                    painter = painterResource(id = carItem.images[0]),
                     contentDescription = null
                 )
 
@@ -94,7 +94,7 @@ fun CarsCard(
                             modifier = Modifier,
                             text = stringResource(
                                 R.string.tariff,
-                                carItem.tariffs.minBy { it.cost }.cost
+                                carItem.tariffs.minBy { it.cost }.cost.toInt()
                             ),
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.titleLarge
@@ -133,6 +133,8 @@ fun CarsCard(
 private fun CarsCardPreview() {
     VodimobileTheme(darkTheme = false, dynamicColor = false) {
         CarsCard(
-            carItem = Car.empty())
+            carItem = Car.empty(),
+            onCarClick = {}
+        )
     }
 }
