@@ -22,14 +22,10 @@ fun ProfileField(
     text: String = "",
     trailingIcon: @Composable (() -> Unit)? = null
 ) {
-    val text_ = remember {
-        mutableStateOf(text)
-    }
     TextField(
-        value = text_.value,
+        value = text,
         onValueChange = {
-            text_.value = it
-            onValueChange(text_.value)
+            onValueChange(it)
         },
         label = {
             Text(

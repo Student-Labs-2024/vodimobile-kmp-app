@@ -13,7 +13,7 @@ class UserDataStoreStorage(
         editUserDataStoreUseCase(user = user)
     }
 
-    suspend fun getUser(): Flow<User> {
+    fun getUser(): Flow<User> {
         return getUserDataUseCase()
     }
 }

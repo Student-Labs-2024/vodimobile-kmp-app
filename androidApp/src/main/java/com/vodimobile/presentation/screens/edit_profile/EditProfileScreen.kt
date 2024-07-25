@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.edit_profile
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +40,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
 import com.vodimobile.presentation.screens.edit_profile.components.VodimobileCenterTopAppBar
@@ -46,6 +52,7 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeMutableParameters")
@@ -83,7 +90,7 @@ fun EditProfileScreen(
                             actionLabel = if (effect.actionResId > 0) App.INSTANCE.resources.getString(
                                 effect.actionResId
                             ) else null,
-                            duration = SnackbarDuration.Indefinite
+                            duration = SnackbarDuration.Short
                         )
                     when (result) {
                         SnackbarResult.ActionPerformed -> {
@@ -168,6 +175,7 @@ fun EditProfileScreen(
                                     )
                                 }
                             },
+                            text = "",
                             enabled = false,
                         )
 
@@ -191,7 +199,22 @@ fun EditProfileScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun EditProfileScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        val editProfileViewModel = EditProfileViewModel()
+        val editProfileViewModel = EditProfileViewModel(
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    UserDataStoreRepositoryImpl(
+                        getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    UserDataStoreRepositoryImpl(
+                        getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            )
+        )
         EditProfileScreen(
             onEditProfileIntent = editProfileViewModel::onIntent,
             editProfileState = editProfileViewModel.editProfileState.collectAsState(),
@@ -205,7 +228,22 @@ private fun EditProfileScreenDarkPreview() {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun EditProfileScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        val editProfileViewModel = EditProfileViewModel()
+        val editProfileViewModel = EditProfileViewModel(
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    UserDataStoreRepositoryImpl(
+                        getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    UserDataStoreRepositoryImpl(
+                        getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            )
+        )
         EditProfileScreen(
             onEditProfileIntent = editProfileViewModel::onIntent,
             editProfileState = editProfileViewModel.editProfileState.collectAsState(),

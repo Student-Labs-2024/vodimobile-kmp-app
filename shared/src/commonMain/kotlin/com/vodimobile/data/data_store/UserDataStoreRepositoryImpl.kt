@@ -22,7 +22,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
         }
     }
 
-    override suspend fun getUserData(): Flow<User> {
+    override fun getUserData(): Flow<User> {
         val userFlow: Flow<User> = dataStore.data.map { preferences ->
             val fullName =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: ""

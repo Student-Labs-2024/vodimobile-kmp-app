@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserDataStoreRepository {
     suspend fun editUserData(user: User)
-    suspend fun getUserData() : Flow<User>
+    fun getUserData() : Flow<User>
 }
