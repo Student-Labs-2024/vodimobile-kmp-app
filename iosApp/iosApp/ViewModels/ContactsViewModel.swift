@@ -57,7 +57,7 @@ struct ContactCell: Identifiable {
     static let contactsData = [
         ContactCell(id: 1, cellType: .email),
         ContactCell(id: 2, cellType: .phone),
-        ContactCell(id: 3, cellType: .officeLocation),
+        ContactCell(id: 3, cellType: .officeLocation)
     ]
 }
 
@@ -97,6 +97,6 @@ struct MediaLink: Identifiable {
     static let mediaLinks = [
         MediaLink(id: 1, cellType: .vk),
         MediaLink(id: 2, cellType: .whatsapp),
-        MediaLink(id: 3, cellType: .tg),
+        MediaLink(id: 3, cellType: .tg)
     ]
 }

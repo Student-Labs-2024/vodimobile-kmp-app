@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 
-
 struct CustomEnvironmentKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
@@ -20,7 +19,6 @@ extension EnvironmentValues {
         set { self[CustomEnvironmentKey.self] = newValue }
     }
 }
-
 
 public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
 public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#

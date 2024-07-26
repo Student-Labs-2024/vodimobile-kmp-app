@@ -21,7 +21,7 @@ struct CustomToolbar: ToolbarContent {
     }
     
     var body: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading){
+        ToolbarItem(placement: .navigationBarLeading) {
             Button(action: {
                 dismiss()
             }, label: {

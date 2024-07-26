@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 final class PersonalDataViewModel: ObservableObject {
     @Published var userInput: UserInputData = UserInputData()
     @Published var dataHasBeenSaved: Bool = false
