@@ -27,15 +27,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
+import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @ExperimentalMaterial3Api
 @Composable
 fun CarsCard(
+    onBookClick: (Car) -> Unit,
     carItem: Car,
     modifier: Modifier = Modifier,
-    onCarClick: (Car) -> Unit
+    isBookMode: Boolean = false
 ) {
     ExtendedTheme {
         Card(
@@ -45,7 +47,9 @@ fun CarsCard(
                 .then(modifier),
             colors = CardDefaults.cardColors(ExtendedTheme.colorScheme.onSecondaryBackground),
             shape = RoundedCornerShape(22.dp),
-            onClick = { onCarClick(carItem) }
+            onClick = {
+                onBookClick(carItem)
+            }
         ) {
             Column(
                 modifier = Modifier
@@ -53,7 +57,10 @@ fun CarsCard(
                     .wrapContentHeight()
                     .padding(horizontal = 32.dp, vertical = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.spacedBy(
+                    space = 12.dp,
+                    alignment = Alignment.CenterVertically
+                )
             ) {
                 Image(
                     modifier = Modifier
@@ -63,16 +70,12 @@ fun CarsCard(
                     contentDescription = null
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
-
-
                 ) {
                     Column(
                         modifier = Modifier
@@ -122,6 +125,13 @@ fun CarsCard(
                         )
                     }
                 }
+
+                if (isBookMode)
+                    PrimaryButton(
+                        text = stringResource(R.string.to_book),
+                        enabled = true,
+                        onClick = { onBookClick(carItem) }
+                    )
             }
         }
     }
@@ -135,7 +145,7 @@ private fun CarsCardPreview() {
     VodimobileTheme(darkTheme = false, dynamicColor = false) {
         CarsCard(
             carItem = Car.empty(),
-            onCarClick = {}
+            onBookClick = {}
         )
     }
 }

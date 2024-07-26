@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.home
 
+import BottomCard
 import CarsCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -16,6 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -35,7 +40,6 @@ import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,10 +54,6 @@ fun HomeScreen(
     LaunchedEffect(key1 = Unit) {
         homeEffect.collect { effect ->
             when (effect) {
-                HomeEffect.CarPreviewClick -> {
-
-                }
-
                 HomeEffect.FieldClick -> {
                     navHostController.navigate(route = DialogIdentifiers.DATE_SELECT_DIALOG)
                 }
@@ -71,7 +71,6 @@ fun HomeScreen(
 
     ExtendedTheme {
         Scaffold(
-            modifier = modifier,
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
             topBar = {
                 SnapVodimobileTopAppBar(
@@ -80,14 +79,15 @@ fun HomeScreen(
                     onFieldClick = { onHomeIntent(HomeIntent.FieldClick) },
                     onButtonClick = {}
                 )
-            }) { paddingValues ->
+            }
+        ) { paddingValues ->
             LazyColumn(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth()
                     .padding(paddingValues)
                     .testTag(TestTags.HomeScreen.contentScroll),
-                contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 24.dp),
+                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(
                     space = 20.dp,
                     alignment = Alignment.CenterVertically
@@ -101,12 +101,18 @@ fun HomeScreen(
                         }
                     )
                 }
-                itemsIndexed(homeState.value.carList) { index, item: Car ->
+                itemsIndexed(homeState.value.carList) { _, item: Car ->
                     CarsCard(
                         carItem = item,
-                        onCarClick = { carItem -> onHomeIntent(HomeIntent.CarPreviewClick) }
+                        onBookClick = { carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem)) }
                     )
                 }
+            }
+
+            if (homeState.value.showBottomSheet) {
+                BottomCard(
+                    carItem = homeState.value.selectedCar,
+                    onDismiss = { onHomeIntent(HomeIntent.CloseModal) })
             }
         }
     }
