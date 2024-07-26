@@ -9,24 +9,39 @@
 import SwiftUI
 
 struct RegistrationScreenView: View {
-    @State private var emailFieldText = ""
-    @State private var emailIsValid = false
+    @State private var fullnameFieldText = ""
+    @State private var fullnameIsValid = false
     @State private var phoneFieldText = ""
     @State private var phoneIsValid = false
+    @State private var passFieldText = ""
+    @State private var passIsValid = false
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
+    @ObservedObject private var viewModel = RegistrationViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                CustomTextFieldView(fieldContent: $emailFieldText, isValid: $emailIsValid, fieldType: .email)
-                    .onChange(of: emailIsValid) { _ in
-                        toggleButtonEnabled()
-                    }
+                CustomTextFieldView(
+                    fieldContent: $viewModel.fullname,
+                    isValid: $viewModel.isFullnameValid,
+                    fieldType: .fullName
+                )
                 
-                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
+                CustomTextFieldView(
+                    fieldContent: $viewModel.phone,
+                    isValid: $viewModel.isPhoneValid,
+                    fieldType: .phone,
+                    isPasswordVisible: $viewModel.isPasswordVisible
+                )
+                
+                CustomTextFieldView(
+                    fieldContent: $viewModel.password,
+                    isValid: $viewModel.isPasswordValid,
+                    fieldType: .password
+                )
 
                 NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
                     Text(R.string.localizable.nextBtnName)
@@ -65,7 +80,7 @@ struct RegistrationScreenView: View {
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = emailIsValid && phoneIsValid && checkboxSelected
+        isButtonEnabled = fullnameIsValid && phoneIsValid && passIsValid && checkboxSelected
     }
 }
 

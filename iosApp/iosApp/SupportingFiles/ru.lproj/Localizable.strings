@@ -28,6 +28,7 @@
 "saveButton" = "Сохранить";
 "findAutoButton" = "Найти машину";
 "reconnectButton" = "Повторить попытку";
+"password" = "Пароль";
 
 // Field names
 "email" = "Email";

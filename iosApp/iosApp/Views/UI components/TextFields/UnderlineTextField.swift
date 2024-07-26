@@ -39,6 +39,10 @@ struct UnderlineTextField: View {
             title = TextFieldType.fullName.localizedStr
             keyboardType = .default
             regex = textRegex
+        case .password:
+            title = TextFieldType.password.localizedStr
+            keyboardType = .default
+            regex = passRegex
         }
     }
     

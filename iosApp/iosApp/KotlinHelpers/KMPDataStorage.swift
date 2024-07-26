@@ -26,9 +26,9 @@ final class KMPDataStorage: ObservableObject {
         try await repository.editUserData(user: userData)
     }
     
-    func getUser() async {
-        for await userFromFlow in repository.getUserData() {
-            self.gettingUser = userFromFlow
-        }
-    }
+//    func getUser() async {
+//        for await userFromFlow in repository.getUserData() {
+//            self.gettingUser = userFromFlow
+//        }
+//    }
 }

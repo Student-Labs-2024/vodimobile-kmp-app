@@ -14,6 +14,7 @@ enum TextFieldType {
     case email
     case phone
     case fullName
+    case password
 }
 
 extension TextFieldType {
@@ -25,6 +26,8 @@ extension TextFieldType {
             return R.string.localizable.phone()
         case .fullName:
             return R.string.localizable.fullName()
+        case .password:
+            return R.string.localizable.password()
         }
     }
 }
@@ -32,19 +35,21 @@ extension TextFieldType {
 struct CustomTextFieldView: View {
     @Binding var fieldContent: String
     @Binding var isValid: Bool
+    @Binding var isPasswordVisible: Bool
     @State private var errorMessage: String = ""
     @State private var isEditing: Bool = false
     @FocusState private var isFocused: Bool
     
-    private let fieldName: String
+    private let fieldType: TextFieldType
     private let placeholder: String
     private let keyboardType: UIKeyboardType
     private let regex: String
     
-    init(fieldContent: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
+    init(fieldContent: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType, isPasswordVisible: Binding<Bool> = Binding.constant(false)) {
         self._fieldContent = fieldContent
         self._isValid = isValid
-        fieldName = fieldType.localizedStr
+        self._isPasswordVisible = isPasswordVisible
+        self.fieldType = fieldType
         
         switch fieldType {
         case .email:
@@ -55,73 +60,106 @@ struct CustomTextFieldView: View {
             placeholder = "+7"
             keyboardType = .phonePad
             regex = phoneRegex
-        default:
+        case .password:
             placeholder = ""
             keyboardType = .default
-            regex = ""
+            regex = passRegex
+        case .fullName:
+            placeholder = ""
+            keyboardType = .default
+            regex = textRegex
         }
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(fieldName).font(.header4).foregroundStyle(Color.black)
+            Text(fieldType.localizedStr).font(.header4).foregroundStyle(Color.black)
             
-            if fieldName == TextFieldType.phone.localizedStr {
-                iPhoneNumberField(placeholder, text: $fieldContent)
-                    .formatted()
-                    .prefixHidden(false)
-                    .clearButtonMode(.never)
-                    .maximumDigits(14)
-                    .onEditingBegan { _ in
-                        if fieldName == TextFieldType.phone.localizedStr && fieldContent.isEmpty {
-                            fieldContent = "+"
+            if fieldType == .phone {
+                IphonePhoneTextField(
+                    fieldContent: $fieldContent,
+                    isValid: $isValid,
+                    errorMessage: $errorMessage,
+                    isEditing: $isEditing,
+                    isFocused: $isFocused,
+                    validateFunc: validateInput
+                )
+            } else if fieldType == .password {
+                if isPasswordVisible {
+                    SecureField(placeholder, text: $fieldContent)
+                        .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                        .keyboardType(keyboardType)
+                        .textInputAutocapitalization(.never)
+                        .onChange(of: fieldContent, perform: { _ in
+                            validateInput()
+                        })
+                        .focused($isFocused)
+                        .onSubmit {
+                            isFocused = false
+                            validateInput()
                         }
-                    }
-                    .onEditingEnded { _ in
-                        if fieldName == TextFieldType.phone.localizedStr && fieldContent == "+" {
-                            fieldContent = ""
-                        }
-                    }
-                    .onEdit { _ in
-                        validateInput()
-                    }
-                    .font(.paragraph4)
-                    .padding(16)
-                    .foregroundStyle(Color.black)
-                    .multilineTextAlignment(.leading)
-                    .background(Color(R.color.grayLightColor))
-                    .cornerRadius(12)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(
-                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
-                                lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
-                            )
-                    )
-                    .tint(.black)
-                    .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
-                    .keyboardType(keyboardType)
-                    .textInputAutocapitalization(.never)
-                    .focused($isFocused)
-                    .onSubmit {
-                        isFocused = false
-                        validateInput()
-                    }
-                    .overlay(
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                self.fieldContent = ""
-                                validateInput()
-                            }) {
-                                Image.xmark
-                                    .foregroundColor(Color(R.color.grayDarkColor))
-                                    .padding(8)
+                        .overlay(
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    self.fieldContent = ""
+                                    validateInput()
+                                }) {
+                                    Image.eye
+                                        .foregroundColor(Color(R.color.grayDarkColor))
+                                        .padding(8)
+                                }
                             }
-                        }
                             .padding(.trailing, 8)
                             .opacity(self.isEditing ? 1 : 0)
-                    )
+                        )
+                        .onTapGesture {
+                            self.isEditing = true
+                        }
+                        .onDisappear {
+                            self.isEditing = false
+                        }
+                } else {
+                    TextField(placeholder, text: $fieldContent)
+                        .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                        .keyboardType(keyboardType)
+                        .textInputAutocapitalization(.never)
+                        .onChange(of: fieldContent, perform: { _ in
+                            validateInput()
+                        })
+                        .focused($isFocused)
+                        .onSubmit {
+                            isFocused = false
+                            validateInput()
+                        }
+                        .overlay(
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    self.isPasswordVisible.toggle()
+                                }) {
+                                    if isPasswordVisible {
+                                        Image.eyeSlash
+                                            .foregroundColor(Color(R.color.grayDarkColor))
+                                            .padding(8)
+                                    } else {
+                                        Image.eye
+                                            .foregroundColor(Color(R.color.grayDarkColor))
+                                            .padding(8)
+                                    }
+                                }
+                            }
+                            .padding(.trailing, 8)
+                            .opacity(self.isEditing ? 1 : 0)
+                        )
+                        .onTapGesture {
+                            self.isEditing = true
+                        }
+                        .onDisappear {
+                            self.isEditing = false
+                        }
+                }
+                
             } else {
                 TextField(placeholder, text: $fieldContent)
                     .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
@@ -147,8 +185,8 @@ struct CustomTextFieldView: View {
                                     .padding(8)
                             }
                         }
-                            .padding(.trailing, 8)
-                            .opacity(self.isEditing ? 1 : 0)
+                        .padding(.trailing, 8)
+                        .opacity(self.isEditing ? 1 : 0)
                     )
                     .onTapGesture {
                         self.isEditing = true
@@ -169,11 +207,11 @@ struct CustomTextFieldView: View {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
         let cleanedStr = fieldContent.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-
+        
         isValid = predicate.evaluate(with: cleanedStr)
         
         if !isValid && !fieldContent.isEmpty {
-            errorMessage = "\(errorResult)\(fieldName.lowercased())"
+            errorMessage = "\(errorResult)\(fieldType.localizedStr.lowercased())"
         } else {
             errorMessage = ""
         }

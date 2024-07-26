@@ -36,6 +36,7 @@
 "fullName" = "Full name";
 "dateTextFieldPlaceholder" = "When?";
 "dateTextFieldTitle" = "Select the rental dates";
+"password" = "Password";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";
