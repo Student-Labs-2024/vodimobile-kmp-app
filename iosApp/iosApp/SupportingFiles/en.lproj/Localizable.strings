@@ -23,6 +23,7 @@
 "authButtonTitle" = " Log in";
 "nextBtnName" = "Next";
 "resendBtnText" = "Resend";
+"reconnectButton" = "Try again";
 "closeButton" = "Close";
 
 // Field names
@@ -65,6 +66,10 @@
 "questionAndAnswerTitle" = "FAQ from \"Vodimobile\"";
 "questionAndAnswerAttributedPartOfTitle" = "FAQ";
 "questionAndAnswerText" = "Find answer on any your questions.";
+"internetConnectErrorTitle" = "Connection error";
+"internetConnectErrorText" = "There is no internet connection. Check the network and try to connect again";
+"somethingWentWrongTitle" = "Something went wrong";
+"somethingWentWrongText" = "An error has occurred. Try the connection again.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";
