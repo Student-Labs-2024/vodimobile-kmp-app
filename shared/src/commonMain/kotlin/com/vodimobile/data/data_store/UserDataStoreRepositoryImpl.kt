@@ -12,6 +12,17 @@ import kotlinx.coroutines.flow.map
 
 class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>) :
     UserDataStoreRepository {
+
+    val userFromFlow: Flow<User> = dataStore.data.map {
+        User(
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_TOKEN)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: "",
+            it[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: ""
+        )
+    }
+
     override suspend fun editUserData(user: User) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName
@@ -22,10 +33,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
         }
     }
 
-    override suspend fun getUserData(): User {
-
-        var user: User = User.empty()
-
+    override fun getUserData(): Flow<User> {
         val userFlow: Flow<User> = dataStore.data.map { preferences ->
             val fullName =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: ""
@@ -44,10 +52,6 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             )
         }
 
-        userFlow.collect { value ->
-            user = value
-        }
-
-        return user
+        return userFlow
     }
 }

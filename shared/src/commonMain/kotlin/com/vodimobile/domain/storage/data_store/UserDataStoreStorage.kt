@@ -10,10 +10,10 @@ class UserDataStoreStorage(
     private val getUserDataUseCase: GetUserDataUseCase
 ) {
     suspend fun edit(user: User) {
-        editUserDataStoreUseCase.execute(user = user)
+        editUserDataStoreUseCase(user = user)
     }
 
-    suspend fun getUser(): User {
-        return getUserDataUseCase.execute()
+    fun getUser(): Flow<User> {
+        return getUserDataUseCase()
     }
 }

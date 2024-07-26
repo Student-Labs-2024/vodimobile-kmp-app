@@ -15,10 +15,8 @@ val androidModule = module {
 
     singleOf(::UserDataStoreRepositoryImpl).bind<UserDataStoreRepository>()
 
-    single<UserDataStoreStorage> {
-        UserDataStoreStorage(
-            editUserDataStoreUseCase = EditUserDataStoreUseCase(userDataStoreRepository = get()),
-            getUserDataUseCase = GetUserDataUseCase(userDataStoreRepository = get())
-        )
-    }
+    singleOf(::EditUserDataStoreUseCase)
+    singleOf(::GetUserDataUseCase)
+
+    singleOf(::UserDataStoreStorage)
 }
