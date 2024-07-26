@@ -46,9 +46,9 @@ struct PersonDataView: View {
             $viewModel.dataIsEditing.wrappedValue = true
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
-        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showAlert) {
+        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert) {
             Button(R.string.localizable.closeButton(), role: .cancel) {
-                $viewModel.showAlert.wrappedValue.toggle()
+                $viewModel.showErrorAlert.wrappedValue.toggle()
             }
         } message: {
             Text(R.string.localizable.alertErrorSavingText)
@@ -67,7 +67,7 @@ struct PersonDataView: View {
                     image: Image.checkmark,
                     observedObject: viewModel,
                     actionAfterTapping: {
-                        viewModel.makeSavingDataRequest()
+                        viewModel.saveEditedUserData()
                         viewModel.dataIsEditing = false
                         focusedField = nil
                     }

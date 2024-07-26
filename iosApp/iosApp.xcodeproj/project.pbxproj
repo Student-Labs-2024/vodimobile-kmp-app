@@ -37,12 +37,12 @@
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
 		9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2262C3FC024003A0BCB /* PersonDataView.swift */; };
+		93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93577F112C4E6C85005FEAFF /* LoadingView.swift */; };
 		935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */; };
 		935E1A8E2C51365800A35E4E /* ExpantableToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */; };
 		935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */; };
 		935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */; };
 		935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */; };
-		93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93577F112C4E6C85005FEAFF /* LoadingView.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
@@ -57,8 +57,8 @@
 		93745BC52C41A57700889B42 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC42C41A57600889B42 /* FAQView.swift */; };
 		93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */; };
 		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
-		937DBD592C4FD38600C43A86 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 937DBD582C4FD38600C43A86 /* .swiftlint.yml */; };
 		937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */; };
+		937DBD592C4FD38600C43A86 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 937DBD582C4FD38600C43A86 /* .swiftlint.yml */; };
 		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
 		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
 		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
@@ -111,12 +111,12 @@
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
 		9351F2262C3FC024003A0BCB /* PersonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataView.swift; sourceTree = "<group>"; };
+		93577F112C4E6C85005FEAFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithOffset.swift; sourceTree = "<group>"; };
 		935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpantableToolbar.swift; sourceTree = "<group>"; };
 		935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDatePickerView.swift; sourceTree = "<group>"; };
 		935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectErrorView.swift; sourceTree = "<group>"; };
 		935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectErrorView.swift; sourceTree = "<group>"; };
-		93577F112C4E6C85005FEAFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 		93745BC42C41A57600889B42 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsView.swift; sourceTree = "<group>"; };
 		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
-		937DBD582C4FD38600C43A86 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPDataStorage.swift; sourceTree = "<group>"; };
+		937DBD582C4FD38600C43A86 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
 		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -623,7 +623,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -679,7 +679,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -702,7 +702,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -736,7 +736,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

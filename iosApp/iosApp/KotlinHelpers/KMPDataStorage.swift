@@ -7,6 +7,7 @@
 //
 
 import shared
+import SwiftUI
 
 @MainActor
 final class KMPDataStorage: ObservableObject {
@@ -19,18 +20,15 @@ final class KMPDataStorage: ObservableObject {
         email: "rele@df.df"
     )
     static let defaultUser = User.companion.empty()
+    @Published var gettingUser = defaultUser
 
-    func editUserData() {
-        Task {
-            try await repository.editUserData(user: newUser)
-        }
+    func editUserData(_ userData: User) async throws {
+        try await repository.editUserData(user: userData)
     }
     
-    func getUser() -> User {
-        var user: User = KMPDataStorage.defaultUser
-        Task {
-            user = try await repository.getUserData()
+    func getUser() async {
+        for await userFromFlow in repository.getUserData() {
+            self.gettingUser = userFromFlow
         }
-        return user
     }
 }

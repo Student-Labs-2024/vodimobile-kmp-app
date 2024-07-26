@@ -7,39 +7,55 @@
 //
 
 import SwiftUI
+import shared
 
 final class PersonalDataViewModel: ObservableObject {
-    @Published var userInput: UserInputData = UserInputData()
+    @Published var userInput = UserInputData()
     @Published var dataHasBeenSaved: Bool = false
     @Published var dataIsEditing: Bool = false
-    @Published var showAlert: Bool = false
+    @Published var showErrorAlert: Bool = false
     @Published var isLoading: Bool = false
+    @ObservedObject var dataStorage = KMPDataStorage()
     
     func makeFakeNetworkRequest() {
         isLoading = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.isLoading = false
-            self.showAlert = true
+            self.showErrorAlert = true
         }
     }
     
-    func makeSavingDataRequest() {
+    func saveEditedUserData() {
         isLoading = true
+        let newUserData = User(
+            fullName: userInput.fullname,
+            password: userInput.password,
+            token: dataStorage.gettingUser.token,
+            phone: userInput.phone,
+            email: userInput.email
+        )
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.isLoading = false
-            self.dataHasBeenSaved = true
+        Task {
+            do {
+                try await self.dataStorage.editUserData(newUserData)
+            } catch {
+                self.showErrorAlert.toggle()
+            }
+            
+            DispatchQueue.main.async {
+                self.isLoading.toggle()
+                self.dataHasBeenSaved.toggle()
+            }
         }
     }
-    
-    
 }
 
 struct UserInputData: Equatable {
     var fullname = ""
     var email = ""
     var phone = ""
+    var password = ""
     var phoneIsValid: Bool = false
     var fullnameIsValid: Bool = false
     var emailIsValid: Bool = false
@@ -50,21 +66,5 @@ struct UserInputData: Equatable {
     
     func fieldsIsValid() -> Bool {
         phoneIsValid && emailIsValid && fullnameIsValid && areAllFieldsFilled()
-    }
-    
-    static func ==(lhs: UserInputData, rhs: UserInputData) -> Bool {
-        lhs.fullname == rhs.fullname &&
-        lhs.email == rhs.email &&
-        lhs.phone == rhs.phone
-    }
-}
-
-struct UserInputData {
-    var fullname = ""
-    var email = ""
-    var phone = ""
-    
-    func checkEmpty() -> Bool {
-        !self.fullname.isEmpty && !self.email.isEmpty && !self.phone.isEmpty
     }
 }

@@ -57,8 +57,15 @@ struct TrailingToolbarItem: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 18, height: 18)
                 .fontWeight(.bold)
-                .foregroundStyle(observedObject.userInput.fieldsIsValid() ? (observedObject.dataIsEditing ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)) : Color(R.color.grayDarkColor))
+                .foregroundStyle(
+                    observedObject.userInput.fieldsIsValid()
+                    ? (observedObject.dataIsEditing ? Color(R.color.blueColor) : Color(R.color.grayDarkColor))
+                    : Color(R.color.grayDarkColor)
+                )
         }
-        .disabled(!observedObject.userInput.fieldsIsValid() && observedObject.dataIsEditing)
+        .disabled(
+            !observedObject.userInput.fieldsIsValid() &&
+            observedObject.dataIsEditing
+        )
     }
 }
