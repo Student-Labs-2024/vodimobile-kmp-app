@@ -15,6 +15,7 @@ kotlinxCoroutinesTest = "1.9.0-RC"
 material = "compose"
 navigationCompose = "2.7.7"
 testng = "6.9.6"
+skie = "0.8.2"
 uiTestJunit4Android = "1.6.8"
 
 #Koin
@@ -53,6 +54,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 koin-android-test = { module = "io.insert-koin:koin-android-test", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+skie-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 #KMP koin
@@ -75,4 +77,5 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composeCompiler" }
