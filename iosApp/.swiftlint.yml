@@ -15,7 +15,6 @@ included: # paths to include during linting
 disabled_rules: # rule identifiers turned on by default to exclude from running
   - multiple_closures_with_trailing_closure
   - identifier_name
-  - trailing_whitespace
 
 force_cast: warning # implicitly
 force_try:
