@@ -22,7 +22,6 @@ class HomeViewModel : ViewModel() {
     fun onIntent(intent: HomeIntent) {
         when (intent) {
             is HomeIntent.ShowModal -> {
-
                 homeState.update {
                     it.copy(
                         selectedCar = intent.car,
@@ -55,6 +54,12 @@ class HomeViewModel : ViewModel() {
                     it.copy(
                         showBottomSheet = false
                     )
+                }
+            }
+
+            is HomeIntent.BookCarClick -> {
+                viewModelScope.launch {
+                    homeEffect.emit(HomeEffect.BookCarClick(carId = intent.car.carId))
                 }
             }
         }

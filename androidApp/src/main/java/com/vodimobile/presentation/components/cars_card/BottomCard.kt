@@ -1,5 +1,4 @@
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +35,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun BottomCard(
     carItem: Car,
+    onBookClick: (Car) -> Unit,
     onDismiss: () -> Unit
 ) {
 
@@ -92,7 +92,7 @@ fun BottomCard(
 
                 CarInfo(
                     onClick = {
-
+                        onBookClick(carItem)
                     },
                     carItem = carItem
                 )
@@ -105,6 +105,6 @@ fun BottomCard(
 @Composable
 private fun BottomPreview() {
     VodimobileTheme(darkTheme = false, dynamicColor = false) {
-        BottomCard(carItem = Car.empty(), {})
+        BottomCard(carItem = Car.empty(), {}, {})
     }
 }

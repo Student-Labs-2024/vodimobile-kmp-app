@@ -65,6 +65,10 @@ fun HomeScreen(
                 HomeEffect.AllCarsClick -> {
                     navHostController.navigate(route = LeafHomeScreen.ALL_CARS)
                 }
+
+                is HomeEffect.BookCarClick -> {
+
+                }
             }
         }
     }
@@ -112,7 +116,9 @@ fun HomeScreen(
             if (homeState.value.showBottomSheet) {
                 BottomCard(
                     carItem = homeState.value.selectedCar,
-                    onDismiss = { onHomeIntent(HomeIntent.CloseModal) })
+                    onDismiss = { onHomeIntent(HomeIntent.CloseModal) },
+                    onBookClick = { onHomeIntent(HomeIntent.BookCarClick(car = homeState.value.selectedCar)) }
+                )
             }
         }
     }
