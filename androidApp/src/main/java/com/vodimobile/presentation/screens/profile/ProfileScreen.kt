@@ -54,7 +54,7 @@ fun ProfileScreen(
                 }
 
                 ProfileEffect.PersonalDataClick -> {
-
+                    navHostController.navigate(route = LeafScreen.EDIT_PROFILE)
                 }
 
                 ProfileEffect.RulesClick -> {

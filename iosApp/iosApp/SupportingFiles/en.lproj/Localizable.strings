@@ -23,7 +23,8 @@
 "authButtonTitle" = " Log in";
 "nextBtnName" = "Next";
 "resendBtnText" = "Resend";
-"closeButton" = "OK";
+"reconnectButton" = "Try again";
+"closeButton" = "Close";
 
 // Field names
 "email" = "Email";
@@ -35,8 +36,9 @@
 "exitFirstBtnText" = "Exit";
 "exitSecondBtnText" = "Cancel";
 "exitAlertText" = "You will not be able to rent cars without an account";
-"alertSavePersonDataTitle" = "Saving error";
-"alertSavePersonDataText" = "Your data has not been saved. Please try again";
+"alertErrorSavingTitle" = "Saving error";
+"alertErrorSavingText" = "Your data has not been saved. Please try again";
+"alertSavePersonDataTitle" = "Your data has been successfully saved";
 
 // Info strings
 "conditionLink" = "the user agreement";
@@ -64,6 +66,10 @@
 "questionAndAnswerTitle" = "FAQ from \"Vodimobile\"";
 "questionAndAnswerAttributedPartOfTitle" = "FAQ";
 "questionAndAnswerText" = "Find answer on any your questions.";
+"internetConnectErrorTitle" = "Connection error";
+"internetConnectErrorText" = "There is no internet connection. Check the network and try to connect again";
+"somethingWentWrongTitle" = "Something went wrong";
+"somethingWentWrongText" = "An error has occurred. Try the connection again.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

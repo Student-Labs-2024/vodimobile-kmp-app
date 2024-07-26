@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components.progress_dialog
+package com.vodimobile.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -14,12 +14,11 @@ import androidx.compose.ui.Modifier
 import com.vodimobile.presentation.ProgressDialog
 
 @Composable
-internal fun BoxScope.ProgressDialogIndicator() {
+internal fun ProgressDialogIndicator() {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier
-            .size(ProgressDialog.PROGRESS_DIALOG_CARD_DP_SIZE)
-            .align(Alignment.Center),
+            .size(ProgressDialog.PROGRESS_DIALOG_CARD_DP_SIZE),
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator(

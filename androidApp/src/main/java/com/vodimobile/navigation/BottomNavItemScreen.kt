@@ -35,7 +35,8 @@ sealed class BottomNavItemScreen(
             LeafScreen.FAQ_SCREEN,
             LeafScreen.RULES_SCREEN,
             LeafScreen.CONTACTS_SCREEN,
-            LeafScreen.RULE_DETAILS_SCREEN
+            LeafScreen.RULE_DETAILS_SCREEN,
+            LeafScreen.EDIT_PROFILE
         )
     )
 }

@@ -24,6 +24,7 @@
 "nextBtnName" = "Далее";
 "resendBtnText" = "Отправить повторно";
 "closeButton" = "Закрыть";
+"reconnectButton" = "Повторить попытку";
 
 // Field names
 "email" = "Email";
@@ -35,8 +36,9 @@
 "exitFirstBtnText" = "Выйти";
 "exitSecondBtnText" = "Отмена";
 "exitAlertText" = "Вы не сможете арендовать автомобили без аккаунта";
-"alertSavePersonDataTitle" = "Ошибка сохранения";
-"alertSavePersonDataText" = "Ваши данные не были сохранены. Повторите попытку";
+"alertErrorSavingTitle" = "Ошибка сохранения";
+"alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
+"alertSavePersonDataTitle" = "Ваши данные успешно сохранены";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";
@@ -64,6 +66,10 @@
 "questionAndAnswerTitle" = "Вопрос-ответ от \"Водимобиль\"";
 "questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
 "questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";
+"internetConnectErrorTitle" = "Ошибка соединения";
+"internetConnectErrorText" = "Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.";
+"somethingWentWrongTitle" = "Что-то пошло не так";
+"somethingWentWrongText" = "Произошла ошибка. Повторите попытку соединения.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

@@ -70,6 +70,9 @@ dependencies {
 
     implementation(libs.androidx.material)
 
+    //Compose Material Icons
+    implementation(libs.compose.icons)
+
     // Navigation
     implementation (libs.androidx.navigation.compose)
 
@@ -91,6 +94,9 @@ dependencies {
     implementation(libs.koin.test.junit4)
     implementation(libs.koin.android.test)
 
+    //Test coroutines
+    implementation(libs.kotlinx.coroutines.test)
+    
     //Lint
     lintChecks(libs.compose.lint.checks)
 }
