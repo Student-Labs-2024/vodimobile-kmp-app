@@ -33,6 +33,12 @@ class HomeViewModel : ViewModel() {
                     homeEffect.emit(HomeEffect.NotificationButtonClick)
                 }
             }
+
+            HomeIntent.AllCarsClick -> {
+                viewModelScope.launch {
+                    homeEffect.emit(HomeEffect.AllCarsClick)
+                }
+            }
         }
     }
 }

@@ -25,7 +25,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.domain.model.Car
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.TestTags
+import com.vodimobile.presentation.screens.home.components.HomeScreenSupBar
 import com.vodimobile.presentation.screens.home.components.SnapVodimobileTopAppBar
 import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
@@ -59,6 +61,10 @@ fun HomeScreen(
                 HomeEffect.NotificationButtonClick -> {
 
                 }
+
+                HomeEffect.AllCarsClick -> {
+                    navHostController.navigate(route = LeafHomeScreen.ALL_CARS)
+                }
             }
         }
     }
@@ -81,13 +87,20 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(paddingValues)
                     .testTag(TestTags.HomeScreen.contentScroll),
-                contentPadding = PaddingValues(start = 12.dp, end = 12.dp, top = 12.dp),
+                contentPadding = PaddingValues(start = 24.dp, end = 24.dp, top = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(
-                    space = 12.dp,
+                    space = 20.dp,
                     alignment = Alignment.CenterVertically
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                item {
+                    HomeScreenSupBar(
+                        onClick = {
+                            onHomeIntent(HomeIntent.AllCarsClick)
+                        }
+                    )
+                }
                 itemsIndexed(homeState.value.carList) { index, item: Car ->
                     CarsCard(
                         carItem = item,

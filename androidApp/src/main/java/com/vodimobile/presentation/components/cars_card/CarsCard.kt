@@ -43,8 +43,9 @@ fun CarsCard(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .then(modifier),
-            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
-            shape = RoundedCornerShape(22.dp)
+            colors = CardDefaults.cardColors(ExtendedTheme.colorScheme.onSecondaryBackground),
+            shape = RoundedCornerShape(22.dp),
+            onClick = { onCarClick(carItem) }
         ) {
             Column(
                 modifier = Modifier
