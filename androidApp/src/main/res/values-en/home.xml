@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_screen_sub_title">Popular cars</string>
+    <string name="home_screen_sub_title_button">All cars &gt;</string>
+    <string name="all_cars_title">Go to the entire fleet</string>
+</resources>

@@ -1,9 +1,10 @@
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun CarInfo(
     onClick: () -> Unit,
@@ -41,10 +43,9 @@ fun CarInfo(
     ) {
         Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .size(height = 123.dp, width = 341.dp),
-            painter = painterResource(id = R.drawable.ca1),
-            contentDescription = null
+                .size(height = 120.dp, width = 340.dp),
+            painter = painterResource(id = carItem.images[0]),
+            contentDescription = carItem.model
         )
         CarsTitle(
             title = carItem.model,
@@ -56,7 +57,7 @@ fun CarInfo(
 
         Text(
             modifier = Modifier.align(Alignment.Start),
-            style = MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.onBackground),
+            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
             text = stringResource(R.string.spec_tile)
         )
 
@@ -73,7 +74,7 @@ fun CarInfo(
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.spec1),
-                            contentDescription = null
+                            contentDescription = stringResource(R.string.transmis)
                         )
                     })
                 CarSpecif(
@@ -83,7 +84,7 @@ fun CarInfo(
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.privod),
-                            contentDescription = null
+                            contentDescription = stringResource(R.string.wheel_drive)
                         )
                     })
             }
@@ -96,7 +97,7 @@ fun CarInfo(
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.year),
-                            contentDescription = null
+                            contentDescription = stringResource(R.string.year_of_release)
                         )
                     })
                 CarSpecif(
@@ -106,8 +107,9 @@ fun CarInfo(
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.bak),
-                            contentDescription = null
-                        )}
+                            contentDescription = stringResource(R.string.tank_value)
+                        )
+                    }
                 )
             }
         }

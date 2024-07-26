@@ -25,4 +25,9 @@ object TestTags {
             const val msg_editDataStoreData: String = "value is not equals"
         }
     }
+
+    object HomeScreen {
+        const val flexibleTopAppBar = "flexibleTopAppBar"
+        const val contentScroll = "contentScroll"
+    }
 }

@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.screens.home.components
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -21,59 +21,53 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
+import com.vodimobile.presentation.components.DateRentField
+import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun DateRentBlock(
-    modifier: Modifier = Modifier,
     onFieldClick: () -> Unit,
     onButtonClick: () -> Unit,
-    onNotificationClick: () -> Unit,
     date: String,
-    placeholder: String
+    placeholder: String,
+    modifier: Modifier = Modifier
 ) {
-    Column(
+    Card(
         modifier = Modifier
             .wrapContentHeight()
             .then(modifier),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        shape = MaterialTheme.shapes.extraLarge,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onPrimary
+        ),
     ) {
-        NotificationIcon(onClick = onNotificationClick)
-
-        Card(
-            modifier = Modifier.wrapContentHeight(),
-            shape = MaterialTheme.shapes.extraLarge,
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.onPrimary
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 28.dp),
+            verticalArrangement = Arrangement.spacedBy(
+                space = 20.dp,
+                alignment = Alignment.CenterVertically
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 28.dp),
-                verticalArrangement = Arrangement.spacedBy(
-                    space = 20.dp,
-                    alignment = Alignment.CenterVertically
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = stringResource(id = R.string.choose_date_rent),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                DateRentField(
-                    date = date,
-                    placeholder = placeholder,
-                    onFieldClick = onFieldClick
-                )
-                PrimaryButton(
-                    text = stringResource(id = R.string.find_car_button),
-                    enabled = date.isNotEmpty(),
-                    onClick = { onButtonClick() }
-                )
-            }
+            Text(
+                text = stringResource(id = R.string.choose_date_rent),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            DateRentField(
+                date = date,
+                placeholder = placeholder,
+                onFieldClick = onFieldClick
+            )
+            PrimaryButton(
+                text = stringResource(id = R.string.find_car_button),
+                enabled = date.isNotEmpty(),
+                onClick = onButtonClick
+            )
         }
     }
 }
@@ -87,7 +81,6 @@ private fun DateRentBlockWithoutValueLightPreview() {
             DateRentBlock(
                 onFieldClick = {},
                 onButtonClick = {},
-                onNotificationClick = {},
                 date = "",
                 placeholder = "Когда?"
             )
@@ -104,7 +97,6 @@ private fun DateRentBlockWithValueLightPreview() {
             DateRentBlock(
                 onFieldClick = {},
                 onButtonClick = {},
-                onNotificationClick = {},
                 date = "5-17 августа 2024",
                 placeholder = "Когда?"
             )
@@ -121,7 +113,6 @@ private fun DateRentBlocWithoutValueNightPreview() {
             DateRentBlock(
                 onFieldClick = {},
                 onButtonClick = {},
-                onNotificationClick = {},
                 date = "",
                 placeholder = "Когда?"
             )
@@ -138,7 +129,6 @@ private fun DateRentBlocWithValueNightPreview() {
             DateRentBlock(
                 onFieldClick = {},
                 onButtonClick = {},
-                onNotificationClick = {},
                 date = "5-17 августа 2024",
                 placeholder = "Когда?"
             )
