@@ -23,17 +23,8 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
-import com.vodimobile.presentation.screens.home.HomeScreen
-import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
-import com.vodimobile.presentation.screens.orders.OrdersScreen
-import com.vodimobile.presentation.screens.profile.ProfileScreen
-import com.vodimobile.presentation.screens.profile.ProfileViewModel
-import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
-import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
-import com.vodimobile.presentation.screens.rules.RuleScreen
-import com.vodimobile.presentation.screens.rules.RulesViewModel
-import com.vodimobile.presentation.screens.start_screen.StartScreen
-import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
+import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
+import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
@@ -43,12 +34,23 @@ import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.home.HomeViewModel
 import com.vodimobile.presentation.screens.home.store.HomeState
+import com.vodimobile.presentation.screens.home.HomeScreen
+import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
+import com.vodimobile.presentation.screens.orders.OrdersScreen
+import com.vodimobile.presentation.screens.profile.ProfileScreen
+import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
+import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
+import com.vodimobile.presentation.screens.rules.RuleScreen
+import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.screens.sms.SmsScreen
 import com.vodimobile.presentation.screens.sms.SmsViewModel
+import com.vodimobile.presentation.screens.start_screen.StartScreen
+import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -208,6 +210,16 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onEditProfileIntent = editProfileViewModel::onIntent,
                     editProfileState = editProfileViewModel.editProfileState.collectAsState(),
                     editProfileEffect = editProfileViewModel.editProfileEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = LeafScreen.CHANGE_PASSWORD_SCREEN) {
+                val changePasswordViewModel: ChangePasswordViewModel = koinViewModel()
+                ChangePasswordScreen(
+                    onChangePasswordIntent = changePasswordViewModel::onIntent,
+                    oldPasswordState = changePasswordViewModel.oldPasswordState.collectAsState(),
+                    newPasswordState = changePasswordViewModel.newPasswordState.collectAsState(),
+                    changePasswordEffect = changePasswordViewModel.changePasswordEffect,
                     navHostController = navHostController
                 )
             }

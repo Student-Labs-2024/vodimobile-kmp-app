@@ -14,6 +14,7 @@ object LeafScreen {
     const val FAQ_SCREEN = "faq"
     const val CONTACTS_SCREEN = "contacts"
     const val EDIT_PROFILE = "edit_profile"
+    const val CHANGE_PASSWORD_SCREEN = "change_password"
 }
 
 object LeafHomeScreen {
