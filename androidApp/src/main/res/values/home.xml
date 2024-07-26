@@ -2,4 +2,5 @@
 <resources>
     <string name="home_screen_sub_title">Популярные авто</string>
     <string name="home_screen_sub_title_button">Все машины &gt;</string>
+    <string name="all_cars_title">Перейти ко всему автопарку</string>
 </resources>

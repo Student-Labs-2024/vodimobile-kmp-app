@@ -32,6 +32,7 @@ import com.vodimobile.domain.model.Car
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.TestTags
+import com.vodimobile.presentation.screens.home.components.AllCars
 import com.vodimobile.presentation.screens.home.components.HomeScreenSupBar
 import com.vodimobile.presentation.screens.home.components.SnapVodimobileTopAppBar
 import com.vodimobile.presentation.screens.home.store.HomeEffect
@@ -99,17 +100,16 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
-                    HomeScreenSupBar(
-                        onClick = {
-                            onHomeIntent(HomeIntent.AllCarsClick)
-                        }
-                    )
+                    HomeScreenSupBar(onClick = { onHomeIntent(HomeIntent.AllCarsClick) })
                 }
                 itemsIndexed(homeState.value.carList) { _, item: Car ->
                     CarsCard(
                         carItem = item,
                         onBookClick = { carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem)) }
                     )
+                }
+                item {
+                    AllCars(onClick = { onHomeIntent(HomeIntent.AllCarsClick) })
                 }
             }
 
