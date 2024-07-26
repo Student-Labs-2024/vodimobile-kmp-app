@@ -1,9 +1,10 @@
 package com.vodimobile.presentation.screens.contact.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,8 +29,11 @@ fun ListContactItem(
     onTelegramClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+
     ) {
         Text(
             text = stringResource(R.string.title_list_contact),
@@ -79,10 +83,19 @@ fun ListContactItem(
 }
 
 
-@Preview(showBackground = true)
+@Preview(showBackground = true,  uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun ListContactItemPreview() {
+private fun ListContactItemPreviewLight() {
     VodimobileTheme {
         ListContactItem(modifier = Modifier, {}, {}, {})
     }
 }
+
+@Preview(showBackground = true,  uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun ListContactItemPreviewNight() {
+    VodimobileTheme {
+        ListContactItem(modifier = Modifier, {}, {}, {})
+    }
+}
+

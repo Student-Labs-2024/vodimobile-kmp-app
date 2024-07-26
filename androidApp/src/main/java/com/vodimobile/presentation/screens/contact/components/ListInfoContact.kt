@@ -24,7 +24,7 @@ fun ListInfoContact(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.onPrimary),
+            .background(color = MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         InfoContactItem(

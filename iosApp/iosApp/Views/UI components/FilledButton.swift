@@ -18,7 +18,11 @@ struct FilledButton: View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .background(isEnabled ? (configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor)) : Color(R.color.blueLightColor))
+            .background(
+                isEnabled 
+                ? (configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
+                : Color(R.color.blueLightColor)
+            )
             .foregroundColor(.white)
             .cornerRadius(15)
             .font(.button)

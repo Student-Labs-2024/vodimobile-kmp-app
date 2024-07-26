@@ -10,18 +10,18 @@ import SwiftUI
 import RswiftResources
 
 struct CustomToolbar: ToolbarContent {
-    let title: String
-    let trailingToolbarItem: TrailingToolbarItem?
+    let title: StringResource
+    var trailingToolbarItem: TrailingToolbarItem?
     
     @Environment(\.dismiss) private var dismiss
     
     init(title: StringResource, trailingToolbarItem: TrailingToolbarItem? = nil) {
-        self.title = title()
+        self.title = title
         self.trailingToolbarItem = trailingToolbarItem
     }
     
     var body: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading){
+        ToolbarItem(placement: .navigationBarLeading) {
             Button(action: {
                 dismiss()
             }, label: {
@@ -30,47 +30,35 @@ struct CustomToolbar: ToolbarContent {
         }
         
         ToolbarItem(placement: .principal) {
-            Text(LocalizedStringKey(title))
+            Text(title)
                 .font(.header1)
                 .foregroundColor(Color.black)
         }
         
         if let trailingToolbarItem = trailingToolbarItem {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    trailingToolbarItem.actionAfterTapping()
-                }) {
-                    trailingToolbarItem.image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 18, height: 18)
-                        .fontWeight(.bold)
-                        .foregroundStyle(trailingToolbarItem.foregroundColor)
-                    
-                }
-                .disabled(trailingToolbarItem.disableItem)
+                trailingToolbarItem
             }
         }
     }
 }
 
-struct TrailingToolbarItem {
+struct TrailingToolbarItem: View {
     let image: Image
-    @Binding var control: UserInputData {
-        mutating didSet {
-            foregroundColor = control.checkEmpty() ? Color(R.color.grayDarkColor) : Color(R.color.blueColor)
-            disableItem = control.checkEmpty()
-        }
-    }
-    var foregroundColor: Color
+    @ObservedObject var observedObject: PersonalDataViewModel
     var actionAfterTapping: () -> Void
-    var disableItem: Bool = true
     
-    init(image: Image, control: Binding<UserInputData>, actionAfterTapping: @escaping () -> Void) {
-        self.image = image
-        self._control = control
-        self.actionAfterTapping = actionAfterTapping
-        self.foregroundColor = control.wrappedValue.checkEmpty() ? Color(R.color.grayDarkColor) : Color(R.color.blueColor)
-        self.disableItem = control.wrappedValue.checkEmpty()
+    var body: some View {
+        Button(action: {
+            actionAfterTapping()
+        }) {
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 18, height: 18)
+                .fontWeight(.bold)
+                .foregroundStyle(observedObject.userInput.fieldsIsValid() ? (observedObject.dataIsEditing ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)) : Color(R.color.grayDarkColor))
+        }
+        .disabled(!observedObject.userInput.fieldsIsValid() && observedObject.dataIsEditing)
     }
 }

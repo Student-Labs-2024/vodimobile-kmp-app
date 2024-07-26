@@ -10,23 +10,60 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.screens.profile.components.ContactsFaqRulesBlock
 import com.vodimobile.presentation.screens.profile.components.ExitBlock
 import com.vodimobile.presentation.screens.profile.components.PersonalDataCard
+import com.vodimobile.presentation.screens.profile.store.ProfileEffect
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
-fun ProfileScreen(profileViewModel: ProfileViewModel) {
+fun ProfileScreen(
+    onProfileIntent: (ProfileIntent) -> Unit,
+    profileEffect: MutableSharedFlow<ProfileEffect>,
+    navHostController: NavHostController
+) {
+
+    LaunchedEffect(key1 = Unit) {
+        profileEffect.collect { effect ->
+            when (effect) {
+                ProfileEffect.AppExitClick -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOG_OUT_DIALOG)
+                }
+
+                ProfileEffect.ConstantsClick -> {
+                    navHostController.navigate(route = LeafScreen.CONTACTS_SCREEN)
+                }
+
+                ProfileEffect.FaqClick -> {
+                    navHostController.navigate(route = LeafScreen.FAQ_SCREEN)
+                }
+
+                ProfileEffect.PersonalDataClick -> {
+                    navHostController.navigate(route = LeafScreen.EDIT_PROFILE)
+                }
+
+                ProfileEffect.RulesClick -> {
+                    navHostController.navigate(route = LeafScreen.RULES_SCREEN)
+                }
+            }
+        }
+    }
+
     ExtendedTheme {
         Scaffold(
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
@@ -37,7 +74,7 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 23.dp)
+                        .padding(top = 12.dp)
                         .padding(vertical = 11.dp)
                 )
             },
@@ -57,23 +94,23 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
             ) {
                 PersonalDataCard(
                     onEditClick = {
-                        profileViewModel.onIntent(ProfileIntent.PersonalDataClick)
+                        onProfileIntent(ProfileIntent.PersonalDataClick)
                     }
                 )
                 ContactsFaqRulesBlock(
                     onRulesClick = {
-                        profileViewModel.onIntent(ProfileIntent.RulesClick)
+                        onProfileIntent(ProfileIntent.RulesClick)
                     },
                     onFAQClick = {
-                        profileViewModel.onIntent(ProfileIntent.FaqClick)
+                        onProfileIntent(ProfileIntent.FaqClick)
                     },
                     onContactsClick = {
-                        profileViewModel.onIntent(ProfileIntent.ConstantsClick)
+                        onProfileIntent(ProfileIntent.ConstantsClick)
                     }
                 )
                 ExitBlock(
                     onClick = {
-                        profileViewModel.onIntent(ProfileIntent.AppExitClick)
+                        onProfileIntent(ProfileIntent.AppExitClick)
                     }
                 )
             }
@@ -85,7 +122,12 @@ fun ProfileScreen(profileViewModel: ProfileViewModel) {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun ProfileScreenPreviewLight() {
     VodimobileTheme {
-        ProfileScreen(profileViewModel = ProfileViewModel(navController = rememberNavController()))
+        val profileViewModel = ProfileViewModel()
+        ProfileScreen(
+            onProfileIntent = profileViewModel::onIntent,
+            profileEffect = profileViewModel.profileEffect,
+            navHostController = rememberNavController()
+        )
     }
 }
 
@@ -93,6 +135,11 @@ private fun ProfileScreenPreviewLight() {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun ProfileScreenPreviewNight() {
     VodimobileTheme {
-        ProfileScreen(profileViewModel = ProfileViewModel(navController = rememberNavController()))
+        val profileViewModel = ProfileViewModel()
+        ProfileScreen(
+            onProfileIntent = profileViewModel::onIntent,
+            profileEffect = profileViewModel.profileEffect,
+            navHostController = rememberNavController()
+        )
     }
 }

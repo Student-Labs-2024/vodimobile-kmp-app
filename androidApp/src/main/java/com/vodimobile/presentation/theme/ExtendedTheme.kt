@@ -10,18 +10,22 @@ import androidx.compose.ui.graphics.Color
 
 @Immutable
 data class ExtendedColors(
-    val headerBack: Color,
+    val containerBack: Color,
     val secondaryBackground: Color,
     val onSecondaryBackground: Color,
-    val hintText: Color
+    val hintText: Color,
+    val smsTextFieldBack: Color,
+    val smsTextFieldBorder: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
     ExtendedColors(
-        headerBack = Color.Unspecified,
+        containerBack = Color.Unspecified,
         secondaryBackground = Color.Unspecified,
         onSecondaryBackground = Color.Unspecified,
-        hintText = Color.Unspecified
+        hintText = Color.Unspecified,
+        smsTextFieldBack = Color.Unspecified,
+        smsTextFieldBorder = Color.Unspecified
     )
 }
 
@@ -32,17 +36,21 @@ fun ExtendedTheme(
 ) {
     val extendedColors = if (darkTheme)
         ExtendedColors(
-            headerBack = onSecondaryBackgroundDark,
+            containerBack = onSecondaryBackgroundDark,
             secondaryBackground = secondaryBackgroundDark,
             onSecondaryBackground = onSecondaryBackgroundDark,
-            hintText = hintTextDark
+            hintText = hintTextDark,
+            smsTextFieldBack = smsTextFieldBackDark,
+            smsTextFieldBorder = smsTextFieldBorderDark
         )
     else
         ExtendedColors(
-            headerBack = headerBackLight,
+            containerBack = containerBackLight,
             secondaryBackground = secondaryBackgroundLight,
             onSecondaryBackground = onSecondaryBackgroundLight,
-            hintText = hintTextLight
+            hintText = hintTextLight,
+            smsTextFieldBack = smsTextFieldBackLight,
+            smsTextFieldBorder = smsTextFieldBorderLight
         )
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {

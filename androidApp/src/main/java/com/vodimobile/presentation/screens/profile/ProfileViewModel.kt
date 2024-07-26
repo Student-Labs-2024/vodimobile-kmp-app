@@ -1,20 +1,45 @@
 package com.vodimobile.presentation.screens.profile
 
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavHostController
-import com.vodimobile.presentation.LeafScreen
+import androidx.lifecycle.viewModelScope
+import com.vodimobile.presentation.screens.profile.store.ProfileEffect
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val navController: NavHostController) : ViewModel() {
+class ProfileViewModel : ViewModel() {
+    val profileEffect = MutableSharedFlow<ProfileEffect>()
 
     fun onIntent(intent: ProfileIntent) {
         when (intent) {
-            ProfileIntent.AppExitClick -> {}
-            ProfileIntent.ConstantsClick -> {}
-            ProfileIntent.FaqClick -> {}
-            ProfileIntent.PersonalDataClick -> {}
+            ProfileIntent.AppExitClick -> {
+                viewModelScope.launch {
+                    profileEffect.emit(ProfileEffect.AppExitClick)
+                }
+            }
+
+            ProfileIntent.ConstantsClick -> {
+                viewModelScope.launch {
+                    profileEffect.emit(ProfileEffect.ConstantsClick)
+                }
+            }
+
+            ProfileIntent.FaqClick -> {
+                viewModelScope.launch {
+                    profileEffect.emit(ProfileEffect.FaqClick)
+                }
+            }
+
+            ProfileIntent.PersonalDataClick -> {
+                viewModelScope.launch {
+                    profileEffect.emit(ProfileEffect.PersonalDataClick)
+                }
+            }
+
             ProfileIntent.RulesClick -> {
-                navController.navigate(LeafScreen.RULES_SCREEN)
+                viewModelScope.launch {
+                    profileEffect.emit(ProfileEffect.RulesClick)
+                }
             }
         }
     }

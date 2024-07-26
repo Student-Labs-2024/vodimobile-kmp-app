@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 
-
 struct CustomEnvironmentKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
@@ -21,9 +20,9 @@ extension EnvironmentValues {
     }
 }
 
-
 public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
 public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
+public let textRegex = #"^[a-zA-Zа-яА-ЯёЁ]+(([' -][a-zA-Zа-яА-ЯёЁ ])?[a-zA-Zа-яА-ЯёЁ]*)*$"#
 
 // UI paddings
 public let screenWidth = UIScreen.main.bounds.width

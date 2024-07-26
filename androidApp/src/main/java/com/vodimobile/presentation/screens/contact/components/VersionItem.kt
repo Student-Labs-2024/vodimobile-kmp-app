@@ -1,7 +1,5 @@
 package com.vodimobile.presentation.screens.contact.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,9 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
-import androidx.compose.material3.Text
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,24 +23,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.BuildConfig
 import com.vodimobile.android.R
-import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import java.time.LocalDate.now
+import java.util.Calendar
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun VersionItem() {
-    val versionName = BuildConfig.VERSION_NAME
-    val startYear = stringResource(id = R.string.version_year_str)
-    val currentYear = now().year
-    val versionYear = "$startYear-$currentYear"
+fun VersionItem(version: String, validYear: String) {
+
     ExtendedTheme {
         Card(
             modifier = Modifier,
             colors = CardDefaults.cardColors(
-                containerColor = ExtendedTheme.colorScheme.headerBack
+                containerColor = ExtendedTheme.colorScheme.containerBack
             ),
             shape = RectangleShape
 
@@ -60,7 +53,7 @@ fun VersionItem() {
                         .size(48.dp),
                     shape = MaterialTheme.shapes.small,
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.onPrimary
+                        containerColor = MaterialTheme.colorScheme.background
                     )
                 ) {
                     Image(
@@ -79,13 +72,13 @@ fun VersionItem() {
                 ) {
                     Text(
                         style = MaterialTheme.typography.bodySmall,
-                        text = stringResource(R.string.version_str, versionName),
+                        text = stringResource(R.string.version_str, version),
                         color = ExtendedTheme.colorScheme.hintText
                     )
 
                     Text(
                         style = MaterialTheme.typography.bodySmall,
-                        text = versionYear + " " + stringResource(id = R.string.version1_str),
+                        text = validYear + " " + stringResource(id = R.string.version1_str),
                         color = ExtendedTheme.colorScheme.hintText
                     )
                 }
@@ -94,12 +87,11 @@ fun VersionItem() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Preview(showBackground = true)
 @Composable
 private fun VersionItemPreview() {
     VodimobileTheme {
-        VersionItem()
+        VersionItem("1.0", "2010")
     }
-
 }

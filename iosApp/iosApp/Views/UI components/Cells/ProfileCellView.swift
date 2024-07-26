@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct ProfileCellView: View {
     let cell: ProfileMenuCell
     
