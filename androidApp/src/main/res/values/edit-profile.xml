@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="return_">Вернуться назад</string>
+    <string name="save_personal_data">Сохранить персональные данные</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="full_name">ФИО</string>
+    <string name="your_data">Ваши данные</string>
+    <string name="snackbar_error">Ошибка! Ваши данные не были сохранены. Повторите попытку</string>
+    <string name="snackbar_try_again">Повторить попытку</string>
+    <string name="save_successfully">Ваши данные успешно сохранены</string>
+</resources>

@@ -18,9 +18,9 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun SecondaryButton(
-    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ){
     OutlinedButton(
@@ -30,7 +30,7 @@ fun SecondaryButton(
         onClick = onClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 13.dp),
         enabled = enabled,
-        shape = MaterialTheme.shapes.medium,
+        shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.primary
@@ -38,7 +38,7 @@ fun SecondaryButton(
         border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
     ) {
         Text(
-            modifier = modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             text = text,
             style = MaterialTheme.typography.headlineSmall.copy(color = MaterialTheme.colorScheme.primary),
             textAlign = TextAlign.Center

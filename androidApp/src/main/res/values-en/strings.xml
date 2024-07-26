@@ -34,7 +34,7 @@
     <string name="exit_account">Exit account</string>
     <string name="personal_data_title">Personal data</string>
     <string name="personal_data_subtitle">Full name, phone number, email</string>
-    <string name="edit_personal_data_content_desc">Edit personal data</string>
+    <string name="edit_data">Edit data</string>
 
     <string name="home_screen_label">Home</string>
     <string name="orders_screen_label">My orders</string>
@@ -54,7 +54,7 @@
 
     <string name="title_list_contact">Our social networks</string>
     <string name="vk_str">Vkontakte</string>
-    <string name="mail_str">mail</string>
+    <string name="mail_str">Mail</string>
     <string name="mail1_str">vodimobil@vodimobil.ru</string>
     <string name="telephone_str">Phone number</string>
     <string name="telephone1_str">+7 (950) 783 14-40</string>
@@ -73,4 +73,36 @@
     <string name="log_out_confirmation_body">You will not be able to rent cars without an account</string>
     <string name="confirmation_cancel_button">Cancel</string>
     <string name="confirmation_logout_button">Log out</string>
+
+    <string name="tariff">from %s rub per day.</string>
+    <string name="car">%s liters</string>
+    <string name="spec_tile">Specifications:</string>
+    <string name="transmis">Gearbox</string>
+    <string name="wheel_drive">Drive</string>
+    <string name="year_of_release">Year of release</string>
+    <string name="tank_value">Tank </string>
+    <string name="to_book">To book</string>
+
+
+    <string name="connection_error">Connection error</string>
+    <string name="connection_error_subtitle">There is no internet connection. Check the network and try the connection again.</string>
+    <string name="try_again_bt">Try again</string>
+
+    <string name="auto_tag_all">All cars</string>
+    <string name="auto_tag_economy">Economy</string>
+    <string name="auto_tag_comfort">Comfort</string>
+    <string name="auto_tag_premium">Premium</string>
+    <string name="auto_tag_sedan">Sedans</string>
+    <string name="auto_tag_off_road">Off-road cars</string>
+
+    <string name="choose_date_rent">Select the rental dates</string>
+    <string name="date_rent_placeholder">When?</string>
+    <string name="find_car_button">Find a car</string>
+    <string name="icon_calendar">Calendar</string>
+
+    <string name="notification_desc">Notifications</string>
+
+    <string name="server_error">Error on the server</string>
+    <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
+
 </resources>

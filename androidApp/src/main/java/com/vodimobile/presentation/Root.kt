@@ -1,11 +1,13 @@
 package com.vodimobile.presentation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -14,7 +16,7 @@ import com.vodimobile.navigation.NavGraph
 import com.vodimobile.presentation.components.BottomBar
 import com.vodimobile.presentation.theme.VodimobileTheme
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun Root() {
     val navController = rememberNavController()
@@ -25,9 +27,10 @@ fun Root() {
             if (getIsShowBottomBar(currentRoute))
                 BottomBar(navController = navController)
         }
-    ) {
+    ) { paddingValues ->
         NavGraph(
             navHostController = navController,
+            modifier = Modifier.padding(paddingValues)
         )
     }
 }
@@ -35,7 +38,12 @@ fun Root() {
 private fun getIsShowBottomBar(currentRoute: String?): Boolean {
     return currentRoute != RootScreen.START_SCREEN &&
             currentRoute != RegistrationScreens.REGISTRATION_SCREEN &&
-            currentRoute != RegistrationScreens.USER_AGREE_SCREEN
+            currentRoute != RegistrationScreens.USER_AGREE_SCREEN &&
+            currentRoute != RegistrationScreens.SMS_VERIFY &&
+            currentRoute != RegistrationScreens.START_SCREEN &&
+            currentRoute != LeafHomeScreen.NO_INTERNET_SCREEN &&
+            currentRoute != LeafHomeScreen.SERVER_ERROR_SCREEN &&
+            currentRoute != LeafScreen.CHANGE_PASSWORD_SCREEN
 }
 
 @Preview

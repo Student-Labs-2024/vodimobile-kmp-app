@@ -36,8 +36,9 @@
 "exitFirstBtnText" = "Выйти";
 "exitSecondBtnText" = "Отмена";
 "exitAlertText" = "Вы не сможете арендовать автомобили без аккаунта";
-"alertSavePersonDataTitle" = "Ошибка сохранения";
-"alertSavePersonDataText" = "Ваши данные не были сохранены. Повторите попытку";
+"alertErrorSavingTitle" = "Ошибка сохранения";
+"alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
+"alertSavePersonDataTitle" = "Ваши данные успешно сохранены";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";

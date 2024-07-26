@@ -1,7 +1,9 @@
 package com.vodimobile.presentation
 
+import android.annotation.SuppressLint
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import java.text.SimpleDateFormat
 
 object BottomAppBarAlpha {
     const val BACKGROUND_ALPHA = 0.612f
@@ -15,4 +17,9 @@ object ProgressDialog {
 
 object Anim{
     const val fastAnimDuration = 200
+}
+
+object DateFormat {
+    @SuppressLint("SimpleDateFormat")
+    val formatter = SimpleDateFormat("dd MMMM yyyy")
 }

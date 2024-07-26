@@ -41,6 +41,20 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    lint {
+        checkTestSources = true
+        ignoreTestSources = true
+        checkGeneratedSources = true
+        checkDependencies = true
+        targetSdk = 34
+
+        htmlReport = true
+        htmlOutput = file("lint-report.html")
+        textReport = true
+        absolutePaths = false
+        lintConfig = file("lint.xml")
+    }
 }
 
 dependencies {
@@ -55,6 +69,9 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.androidx.material)
+
+    //Compose Material Icons
+    implementation(libs.compose.icons)
 
     // Navigation
     implementation (libs.androidx.navigation.compose)
@@ -76,4 +93,10 @@ dependencies {
     implementation(libs.koin.test)
     implementation(libs.koin.test.junit4)
     implementation(libs.koin.android.test)
+
+    //Test coroutines
+    implementation(libs.kotlinx.coroutines.test)
+    
+    //Lint
+    lintChecks(libs.compose.lint.checks)
 }
