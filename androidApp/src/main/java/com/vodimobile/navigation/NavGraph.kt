@@ -2,6 +2,10 @@ package com.vodimobile.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,34 +23,36 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
-import com.vodimobile.presentation.screens.home.HomeScreen
-import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
-import com.vodimobile.presentation.screens.orders.OrdersScreen
-import com.vodimobile.presentation.screens.profile.ProfileScreen
-import com.vodimobile.presentation.screens.profile.ProfileViewModel
-import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
-import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
-import com.vodimobile.presentation.screens.rules.RuleScreen
-import com.vodimobile.presentation.screens.rules.RulesViewModel
-import com.vodimobile.presentation.screens.start_screen.StartScreen
-import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
+import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
+import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
 import com.vodimobile.presentation.screens.edit_profile.EditProfileScreen
 import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
-import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
+import com.vodimobile.presentation.screens.home.HomeViewModel
+import com.vodimobile.presentation.screens.home.store.HomeState
+import com.vodimobile.presentation.screens.home.HomeScreen
+import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
+import com.vodimobile.presentation.screens.orders.OrdersScreen
+import com.vodimobile.presentation.screens.profile.ProfileScreen
+import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
+import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
+import com.vodimobile.presentation.screens.rules.RuleScreen
+import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.screens.sms.SmsScreen
 import com.vodimobile.presentation.screens.sms.SmsViewModel
+import com.vodimobile.presentation.screens.start_screen.StartScreen
+import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -60,22 +66,48 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             route = RootScreen.HOME_SCREEN,
             startDestination = LeafHomeScreen.NO_INTERNET_SCREEN
         ) {
-            composable(route = LeafHomeScreen.HOME_SCREEN) { backEntry ->
-                val selectedDate: Long =
-                    MutableStateFlow(backEntry.arguments?.getLong("selected-date")).collectAsState().value
-                        ?: System.currentTimeMillis()
-                HomeScreen()
+            composable(
+                route = LeafHomeScreen.HOME_SCREEN,
+                arguments = listOf(
+                    navArgument(name = "selected-date") {
+                        type = NavType.LongType
+                        defaultValue = 0L
+                    },
+                )
+            ) { backStackEntry ->
+                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-date",
+                    initialValue = 0L,
+                ).collectAsState().value
+                val homeViewModel: HomeViewModel = koinViewModel()
+                HomeScreen(
+                    homeState = homeViewModel.homeState.collectAsState(
+                        initial = HomeState(
+                            selectedDate = selectedDate
+                        )
+                    ),
+                    homeEffect = homeViewModel.homeEffect,
+                    onHomeIntent = homeViewModel::onIntent,
+                    navHostController = navHostController,
+                    selectedDate = selectedDate,
+                    modifier = modifier
+                )
             }
-            dialog(route = DialogIdentifiers.DATE_SELECT_DIALOG) { backEntry ->
+            dialog(
+                route = DialogIdentifiers.DATE_SELECT_DIALOG
+            ) { backEntry ->
+                var selectedDate by remember { mutableStateOf(0L) }
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
-                    onConfirmClick = { selectedDate ->
-                        navHostController.currentBackStackEntry?.savedStateHandle?.set(
+                    onConfirmClick = { value ->
+                        navHostController.previousBackStackEntry?.savedStateHandle?.set(
                             "selected-date",
-                            selectedDate
+                            value,
                         )
+                        selectedDate = value
                         navHostController.navigateUp()
-                    }
+                    },
+                    initialDateInMillis = if (selectedDate == 0L) System.currentTimeMillis() else selectedDate
                 )
             }
             composable(
@@ -178,6 +210,16 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onEditProfileIntent = editProfileViewModel::onIntent,
                     editProfileState = editProfileViewModel.editProfileState.collectAsState(),
                     editProfileEffect = editProfileViewModel.editProfileEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = LeafScreen.CHANGE_PASSWORD_SCREEN) {
+                val changePasswordViewModel: ChangePasswordViewModel = koinViewModel()
+                ChangePasswordScreen(
+                    onChangePasswordIntent = changePasswordViewModel::onIntent,
+                    oldPasswordState = changePasswordViewModel.oldPasswordState.collectAsState(),
+                    newPasswordState = changePasswordViewModel.newPasswordState.collectAsState(),
+                    changePasswordEffect = changePasswordViewModel.changePasswordEffect,
                     navHostController = navHostController
                 )
             }

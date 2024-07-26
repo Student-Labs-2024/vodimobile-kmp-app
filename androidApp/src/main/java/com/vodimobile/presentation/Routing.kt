@@ -14,12 +14,14 @@ object LeafScreen {
     const val FAQ_SCREEN = "faq"
     const val CONTACTS_SCREEN = "contacts"
     const val EDIT_PROFILE = "edit_profile"
+    const val CHANGE_PASSWORD_SCREEN = "change_password"
 }
 
 object LeafHomeScreen {
     const val HOME_SCREEN = "home"
     const val NO_INTERNET_SCREEN = "no_internet"
     const val SERVER_ERROR_SCREEN = "server_error"
+    const val ALL_CARS = "all_cars"
 }
 
 object RegistrationScreens {

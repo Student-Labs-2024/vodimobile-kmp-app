@@ -10,7 +10,6 @@ import UIKit
 import SwiftUI
 import RswiftResources
 
-
 extension Image {
     static let xmark: Image = Image(systemName: "xmark")
     static let checkmark: Image = Image(systemName: "checkmark")
@@ -21,6 +20,9 @@ extension Image {
     static let letter: Image = Image(systemName: "envelope")
     static let person: Image = Image(systemName: "person")
     static let personFill: Image = Image(systemName: "person.fill")
+    static let rightArrowCircleFill: Image = Image(systemName: "arrow.forward.circle.fill")
+    static let bell: Image = Image(systemName: "bell")
+    static let minus: Image = Image(systemName: "minus")
 }
 
 extension Font {
@@ -83,28 +85,27 @@ struct BorderedTextFieldStyle: TextFieldStyle {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(!isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+                    .stroke(
+                        !isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                        lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0
+                    )
             )
     }
 }
 
-struct CustomTextFieldStyle: TextFieldStyle {
-    var text: String
-    var isFocused: Bool
-    var isValid: Bool
-    
+struct BorderedDateTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<_Label>) -> some View {
         configuration
             .frame(alignment: .leading)
-            .font(.paragraph4)
-            .padding(16)
-            .foregroundStyle(Color.black)
+            .font(.paragraph2)
+            .padding(.vertical, 16)
+            .padding(.horizontal, 56)
+            .foregroundStyle(.black)
             .multilineTextAlignment(.leading)
-            .background(Color(R.color.grayLightColor))
-            .cornerRadius(12)
+            .cornerRadius(10)
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(!isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0)
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color(R.color.grayDarkColor), lineWidth: 1)
             )
     }
 }

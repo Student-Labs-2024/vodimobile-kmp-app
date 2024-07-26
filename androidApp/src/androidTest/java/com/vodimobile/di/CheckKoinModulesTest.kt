@@ -1,6 +1,5 @@
 package com.vodimobile.di
 
-import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -9,9 +8,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.context.unloadKoinModules
 import org.koin.test.KoinTest
-import org.koin.test.inject
 import org.koin.test.verify.verify
-import kotlin.test.assertNotNull
 
 class CheckKoinModulesTest : KoinTest {
 
@@ -19,7 +16,7 @@ class CheckKoinModulesTest : KoinTest {
     fun start() {
         stopKoin()
         startKoin {
-            modules(viewModelModule, validatorModule, repositoryModule)
+            modules(viewModelModule, validatorModule, repositoryModule, androidModule)
         }
     }
 
@@ -45,5 +42,11 @@ class CheckKoinModulesTest : KoinTest {
     @Test
     fun checkValidatorModule() {
         validatorModule.verify()
+    }
+
+    @OptIn(KoinExperimentalAPI::class)
+    @Test
+    fun checkAndroidModule() {
+        androidModule.verify()
     }
 }

@@ -67,6 +67,9 @@ navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-co
 #Lint
 compose-lint-checks = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "composeLintChecks" }
 
+#Compose Material Icons
+compose-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose"}
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

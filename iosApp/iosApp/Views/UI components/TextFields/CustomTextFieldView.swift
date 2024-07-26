@@ -93,10 +93,13 @@ struct CustomTextFieldView: View {
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(!isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor), lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0)
+                            .stroke(
+                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                                lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
+                            )
                     )
                     .tint(.black)
-                    .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                    .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                     .keyboardType(keyboardType)
                     .textInputAutocapitalization(.never)
                     .focused($isFocused)
@@ -121,10 +124,10 @@ struct CustomTextFieldView: View {
                     )
             } else {
                 TextField(placeholder, text: $fieldContent)
-                    .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                    .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                     .keyboardType(keyboardType)
                     .textInputAutocapitalization(.never)
-                    .onChange(of: fieldContent, perform: { oldValue in
+                    .onChange(of: fieldContent, perform: { _ in
                         validateInput()
                     })
                     .focused($isFocused)
@@ -154,7 +157,6 @@ struct CustomTextFieldView: View {
                         self.isEditing = false
                     }
             }
-
             
             Text(errorMessage)
                 .font(.paragraph6)

@@ -10,48 +10,52 @@ import SwiftUI
 
 struct PersonDataView: View {
     @ObservedObject private var viewModel: PersonalDataViewModel
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case fullname, email, phone
+    }
     
     init(viewModel: PersonalDataViewModel = .init()) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        ZStack {
-            VStack {
-                VStack(alignment: .leading, spacing: 25) {
-                    Text(R.string.localizable.yourDataText).font(.header3)
-                    
-                    UnderlineTextField(text: $viewModel.userInput.fullname, fieldType: .fullName)
-                    UnderlineTextField(text: $viewModel.userInput.email, fieldType: .email)
-                    UnderlineTextField(text: $viewModel.userInput.phone, fieldType: .phone)
-                }
-                .padding(.horizontal, 32)
-                .padding(.vertical, 40)
-                .background(Color.white)
-                .cornerRadius(20)
-                .padding(.horizontal, 16)
-                .padding(.top, 50)
+        VStack {
+            VStack(alignment: .leading, spacing: 25) {
+                Text(R.string.localizable.yourDataText).font(.header3)
                 
-                Spacer()
+                UnderlineTextField(text: $viewModel.userInput.fullname, isValid: $viewModel.userInput.fullnameIsValid, fieldType: .fullName)
+                    .focused($focusedField, equals: .fullname)
+                UnderlineTextField(text: $viewModel.userInput.email, isValid: $viewModel.userInput.emailIsValid, fieldType: .email)
+                    .focused($focusedField, equals: .email)
+                    .textInputAutocapitalization(.never)
+                UnderlineTextField(text: $viewModel.userInput.phone, isValid: $viewModel.userInput.phoneIsValid, fieldType: .phone)
+                    .focused($focusedField, equals: .phone)
             }
-            .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.showAlert) {
-                Button(R.string.localizable.closeButton(), role: .cancel) {
-                    $viewModel.showAlert.wrappedValue.toggle()
-                }
-            } message: {
-                Text(R.string.localizable.alertSavePersonDataText)
-            }
+            .padding(.horizontal, 32)
+            .padding(.vertical, 40)
+            .background(Color.white)
+            .cornerRadius(20)
+            .padding(.horizontal, 16)
+            .padding(.top, 50)
             
-            if $viewModel.isLoading.wrappedValue {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 8, style: .circular)
-                        .opacity(0.5)
-                        .frame(width: 160, height: 160)
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .tint(.white)
-                    .scaleEffect(2)
-                }
+            Spacer()
+        }
+        .onChange(of: $viewModel.userInput.wrappedValue) { _ in
+            $viewModel.dataIsEditing.wrappedValue = true
+        }
+        .loadingOverlay(isLoading: $viewModel.isLoading)
+        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert) {
+            Button(R.string.localizable.closeButton(), role: .cancel) {
+                $viewModel.showErrorAlert.wrappedValue.toggle()
+            }
+        } message: {
+            Text(R.string.localizable.alertErrorSavingText)
+        }
+        .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.dataHasBeenSaved) {
+            Button(R.string.localizable.closeButton(), role: .cancel) {
+                $viewModel.dataHasBeenSaved.wrappedValue.toggle()
             }
         }
         .background(Color(R.color.grayLightColor).ignoresSafeArea())
@@ -61,8 +65,13 @@ struct PersonDataView: View {
                 title: R.string.localizable.profileScreenTitle,
                 trailingToolbarItem: TrailingToolbarItem(
                     image: Image.checkmark,
-                    control: $viewModel.userInput,
-                    actionAfterTapping: viewModel.makeFakeNetworkRequest)
+                    observedObject: viewModel,
+                    actionAfterTapping: {
+                        viewModel.saveEditedUserData()
+                        viewModel.dataIsEditing = false
+                        focusedField = nil
+                    }
+                )
             )
         }
     }
