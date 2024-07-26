@@ -24,12 +24,17 @@
 "nextBtnName" = "Далее";
 "resendBtnText" = "Отправить повторно";
 "closeButton" = "Закрыть";
+"clearButton" = "Очистить";
+"saveButton" = "Сохранить";
+"findAutoButton" = "Найти машину";
 "reconnectButton" = "Повторить попытку";
 
 // Field names
 "email" = "Email";
 "phone" = "Номер телефона";
 "fullName" = "ФИО";
+"dateTextFieldPlaceholder" = "Когда?";
+"dateTextFieldTitle" = "Выберите даты аренды";
 
 // Alert text
 "exitAlertTitle" = "Вы уверены, что хотите выйти из аккаунта?";

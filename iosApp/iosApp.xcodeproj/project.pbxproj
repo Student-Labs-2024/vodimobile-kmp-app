@@ -37,6 +37,9 @@
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
 		9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2262C3FC024003A0BCB /* PersonDataView.swift */; };
+		935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */; };
+		935E1A8E2C51365800A35E4E /* ExpantableToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */; };
+		935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */; };
 		935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */; };
 		935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */; };
 		93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93577F112C4E6C85005FEAFF /* LoadingView.swift */; };
@@ -108,6 +111,9 @@
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
 		9351F2262C3FC024003A0BCB /* PersonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataView.swift; sourceTree = "<group>"; };
+		935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWithOffset.swift; sourceTree = "<group>"; };
+		935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpantableToolbar.swift; sourceTree = "<group>"; };
+		935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDatePickerView.swift; sourceTree = "<group>"; };
 		935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectErrorView.swift; sourceTree = "<group>"; };
 		935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectErrorView.swift; sourceTree = "<group>"; };
 		93577F112C4E6C85005FEAFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -260,6 +266,9 @@
 				936198882C3F133E00B0198D /* TabbarItemView.swift */,
 				939D49152C41615000BD65E1 /* CustomToolbar.swift */,
 				931FDDB32C46FBE8007954FC /* FilledButton.swift */,
+				935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */,
+				935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */,
+				935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */,
 				93577F112C4E6C85005FEAFF /* LoadingView.swift */,
 			);
 			path = "UI components";
@@ -505,11 +514,14 @@
 				935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */,
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
 				934D957B2C4902A20027DFC8 /* ContactsViewModel.swift in Sources */,
+				935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */,
 				936198822C3F0CA100B0198D /* MainView.swift in Sources */,
 				93654DEE2C3E932E001CFB7D /* Constants.swift in Sources */,
 				939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */,
 				93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */,
 				936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */,
+				935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */,
+				935E1A8E2C51365800A35E4E /* ExpantableToolbar.swift in Sources */,
 				934F0D512C3D692A000B256E /* SceneDelegate.swift in Sources */,
 				936198892C3F133E00B0198D /* TabbarItemView.swift in Sources */,
 				934F0D502C3D692A000B256E /* AppDelegate.swift in Sources */,

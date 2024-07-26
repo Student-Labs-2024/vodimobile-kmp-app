@@ -25,6 +25,9 @@ public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 public let textRegex = #"^[a-zA-Zа-яА-ЯёЁ]+(([' -][a-zA-Zа-яА-ЯёЁ ])?[a-zA-Zа-яА-ЯёЁ]*)*$"#
 
 // UI paddings
+public let screenWidth = UIScreen.main.bounds.width
+public let screenHeight = UIScreen.main.bounds.height
+
 /// UI general paddings
 public let horizontalPadding: CGFloat = 16
 public let checkboxLeadingPadding: CGFloat = 14

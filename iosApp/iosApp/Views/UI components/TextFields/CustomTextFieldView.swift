@@ -99,7 +99,7 @@ struct CustomTextFieldView: View {
                             )
                     )
                     .tint(.black)
-                    .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                    .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                     .keyboardType(keyboardType)
                     .textInputAutocapitalization(.never)
                     .focused($isFocused)
@@ -124,7 +124,7 @@ struct CustomTextFieldView: View {
                     )
             } else {
                 TextField(placeholder, text: $fieldContent)
-                    .textFieldStyle(CustomTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
+                    .textFieldStyle(BorderedTextFieldStyle(text: fieldContent, isFocused: isFocused, isValid: isValid))
                     .keyboardType(keyboardType)
                     .textInputAutocapitalization(.never)
                     .onChange(of: fieldContent, perform: { _ in

@@ -58,3 +58,13 @@ struct UserInputData: Equatable {
         lhs.phone == rhs.phone
     }
 }
+
+struct UserInputData {
+    var fullname = ""
+    var email = ""
+    var phone = ""
+    
+    func checkEmpty() -> Bool {
+        !self.fullname.isEmpty && !self.email.isEmpty && !self.phone.isEmpty
+    }
+}
