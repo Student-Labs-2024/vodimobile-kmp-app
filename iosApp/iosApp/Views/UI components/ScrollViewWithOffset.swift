@@ -59,7 +59,6 @@ struct ScrollViewOffsetTracker: View {
                         .origin
                 )
         }
-        .frame(height: 0)
     }
 }
 

@@ -26,6 +26,9 @@ public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
 public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 
 // UI paddings
+public let screenWidth = UIScreen.main.bounds.width
+public let screenHeight = UIScreen.main.bounds.height
+
 /// UI general paddings
 public let horizontalPadding: CGFloat = 16
 public let checkboxLeadingPadding: CGFloat = 14

@@ -13,17 +13,10 @@ struct ModalDatePickerView: View {
     @Environment(\.timeZone) var timeZone
     @Binding var showDatePicker: Bool
     @Binding var dateRange: ClosedRange<Date>?
+    private let currentDate = Date()
     
     var bounds: PartialRangeFrom<Date> {
-        let start = calendar.date(
-            from: DateComponents(
-                timeZone: timeZone,
-                year: 2022,
-                month: 6,
-                day: 20)
-        )!
-        
-        return start...
+        currentDate...
     }
     
     var body: some View {
@@ -89,7 +82,7 @@ struct ModalDatePickerView: View {
         .cornerRadius(13)
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 16)
-        .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+        .position(x: screenWidth / 2, y: screenHeight / 2)
         .transition(.scale)
     }
 }

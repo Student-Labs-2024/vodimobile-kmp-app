@@ -11,7 +11,6 @@ import SwiftUI
 struct MainView: View {
     @State private var isExpanded = true
     @State private var showDatePicker = false
-    @State private var notifBadgeCount: Int = 0
     @State private var dateRange: ClosedRange<Date>?
     @State private var scrollOffset: CGPoint = .zero
     @State private var headerHeight: CGFloat = 0
@@ -40,7 +39,6 @@ struct MainView: View {
                 isExpanded: $isExpanded,
                 dateRange: $dateRange,
                 showDatePicker: $showDatePicker,
-                notifBadgeCount: $notifBadgeCount,
                 headerHeight: $headerHeight,
                 dragOffset: $dragOffset
             )

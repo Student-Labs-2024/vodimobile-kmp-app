@@ -13,7 +13,6 @@ struct ExpandableToolbar: View {
     @Binding var isExpanded: Bool
     @Binding var dateRange: ClosedRange<Date>?
     @Binding var showDatePicker: Bool
-    @Binding var notifBadgeCount: Int
     @Binding var headerHeight: CGFloat
     @Binding var dragOffset: CGSize
     
@@ -27,27 +26,10 @@ struct ExpandableToolbar: View {
                         Button(action: {
                             // Action for bell button
                         }) {
-                            ZStack(alignment: .topTrailing) {
-                                Image.bell
-                                    .resizable()
-                                    .frame(width: 20, height: 24)
-                                    .foregroundColor(.white)
-                                
-                                if notifBadgeCount != 0 {
-                                    GeometryReader { geometry in
-                                        Text("\(notifBadgeCount)")
-                                            .foregroundColor(.white)
-                                            .font(.caption2)
-                                            .padding(5)
-                                            .background(Circle().foregroundColor(Color.red))
-                                            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .topTrailing)
-                                            .offset(x: 8, y: -8)
-                                            .minimumScaleFactor(0.5)
-                                            .lineLimit(1)
-                                    }
-                                    .frame(width: 24, height: 24, alignment: .topTrailing)
-                                }
-                            }
+                            Image.bell
+                                .resizable()
+                                .frame(width: 20, height: 24)
+                                .foregroundColor(.white)
                         }
                     }
                     .padding(.horizontal)
