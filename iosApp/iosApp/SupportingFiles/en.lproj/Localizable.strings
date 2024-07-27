@@ -37,6 +37,16 @@
 "dateTextFieldPlaceholder" = "When?";
 "dateTextFieldTitle" = "Select the rental dates";
 "password" = "Password";
+"passwordPlaceholder" = "Input your password";
+"fullnamePlaceholder" = "Input your full name";
+// Error strings
+"incorrectFullName" = "Invalid format. Only letters without characters are allowed to be entered";
+"incorrectPhone" = "Incorrect phone number format";
+"alreadyExistsPhone" = "Such a phone already exists. Log in";
+"incorrectPass" = "Incorrect password";
+"tooShortPass" ="Password less than 8 characters";
+"noSpecSymboldsInPass" = "Password must contain at least one special character";
+"noUpperLettersInPass" = "Password must contain at least one capital letter";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";

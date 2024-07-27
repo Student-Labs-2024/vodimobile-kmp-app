@@ -9,14 +9,12 @@
 import SwiftUI
 import Combine
 
-class RegistrationViewModel: ObservableObject {
+class AuthViewModel: ObservableObject {
     // Ввод
-    @Published var fullname = ""
     @Published var phone = ""
     @Published var password = ""
 
     // Вывод
-    @Published var isFullnameValid = false
     @Published var isPhoneValid = false
     @Published var isPasswordLengthValid = false
     @Published var isPasswordHasCapitalLetter = false
@@ -27,21 +25,6 @@ class RegistrationViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
-        $fullname
-            .receive(on: RunLoop.main)
-            .map { fullname in
-                let pattern = textRegex
-                if let _ = fullname.range(of: pattern, options: .regularExpression) {
-                    return true
-                } else {
-                    if !fullname.isEmpty {
-                        self.inputError = .incorrectFullName
-                        return false
-                    } else { return true }
-                }
-            }
-            .assign(to: \.isFullnameValid, on: self)
-            .store(in: &cancellableSet)
         
         $phone
             .receive(on: RunLoop.main)
@@ -54,10 +37,8 @@ class RegistrationViewModel: ObservableObject {
                 {
                     return true
                 } else {
-                    if !phone.isEmpty {
-                        self.inputError = .incorrectFullName
-                        return false
-                    } else { return true }
+                    self.inputError = .incorrectFullName
+                    return false
                 }
             }
             .assign(to: \.isPhoneValid, on: self)

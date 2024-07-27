@@ -29,6 +29,8 @@
 "findAutoButton" = "Найти машину";
 "reconnectButton" = "Повторить попытку";
 "password" = "Пароль";
+"passwordPlaceholder" = "Придумайте пароль";
+"fullnamePlaceholder" = "Введите свое ФИО";
 
 // Field names
 "email" = "Email";
@@ -36,6 +38,15 @@
 "fullName" = "ФИО";
 "dateTextFieldPlaceholder" = "Когда?";
 "dateTextFieldTitle" = "Выберите даты аренды";
+
+// Error strings
+"incorrectFullName" = "Неверный формат. Для ввода допускается только буквы без символов";
+"incorrectPhone" = "Неверный формат номера телефона";
+"alreadyExistsPhone" = "Такой телефон уже существует. Осуществите вход";
+"incorrectPass" = "Пароль некорректный";
+"tooShortPass" = "Пароль меньше 8 символов";
+"noSpecSymboldsInPass" = "Пароль должен содержать хотя бы один спец.символ";
+"noUpperLettersInPass" = "Пароль должен содержать хотя бы одну заглавную букву";
 
 // Alert text
 "exitAlertTitle" = "Вы уверены, что хотите выйти из аккаунта?";

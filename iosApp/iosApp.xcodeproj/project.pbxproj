@@ -18,6 +18,7 @@
 		93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FBC2C495594008EADB4 /* ConditionViewModel.swift */; };
 		93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 93351C852C42F7C100DD882A /* iPhoneNumberField */; };
 		933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */; };
+		933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF9D32C55850A005C57C4 /* AuthViewModel.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -32,7 +33,6 @@
 		934F0D512C3D692A000B256E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D4F2C3D692A000B256E /* SceneDelegate.swift */; };
 		934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D552C3D6DCB000B256E /* RegistrationScreenView.swift */; };
 		934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D572C3D76E3000B256E /* AuthScreenView.swift */; };
-		934F0D5B2C3D775F000B256E /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */; };
 		934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */; };
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
@@ -55,6 +55,9 @@
 		936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */; };
 		936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B184D2C465392000AC6F8 /* FAQViewModel.swift */; };
 		936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936F37D62C53EAF500F56304 /* IphonePhoneTextField.swift */; };
+		9373612E2C54BC9F00132C14 /* TogglableSecureField in Frameworks */ = {isa = PBXBuildFile; productRef = 9373612D2C54BC9F00132C14 /* TogglableSecureField */; };
+		937361402C54C21D00132C14 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373613F2C54C21D00132C14 /* BorderedTextField.swift */; };
+		937361422C54C9D200132C14 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937361412C54C9D200132C14 /* PasswordTextField.swift */; };
 		93745BC52C41A57700889B42 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC42C41A57600889B42 /* FAQView.swift */; };
 		93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */; };
 		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
@@ -94,6 +97,7 @@
 		93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellView.swift; sourceTree = "<group>"; };
 		93328FBC2C495594008EADB4 /* ConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionViewModel.swift; sourceTree = "<group>"; };
 		933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewModel.swift; sourceTree = "<group>"; };
+		933EF9D32C55850A005C57C4 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -108,7 +112,6 @@
 		934F0D4F2C3D692A000B256E /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		934F0D552C3D6DCB000B256E /* RegistrationScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenView.swift; sourceTree = "<group>"; };
 		934F0D572C3D76E3000B256E /* AuthScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreenView.swift; sourceTree = "<group>"; };
-		934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
 		934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarView.swift; sourceTree = "<group>"; };
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 		936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleViewModel.swift; sourceTree = "<group>"; };
 		936B184D2C465392000AC6F8 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
 		936F37D62C53EAF500F56304 /* IphonePhoneTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IphonePhoneTextField.swift; sourceTree = "<group>"; };
+		9373613F2C54C21D00132C14 /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		937361412C54C9D200132C14 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		93745BC42C41A57600889B42 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsView.swift; sourceTree = "<group>"; };
 		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
@@ -147,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9373612E2C54BC9F00132C14 /* TogglableSecureField in Frameworks */,
 				93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */,
 				93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */,
 			);
@@ -216,8 +222,9 @@
 			isa = PBXGroup;
 			children = (
 				93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */,
-				934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */,
 				936F37D62C53EAF500F56304 /* IphonePhoneTextField.swift */,
+				9373613F2C54C21D00132C14 /* BorderedTextField.swift */,
+				937361412C54C9D200132C14 /* PasswordTextField.swift */,
 			);
 			path = TextFields;
 			sourceTree = "<group>";
@@ -322,6 +329,7 @@
 				93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */,
 				93328FBC2C495594008EADB4 /* ConditionViewModel.swift */,
 				938872A42C5410ED00C49587 /* RegistrationViewModel.swift */,
+				933EF9D32C55850A005C57C4 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -386,6 +394,7 @@
 			packageProductDependencies = (
 				93351C852C42F7C100DD882A /* iPhoneNumberField */,
 				93D1E05E2C45048200919749 /* RswiftLibrary */,
+				9373612D2C54BC9F00132C14 /* TogglableSecureField */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -420,6 +429,7 @@
 				93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */,
 				9370C1932C501B6100C783D8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				9373612C2C54BC9F00132C14 /* XCRemoteSwiftPackageReference "TogglableSecureField" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -537,7 +547,6 @@
 				935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */,
 				936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */,
 				936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */,
-				934F0D5B2C3D775F000B256E /* CustomTextFieldView.swift in Sources */,
 				934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */,
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,
 				93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */,
@@ -546,8 +555,10 @@
 				93328FB92C4947A1008EADB4 /* ProfileViewModel.swift in Sources */,
 				934D957F2C4913290027DFC8 /* MediaCellView.swift in Sources */,
 				931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */,
+				937361402C54C21D00132C14 /* BorderedTextField.swift in Sources */,
 				93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
+				937361422C54C9D200132C14 /* PasswordTextField.swift in Sources */,
 				93A257772C40F27900316EDE /* ContactsView.swift in Sources */,
 				936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */,
 				937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */,
@@ -556,6 +567,7 @@
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,
+				933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */,
 				936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */,
 				93745BC52C41A57700889B42 /* FAQView.swift in Sources */,
 				93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */,
@@ -805,6 +817,14 @@
 				minimumVersion = 0.55.1;
 			};
 		};
+		9373612C2C54BC9F00132C14 /* XCRemoteSwiftPackageReference "TogglableSecureField" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/perfaram/TogglableSecureField";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mac-cain13/R.swift";
@@ -820,6 +840,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
 			productName = iPhoneNumberField;
+		};
+		9373612D2C54BC9F00132C14 /* TogglableSecureField */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9373612C2C54BC9F00132C14 /* XCRemoteSwiftPackageReference "TogglableSecureField" */;
+			productName = TogglableSecureField;
 		};
 		93D1E05E2C45048200919749 /* RswiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;

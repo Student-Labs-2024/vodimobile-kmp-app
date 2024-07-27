@@ -13,13 +13,14 @@ struct AuthScreenView: View {
     @State private var phoneIsValid: Bool = false
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
+    @ObservedObject private var viewModel = AuthViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
+                BorderedTextField(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone, inputErrorType: $viewModel.inputError)
                     .onChange(of: phoneIsValid) { _ in
                         toggleButtonEnabled()
                     }

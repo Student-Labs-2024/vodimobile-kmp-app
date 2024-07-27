@@ -9,12 +9,6 @@
 import SwiftUI
 
 struct RegistrationScreenView: View {
-    @State private var fullnameFieldText = ""
-    @State private var fullnameIsValid = false
-    @State private var phoneFieldText = ""
-    @State private var phoneIsValid = false
-    @State private var passFieldText = ""
-    @State private var passIsValid = false
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
     @ObservedObject private var viewModel = RegistrationViewModel()
@@ -24,26 +18,28 @@ struct RegistrationScreenView: View {
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                CustomTextFieldView(
+                BorderedTextField(
                     fieldContent: $viewModel.fullname,
                     isValid: $viewModel.isFullnameValid,
-                    fieldType: .fullName
+                    fieldType: .fullName,
+                    inputErrorType: $viewModel.inputError
                 )
                 
-                CustomTextFieldView(
+                BorderedTextField(
                     fieldContent: $viewModel.phone,
                     isValid: $viewModel.isPhoneValid,
                     fieldType: .phone,
-                    isPasswordVisible: $viewModel.isPasswordVisible
+                    inputErrorType: $viewModel.inputError
                 )
                 
-                CustomTextFieldView(
+                BorderedTextField(
                     fieldContent: $viewModel.password,
                     isValid: $viewModel.isPasswordValid,
-                    fieldType: .password
+                    fieldType: .password,
+                    inputErrorType: $viewModel.inputError
                 )
-
-                NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
+                
+                NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())
@@ -80,7 +76,39 @@ struct RegistrationScreenView: View {
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = fullnameIsValid && phoneIsValid && passIsValid && checkboxSelected
+        isButtonEnabled = viewModel.isFullnameValid &&
+        viewModel.isPhoneValid &&
+        viewModel.isPasswordValid &&
+        checkboxSelected
+    }
+}
+
+enum InputErrorType: String {
+    case incorrectFullName
+    case incorrectPhone
+    case alreadyExistsPhone
+    case incorrectPass
+    case tooShortPass
+    case noSpecSymboldsInPass
+    case noUpperLettersInPass
+    
+    var localizedString: String {
+        switch self {
+        case .incorrectFullName:
+            return R.string.localizable.incorrectFullName()
+        case .incorrectPhone:
+            return R.string.localizable.incorrectPhone()
+        case .alreadyExistsPhone:
+            return R.string.localizable.alreadyExistsPhone()
+        case .incorrectPass:
+            return R.string.localizable.incorrectPass()
+        case .tooShortPass:
+            return R.string.localizable.tooShortPass()
+        case .noSpecSymboldsInPass:
+            return R.string.localizable.noSpecSymboldsInPass()
+        case .noUpperLettersInPass:
+            return R.string.localizable.noUpperLettersInPass()
+        }
     }
 }
 

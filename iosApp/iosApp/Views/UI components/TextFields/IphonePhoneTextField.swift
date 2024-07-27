@@ -12,15 +12,13 @@ import iPhoneNumberField
 struct IphonePhoneTextField: View {
     @Binding var fieldContent: String
     @Binding var isValid: Bool
-    @Binding var errorMessage: String
     @Binding var isEditing: Bool
+    @Binding var errorMessage: String
     @FocusState.Binding var isFocused: Bool
-    let validateFunc: () -> ()
     
-    private let fieldName: String = TextFieldType.phone.localizedStr
-    private let placeholder: String = "+7"
-    private let keyboardType: UIKeyboardType = .phonePad
-    private let regex: String = phoneRegex
+    let fieldName: String = TextFieldType.phone.localizedStr
+    let placeholder: String = "+7"
+    let keyboardType: UIKeyboardType = .phonePad
     
     var body: some View {
         iPhoneNumberField(placeholder, text: $fieldContent)
@@ -29,6 +27,7 @@ struct IphonePhoneTextField: View {
             .clearButtonMode(.never)
             .maximumDigits(14)
             .onEditingBegan { _ in
+                isEditing = true
                 if fieldContent.isEmpty {
                     fieldContent = "+"
                 }
@@ -37,9 +36,10 @@ struct IphonePhoneTextField: View {
                 if fieldContent == "+" {
                     fieldContent = ""
                 }
+                isEditing = false
             }
             .onEdit { _ in
-                validateFunc()
+                isEditing = true
             }
             .font(.paragraph4)
             .padding(16)
@@ -60,23 +60,26 @@ struct IphonePhoneTextField: View {
             .textInputAutocapitalization(.never)
             .focused($isFocused)
             .onSubmit {
+                isEditing = false
                 isFocused = false
-                validateFunc()
             }
             .overlay(
                 HStack {
                     Spacer()
                     Button(action: {
                         self.fieldContent = ""
-                        validateFunc()
+                        self.errorMessage = ""
+                        self.isFocused = false
+                        self.isEditing = false
                     }) {
                         Image.xmark
                             .foregroundColor(Color(R.color.grayDarkColor))
                             .padding(8)
                     }
                 }
-                .padding(.trailing, 8)
-                .opacity(self.isEditing ? 1 : 0)
+                    .padding(.trailing, 8)
+                    .opacity(self.isEditing ? 1 : 0)
             )
+        
     }
 }
