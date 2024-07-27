@@ -1,30 +1,21 @@
-package com.vodimobile.domain.model
+package com.vodimobile.data.repository.car
 
+import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.Tariff
+import com.vodimobile.domain.repository.car.CarRepository
 import com.vodimobile.shared.resources.SharedRes
-import dev.icerock.moko.resources.ImageResource
-import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.desc.Resource
 import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
-data class Car(
-    val carId: Int,
-    val model: StringResource,
-    val number: String,
-    val cityId: Int,
-    val year: Long?,
-    val transmission: StringResource,
-    val wheelDrive: StringResource,
-    val tankValue: StringResource,
-    val deposit: Float?,
-    val tariffs: List<Tariff>,
-    val images: List<ImageResource>,
-) {
-    companion object {
-        fun empty(): Car {
-            val currentMoment: Instant = Clock.System.now()
-            return Car(
+class CarRepositoryImpl : CarRepository {
+    override fun getPopularCars(): List<Car> {
+
+        val currentMoment: Instant = Clock.System.now()
+
+        return listOf(
+            Car(
                 carId = 0,
                 model = SharedRes.strings.name_0,
                 number = "",
@@ -45,6 +36,6 @@ data class Car(
                     SharedRes.images.hyundai_solaris_1
                 )
             )
-        }
+        )
     }
 }

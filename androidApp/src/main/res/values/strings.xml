@@ -71,7 +71,7 @@
 
 
     <string name="tariff">от %s р/сут.</string>
-    <string name="car">литра </string>
+    <string name="car">%s литра</string>
     <string name="spec_tile">Характеристики:</string>
     <string name="transmis">Коробка</string>
     <string name="wheel_drive">Привод</string>
