@@ -28,7 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.repository.car.CarRepository
+import com.vodimobile.domain.storage.cars.CarsStorage
+import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.TestTags
@@ -128,7 +132,13 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        val homeViewModel = HomeViewModel()
+        val homeViewModel = HomeViewModel(
+            CarsStorage(
+                getPopularCarsUseCase = GetPopularCarsUseCase(
+                    CarRepositoryImpl()
+                )
+            )
+        )
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,
@@ -143,7 +153,13 @@ private fun HomeScreenDarkPreview() {
 @Composable
 private fun HomeScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        val homeViewModel = HomeViewModel()
+        val homeViewModel = HomeViewModel(
+            CarsStorage(
+                getPopularCarsUseCase = GetPopularCarsUseCase(
+                    CarRepositoryImpl()
+                )
+            )
+        )
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,

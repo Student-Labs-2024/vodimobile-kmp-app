@@ -41,7 +41,7 @@ kotlin {
             implementation(libs.skie.annotations)
 
             //Koin
-//            api(libs.koin.core)
+            api(libs.koin.core)
 
             //Mutex
             implementation(libs.atomicfu)
