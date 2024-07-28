@@ -37,7 +37,9 @@ class AuthViewModel: ObservableObject {
                 {
                     return true
                 } else {
-                    self.inputError = .incorrectFullName
+                    if !phone.isEmpty {
+                        self.inputError = .incorrectPhone
+                    }
                     return false
                 }
             }
@@ -47,7 +49,7 @@ class AuthViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                return password.count >= 8
+                return password.count >= 8 && !password.isEmpty
             }
             .assign(to: \.isPasswordLengthValid, on: self)
             .store(in: &cancellableSet)
@@ -55,7 +57,7 @@ class AuthViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = passRegex
+                let pattern = "[A-Z]"
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {
@@ -68,7 +70,7 @@ class AuthViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = "[!@#$%^&*(),.?\":{}|<>]"
+                let pattern = "[!@#$%^+-=&*(),.?\":{}|<>]"
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {

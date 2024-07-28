@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct AuthScreenView: View {
-    @State private var phoneFieldText = ""
-    @State private var phoneIsValid: Bool = false
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
     @ObservedObject private var viewModel = AuthViewModel()
@@ -20,12 +18,27 @@ struct AuthScreenView: View {
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                BorderedTextField(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone, inputErrorType: $viewModel.inputError)
-                    .onChange(of: phoneIsValid) { _ in
-                        toggleButtonEnabled()
-                    }
+                BorderedTextField(
+                    fieldContent: $viewModel.phone,
+                    isValid: $viewModel.isPhoneValid,
+                    fieldType: .phone,
+                    inputErrorType: $viewModel.inputError
+                )
+                .onChange(of: viewModel.isPhoneValid) { _ in
+                    toggleButtonEnabled()
+                }
                 
-                NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
+                BorderedTextField(
+                    fieldContent: $viewModel.password,
+                    isValid: $viewModel.isPasswordValid,
+                    fieldType: .password,
+                    inputErrorType: $viewModel.inputError
+                )
+                .onChange(of: viewModel.isPasswordValid) { _ in
+                    toggleButtonEnabled()
+                }
+                
+                NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())
@@ -62,7 +75,7 @@ struct AuthScreenView: View {
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = phoneIsValid && checkboxSelected
+        isButtonEnabled = viewModel.isPhoneValid && checkboxSelected
     }
 }
 

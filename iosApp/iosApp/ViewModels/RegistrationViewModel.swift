@@ -66,7 +66,7 @@ class RegistrationViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                return password.count >= 8
+                return password.count >= 8 && !password.isEmpty
             }
             .assign(to: \.isPasswordLengthValid, on: self)
             .store(in: &cancellableSet)
