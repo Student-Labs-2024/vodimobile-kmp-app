@@ -36,8 +36,8 @@ class RegistrationViewModel: ObservableObject {
                 } else {
                     if !fullname.isEmpty {
                         self.inputError = .incorrectFullName
-                        return false
-                    } else { return true }
+                    }
+                    return false
                 }
             }
             .assign(to: \.isFullnameValid, on: self)
@@ -55,9 +55,9 @@ class RegistrationViewModel: ObservableObject {
                     return true
                 } else {
                     if !phone.isEmpty {
-                        self.inputError = .incorrectFullName
-                        return false
-                    } else { return true }
+                        self.inputError = .incorrectPhone
+                    }
+                    return false
                 }
             }
             .assign(to: \.isPhoneValid, on: self)
@@ -74,7 +74,7 @@ class RegistrationViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = passRegex
+                let pattern = "[A-Z]"
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {
@@ -87,7 +87,7 @@ class RegistrationViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = "[!@#$%^&*(),.?\":{}|<>]"
+                let pattern = "[!@#$%^&+-=*(),.?\":{}|<>]"
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {

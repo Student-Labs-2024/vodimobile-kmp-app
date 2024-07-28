@@ -24,6 +24,9 @@ struct RegistrationScreenView: View {
                     fieldType: .fullName,
                     inputErrorType: $viewModel.inputError
                 )
+                .onChange(of: viewModel.fullname) { _ in
+                    toggleButtonEnabled()
+                }
                 
                 BorderedTextField(
                     fieldContent: $viewModel.phone,
@@ -31,6 +34,9 @@ struct RegistrationScreenView: View {
                     fieldType: .phone,
                     inputErrorType: $viewModel.inputError
                 )
+                .onChange(of: viewModel.phone) { _ in
+                    toggleButtonEnabled()
+                }
                 
                 BorderedTextField(
                     fieldContent: $viewModel.password,
@@ -38,6 +44,9 @@ struct RegistrationScreenView: View {
                     fieldType: .password,
                     inputErrorType: $viewModel.inputError
                 )
+                .onChange(of: viewModel.password) { _ in
+                    toggleButtonEnabled()
+                }
                 
                 NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
                     Text(R.string.localizable.nextBtnName)

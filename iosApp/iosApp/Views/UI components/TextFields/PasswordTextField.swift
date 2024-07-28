@@ -12,10 +12,12 @@ struct PasswordTextField: View {
     @Binding var fieldContent: String
     @Binding var isValid: Bool
     @Binding var isEditing: Bool
-    @Binding var isSecured: Bool
-    @Binding var errorMessage: String
+    @Binding var inputErrorType: InputErrorType?
+    @State var errorMessage: String = ""
+    @State var isSecured: Bool = true
     @FocusState.Binding var isFocused: Bool
     
+    let errorHandler: (inout String) -> ()
     let fieldName: String = TextFieldType.password.localizedStr
     let placeholder: String = R.string.localizable.passwordPlaceholder()
     let keyboardType: UIKeyboardType = .default
@@ -31,6 +33,14 @@ struct PasswordTextField: View {
                             .focused($isFocused)
                             .onSubmit {
                                 isFocused = false
+                                isEditing = false
+                            }
+                            .onChange(of: fieldContent) { _ in
+                                isEditing = true
+                                if isValid {
+                                    errorMessage = ""
+                                    inputErrorType = nil
+                                }
                             }
                         
                         Button(action: {
@@ -63,6 +73,14 @@ struct PasswordTextField: View {
                             .focused($isFocused)
                             .onSubmit {
                                 isFocused = false
+                                isEditing = false
+                            }
+                            .onChange(of: fieldContent) { _ in
+                                isEditing = true
+                                if isValid {
+                                    errorMessage = ""
+                                    inputErrorType = nil
+                                }
                             }
                         
                         Button(action: {
@@ -88,7 +106,16 @@ struct PasswordTextField: View {
                     )
                 }
             }
+            .onChange(of: inputErrorType) { _ in
+                errorHandler(&errorMessage)
+            }
+            
+            if inputErrorType != nil {
+                Text(errorMessage)
+                    .font(.paragraph6)
+                    .foregroundStyle(Color(R.color.redColor))
+                    .padding(.leading, 10)
+            }
         }
-
     }
 }

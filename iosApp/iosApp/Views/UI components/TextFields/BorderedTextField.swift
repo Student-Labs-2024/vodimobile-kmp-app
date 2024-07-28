@@ -29,7 +29,6 @@ enum TextFieldType: String {
 }
 
 struct BorderedTextField: View {
-    @State private var isSecured: Bool = false
     @State private var errorMessage: String = ""
     @State private var isEditing: Bool = false
     @FocusState private var isFocused: Bool
@@ -62,7 +61,6 @@ struct BorderedTextField: View {
         case .password:
             placeholder = R.string.localizable.passwordPlaceholder()
             keyboardType = .default
-            isSecured = true
         case .fullName:
             placeholder = R.string.localizable.fullnamePlaceholder()
             keyboardType = .default
@@ -78,24 +76,19 @@ struct BorderedTextField: View {
                     fieldContent: $fieldContent,
                     isValid: $isValid,
                     isEditing: $isEditing,
-                    errorMessage: $errorMessage,
-                    isFocused: $isFocused
+                    inputErrorType: $inputErrorType,
+                    isFocused: $isFocused,
+                    errorHandler: handleErrorTypeChanging
                 )
-                .onChange(of: inputErrorType) { _ in
-                    handleErrorTypeChanging()
-                }
             } else if fieldType == .password {
                 PasswordTextField(
                     fieldContent: $fieldContent,
                     isValid: $isValid,
                     isEditing: $isEditing,
-                    isSecured: $isSecured,
-                    errorMessage: $errorMessage,
-                    isFocused: $isFocused
+                    inputErrorType: $inputErrorType,
+                    isFocused: $isFocused,
+                    errorHandler: handleErrorTypeChanging
                 )
-                .onChange(of: inputErrorType) { _ in
-                    handleErrorTypeChanging()
-                }
             } else {
                 HStack {
                     TextField(placeholder, text: $fieldContent)
@@ -103,6 +96,10 @@ struct BorderedTextField: View {
                         .textInputAutocapitalization(.never)
                         .onChange(of: fieldContent, perform: { _ in
                             isEditing = true
+                            if isValid {
+                                errorMessage = ""
+                                inputErrorType = nil
+                            }
                         })
                         .focused($isFocused)
                         .onSubmit {
@@ -110,7 +107,7 @@ struct BorderedTextField: View {
                             isEditing = false
                         }
                         .onChange(of: inputErrorType) { _ in
-                            handleErrorTypeChanging()
+                            handleErrorTypeChanging(errorMsg: &errorMessage)
                         }
                     if isEditing {
                         Button(action: {
@@ -141,61 +138,47 @@ struct BorderedTextField: View {
                             lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
                         )
                 )
-            }
-            
-            if let inputErrorType = inputErrorType {
-                Text(errorMessage)
-                    .font(.paragraph6)
-                    .foregroundStyle(Color(R.color.redColor))
-                    .padding(.leading, 10)
+                
+                if inputErrorType != nil {
+                    Text(errorMessage)
+                        .font(.paragraph6)
+                        .foregroundStyle(Color(R.color.redColor))
+                        .padding(.leading, 10)
+                }
             }
         }
     }
     
-    private func handleErrorTypeChanging() {
+    func handleErrorTypeChanging(errorMsg: inout String) {
         if let inputErrorType = inputErrorType {
             switch inputErrorType {
             case .alreadyExistsPhone:
                 if fieldType == .phone {
-                    self.errorMessage = InputErrorType.alreadyExistsPhone.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.alreadyExistsPhone.localizedString
                 }
             case .incorrectFullName:
                 if fieldType == .fullName {
-                    self.errorMessage = InputErrorType.incorrectFullName.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.incorrectFullName.localizedString
                 }
             case .incorrectPass:
                 if fieldType == .password {
-                    self.errorMessage = InputErrorType.incorrectPass.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.incorrectPass.localizedString
                 }
             case .incorrectPhone:
                 if fieldType == .phone {
-                    self.errorMessage = InputErrorType.incorrectPhone.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.incorrectPhone.localizedString
                 }
             case .noSpecSymboldsInPass:
                 if fieldType == .password {
-                    self.errorMessage = InputErrorType.noSpecSymboldsInPass.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.noSpecSymboldsInPass.localizedString
                 }
             case .noUpperLettersInPass:
                 if fieldType == .password {
-                    self.errorMessage = InputErrorType.noUpperLettersInPass.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.noUpperLettersInPass.localizedString
                 }
             case .tooShortPass:
                 if fieldType == .password {
-                    self.errorMessage = InputErrorType.tooShortPass.localizedString
-                } else {
-                    self.errorMessage = ""
+                    errorMsg = InputErrorType.tooShortPass.localizedString
                 }
             }
         }
