@@ -4,7 +4,6 @@ import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
 
 internal fun getCrmServerDataFromLocalProperties(): CrmServerData {
-    SharedBuildkonfig.test
     val crmServerData = CrmServerData(
         server = SharedBuildkonfig.crm_server,
         port = SharedBuildkonfig.crm_port
