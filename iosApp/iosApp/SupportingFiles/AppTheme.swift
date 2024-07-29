@@ -26,16 +26,17 @@ extension Image {
 }
 
 extension Font {
+    // header text
     public static let header1: Font = Font(R.font.akzidenzGroteskProMdEx(size: 18) ?? .systemFont(ofSize: 18))
     public static let header2: Font = Font(R.font.akzidenzGroteskProRegular(size: 20) ?? .systemFont(ofSize: 20))
     public static let header3: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
     public static let header4: Font = Font(R.font.akzidenzGroteskProExt(size: 15) ?? .systemFont(ofSize: 15))
-    
+    // button text
     public static let button: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
     public static let buttonText: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonCheckBox: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonTabbar: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
-    
+    // paragraph text
     public static let paragraph1: Font = Font(R.font.akzidenzGroteskProMd(size: 18) ?? .systemFont(ofSize: 18))
     public static let paragraph2: Font = Font(R.font.akzidenzGroteskProRegular(size: 16) ?? .systemFont(ofSize: 16))
     public static let paragraph3: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
@@ -45,14 +46,12 @@ extension Font {
 }
 
 struct FilledBtnStyle: ButtonStyle {
-    
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         FilledButton(configuration: configuration)
     }
 }
 
 struct BorderedBtnStyle: ButtonStyle {
-    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
@@ -73,7 +72,6 @@ struct BorderedTextFieldStyle: TextFieldStyle {
     var text: String
     var isFocused: Bool
     var isValid: Bool
-    
     func _body(configuration: TextField<_Label>) -> some View {
         configuration
             .frame(alignment: .leading)
@@ -111,7 +109,6 @@ struct BorderedDateTextFieldStyle: TextFieldStyle {
 }
 
 extension UIColor {
-    
     // Definision color by hex format
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")
