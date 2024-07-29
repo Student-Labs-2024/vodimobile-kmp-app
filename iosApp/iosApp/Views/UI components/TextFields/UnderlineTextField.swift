@@ -126,6 +126,7 @@ struct UnderlineTextField: View {
                     .foregroundColor(isFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)),
                 alignment: .bottom
             )
+            
         }
     }
     
@@ -133,7 +134,7 @@ struct UnderlineTextField: View {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
         let cleanedStr = text.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-
+        
         isValid = predicate.evaluate(with: cleanedStr)
         
         if !isValid && !text.isEmpty {

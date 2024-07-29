@@ -27,9 +27,29 @@ struct PersonDataView: View {
                 
                 UnderlineTextField(text: $viewModel.userInput.fullname, isValid: $viewModel.userInput.fullnameIsValid, fieldType: .fullName)
                     .focused($focusedField, equals: .fullname)
-                UnderlineTextField(text: $viewModel.userInput.email, isValid: $viewModel.userInput.emailIsValid, fieldType: .email)
-                    .focused($focusedField, equals: .email)
-                    .textInputAutocapitalization(.never)
+                NavigationLink(destination: ResetPasswordView()) {
+                    HStack {
+                        HStack {
+                            Text(R.string.localizable.changePassword)
+                                .font(.paragraph5)
+                                .foregroundColor(Color(R.color.grayTextColor))
+                            .padding(.bottom, 5)
+                            Spacer()
+                        }
+                        .overlay(
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(Color(R.color.grayDarkColor)),
+                            alignment: .bottom
+                        )
+                        .frame(maxWidth: .infinity)
+                        
+                        Image.chevronRight
+                            .padding(.vertical, 16)
+                            .padding(.leading, 16)
+                            .foregroundStyle(Color(R.color.grayDarkColor))
+                    }
+                }
                 UnderlineTextField(text: $viewModel.userInput.phone, isValid: $viewModel.userInput.phoneIsValid, fieldType: .phone)
                     .focused($focusedField, equals: .phone)
             }

@@ -17,7 +17,10 @@ struct ForgetPasswordView: View {
                 Spacer()
             }
             .background(Color(R.color.grayLightColor))
-        
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
+            }
     }
 }
 

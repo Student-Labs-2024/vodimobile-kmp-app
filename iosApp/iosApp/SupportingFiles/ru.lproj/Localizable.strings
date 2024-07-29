@@ -17,6 +17,8 @@
 "rulesScreenTitle" = "Правила и условия";
 "homeScreenTitle" = "Главная";
 "myOrdersScreenTitle" = "Мои заказы";
+"resetPassScreenTitle" = "Сброс пароля";
+"changePassword" = "Изменить пароль";
 
 // Buttons titles
 "authButtonTitle" = "Войти";

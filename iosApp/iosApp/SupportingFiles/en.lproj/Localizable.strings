@@ -17,6 +17,8 @@
 "rulesScreenTitle" = "Rules and conditions";
 "homeScreenTitle" = "Home";
 "myOrdersScreenTitle" = "My orders";
+"resetPassScreenTitle" = "Reset password";
+"changePassword" = "Change the password";
 
 // Buttons titles
 "regButtonTitle" = "Sign up";

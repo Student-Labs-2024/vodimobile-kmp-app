@@ -66,6 +66,7 @@
 		938872A52C5410ED00C49587 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938872A42C5410ED00C49587 /* RegistrationViewModel.swift */; };
 		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
 		939E23BE2C580C8A0020CAA8 /* ForgetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E23BD2C580C8A0020CAA8 /* ForgetPasswordView.swift */; };
+		939E23C02C581E920020CAA8 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E23BF2C581E920020CAA8 /* ResetPasswordView.swift */; };
 		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
 		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
 		93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 93D1E05E2C45048200919749 /* RswiftLibrary */; };
@@ -145,6 +146,7 @@
 		938872A42C5410ED00C49587 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
 		939E23BD2C580C8A0020CAA8 /* ForgetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordView.swift; sourceTree = "<group>"; };
+		939E23BF2C581E920020CAA8 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -370,6 +372,7 @@
 				93745BC42C41A57600889B42 /* FAQView.swift */,
 				93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */,
 				936B18492C4647FB000AC6F8 /* DetailRuleView.swift */,
+				939E23BF2C581E920020CAA8 /* ResetPasswordView.swift */,
 			);
 			path = ProfileViews;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */,
 				938872A52C5410ED00C49587 /* RegistrationViewModel.swift in Sources */,
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
+				939E23C02C581E920020CAA8 /* ResetPasswordView.swift in Sources */,
 				934D957B2C4902A20027DFC8 /* ContactsViewModel.swift in Sources */,
 				935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */,
 				936198822C3F0CA100B0198D /* MainView.swift in Sources */,
