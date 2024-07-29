@@ -21,7 +21,7 @@ fun NameField(
         value = value,
         onValueChange = onNameChanged,
         placeholder = stringResource(id = R.string.placeholder_name),
-        keyboardType = KeyboardType.Email,
+        keyboardType = KeyboardType.Text,
         isError = isError,
         errorMessage =
         if (value.isEmpty()) stringResource(id = R.string.empty_name)
