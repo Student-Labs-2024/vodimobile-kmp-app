@@ -1,8 +1,10 @@
 package com.vodimobile.presentation.screens.registration.store
 
 data class RegistrationState(
-    val email: String = "",
+    val name: String = "",
     val phoneNumber: String = "",
-    val emailError: Boolean = true,
-    val phoneNumberError: Boolean = true
+    val password: String = "",
+    val nameError: Boolean = true,
+    val phoneNumberError: Boolean = true,
+    val passwordError: Boolean = true
 )

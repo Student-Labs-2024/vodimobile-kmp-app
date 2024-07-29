@@ -4,13 +4,15 @@
     <string name="requister_str">Зарегистрироваться</string>
     <string name="login_str">Войти</string>
 
-    <string name="registration_label_email">Email</string>
-    <string name="placeholder_email">example@gmail.com</string>
-    <string name="email_error">Такой почты не существует. Повторите попытку</string>
+    <string name="label_name">ФИО</string>
+    <string name="placeholder_name">Введите ваше ФИО</string>
+    <string name="name_error">Неверный формат. Для ввода допускается только буквы без символов</string>
+    <string name="empty_name">Это поле обязательно для заполнения</string>
 
-    <string name="registration_label_phoneNumber">Номер телефона</string>
+    <string name="label_phoneNumber">Номер телефона</string>
     <string name="placeholder_phoneNumber">+7</string>
-    <string name="phoneNumber_error">Такого номера не существует. Повторите попытку</string>
+    <string name="phoneNumber_not_exist_error">Такого номера не существует. Повторите попытку</string>
+    <string name="phoneNumber_in_storage_error">Номер уже зарегистрирован. Выполните вход</string>
 
     <string name="clear_registration_input">Очистить ввод</string>
 
@@ -99,5 +101,4 @@
 
     <string name="server_error">Ошибка на сервере</string>
     <string name="server_error_subtitle">Что-то пошло не так на стороне сервера. Повторите попытку соединения.</string>
-
 </resources>

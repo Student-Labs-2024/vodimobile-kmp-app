@@ -5,13 +5,15 @@
     <string name="requister_str">Sign up</string>
     <string name="login_str">Login</string>
 
-    <string name="registration_label_email">Email</string>
-    <string name="placeholder_email">example@gmail.com</string>
-    <string name="email_error">There is no such mail. Please try again</string>
+    <string name="label_name">Full name</string>
+    <string name="placeholder_name">Enter your full name</string>
+    <string name="name_error">Invalid format. Only letters without characters are allowed to be entered</string>
+    <string name="empty_name">This field is required</string>
 
-    <string name="registration_label_phoneNumber">Phone Number</string>
+    <string name="label_phoneNumber">Phone Number</string>
     <string name="placeholder_phoneNumber">+7</string>
-    <string name="phoneNumber_error">There is no such phone number. Please try again</string>
+    <string name="phoneNumber_not_exist_error">There is no such phone number. Please try again</string>
+    <string name="phoneNumber_in_storage_error">The number has already been registered. Log in</string>
 
     <string name="clear_registration_input">Clear input</string>
 
@@ -104,5 +106,4 @@
 
     <string name="server_error">Error on the server</string>
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
-
 </resources>

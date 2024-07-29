@@ -3,7 +3,6 @@ package com.vodimobile.presentation.screens.registration
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.os.Bundle
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
@@ -19,34 +18,33 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.presentation.RegistrationScreens
+import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
-import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
 import com.vodimobile.presentation.screens.registration.store.RegistrationState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.EmailValidator
+import com.vodimobile.presentation.utils.NameValidator
+import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun RegistrationScreen(
     onRegistrationIntent: (RegistrationIntent) -> Unit,
     registrationState: State<RegistrationState>,
-    registrationEffect: MutableSharedFlow<RegistrationEffect>,
+    @SuppressLint("ComposeMutableParameters") registrationEffect: MutableSharedFlow<RegistrationEffect>,
     navHostController: NavHostController
 ) {
 
@@ -114,12 +112,16 @@ fun RegistrationScreen(
         RegistrationBlock(
             registrationState = registrationState.value,
             isShowError = isButtonClicked.value,
-            onEmailChanged = {
-                onRegistrationIntent(RegistrationIntent.EmailChange(it))
+            onNameChanged = {
+                onRegistrationIntent(RegistrationIntent.NameChanged(it))
                 resetButtonClicked()
             },
             onPhoneNumberChanged = {
                 onRegistrationIntent(RegistrationIntent.PhoneNumberChange(it))
+                resetButtonClicked()
+            },
+            onPasswordChange = {
+                onRegistrationIntent(RegistrationIntent.PasswordChange(it))
                 resetButtonClicked()
             }
         )
@@ -130,7 +132,10 @@ fun RegistrationScreen(
             },
             onClickNextButton = {
                 isButtonClicked.value = true
-                if (!registrationState.value.emailError && !registrationState.value.phoneNumberError)
+                if (!registrationState.value.nameError &&
+                    !registrationState.value.phoneNumberError &&
+                    !registrationState.value.passwordError
+                )
                     onRegistrationIntent(RegistrationIntent.AskPermission)
             }
         )
@@ -144,8 +149,9 @@ private fun RegistrationScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val registrationViewModel = RegistrationViewModel(
-                emailValidator = EmailValidator(),
-                phoneNumberValidator = PhoneNumberValidator()
+                nameValidator = NameValidator(),
+                phoneNumberValidator = PhoneNumberValidator(),
+                passwordValidator = PasswordValidator()
             )
             RegistrationScreen(
                 onRegistrationIntent = registrationViewModel::onIntent,
@@ -164,8 +170,9 @@ private fun RegistrationScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val registrationViewModel = RegistrationViewModel(
-                emailValidator = EmailValidator(),
-                phoneNumberValidator = PhoneNumberValidator()
+                nameValidator = NameValidator(),
+                phoneNumberValidator = PhoneNumberValidator(),
+                passwordValidator = PasswordValidator()
             )
             RegistrationScreen(
                 onRegistrationIntent = registrationViewModel::onIntent,

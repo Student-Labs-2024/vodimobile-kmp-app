@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.registration.components
 
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -12,36 +11,36 @@ import com.vodimobile.presentation.components.AuthenticationField
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun EmailField(
+fun NameField(
     value: String,
     isError: Boolean,
-    isShowError: Boolean,
-    onEmailChanged: (String) -> Unit
+    onNameChanged: (String) -> Unit
 ) {
     AuthenticationField(
-        label = stringResource(id = R.string.registration_label_email),
+        label = stringResource(id = R.string.label_name),
         value = value,
-        onValueChange = onEmailChanged,
-        placeholder = stringResource(id = R.string.placeholder_email),
+        onValueChange = onNameChanged,
+        placeholder = stringResource(id = R.string.placeholder_name),
         keyboardType = KeyboardType.Email,
-        isError = isError && isShowError,
-        errorMessage = stringResource(id = R.string.email_error)
+        isError = isError,
+        errorMessage =
+        if (value.isEmpty()) stringResource(id = R.string.empty_name)
+        else stringResource(id = R.string.name_error)
     )
 }
 
 @Preview
 @Composable
-private fun EmailFieldPreview() {
+private fun NameFieldPreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary
         ) {
-            EmailField(
+            NameField(
                 value = "",
                 isError = true,
-                isShowError = true,
-                onEmailChanged = {}
+                onNameChanged = {}
             )
         }
     }
