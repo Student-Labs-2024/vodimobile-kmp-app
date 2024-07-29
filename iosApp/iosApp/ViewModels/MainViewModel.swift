@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import shared
 
 final class MainViewModel: ObservableObject {
     @Published var cardList = AutoCard.autoCardsList
