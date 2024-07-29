@@ -180,6 +180,10 @@ struct BorderedTextField: View {
                 if fieldType == .password {
                     errorMsg = InputErrorType.tooShortPass.localizedString
                 }
+            case .invalidPass:
+                if fieldType == .password {
+                    errorMsg = InputErrorType.invalidPass.localizedString
+                }
             }
         }
     }

@@ -97,6 +97,7 @@ enum InputErrorType: String {
     case incorrectPhone
     case alreadyExistsPhone
     case incorrectPass
+    case invalidPass
     case tooShortPass
     case noSpecSymboldsInPass
     case noUpperLettersInPass
@@ -117,6 +118,8 @@ enum InputErrorType: String {
             return R.string.localizable.noSpecSymboldsInPass()
         case .noUpperLettersInPass:
             return R.string.localizable.noUpperLettersInPass()
+        case .invalidPass:
+            return R.string.localizable.invalidPass()
         }
     }
 }

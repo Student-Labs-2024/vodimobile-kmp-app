@@ -29,6 +29,7 @@
 "findAutoButton" = "Find a car";
 "reconnectButton" = "Try again";
 "closeButton" = "Close";
+"forgetPassword" = "Forgot your password?";
 
 // Field names
 "email" = "Email";
@@ -39,14 +40,16 @@
 "password" = "Password";
 "passwordPlaceholder" = "Input your password";
 "fullnamePlaceholder" = "Input your full name";
+
 // Error strings
-"incorrectFullName" = "Invalid format. Only letters without characters are allowed to be entered";
+"incorrectFullName" = "Invalid format. Only letters without characters and whitespaces are allowed to be entered";
 "incorrectPhone" = "Incorrect phone number format";
 "alreadyExistsPhone" = "Such a phone already exists. Log in";
-"incorrectPass" = "Incorrect password";
+"incorrectPass" = "The password is incorrect. Please try again.";
 "tooShortPass" ="Password less than 8 characters";
 "noSpecSymboldsInPass" = "Password must contain at least one special character";
 "noUpperLettersInPass" = "Password must contain at least one capital letter";
+"invalidPass" = "Invalid password";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";

@@ -48,7 +48,6 @@ struct PasswordTextField: View {
                         }) {
                             Image.eyeSlash
                                 .foregroundStyle(Color(R.color.grayDarkColor))
-                            
                         }
                     }
                     .frame(alignment: .leading)
@@ -110,11 +109,20 @@ struct PasswordTextField: View {
                 errorHandler(&errorMessage)
             }
             
-            if inputErrorType != nil {
-                Text(errorMessage)
-                    .font(.paragraph6)
-                    .foregroundStyle(Color(R.color.redColor))
-                    .padding(.leading, 10)
+            HStack {
+                if inputErrorType != nil {
+                    Text(errorMessage)
+                        .font(.paragraph6)
+                        .foregroundStyle(Color(R.color.redColor))
+                        .padding(.leading, 10)
+                }
+                Spacer()
+                NavigationLink(R.string.localizable.forgetPassword()) {
+                    ForgetPasswordView()
+                }
+                .font(.paragraph5)
+                .foregroundStyle(Color(R.color.grayTextColor))
+                .multilineTextAlignment(.trailing)
             }
         }
     }

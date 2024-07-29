@@ -28,14 +28,16 @@ struct AuthScreenView: View {
                     toggleButtonEnabled()
                 }
                 
-                BorderedTextField(
-                    fieldContent: $viewModel.password,
-                    isValid: $viewModel.isPasswordValid,
-                    fieldType: .password,
-                    inputErrorType: $viewModel.inputError
-                )
-                .onChange(of: viewModel.isPasswordValid) { _ in
-                    toggleButtonEnabled()
+                VStack {
+                    BorderedTextField(
+                        fieldContent: $viewModel.password,
+                        isValid: $viewModel.isPasswordValid,
+                        fieldType: .password,
+                        inputErrorType: $viewModel.inputError
+                    )
+                    .onChange(of: viewModel.isPasswordValid) { _ in
+                        toggleButtonEnabled()
+                    }
                 }
                 
                 NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
