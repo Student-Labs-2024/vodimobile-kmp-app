@@ -1,6 +1,6 @@
 <resources>
-    <string name="name_0">Hyundai Solaris</string>
-    <string name="wheel_drive_0">АКПП Автомат</string>
-    <string name="transmission_0">Передний</string>
-    <string name="tank_value_0">43</string>
+    <string name="name_hyundai_solaris">Hyundai Solaris</string>
+    <string name="wheel_drive_hyundai_solaris_1">АКПП Автомат</string>
+    <string name="transmission_hyundai_solaris_1">Передний</string>
+    <string name="tank_value_hyundai_solaris_1">43</string>
 </resources>
