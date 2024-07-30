@@ -13,4 +13,8 @@ object CrmRouting {
             const val TARIFF_BY_CAR_ID_PARAM_CAR_ID = "car_id"
         }
     }
+
+    object UserAuth {
+        const val USER_AUTH = "api/v1/tokens/signin"
+    }
 }
