@@ -84,6 +84,7 @@ _Будет позже_
 - [Coroutines](https://kotlinlang.org/docs/multiplatform-add-dependencies.html#kotlinx-libraries)
 - [Skie](https://skie.touchlab.co/configuration/)
 - [Buildkonfig](https://github.com/yshrsmz/BuildKonfig)
+- [Date time](https://github.com/Kotlin/kotlinx-datetime)
 
 ## Git flow 📀
 **Коммиты**
