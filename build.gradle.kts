@@ -10,8 +10,13 @@ plugins {
 buildscript {
     repositories {
         mavenCentral()
+        google()
+        gradlePluginPortal()
+        mavenLocal()
     }
+
     dependencies {
+        classpath(libs.resources.generator)
         classpath(libs.buildkonfig.gradle.plugin)
     }
 }

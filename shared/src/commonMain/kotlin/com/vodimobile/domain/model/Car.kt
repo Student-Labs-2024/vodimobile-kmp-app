@@ -1,34 +1,49 @@
 package com.vodimobile.domain.model
 
+import com.vodimobile.shared.resources.SharedRes
+import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.desc.Resource
+import dev.icerock.moko.resources.desc.StringDesc
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+
 data class Car(
     val carId: Int,
-    val model: String,
+    val model: StringResource,
     val number: String,
     val cityId: Int,
-    val year: Long?,
-    val transmission: String?,
-    val wheelDrive: String?,
-    val tankValue: Float?,
+    val year: Int?,
+    val transmission: StringResource,
+    val wheelDrive: StringResource,
+    val tankValue: StringResource,
     val deposit: Float?,
     val tariffs: List<Tariff>,
-    val images: List<Int>,
+    val images: List<ImageResource>,
 ) {
-    companion object{
-        fun empty() : Car {
+    companion object {
+        fun empty(): Car {
+            val currentMoment: Instant = Clock.System.now()
             return Car(
-                -1,
-                "Hyundai Solaris",
-                "",
-                -1,
-                null,
-                "",
-                "",
-                null,
-                null,
-                listOf(
-                    Tariff(min = 1, max = 5, cost = 2500f)
+                carId = 0,
+                model = SharedRes.strings.name_hyundai_solaris,
+                number = "",
+                cityId = 0,
+                year = 2020,
+                transmission = SharedRes.strings.transmission_hyundai_solaris_1,
+                wheelDrive = SharedRes.strings.wheel_drive_hyundai_solaris_1,
+                tankValue = SharedRes.strings.tank_value_hyundai_solaris_1,
+                deposit = 0f,
+                tariffs = listOf(
+                    Tariff(
+                        min = 5,
+                        max = 10,
+                        cost = 2500f
+                    )
                 ),
-                emptyList()
+                images = listOf(
+                    SharedRes.images.hyundai_solaris_1
+                )
             )
         }
     }

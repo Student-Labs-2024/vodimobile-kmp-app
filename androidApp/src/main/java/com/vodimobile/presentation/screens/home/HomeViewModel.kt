@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.home.store.HomeState
@@ -10,11 +11,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(carsStorage: CarsStorage) : ViewModel() {
 
     val homeState = MutableStateFlow(
         HomeState(
-            carList = PopularCarsPreview.getPopularCarsPreview()
+            carList = carsStorage.getPopularCars()
         )
     )
     val homeEffect = MutableSharedFlow<HomeEffect>()

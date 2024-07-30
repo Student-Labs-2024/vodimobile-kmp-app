@@ -2,10 +2,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -66,7 +64,7 @@ fun CarsCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(height = 96.dp, width = 328.dp),
-                    painter = painterResource(id = carItem.images[0]),
+                    painter = painterResource(id = carItem.images[0].drawableResId),
                     contentDescription = null
                 )
 
@@ -88,7 +86,7 @@ fun CarsCard(
                     ) {
                         Text(
                             modifier = Modifier,
-                            text = carItem.model,
+                            text = stringResource(id = carItem.model.resourceId),
                             color = MaterialTheme.colorScheme.onBackground,
                             style = MaterialTheme.typography.headlineSmall
                         )
@@ -97,7 +95,7 @@ fun CarsCard(
                         Text(
                             modifier = Modifier,
                             text = stringResource(
-                                R.string.tariff,
+                                id = R.string.tariff,
                                 carItem.tariffs.minBy { it.cost }.cost.toInt()
                             ),
                             color = MaterialTheme.colorScheme.primary,
