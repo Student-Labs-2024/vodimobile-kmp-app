@@ -3,14 +3,11 @@ import shared
 
 struct StartScreenView: View {
     @State private var isButtonEnabled: Bool = true
-    @ObservedObject private var dataStorage = KMPDataStorage()
-    @State private var userData: User = KMPDataStorage.defaultUser
     
     var body: some View {
         NavigationView {
             VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
                 HStack {
-                    Text(userData.description())
                     Spacer()
                     NavigationLink(destination: MainTabbarView()) {
                         Image.xmark
@@ -19,9 +16,6 @@ struct StartScreenView: View {
                             .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)
                     }
                     .padding(.top, StartScreenConfig.xmarkTopPadding)
-                }.task {
-                    await dataStorage.editUserData()
-                    userData = dataStorage.gettingUser
                 }
                 
                 Image(R.image.logo)

@@ -16,15 +16,15 @@ struct MainView: View {
     @State private var scrollOffset: CGPoint = .zero
     @State private var headerHeight: CGFloat = 0
     @State private var dragOffset: CGSize = .zero
-    private let listOfCar = KoinHelper().getPopularCars()
+    @ObservedObject var viewModel: MainViewModel = MainViewModel()
     
     var body: some View {
         ZStack(alignment: .top) {
             ScrollViewWithOffset(onScroll: handleScroll) {
                 LazyVStack {
-                    ForEach(0..<listOfCar.count , id: \.self) { index in
+                    ForEach(0..<viewModel.listOfPopularCar.count, id: \.self) { index in
                         VStack {
-                            Text("\(listOfCar[index].model.desc().localized())")
+                            Text("\(viewModel.listOfPopularCar[index].model.desc().localized())")
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color.white)
