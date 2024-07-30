@@ -24,7 +24,7 @@ struct ExpandableToolbar: View {
                         Spacer()
                         
                         Button(action: {
-                            // Action for bell button
+                            // TODO: - Action for bell button
                         }) {
                             Image.bell
                                 .resizable()
@@ -33,7 +33,7 @@ struct ExpandableToolbar: View {
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.top, 55)
+                    .padding(.top, 65)
                     .background(Color(R.color.blueDarkColor))
                     
                     if isExpanded {
@@ -80,31 +80,7 @@ struct ExpandableToolbar: View {
                     }
                     
                     if !isExpanded {
-                        Image.minus
-                            .resizable()
-                            .frame(width: 100, height: 5)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 16)
-                            .onTapGesture {
-                                withAnimation {
-                                    isExpanded.toggle()
-                                }
-                            }
-                            .gesture(
-                                DragGesture()
-                                    .onChanged { gesture in
-                                        if gesture.translation.height > 0 {
-                                            dragOffset = gesture.translation
-                                            
-                                            if dragOffset.height > 50 {
-                                                withAnimation {
-                                                    isExpanded = true
-                                                }
-                                            }
-                                            dragOffset = .zero
-                                        }
-                                    }
-                            )
+                        Text("").padding(.vertical, 5)
                     }
                 }
                 .background(Color(R.color.blueDarkColor))

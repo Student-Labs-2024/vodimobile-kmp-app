@@ -17,6 +17,13 @@
 "rulesScreenTitle" = "Rules and conditions";
 "homeScreenTitle" = "Home";
 "myOrdersScreenTitle" = "My orders";
+"carParkScreenTitle" = "Car park";
+"allCarsScreenTitle" = "All cars";
+"economyScreenTitle" = "Economy";
+"comfortScreenTitle" = "Comfort";
+"premiumScreenTitle" = "Premium";
+"sedansScreenTitle" = "Sedans";
+"jeepsScreenTitle" = "Jeeps";
 
 // Buttons titles
 "regButtonTitle" = "Sign up";
@@ -29,6 +36,9 @@
 "findAutoButton" = "Find a car";
 "reconnectButton" = "Try again";
 "closeButton" = "Close";
+"findAutoButton" = "Find auto";
+"allAutoButton" = "All auto >";
+"bookButton" = "Book";
 
 // Field names
 "email" = "Email";
@@ -76,6 +86,17 @@
 "internetConnectErrorText" = "There is no internet connection. Check the network and try to connect again";
 "somethingWentWrongTitle" = "Something went wrong";
 "somethingWentWrongText" = "An error has occurred. Try the connection again.";
+"popularAuto" = "Popular auto";
+"transmissionTitle" = "Transmission";
+"autoTransmissionType" = "Automatic";
+"mechTransmissionType" = "Mechanics";
+"driveTypeTitle" = "Drive";
+"frontDriveType" = "Front";
+"realDrivetype" = "Rear";
+"allDriveType" = "Full";
+"tankTitle" = "Tank";
+"yearOfManufactureTitle" = "Year of manufacture";
+"characteristicsTitle" = "Characteristics:";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

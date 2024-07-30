@@ -17,6 +17,13 @@
 "rulesScreenTitle" = "Правила и условия";
 "homeScreenTitle" = "Главная";
 "myOrdersScreenTitle" = "Мои заказы";
+"carParkScreenTitle" = "Автопарк";
+"allCarsScreenTitle" = "Все авто";
+"economyScreenTitle" = "Эконом";
+"comfortScreenTitle" = "Комфорт";
+"premiumScreenTitle" = "Премиум";
+"sedansScreenTitle" = "Седаны";
+"jeepsScreenTitle" = "Внедорожники";
 
 // Buttons titles
 "authButtonTitle" = "Войти";
@@ -27,7 +34,8 @@
 "clearButton" = "Очистить";
 "saveButton" = "Сохранить";
 "findAutoButton" = "Найти машину";
-"reconnectButton" = "Повторить попытку";
+"allAutoButton" = "Все машины >";
+"bookButton" = "Забронировать";
 
 // Field names
 "email" = "Email";
@@ -41,9 +49,8 @@
 "exitFirstBtnText" = "Выйти";
 "exitSecondBtnText" = "Отмена";
 "exitAlertText" = "Вы не сможете арендовать автомобили без аккаунта";
-"alertErrorSavingTitle" = "Ошибка сохранения";
-"alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
-"alertSavePersonDataTitle" = "Ваши данные успешно сохранены";
+"alertSavePersonDataTitle" = "Ошибка сохранения";
+"alertSavePersonDataText" = "Ваши данные не были сохранены. Повторите попытку";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";
@@ -71,10 +78,17 @@
 "questionAndAnswerTitle" = "Вопрос-ответ от \"Водимобиль\"";
 "questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
 "questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";
-"internetConnectErrorTitle" = "Ошибка соединения";
-"internetConnectErrorText" = "Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.";
-"somethingWentWrongTitle" = "Что-то пошло не так";
-"somethingWentWrongText" = "Произошла ошибка. Повторите попытку соединения.";
+"popularAuto" = "Популярные авто";
+"transmissionTitle" = "Коробка";
+"autoTransmissionType" = "АКПП-Автомат";
+"mechTransmissionType" = "МКПП-Механика";
+"driveTypeTitle" = "Привод";
+"frontDriveType" = "Передний";
+"rearDriveType" = "Задний";
+"allDriveType" = "Полный";
+"tankTitle" = "Бак";
+"yearOfManufactureTitle" = "Год выпуска";
+"characteristicsTitle" = "Характеристики:";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";
