@@ -47,6 +47,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     homeState: State<HomeState>,
@@ -96,7 +97,7 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(paddingValues)
                     .testTag(TestTags.HomeScreen.contentScroll),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
+                contentPadding = PaddingValues(start = 24.dp, top = 24.dp, end= 24.dp, bottom = 56.dp),
                 verticalArrangement = Arrangement.spacedBy(
                     space = 20.dp,
                     alignment = Alignment.CenterVertically

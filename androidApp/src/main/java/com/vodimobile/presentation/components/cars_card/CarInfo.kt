@@ -90,9 +90,7 @@ fun CarInfo(
             }
             Row {
                 CarSpecif(title = stringResource(R.string.year_of_release),
-                    subtitle = SimpleDateFormat("yyyy", Locale.getDefault()).format(
-                        Date(carItem.year ?: 0)
-                    ),
+                    subtitle = carItem.year.toString(),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),

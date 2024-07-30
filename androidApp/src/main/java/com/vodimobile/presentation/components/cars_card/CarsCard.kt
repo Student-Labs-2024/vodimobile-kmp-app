@@ -86,7 +86,7 @@ fun CarsCard(
                     ) {
                         Text(
                             modifier = Modifier,
-                            text = carItem.model.toString(),
+                            text = stringResource(id = carItem.model.resourceId),
                             color = MaterialTheme.colorScheme.onBackground,
                             style = MaterialTheme.typography.headlineSmall
                         )

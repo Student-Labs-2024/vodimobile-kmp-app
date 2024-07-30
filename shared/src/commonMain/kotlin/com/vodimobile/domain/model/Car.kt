@@ -13,7 +13,7 @@ data class Car(
     val model: StringResource,
     val number: String,
     val cityId: Int,
-    val year: Long?,
+    val year: Int?,
     val transmission: StringResource,
     val wheelDrive: StringResource,
     val tankValue: StringResource,
@@ -26,13 +26,13 @@ data class Car(
             val currentMoment: Instant = Clock.System.now()
             return Car(
                 carId = 0,
-                model = SharedRes.strings.name_0,
+                model = SharedRes.strings.name_hyundai_solaris,
                 number = "",
                 cityId = 0,
-                year = currentMoment.toEpochMilliseconds(),
-                transmission = SharedRes.strings.transmission_0,
-                wheelDrive = SharedRes.strings.wheel_drive_0,
-                tankValue = SharedRes.strings.tank_value_0,
+                year = 2020,
+                transmission = SharedRes.strings.transmission_hyundai_solaris_1,
+                wheelDrive = SharedRes.strings.wheel_drive_hyundai_solaris_1,
+                tankValue = SharedRes.strings.tank_value_hyundai_solaris_1,
                 deposit = 0f,
                 tariffs = listOf(
                     Tariff(
