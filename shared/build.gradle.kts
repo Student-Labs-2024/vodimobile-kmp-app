@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.skie)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.skie)
 }
 
 kotlin {

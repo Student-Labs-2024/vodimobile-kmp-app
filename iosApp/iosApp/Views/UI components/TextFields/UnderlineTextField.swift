@@ -13,13 +13,13 @@ struct UnderlineTextField: View {
     @Binding var text: String
     @Binding var isValid: Bool
     @State private var errorMessage: String = ""
+    @FocusState private var isFocused: Bool
+    @State private var isPlaceholderVisible: Bool = true
+    
     var fieldType: TextFieldType
     private var title: String
     private let keyboardType: UIKeyboardType
     private let regex: String
-    
-    @FocusState private var isFocused: Bool
-    @State private var isPlaceholderVisible: Bool
     
     init(text: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
         self._text = text

@@ -62,20 +62,20 @@ struct PersonDataView: View {
             
             Spacer()
         }
-        .onChange(of: $viewModel.userInput.wrappedValue) { _ in
-            $viewModel.dataIsEditing.wrappedValue = true
+        .onChange(of: viewModel.userInput) { _ in
+            viewModel.dataIsEditing = true
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
         .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert) {
             Button(R.string.localizable.closeButton(), role: .cancel) {
-                $viewModel.showErrorAlert.wrappedValue.toggle()
+                viewModel.showErrorAlert.toggle()
             }
         } message: {
             Text(R.string.localizable.alertErrorSavingText)
         }
         .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.dataHasBeenSaved) {
             Button(R.string.localizable.closeButton(), role: .cancel) {
-                $viewModel.dataHasBeenSaved.wrappedValue.toggle()
+                viewModel.dataHasBeenSaved.toggle()
             }
         }
         .background(Color(R.color.grayLightColor).ignoresSafeArea())
@@ -87,9 +87,12 @@ struct PersonDataView: View {
                     image: Image.checkmark,
                     observedObject: viewModel,
                     actionAfterTapping: {
-                        viewModel.saveEditedUserData()
-                        viewModel.dataIsEditing = false
-                        focusedField = nil
+                        Task {
+                            viewModel.dataIsEditing = false
+                            focusedField = nil
+                            await viewModel.saveEditedUserData()
+                            await viewModel.loadUserData()
+                        }
                     }
                 )
             )
