@@ -31,8 +31,9 @@ struct ModalAutoView: View {
 struct ModalAutoCardView: View {
     @Binding var autoData: Car
     @Binding var showModalView: Bool
-    private var carPreview: Image
-    private var carPrice: Float
+    private let carPreview: Image
+    private let carPrice: Float
+    private let carYear: Int
     
     let columns = [
         GridItem(.flexible(), spacing: 20),
@@ -41,12 +42,17 @@ struct ModalAutoCardView: View {
     
     init(autoData: Binding<Car>, showModal: Binding<Bool>) {
         self._autoData = autoData
-        if let image = autoData.wrappedValue.images.first, let tariff = autoData.wrappedValue.tariffs.first {
+        if let image = autoData.wrappedValue.images.first,
+           let tariff = autoData.wrappedValue.tariffs.first,
+           let year = autoData.wrappedValue.year
+        {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
             self.carPrice = tariff.cost
+            self.carYear = Int(truncating: year)
         } else {
-            self.carPreview = Image.bell
-            self.carPrice = 1999
+            self.carPreview = Image.questionFolder
+            self.carPrice = 0
+            self.carYear = 0
         }
         self._showModalView = showModal
     }
@@ -136,7 +142,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.yearOfManufactureTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text("\(autoData.year)".replacingOccurrences(of: " ", with: ""))
+                                Text("\(carYear)".replacingOccurrences(of: " ", with: ""))
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -152,7 +158,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.tankTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(autoData.tankValue.resource)
+                                Text("\(autoData.tankValue.resource) \(R.string.localizable.literText())")
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)

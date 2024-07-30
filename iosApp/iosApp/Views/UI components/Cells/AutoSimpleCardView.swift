@@ -22,8 +22,8 @@ struct AutoSimpleCardView: View {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
             self.carPrice = tariff.cost
         } else {
-            self.carPreview = Image.bell
-            self.carPrice = 1999
+            self.carPreview = Image.questionFolder
+            self.carPrice = 0
         }
         self._showModal = showModal
         self._selectedAuto = selectedAuto

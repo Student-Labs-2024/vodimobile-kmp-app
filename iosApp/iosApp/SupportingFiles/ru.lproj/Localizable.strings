@@ -90,6 +90,7 @@
 "yearOfManufactureTitle" = "Год выпуска";
 "characteristicsTitle" = "Характеристики:";
 "generalAutoCardTitle" = "Перейти ко всему автопарку";
+"literText" = "л.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

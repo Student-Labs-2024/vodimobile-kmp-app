@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import shared
 
 struct CustomEnvironmentKey: EnvironmentKey {
     static let defaultValue: Bool = false
@@ -17,18 +16,6 @@ extension EnvironmentValues {
     var isAuthorized: Bool {
         get { self[CustomEnvironmentKey.self] }
         set { self[CustomEnvironmentKey.self] = newValue }
-    }
-}
-
-extension Image {
-    init(resource: KeyPath<SharedRes.images, shared.ImageResource>) {
-        self.init(uiImage: SharedRes.images()[keyPath: resource].toUIImage()!)
-    }
-}
-
-extension StringResource {
-    var resource: String {
-        self.desc().localized()
     }
 }
 

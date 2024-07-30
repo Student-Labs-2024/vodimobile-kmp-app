@@ -98,6 +98,7 @@
 "yearOfManufactureTitle" = "Year of manufacture";
 "characteristicsTitle" = "Characteristics:";
 "generalAutoCardTitle" = "Go to the entire car park";
+"literText" = "liter(s)";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

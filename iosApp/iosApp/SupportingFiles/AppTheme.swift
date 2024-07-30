@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftUI
-import RswiftResources
+import shared
 
 extension Image {
     static let xmark: Image = Image(systemName: "xmark")
@@ -24,6 +24,20 @@ extension Image {
     static let bell: Image = Image(systemName: "bell")
     static let minus: Image = Image(systemName: "minus")
     static let infoCircleFill: Image = Image(systemName: "info.circle.fill")
+    static let questionFolder: Image = Image(systemName: "questionmark.folder")
+    static let car: Image = Image(systemName: "car")
+}
+
+extension Image {
+    init(resource: KeyPath<SharedRes.images, shared.ImageResource>) {
+        self.init(uiImage: SharedRes.images()[keyPath: resource].toUIImage()!)
+    }
+}
+
+extension StringResource {
+    var resource: String {
+        self.desc().localized()
+    }
 }
 
 extension Font {
