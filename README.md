@@ -69,12 +69,14 @@ _Будет позже_
 - Минимальная поддерживаемая версия Android SDK 21, целевая - 34
 - Паттерн MVI
 - [Koin](https://insert-koin.io/docs/quickstart/android/)
+- [Slack lint](https://github.com/slackhq/compose-lints)
   
 **IOS 🍏**
 - [SwiftUI](https://developer.apple.com/tutorials/swiftui/)
 - Паттерн MVI
 - Clean architecture
 - Минимальная поддерживаемая версия IOS 15, максимальная - текущая.
+- Lint
   
 **Shared 🔮**
 - [Data Store](https://developer.android.com/kotlin/multiplatform/datastore) с использованием [Mutex](https://github.com/android/kotlin-multiplatform-samples/blob/main/DiceRoller/shared/src/commonMain/kotlin/com/google/samples/apps/diceroller/createDataStore.kt) в KMP
