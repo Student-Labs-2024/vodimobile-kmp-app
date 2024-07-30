@@ -1,0 +1,26 @@
+<resources>
+    <string name="name_hyundai_solaris">Hyundai Solaris</string>
+    <string name="wheel_drive_hyundai_solaris_1">АКПП-Автомат</string>
+    <string name="transmission_hyundai_solaris_1">Передний</string>
+    <string name="tank_value_hyundai_solaris_1">43</string>
+
+    <string name="name_hyundai_creta">Hyundai Creta</string>
+    <string name="wheel_drive_hyundai_creta_1">АКПП-Автомат</string>
+    <string name="transmission_hyundai_creta_1">Полный</string>
+    <string name="tank_value_hyundai_creta_1">50</string>
+
+    <string name="name_mercedes_e_220">Mercedes E 220</string>
+    <string name="wheel_drive_mercedes_e_220_1">АКПП-Автомат</string>
+    <string name="transmission_mercedes_e_220_1">Полный</string>
+    <string name="tank_value_mercedes_e_220_1">66</string>
+
+    <string name="name_volkswagen_polo">Volkswagen Polo</string>
+    <string name="wheel_drive_volkswagen_polo_1">АКПП-Автомат</string>
+    <string name="transmission_volkswagen_polo_1">Передний</string>
+    <string name="tank_value_volkswagen_polo_1">55</string>
+
+    <string name="name_datsun_on_do">Datsun on-DO</string>
+    <string name="wheel_drive_datsun_on_do_1">АКПП-Автомат</string>
+    <string name="transmission_datsun_on_do_1">Передний</string>
+    <string name="tank_value_datsun_on_do_1">50</string>
+</resources>

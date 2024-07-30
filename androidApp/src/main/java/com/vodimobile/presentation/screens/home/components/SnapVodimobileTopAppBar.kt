@@ -32,7 +32,7 @@ fun SnapVodimobileTopAppBar(
 ) {
     val smallScrollBarBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val largeScrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+        TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     Column(
         modifier = Modifier

@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.shared.resources.SharedRes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,7 +61,7 @@ fun AllCars(onClick: () -> Unit, modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(height = 96.dp, width = 328.dp),
-                    painter = painterResource(id = R.drawable.all_cars),
+                    painter = painterResource(id = SharedRes.images.more_cars.drawableResId),
                     contentDescription = null
                 )
 

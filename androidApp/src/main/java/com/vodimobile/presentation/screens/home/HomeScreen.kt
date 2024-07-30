@@ -28,7 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.repository.car.CarRepository
+import com.vodimobile.domain.storage.cars.CarsStorage
+import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.TestTags
@@ -43,6 +47,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     homeState: State<HomeState>,
@@ -92,7 +97,7 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(paddingValues)
                     .testTag(TestTags.HomeScreen.contentScroll),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
+                contentPadding = PaddingValues(start = 24.dp, top = 24.dp, end= 24.dp, bottom = 56.dp),
                 verticalArrangement = Arrangement.spacedBy(
                     space = 20.dp,
                     alignment = Alignment.CenterVertically
@@ -128,7 +133,13 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        val homeViewModel = HomeViewModel()
+        val homeViewModel = HomeViewModel(
+            CarsStorage(
+                getPopularCarsUseCase = GetPopularCarsUseCase(
+                    CarRepositoryImpl()
+                )
+            )
+        )
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,
@@ -143,7 +154,13 @@ private fun HomeScreenDarkPreview() {
 @Composable
 private fun HomeScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        val homeViewModel = HomeViewModel()
+        val homeViewModel = HomeViewModel(
+            CarsStorage(
+                getPopularCarsUseCase = GetPopularCarsUseCase(
+                    CarRepositoryImpl()
+                )
+            )
+        )
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,

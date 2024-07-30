@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import shared
 
 struct MainView: View {
     @State private var isExpanded = true
@@ -15,20 +16,23 @@ struct MainView: View {
     @State private var scrollOffset: CGPoint = .zero
     @State private var headerHeight: CGFloat = 0
     @State private var dragOffset: CGSize = .zero
+    private let listOfCar = KoinHelper().getPopularCars()
     
     var body: some View {
         ZStack(alignment: .top) {
             ScrollViewWithOffset(onScroll: handleScroll) {
                 LazyVStack {
-                    ForEach(0..<20) { index in
-                        Text("Car \(index + 1)")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                            .padding(.horizontal)
+                    ForEach(0..<listOfCar.count , id: \.self) { index in
+                        VStack {
+                            Text("\(listOfCar[index].model.desc().localized())")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                                .padding(.horizontal)
                             .padding(.vertical, 5)
+                        }
                     }
                 }
                 .padding(.top, headerHeight * 1.7)

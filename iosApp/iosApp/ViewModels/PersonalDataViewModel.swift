@@ -37,11 +37,11 @@ final class PersonalDataViewModel: ObservableObject {
         )
         
         Task {
-            do {
-                try await self.dataStorage.editUserData(newUserData)
-            } catch {
-                self.showErrorAlert.toggle()
-            }
+//            do {
+//                try await self.dataStorage.editUserData(newUserData)
+//            } catch {
+//                self.showErrorAlert.toggle()
+//            }
             
             DispatchQueue.main.async {
                 self.isLoading.toggle()

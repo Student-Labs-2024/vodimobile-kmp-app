@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -17,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
 import com.vodimobile.presentation.components.PrimaryButton
@@ -44,11 +44,11 @@ fun CarInfo(
         Image(
             modifier = Modifier
                 .size(height = 120.dp, width = 340.dp),
-            painter = painterResource(id = carItem.images[0]),
-            contentDescription = carItem.model
+            painter = painterResource(carItem.images[0].drawableResId),
+            contentDescription = carItem.model.toString()
         )
         CarsTitle(
-            title = carItem.model,
+            title = stringResource(id = carItem.model.resourceId),
             subtitle = stringResource(
                 R.string.tariff,
                 carItem.tariffs.minBy { it.cost }.cost.toInt()
@@ -69,7 +69,7 @@ fun CarInfo(
             Row {
                 CarSpecif(
                     title = stringResource(R.string.transmis),
-                    subtitle = carItem.transmission,
+                    subtitle = stringResource(id = carItem.transmission.resourceId),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
@@ -79,7 +79,7 @@ fun CarInfo(
                     })
                 CarSpecif(
                     title = stringResource(R.string.wheel_drive),
-                    subtitle = carItem.wheelDrive,
+                    subtitle = stringResource(id = carItem.wheelDrive.resourceId),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
@@ -90,9 +90,7 @@ fun CarInfo(
             }
             Row {
                 CarSpecif(title = stringResource(R.string.year_of_release),
-                    subtitle = SimpleDateFormat("yyyy", Locale.getDefault()).format(
-                        Date(carItem.year ?: 0)
-                    ),
+                    subtitle = carItem.year.toString(),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
@@ -100,9 +98,13 @@ fun CarInfo(
                             contentDescription = stringResource(R.string.year_of_release)
                         )
                     })
+                val tankValue = stringResource(id = carItem.tankValue.resourceId).toInt()
                 CarSpecif(
                     title = stringResource(R.string.tank_value),
-                    subtitle = (stringResource(id = R.string.car, carItem.tankValue ?: 0f)),
+                    subtitle = (stringResource(
+                        id = R.string.car,
+                        tankValue
+                    )),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),

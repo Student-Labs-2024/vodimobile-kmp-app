@@ -6,3 +6,16 @@ plugins {
     alias(libs.plugins.jetbrainsCompose).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
 }
+
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath(libs.resources.generator)
+    }
+}

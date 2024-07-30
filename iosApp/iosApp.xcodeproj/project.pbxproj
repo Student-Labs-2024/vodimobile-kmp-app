@@ -366,6 +366,7 @@
 			buildPhases = (
 				7555FFB5242A651A00829871 /* Run Gradlew Script */,
 				93D1E0552C44FD5B00919749 /* Run Rswift */,
+				934BECE22C56CCE500E21C72 /* Run MokoRes */,
 				7555FF77242A565900829871 /* Sources */,
 				937DBD562C4FD20000C43A86 /* Run Swiftlint */,
 				7555FF78242A565900829871 /* Frameworks */,
@@ -464,6 +465,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
+		};
+		934BECE22C56CCE500E21C72 /* Run MokoRes */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run MokoRes";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../\" :shared:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.PLATFORM_NAME=\"$PLATFORM_NAME\" \\\n    -Pmoko.resources.CONFIGURATION=\"$CONFIGURATION\" \\\n    -Pmoko.resources.ARCHS=\"$ARCHS\" \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\" \n";
 		};
 		937DBD562C4FD20000C43A86 /* Run Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
