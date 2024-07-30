@@ -89,6 +89,7 @@
 "tankTitle" = "Бак";
 "yearOfManufactureTitle" = "Год выпуска";
 "characteristicsTitle" = "Характеристики:";
+"generalAutoCardTitle" = "Перейти ко всему автопарку";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

@@ -9,24 +9,24 @@
 import SwiftUI
 import shared
 
-struct AutoCardWithButtonView: View {
-    let autoCard: Car
-    @Binding var showModal: Bool
-    @Binding var selectedAuto: Car
+struct AutoSimpleCardView: View {
+    let car: Car
     private var carPreview: Image
     private var carPrice: Float
+    @Binding var showModal: Bool
+    @Binding var selectedAuto: Car
     
-    init(autoCard: Car, selectedAuto: Binding<Car>, showModal: Binding<Bool>) {
-        self.autoCard = autoCard
-        if let image = autoCard.images.first, let tariff = autoCard.tariffs.first {
+    init(car: Car, showModal: Binding<Bool>, selectedAuto: Binding<Car>) {
+        self.car = car
+        if let image = car.images.first, let tariff = car.tariffs.first {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
             self.carPrice = tariff.cost
         } else {
             self.carPreview = Image.bell
             self.carPrice = 1999
         }
-        self._selectedAuto = selectedAuto
         self._showModal = showModal
+        self._selectedAuto = selectedAuto
     }
     
     var body: some View {
@@ -38,7 +38,7 @@ struct AutoCardWithButtonView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(autoCard.model.resource).font(.header3)
+                    Text(car.model.resource).font(.header3)
                     Text("от \(Int(carPrice)) руб.")
                         .font(.header4)
                         .fontWeight(.bold)
@@ -46,12 +46,6 @@ struct AutoCardWithButtonView: View {
                         .multilineTextAlignment(.leading)
                 }
                 Spacer()
-            }
-            
-            HStack {
-                Button(R.string.localizable.bookButton()) { }
-                    .buttonStyle(FilledBtnStyle(heightButton: 40))
-                    .padding(.trailing, 20)
                 ZStack {
                     Image.infoCircleFill
                         .resizable()
@@ -62,7 +56,7 @@ struct AutoCardWithButtonView: View {
                 .frame(width: 40, height: 40)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
                 .onTapGesture {
-                    selectedAuto = autoCard
+                    selectedAuto = car
                     showModal = true
                 }
             }

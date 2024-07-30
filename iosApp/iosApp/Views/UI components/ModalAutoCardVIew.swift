@@ -7,20 +7,21 @@
 //
 
 import SwiftUI
+import shared
 
 struct ModalAutoView: View {
-    @Binding var autoData: AutoCard
+    @Binding var autoData: Car
     @Binding var showModalView: Bool
 
     var body: some View {
         if #available(iOS 16.4, *) {
-            ModalAutoCardView(autoData: $autoData, showModalView: $showModalView)
-                .presentationDetents([.fraction(0.62)])
+            ModalAutoCardView(autoData: $autoData, showModal: $showModalView)
+                .presentationDetents([.fraction(0.64)])
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(24)
         } else {
-            ModalAutoCardView(autoData: $autoData, showModalView: $showModalView)
-                .presentationDetents([.fraction(0.62)])
+            ModalAutoCardView(autoData: $autoData, showModal: $showModalView)
+                .presentationDetents([.fraction(0.64)])
                 .presentationDragIndicator(.visible)
         }
     }
@@ -28,13 +29,27 @@ struct ModalAutoView: View {
 
 
 struct ModalAutoCardView: View {
-    @Binding var autoData: AutoCard
+    @Binding var autoData: Car
     @Binding var showModalView: Bool
+    private var carPreview: Image
+    private var carPrice: Float
     
     let columns = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
+    
+    init(autoData: Binding<Car>, showModal: Binding<Bool>) {
+        self._autoData = autoData
+        if let image = autoData.wrappedValue.images.first, let tariff = autoData.wrappedValue.tariffs.first {
+            self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
+            self.carPrice = tariff.cost
+        } else {
+            self.carPreview = Image.bell
+            self.carPrice = 1999
+        }
+        self._showModalView = showModal
+    }
     
     var body: some View {
         VStack(spacing: 16) {
@@ -60,19 +75,22 @@ struct ModalAutoCardView: View {
             .padding(.top, 10)
             
             VStack {
-                autoData.auto.image
+                carPreview
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .padding(.horizontal, 55)
                 
                 HStack {
-                    Text(autoData.auto.title).font(.header3)
+                    Text(autoData.model.resource).font(.header3)
                     Spacer()
-                    Text(autoData.auto.price ?? "")
+                    Text("от \(Int(carPrice)) руб.")
                         .font(.header4)
                         .foregroundStyle(Color(R.color.blueColor))
                         .fontWeight(.bold)
                 }
-                .padding(.vertical, 20)
+                .padding(.vertical, 15)
                 
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 10) {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
                     
@@ -82,11 +100,11 @@ struct ModalAutoCardView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 6) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text(R.string.localizable.transmissionTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(autoData.auto.transmisson.localizedStr)
+                                Text(autoData.transmission.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -98,11 +116,11 @@ struct ModalAutoCardView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 6) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text(R.string.localizable.driveTypeTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(autoData.auto.driveType.localizedStr)
+                                Text(autoData.wheelDrive.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -114,11 +132,11 @@ struct ModalAutoCardView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 6) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text(R.string.localizable.yearOfManufactureTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text("\(autoData.auto.yearOfManufacture)".replacingOccurrences(of: " ", with: ""))
+                                Text("\(autoData.year)".replacingOccurrences(of: " ", with: ""))
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -130,11 +148,11 @@ struct ModalAutoCardView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 6) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text(R.string.localizable.tankTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(autoData.auto.tankVolume)
+                                Text(autoData.tankValue.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)

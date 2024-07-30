@@ -7,12 +7,14 @@
 //
 
 import SwiftUI
+import shared
 
 struct AutoListView: View {
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
-    @State private var selectedAuto: AutoCard = AutoCard.empty
+    @State private var selectedAuto: Car = Car.companion.empty()
     @State private var dragOffset: CGSize = .zero
+    @ObservedObject private var viewModel: AutoListViewModel = AutoListViewModel()
     
     var body: some View {
         VStack {
@@ -27,11 +29,11 @@ struct AutoListView: View {
                 if selectedTab == 0 {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVStack(spacing: 20) {
-                            ForEach(AutoCard.autoSimpleCardsList.indices, id: \.self) { index in
+                            ForEach(viewModel.listOfAllCar.indices, id: \.self) { index in
                                 AutoCardWithButtonView(
-                                    autoCard: AutoCard.autoCardsList[index],
-                                    showModal: $showModalCard,
-                                    selectedAuto: $selectedAuto
+                                    autoCard: viewModel.listOfAllCar[index],
+                                    selectedAuto: $selectedAuto, 
+                                    showModal: $showModalCard
                                 )
                             }
                         }

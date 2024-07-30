@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import shared
 
 struct MainView: View {
     @State private var isExpanded = true
@@ -15,9 +16,8 @@ struct MainView: View {
     @State private var scrollOffset: CGPoint = .zero
     @State private var headerHeight: CGFloat = 0
     @State private var dragOffset: CGSize = .zero
-    @ObservedObject var viewModel: MainViewModel = MainViewModel()
     @State private var showModalCard: Bool = false
-    @State private var selectedAuto: AutoCard = AutoCard.empty
+    @State private var selectedAuto: Car = Car.companion.empty()
     @ObservedObject private var viewModel: MainViewModel = MainViewModel()
 
     var body: some View {
@@ -36,13 +36,14 @@ struct MainView: View {
                         }
                         .padding(.bottom, 10)
 
-                        ForEach(AutoCard.autoCardsList.indices, id: \.self) { index in
-                            AutoCardView(
-                                autoCard: AutoCard.autoCardsList[index],
+                        ForEach(viewModel.listOfPopularCar.indices, id: \.self) { index in
+                            AutoSimpleCardView(
+                                car: viewModel.listOfPopularCar[index],
                                 showModal: $showModalCard,
                                 selectedAuto: $selectedAuto
                             )
                         }
+                        AutoGeneralCardView()
                     }
                     .padding(.top, headerHeight * 1.75)
                     .padding(.horizontal, 24)
@@ -53,7 +54,6 @@ struct MainView: View {
                     isExpanded: $isExpanded,
                     dateRange: $dateRange,
                     showDatePicker: $showDatePicker,
-                    notifBadgeCount: $notifBadgeCount,
                     headerHeight: $headerHeight,
                     dragOffset: $dragOffset
                 )

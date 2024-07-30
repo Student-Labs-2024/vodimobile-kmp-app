@@ -97,6 +97,7 @@
 "tankTitle" = "Tank";
 "yearOfManufactureTitle" = "Year of manufacture";
 "characteristicsTitle" = "Characteristics:";
+"generalAutoCardTitle" = "Go to the entire car park";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";
