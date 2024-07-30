@@ -82,7 +82,7 @@ fun VehicleFleetScreen(
                         modifier = Modifier
                             .background(MaterialTheme.colorScheme.background)
                             .padding(top = 12.dp),
-                        title = "Автопарк",
+                        title = stringResource(R.string.vehicle_fleet),
                         onNavigateBack = {
                             onVehicleIntent(VehicleIntent.BackClick)
                         }
