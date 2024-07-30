@@ -53,6 +53,8 @@ import com.vodimobile.presentation.screens.start_screen.StartScreen
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
+import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
+import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -93,6 +95,23 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     modifier = modifier
                 )
             }
+            composable(route = LeafHomeScreen.ALL_CARS){
+                val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
+                VehicleFleetScreen(
+                    onVehicleIntent = vehicleFleetModel::onIntent,
+                    vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
+                    vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
+                    navHostController = navHostController,
+                    selectedTagIndex = 0,
+                    tags =listOf(
+                        stringResource(id = R.string.auto_tag_all),
+                        stringResource(id = R.string.auto_tag_economy),
+                        stringResource(id = R.string.auto_tag_comfort),
+                        stringResource(id = R.string.auto_tag_premium),
+                        stringResource(id = R.string.auto_tag_sedan),
+                        stringResource(id = R.string.auto_tag_off_road)
+                    ),
+                ) }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
             ) { backEntry ->
