@@ -1,5 +1,6 @@
 package com.vodimobile.domain.model
 
+import com.vodimobile.domain.model.remote.dto.car_list.CarDTO
 import com.vodimobile.shared.resources.SharedRes
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
@@ -46,5 +47,23 @@ data class Car(
                 )
             )
         }
+
+//        fun Array<CarDTO>.toCar(tariffs: List<Tariff>) : List<Car>{
+//            return this.map {
+//                Car(
+//                    model = it.model,
+//                    carId = it.car_id,
+//                    cityId = it.city_id,
+//                    year = it.year,
+//                    number = it.number,
+//                    transmission = "",
+//                    wheelDrive = "",
+//                    tankValue = "",
+//                    deposit = 0.0f,
+//                    tariffs = tariffs,
+//                    images = emptyList()
+//                )
+//            }
+//        }
     }
 }

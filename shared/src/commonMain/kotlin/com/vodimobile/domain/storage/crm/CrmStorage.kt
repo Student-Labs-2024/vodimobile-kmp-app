@@ -1,5 +1,6 @@
 package com.vodimobile.domain.storage.crm
 
+import com.vodimobile.domain.model.Tariff
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
@@ -19,7 +20,7 @@ class CrmStorage(
         return getCarListUseCase()
     }
 
-    suspend fun getTariffByCar(carId: Int): CrmEither<TariffListDTO, HttpStatusCode> {
+    suspend fun getTariffByCar(carId: Int): CrmEither<List<Tariff>, HttpStatusCode> {
         return getTariffListUseCase(carId = carId)
     }
 
