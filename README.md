@@ -113,6 +113,8 @@ feat: Create auto cards into main screen
 - [-] - удаление функционала; <br>
 - [~] - исправвление функционала. <br>
 
+Почитать по Git flow можно [здесь](https://www.conventionalcommits.org/en/v1.0.0/).
+
 **Ветки**
 
 Ветки называем по следующему шаблону `platform/action/name`.
