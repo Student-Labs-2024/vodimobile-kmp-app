@@ -7,9 +7,12 @@
 //
 
 import SwiftUI
+import iPhoneNumberField
 
 struct UnderlineTextField: View {
     @Binding var text: String
+    @Binding var isValid: Bool
+    @State private var errorMessage: String = ""
     var fieldType: TextFieldType
     private var title: String
     private let keyboardType: UIKeyboardType
@@ -18,10 +21,10 @@ struct UnderlineTextField: View {
     @FocusState private var isFocused: Bool
     @State private var isPlaceholderVisible: Bool
     
-    init(text: Binding<String>, fieldType: TextFieldType) {
+    init(text: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
         self._text = text
         self.fieldType = fieldType
-        self.isPlaceholderVisible = text.wrappedValue.isEmpty
+        self._isValid = isValid
         
         switch fieldType {
         case .email:
@@ -35,7 +38,11 @@ struct UnderlineTextField: View {
         case .fullName:
             title = TextFieldType.fullName.localizedStr
             keyboardType = .default
-            regex = ""
+            regex = textRegex
+        case .password:
+            title = TextFieldType.password.localizedStr
+            keyboardType = .default
+            regex = passRegex
         }
     }
     
@@ -56,21 +63,62 @@ struct UnderlineTextField: View {
                         }
                 }
                 
-                TextField("", text: $text)
-                    .font(.paragraph2)
-                    .focused($isFocused)
-                    .padding(.bottom, 5)
-                    .opacity(isPlaceholderVisible ? 0 : 1)
-                    .onChange(of: isFocused) { newValue in
-                        withAnimation {
-                            isPlaceholderVisible = !newValue && text.isEmpty
+                if fieldType == .phone {
+                    iPhoneNumberField(title, text: $text)
+                        .formatted()
+                        .prefixHidden(false)
+                        .clearButtonMode(.never)
+                        .maximumDigits(14)
+                        .onEditingBegan { _ in
+                            if fieldType == .phone && text.isEmpty {
+                                text = "+"
+                            }
                         }
-                    }
-                    .onChange(of: text) { newValue in
-                        withAnimation {
-                            isPlaceholderVisible = text.isEmpty && !isFocused
+                        .onEditingEnded { _ in
+                            if fieldType == .phone && text == "+" {
+                                text = ""
+                            }
                         }
-                    }
+                        .onEdit { _ in
+                            validateInput()
+                        }
+                        .font(.paragraph2)
+                        .focused($isFocused)
+                        .padding(.bottom, 5)
+                        .opacity(isPlaceholderVisible ? 0 : 1)
+                        .onChange(of: isFocused) { newValue in
+                            withAnimation {
+                                isPlaceholderVisible = !newValue && text.isEmpty
+                            }
+                        }
+                        .onChange(of: text) { newValue in
+                            withAnimation {
+                                isPlaceholderVisible = text.isEmpty && !isFocused
+                            }
+                        }
+                        .onChange(of: text) { _ in
+                            validateInput()
+                        }
+                } else {
+                    TextField("", text: $text)
+                        .font(.paragraph2)
+                        .focused($isFocused)
+                        .padding(.bottom, 5)
+                        .opacity(isPlaceholderVisible ? 0 : 1)
+                        .onChange(of: isFocused) { newValue in
+                            withAnimation {
+                                isPlaceholderVisible = !newValue && text.isEmpty
+                            }
+                        }
+                        .onChange(of: text) { newValue in
+                            withAnimation {
+                                isPlaceholderVisible = text.isEmpty && !isFocused
+                            }
+                        }
+                        .onChange(of: text) { _ in
+                            validateInput()
+                        }
+                }
             }
             .overlay(
                 Rectangle()
@@ -78,6 +126,21 @@ struct UnderlineTextField: View {
                     .foregroundColor(isFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)),
                 alignment: .bottom
             )
+            
+        }
+    }
+    
+    private func validateInput() {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
+        let cleanedStr = text.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+        
+        isValid = predicate.evaluate(with: cleanedStr)
+        
+        if !isValid && !text.isEmpty {
+            errorMessage = "\(errorResult)\(title.lowercased())"
+        } else {
+            errorMessage = ""
         }
     }
 }

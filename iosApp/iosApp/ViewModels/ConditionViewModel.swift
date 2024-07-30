@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 final class ConditionViewModel: ObservableObject {
     @Published var conditionText: String = ""
     

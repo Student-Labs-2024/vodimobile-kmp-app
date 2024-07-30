@@ -34,17 +34,29 @@ struct ProfileView: View {
                                         .frame(width: ProfileConfig.avatarIconSize, height: ProfileConfig.avatarIconSize)
                                         .fontWeight(.bold)
                                 }
-                                .frame(width: ProfileConfig.avatarFrameSize, height: ProfileConfig.avatarFrameSize, alignment: .center)
+                                .frame(
+                                    width: ProfileConfig.avatarFrameSize,
+                                    height: ProfileConfig.avatarFrameSize,
+                                    alignment: .center
+                                )
                                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor)))
                                 
                                 VStack(alignment: .leading) {
-                                    Text(R.string.localizable.personData).font(.paragraph2).foregroundStyle(.black)
-                                    Text(R.string.localizable.personDataText).font(.paragraph5).foregroundStyle(Color(R.color.grayTextColor))
+                                    Text(R.string.localizable.personData)
+                                        .font(.paragraph2)
+                                        .foregroundStyle(.black)
+                                    Text(R.string.localizable.personDataText)
+                                        .font(.paragraph5)
+                                        .foregroundStyle(Color(R.color.grayTextColor))
                                 }
                                 
                                 Spacer()
                                 
-                                Image(R.image.editIcon).frame(width: ProfileConfig.editIconSize, height: ProfileConfig.editIconSize)
+                                Image(R.image.editIcon)
+                                    .frame(
+                                        width: ProfileConfig.editIconSize,
+                                        height: ProfileConfig.editIconSize
+                                    )
                             }
                             .foregroundStyle(Color(R.color.grayDarkColor))
                         }

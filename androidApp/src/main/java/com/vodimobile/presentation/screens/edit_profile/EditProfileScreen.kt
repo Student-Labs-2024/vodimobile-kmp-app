@@ -5,9 +5,7 @@ import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Text
@@ -15,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +26,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -45,6 +41,7 @@ import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
 import com.vodimobile.presentation.screens.edit_profile.components.VodimobileCenterTopAppBar
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
@@ -80,7 +77,7 @@ fun EditProfileScreen(
                 }
 
                 EditProfileEffect.ClickEditPassword -> {
-
+                    navHostController.navigate(route = LeafScreen.CHANGE_PASSWORD_SCREEN)
                 }
 
                 is EditProfileEffect.SaveData -> {

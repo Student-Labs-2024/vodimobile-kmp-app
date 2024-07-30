@@ -4,8 +4,8 @@ atomicfu = "0.23.2"
 composeLintChecks = "1.3.1"
 coreSplashscreen = "1.1.0-rc01"
 datastore = "1.1.1"
-kotlin = "1.9.23"
-compose = "1.5.14"
+kotlin = "1.9.24"
+compose = "1.6.2"
 compose-material3 = "1.1.2"
 androidx-activityCompose = "1.8.0"
 composePlugin = "1.6.11"
@@ -55,6 +55,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 koin-android-test = { module = "io.insert-koin:koin-android-test", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+skie-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 #KMP koin
@@ -66,6 +67,9 @@ navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-co
 
 #Lint
 compose-lint-checks = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "composeLintChecks" }
+
+#Compose Material Icons
+compose-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -8,12 +8,23 @@
 
 import SwiftUI
 
-
 struct ProfileCellView: View {
     let cell: ProfileMenuCell
     
+    @ViewBuilder
+    var destinationView: some View {
+        switch cell.cellType {
+        case .conditions:
+            RulesAndConditionsView()
+        case .contacts:
+            ContactsView()
+        case .faq:
+            FAQScreenView()
+        }
+    }
+    
     var body: some View {
-        NavigationLink(destination: RulesAndConditionsView()) {
+        NavigationLink(destination: destinationView) {
             HStack(spacing: ProfileConfig.horizontalSpacingBetweenIconAndText) {
                 cell.icon
                     .resizable()

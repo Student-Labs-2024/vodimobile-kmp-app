@@ -69,6 +69,16 @@
     <string name="confirmation_cancel_button">Отмена</string>
     <string name="confirmation_logout_button">Выйти</string>
 
+
+    <string name="tariff">от %s р/сут.</string>
+    <string name="car">литра </string>
+    <string name="spec_tile">Характеристики:</string>
+    <string name="transmis">Коробка</string>
+    <string name="wheel_drive">Привод</string>
+    <string name="year_of_release">Год выпуска</string>
+    <string name="tank_value">Бак</string>
+    <string name="to_book">Забронировать</string>
+
     <string name="connection_error">Ошибка соединения</string>
     <string name="connection_error_subtitle">Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.</string>
     <string name="try_again_bt">Повторить попытку</string>
@@ -89,4 +99,5 @@
 
     <string name="server_error">Ошибка на сервере</string>
     <string name="server_error_subtitle">Что-то пошло не так на стороне сервера. Повторите попытку соединения.</string>
+
 </resources>

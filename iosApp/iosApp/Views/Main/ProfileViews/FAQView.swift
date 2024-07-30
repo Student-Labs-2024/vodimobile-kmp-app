@@ -64,7 +64,7 @@ struct DisclosureListView: View {
     }
     
     var body: some View {
-        ForEach(Array(listOfQuestions.enumerated()), id: \.element.id) { index, question in
+        ForEach(Array(listOfQuestions.enumerated()), id: \.element.id) { index, _ in
             DisclosureGroup(
                 isExpanded: $expandedIndices[index],
                 content: {
@@ -88,10 +88,8 @@ struct DisclosureListView: View {
             .onChange(of: expandedIndices[index]) { newValue in
                 withAnimation {
                     if newValue {
-                        for i in 0..<expandedIndices.count {
-                            if i != index {
-                                expandedIndices[i] = false
-                            }
+                        for i in 0..<expandedIndices.count where i != index {
+                            expandedIndices[i] = false
                         }
                     }
                 }
@@ -103,4 +101,3 @@ struct DisclosureListView: View {
         }
     }
 }
-
