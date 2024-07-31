@@ -18,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.authorization.components.AuthorizationBlock
@@ -34,7 +41,9 @@ import com.vodimobile.presentation.screens.authorization.store.AuthorizationInte
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")
@@ -143,7 +152,36 @@ private fun AuthorizationScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val authorizationViewModel = AuthorizationViewModel(
-                phoneNumberValidator = PhoneNumberValidator()
+                phoneNumberValidator = PhoneNumberValidator(),
+                passwordValidator = PasswordValidator(),
+                dataStoreStorage = UserDataStoreStorage(
+                    editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(LocalContext.current)
+                        )
+                    ),
+                    getUserDataUseCase = GetUserDataUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    preRegisterUserUseCase = PreRegisterUserUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                )
             )
             AuthorizationScreen(
                 onAuthorizationIntent = authorizationViewModel::onIntent,
@@ -162,7 +200,36 @@ private fun AuthorizationScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val authorizationViewModel = AuthorizationViewModel(
-                phoneNumberValidator = PhoneNumberValidator()
+                phoneNumberValidator = PhoneNumberValidator(),
+                passwordValidator = PasswordValidator(),
+                dataStoreStorage = UserDataStoreStorage(
+                    editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(LocalContext.current)
+                        )
+                    ),
+                    getUserDataUseCase = GetUserDataUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    preRegisterUserUseCase = PreRegisterUserUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                )
             )
             AuthorizationScreen(
                 onAuthorizationIntent = authorizationViewModel::onIntent,

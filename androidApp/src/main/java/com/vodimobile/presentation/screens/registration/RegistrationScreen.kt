@@ -18,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -162,27 +163,27 @@ private fun RegistrationScreenPreviewDark() {
                 dataStoreStorage = UserDataStoreStorage(
                     editUserDataStoreUseCase = EditUserDataStoreUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
-                            dataStore = getDataStore(App.INSTANCE)
+                            dataStore = getDataStore(LocalContext.current)
                         )
                     ),
                     getUserDataUseCase = GetUserDataUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
-                                App.INSTANCE
+                                LocalContext.current
                             )
                         )
                     ),
                     preRegisterUserUseCase = PreRegisterUserUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
-                                App.INSTANCE
+                                LocalContext.current
                             )
                         )
                     ),
                     editPasswordUseCase = EditPasswordUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
-                                App.INSTANCE
+                                LocalContext.current
                             )
                         )
                     )
@@ -211,27 +212,27 @@ private fun RegistrationScreenPreviewLight() {
                 dataStoreStorage = UserDataStoreStorage(
                     editUserDataStoreUseCase = EditUserDataStoreUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
-                            dataStore = getDataStore(App.INSTANCE)
+                            dataStore = getDataStore(LocalContext.current)
                         )
                     ),
                     getUserDataUseCase = GetUserDataUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
-                                App.INSTANCE
+                                LocalContext.current
                             )
                         )
                     ),
                     preRegisterUserUseCase = PreRegisterUserUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
-                                App.INSTANCE
+                                LocalContext.current
                             )
                         )
                     ),
                     editPasswordUseCase = EditPasswordUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
-                                App.INSTANCE
+                                LocalContext.current
                             )
                         )
                     )

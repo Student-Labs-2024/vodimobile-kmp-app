@@ -2,9 +2,12 @@ package com.vodimobile.presentation.screens.authorization
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
+import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
+import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +15,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AuthorizationViewModel(
-    private val phoneNumberValidator: PhoneNumberValidator
+    private val phoneNumberValidator: PhoneNumberValidator,
+    private val passwordValidator: PasswordValidator,
+    private val dataStoreStorage: UserDataStoreStorage
 ) : ViewModel() {
 
     val authorizationState = MutableStateFlow(AuthorizationState())
@@ -64,6 +69,9 @@ class AuthorizationViewModel(
 
             AuthorizationIntent.AskPermission -> {
                 viewModelScope.launch {
+                    with(authorizationState.value) {
+                        dataStoreStorage.editPassword(password = password, token = "")
+                    }
                     authorizationEffect.emit(AuthorizationEffect.AskPermission)
                 }
             }
@@ -81,6 +89,6 @@ class AuthorizationViewModel(
     }
 
     private fun validatePassword(password: String): Boolean {
-        return true  //add verification logic
+        return passwordValidator.isValidPassword(password)
     }
 }
