@@ -23,4 +23,44 @@
     <string name="wheel_drive_datsun_on_do_1">АКПП-Автомат</string>
     <string name="transmission_datsun_on_do_1">Передний</string>
     <string name="tank_value_datsun_on_do_1">50</string>
+
+    <string name="name_lexus_nx200">Lexus NX200</string>
+    <string name="wheel_drive_name_lexus_nx200_1">АКПП-Автомат</string>
+    <string name="transmission_name_lexus_nx200_1">Полный</string>
+    <string name="tank_value_name_lexus_nx200_1">60</string>
+
+    <string name="name_nissan_qashqai">Nissan Qashqai</string>
+    <string name="wheel_drive_name_nissan_qashqai_1">АКПП-Вариатор</string>
+    <string name="transmission_name_nissan_qashqai_1">4WD</string>
+    <string name="tank_value_name_nissan_qashqai_1">55</string>
+
+    <string name="name_kia_rio_x_line">Kia Rio X-line</string>
+    <string name="wheel_drive_name_kia_rio_x_line_1">АКПП-Автомат</string>
+    <string name="transmission_name_kia_rio_x_line_1">Передний</string>
+    <string name="tank_value_name_kia_rio_x_line_1">50</string>
+
+    <string name="name_renault_duster">Renault Duster</string>
+    <string name="wheel_drive_name_renault_duster_1">АКПП-Автомат</string>
+    <string name="transmission_name_renault_duster_1">Полный</string>
+    <string name="tank_value_name_renault_duster_1">50</string>
+
+    <string name="name_kia_sportage">Kia Sportage</string>
+    <string name="wheel_drive_name_kia_sportage_1">АКПП-Автомат</string>
+    <string name="transmission_name_kia_sportage_1">4WD</string>
+    <string name="tank_value_name_kia_sportage_1">62</string>
+
+    <string name="name_skoda_octavia">Skoda Octavia</string>
+    <string name="wheel_drive_name_skoda_octavia_1">АКПП-Автомат</string>
+    <string name="transmission_name_skoda_octavia_1">Передний</string>
+    <string name="tank_value_name_skoda_octavia_1">45</string>
+
+    <string name="name_omoda_s5">Omoda S5</string>
+    <string name="wheel_drive_name_omoda_s5_1">АКПП-Вариатор</string>
+    <string name="transmission_name_omoda_s5_1">Передний</string>
+    <string name="tank_value_name_omoda_s5_1">48</string>
+
+    <string name="name_mazda_6">Mazda 6</string>
+    <string name="wheel_drive_name_mazda_6_1">АКПП-Автомат</string>
+    <string name="transmission_name_mazda_6_1">Передний</string>
+    <string name="tank_value_name_mazda_6_1">60</string>
 </resources>
