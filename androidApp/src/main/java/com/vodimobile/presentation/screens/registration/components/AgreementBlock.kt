@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.registration.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PrimaryButton
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun AgreementBlock(
     onClickUserAgreement: () -> Unit,

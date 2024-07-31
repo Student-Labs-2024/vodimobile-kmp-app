@@ -1,9 +1,11 @@
 package com.vodimobile.presentation.screens.change_password.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -51,7 +53,6 @@ fun NewPasswordField(
         modifier = modifier
             .fillMaxWidth()
             .then(modifier),
-        verticalArrangement = Arrangement.spacedBy(space = 8.dp),
         horizontalAlignment = Alignment.Start
     ) {
         Text(
@@ -59,6 +60,7 @@ fun NewPasswordField(
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground
         )
+        Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
@@ -102,7 +104,7 @@ fun NewPasswordField(
             },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = MaterialTheme.colorScheme.tertiary,
-                unfocusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = if (value.isNotEmpty()) MaterialTheme.colorScheme.tertiary else Color.Transparent,
                 errorBorderColor = MaterialTheme.colorScheme.error,
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -116,32 +118,15 @@ fun NewPasswordField(
             ),
             shape = MaterialTheme.shapes.small
         )
-        if (value.isNotEmpty()) {
-            Text(
-                modifier = Modifier,
-                text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onBackground,
-                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                            fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                            letterSpacing = MaterialTheme.typography.bodySmall.letterSpacing
-                        )
-                    ) {
-                        append(stringResource(id = R.string.warning_password_level))
-                        if (isError) {
-                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.error)) {
-                                append(" ${stringResource(id = R.string.warning_password_level_weak)}")
-                            }
-                        } else {
-                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                                append(" ${stringResource(id = R.string.warning_password_level_strong)}")
-                            }
-                        }
-                    }
-                }
-            )
+        if (isError) {
+            if (value.isEmpty()) {
+                Text(
+                    text = stringResource(id = R.string.empty_password),
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(start = 10.dp, top = 3.dp)
+                )
+            }
         }
     }
 }

@@ -1,13 +1,11 @@
 package com.vodimobile.presentation.components
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -15,9 +13,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,8 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
@@ -37,17 +35,17 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun AuthenticationField(
-    modifier: Modifier = Modifier,
     label: String,
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
     keyboardType: KeyboardType,
-    maskVisualTransformation: VisualTransformation? = null,
     isError: Boolean,
-    errorMessage: String
+    errorMessage: String,
+    modifier: Modifier = Modifier,
+    maskVisualTransformation: VisualTransformation? = null
 ) {
-    var isFocused by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
     var showClearIcon by remember { mutableStateOf(false) }
 
     Column(
@@ -61,6 +59,7 @@ fun AuthenticationField(
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
             value = value,
             onValueChange = {
                 onValueChange(it)
@@ -73,41 +72,30 @@ fun AuthenticationField(
                     style = MaterialTheme.typography.bodySmall
                 )
             },
-            colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.Transparent,
-                focusedContainerColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.tertiary,
+                unfocusedBorderColor = if (value.isNotEmpty()) MaterialTheme.colorScheme.tertiary else Color.Transparent,
+                errorBorderColor = MaterialTheme.colorScheme.error,
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 cursorColor = MaterialTheme.colorScheme.onBackground,
-                errorContainerColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent,
+                errorContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 errorCursorColor = MaterialTheme.colorScheme.onBackground,
                 focusedTextColor = MaterialTheme.colorScheme.onBackground,
-                unfocusedTextColor = MaterialTheme.colorScheme.onBackground
+                unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                errorTextColor = MaterialTheme.colorScheme.onBackground
             ),
+            shape = MaterialTheme.shapes.small,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = keyboardType
             ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    focusManager.clearFocus()
+                }
+            ),
             visualTransformation = maskVisualTransformation ?: VisualTransformation.None,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = MaterialTheme.colorScheme.secondaryContainer,
-                    shape = MaterialTheme.shapes.small
-                )
-                .border(
-                    BorderStroke(
-                        width = 1.dp,
-                        color = if (isError) MaterialTheme.colorScheme.error
-                        else if (value.isNotEmpty() || isFocused) MaterialTheme.colorScheme.tertiary
-                        else Color.Transparent
-                    ),
-                    shape = MaterialTheme.shapes.small
-                )
-                .onFocusChanged {
-                    isFocused = it.isFocused
-                },
             singleLine = true,
             trailingIcon = {
                 if (showClearIcon) {

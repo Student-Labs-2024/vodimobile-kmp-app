@@ -2,7 +2,6 @@ package com.vodimobile.presentation.screens.edit_profile
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -182,7 +181,7 @@ fun EditProfileScreen(
                             onValueChange = {
                                 onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
                             },
-                            label = stringResource(id = R.string.registration_label_phoneNumber),
+                            label = stringResource(id = R.string.label_phoneNumber),
                             enabled = false
                         )
                     }
