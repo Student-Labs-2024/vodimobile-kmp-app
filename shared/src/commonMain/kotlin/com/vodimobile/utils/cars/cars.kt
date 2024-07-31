@@ -228,7 +228,7 @@ internal val kia_sportage_1 = Car(
 
 
 internal val skoda_octavia_1 = Car(
-    carId = 9,
+    carId = 10,
     model = SharedRes.strings.name_skoda_octavia,
     number = "",
     cityId = 55,
@@ -250,7 +250,7 @@ internal val skoda_octavia_1 = Car(
 )
 
 internal val omoda_s5_1 = Car(
-    carId = 9,
+    carId =11,
     model = SharedRes.strings.name_omoda_s5,
     number = "",
     cityId = 55,
@@ -272,7 +272,7 @@ internal val omoda_s5_1 = Car(
 )
 
 internal val mazda_6_1 = Car(
-    carId = 9,
+    carId = 12,
     model = SharedRes.strings.name_mazda_6,
     number = "",
     cityId = 55,
