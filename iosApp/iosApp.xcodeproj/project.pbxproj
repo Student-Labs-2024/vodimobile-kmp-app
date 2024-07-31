@@ -50,7 +50,8 @@
 		935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */; };
 		935E1A922C51443F00A35E4E /* AutoSimpleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A912C51443F00A35E4E /* AutoSimpleCardView.swift */; };
 		935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */; };
-		935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */; };
+		935EE3032C4E2E6B0039A2DC /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */; };
+		935F029A2C5A8809003DA751 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935F02992C5A8809003DA751 /* ResetPasswordView.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
@@ -134,7 +135,8 @@
 		935E1A912C51443F00A35E4E /* AutoSimpleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSimpleCardView.swift; sourceTree = "<group>"; };
 		935E1A932C5148CA00A35E4E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectErrorView.swift; sourceTree = "<group>"; };
-		935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectErrorView.swift; sourceTree = "<group>"; };
+		935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
+		935F02992C5A8809003DA751 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -304,7 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */,
-				935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */,
+				935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */,
 			);
 			path = "Error Screens";
 			sourceTree = "<group>";
@@ -317,6 +319,7 @@
 				934F0D552C3D6DCB000B256E /* RegistrationScreenView.swift */,
 				93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */,
 				7555FF82242A565900829871 /* StartScreenView.swift */,
+				935F02992C5A8809003DA751 /* ResetPasswordView.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -586,7 +589,8 @@
 				934F0D502C3D692A000B256E /* AppDelegate.swift in Sources */,
 				934D5DFA2C3D3FA30070904B /* AppTheme.swift in Sources */,
 				93328FBB2C4953E3008EADB4 /* ProfileCellView.swift in Sources */,
-				935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */,
+				935F029A2C5A8809003DA751 /* ResetPasswordView.swift in Sources */,
+				935EE3032C4E2E6B0039A2DC /* NetworkErrorView.swift in Sources */,
 				936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */,
 				936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */,
 				935DC3BE2C517AAA009CBA43 /* ModalAutoCardVIew.swift in Sources */,
