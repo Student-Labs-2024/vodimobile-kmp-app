@@ -1,7 +1,9 @@
 package com.vodimobile.presentation.screens.contact
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,11 +17,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.contact.components.ListContactItem
@@ -32,11 +36,11 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ComposeModifierMissing")
 @Composable
 fun ContactScreen(
     onContactIntent: (ContactIntent) -> Unit,
-    contactEffect: MutableSharedFlow<ContactEffect>,
+    @SuppressLint("ComposeMutableParameters") contactEffect: MutableSharedFlow<ContactEffect>,
     validYear: String,
     contactState: State<ContactState>,
     navHostController: NavHostController
@@ -48,9 +52,17 @@ fun ContactScreen(
                 ContactEffect.BackClick -> {
                     navHostController.navigateUp()
                 }
-                ContactEffect.TelegramClick -> {}
-                ContactEffect.VkClick -> {}
-                ContactEffect.WhatsappClick -> {}
+
+                ContactEffect.TelegramClick -> {
+                    openTelegram()
+                }
+
+                ContactEffect.VkClick -> {
+                    openVk()
+                }
+                ContactEffect.WhatsappClick -> {
+                    openWhatsapp(App.INSTANCE.getString(R.string.phone_number))
+                }
             }
         }
     }
@@ -132,5 +144,55 @@ private fun ContactScreenPreviewNight() {
     }
 }
 
+private fun openTelegram() {
+    val telegramUrl = App.INSTANCE.getString(R.string.telegram_url)
+
+    try {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(telegramUrl))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(intent)
+    } catch (e: Exception) {
+
+        val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(telegramUrl))
+        webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(webIntent)
+    }
+}
 
 
+private fun openWhatsapp(phoneNumber: String) {
+    try {
+        val intent = Intent(
+            Intent.ACTION_VIEW, Uri.parse(
+                App.INSTANCE.getString(R.string.whatsapp_url,phoneNumber)
+            )
+        )
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(intent)
+    } catch (e: Exception) {
+
+        val webIntent = Intent(
+            Intent.ACTION_VIEW, Uri.parse(
+                App.INSTANCE.getString(R.string.whatsapp_web_url,phoneNumber)
+            )
+        )
+        webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(webIntent)
+    }
+}
+
+
+private fun openVk() {
+    val vkUrl = App.INSTANCE.getString(R.string.vk_url)
+
+    try {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(vkUrl))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(intent)
+    } catch (e: Exception) {
+
+        val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(vkUrl))
+        webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(webIntent)
+    }
+}
