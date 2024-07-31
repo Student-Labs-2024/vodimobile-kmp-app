@@ -23,6 +23,8 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
+import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
+import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
 import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.contact.ContactScreen
@@ -263,6 +265,16 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onRegistrationIntent = registrationViewModel::onIntent,
                     registrationState = registrationViewModel.registrationState.collectAsState(),
                     registrationEffect = registrationViewModel.registrationEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = RegistrationScreens.AUTHORIZATION_SCREEN) {
+                val authorizationViewModel: AuthorizationViewModel = koinViewModel()
+
+                AuthorizationScreen(
+                    onAuthorizationIntent = authorizationViewModel::onIntent,
+                    authorizationState = authorizationViewModel.authorizationState.collectAsState(),
+                    authorizationEffect = authorizationViewModel.authorizationEffect,
                     navHostController = navHostController
                 )
             }

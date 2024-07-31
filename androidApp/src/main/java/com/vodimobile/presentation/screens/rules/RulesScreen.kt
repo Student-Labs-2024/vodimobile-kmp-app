@@ -28,11 +28,11 @@ import com.vodimobile.presentation.screens.rules.store.RulesState
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "ComposeModifierMissing")
 @Composable
 fun RuleScreen(
     onRulesIntent: (RulesIntent) -> Unit,
-    rulesEffect: MutableSharedFlow<RulesEffect>,
+    @SuppressLint("ComposeMutableParameters") rulesEffect: MutableSharedFlow<RulesEffect>,
     rulesState: State<RulesState>,
     navHostController: NavHostController
 ) {

@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.registration
+package com.vodimobile.presentation.screens.authorization
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -35,13 +35,12 @@ import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.screens.authorization.components.AuthorizationBlock
+import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
+import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
+import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
-import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
-import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
-import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
-import com.vodimobile.presentation.screens.registration.store.RegistrationState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.NameValidator
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
 import com.vodimobile.utils.data_store.getDataStore
@@ -49,10 +48,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
-fun RegistrationScreen(
-    onRegistrationIntent: (RegistrationIntent) -> Unit,
-    registrationState: State<RegistrationState>,
-    @SuppressLint("ComposeMutableParameters") registrationEffect: MutableSharedFlow<RegistrationEffect>,
+fun AuthorizationScreen(
+    onAuthorizationIntent: (AuthorizationIntent) -> Unit,
+    authorizationState: State<AuthorizationState>,
+    @SuppressLint("ComposeMutableParameters") authorizationEffect: MutableSharedFlow<AuthorizationEffect>,
     navHostController: NavHostController
 ) {
 
@@ -60,32 +59,32 @@ fun RegistrationScreen(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            onRegistrationIntent(RegistrationIntent.SmsVerification)
+            onAuthorizationIntent(AuthorizationIntent.SmsVerification)
         }
     }
 
     LaunchedEffect(key1 = Unit) {
-        registrationEffect.collect { effect ->
+        authorizationEffect.collect { effect ->
             when (effect) {
-                RegistrationEffect.OpenUserAgreement -> {
+                AuthorizationEffect.OpenUserAgreement -> {
                     navHostController.navigate(RegistrationScreens.USER_AGREE_SCREEN)
                 }
 
-                RegistrationEffect.ReturnBack -> {
+                AuthorizationEffect.ReturnBack -> {
                     navHostController.navigateUp()
                 }
 
-                RegistrationEffect.SmsVerification -> {
-                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}")
+                AuthorizationEffect.SmsVerification -> {
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${authorizationState.value.phoneNumber}")
                 }
 
-                RegistrationEffect.AskPermission -> {
+                AuthorizationEffect.AskPermission -> {
                     when (PackageManager.PERMISSION_GRANTED) {
                         ContextCompat.checkSelfPermission(
                             App.INSTANCE,
                             android.Manifest.permission.SEND_SMS
                         ) -> {
-                            onRegistrationIntent(RegistrationIntent.SmsVerification)
+                            onAuthorizationIntent(AuthorizationIntent.SmsVerification)
                         }
 
                         else -> {
@@ -93,6 +92,8 @@ fun RegistrationScreen(
                         }
                     }
                 }
+
+                AuthorizationEffect.RememberPassword -> {}
             }
         }
     }
@@ -110,41 +111,35 @@ fun RegistrationScreen(
     ) {
         ScreenHeader(
             title = stringResource(
-                id = R.string.title_screen_registration
+                id = R.string.login_str
             ),
             onNavigateBack = {
-                onRegistrationIntent(RegistrationIntent.ReturnBack)
+                onAuthorizationIntent(AuthorizationIntent.ReturnBack)
             }
         )
         Spacer(modifier = Modifier.height(100.dp))
-        RegistrationBlock(
-            registrationState = registrationState.value,
+        AuthorizationBlock(
+            authorizationState = authorizationState.value,
             isShowError = isButtonClicked.value,
-            onNameChanged = {
-                onRegistrationIntent(RegistrationIntent.NameChanged(it))
-                resetButtonClicked()
-            },
             onPhoneNumberChanged = {
-                onRegistrationIntent(RegistrationIntent.PhoneNumberChange(it))
+                onAuthorizationIntent(AuthorizationIntent.PhoneNumberChange(it))
                 resetButtonClicked()
             },
             onPasswordChange = {
-                onRegistrationIntent(RegistrationIntent.PasswordChange(it))
+                onAuthorizationIntent(AuthorizationIntent.PasswordChange(it))
                 resetButtonClicked()
-            }
+            },
+            onClickRememberPassword = { onAuthorizationIntent(AuthorizationIntent.RememberPassword) }
         )
         Spacer(modifier = Modifier.height(28.dp))
         AgreementBlock(
             onClickUserAgreement = {
-                onRegistrationIntent(RegistrationIntent.OpenUserAgreement)
+                onAuthorizationIntent(AuthorizationIntent.OpenUserAgreement)
             },
             onClickNextButton = {
                 isButtonClicked.value = true
-                if (!registrationState.value.nameError &&
-                    !registrationState.value.phoneNumberError &&
-                    !registrationState.value.passwordError
-                )
-                    onRegistrationIntent(RegistrationIntent.AskPermission)
+                if (!authorizationState.value.phoneNumberError && !authorizationState.value.passwordError)
+                    onAuthorizationIntent(AuthorizationIntent.AskPermission)
             }
         )
     }
@@ -153,11 +148,10 @@ fun RegistrationScreen(
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun RegistrationScreenPreviewDark() {
+private fun AuthorizationScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            val registrationViewModel = RegistrationViewModel(
-                nameValidator = NameValidator(),
+            val authorizationViewModel = AuthorizationViewModel(
                 phoneNumberValidator = PhoneNumberValidator(),
                 passwordValidator = PasswordValidator(),
                 dataStoreStorage = UserDataStoreStorage(
@@ -189,10 +183,10 @@ private fun RegistrationScreenPreviewDark() {
                     )
                 )
             )
-            RegistrationScreen(
-                onRegistrationIntent = registrationViewModel::onIntent,
-                registrationState = registrationViewModel.registrationState.collectAsState(),
-                registrationEffect = registrationViewModel.registrationEffect,
+            AuthorizationScreen(
+                onAuthorizationIntent = authorizationViewModel::onIntent,
+                authorizationState = authorizationViewModel.authorizationState.collectAsState(),
+                authorizationEffect = authorizationViewModel.authorizationEffect,
                 navHostController = rememberNavController()
             )
         }
@@ -202,11 +196,10 @@ private fun RegistrationScreenPreviewDark() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun RegistrationScreenPreviewLight() {
+private fun AuthorizationScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
-            val registrationViewModel = RegistrationViewModel(
-                nameValidator = NameValidator(),
+            val authorizationViewModel = AuthorizationViewModel(
                 phoneNumberValidator = PhoneNumberValidator(),
                 passwordValidator = PasswordValidator(),
                 dataStoreStorage = UserDataStoreStorage(
@@ -238,10 +231,10 @@ private fun RegistrationScreenPreviewLight() {
                     )
                 )
             )
-            RegistrationScreen(
-                onRegistrationIntent = registrationViewModel::onIntent,
-                registrationState = registrationViewModel.registrationState.collectAsState(),
-                registrationEffect = registrationViewModel.registrationEffect,
+            AuthorizationScreen(
+                onAuthorizationIntent = authorizationViewModel::onIntent,
+                authorizationState = authorizationViewModel.authorizationState.collectAsState(),
+                authorizationEffect = authorizationViewModel.authorizationEffect,
                 navHostController = rememberNavController()
             )
         }
