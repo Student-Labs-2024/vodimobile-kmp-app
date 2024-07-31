@@ -24,7 +24,7 @@ import com.vodimobile.presentation.utils.DatePatterns
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SnapVodimobileTopAppBar(
-    date: Long,
+    date: LongArray,
     onNotificationButtonClick: () -> Unit,
     onFieldClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -80,7 +80,7 @@ private fun SnapVodimobileTopAppBarDarkPreview() {
             onNotificationButtonClick = {},
             onFieldClick = {},
             onButtonClick = {},
-            date = System.currentTimeMillis()
+            date = longArrayOf(System.currentTimeMillis(),System.currentTimeMillis())
         )
     }
 }
@@ -93,7 +93,7 @@ private fun SnapVodimobileTopAppBarLightPreview() {
             onNotificationButtonClick = {},
             onFieldClick = {},
             onButtonClick = {},
-            date = System.currentTimeMillis()
+            date = longArrayOf(System.currentTimeMillis(),System.currentTimeMillis())
         )
     }
 }

@@ -17,10 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -30,7 +26,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.domain.model.Car
-import com.vodimobile.domain.repository.car.CarRepository
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.presentation.DialogIdentifiers
@@ -54,7 +49,7 @@ fun HomeScreen(
     @SuppressLint("ComposeMutableParameters") homeEffect: MutableSharedFlow<HomeEffect>,
     onHomeIntent: (HomeIntent) -> Unit,
     navHostController: NavHostController,
-    selectedDate: Long,
+    selectedDate: LongArray,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -97,7 +92,12 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(paddingValues)
                     .testTag(TestTags.HomeScreen.contentScroll),
-                contentPadding = PaddingValues(start = 24.dp, top = 24.dp, end= 24.dp, bottom = 56.dp),
+                contentPadding = PaddingValues(
+                    start = 24.dp,
+                    top = 24.dp,
+                    end = 24.dp,
+                    bottom = 56.dp
+                ),
                 verticalArrangement = Arrangement.spacedBy(
                     space = 20.dp,
                     alignment = Alignment.CenterVertically
@@ -145,7 +145,7 @@ private fun HomeScreenDarkPreview() {
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = 0
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
         )
     }
 }
@@ -166,7 +166,7 @@ private fun HomeScreenLightPreview() {
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = 0
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
         )
     }
 }
