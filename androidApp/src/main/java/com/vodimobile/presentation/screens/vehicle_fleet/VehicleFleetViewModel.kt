@@ -9,6 +9,7 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
@@ -39,12 +40,26 @@ class VehicleFleetViewModel(carsStorage: CarsStorage) : ViewModel() {
 
             is VehicleIntent.InfoCarClick -> {
                 viewModelScope.launch {
+                    vehicleState.update {
+                        it.copy(
+                            showBottomSheet = true,
+                            selectedCar = intent.car
+                        )
+                    }
                     vehicleFleetEffect.emit(VehicleEffect.InfoCarClick)
                 }
             }
 
             VehicleIntent.OnSelected -> {
 
+            }
+
+            VehicleIntent.CloseModal -> {
+                vehicleState.update {
+                    it.copy(
+                        showBottomSheet = false
+                    )
+                }
             }
         }
     }
