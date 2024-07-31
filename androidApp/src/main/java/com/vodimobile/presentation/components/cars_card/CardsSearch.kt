@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components.cars_card
+﻿package com.vodimobile.presentation.components.cars_card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -64,7 +64,7 @@ fun CardsSearch(
                         .fillMaxWidth()
                         .size(height = 96.dp, width = 328.dp),
                     painter = painterResource(id = carItem.images[0].drawableResId),
-                    contentDescription = null
+                    contentDescription = "Hyundai Solaris"
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))

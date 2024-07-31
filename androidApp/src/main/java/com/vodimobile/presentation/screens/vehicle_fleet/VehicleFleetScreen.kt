@@ -49,7 +49,6 @@ fun VehicleFleetScreen(
     vehicleState: State<VehicleState>,
     navHostController: NavHostController,
     selectedTagIndex: Int,
-    tags: List<String>,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -90,7 +89,7 @@ fun VehicleFleetScreen(
 
                     AutoTypeTagList(
                         modifier = Modifier,
-                        tags = tags,
+                        tags = vehicleState.value.tags,
                         selectedTagIndex = selectedTagIndex
                     ) {
 
@@ -140,14 +139,6 @@ private fun VehicleFleetScreenPreview() {
             onVehicleIntent = vehicleFleetViewModel::onIntent,
             vehicleEffect = vehicleFleetViewModel.vehicleFleetEffect,
             vehicleState = vehicleFleetViewModel.vehicleState.collectAsState(),
-            tags = listOf(
-                stringResource(id = R.string.auto_tag_all),
-                stringResource(id = R.string.auto_tag_economy),
-                stringResource(id = R.string.auto_tag_comfort),
-                stringResource(id = R.string.auto_tag_premium),
-                stringResource(id = R.string.auto_tag_sedan),
-                stringResource(id = R.string.auto_tag_off_road)
-            ),
             selectedTagIndex = 0,
             navHostController = rememberNavController()
         )

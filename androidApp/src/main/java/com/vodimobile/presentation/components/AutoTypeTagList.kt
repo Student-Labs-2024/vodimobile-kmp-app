@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -23,7 +24,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun AutoTypeTagList(
-    tags: List<String>,
+    @SuppressLint("ComposeUnstableCollections") tags: List<Int>,
     selectedTagIndex: Int,
     modifier: Modifier = Modifier,
     onSelected: (Int) -> Unit
@@ -45,7 +46,7 @@ fun AutoTypeTagList(
         ) {
             itemsIndexed(tags) { index, item ->
                 AutoTypeTag(
-                    text = item,
+                    text = stringResource(id = item),
                     isSelected = index == selectedTagIndex,
                     onClick = { onSelected(index) }
                 )
@@ -60,12 +61,12 @@ private fun AutoTypeTagListPreview() {
     VodimobileTheme(dynamicColor = false) {
 
         val tags = listOf(
-            stringResource(id = R.string.auto_tag_all),
-            stringResource(id = R.string.auto_tag_economy),
-            stringResource(id = R.string.auto_tag_comfort),
-            stringResource(id = R.string.auto_tag_premium),
-            stringResource(id = R.string.auto_tag_sedan),
-            stringResource(id = R.string.auto_tag_off_road)
+            R.string.auto_tag_all,
+            R.string.auto_tag_economy,
+            R.string.auto_tag_comfort,
+            R.string.auto_tag_premium,
+            R.string.auto_tag_sedan,
+            R.string.auto_tag_off_road
         )
 
         var selectedTagIndex by remember { mutableIntStateOf(0) }

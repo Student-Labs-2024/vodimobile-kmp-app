@@ -102,16 +102,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
                     vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
                     navHostController = navHostController,
-                    selectedTagIndex = 0,
-                    tags =listOf(
-                        stringResource(id = R.string.auto_tag_all),
-                        stringResource(id = R.string.auto_tag_economy),
-                        stringResource(id = R.string.auto_tag_comfort),
-                        stringResource(id = R.string.auto_tag_premium),
-                        stringResource(id = R.string.auto_tag_sedan),
-                        stringResource(id = R.string.auto_tag_off_road)
-                    ),
-                ) }
+                    selectedTagIndex = 0
+                )
+            }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
             ) { backEntry ->
