@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,7 +61,7 @@ fun ContactScreen(
                     openVk()
                 }
                 ContactEffect.WhatsappClick -> {
-                    openWhatsapp("+79507831440")
+                    openWhatsapp(App.INSTANCE.getString(R.string.phone_number))
                 }
             }
         }
@@ -144,7 +145,7 @@ private fun ContactScreenPreviewNight() {
 }
 
 private fun openTelegram() {
-    val telegramUrl = "https://web.telegram.org/k/#@StolyarovE"
+    val telegramUrl = App.INSTANCE.getString(R.string.telegram_url)
 
     try {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(telegramUrl))
@@ -163,7 +164,7 @@ private fun openWhatsapp(phoneNumber: String) {
     try {
         val intent = Intent(
             Intent.ACTION_VIEW, Uri.parse(
-                "whatsapp://send?phone=$phoneNumber"
+                App.INSTANCE.getString(R.string.whatsapp_url,phoneNumber)
             )
         )
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -172,7 +173,7 @@ private fun openWhatsapp(phoneNumber: String) {
 
         val webIntent = Intent(
             Intent.ACTION_VIEW, Uri.parse(
-                "https://api.whatsapp.com/send?phone=$phoneNumber"
+                App.INSTANCE.getString(R.string.whatsapp_web_url,phoneNumber)
             )
         )
         webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -182,7 +183,7 @@ private fun openWhatsapp(phoneNumber: String) {
 
 
 private fun openVk() {
-    val vkUrl = "https://vk.com/vodimobil"
+    val vkUrl = App.INSTANCE.getString(R.string.vk_url)
 
     try {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(vkUrl))
