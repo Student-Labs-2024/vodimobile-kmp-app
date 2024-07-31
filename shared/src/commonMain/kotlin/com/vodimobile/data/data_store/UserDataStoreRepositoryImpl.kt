@@ -54,4 +54,19 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
 
         return userFlow
     }
+
+    override suspend fun editPreregister(name: String, password: String, token: String) {
+        dataStore.edit { preferences ->
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = name
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = password
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_TOKEN)] = token
+        }
+    }
+
+    override suspend fun editPassword(password: String, token: String) {
+        dataStore.edit { preferences ->
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = password
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_TOKEN)] = token
+        }
+    }
 }

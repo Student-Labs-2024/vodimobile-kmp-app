@@ -26,6 +26,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.registration.components.AgreementBlock
@@ -37,6 +43,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.NameValidator
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")
@@ -151,7 +158,35 @@ private fun RegistrationScreenPreviewDark() {
             val registrationViewModel = RegistrationViewModel(
                 nameValidator = NameValidator(),
                 phoneNumberValidator = PhoneNumberValidator(),
-                passwordValidator = PasswordValidator()
+                passwordValidator = PasswordValidator(),
+                dataStoreStorage = UserDataStoreStorage(
+                    editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(App.INSTANCE)
+                        )
+                    ),
+                    getUserDataUseCase = GetUserDataUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                App.INSTANCE
+                            )
+                        )
+                    ),
+                    preRegisterUserUseCase = PreRegisterUserUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                App.INSTANCE
+                            )
+                        )
+                    ),
+                    editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                App.INSTANCE
+                            )
+                        )
+                    )
+                )
             )
             RegistrationScreen(
                 onRegistrationIntent = registrationViewModel::onIntent,
@@ -172,7 +207,35 @@ private fun RegistrationScreenPreviewLight() {
             val registrationViewModel = RegistrationViewModel(
                 nameValidator = NameValidator(),
                 phoneNumberValidator = PhoneNumberValidator(),
-                passwordValidator = PasswordValidator()
+                passwordValidator = PasswordValidator(),
+                dataStoreStorage = UserDataStoreStorage(
+                    editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(App.INSTANCE)
+                        )
+                    ),
+                    getUserDataUseCase = GetUserDataUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                App.INSTANCE
+                            )
+                        )
+                    ),
+                    preRegisterUserUseCase = PreRegisterUserUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                App.INSTANCE
+                            )
+                        )
+                    ),
+                    editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                App.INSTANCE
+                            )
+                        )
+                    )
+                )
             )
             RegistrationScreen(
                 onRegistrationIntent = registrationViewModel::onIntent,
