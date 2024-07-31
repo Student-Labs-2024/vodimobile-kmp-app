@@ -1,5 +1,6 @@
 package com.vodimobile.domain.model
 
+import com.vodimobile.domain.model.remote.CarType
 import com.vodimobile.shared.resources.SharedRes
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
@@ -17,6 +18,7 @@ data class Car(
     val transmission: StringResource,
     val wheelDrive: StringResource,
     val tankValue: StringResource,
+    val carType: CarType = CarType.None,
     val deposit: Float?,
     val tariffs: List<Tariff>,
     val images: List<ImageResource>,
