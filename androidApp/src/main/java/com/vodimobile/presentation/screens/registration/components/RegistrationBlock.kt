@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.PhoneField
-import com.vodimobile.presentation.screens.change_password.components.NewPasswordField
+import com.vodimobile.presentation.components.NewPasswordField
 import com.vodimobile.presentation.screens.registration.store.RegistrationState
 import com.vodimobile.presentation.theme.VodimobileTheme
 

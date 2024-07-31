@@ -1,5 +1,6 @@
 package com.vodimobile.di
 
+import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
@@ -43,4 +44,5 @@ val viewModelModule = module {
     viewModelOf(::HomeViewModel)
     viewModelOf(::ChangePasswordViewModel)
     viewModelOf(::VehicleFleetViewModel)
+    viewModelOf(::AuthorizationViewModel)
 }

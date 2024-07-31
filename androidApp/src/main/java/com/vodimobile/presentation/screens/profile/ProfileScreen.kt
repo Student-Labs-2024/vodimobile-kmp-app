@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.profile
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,10 +32,11 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun ProfileScreen(
     onProfileIntent: (ProfileIntent) -> Unit,
-    profileEffect: MutableSharedFlow<ProfileEffect>,
+    @SuppressLint("ComposeMutableParameters") profileEffect: MutableSharedFlow<ProfileEffect>,
     navHostController: NavHostController
 ) {
 
