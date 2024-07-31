@@ -72,14 +72,14 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 route = LeafHomeScreen.HOME_SCREEN,
                 arguments = listOf(
                     navArgument(name = "selected-date") {
-                        type = NavType.LongType
-                        defaultValue = 0L
+                        type = NavType.LongArrayType
+                        defaultValue = longArrayOf(0L, 0L)
                     },
                 )
             ) { backStackEntry ->
                 val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-date",
-                    initialValue = 0L,
+                    initialValue = longArrayOf(0L, 0L),
                 ).collectAsState().value
                 val homeViewModel: HomeViewModel = koinViewModel()
                 HomeScreen(
@@ -108,18 +108,22 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
             ) { backEntry ->
-                var selectedDate by remember { mutableStateOf(0L) }
+                var selectedDate by remember { mutableStateOf(longArrayOf(0L, 0L)) }
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
-                    onConfirmClick = { value ->
+                    onConfirmClick = { start, finish ->
                         navHostController.previousBackStackEntry?.savedStateHandle?.set(
                             "selected-date",
-                            value,
+                            longArrayOf(start, finish),
                         )
-                        selectedDate = value
+                        selectedDate = longArrayOf(start, finish)
                         navHostController.navigateUp()
                     },
-                    initialDateInMillis = if (selectedDate == 0L) System.currentTimeMillis() else selectedDate
+                    initialDateInMillis =
+                    if (selectedDate[0] == 0L || selectedDate[1] == 0L) longArrayOf(
+                        System.currentTimeMillis(),
+                        System.currentTimeMillis()
+                    ) else selectedDate
                 )
             }
             composable(
