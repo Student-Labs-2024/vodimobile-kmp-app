@@ -16,7 +16,8 @@ sealed class BottomNavItemScreen(
         R.drawable.home_icon,
         RootScreen.HOME_SCREEN,
         listOf(
-            LeafHomeScreen.HOME_SCREEN
+            LeafHomeScreen.HOME_SCREEN,
+            LeafHomeScreen.ALL_CARS
         )
     )
 

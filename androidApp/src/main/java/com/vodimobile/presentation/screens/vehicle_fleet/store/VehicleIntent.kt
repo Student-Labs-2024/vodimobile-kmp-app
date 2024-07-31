@@ -7,4 +7,5 @@ sealed class VehicleIntent {
     data object OnSelected: VehicleIntent()
     data class BookCarClick(val car: Car) :VehicleIntent()
     data class InfoCarClick(val car: Car) : VehicleIntent()
+    data object CloseModal: VehicleIntent()
 }

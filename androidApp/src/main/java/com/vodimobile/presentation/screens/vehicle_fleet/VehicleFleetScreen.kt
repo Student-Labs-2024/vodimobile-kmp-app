@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.vehicle_fleet
 
+import BottomCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -33,6 +34,7 @@ import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
+import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
@@ -63,6 +65,10 @@ fun VehicleFleetScreen(
                 }
 
                 VehicleEffect.InfoCarClick -> {
+
+                }
+
+                VehicleEffect.CloseModel -> {
 
                 }
             }
@@ -117,6 +123,14 @@ fun VehicleFleetScreen(
                         onInfoClick = { carItem -> onVehicleIntent(VehicleIntent.InfoCarClick(car = carItem)) })
 
                 }
+            }
+
+            if (vehicleState.value.showBottomSheet) {
+                BottomCard(
+                    carItem = vehicleState.value.selectedCar,
+                    onDismiss = { onVehicleIntent(VehicleIntent.CloseModal) },
+                    onBookClick = { onVehicleIntent(VehicleIntent.BookCarClick(car = vehicleState.value.selectedCar)) }
+                )
             }
         }
     }
