@@ -39,7 +39,7 @@ import com.vodimobile.presentation.screens.authorization.components.Authorizatio
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
-import com.vodimobile.presentation.screens.registration.components.AgreementBlock
+import com.vodimobile.presentation.components.AgreementBlock
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
@@ -93,7 +93,9 @@ fun AuthorizationScreen(
                     }
                 }
 
-                AuthorizationEffect.RememberPassword -> {}
+                AuthorizationEffect.RememberPassword -> {
+                    navHostController.navigate(RegistrationScreens.RESET_PASSWORD_SCREEN)
+                }
             }
         }
     }

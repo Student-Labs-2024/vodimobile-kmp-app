@@ -45,6 +45,10 @@ import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
+import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
+import com.vodimobile.presentation.screens.reset_password.ResetPasswordScreen
+import com.vodimobile.presentation.screens.reset_password.ResetPasswordViewModel
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RuleScreen
@@ -291,6 +295,24 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     smsEffect = smsViewModel.smsEffect,
                     phone = backStackEntry.arguments?.getString("phone") ?: "",
                     onIntent = smsViewModel::onIntent,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = RegistrationScreens.RESET_PASSWORD_SCREEN) {
+                val resetPasswordViewModel: ResetPasswordViewModel = koinViewModel()
+                ResetPasswordScreen(
+                    onResetPasswordIntent = resetPasswordViewModel::onIntent,
+                    resetPasswordState = resetPasswordViewModel.resetPasswordState.collectAsState(),
+                    passwordResetEffect = resetPasswordViewModel.resetPasswordEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = RegistrationScreens.NEW_PASSWORD_SCREEN) {
+                val newPasswordViewModel: NewPasswordViewModel = koinViewModel()
+                NewPasswordScreen(
+                    onNewPasswordIntent = newPasswordViewModel::onIntent,
+                    newPasswordState = newPasswordViewModel.newPasswordState.collectAsState(),
+                    newPasswordEffect = newPasswordViewModel.newPasswordEffect,
                     navHostController = navHostController
                 )
             }
