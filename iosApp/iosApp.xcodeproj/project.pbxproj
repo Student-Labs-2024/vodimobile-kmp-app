@@ -18,6 +18,7 @@
 		93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FBC2C495594008EADB4 /* ConditionViewModel.swift */; };
 		93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 93351C852C42F7C100DD882A /* iPhoneNumberField */; };
 		933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */; };
+		933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF9D32C55850A005C57C4 /* AuthViewModel.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -32,7 +33,6 @@
 		934F0D512C3D692A000B256E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D4F2C3D692A000B256E /* SceneDelegate.swift */; };
 		934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D552C3D6DCB000B256E /* RegistrationScreenView.swift */; };
 		934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D572C3D76E3000B256E /* AuthScreenView.swift */; };
-		934F0D5B2C3D775F000B256E /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */; };
 		934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */; };
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
@@ -64,12 +64,19 @@
 		936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B18492C4647FB000AC6F8 /* DetailRuleView.swift */; };
 		936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */; };
 		936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B184D2C465392000AC6F8 /* FAQViewModel.swift */; };
+		936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936F37D62C53EAF500F56304 /* IphonePhoneTextField.swift */; };
+		9373612E2C54BC9F00132C14 /* TogglableSecureField in Frameworks */ = {isa = PBXBuildFile; productRef = 9373612D2C54BC9F00132C14 /* TogglableSecureField */; };
+		937361402C54C21D00132C14 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373613F2C54C21D00132C14 /* BorderedTextField.swift */; };
+		937361422C54C9D200132C14 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937361412C54C9D200132C14 /* PasswordTextField.swift */; };
 		93745BC52C41A57700889B42 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC42C41A57600889B42 /* FAQView.swift */; };
 		93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */; };
 		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
 		937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */; };
 		937DBD592C4FD38600C43A86 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 937DBD582C4FD38600C43A86 /* .swiftlint.yml */; };
+		938872A52C5410ED00C49587 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938872A42C5410ED00C49587 /* RegistrationViewModel.swift */; };
 		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
+		939E23BE2C580C8A0020CAA8 /* ForgetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E23BD2C580C8A0020CAA8 /* ForgetPasswordView.swift */; };
+		939E23C02C581E920020CAA8 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E23BF2C581E920020CAA8 /* ResetPasswordView.swift */; };
 		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
 		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
 		93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 93D1E05E2C45048200919749 /* RswiftLibrary */; };
@@ -102,6 +109,7 @@
 		93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellView.swift; sourceTree = "<group>"; };
 		93328FBC2C495594008EADB4 /* ConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionViewModel.swift; sourceTree = "<group>"; };
 		933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewModel.swift; sourceTree = "<group>"; };
+		933EF9D32C55850A005C57C4 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -116,7 +124,6 @@
 		934F0D4F2C3D692A000B256E /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		934F0D552C3D6DCB000B256E /* RegistrationScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreenView.swift; sourceTree = "<group>"; };
 		934F0D572C3D76E3000B256E /* AuthScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreenView.swift; sourceTree = "<group>"; };
-		934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
 		934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarView.swift; sourceTree = "<group>"; };
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
@@ -149,12 +156,18 @@
 		936B18492C4647FB000AC6F8 /* DetailRuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleView.swift; sourceTree = "<group>"; };
 		936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleViewModel.swift; sourceTree = "<group>"; };
 		936B184D2C465392000AC6F8 /* FAQViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewModel.swift; sourceTree = "<group>"; };
+		936F37D62C53EAF500F56304 /* IphonePhoneTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IphonePhoneTextField.swift; sourceTree = "<group>"; };
+		9373613F2C54C21D00132C14 /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
+		937361412C54C9D200132C14 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		93745BC42C41A57600889B42 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
 		93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsView.swift; sourceTree = "<group>"; };
 		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPDataStorage.swift; sourceTree = "<group>"; };
 		937DBD582C4FD38600C43A86 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		938872A42C5410ED00C49587 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
+		939E23BD2C580C8A0020CAA8 /* ForgetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordView.swift; sourceTree = "<group>"; };
+		939E23BF2C581E920020CAA8 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9373612E2C54BC9F00132C14 /* TogglableSecureField in Frameworks */,
 				93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */,
 				93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */,
 			);
@@ -238,7 +252,9 @@
 			isa = PBXGroup;
 			children = (
 				93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */,
-				934F0D5A2C3D775F000B256E /* CustomTextFieldView.swift */,
+				936F37D62C53EAF500F56304 /* IphonePhoneTextField.swift */,
+				9373613F2C54C21D00132C14 /* BorderedTextField.swift */,
+				937361412C54C9D200132C14 /* PasswordTextField.swift */,
 			);
 			path = TextFields;
 			sourceTree = "<group>";
@@ -355,6 +371,8 @@
 				93328FBC2C495594008EADB4 /* ConditionViewModel.swift */,
 				93689FE82C58BECD00A4FB13 /* MainViewModel.swift */,
 				935CF95F2C5908EF00F6F6CB /* AutoListViewModel.swift */,
+				938872A42C5410ED00C49587 /* RegistrationViewModel.swift */,
+				933EF9D32C55850A005C57C4 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -393,6 +411,7 @@
 				93745BC42C41A57600889B42 /* FAQView.swift */,
 				93745BC62C41A5DF00889B42 /* RulesAndConditionsView.swift */,
 				936B18492C4647FB000AC6F8 /* DetailRuleView.swift */,
+				939E23BF2C581E920020CAA8 /* ResetPasswordView.swift */,
 			);
 			path = ProfileViews;
 			sourceTree = "<group>";
@@ -421,6 +440,7 @@
 			packageProductDependencies = (
 				93351C852C42F7C100DD882A /* iPhoneNumberField */,
 				93D1E05E2C45048200919749 /* RswiftLibrary */,
+				9373612D2C54BC9F00132C14 /* TogglableSecureField */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -455,6 +475,7 @@
 				93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */,
 				9370C1932C501B6100C783D8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				9373612C2C54BC9F00132C14 /* XCRemoteSwiftPackageReference "TogglableSecureField" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -571,8 +592,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */,
+				938872A52C5410ED00C49587 /* RegistrationViewModel.swift in Sources */,
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
 				935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */,
+				939E23C02C581E920020CAA8 /* ResetPasswordView.swift in Sources */,
 				934D957B2C4902A20027DFC8 /* ContactsViewModel.swift in Sources */,
 				935E1A8C2C5126F900A35E4E /* ScrollViewWithOffset.swift in Sources */,
 				936198822C3F0CA100B0198D /* MainView.swift in Sources */,
@@ -604,18 +627,23 @@
 				93328FB92C4947A1008EADB4 /* ProfileViewModel.swift in Sources */,
 				934D957F2C4913290027DFC8 /* MediaCellView.swift in Sources */,
 				931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */,
+				937361402C54C21D00132C14 /* BorderedTextField.swift in Sources */,
 				93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
+				937361422C54C9D200132C14 /* PasswordTextField.swift in Sources */,
 				935E1A922C51443F00A35E4E /* AutoSimpleCardView.swift in Sources */,
 				93A257772C40F27900316EDE /* ContactsView.swift in Sources */,
 				936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */,
 				937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */,
 				931FDDA62C46F8BF007954FC /* R.generated.swift in Sources */,
 				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
+				939E23BE2C580C8A0020CAA8 /* ForgetPasswordView.swift in Sources */,
 				933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,
+				933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */,
+				936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */,
 				93745BC52C41A57700889B42 /* FAQView.swift in Sources */,
 				935DC3BC2C516E22009CBA43 /* AutoListView.swift in Sources */,
 				93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */,
@@ -866,6 +894,14 @@
 				minimumVersion = 0.55.1;
 			};
 		};
+		9373612C2C54BC9F00132C14 /* XCRemoteSwiftPackageReference "TogglableSecureField" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/perfaram/TogglableSecureField";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mac-cain13/R.swift";
@@ -881,6 +917,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
 			productName = iPhoneNumberField;
+		};
+		9373612D2C54BC9F00132C14 /* TogglableSecureField */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9373612C2C54BC9F00132C14 /* XCRemoteSwiftPackageReference "TogglableSecureField" */;
+			productName = TogglableSecureField;
 		};
 		93D1E05E2C45048200919749 /* RswiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;

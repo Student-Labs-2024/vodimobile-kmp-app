@@ -26,6 +26,8 @@ extension Image {
     static let infoCircleFill: Image = Image(systemName: "info.circle.fill")
     static let questionFolder: Image = Image(systemName: "questionmark.folder")
     static let car: Image = Image(systemName: "car")
+    static let eye: Image = Image(systemName: "eye")
+    static let eyeSlash: Image = Image(systemName: "eye.slash")
 }
 
 extension Image {

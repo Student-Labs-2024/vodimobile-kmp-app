@@ -24,6 +24,8 @@
 "premiumScreenTitle" = "Premium";
 "sedansScreenTitle" = "Sedans";
 "jeepsScreenTitle" = "Jeeps";
+"resetPassScreenTitle" = "Reset password";
+"changePassword" = "Change the password";
 
 // Buttons titles
 "regButtonTitle" = "Sign up";
@@ -36,6 +38,7 @@
 "findAutoButton" = "Find a car";
 "reconnectButton" = "Try again";
 "closeButton" = "Close";
+"forgetPassword" = "Forgot your password?";
 "findAutoButton" = "Find auto";
 "allAutoButton" = "All auto >";
 "bookButton" = "Book";
@@ -46,6 +49,19 @@
 "fullName" = "Full name";
 "dateTextFieldPlaceholder" = "When?";
 "dateTextFieldTitle" = "Select the rental dates";
+"password" = "Password";
+"passwordPlaceholder" = "Input your password";
+"fullnamePlaceholder" = "Input your full name";
+
+// Error strings
+"incorrectFullName" = "Invalid format. Only letters without characters and whitespaces are allowed to be entered";
+"incorrectPhone" = "Incorrect phone number format";
+"alreadyExistsPhone" = "Such a phone already exists. Log in";
+"incorrectPass" = "The password is incorrect. Please try again.";
+"tooShortPass" ="Password less than 8 characters";
+"noSpecSymboldsInPass" = "Password must contain at least one special character";
+"noUpperLettersInPass" = "Password must contain at least one capital letter";
+"invalidPass" = "Invalid password";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";

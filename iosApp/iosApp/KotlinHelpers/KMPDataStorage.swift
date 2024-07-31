@@ -20,7 +20,7 @@ final class KMPDataStorage: ObservableObject {
         email: "rele@df.df"
     )
     static let defaultUser = User.companion.empty()
-    
+
     @Published
     private(set) var gettingUser: User = KMPDataStorage.defaultUser
 

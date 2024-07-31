@@ -9,22 +9,38 @@
 import SwiftUI
 
 struct AuthScreenView: View {
-    @State private var phoneFieldText = ""
-    @State private var phoneIsValid: Bool = false
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
+    @ObservedObject private var viewModel = AuthViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
-                    .onChange(of: phoneIsValid) { _ in
+                BorderedTextField(
+                    fieldContent: $viewModel.phone,
+                    isValid: $viewModel.isPhoneValid,
+                    fieldType: .phone,
+                    inputErrorType: $viewModel.inputError
+                )
+                .onChange(of: viewModel.isPhoneValid) { _ in
+                    toggleButtonEnabled()
+                }
+                
+                VStack {
+                    BorderedTextField(
+                        fieldContent: $viewModel.password,
+                        isValid: $viewModel.isPasswordValid,
+                        fieldType: .password,
+                        inputErrorType: $viewModel.inputError
+                    )
+                    .onChange(of: viewModel.isPasswordValid) { _ in
                         toggleButtonEnabled()
                     }
+                }
                 
-                NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
+                NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())
@@ -61,7 +77,7 @@ struct AuthScreenView: View {
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = phoneIsValid && checkboxSelected
+        isButtonEnabled = viewModel.isPhoneValid && checkboxSelected
     }
 }
 
