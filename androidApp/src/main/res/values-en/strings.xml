@@ -106,4 +106,6 @@
 
     <string name="server_error">Error on the server</string>
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
+
+    <string name="vehicle_fleet">Vehicle fleet</string>
 </resources>
