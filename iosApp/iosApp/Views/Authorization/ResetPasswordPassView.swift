@@ -1,49 +1,35 @@
 //
-//  AuthScreenView.swift
+//  ResetPasswordPassView.swift
 //  iosApp
 //
-//  Created by Sergey Ivanov on 09.07.2024.
+//  Created by Sergey Ivanov on 01.08.2024.
 //  Copyright © 2024 orgName. All rights reserved.
 //
 
 import SwiftUI
 
-struct AuthScreenView: View {
+struct ResetPasswordPassView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject private var viewModel = AuthViewModel()
+    @ObservedObject private var viewModel = ResetPasswordViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                BorderedTextField(
-                    fieldContent: $viewModel.phone,
-                    isValid: $viewModel.isPhoneValid,
-                    fieldType: .phone,
-                    inputErrorType: $viewModel.inputError
-                )
-                .onChange(of: viewModel.isPhoneValid) { _ in
-                    toggleButtonEnabled()
-                }
+                    BorderedTextField(
+                        fieldContent: $viewModel.password,
+                        isValid: $viewModel.isPasswordValid,
+                        fieldType: .password,
+                        inputErrorType: $viewModel.inputError
+                    )
+                    .onChange(of: viewModel.isPasswordValid) { _ in
+                        toggleButtonEnabled()
+                    }
                 
-                BorderedTextField(
-                    fieldContent: $viewModel.password,
-                    isValid: $viewModel.isPasswordValid,
-                    fieldType: .password,
-                    inputErrorType: $viewModel.inputError,
-                    isForgetBtnEnabled: true
-                )
-                .onChange(of: viewModel.isPasswordValid) { _ in
-                    toggleButtonEnabled()
-                }
-                
-                NavigationLink(destination: PinCodeView(
-                    phoneNumber: $viewModel.phone,
-                    isResetPasswordFlow: false)
-                ) {
-                    Text(R.string.localizable.nextBtnName)
+                NavigationLink(destination: MainTabbarView()) {
+                    Text(R.string.localizable.saveButton)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -74,15 +60,16 @@ struct AuthScreenView: View {
         .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
         .toolbar {
-            CustomToolbar(title: R.string.localizable.authScreenTitle)
+            CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
         }
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = viewModel.isPhoneValid && checkboxSelected
+        isButtonEnabled = viewModel.isPasswordValid && checkboxSelected
     }
 }
 
 #Preview {
-    AuthScreenView()
+    ResetPasswordPassView()
 }
+

@@ -25,33 +25,20 @@ struct PersonDataView: View {
             VStack(alignment: .leading, spacing: 25) {
                 Text(R.string.localizable.yourDataText).font(.header3)
                 
-                UnderlineTextField(text: $viewModel.userInput.fullname, isValid: $viewModel.userInput.fullnameIsValid, fieldType: .fullName)
-                    .focused($focusedField, equals: .fullname)
-                NavigationLink(destination: ResetPasswordView()) {
-                    HStack {
-                        HStack {
-                            Text(R.string.localizable.changePassword)
-                                .font(.paragraph5)
-                                .foregroundColor(Color(R.color.grayTextColor))
-                            .padding(.bottom, 5)
-                            Spacer()
-                        }
-                        .overlay(
-                            Rectangle()
-                                .frame(height: 1)
-                                .foregroundColor(Color(R.color.grayDarkColor)),
-                            alignment: .bottom
-                        )
-                        .frame(maxWidth: .infinity)
-                        
-                        Image.chevronRight
-                            .padding(.vertical, 16)
-                            .padding(.leading, 16)
-                            .foregroundStyle(Color(R.color.grayDarkColor))
-                    }
-                }
-                UnderlineTextField(text: $viewModel.userInput.phone, isValid: $viewModel.userInput.phoneIsValid, fieldType: .phone)
-                    .focused($focusedField, equals: .phone)
+                UnderlineTextField(
+                    text: $viewModel.fullname,
+                    isValid: $viewModel.isFullnameValid,
+                    fieldType: .fullName
+                )
+                .focused($focusedField, equals: .fullname)
+                
+                ButtonLikeTextFieldView()
+                
+                UnderlineTextField(
+                    title: R.string.localizable.phone(),
+                    text: viewModel.phone,
+                    fieldType: .mock
+                )
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
@@ -62,7 +49,7 @@ struct PersonDataView: View {
             
             Spacer()
         }
-        .onChange(of: $viewModel.userInput.wrappedValue) { _ in
+        .onChange(of: viewModel.fullname) { _ in
             $viewModel.dataIsEditing.wrappedValue = true
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)

@@ -115,6 +115,8 @@
 "characteristicsTitle" = "Characteristics:";
 "generalAutoCardTitle" = "Go to the entire car park";
 "literText" = "liter(s)";
+"resetScreenTitle" = "Input phone number";
+"resetScreenSubtitle" = "The code for changing the password will be sent by SMS.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

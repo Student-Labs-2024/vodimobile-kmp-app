@@ -8,26 +8,6 @@
 
 import SwiftUI
 
-enum TextFieldType: String {
-    case email
-    case phone
-    case fullName
-    case password
-    
-    var localizedStr: String {
-        switch self {
-        case .email:
-            return R.string.localizable.email()
-        case .phone:
-            return R.string.localizable.phone()
-        case .fullName:
-            return R.string.localizable.fullName()
-        case .password:
-            return R.string.localizable.password()
-        }
-    }
-}
-
 struct BorderedTextField: View {
     @State private var errorMessage: String = ""
     @State private var isEditing: Bool = false
@@ -36,6 +16,7 @@ struct BorderedTextField: View {
     @Binding var isValid: Bool
     @Binding var inputErrorType: InputErrorType?
     
+    private let isForgetBtnEnabled: Bool
     private let fieldType: TextFieldType
     private let placeholder: String
     private let keyboardType: UIKeyboardType
@@ -44,12 +25,14 @@ struct BorderedTextField: View {
         fieldContent: Binding<String>,
         isValid: Binding<Bool>,
         fieldType: TextFieldType,
-        inputErrorType: Binding<InputErrorType?>
+        inputErrorType: Binding<InputErrorType?>,
+        isForgetBtnEnabled: Bool = false
     ) {
         self._fieldContent = fieldContent
         self._isValid = isValid
         self._inputErrorType = inputErrorType
         self.fieldType = fieldType
+        self.isForgetBtnEnabled = isForgetBtnEnabled
         
         switch fieldType {
         case .email:
@@ -62,6 +45,9 @@ struct BorderedTextField: View {
             placeholder = R.string.localizable.passwordPlaceholder()
             keyboardType = .default
         case .fullName:
+            placeholder = R.string.localizable.fullnamePlaceholder()
+            keyboardType = .default
+        case .mock:
             placeholder = R.string.localizable.fullnamePlaceholder()
             keyboardType = .default
         }
@@ -87,7 +73,8 @@ struct BorderedTextField: View {
                     isEditing: $isEditing,
                     inputErrorType: $inputErrorType,
                     isFocused: $isFocused,
-                    errorHandler: handleErrorTypeChanging
+                    errorHandler: handleErrorTypeChanging,
+                    isForgetButtonEnabled: isForgetBtnEnabled
                 )
             } else {
                 HStack {

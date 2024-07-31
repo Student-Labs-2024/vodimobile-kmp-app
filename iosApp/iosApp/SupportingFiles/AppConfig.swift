@@ -33,7 +33,7 @@ public let horizontalPadding: CGFloat = 16
 public let checkboxLeadingPadding: CGFloat = 14
 public let spacingBetweenCheckboxAndText: CGFloat = 16
 public let checkboxSize: CGFloat = 21
-public let аuthScreencontentTopPadding: CGFloat = 120
+public let аuthScreencontentTopPadding: CGFloat = 60
 
 /// UI screen paddings
 struct StartScreenConfig {

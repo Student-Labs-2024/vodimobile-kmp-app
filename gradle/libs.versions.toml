@@ -61,7 +61,6 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 koin-android-test = { module = "io.insert-koin:koin-android-test", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
-skie-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 #KMP koin

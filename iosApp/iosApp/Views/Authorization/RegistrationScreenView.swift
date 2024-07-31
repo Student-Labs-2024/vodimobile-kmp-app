@@ -42,13 +42,17 @@ struct RegistrationScreenView: View {
                     fieldContent: $viewModel.password,
                     isValid: $viewModel.isPasswordValid,
                     fieldType: .password,
-                    inputErrorType: $viewModel.inputError
+                    inputErrorType: $viewModel.inputError,
+                    isForgetBtnEnabled: false
                 )
                 .onChange(of: viewModel.password) { _ in
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
+                NavigationLink(destination: PinCodeView(
+                    phoneNumber: $viewModel.phone,
+                    isResetPasswordFlow: false)
+                ) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())

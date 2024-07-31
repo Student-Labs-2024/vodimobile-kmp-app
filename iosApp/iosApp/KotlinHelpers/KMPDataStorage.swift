@@ -22,9 +22,9 @@ final class KMPDataStorage: ObservableObject {
     static let defaultUser = User.companion.empty()
 
     @Published
-    private(set) var gettingUser: User = KMPDataStorage.defaultUser
+    var gettingUser: User = KMPDataStorage.defaultUser
 
-    func editUserData() async {
+    func editUserData(_ newUser: User) async throws {
         try? await repository.editUserData(user: newUser)
     }
     

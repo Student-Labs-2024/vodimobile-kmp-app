@@ -108,6 +108,8 @@
 "characteristicsTitle" = "Характеристики:";
 "generalAutoCardTitle" = "Перейти ко всему автопарку";
 "literText" = "л.";
+"resetScreenTitle" = "Введите номера телефона";
+"resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

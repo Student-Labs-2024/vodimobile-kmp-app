@@ -18,6 +18,7 @@ struct PasswordTextField: View {
     @FocusState.Binding var isFocused: Bool
     
     let errorHandler: (inout String) -> ()
+    let isForgetButtonEnabled: Bool
     let fieldName: String = TextFieldType.password.localizedStr
     let placeholder: String = R.string.localizable.passwordPlaceholder()
     let keyboardType: UIKeyboardType = .default
@@ -117,12 +118,15 @@ struct PasswordTextField: View {
                         .padding(.leading, 10)
                 }
                 Spacer()
-                NavigationLink(R.string.localizable.forgetPassword()) {
-                    ForgetPasswordView()
+                
+                if isForgetButtonEnabled {
+                    NavigationLink(R.string.localizable.forgetPassword()) {
+                        ResetPasswordPhoneView()
+                    }
+                    .font(.paragraph5)
+                    .foregroundStyle(Color(R.color.grayTextColor))
+                    .multilineTextAlignment(.trailing)
                 }
-                .font(.paragraph5)
-                .foregroundStyle(Color(R.color.grayTextColor))
-                .multilineTextAlignment(.trailing)
             }
         }
     }

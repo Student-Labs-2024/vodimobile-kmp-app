@@ -61,13 +61,13 @@ enum TabType: Int {
     case profile
 }
 
-enum TextFieldType {
+enum TextFieldType: String {
     case email
     case phone
     case fullName
-}
-
-extension TextFieldType {
+    case password
+    case mock
+    
     var localizedStr: String {
         switch self {
         case .email:
@@ -76,6 +76,10 @@ extension TextFieldType {
             return R.string.localizable.phone()
         case .fullName:
             return R.string.localizable.fullName()
+        case .password:
+            return R.string.localizable.password()
+        case .mock:
+            return ""
         }
     }
 }
