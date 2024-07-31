@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.registration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
 import com.vodimobile.presentation.screens.registration.store.RegistrationState
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 class RegistrationViewModel(
     private val phoneNumberValidator: PhoneNumberValidator,
     private val passwordValidator: PasswordValidator,
-    private val nameValidator: NameValidator
+    private val nameValidator: NameValidator,
+    private val dataStoreStorage: UserDataStoreStorage
 ) : ViewModel() {
 
     val registrationState = MutableStateFlow(RegistrationState())
@@ -80,6 +82,9 @@ class RegistrationViewModel(
 
             RegistrationIntent.AskPermission -> {
                 viewModelScope.launch {
+                    with(registrationState.value) {
+                        dataStoreStorage.preregister(name = name, password = password, token = "")
+                    }
                     registrationEffect.emit(RegistrationEffect.AskPermission)
                 }
             }
