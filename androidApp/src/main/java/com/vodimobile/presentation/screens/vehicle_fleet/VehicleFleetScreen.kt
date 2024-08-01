@@ -21,25 +21,41 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.car.CarRepositoryImpl
+import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.storage.cars.CarsStorage
+import com.vodimobile.domain.storage.crm.CrmStorage
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
+import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
+import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
+import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
@@ -53,6 +69,7 @@ fun VehicleFleetScreen(
     selectedTagIndex: Int,
     modifier: Modifier = Modifier
 ) {
+
     LaunchedEffect(key1 = Unit) {
         vehicleEffect.collect { effect ->
             when (effect) {
@@ -71,9 +88,18 @@ fun VehicleFleetScreen(
                 VehicleEffect.CloseModel -> {
 
                 }
+
+                VehicleEffect.DismissLoadingDialog -> {
+                    navHostController.navigateUp()
+                }
+
+                VehicleEffect.ShowLoadingDialog -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
+                }
             }
         }
     }
+    onVehicleIntent(VehicleIntent.InitCars)
     ExtendedTheme {
         Scaffold(
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
@@ -146,6 +172,46 @@ private fun VehicleFleetScreenPreview() {
                 getPopularCarsUseCase = GetPopularCarsUseCase(
                     CarRepositoryImpl()
                 )
+            ),
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editTokensUseCase = EditTokensUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            ),
+            crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl())
             )
         )
 

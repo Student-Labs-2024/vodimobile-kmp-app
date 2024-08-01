@@ -26,10 +26,8 @@ class CrmStorageTest {
             )
 
             val response = crmStorage.getCarList(
-                bearerTokens = BearerTokens(
-                    accessToken = SharedBuildkonfig.crm_test_access_token,
-                    refreshToken = SharedBuildkonfig.crm_test_refresh_token
-                )
+                accessToken = SharedBuildkonfig.crm_test_access_token,
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token
             )
 
             assertTrue(response.status.isSuccess())

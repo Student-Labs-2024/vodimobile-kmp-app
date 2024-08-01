@@ -144,6 +144,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController = navHostController
                 )
             }
+            dialog(route = DialogIdentifiers.LOADING_DIALOG) {
+                ProgressDialogIndicator()
+            }
         }
         composable(RootScreen.ORDERS_SCREEN) {
             OrdersScreen()

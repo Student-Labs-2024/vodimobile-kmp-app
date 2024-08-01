@@ -9,7 +9,7 @@ import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.http.HttpStatusCode
 
 interface CrmRepository {
-    suspend fun getCarList(bearerTokens: BearerTokens): CrmEither<CarListDTO, HttpStatusCode>
+    suspend fun getCarList(accessToken: String, refreshToken: String): CrmEither<CarListDTO, HttpStatusCode>
     suspend fun getTariffList(carId: Int): CrmEither<TariffListDTO, HttpStatusCode>
     suspend fun postNewUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode>
 }

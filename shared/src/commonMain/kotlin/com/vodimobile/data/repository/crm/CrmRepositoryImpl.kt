@@ -14,6 +14,7 @@ import com.vodimobile.utils.local_properties.getCrmServerDataFromLocalProperties
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerAuthConfig
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.request.get
@@ -35,21 +36,30 @@ class CrmRepositoryImpl : CrmRepository {
     private val crmServerData: CrmServerData = getCrmServerDataFromLocalProperties()
     private val client: HttpClient = provideKtorClient()
 
-    override suspend fun getCarList(bearerTokens: BearerTokens): CrmEither<CarListDTO, HttpStatusCode> {
-        client.config {
-            install(Auth) {
-                bearer {
-                    loadTokens {
-                        bearerTokens
+    override suspend fun getCarList(
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<CarListDTO, HttpStatusCode> {
+
+
+        val httpResponse: HttpResponse =
+            client.config {
+                install(Auth) {
+                    bearer {
+                        loadTokens {
+                            BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
+                        }
+                        refreshTokens {
+                            BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
+                        }
                     }
                 }
             }
-        }
-        val httpResponse: HttpResponse = client.get(
-            block = {
-                url(url = Url(crmServerData.buildUrl(CrmRouting.Cars.ALL_CARS)))
-            }
-        )
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.Cars.ALL_CARS)))
+                    }
+                )
 
         val carListDTO: CarListDTO = httpResponse.body()
 
@@ -102,6 +112,18 @@ class CrmRepositoryImpl : CrmRepository {
             CrmEither(data = userResponse, status = response.status)
         } else {
             CrmEither(data = null, status = response.status)
+        }
+    }
+
+    private fun authConfig(accessToken: String, refreshToken: String) {
+        client.config {
+            install(Auth) {
+                bearer {
+                    loadTokens {
+                        BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
+                    }
+                }
+            }
         }
     }
 }

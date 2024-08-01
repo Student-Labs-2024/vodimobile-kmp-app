@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.vodimobile.domain.repository.data_store.UserDataStoreRepository
 import com.vodimobile.domain.model.User
+import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
 import com.vodimobile.utils.data_store.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -41,9 +42,9 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: ""
             val email = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: ""
             val accessToken =
-                preferences[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] ?: ""
+                preferences[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] ?: SharedBuildkonfig.crm_test_access_token
             val refreshToken =
-                preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: ""
+                preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: SharedBuildkonfig.crm_test_refresh_token
             val expires =
                 preferences[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] ?: 0L
             val password =
