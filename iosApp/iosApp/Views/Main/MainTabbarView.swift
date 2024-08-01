@@ -16,6 +16,7 @@ enum TabType: Int {
 
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         GeometryReader { geometry in
@@ -72,6 +73,12 @@ struct MainTabbarView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+        .fullScreenCover(isPresented: $appState.isInternetErrorVisible) {
+            InternetConnectErrorView()
+        }
+        .onAppear {
+            appState.checkConnectivity()
+        }
     }
     
     private func handleTabSelection(_ tab: TabType) { selectedTab = tab }
