@@ -13,6 +13,8 @@ plugins {
 
 val cmr_server = getStringValueFromLocalProperties(name = "crm.server")
 val cmr_port = getStringValueFromLocalProperties(name = "crm.port")
+val cmr_login = getStringValueFromLocalProperties(name = "crm.login")
+val cmr_password_hash = getStringValueFromLocalProperties(name = "crm.password.hash")
 
 kotlin {
     androidTarget {
@@ -106,6 +108,8 @@ buildkonfig {
     defaultConfigs {
         buildConfigField(STRING, "crm_server", cmr_server, nullable = false, const = true)
         buildConfigField(STRING, "crm_port", cmr_port, nullable = false, const = true)
+        buildConfigField(STRING, "crm_login", cmr_login, nullable = false, const = true)
+        buildConfigField(STRING, "crm_password_hash", cmr_password_hash, nullable = false, const = true)
     }
 }
 
