@@ -1,5 +1,5 @@
 {
-  "originHash" : "194c3ec363dfc694810494500fa78f454d03e2508a99290ee77817d7bf165c24",
+  "originHash" : "63bb855e4ced82c146ad7b40affbe608434968f9ae0d74cb2626d8281c15abd8",
   "pins" : [
     {
       "identity" : "iphonenumberfield",
@@ -35,6 +35,24 @@
       "state" : {
         "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
         "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swiftlintplugins",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "state" : {
+        "revision" : "b8431a26655378581890d56b95a0b59aba9f62da",
+        "version" : "0.55.1"
+      }
+    },
+    {
+      "identity" : "togglablesecurefield",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/perfaram/TogglableSecureField",
+      "state" : {
+        "revision" : "9c9dd3c4e74756b6bbf56cb2dc30307e118468d9",
+        "version" : "1.2.0"
       }
     },
     {

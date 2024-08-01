@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.skie)
     alias(libs.plugins.androidLibrary)
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -21,6 +22,9 @@ kotlin {
         it.binaries.framework {
             baseName = "shared"
             isStatic = true
+
+            export(libs.moko.resources)
+            export(libs.moko.graphics.export)
         }
     }
 
@@ -37,7 +41,7 @@ kotlin {
             implementation(libs.skie.annotations)
 
             //Koin
-//            api(libs.koin.core)
+            api(libs.koin.core)
 
             //Mutex
             implementation(libs.atomicfu)
@@ -46,11 +50,22 @@ kotlin {
 //            implementation(libs.koin.test)
 //            implementation(libs.koin.test.junit4)
 //            implementation(libs.koin.android.test)
+
+            //Shared res
+            api(libs.moko.resources)
+
+            //Date time
+            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
     }
+}
+
+multiplatformResources {
+    resourcesPackage.set("com.vodimobile.shared.resources")
+    resourcesClassName.set("SharedRes")
 }
 
 android {

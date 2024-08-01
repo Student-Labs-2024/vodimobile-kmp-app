@@ -17,6 +17,13 @@
 "rulesScreenTitle" = "Правила и условия";
 "homeScreenTitle" = "Главная";
 "myOrdersScreenTitle" = "Мои заказы";
+"carParkScreenTitle" = "Автопарк";
+"allCarsScreenTitle" = "Все авто";
+"economyScreenTitle" = "Эконом";
+"comfortScreenTitle" = "Комфорт";
+"premiumScreenTitle" = "Премиум";
+"sedansScreenTitle" = "Седаны";
+"jeepsScreenTitle" = "Внедорожники";
 "resetPassScreenTitle" = "Сброс пароля";
 "changePassword" = "Изменить пароль";
 
@@ -29,6 +36,8 @@
 "clearButton" = "Очистить";
 "saveButton" = "Сохранить";
 "findAutoButton" = "Найти машину";
+"allAutoButton" = "Все машины >";
+"bookButton" = "Забронировать";
 "reconnectButton" = "Повторить попытку";
 "password" = "Пароль";
 "passwordPlaceholder" = "Придумайте пароль";
@@ -57,9 +66,8 @@
 "exitFirstBtnText" = "Выйти";
 "exitSecondBtnText" = "Отмена";
 "exitAlertText" = "Вы не сможете арендовать автомобили без аккаунта";
-"alertErrorSavingTitle" = "Ошибка сохранения";
-"alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
-"alertSavePersonDataTitle" = "Ваши данные успешно сохранены";
+"alertSavePersonDataTitle" = "Ошибка сохранения";
+"alertSavePersonDataText" = "Ваши данные не были сохранены. Повторите попытку";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";
@@ -87,10 +95,21 @@
 "questionAndAnswerTitle" = "Вопрос-ответ от \"Водимобиль\"";
 "questionAndAnswerAttributedPartOfTitle" = "Вопрос-ответ";
 "questionAndAnswerText" = "Найдите ответ на любой интересующий Вас вопрос.";
-"internetConnectErrorTitle" = "Ошибка соединения";
-"internetConnectErrorText" = "Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.";
-"somethingWentWrongTitle" = "Что-то пошло не так";
-"somethingWentWrongText" = "Произошла ошибка. Повторите попытку соединения.";
+"popularAuto" = "Популярные авто";
+"transmissionTitle" = "Коробка";
+"autoTransmissionType" = "АКПП-Автомат";
+"mechTransmissionType" = "МКПП-Механика";
+"driveTypeTitle" = "Привод";
+"frontDriveType" = "Передний";
+"rearDriveType" = "Задний";
+"allDriveType" = "Полный";
+"tankTitle" = "Бак";
+"yearOfManufactureTitle" = "Год выпуска";
+"characteristicsTitle" = "Характеристики:";
+"generalAutoCardTitle" = "Перейти ко всему автопарку";
+"literText" = "л.";
+"resetScreenTitle" = "Введите номера телефона";
+"resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

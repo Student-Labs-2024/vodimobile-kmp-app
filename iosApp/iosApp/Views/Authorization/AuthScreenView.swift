@@ -28,19 +28,21 @@ struct AuthScreenView: View {
                     toggleButtonEnabled()
                 }
                 
-                VStack {
-                    BorderedTextField(
-                        fieldContent: $viewModel.password,
-                        isValid: $viewModel.isPasswordValid,
-                        fieldType: .password,
-                        inputErrorType: $viewModel.inputError
-                    )
-                    .onChange(of: viewModel.isPasswordValid) { _ in
-                        toggleButtonEnabled()
-                    }
+                BorderedTextField(
+                    fieldContent: $viewModel.password,
+                    isValid: $viewModel.isPasswordValid,
+                    fieldType: .password,
+                    inputErrorType: $viewModel.inputError,
+                    isForgetBtnEnabled: true
+                )
+                .onChange(of: viewModel.isPasswordValid) { _ in
+                    toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: PinCodeView(phoneNumber: $viewModel.phone)) {
+                NavigationLink(destination: PinCodeView(
+                    phoneNumber: $viewModel.phone,
+                    isResetPasswordFlow: false)
+                ) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())

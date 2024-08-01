@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -23,16 +24,16 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun DateRentField(
-    modifier: Modifier = Modifier,
     date: String,
     placeholder: String,
+    modifier: Modifier = Modifier,
     showTrailingIcon: Boolean = false,
     onFieldClick: () -> Unit
 ) {
     ExtendedTheme {
         OutlinedTextField(
             value = date,
-            onValueChange = { onFieldClick() },
+            onValueChange = { },
             placeholder = {
                 Text(
                     text = placeholder,
@@ -73,12 +74,16 @@ fun DateRentField(
             shape = MaterialTheme.shapes.small,
             singleLine = true,
             leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.calendar),
-                    contentDescription = stringResource(id = R.string.icon_calendar),
-                    modifier = Modifier.size(32.dp),
-                    tint = MaterialTheme.colorScheme.tertiary
-                )
+                IconButton(
+                    onClick = { onFieldClick.invoke() }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.calendar),
+                        contentDescription = stringResource(id = R.string.icon_calendar),
+                        modifier = Modifier.size(32.dp),
+                        tint = MaterialTheme.colorScheme.tertiary
+                    )
+                }
             },
             trailingIcon = {
                 if (showTrailingIcon) {
@@ -96,7 +101,7 @@ fun DateRentField(
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun DateRentFieldWithoutValueLightPreview() {
+private fun DateRentFieldWithoutValueLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "",
@@ -109,7 +114,7 @@ fun DateRentFieldWithoutValueLightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun DateRentFieldWithValueLightPreview() {
+private fun DateRentFieldWithValueLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "5-17 августа 2024",
@@ -122,7 +127,7 @@ fun DateRentFieldWithValueLightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun DateRentFieldWithoutValueShowTrailingLightPreview() {
+private fun DateRentFieldWithoutValueShowTrailingLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "",
@@ -135,7 +140,7 @@ fun DateRentFieldWithoutValueShowTrailingLightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun DateRentFieldWithValueShowTrailingLightPreview() {
+private fun DateRentFieldWithValueShowTrailingLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "5-17 августа 2024",
@@ -148,7 +153,7 @@ fun DateRentFieldWithValueShowTrailingLightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DateRentFieldWithoutValueNightPreview() {
+private fun DateRentFieldWithoutValueNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "",
@@ -161,7 +166,7 @@ fun DateRentFieldWithoutValueNightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DateRentFieldWithValueNightPreview() {
+private fun DateRentFieldWithValueNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "5-17 августа 2024",
@@ -174,7 +179,7 @@ fun DateRentFieldWithValueNightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DateRentFieldWithoutValueShowTrailingNightPreview() {
+private fun DateRentFieldWithoutValueShowTrailingNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "",
@@ -187,7 +192,7 @@ fun DateRentFieldWithoutValueShowTrailingNightPreview() {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun DateRentFieldWithValueShowTrailingNightPreview() {
+private fun DateRentFieldWithValueShowTrailingNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         DateRentField(
             date = "5-17 августа 2024",

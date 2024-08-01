@@ -58,13 +58,13 @@ struct TrailingToolbarItem: View {
                 .frame(width: 18, height: 18)
                 .fontWeight(.bold)
                 .foregroundStyle(
-                    observedObject.userInput.fieldsIsValid()
+                    observedObject.isFullnameValid
                     ? (observedObject.dataIsEditing ? Color(R.color.blueColor) : Color(R.color.grayDarkColor))
                     : Color(R.color.grayDarkColor)
                 )
         }
         .disabled(
-            !observedObject.userInput.fieldsIsValid() &&
+            !observedObject.isFullnameValid &&
             observedObject.dataIsEditing
         )
     }

@@ -19,9 +19,9 @@ final class KMPDataStorage: ObservableObject {
         email: "rele@df.df"
     )
     static let defaultUser = User.companion.empty()
-    
+
     @Published
-    private(set) var gettingUser: User = KMPDataStorage.defaultUser
+    var gettingUser: User = KMPDataStorage.defaultUser
 
     func editUserData(_ userData: User) async throws {
         try await repository.editUserData(user: userData)
@@ -29,8 +29,8 @@ final class KMPDataStorage: ObservableObject {
     
     @MainActor
     func getUser() async {
-        for await userFromFlow in repository.getUserData() {
-            self.gettingUser = userFromFlow
+        for await flowUser in repository.getUserData() {
+            self.gettingUser = flowUser
         }
     }
 }

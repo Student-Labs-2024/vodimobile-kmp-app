@@ -41,7 +41,7 @@ import java.util.Date
 fun DateSelectDialog(
     onDismissClick: () -> Unit,
     onConfirmClick: (Long) -> Unit,
-    initialDateInMillis: Long = System.currentTimeMillis()
+    initialDateInMillis: Long
 ) {
     ExtendedTheme {
         val datePickerState =
@@ -152,7 +152,7 @@ private fun convertMillisToDate(millis: Long): String {
 )
 private fun DateSelectDialogPreviewDarkRu() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {})
+        DateSelectDialog({}, {}, System.currentTimeMillis())
     }
 }
 
@@ -166,7 +166,7 @@ private fun DateSelectDialogPreviewDarkRu() {
 )
 private fun DateSelectDialogPreviewLightRu() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {})
+        DateSelectDialog({}, {}, System.currentTimeMillis())
     }
 }
 
@@ -180,7 +180,7 @@ private fun DateSelectDialogPreviewLightRu() {
 )
 private fun DateSelectDialogPreviewDarkEn() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {})
+        DateSelectDialog({}, {}, System.currentTimeMillis())
     }
 }
 
@@ -194,6 +194,6 @@ private fun DateSelectDialogPreviewDarkEn() {
 )
 private fun DateSelectDialogPreviewLightEN() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {})
+        DateSelectDialog({}, {}, System.currentTimeMillis())
     }
 }

@@ -2,10 +2,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -27,24 +25,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
+import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @ExperimentalMaterial3Api
 @Composable
 fun CarsCard(
+    onBookClick: (Car) -> Unit,
+    carItem: Car,
     modifier: Modifier = Modifier,
-    carItem : Car,
-
-    ) {
+    isBookMode: Boolean = false
+) {
     ExtendedTheme {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .then(modifier),
-            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
-            shape = RoundedCornerShape(22.dp)
+            colors = CardDefaults.cardColors(ExtendedTheme.colorScheme.onSecondaryBackground),
+            shape = RoundedCornerShape(22.dp),
+            onClick = {
+                onBookClick(carItem)
+            }
         ) {
             Column(
                 modifier = Modifier
@@ -52,17 +55,18 @@ fun CarsCard(
                     .wrapContentHeight()
                     .padding(horizontal = 32.dp, vertical = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.spacedBy(
+                    space = 12.dp,
+                    alignment = Alignment.CenterVertically
+                )
             ) {
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
                         .size(height = 96.dp, width = 328.dp),
-                    painter = painterResource(id = R.drawable.ca1),
+                    painter = painterResource(id = carItem.images[0].drawableResId),
                     contentDescription = null
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
 
                 Row(
                     modifier = Modifier
@@ -70,8 +74,6 @@ fun CarsCard(
                         .wrapContentHeight(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
-
-
                 ) {
                     Column(
                         modifier = Modifier
@@ -84,7 +86,7 @@ fun CarsCard(
                     ) {
                         Text(
                             modifier = Modifier,
-                            text = carItem.model,
+                            text = stringResource(id = carItem.model.resourceId),
                             color = MaterialTheme.colorScheme.onBackground,
                             style = MaterialTheme.typography.headlineSmall
                         )
@@ -93,8 +95,8 @@ fun CarsCard(
                         Text(
                             modifier = Modifier,
                             text = stringResource(
-                                R.string.tariff,
-                                carItem.tariffs.minBy { it.cost }.cost
+                                id = R.string.tariff,
+                                carItem.tariffs.minBy { it.cost }.cost.toInt()
                             ),
                             color = MaterialTheme.colorScheme.primary,
                             style = MaterialTheme.typography.titleLarge
@@ -121,6 +123,13 @@ fun CarsCard(
                         )
                     }
                 }
+
+                if (isBookMode)
+                    PrimaryButton(
+                        text = stringResource(R.string.to_book),
+                        enabled = true,
+                        onClick = { onBookClick(carItem) }
+                    )
             }
         }
     }
@@ -133,6 +142,8 @@ fun CarsCard(
 private fun CarsCardPreview() {
     VodimobileTheme(darkTheme = false, dynamicColor = false) {
         CarsCard(
-            carItem = Car.empty())
+            carItem = Car.empty(),
+            onBookClick = {}
+        )
     }
 }

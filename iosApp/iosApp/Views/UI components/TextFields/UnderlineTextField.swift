@@ -43,7 +43,21 @@ struct UnderlineTextField: View {
             title = TextFieldType.password.localizedStr
             keyboardType = .default
             regex = passRegex
+        case .mock:
+            title = TextFieldType.mock.localizedStr
+            keyboardType = .default
+            regex = ""
         }
+    }
+    
+    init(title: String, text: String, fieldType: TextFieldType) {
+        self._text = Binding.constant(text)
+        self._isValid = Binding.constant(true)
+        self.fieldType = fieldType
+        self.title = title
+        self.keyboardType = .default
+        self.regex = ""
+        
     }
     
     var body: some View {
@@ -54,7 +68,7 @@ struct UnderlineTextField: View {
                 .animation(.easeInOut(duration: 0.2), value: isFocused || !text.isEmpty)
             
             ZStack(alignment: .leading) {
-                if isPlaceholderVisible {
+                if isPlaceholderVisible && text.isEmpty {
                     Text(title)
                         .font(.paragraph5)
                         .foregroundColor(Color(R.color.grayTextColor))
@@ -99,6 +113,7 @@ struct UnderlineTextField: View {
                         .onChange(of: text) { _ in
                             validateInput()
                         }
+                        .disabled(fieldType == .mock)
                 } else {
                     TextField("", text: $text)
                         .font(.paragraph2)
@@ -118,6 +133,7 @@ struct UnderlineTextField: View {
                         .onChange(of: text) { _ in
                             validateInput()
                         }
+                        .disabled(fieldType == .mock)
                 }
             }
             .overlay(

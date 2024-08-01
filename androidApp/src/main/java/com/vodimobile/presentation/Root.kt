@@ -28,6 +28,7 @@ fun Root() {
                 BottomBar(navController = navController)
         }
     ) { paddingValues ->
+
         NavGraph(
             navHostController = navController,
             modifier = Modifier.padding(paddingValues)

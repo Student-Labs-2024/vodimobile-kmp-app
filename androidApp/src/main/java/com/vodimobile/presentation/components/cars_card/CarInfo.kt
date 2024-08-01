@@ -1,8 +1,8 @@
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
 import com.vodimobile.presentation.components.PrimaryButton
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun CarInfo(
     onClick: () -> Unit,
@@ -41,13 +43,12 @@ fun CarInfo(
     ) {
         Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .size(height = 123.dp, width = 341.dp),
-            painter = painterResource(id = R.drawable.ca1),
-            contentDescription = null
+                .size(height = 120.dp, width = 340.dp),
+            painter = painterResource(carItem.images[0].drawableResId),
+            contentDescription = carItem.model.toString()
         )
         CarsTitle(
-            title = carItem.model,
+            title = stringResource(id = carItem.model.resourceId),
             subtitle = stringResource(
                 R.string.tariff,
                 carItem.tariffs.minBy { it.cost }.cost.toInt()
@@ -56,7 +57,7 @@ fun CarInfo(
 
         Text(
             modifier = Modifier.align(Alignment.Start),
-            style = MaterialTheme.typography.bodyMedium.copy(MaterialTheme.colorScheme.onBackground),
+            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onBackground),
             text = stringResource(R.string.spec_tile)
         )
 
@@ -68,46 +69,49 @@ fun CarInfo(
             Row {
                 CarSpecif(
                     title = stringResource(R.string.transmis),
-                    subtitle = carItem.transmission,
+                    subtitle = stringResource(id = carItem.transmission.resourceId),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.spec1),
-                            contentDescription = null
+                            contentDescription = stringResource(R.string.transmis)
                         )
                     })
                 CarSpecif(
                     title = stringResource(R.string.wheel_drive),
-                    subtitle = carItem.wheelDrive,
+                    subtitle = stringResource(id = carItem.wheelDrive.resourceId),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.privod),
-                            contentDescription = null
+                            contentDescription = stringResource(R.string.wheel_drive)
                         )
                     })
             }
             Row {
                 CarSpecif(title = stringResource(R.string.year_of_release),
-                    subtitle = SimpleDateFormat("yyyy", Locale.getDefault()).format(
-                        Date(carItem.year ?: 0)
-                    ),
+                    subtitle = carItem.year.toString(),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.year),
-                            contentDescription = null
+                            contentDescription = stringResource(R.string.year_of_release)
                         )
                     })
+                val tankValue = stringResource(id = carItem.tankValue.resourceId).toInt()
                 CarSpecif(
                     title = stringResource(R.string.tank_value),
-                    subtitle = (stringResource(id = R.string.car, carItem.tankValue ?: 0f)),
+                    subtitle = (stringResource(
+                        id = R.string.car,
+                        tankValue
+                    )),
                     icon = {
                         Image(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.bak),
-                            contentDescription = null
-                        )}
+                            contentDescription = stringResource(R.string.tank_value)
+                        )
+                    }
                 )
             }
         }
