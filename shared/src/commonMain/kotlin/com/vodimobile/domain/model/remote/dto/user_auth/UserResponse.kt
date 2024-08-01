@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class UserResponse(
     val accessToken: String,
     val refreshToken: String,
-    val expires: String
+    val expires: Long
 )
