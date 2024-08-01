@@ -71,13 +71,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafHomeScreen.NO_INTERNET_SCREEN
         ) {
             composable(
-                route = LeafHomeScreen.HOME_SCREEN,
-                arguments = listOf(
-                    navArgument(name = "selected-date") {
-                        type = NavType.LongArrayType
-                        defaultValue = longArrayOf(0L, 0L)
-                    },
-                )
+                route = LeafHomeScreen.HOME_SCREEN
             ) { backStackEntry ->
                 val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-date",
