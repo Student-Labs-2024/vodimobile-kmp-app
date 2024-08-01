@@ -39,9 +39,6 @@
 "allAutoButton" = "Все машины >";
 "bookButton" = "Забронировать";
 "reconnectButton" = "Повторить попытку";
-"password" = "Пароль";
-"passwordPlaceholder" = "Придумайте пароль";
-"fullnamePlaceholder" = "Введите свое ФИО";
 "forgetPassword" = "Забыли пароль?";
 
 // Field names
@@ -50,6 +47,13 @@
 "fullName" = "ФИО";
 "dateTextFieldPlaceholder" = "Когда?";
 "dateTextFieldTitle" = "Выберите даты аренды";
+"password" = "Пароль";
+"passwordPlaceholder" = "Придумайте пароль";
+"fullnamePlaceholder" = "Введите свое ФИО";
+"oldPassword" = "Старый пароль";
+"newPassword" = "Новый пароль";
+"passwordPlaceholder" = "Введите пароль";
+"newPasswordPlaceholder" = "Придумайте пароль";
 
 // Error strings
 "incorrectFullName" = "Неверный формат. Для ввода допускается только буквы без символов и пробелов";

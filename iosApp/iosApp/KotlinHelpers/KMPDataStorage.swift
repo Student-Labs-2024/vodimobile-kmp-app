@@ -20,15 +20,17 @@ final class KMPDataStorage: ObservableObject {
     )
     static let defaultUser = User.companion.empty()
 
-    @Published
-    var gettingUser: User = KMPDataStorage.defaultUser
+    @Published var gettingUser: User = KMPDataStorage.defaultUser
 
     func editUserData(_ userData: User) async throws {
         try await repository.editUserData(user: userData)
     }
     
     @MainActor
-    func getUser() async {
+    func getUser() async throws {
+        let usersFlow = repository.getUserData()
+        let users = usersFlow.map { $0 }
+        
         for await flowUser in repository.getUserData() {
             self.gettingUser = flowUser
         }

@@ -19,6 +19,7 @@ final class PersonalDataViewModel: ObservableObject {
     @Published var password = ""
     @Published var phone = ""
     @Published var isFullnameValid = false
+    @Published var isPhoneValid = false
     @Published var isPasswordLengthValid = false
     @Published var isPasswordHasCapitalLetter = false
     @Published var isPasswordHasSpecSymbol = false
@@ -37,6 +38,8 @@ final class PersonalDataViewModel: ObservableObject {
         
         dataStorage.$gettingUser
             .sink { newValue in
+                self.fullname = newValue.fullName
+                self.phone = newValue.phone
                 self.oldPassword = newValue.password
             }
             .store(in: &cancellableSet)
@@ -55,6 +58,26 @@ final class PersonalDataViewModel: ObservableObject {
                 }
             }
             .assign(to: \.isFullnameValid, on: self)
+            .store(in: &cancellableSet)
+        
+        $phone
+            .receive(on: RunLoop.main)
+            .map { phone in
+                let pattern = phoneRegex
+                if let _ = phone
+                            .replacingOccurrences(of: "(", with: "")
+                            .replacingOccurrences(of: ")", with: "")
+                            .range(of: pattern, options: .regularExpression)
+                {
+                    return true
+                } else {
+                    if !phone.isEmpty {
+                        self.inputError = .incorrectPhone
+                    }
+                    return false
+                }
+            }
+            .assign(to: \.isPhoneValid, on: self)
             .store(in: &cancellableSet)
         
         $password
@@ -112,24 +135,35 @@ final class PersonalDataViewModel: ObservableObject {
     func saveEditedUserData() {
         isLoading = true
         let currentUserData = dataStorage.gettingUser
-        var newUserData = User(
-            fullName: fullname,
-            password: password,
+        let newUserData = User(
+            fullName: currentUserData.fullName != fullname && !fullname.isEmpty ? fullname : currentUserData.fullName,
+            password: currentUserData.password != password && !password.isEmpty ? password : currentUserData.password,
             token: currentUserData.token,
-            phone: currentUserData.phone,
+            phone: currentUserData.phone != phone && !phone.isEmpty ? phone : currentUserData.phone,
             email: currentUserData.email
         )
         
         Task {
             do {
                 try await self.dataStorage.editUserData(newUserData)
-            } catch {
-                self.showErrorAlert.toggle()
-            }
-            
-            DispatchQueue.main.async {
-                self.isLoading.toggle()
+                
                 self.dataHasBeenSaved.toggle()
+            } catch {
+                print(error)
+                self.showErrorAlert = true
+            }
+        }
+        self.isLoading.toggle()
+    }
+    
+    func loadUser() {
+        isLoading = true
+        
+        Task.detached {
+            do {
+               try await self.dataStorage.getUser()
+            } catch {
+                print(error)
             }
         }
     }

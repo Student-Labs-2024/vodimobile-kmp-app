@@ -62,11 +62,7 @@ enum TabType: Int {
 }
 
 enum TextFieldType: String {
-    case email
-    case phone
-    case fullName
-    case password
-    case mock
+    case email, phone, fullName, password, oldPassword, newPassword
     
     var localizedStr: String {
         switch self {
@@ -78,8 +74,10 @@ enum TextFieldType: String {
             return R.string.localizable.fullName()
         case .password:
             return R.string.localizable.password()
-        case .mock:
-            return ""
+        case .oldPassword:
+            return R.string.localizable.oldPassword()
+        case .newPassword:
+            return R.string.localizable.newPassword()
         }
     }
 }

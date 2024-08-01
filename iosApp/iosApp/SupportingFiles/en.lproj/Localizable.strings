@@ -50,7 +50,10 @@
 "dateTextFieldPlaceholder" = "When?";
 "dateTextFieldTitle" = "Select the rental dates";
 "password" = "Password";
+"oldPassword" = "Old password";
+"newPassword" = "New password";
 "passwordPlaceholder" = "Input your password";
+"newPasswordPlaceholder" = "Input your new password";
 "fullnamePlaceholder" = "Input your full name";
 
 // Error strings

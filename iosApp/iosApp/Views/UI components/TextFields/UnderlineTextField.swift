@@ -20,11 +20,13 @@ struct UnderlineTextField: View {
     private var title: String
     private let keyboardType: UIKeyboardType
     private let regex: String
+    private let initText: String
     
     init(text: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
         self._text = text
         self.fieldType = fieldType
         self._isValid = isValid
+        self.initText = text.wrappedValue
         
         switch fieldType {
         case .email:
@@ -39,25 +41,11 @@ struct UnderlineTextField: View {
             title = TextFieldType.fullName.localizedStr
             keyboardType = .default
             regex = textRegex
-        case .password:
+        case .password, .newPassword, .oldPassword:
             title = TextFieldType.password.localizedStr
             keyboardType = .default
             regex = passRegex
-        case .mock:
-            title = TextFieldType.mock.localizedStr
-            keyboardType = .default
-            regex = ""
         }
-    }
-    
-    init(title: String, text: String, fieldType: TextFieldType) {
-        self._text = Binding.constant(text)
-        self._isValid = Binding.constant(true)
-        self.fieldType = fieldType
-        self.title = title
-        self.keyboardType = .default
-        self.regex = ""
-        
     }
     
     var body: some View {
@@ -113,7 +101,7 @@ struct UnderlineTextField: View {
                         .onChange(of: text) { _ in
                             validateInput()
                         }
-                        .disabled(fieldType == .mock)
+                        .disabled(!initText.isEmpty && !isFocused)
                 } else {
                     TextField("", text: $text)
                         .font(.paragraph2)
@@ -133,7 +121,6 @@ struct UnderlineTextField: View {
                         .onChange(of: text) { _ in
                             validateInput()
                         }
-                        .disabled(fieldType == .mock)
                 }
             }
             .overlay(

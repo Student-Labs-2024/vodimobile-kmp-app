@@ -17,20 +17,11 @@ struct ChangePasswordView: View {
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                VStack(spacing: 12) {
-                    Text(R.string.localizable.resetScreenTitle)
-                        .font(.header2)
-                    
-                    Text(R.string.localizable.resetScreenSubtitle)
-                        .font(.paragraph2)
-                        .foregroundStyle(Color(R.color.grayTextColor))
-                }
-                .padding(.vertical, 24)
             
                 BorderedTextField(
                     fieldContent: $viewModel.oldPassword,
                     isValid: $viewModel.isPasswordValid,
-                    fieldType: .phone,
+                    fieldType: .oldPassword,
                     inputErrorType: $viewModel.inputError,
                     isForgetBtnEnabled: true
                 )
@@ -38,7 +29,7 @@ struct ChangePasswordView: View {
                 BorderedTextField(
                     fieldContent: $viewModel.password,
                     isValid: $viewModel.isPasswordValid,
-                    fieldType: .phone,
+                    fieldType: .newPassword,
                     inputErrorType: $viewModel.inputError
                 )
                 .onChange(of: viewModel.isPasswordValid) { _ in
@@ -47,6 +38,7 @@ struct ChangePasswordView: View {
                 
                 Button(R.string.localizable.nextBtnName()) {
                     viewModel.saveEditedUserData()
+                    dismiss()
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)

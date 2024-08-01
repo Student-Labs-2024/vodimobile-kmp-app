@@ -35,10 +35,11 @@ struct PersonDataView: View {
                 ButtonLikeTextFieldView()
                 
                 UnderlineTextField(
-                    title: R.string.localizable.phone(),
-                    text: viewModel.phone,
-                    fieldType: .mock
+                    text: $viewModel.phone,
+                    isValid: $viewModel.isPhoneValid,
+                    fieldType: .phone
                 )
+                .focused($focusedField, equals: .phone)
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
@@ -53,17 +54,20 @@ struct PersonDataView: View {
             $viewModel.dataIsEditing.wrappedValue = true
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
-        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert) {
+        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert, actions: {
             Button(R.string.localizable.closeButton(), role: .cancel) {
                 viewModel.showErrorAlert.toggle()
             }
-        } message: {
+        }, message: {
             Text(R.string.localizable.alertErrorSavingText)
-        }
+        })
         .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.dataHasBeenSaved) {
             Button(R.string.localizable.closeButton(), role: .cancel) {
                 viewModel.dataHasBeenSaved.toggle()
             }
+        }
+        .onAppear {
+            viewModel.loadUser()
         }
         .background(Color(R.color.grayLightColor).ignoresSafeArea())
         .navigationBarBackButtonHidden()
@@ -77,8 +81,8 @@ struct PersonDataView: View {
                         Task {
                             viewModel.dataIsEditing = false
                             focusedField = nil
-                            await viewModel.saveEditedUserData()
-                            await viewModel.loadUserData()
+                            viewModel.saveEditedUserData()
+                            viewModel.loadUser()
                         }
                     }
                 )

@@ -19,9 +19,30 @@ struct PasswordTextField: View {
     
     let errorHandler: (inout String) -> ()
     let isForgetButtonEnabled: Bool
+    let fieldType: TextFieldType
     let fieldName: String = TextFieldType.password.localizedStr
     let placeholder: String = R.string.localizable.passwordPlaceholder()
     let keyboardType: UIKeyboardType = .default
+    
+    init(
+        fieldContent: Binding<String>,
+        isValid: Binding<Bool>,
+        isEditing: Binding<Bool>,
+        inputErrorType: Binding<InputErrorType?> = Binding.constant(nil),
+        isFocused: FocusState<Bool>.Binding,
+        errorHandler: @escaping (inout String) -> Void,
+        isForgetButtonEnabled: Bool,
+        fieldType: TextFieldType
+    ) {
+        self._isFocused = isFocused
+        self._fieldContent = fieldContent
+        self._isValid = isValid
+        self._isEditing = isEditing
+        self._inputErrorType = inputErrorType
+        self.errorHandler = errorHandler
+        self.isForgetButtonEnabled = isForgetButtonEnabled
+        self.fieldType = fieldType
+    }
     
     var body: some View {
         VStack(alignment: .leading) {

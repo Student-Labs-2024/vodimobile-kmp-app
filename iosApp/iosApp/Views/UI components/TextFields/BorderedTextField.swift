@@ -41,13 +41,13 @@ struct BorderedTextField: View {
         case .phone:
             placeholder = "+7"
             keyboardType = .phonePad
-        case .password:
+        case .password, .oldPassword:
             placeholder = R.string.localizable.passwordPlaceholder()
             keyboardType = .default
-        case .fullName:
-            placeholder = R.string.localizable.fullnamePlaceholder()
+        case .newPassword:
+            placeholder = R.string.localizable.newPasswordPlaceholder()
             keyboardType = .default
-        case .mock:
+        case .fullName:
             placeholder = R.string.localizable.fullnamePlaceholder()
             keyboardType = .default
         }
@@ -66,7 +66,7 @@ struct BorderedTextField: View {
                     isFocused: $isFocused,
                     errorHandler: handleErrorTypeChanging
                 )
-            } else if fieldType == .password {
+            } else if fieldType == .password || fieldType == .oldPassword || fieldType == .newPassword {
                 PasswordTextField(
                     fieldContent: $fieldContent,
                     isValid: $isValid,
@@ -74,7 +74,8 @@ struct BorderedTextField: View {
                     inputErrorType: $inputErrorType,
                     isFocused: $isFocused,
                     errorHandler: handleErrorTypeChanging,
-                    isForgetButtonEnabled: isForgetBtnEnabled
+                    isForgetButtonEnabled: isForgetBtnEnabled,
+                    fieldType: fieldType
                 )
             } else {
                 HStack {
