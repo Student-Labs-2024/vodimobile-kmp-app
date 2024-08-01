@@ -61,6 +61,7 @@ class CrmRepositoryImpl : CrmRepository {
     }
 
     override suspend fun getTariffList(carId: Int): CrmEither<TariffListDTO, HttpStatusCode> {
+
         val httpResponse: HttpResponse = client.get(
             block = {
                 url(url = Url(crmServerData.buildUrl(CrmRouting.Tariff.TARIFFS_BY_CAR_ID)))

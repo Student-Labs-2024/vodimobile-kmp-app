@@ -15,7 +15,9 @@ plugins {
 val cmr_server = getStringValueFromLocalProperties(name = "crm.server")
 val cmr_port = getStringValueFromLocalProperties(name = "crm.port")
 val cmr_login = getStringValueFromLocalProperties(name = "crm.login")
-val cmr_password_hash = getStringValueFromLocalProperties(name = "crm.password.hash")
+val crm_password_hash = getStringValueFromLocalProperties(name = "crm.password.hash")
+val crm_test_access_token = getStringValueFromLocalProperties(name = "crm.test.access.token")
+val crm_test_refresh_token = getStringValueFromLocalProperties(name = "crm.test.refresh.token")
 
 kotlin {
     androidTarget {
@@ -113,7 +115,9 @@ buildkonfig {
         buildConfigField(STRING, "crm_server", cmr_server, nullable = false, const = true)
         buildConfigField(STRING, "crm_port", cmr_port, nullable = false, const = true)
         buildConfigField(STRING, "crm_login", cmr_login, nullable = false, const = true)
-        buildConfigField(STRING, "crm_password_hash", cmr_password_hash, nullable = false, const = true)
+        buildConfigField(STRING, "crm_password_hash", crm_password_hash, nullable = false, const = true)
+        buildConfigField(STRING, "crm_test_access_token", crm_test_access_token, nullable = false, const = true)
+        buildConfigField(STRING, "crm_test_refresh_token", crm_test_refresh_token, nullable = false, const = true)
     }
 }
 

@@ -16,13 +16,13 @@ class CheckKoinModulesTest : KoinTest {
     fun start() {
         stopKoin()
         startKoin {
-            modules(viewModelModule, validatorModule, repositoryModule, androidModule)
+            modules(viewModelModule, validatorModule, repositoryModule, androidModule, crmModule)
         }
     }
 
     @After
     fun shutDown() {
-        unloadKoinModules(listOf(viewModelModule, validatorModule, repositoryModule))
+        unloadKoinModules(listOf(viewModelModule, validatorModule, repositoryModule, crmModule))
         stopKoin()
     }
 
@@ -48,5 +48,11 @@ class CheckKoinModulesTest : KoinTest {
     @Test
     fun checkAndroidModule() {
         androidModule.verify()
+    }
+
+    @OptIn(KoinExperimentalAPI::class)
+    @Test
+    fun checkKtorModule() {
+        crmModule.verify()
     }
 }
