@@ -2,13 +2,11 @@ package com.vodimobile.presentation.screens.user_agreement
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,13 +22,12 @@ import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementEff
 import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ComposeModifierMissing")
 @Composable
 fun UserAgreementScreen(
     onUserAgreementIntent: (UserAgreementIntent) -> Unit,
-    userAgreementEffect: MutableSharedFlow<UserAgreementEffect>,
+    @SuppressLint("ComposeMutableParameters") userAgreementEffect: MutableSharedFlow<UserAgreementEffect>,
     navHostController: NavHostController
 ) {
 

@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.registration.components
 
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -10,42 +9,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.AuthenticationField
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.InputMasks
-import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
-
 
 @Composable
-fun PhoneField(
+fun NameField(
     value: String,
     isError: Boolean,
-    isShowError: Boolean,
-    onPhoneNumberChanged: (String) -> Unit
+    onNameChanged: (String) -> Unit
 ) {
     AuthenticationField(
-        label = stringResource(id = R.string.registration_label_phoneNumber),
+        label = stringResource(id = R.string.label_name),
         value = value,
-        onValueChange = onPhoneNumberChanged,
-        placeholder = stringResource(id = R.string.placeholder_phoneNumber),
-        keyboardType = KeyboardType.Phone,
-        maskVisualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK),
-        isError = isError && isShowError,
-        errorMessage = stringResource(id = R.string.phoneNumber_error),
+        onValueChange = onNameChanged,
+        placeholder = stringResource(id = R.string.placeholder_name),
+        keyboardType = KeyboardType.Text,
+        isError = isError,
+        errorMessage =
+        if (value.isEmpty()) stringResource(id = R.string.empty_name)
+        else stringResource(id = R.string.name_error)
     )
 }
 
 @Preview
 @Composable
-private fun PhoneFieldPreview() {
+private fun NameFieldPreview() {
 
     VodimobileTheme(dynamicColor = false) {
         Surface(
             color = MaterialTheme.colorScheme.onPrimary
         ) {
-            PhoneField(
+            NameField(
                 value = "",
                 isError = true,
-                isShowError = true,
-                onPhoneNumberChanged = {}
+                onNameChanged = {}
             )
         }
     }

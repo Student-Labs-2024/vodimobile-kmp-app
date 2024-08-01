@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,12 +14,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DateRangePicker
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -32,23 +35,37 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.DateFormat
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import java.util.Calendar
 import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @ExperimentalComposeUiApi
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ComposeModifierMissing")
 @Composable
 fun DateSelectDialog(
     onDismissClick: () -> Unit,
-    onConfirmClick: (Long) -> Unit,
-    initialDateInMillis: Long
+    onConfirmClick: (Long, Long) -> Unit,
+    initialDateInMillis: LongArray
 ) {
+    val cal = Calendar.getInstance()
+    cal.timeInMillis = System.currentTimeMillis()
+    val currentYear = cal.get(Calendar.YEAR)
+
     ExtendedTheme {
         val datePickerState =
-            rememberDatePickerState(initialSelectedDateMillis = initialDateInMillis)
-        val selectedDate = datePickerState.selectedDateMillis?.let {
+            rememberDateRangePickerState(
+                initialSelectedStartDateMillis = initialDateInMillis[0],
+                initialSelectedEndDateMillis = initialDateInMillis[1],
+                yearRange = (currentYear - 1)..currentYear
+            )
+        val selectedStartDateMillis = datePickerState.selectedStartDateMillis?.let {
             convertMillisToDate(it)
         }
+        val selectedEndDateMillis = datePickerState.selectedEndDateMillis?.let {
+            convertMillisToDate(it)
+        }
+
+
         val colors = DatePickerDefaults.colors(
             titleContentColor = MaterialTheme.colorScheme.onBackground,
             headlineContentColor = MaterialTheme.colorScheme.onBackground,
@@ -74,17 +91,12 @@ fun DateSelectDialog(
             tonalElevation = 0.dp,
             shape = RoundedCornerShape(13.dp),
         ) {
-            DatePicker(
+            DateRangePicker(
                 state = datePickerState,
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.select_date),
-                        style = MaterialTheme.typography.labelSmall
-                    )
-                },
+                title = {},
                 headline = {
                     Text(
-                        text = selectedDate.toString(),
+                        text = "$selectedStartDateMillis - $selectedEndDateMillis",
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 24.sp),
                         modifier = Modifier
                             .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -92,7 +104,9 @@ fun DateSelectDialog(
                 },
                 showModeToggle = true,
                 colors = colors,
-                modifier = Modifier.wrapContentSize()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(350.dp)
             )
 
             Divider(
@@ -121,7 +135,8 @@ fun DateSelectDialog(
                 TextButton(
                     onClick = {
                         onConfirmClick(
-                            datePickerState.selectedDateMillis ?: initialDateInMillis
+                            datePickerState.selectedStartDateMillis ?: initialDateInMillis[0],
+                            datePickerState.selectedEndDateMillis ?: initialDateInMillis[1]
                         )
                     },
                     colors = ButtonDefaults.textButtonColors(
@@ -152,7 +167,11 @@ private fun convertMillisToDate(millis: Long): String {
 )
 private fun DateSelectDialogPreviewDarkRu() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {}, System.currentTimeMillis())
+        DateSelectDialog(
+            {},
+            { l, o -> },
+            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+        )
     }
 }
 
@@ -166,7 +185,11 @@ private fun DateSelectDialogPreviewDarkRu() {
 )
 private fun DateSelectDialogPreviewLightRu() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {}, System.currentTimeMillis())
+        DateSelectDialog(
+            {},
+            { l, o -> },
+            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+        )
     }
 }
 
@@ -180,7 +203,11 @@ private fun DateSelectDialogPreviewLightRu() {
 )
 private fun DateSelectDialogPreviewDarkEn() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {}, System.currentTimeMillis())
+        DateSelectDialog(
+            {},
+            { l, o -> },
+            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+        )
     }
 }
 
@@ -194,6 +221,10 @@ private fun DateSelectDialogPreviewDarkEn() {
 )
 private fun DateSelectDialogPreviewLightEN() {
     VodimobileTheme(dynamicColor = false) {
-        DateSelectDialog({}, {}, System.currentTimeMillis())
+        DateSelectDialog(
+            {},
+            { l, o -> },
+            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+        )
     }
 }

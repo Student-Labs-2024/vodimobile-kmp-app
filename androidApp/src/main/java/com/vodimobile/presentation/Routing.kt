@@ -26,6 +26,7 @@ object LeafHomeScreen {
 
 object RegistrationScreens {
     const val REGISTRATION_SCREEN = "registration"
+    const val AUTHORIZATION_SCREEN = "authorization"
     const val USER_AGREE_SCREEN = "user_agree"
     const val START_SCREEN = "start_screen"
     const val SMS_VERIFY = "sms_verify"

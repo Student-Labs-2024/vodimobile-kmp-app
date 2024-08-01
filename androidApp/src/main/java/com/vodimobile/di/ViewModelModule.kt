@@ -1,5 +1,6 @@
 package com.vodimobile.di
 
+import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
@@ -14,6 +15,7 @@ import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.screens.server_error.ServerErrorViewModel
 import com.vodimobile.presentation.screens.sms.SmsViewModel
+import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -41,4 +43,6 @@ val viewModelModule = module {
     viewModelOf(::ServerErrorViewModel)
     viewModelOf(::HomeViewModel)
     viewModelOf(::ChangePasswordViewModel)
+    viewModelOf(::VehicleFleetViewModel)
+    viewModelOf(::AuthorizationViewModel)
 }

@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.sms
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,10 +42,11 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun SmsScreen(
     smsState: State<SmsState>,
-    smsEffect: MutableSharedFlow<SmsEffect>,
+    @SuppressLint("ComposeMutableParameters") smsEffect: MutableSharedFlow<SmsEffect>,
     phone: String,
     onIntent: (SmsIntent) -> Unit,
     navHostController: NavHostController
@@ -111,12 +113,12 @@ fun SmsScreen(
                             state = fieldState,
                             error = !smsState.value.isIncorrectCode,
                             onValueChange = { partCode ->
-                                var part: Int = 0
+                                var part = 0
                                 try {
                                     part = Integer.parseInt(
                                         partCode
                                     )
-                                } catch (e: NumberFormatException) {
+                                } catch (_: NumberFormatException) {
 
                                 }
 
@@ -132,12 +134,12 @@ fun SmsScreen(
                                     smsFields[index + 1].focusRequester.requestFocus()
                                 }
 
-                                var part: Int = 0
+                                var part = 0
                                 try {
                                     part = Integer.parseInt(
                                         partCode
                                     )
-                                } catch (e: NumberFormatException) {
+                                } catch (_: NumberFormatException) {
 
                                 }
 
@@ -176,7 +178,7 @@ data class SmsFieldState(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-fun SmsScreenPreviewDark() {
+private fun SmsScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         val smsViewModel = SmsViewModel()
         SmsScreen(
@@ -191,7 +193,7 @@ fun SmsScreenPreviewDark() {
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-fun SmsScreenPreviewLight() {
+private fun SmsScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         val smsViewModel = SmsViewModel()
         SmsScreen(

@@ -21,8 +21,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
-import com.vodimobile.domain.model.RulesAndConditionModel
-import com.vodimobile.domain.repository.rules_and_condition.RulesAndConditionRepository
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.rule_details.components.RuleInformationItem
 import com.vodimobile.presentation.screens.rule_details.components.RuleTitleItem
@@ -32,10 +30,11 @@ import com.vodimobile.presentation.screens.rule_details.store.RuleDetailsState
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun RuleDetailsScreen(
     onRuleDetailsIntent: (RuleDetailsIntent) -> Unit,
-    ruleDetailsEffect: MutableSharedFlow<RuleDetailsEffect>,
+    @SuppressLint("ComposeMutableParameters") ruleDetailsEffect: MutableSharedFlow<RuleDetailsEffect>,
     ruleDetailsState: State<RuleDetailsState>,
     navHostController: NavHostController,
     ruleId: Int,

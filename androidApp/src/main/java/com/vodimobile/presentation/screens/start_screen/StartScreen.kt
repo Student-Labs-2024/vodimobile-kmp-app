@@ -35,10 +35,11 @@ import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun StartScreen(
     onStartScreenIntent: (StartScreenIntent) -> Unit,
-    startScreenEffect: MutableSharedFlow<StartScreenEffect>,
+    @SuppressLint("ComposeMutableParameters") startScreenEffect: MutableSharedFlow<StartScreenEffect>,
     navHostController: NavHostController
 ) {
 
@@ -46,7 +47,7 @@ fun StartScreen(
         startScreenEffect.collect { effect ->
             when (effect) {
                 StartScreenEffect.CloseClick -> navHostController.navigateUp()
-                StartScreenEffect.ClickLogin -> {}
+                StartScreenEffect.ClickLogin -> navHostController.navigate(RegistrationScreens.AUTHORIZATION_SCREEN)
                 StartScreenEffect.ClickRegistration -> {
                     navHostController.navigate(route = RegistrationScreens.REGISTRATION_SCREEN)
                 }

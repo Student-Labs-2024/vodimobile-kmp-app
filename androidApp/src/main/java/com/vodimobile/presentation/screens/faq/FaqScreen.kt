@@ -19,7 +19,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.repository.faq.FaqRepositoryImpl
-import com.vodimobile.domain.model.FaqModel
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.faq.components.FaqHeader
 import com.vodimobile.presentation.screens.faq.components.FaqItem
@@ -28,13 +27,12 @@ import com.vodimobile.presentation.screens.faq.store.FaqIntent
 import com.vodimobile.presentation.screens.faq.store.FaqState
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
-import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun FaqScreen(
     onFaqIntent: (FaqIntent) -> Unit,
-    faqEffect: MutableSharedFlow<FaqEffect>,
+    @SuppressLint("ComposeMutableParameters") faqEffect: MutableSharedFlow<FaqEffect>,
     faqState: State<FaqState>,
     navHostController: NavHostController
 ) {

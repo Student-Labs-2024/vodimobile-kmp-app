@@ -13,4 +13,20 @@ object DatePatterns {
             Locale.getDefault()
         ).format(Date(date))
     }
+
+    @SuppressLint("ConstantLocale")
+    fun fullDate(date: LongArray): String {
+        return if (date[0] == 0L || date[0] < 0L) "" else
+            "${
+                SimpleDateFormat(
+                    "dd.MM.yyyy",
+                    Locale.getDefault()
+                ).format(Date(date[0]))
+            } - ${
+                SimpleDateFormat(
+                    "dd.MM.yyyy",
+                    Locale.getDefault()
+                ).format(Date(date[0]))
+            }"
+    }
 }

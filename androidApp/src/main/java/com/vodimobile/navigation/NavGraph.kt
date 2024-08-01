@@ -23,6 +23,8 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
+import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
+import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
 import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.contact.ContactScreen
@@ -53,6 +55,8 @@ import com.vodimobile.presentation.screens.start_screen.StartScreen
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
+import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
+import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -67,17 +71,11 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafHomeScreen.NO_INTERNET_SCREEN
         ) {
             composable(
-                route = LeafHomeScreen.HOME_SCREEN,
-                arguments = listOf(
-                    navArgument(name = "selected-date") {
-                        type = NavType.LongType
-                        defaultValue = 0L
-                    },
-                )
+                route = LeafHomeScreen.HOME_SCREEN
             ) { backStackEntry ->
                 val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-date",
-                    initialValue = 0L,
+                    initialValue = longArrayOf(0L, 0L),
                 ).collectAsState().value
                 val homeViewModel: HomeViewModel = koinViewModel()
                 HomeScreen(
@@ -93,21 +91,35 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     modifier = modifier
                 )
             }
+            composable(route = LeafHomeScreen.ALL_CARS){
+                val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
+                VehicleFleetScreen(
+                    onVehicleIntent = vehicleFleetModel::onIntent,
+                    vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
+                    vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
+                    navHostController = navHostController,
+                    selectedTagIndex = 0
+                )
+            }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
             ) { backEntry ->
-                var selectedDate by remember { mutableStateOf(0L) }
+                var selectedDate by remember { mutableStateOf(longArrayOf(0L, 0L)) }
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
-                    onConfirmClick = { value ->
+                    onConfirmClick = { start, finish ->
                         navHostController.previousBackStackEntry?.savedStateHandle?.set(
                             "selected-date",
-                            value,
+                            longArrayOf(start, finish),
                         )
-                        selectedDate = value
+                        selectedDate = longArrayOf(start, finish)
                         navHostController.navigateUp()
                     },
-                    initialDateInMillis = if (selectedDate == 0L) System.currentTimeMillis() else selectedDate
+                    initialDateInMillis =
+                    if (selectedDate[0] == 0L || selectedDate[1] == 0L) longArrayOf(
+                        System.currentTimeMillis(),
+                        System.currentTimeMillis()
+                    ) else selectedDate
                 )
             }
             composable(
@@ -247,6 +259,16 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onRegistrationIntent = registrationViewModel::onIntent,
                     registrationState = registrationViewModel.registrationState.collectAsState(),
                     registrationEffect = registrationViewModel.registrationEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = RegistrationScreens.AUTHORIZATION_SCREEN) {
+                val authorizationViewModel: AuthorizationViewModel = koinViewModel()
+
+                AuthorizationScreen(
+                    onAuthorizationIntent = authorizationViewModel::onIntent,
+                    authorizationState = authorizationViewModel.authorizationState.collectAsState(),
+                    authorizationEffect = authorizationViewModel.authorizationEffect,
                     navHostController = navHostController
                 )
             }

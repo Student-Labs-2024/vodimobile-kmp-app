@@ -1,9 +1,14 @@
-package com.vodimobile.presentation.screens.change_password.components
+package com.vodimobile.presentation.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -15,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,26 +29,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun NewPasswordField(
+fun OldPasswordField(
     value: String,
     label: String,
     placeholder: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isError: Boolean = false
+    isError: Boolean = false,
+    errorMessage: String = "",
+    onClickRememberPassword: () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     val showPassword = remember { mutableStateOf(false) }
@@ -62,7 +67,9 @@ fun NewPasswordField(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = value,
-            onValueChange = { onValueChange(it) },
+            onValueChange = {
+                onValueChange(it)
+            },
             placeholder = {
                 Text(
                     text = placeholder,
@@ -116,88 +123,94 @@ fun NewPasswordField(
             ),
             shape = MaterialTheme.shapes.small
         )
-        if (value.isNotEmpty()) {
-            Text(
-                modifier = Modifier,
-                text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onBackground,
-                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                            fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
-                            letterSpacing = MaterialTheme.typography.bodySmall.letterSpacing
-                        )
-                    ) {
-                        append(stringResource(id = R.string.warning_password_level))
-                        if (isError) {
-                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.error)) {
-                                append(" ${stringResource(id = R.string.warning_password_level_weak)}")
-                            }
-                        } else {
-                            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                                append(" ${stringResource(id = R.string.warning_password_level_strong)}")
-                            }
-                        }
-                    }
-                }
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            if (isError) {
+                Text(
+                    text = errorMessage,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            TextButton(
+                onClick = onClickRememberPassword,
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.height(18.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.remember_password_hint),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
         }
     }
 }
 
+
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun NewPasswordFieldLightPreview() {
+private fun PasswordFieldLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        NewPasswordField(
+        OldPasswordField(
             value = "password",
             label = stringResource(id = R.string.old_password_label),
             placeholder = stringResource(id = R.string.enter_password_placeholder),
             onValueChange = {},
-            isError = false
+            onClickRememberPassword = {},
+            isError = false,
+            errorMessage = stringResource(id = R.string.invalid_password)
         )
     }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun NewPasswordFieldNightPreview() {
+private fun PasswordFieldNightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        NewPasswordField(
+        OldPasswordField(
             value = "password",
             label = stringResource(id = R.string.old_password_label),
             placeholder = stringResource(id = R.string.enter_password_placeholder),
             onValueChange = {},
-            isError = false
+            onClickRememberPassword = {},
+            isError = false,
+            errorMessage = stringResource(id = R.string.invalid_password)
         )
     }
 }
-
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun NewPasswordFieldErrorLightPreview() {
+private fun PasswordFieldErrorLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        NewPasswordField(
+        OldPasswordField(
             value = "password",
             label = stringResource(id = R.string.old_password_label),
             placeholder = stringResource(id = R.string.enter_password_placeholder),
             onValueChange = {},
-            isError = true
+            onClickRememberPassword = {},
+            isError = true,
+            errorMessage = stringResource(id = R.string.invalid_password)
         )
     }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun NewPasswordFieldErrorNightPreview() {
+private fun PasswordFieldErrorNightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        NewPasswordField(
+        OldPasswordField(
             value = "password",
             label = stringResource(id = R.string.old_password_label),
             placeholder = stringResource(id = R.string.enter_password_placeholder),
             onValueChange = {},
-            isError = true
+            onClickRememberPassword = {},
+            isError = true,
+            errorMessage = stringResource(id = R.string.invalid_password)
         )
     }
 }

@@ -2,7 +2,6 @@ package com.vodimobile.presentation.screens.edit_profile
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,8 +37,10 @@ import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
@@ -182,7 +183,7 @@ fun EditProfileScreen(
                             onValueChange = {
                                 onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
                             },
-                            label = stringResource(id = R.string.registration_label_phoneNumber),
+                            label = stringResource(id = R.string.label_phoneNumber),
                             enabled = false
                         )
                     }
@@ -199,14 +200,28 @@ private fun EditProfileScreenDarkPreview() {
         val editProfileViewModel = EditProfileViewModel(
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
-                    UserDataStoreRepositoryImpl(
-                        getDataStore(LocalContext.current)
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(App.INSTANCE)
                     )
                 ),
                 getUserDataUseCase = GetUserDataUseCase(
-                    UserDataStoreRepositoryImpl(
-                        getDataStore(
-                            LocalContext.current
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            App.INSTANCE
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            App.INSTANCE
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            App.INSTANCE
                         )
                     )
                 )
@@ -228,14 +243,28 @@ private fun EditProfileScreenLightPreview() {
         val editProfileViewModel = EditProfileViewModel(
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
-                    UserDataStoreRepositoryImpl(
-                        getDataStore(LocalContext.current)
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(App.INSTANCE)
                     )
                 ),
                 getUserDataUseCase = GetUserDataUseCase(
-                    UserDataStoreRepositoryImpl(
-                        getDataStore(
-                            LocalContext.current
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            App.INSTANCE
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            App.INSTANCE
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            App.INSTANCE
                         )
                     )
                 )
