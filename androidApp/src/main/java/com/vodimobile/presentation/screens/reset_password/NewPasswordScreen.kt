@@ -62,7 +62,7 @@ fun NewPasswordScreen(
                 }
 
                 NewPasswordEffect.SaveData -> {
-                    navHostController.navigateUp()
+                    navHostController.navigate(RegistrationScreens.AUTHORIZATION_SCREEN)
                 }
             }
         }

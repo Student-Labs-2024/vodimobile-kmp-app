@@ -32,7 +32,6 @@ import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.PhoneField
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
-import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordEffect
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordState
@@ -65,7 +64,11 @@ fun ResetPasswordScreen(
                 }
 
                 ResetPasswordEffect.SmsVerification -> {
-                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${resetPasswordState.value.phoneNumber}")
+                    navHostController.navigate(
+                        route = "${RegistrationScreens.SMS_VERIFY}/" +
+                                "${resetPasswordState.value.phoneNumber}/" +
+                                RegistrationScreens.NEW_PASSWORD_SCREEN
+                    )
                 }
 
                 ResetPasswordEffect.AskPermission -> {
