@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     id("dev.icerock.mobile.multiplatform-resources")
     id("com.codingfeline.buildkonfig")
+    kotlin("plugin.serialization") version "1.9.23"
 }
 
 val cmr_server = getStringValueFromLocalProperties(name = "crm.server")
@@ -68,6 +69,9 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.auth)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.kotlinx.serialization.json)
 
             //Shared res
             api(libs.moko.resources)

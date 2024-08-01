@@ -5,10 +5,11 @@ import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
+import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.http.HttpStatusCode
 
 interface CrmRepository {
-    suspend fun getCarList(): CrmEither<CarListDTO, HttpStatusCode>
+    suspend fun getCarList(bearerTokens: BearerTokens): CrmEither<CarListDTO, HttpStatusCode>
     suspend fun getTariffList(carId: Int): CrmEither<TariffListDTO, HttpStatusCode>
     suspend fun postNewUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode>
 }

@@ -9,6 +9,7 @@ import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.http.HttpStatusCode
 
 class CrmStorage(
@@ -16,8 +17,8 @@ class CrmStorage(
     private val getTariffListUseCase: GetTariffListUseCase,
     private val postNewUserUseCase: PostNewUserUseCase
 ) {
-    suspend fun getCarList(): CrmEither<CarListDTO, HttpStatusCode> {
-        return getCarListUseCase()
+    suspend fun getCarList(bearerTokens: BearerTokens): CrmEither<CarListDTO, HttpStatusCode> {
+        return getCarListUseCase(bearerTokens= bearerTokens)
     }
 
     suspend fun getTariffByCar(carId: Int): CrmEither<List<Tariff>, HttpStatusCode> {
