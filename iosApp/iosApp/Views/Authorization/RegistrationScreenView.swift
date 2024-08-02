@@ -49,9 +49,11 @@ struct RegistrationScreenView: View {
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: PinCodeView(
-                    phoneNumber: $viewModel.phone,
-                    isResetPasswordFlow: false)
+                NavigationLink(
+                    destination: PinCodeView(
+                        phoneNumber: $viewModel.phone,
+                        isResetPasswordFlow: false
+                    )
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }
@@ -93,38 +95,6 @@ struct RegistrationScreenView: View {
         viewModel.isPhoneValid &&
         viewModel.isPasswordValid &&
         checkboxSelected
-    }
-}
-
-enum InputErrorType: String {
-    case incorrectFullName
-    case incorrectPhone
-    case alreadyExistsPhone
-    case incorrectPass
-    case invalidPass
-    case tooShortPass
-    case noSpecSymboldsInPass
-    case noUpperLettersInPass
-    
-    var localizedString: String {
-        switch self {
-        case .incorrectFullName:
-            return R.string.localizable.incorrectFullName()
-        case .incorrectPhone:
-            return R.string.localizable.incorrectPhone()
-        case .alreadyExistsPhone:
-            return R.string.localizable.alreadyExistsPhone()
-        case .incorrectPass:
-            return R.string.localizable.incorrectPass()
-        case .tooShortPass:
-            return R.string.localizable.tooShortPass()
-        case .noSpecSymboldsInPass:
-            return R.string.localizable.noSpecSymboldsInPass()
-        case .noUpperLettersInPass:
-            return R.string.localizable.noUpperLettersInPass()
-        case .invalidPass:
-            return R.string.localizable.invalidPass()
-        }
     }
 }
 

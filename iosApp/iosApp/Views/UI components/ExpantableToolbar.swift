@@ -17,9 +17,9 @@ struct ExpandableToolbar: View {
     @Binding var dragOffset: CGSize
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             GeometryReader { geometry in
-                VStack(spacing: 0) {
+                VStack {
                     HStack {
                         Spacer()
                         
@@ -32,9 +32,10 @@ struct ExpandableToolbar: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 20)
                     .padding(.top, 65)
                     .background(Color(R.color.blueDarkColor))
+                    .padding(.bottom, !isExpanded ? 25 : 0)
                     
                     if isExpanded {
                         VStack {
@@ -77,10 +78,6 @@ struct ExpandableToolbar: View {
                         .padding(.horizontal, 16)
                         .offset(y: isExpanded ? 0 : -UIScreen.main.bounds.height * 0.3)
                         .animation(.spring(), value: isExpanded)
-                    }
-                    
-                    if !isExpanded {
-                        Text("").padding(.vertical, 5)
                     }
                 }
                 .background(Color(R.color.blueDarkColor))

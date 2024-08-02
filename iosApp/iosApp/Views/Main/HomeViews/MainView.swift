@@ -69,7 +69,7 @@ struct MainView: View {
             .ignoresSafeArea(.container, edges: .top)
             .background(Color(R.color.grayLightColor))
             .sheet(isPresented: $showModalCard) {
-                ModalAutoView(autoData: $selectedAuto, showModalView: $showModalCard)
+                ModalAutoView(carModel: $selectedAuto, showModalView: $showModalCard)
             }
         }
     }

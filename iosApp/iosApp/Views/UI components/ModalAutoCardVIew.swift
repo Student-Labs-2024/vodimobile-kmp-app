@@ -10,26 +10,25 @@ import SwiftUI
 import shared
 
 struct ModalAutoView: View {
-    @Binding var autoData: Car
+    @Binding var carModel: Car
     @Binding var showModalView: Bool
 
     var body: some View {
+        let ModalAutoCardView = ModalAutoCardView(carModel: $carModel, showModal: $showModalView)
+            .presentationDetents([.fraction(0.64)])
+            .presentationDragIndicator(.visible)
+        
         if #available(iOS 16.4, *) {
-            ModalAutoCardView(autoData: $autoData, showModal: $showModalView)
-                .presentationDetents([.fraction(0.64)])
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(24)
+            ModalAutoCardView.presentationCornerRadius(24)
         } else {
-            ModalAutoCardView(autoData: $autoData, showModal: $showModalView)
-                .presentationDetents([.fraction(0.64)])
-                .presentationDragIndicator(.visible)
+            ModalAutoCardView
         }
     }
 }
 
 
 struct ModalAutoCardView: View {
-    @Binding var autoData: Car
+    @Binding var carModel: Car
     @Binding var showModalView: Bool
     private let carPreview: Image
     private let carPrice: Float
@@ -40,11 +39,11 @@ struct ModalAutoCardView: View {
         GridItem(.flexible(), spacing: 20)
     ]
     
-    init(autoData: Binding<Car>, showModal: Binding<Bool>) {
-        self._autoData = autoData
-        if let image = autoData.wrappedValue.images.first,
-           let tariff = autoData.wrappedValue.tariffs.first,
-           let year = autoData.wrappedValue.year
+    init(carModel: Binding<Car>, showModal: Binding<Bool>) {
+        self._carModel = carModel
+        if let image = carModel.wrappedValue.images.first,
+           let tariff = carModel.wrappedValue.tariffs.first,
+           let year = carModel.wrappedValue.year
         {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
             self.carPrice = tariff.cost
@@ -59,9 +58,6 @@ struct ModalAutoCardView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            
-            Spacer()
-            
             HStack {
                 Spacer()
                 ZStack {
@@ -78,7 +74,9 @@ struct ModalAutoCardView: View {
                     showModalView.toggle()
                 }
             }
-            .padding(.top, 10)
+            .padding(.top, 30)
+            
+            Spacer()
             
             VStack {
                 carPreview
@@ -87,7 +85,7 @@ struct ModalAutoCardView: View {
                     .padding(.horizontal, 55)
                 
                 HStack {
-                    Text(autoData.model.resource).font(.header3)
+                    Text(carModel.model.resource).font(.header3)
                     Spacer()
                     Text("от \(Int(carPrice)) руб.")
                         .font(.header4)
@@ -110,7 +108,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.transmissionTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(autoData.transmission.resource)
+                                Text(carModel.transmission.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -126,7 +124,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.driveTypeTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(autoData.wheelDrive.resource)
+                                Text(carModel.wheelDrive.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -158,7 +156,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.tankTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text("\(autoData.tankValue.resource) \(R.string.localizable.literText())")
+                                Text("\(carModel.tankValue.resource) \(R.string.localizable.literText())")
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)

@@ -64,8 +64,7 @@ struct TrailingToolbarItem: View {
                 )
         }
         .disabled(
-            !observedObject.isFullnameValid &&
-            observedObject.dataIsEditing
+            !observedObject.isFullnameValid || !observedObject.dataIsEditing
         )
     }
 }

@@ -20,6 +20,9 @@ struct BorderedTextField: View {
     private let fieldType: TextFieldType
     private let placeholder: String
     private let keyboardType: UIKeyboardType
+    private var contentIsNotValid: Bool {
+        !isValid && !fieldContent.isEmpty
+    }
     
     init(
         fieldContent: Binding<String>,
@@ -57,7 +60,8 @@ struct BorderedTextField: View {
         VStack(alignment: .leading) {
             Text(fieldType.localizedStr).font(.header4).foregroundStyle(Color.black)
             
-            if fieldType == .phone {
+            switch fieldType {
+            case .phone:
                 IphonePhoneTextField(
                     fieldContent: $fieldContent,
                     isValid: $isValid,
@@ -66,7 +70,7 @@ struct BorderedTextField: View {
                     isFocused: $isFocused,
                     errorHandler: handleErrorTypeChanging
                 )
-            } else if fieldType == .password || fieldType == .oldPassword || fieldType == .newPassword {
+            case .password, .oldPassword, .newPassword:
                 PasswordTextField(
                     fieldContent: $fieldContent,
                     isValid: $isValid,
@@ -77,7 +81,7 @@ struct BorderedTextField: View {
                     isForgetButtonEnabled: isForgetBtnEnabled,
                     fieldType: fieldType
                 )
-            } else {
+            case .email, .fullName:
                 HStack {
                     TextField(placeholder, text: $fieldContent)
                         .keyboardType(keyboardType)
@@ -122,8 +126,8 @@ struct BorderedTextField: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(
-                            !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
-                            lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
+                            contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                            lineWidth: isFocused || contentIsNotValid ? 1 : 0
                         )
                 )
                 
@@ -142,35 +146,35 @@ struct BorderedTextField: View {
             switch inputErrorType {
             case .alreadyExistsPhone:
                 if fieldType == .phone {
-                    errorMsg = InputErrorType.alreadyExistsPhone.localizedString
+                    errorMsg = InputErrorType.alreadyExistsPhone.errorString
                 }
             case .incorrectFullName:
                 if fieldType == .fullName {
-                    errorMsg = InputErrorType.incorrectFullName.localizedString
+                    errorMsg = InputErrorType.incorrectFullName.errorString
                 }
             case .incorrectPass:
                 if fieldType == .password {
-                    errorMsg = InputErrorType.incorrectPass.localizedString
+                    errorMsg = InputErrorType.incorrectPass.errorString
                 }
             case .incorrectPhone:
                 if fieldType == .phone {
-                    errorMsg = InputErrorType.incorrectPhone.localizedString
+                    errorMsg = InputErrorType.incorrectPhone.errorString
                 }
             case .noSpecSymboldsInPass:
                 if fieldType == .password {
-                    errorMsg = InputErrorType.noSpecSymboldsInPass.localizedString
+                    errorMsg = InputErrorType.noSpecSymboldsInPass.errorString
                 }
             case .noUpperLettersInPass:
                 if fieldType == .password {
-                    errorMsg = InputErrorType.noUpperLettersInPass.localizedString
+                    errorMsg = InputErrorType.noUpperLettersInPass.errorString
                 }
             case .tooShortPass:
                 if fieldType == .password {
-                    errorMsg = InputErrorType.tooShortPass.localizedString
+                    errorMsg = InputErrorType.tooShortPass.errorString
                 }
             case .invalidPass:
                 if fieldType == .password {
-                    errorMsg = InputErrorType.invalidPass.localizedString
+                    errorMsg = InputErrorType.invalidPass.errorString
                 }
             }
         }

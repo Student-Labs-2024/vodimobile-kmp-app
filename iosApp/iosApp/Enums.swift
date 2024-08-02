@@ -6,6 +6,7 @@
 //  Copyright © 2024 orgName. All rights reserved.
 //
 
+// Profile
 enum CellType {
     case email
     case phone
@@ -22,68 +23,11 @@ enum ProfileCellType {
     case conditions, faq, contacts
 }
 
-enum TransmissonType {
-    case auto
-    case manual
-}
-
-enum DriveType: String {
-    case frontWheels, rearWheels, allWheels
-}
-
-extension TransmissonType {
-    var localizedStr: String {
-        switch self {
-        case .auto:
-            return R.string.localizable.autoTransmissionType()
-        case .manual:
-            return R.string.localizable.mechTransmissionType()
-        }
-    }
-}
-
-extension DriveType {
-    var localizedStr: String {
-        switch self {
-        case .frontWheels:
-            return R.string.localizable.frontDriveType()
-        case .rearWheels:
-            return R.string.localizable.realDrivetype()
-        case .allWheels:
-            return R.string.localizable.allDriveType()
-        }
-    }
-}
-
+// Main tab view
 enum TabType: Int {
     case main
     case myOrders
     case profile
-}
-
-enum TextFieldType: String {
-    case email, phone, fullName, password, oldPassword, newPassword
-    
-    var localizedStr: String {
-        switch self {
-        case .email:
-            return R.string.localizable.email()
-        case .phone:
-            return R.string.localizable.phone()
-        case .fullName:
-            return R.string.localizable.fullName()
-        case .password:
-            return R.string.localizable.password()
-        case .oldPassword:
-            return R.string.localizable.oldPassword()
-        case .newPassword:
-            return R.string.localizable.newPassword()
-        }
-    }
-}
-
-enum AutoCardType {
-    case simple, general
 }
 
 enum ScrollOffsetNamespace {
@@ -103,8 +47,7 @@ enum AutoListType {
             AutoListType.jeeps.localizedStr
         ]
     }
-}
-extension AutoListType {
+    
     var localizedStr: String {
         switch self {
         case .allCars:
@@ -119,6 +62,61 @@ extension AutoListType {
             return R.string.localizable.sedansScreenTitle()
         case .jeeps:
             return R.string.localizable.jeepsScreenTitle()
+        }
+    }
+}
+
+// Errors
+enum InputErrorType: String {
+    case incorrectFullName
+    case incorrectPhone
+    case alreadyExistsPhone
+    case incorrectPass
+    case invalidPass
+    case tooShortPass
+    case noSpecSymboldsInPass
+    case noUpperLettersInPass
+    
+    var errorString: String {
+        switch self {
+        case .incorrectFullName:
+            return R.string.localizable.incorrectFullName()
+        case .incorrectPhone:
+            return R.string.localizable.incorrectPhone()
+        case .alreadyExistsPhone:
+            return R.string.localizable.alreadyExistsPhone()
+        case .incorrectPass:
+            return R.string.localizable.incorrectPass()
+        case .tooShortPass:
+            return R.string.localizable.tooShortPass()
+        case .noSpecSymboldsInPass:
+            return R.string.localizable.noSpecSymboldsInPass()
+        case .noUpperLettersInPass:
+            return R.string.localizable.noUpperLettersInPass()
+        case .invalidPass:
+            return R.string.localizable.invalidPass()
+        }
+    }
+}
+
+// field types
+enum TextFieldType: String {
+    case email, phone, fullName, password, oldPassword, newPassword
+    
+    var localizedStr: String {
+        switch self {
+        case .email:
+            return R.string.localizable.email()
+        case .phone:
+            return R.string.localizable.phone()
+        case .fullName:
+            return R.string.localizable.fullName()
+        case .password:
+            return R.string.localizable.password()
+        case .oldPassword:
+            return R.string.localizable.oldPassword()
+        case .newPassword:
+            return R.string.localizable.newPassword()
         }
     }
 }

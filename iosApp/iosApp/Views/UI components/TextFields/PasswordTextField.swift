@@ -23,6 +23,9 @@ struct PasswordTextField: View {
     let fieldName: String = TextFieldType.password.localizedStr
     let placeholder: String = R.string.localizable.passwordPlaceholder()
     let keyboardType: UIKeyboardType = .default
+    private var contentIsNotValid: Bool {
+        !isValid && !fieldContent.isEmpty
+    }
     
     init(
         fieldContent: Binding<String>,
@@ -121,8 +124,8 @@ struct PasswordTextField: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
-                                lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
+                                contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                                lineWidth: isFocused || contentIsNotValid ? 1 : 0
                             )
                     )
                 }

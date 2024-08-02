@@ -19,7 +19,7 @@ struct IphonePhoneTextField: View {
     
     let errorHandler: (inout String) -> ()
     let fieldName: String = TextFieldType.phone.localizedStr
-    let placeholder: String = "+7"
+    let placeholder: String = R.string.localizable.phonePlaceholder()
     let keyboardType: UIKeyboardType = .phonePad
     
     var body: some View {
@@ -88,13 +88,13 @@ struct IphonePhoneTextField: View {
                 .onChange(of: inputErrorType) { _ in
                     errorHandler(&errorMessage)
                 }
-                
-                if inputErrorType != nil {
-                    Text(errorMessage)
-                        .font(.paragraph6)
-                        .foregroundStyle(Color(R.color.redColor))
-                        .padding(.leading, 10)
-                }
+            
+            if let _ = inputErrorType {
+                Text(errorMessage)
+                    .font(.paragraph6)
+                    .foregroundStyle(Color(R.color.redColor))
+                    .padding(.leading, 10)
+            }
         }
     }
 }

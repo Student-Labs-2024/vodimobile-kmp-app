@@ -13,7 +13,7 @@ struct PersonDataView: View {
     @FocusState private var focusedField: Field?
     
     enum Field {
-        case fullname, email, phone
+        case fullname, phone
     }
     
     init(viewModel: PersonalDataViewModel = .init()) {
@@ -50,8 +50,12 @@ struct PersonDataView: View {
             
             Spacer()
         }
-        .onChange(of: viewModel.fullname) { _ in
-            $viewModel.dataIsEditing.wrappedValue = true
+        .onChange(of: focusedField) { newValue in
+            if let _ = newValue {
+                $viewModel.dataIsEditing.wrappedValue = true
+            } else {
+                $viewModel.dataIsEditing.wrappedValue = false
+            }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
         .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert, actions: {
@@ -67,7 +71,7 @@ struct PersonDataView: View {
             }
         }
         .onAppear {
-            viewModel.loadUser()
+            viewModel.fetchUserData()
         }
         .background(Color(R.color.grayLightColor).ignoresSafeArea())
         .navigationBarBackButtonHidden()
@@ -79,10 +83,9 @@ struct PersonDataView: View {
                     observedObject: viewModel,
                     actionAfterTapping: {
                         Task {
-                            viewModel.dataIsEditing = false
                             focusedField = nil
                             viewModel.saveEditedUserData()
-                            viewModel.loadUser()
+                            viewModel.fetchUserData()
                         }
                     }
                 )

@@ -46,6 +46,7 @@
 // Field names
 "email" = "Email";
 "phone" = "Phone";
+"phonePlaceholder" = "+X (XXX) XXX-XX-XX";
 "fullName" = "Full name";
 "dateTextFieldPlaceholder" = "When?";
 "dateTextFieldTitle" = "Select the rental dates";
@@ -107,13 +108,10 @@
 "somethingWentWrongText" = "An error has occurred. Try the connection again.";
 "popularAuto" = "Popular auto";
 "transmissionTitle" = "Transmission";
-"autoTransmissionType" = "Automatic";
-"mechTransmissionType" = "Mechanics";
 "driveTypeTitle" = "Drive";
-"frontDriveType" = "Front";
-"realDrivetype" = "Rear";
-"allDriveType" = "Full";
 "tankTitle" = "Tank";
+"prepositionPriceText" = "from";
+"currencyPriceText" = "rub.";
 "yearOfManufactureTitle" = "Year of manufacture";
 "characteristicsTitle" = "Characteristics:";
 "generalAutoCardTitle" = "Go to the entire car park";

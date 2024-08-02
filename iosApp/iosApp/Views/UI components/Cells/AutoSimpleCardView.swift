@@ -10,15 +10,15 @@ import SwiftUI
 import shared
 
 struct AutoSimpleCardView: View {
-    let car: Car
+    let carModel: Car
     private var carPreview: Image
     private var carPrice: Float
     @Binding var showModal: Bool
     @Binding var selectedAuto: Car
     
     init(car: Car, showModal: Binding<Bool>, selectedAuto: Binding<Car>) {
-        self.car = car
-        if let image = car.images.first, let tariff = car.tariffs.first {
+        self.carModel = car
+        if let image = carModel.images.first, let tariff = carModel.tariffs.first {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
             self.carPrice = tariff.cost
         } else {
@@ -38,8 +38,8 @@ struct AutoSimpleCardView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(car.model.resource).font(.header3)
-                    Text("от \(Int(carPrice)) руб.")
+                    Text(carModel.model.resource).font(.header3)
+                    Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
                         .font(.header4)
                         .fontWeight(.bold)
                         .foregroundStyle(Color(R.color.blueColor))
@@ -56,7 +56,7 @@ struct AutoSimpleCardView: View {
                 .frame(width: 40, height: 40)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
                 .onTapGesture {
-                    selectedAuto = car
+                    selectedAuto = carModel
                     showModal = true
                 }
             }

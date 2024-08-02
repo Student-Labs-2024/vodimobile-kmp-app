@@ -11,13 +11,14 @@ import Combine
 import shared
 
 final class PersonalDataViewModel: ObservableObject {
-    @Published var dataHasBeenSaved: Bool = false
-    @Published var dataIsEditing: Bool = false
-    @Published var showErrorAlert: Bool = false
-    @Published var isLoading: Bool = false
+    // fields content
     @Published var fullname = ""
     @Published var password = ""
     @Published var phone = ""
+    @Published var oldPassword = ""
+    private var oldStoragedPassword: String = KMPDataStorage.defaultUser.password
+    private var newUserData: User = User.companion.empty()
+    // fields validation
     @Published var isFullnameValid = false
     @Published var isPhoneValid = false
     @Published var isPasswordLengthValid = false
@@ -25,22 +26,22 @@ final class PersonalDataViewModel: ObservableObject {
     @Published var isPasswordHasSpecSymbol = false
     @Published var isPasswordValid = false
     @Published var inputError: InputErrorType? = nil
-    @Published var oldPassword: String = KMPDataStorage.defaultUser.password
-    @Published var newUserData: User = User.companion.empty()
+    // work toggles
+    @Published var dataHasBeenSaved: Bool = false
+    @Published var dataIsEditing: Bool = false
+    @Published var showErrorAlert: Bool = false
+    @Published var isLoading: Bool = false
+    // data storage
     @ObservedObject var dataStorage = KMPDataStorage()
-
+    // observable set
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
-        self.fullname = dataStorage.gettingUser.fullName
-        self.phone = dataStorage.gettingUser.phone
-        self.oldPassword = dataStorage.gettingUser.password
-        
         dataStorage.$gettingUser
             .sink { newValue in
                 self.fullname = newValue.fullName
                 self.phone = newValue.phone
-                self.oldPassword = newValue.password
+                self.oldStoragedPassword = newValue.password
             }
             .store(in: &cancellableSet)
         
@@ -64,10 +65,7 @@ final class PersonalDataViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { phone in
                 let pattern = phoneRegex
-                if let _ = phone
-                            .replacingOccurrences(of: "(", with: "")
-                            .replacingOccurrences(of: ")", with: "")
-                            .range(of: pattern, options: .regularExpression)
+                if let _ = self.handlePhoneString(phone, pattern: pattern)
                 {
                     return true
                 } else {
@@ -91,7 +89,7 @@ final class PersonalDataViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = "[A-Z]"
+                let pattern = capitalizeSymbolRegex
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {
@@ -104,7 +102,7 @@ final class PersonalDataViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = "[!@#$%^+-=&*(),.?\":{}|<>]"
+                let pattern = specialSymbolRegex
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {
@@ -156,7 +154,7 @@ final class PersonalDataViewModel: ObservableObject {
         self.isLoading.toggle()
     }
     
-    func loadUser() {
+    func fetchUserData() {
         isLoading = true
         
         Task.detached {
@@ -166,6 +164,7 @@ final class PersonalDataViewModel: ObservableObject {
                 print(error)
             }
         }
+        self.isLoading.toggle()
     }
     
     private func areAllFieldsFilled() -> Bool {
@@ -174,5 +173,12 @@ final class PersonalDataViewModel: ObservableObject {
     
     func fieldsIsValid() -> Bool {
         isPasswordValid && isFullnameValid && areAllFieldsFilled()
+    }
+    
+    private func handlePhoneString(_ phone: String, pattern: String) -> Range<String.Index>? {
+        phone
+            .replacingOccurrences(of: "(", with: "")
+            .replacingOccurrences(of: ")", with: "")
+            .range(of: pattern, options: .regularExpression)
     }
 }

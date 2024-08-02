@@ -31,7 +31,7 @@ struct AutoListView: View {
                         LazyVStack(spacing: 20) {
                             ForEach(viewModel.listOfAllCar.indices, id: \.self) { index in
                                 AutoCardWithButtonView(
-                                    autoCard: viewModel.listOfAllCar[index],
+                                    carModel: viewModel.listOfAllCar[index],
                                     selectedAuto: $selectedAuto, 
                                     showModal: $showModalCard
                                 )
@@ -77,7 +77,7 @@ struct AutoListView: View {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)
         }
         .sheet(isPresented: $showModalCard) {
-            ModalAutoView(autoData: $selectedAuto, showModalView: $showModalCard)
+            ModalAutoView(carModel: $selectedAuto, showModalView: $showModalCard)
         }
     }
 }

@@ -10,15 +10,15 @@ import SwiftUI
 import shared
 
 struct AutoCardWithButtonView: View {
-    let autoCard: Car
+    let carModel: Car
     @Binding var showModal: Bool
     @Binding var selectedAuto: Car
     private var carPreview: Image
     private var carPrice: Float
     
-    init(autoCard: Car, selectedAuto: Binding<Car>, showModal: Binding<Bool>) {
-        self.autoCard = autoCard
-        if let image = autoCard.images.first, let tariff = autoCard.tariffs.first {
+    init(carModel: Car, selectedAuto: Binding<Car>, showModal: Binding<Bool>) {
+        self.carModel = carModel
+        if let image = carModel.images.first, let tariff = carModel.tariffs.first {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
             self.carPrice = tariff.cost
         } else {
@@ -38,8 +38,8 @@ struct AutoCardWithButtonView: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(autoCard.model.resource).font(.header3)
-                    Text("от \(Int(carPrice)) руб.")
+                    Text(carModel.model.resource).font(.header3)
+                    Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
                         .font(.header4)
                         .fontWeight(.bold)
                         .foregroundStyle(Color(R.color.blueColor))
@@ -62,7 +62,7 @@ struct AutoCardWithButtonView: View {
                 .frame(width: 40, height: 40)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
                 .onTapGesture {
-                    selectedAuto = autoCard
+                    selectedAuto = carModel
                     showModal = true
                 }
             }

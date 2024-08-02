@@ -56,7 +56,7 @@ class AuthViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = "[A-Z]"
+                let pattern = capitalizeSymbolRegex
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {
@@ -69,7 +69,7 @@ class AuthViewModel: ObservableObject {
         $password
             .receive(on: RunLoop.main)
             .map { password in
-                let pattern = "[!@#$%^+-=&*(),.?\":{}|<>]"
+                let pattern = specialSymbolRegex
                 if let _ = password.range(of: pattern, options: .regularExpression) {
                     return true
                 } else {

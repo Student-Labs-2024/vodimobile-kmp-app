@@ -101,6 +101,9 @@ struct BorderedTextFieldStyle: TextFieldStyle {
     var text: String
     var isFocused: Bool
     var isValid: Bool
+    private var textIsNotValid: Bool {
+        !isValid && !text.isEmpty
+    }
     func _body(configuration: TextField<_Label>) -> some View {
         configuration
             .frame(alignment: .leading)
@@ -113,8 +116,8 @@ struct BorderedTextFieldStyle: TextFieldStyle {
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(
-                        !isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
-                        lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0
+                        textIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                        lineWidth: isFocused || textIsNotValid ? 1 : 0
                     )
             )
     }
