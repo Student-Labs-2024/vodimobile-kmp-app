@@ -19,7 +19,7 @@ data class Car(
     val transmission: StringResource,
     val wheelDrive: StringResource,
     val tankValue: StringResource,
-    val carType: CarType = CarType.None,
+    val carType: List<CarType>,
     val deposit: Float?,
     val tariffs: List<Tariff>,
     val images: List<ImageResource>,
@@ -36,6 +36,7 @@ data class Car(
                 transmission = SharedRes.strings.transmission_hyundai_solaris_1,
                 wheelDrive = SharedRes.strings.wheel_drive_hyundai_solaris_1,
                 tankValue = SharedRes.strings.tank_value_hyundai_solaris_1,
+                carType = listOf(CarType.Economy, CarType.Sedans),
                 deposit = 0f,
                 tariffs = listOf(
                     Tariff(

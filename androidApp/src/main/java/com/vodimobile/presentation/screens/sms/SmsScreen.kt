@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.sms.components.SendCodeAgain
 import com.vodimobile.presentation.screens.sms.components.SmsField
@@ -48,6 +47,7 @@ fun SmsScreen(
     smsState: State<SmsState>,
     @SuppressLint("ComposeMutableParameters") smsEffect: MutableSharedFlow<SmsEffect>,
     phone: String,
+    navigateScreen: String,
     onIntent: (SmsIntent) -> Unit,
     navHostController: NavHostController
 ) {
@@ -73,7 +73,7 @@ fun SmsScreen(
         smsEffect.collect { effect ->
             when (effect) {
                 SmsEffect.SmsCodeCorrect -> {
-                    navHostController.navigate(RootScreen.HOME_SCREEN)
+                    navHostController.navigate(navigateScreen)
                 }
             }
         }
@@ -186,6 +186,7 @@ private fun SmsScreenPreviewDark() {
             smsState = smsViewModel.smsState.collectAsState(),
             smsEffect = smsViewModel.smsEffect,
             phone = "8 800 555 35 35",
+            navigateScreen = "",
             onIntent = smsViewModel::onIntent
         )
     }
@@ -201,6 +202,7 @@ private fun SmsScreenPreviewLight() {
             smsState = smsViewModel.smsState.collectAsState(),
             smsEffect = smsViewModel.smsEffect,
             phone = "8 800 555 35 35",
+            navigateScreen = "",
             onIntent = smsViewModel::onIntent
         )
     }
