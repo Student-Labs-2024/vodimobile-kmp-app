@@ -5,6 +5,7 @@ import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import org.koin.core.module.dsl.singleOf
@@ -18,6 +19,7 @@ val crmModule = module {
     singleOf(::GetTariffListUseCase)
     singleOf(::PostNewUserUseCase)
     singleOf(::GetAllPlacesUseCase)
+    singleOf(::GetFreeCarsUseCaSE)
 
     singleOf(::CrmStorage).bind<CrmStorage>()
 }

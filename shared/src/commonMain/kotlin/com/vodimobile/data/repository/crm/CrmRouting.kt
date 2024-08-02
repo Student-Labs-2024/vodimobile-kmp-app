@@ -21,4 +21,16 @@ object CrmRouting {
     object Places {
         const val ALL_PLACES = "place_list"
     }
+
+    object CarFreeList {
+        const val CAR_FREE_LIST = "car_free_list"
+
+        object PARAM {
+            const val BEGIN: String = "begin"
+            const val END: String = "end"
+            const val INCLUDE_RESERVES: String = "include_reserves"
+            const val INCLUDE_IDLES: String = "include_idles"
+            const val CITY_ID: String = "city_id"
+        }
+    }
 }

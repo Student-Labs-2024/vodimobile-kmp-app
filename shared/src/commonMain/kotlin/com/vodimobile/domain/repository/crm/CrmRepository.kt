@@ -1,5 +1,7 @@
 package com.vodimobile.domain.repository.crm
 
+import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
+import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
@@ -27,4 +29,10 @@ interface CrmRepository {
         accessToken: String,
         refreshToken: String
     ): CrmEither<PlaceDTO, HttpStatusCode>
+
+    suspend fun getFreeCars(
+        accessToken: String,
+        refreshToken: String,
+        carFreeListParamsDTO: CarFreeListParamsDTO
+    ): CrmEither<CarFreeListDTO, HttpStatusCode>
 }

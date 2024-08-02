@@ -3,6 +3,8 @@ package com.vodimobile.data.repository.crm
 import com.vodimobile.domain.client.provideKtorClient
 import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
+import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
+import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
@@ -11,11 +13,11 @@ import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
+import com.vodimobile.utils.date_formats.parseToCrmDate
 import com.vodimobile.utils.local_properties.getCrmServerDataFromLocalProperties
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerAuthConfig
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.request.get
@@ -29,8 +31,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.Url
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import io.ktor.http.parameters
 
 class CrmRepositoryImpl : CrmRepository {
 
@@ -116,6 +117,48 @@ class CrmRepositoryImpl : CrmRepository {
                 .get(
                     block = {
                         url(url = Url(crmServerData.buildUrl(CrmRouting.Places.ALL_PLACES)))
+                    }
+                )
+
+        return if (httpResponse.status.isSuccess()) {
+            CrmEither.CrmData(data = httpResponse.body())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun getFreeCars(
+        accessToken: String,
+        refreshToken: String,
+        carFreeListParamsDTO: CarFreeListParamsDTO
+    ): CrmEither<CarFreeListDTO, HttpStatusCode> {
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.CarFreeList.CAR_FREE_LIST)))
+                        parameters {
+                            parameter(
+                                CrmRouting.CarFreeList.PARAM.BEGIN,
+                                carFreeListParamsDTO.begin.parseToCrmDate()
+                            )
+                            parameter(
+                                CrmRouting.CarFreeList.PARAM.END,
+                                carFreeListParamsDTO.end.parseToCrmDate()
+                            )
+                            parameter(
+                                CrmRouting.CarFreeList.PARAM.CITY_ID,
+                                carFreeListParamsDTO.cityId
+                            )
+                            parameter(
+                                CrmRouting.CarFreeList.PARAM.INCLUDE_IDLES,
+                                carFreeListParamsDTO.includeIdles
+                            )
+                            parameter(
+                                CrmRouting.CarFreeList.PARAM.INCLUDE_RESERVES,
+                                carFreeListParamsDTO.includeReserves
+                            )
+                        }
                     }
                 )
 
