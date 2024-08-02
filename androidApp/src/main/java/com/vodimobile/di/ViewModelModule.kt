@@ -11,6 +11,8 @@ import com.vodimobile.presentation.screens.home.HomeViewModel
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
+import com.vodimobile.presentation.screens.reset_password.ResetPasswordViewModel
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.screens.server_error.ServerErrorViewModel
@@ -45,4 +47,6 @@ val viewModelModule = module {
     viewModelOf(::ChangePasswordViewModel)
     viewModelOf(::VehicleFleetViewModel)
     viewModelOf(::AuthorizationViewModel)
+    viewModelOf(::ResetPasswordViewModel)
+    viewModelOf(::NewPasswordViewModel)
 }

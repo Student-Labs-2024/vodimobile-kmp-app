@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.registration.components
+package com.vodimobile.presentation.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.components.PrimaryButton
 
 @SuppressLint("ComposeModifierMissing")
 @Composable

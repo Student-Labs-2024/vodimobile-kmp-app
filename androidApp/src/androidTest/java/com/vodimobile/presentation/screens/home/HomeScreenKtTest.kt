@@ -28,7 +28,7 @@ class HomeScreenKtTest {
             Scaffold(
                 topBar = {
                     SnapVodimobileTopAppBar(
-                        date = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+                        date = longArrayOf(System.currentTimeMillis(),System.currentTimeMillis()),
                         onNotificationButtonClick = { /*TODO*/ },
                         onFieldClick = { /*TODO*/ },
                         onButtonClick = {},
