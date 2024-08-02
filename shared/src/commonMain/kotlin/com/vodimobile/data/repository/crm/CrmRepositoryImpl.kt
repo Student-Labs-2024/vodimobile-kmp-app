@@ -40,53 +40,44 @@ class CrmRepositoryImpl : CrmRepository {
         accessToken: String,
         refreshToken: String
     ): CrmEither<CarListDTO, HttpStatusCode> {
-
-
         val httpResponse: HttpResponse =
-            client.config {
-                install(Auth) {
-                    bearer {
-                        loadTokens {
-                            BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
-                        }
-                        refreshTokens {
-                            BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
-                        }
-                    }
-                }
-            }
+            authConfig(accessToken, refreshToken)
                 .get(
                     block = {
                         url(url = Url(crmServerData.buildUrl(CrmRouting.Cars.ALL_CARS)))
                     }
                 )
 
-        val carListDTO: CarListDTO = httpResponse.body()
-
         return if (httpResponse.status.isSuccess()) {
-            CrmEither(data = carListDTO, status = httpResponse.status)
+            CrmEither.CrmData(data = httpResponse.body())
         } else {
-            CrmEither(data = null, status = httpResponse.status)
+            CrmEither.CrmError(status = httpResponse.status)
         }
     }
 
-    override suspend fun getTariffList(carId: Int): CrmEither<TariffListDTO, HttpStatusCode> {
+    override suspend fun getTariffList(
+        carId: Int,
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<TariffListDTO, HttpStatusCode> {
 
-        val httpResponse: HttpResponse = client.get(
-            block = {
-                url(url = Url(crmServerData.buildUrl(CrmRouting.Tariff.TARIFFS_BY_CAR_ID)))
-                parameter(
-                    key = CrmRouting.Tariff.PARAM.TARIFF_BY_CAR_ID_PARAM_CAR_ID,
-                    value = carId
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.Tariff.TARIFFS_BY_CAR_ID)))
+                        parameter(
+                            key = CrmRouting.Tariff.PARAM.TARIFF_BY_CAR_ID_PARAM_CAR_ID,
+                            value = carId
+                        )
+                    }
                 )
-            }
-        )
 
         return if (httpResponse.status.isSuccess()) {
             val tariffListDTO: TariffListDTO = httpResponse.body()
-            CrmEither(data = tariffListDTO, status = httpResponse.status)
+            CrmEither.CrmData(data = tariffListDTO)
         } else {
-            CrmEither(data = null, status = httpResponse.status)
+            CrmEither.CrmError(status = httpResponse.status)
         }
     }
 
@@ -95,8 +86,8 @@ class CrmRepositoryImpl : CrmRepository {
 
         val tmp = """
             {
-                "UserName": "USER_FOR_SITE",
-                "PasswordHash" : "f7f8e967f2756082ada759e8e189e772e00a1deb13583e9beee02ad9a5420fda5ce2069e942cdc22a8cae4ecb90ace005737c6c96dd655330f0f1ae6a0ffd8fc",
+                "UserName": ${SharedBuildkonfig.crm_login},
+                "PasswordHash" : ${SharedBuildkonfig.crm_password_hash}",
                 "LongToken" : true
             }
         """.trimIndent()
@@ -109,17 +100,20 @@ class CrmRepositoryImpl : CrmRepository {
 
         return if (response.status.isSuccess()) {
             val userResponse: UserResponse = response.body()
-            CrmEither(data = userResponse, status = response.status)
+            CrmEither.CrmData(data = userResponse)
         } else {
-            CrmEither(data = null, status = response.status)
+            CrmEither.CrmError(status = response.status)
         }
     }
 
-    private fun authConfig(accessToken: String, refreshToken: String) {
-        client.config {
+    private fun authConfig(accessToken: String, refreshToken: String): HttpClient {
+        return client.config {
             install(Auth) {
                 bearer {
                     loadTokens {
+                        BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
+                    }
+                    refreshTokens {
                         BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
                     }
                 }

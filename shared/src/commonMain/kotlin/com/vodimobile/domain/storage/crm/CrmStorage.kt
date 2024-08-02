@@ -18,12 +18,23 @@ class CrmStorage(
     private val getTariffListUseCase: GetTariffListUseCase,
     private val postNewUserUseCase: PostNewUserUseCase
 ) {
-    suspend fun getCarList(accessToken: String, refreshToken: String): CrmEither<List<Car>, HttpStatusCode> {
+    suspend fun getCarList(
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<List<Car>, HttpStatusCode> {
         return getCarListUseCase(accessToken = accessToken, refreshToken = refreshToken)
     }
 
-    suspend fun getTariffByCar(carId: Int): CrmEither<List<Tariff>, HttpStatusCode> {
-        return getTariffListUseCase(carId = carId)
+    suspend fun getTariffByCar(
+        carId: Int,
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<TariffListDTO, HttpStatusCode> {
+        return getTariffListUseCase(
+            carId = carId,
+            accessToken = accessToken,
+            refreshToken = refreshToken
+        )
     }
 
     suspend fun authUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode> {

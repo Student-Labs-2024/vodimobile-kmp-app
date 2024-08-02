@@ -1,32 +1,27 @@
 package com.vodimobile.presentation.screens.vehicle_fleet
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vodimobile.domain.storage.cars.CarsStorage
+import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
-import io.ktor.http.isSuccess
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 
 class VehicleFleetViewModel(
-    carsStorage: CarsStorage,
     private val crmStorage: CrmStorage,
     private val userDataStoreStorage: UserDataStoreStorage
 ) : ViewModel() {
 
-    val vehicleState = MutableStateFlow(
-        VehicleState(
-            carList = carsStorage.getPopularCars()
-        )
-    )
+    val vehicleState = MutableStateFlow(VehicleState())
 
     val vehicleFleetEffect = MutableSharedFlow<VehicleEffect>()
 
@@ -72,19 +67,29 @@ class VehicleFleetViewModel(
             VehicleIntent.InitCars -> {
                 val userFLow = userDataStoreStorage.getUser()
                 viewModelScope.launch {
-                    userFLow.collect{ user ->
-                        vehicleFleetEffect.emit(VehicleEffect.ShowLoadingDialog)
+                    userFLow.collect { user ->
                         val crmEither = crmStorage.getCarList(
                             accessToken = user.accessToken,
                             refreshToken = user.refreshToken
                         )
                         vehicleState.update {
-                            it.copy(
-                                carList = crmEither.data!!
-                            )
+                            it.copy(crmEither = crmEither)
                         }
-                        vehicleFleetEffect.emit(VehicleEffect.DismissLoadingDialog)
                     }
+                }
+            }
+
+            VehicleIntent.DismissProgressDialog -> {
+                viewModelScope.launch {
+                    delay(1.seconds)
+                    vehicleFleetEffect.emit(VehicleEffect.DismissLoadingDialog)
+                }
+            }
+
+            VehicleIntent.ShowProgressDialog -> {
+                viewModelScope.launch {
+                    delay(1.seconds)
+                    vehicleFleetEffect.emit(VehicleEffect.ShowLoadingDialog)
                 }
             }
         }

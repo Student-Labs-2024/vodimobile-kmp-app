@@ -32,6 +32,7 @@ import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -46,6 +47,7 @@ import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.AutoTypeTagList
+import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
 import com.vodimobile.presentation.screens.home.store.HomeEffect
@@ -56,6 +58,7 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.utils.data_store.getDataStore
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
@@ -142,12 +145,36 @@ fun VehicleFleetScreen(
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                itemsIndexed(vehicleState.value.carList) { _, item: Car ->
-                    CardsSearch(
-                        carItem = item,
-                        onBookClick = { carItem -> onVehicleIntent(VehicleIntent.BookCarClick(car = carItem)) },
-                        onInfoClick = { carItem -> onVehicleIntent(VehicleIntent.InfoCarClick(car = carItem)) })
+                when (val either = vehicleState.value.crmEither) {
+                    is CrmEither.CrmData -> {
+                        itemsIndexed(either.data) { _, item: Car ->
+                            CardsSearch(
+                                carItem = item,
+                                onBookClick = { carItem ->
+                                    onVehicleIntent(
+                                        VehicleIntent.BookCarClick(
+                                            car = carItem
+                                        )
+                                    )
+                                },
+                                onInfoClick = { carItem ->
+                                    onVehicleIntent(
+                                        VehicleIntent.InfoCarClick(
+                                            car = carItem
+                                        )
+                                    )
+                                }
+                            )
+                        }
+                        onVehicleIntent(VehicleIntent.DismissProgressDialog)
+                    }
 
+                    is CrmEither.CrmError -> {
+                        onVehicleIntent(VehicleIntent.DismissProgressDialog)
+                    }
+                    CrmEither.CrmLoading -> {
+                        onVehicleIntent(VehicleIntent.ShowProgressDialog)
+                    }
                 }
             }
 
@@ -168,11 +195,6 @@ private fun VehicleFleetScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
 
         val vehicleFleetViewModel = VehicleFleetViewModel(
-            CarsStorage(
-                getPopularCarsUseCase = GetPopularCarsUseCase(
-                    CarRepositoryImpl()
-                )
-            ),
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(

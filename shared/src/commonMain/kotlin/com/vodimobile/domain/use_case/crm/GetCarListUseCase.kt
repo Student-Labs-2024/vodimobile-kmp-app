@@ -20,30 +20,39 @@ class GetCarListUseCase(
         refreshToken: String
     ): CrmEither<List<Car>, HttpStatusCode> {
 
-        val crmEither = crmRepository.getCarList(accessToken, refreshToken)
+        val crmEither: CrmEither<CarListDTO, HttpStatusCode> =
+            crmRepository.getCarList(accessToken, refreshToken)
 
-        return if (crmEither.status.isSuccess()) {
-            val carsDto: List<CarDTO>? = crmEither.data?.cars?.toList()
-            val carList = carsDto!!.map { dto ->
-                val carFromLocal = carsMap[dto.car_id] ?: hyundai_solaris_1
-                Car(
-                    carId = dto.car_id,
-                    cityId = dto.city_id,
-                    number = dto.number,
-                    model = carFromLocal.model,
-                    year = dto.year,
-                    transmission = carFromLocal.transmission,
-                    tankValue = carFromLocal.tankValue,
-                    wheelDrive = carFromLocal.wheelDrive,
-                    deposit = carFromLocal.deposit,
-                    tariffs = carFromLocal.tariffs,
-                    images = carFromLocal.images
-                )
+        return when (crmEither) {
+            is CrmEither.CrmData -> {
+                val carsDto: List<CarDTO> = crmEither.data.cars.toList()
+
+                val carList = carsDto.map { dto ->
+                    val carFromLocal = carsMap[dto.car_id] ?: hyundai_solaris_1
+                    Car(
+                        carId = dto.car_id,
+                        cityId = dto.city_id,
+                        number = dto.number,
+                        model = carFromLocal.model,
+                        year = dto.year,
+                        transmission = carFromLocal.transmission,
+                        tankValue = carFromLocal.tankValue,
+                        wheelDrive = carFromLocal.wheelDrive,
+                        deposit = carFromLocal.deposit,
+                        tariffs = carFromLocal.tariffs,
+                        images = carFromLocal.images
+                    )
+                }
+                CrmEither.CrmData(data = carList)
             }
 
-            CrmEither(data = carList, status = crmEither.status)
-        } else {
-            CrmEither(data = emptyList(), status = crmEither.status)
+            is CrmEither.CrmError -> {
+                CrmEither.CrmError(status = crmEither.status)
+            }
+
+            CrmEither.CrmLoading -> {
+                CrmEither.CrmLoading
+            }
         }
     }
 }

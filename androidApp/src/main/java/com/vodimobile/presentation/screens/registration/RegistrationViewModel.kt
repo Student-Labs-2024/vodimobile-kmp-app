@@ -93,22 +93,30 @@ class RegistrationViewModel(
                     val crmEither: CrmEither<UserResponse, HttpStatusCode> =
                         crmStorage.authUser(userRequest = UserRequest())
 
-                    if (crmEither.status.isSuccess()) {
-                        with(crmEither.data) {
-                            dataStoreStorage.editTokens(
-                                this!!.accessToken, refreshToken, expires
-                            )
-                            with(registrationState.value) {
-                                dataStoreStorage.preregister(
-                                    name = name,
-                                    password = password,
-                                    accessToken = accessToken,
-                                    refreshToken = refreshToken,
-                                    expired = expires
+                    when (crmEither) {
+                        is CrmEither.CrmData -> {
+                            with(crmEither.data) {
+                                dataStoreStorage.editTokens(
+                                    this.accessToken, refreshToken, expires
                                 )
+                                with(registrationState.value) {
+                                    dataStoreStorage.preregister(
+                                        name = name,
+                                        password = password,
+                                        accessToken = accessToken,
+                                        refreshToken = refreshToken,
+                                        expired = expires
+                                    )
+                                }
                             }
+                            registrationEffect.emit(RegistrationEffect.AskPermission)
                         }
-                        registrationEffect.emit(RegistrationEffect.AskPermission)
+                        is CrmEither.CrmError -> {
+
+                        }
+                        CrmEither.CrmLoading -> {
+
+                        }
                     }
                 }
             }

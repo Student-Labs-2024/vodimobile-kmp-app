@@ -10,7 +10,19 @@ data class TariffListDTO(
 ) {
     companion object {
         fun TariffListDTO.toTariff(): List<Tariff> {
-            return this.cars[0].tariffDTO.map {
+            return if (this.cars[0].tariffDTO.isNotEmpty())
+                this.cars[0].tariffDTO.map {
+                    Tariff(
+                        min = it.min,
+                        max = it.max,
+                        cost = it.cost
+                    )
+                }
+            else emptyList()
+        }
+
+        fun List<TariffDTO>.toTariff(): List<Tariff> {
+            return this.map {
                 Tariff(
                     min = it.min,
                     max = it.max,
