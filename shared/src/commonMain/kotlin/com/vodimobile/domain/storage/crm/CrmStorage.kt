@@ -7,6 +7,7 @@ import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
+import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
@@ -16,7 +17,8 @@ import io.ktor.http.HttpStatusCode
 class CrmStorage(
     private val getCarListUseCase: GetCarListUseCase,
     private val getTariffListUseCase: GetTariffListUseCase,
-    private val postNewUserUseCase: PostNewUserUseCase
+    private val postNewUserUseCase: PostNewUserUseCase,
+    private val getAllPlacesUseCase: GetAllPlacesUseCase
 ) {
     suspend fun getCarList(
         accessToken: String,
@@ -40,4 +42,12 @@ class CrmStorage(
     suspend fun authUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode> {
         return postNewUserUseCase(userRequest = userRequest)
     }
+
+    suspend fun getPlaces(
+        accessToken: String,
+        refreshToken: String
+    ) = getAllPlacesUseCase.invoke(
+        accessToken,
+        refreshToken
+    )
 }

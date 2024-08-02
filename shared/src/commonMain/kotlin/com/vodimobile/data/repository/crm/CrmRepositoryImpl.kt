@@ -4,6 +4,7 @@ import com.vodimobile.domain.client.provideKtorClient
 import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
+import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
@@ -103,6 +104,25 @@ class CrmRepositoryImpl : CrmRepository {
             CrmEither.CrmData(data = userResponse)
         } else {
             CrmEither.CrmError(status = response.status)
+        }
+    }
+
+    override suspend fun getAllPlaces(
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<PlaceDTO, HttpStatusCode> {
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.Places.ALL_PLACES)))
+                    }
+                )
+
+        return if (httpResponse.status.isSuccess()) {
+            CrmEither.CrmData(data = httpResponse.body())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.vodimobile.domain.repository.crm
 
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
+import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
@@ -21,4 +22,9 @@ interface CrmRepository {
     ): CrmEither<TariffListDTO, HttpStatusCode>
 
     suspend fun postNewUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode>
+
+    suspend fun getAllPlaces(
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<PlaceDTO, HttpStatusCode>
 }

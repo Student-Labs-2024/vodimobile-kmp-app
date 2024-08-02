@@ -17,4 +17,8 @@ object CrmRouting {
     object UserAuth {
         const val USER_AUTH = "api/v1/tokens/signin"
     }
+
+    object Places {
+        const val ALL_PLACES = "place_list"
+    }
 }

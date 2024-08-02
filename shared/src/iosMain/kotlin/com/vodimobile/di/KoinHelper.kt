@@ -22,7 +22,18 @@ class KoinHelper : KoinComponent {
 
     fun getPopularCars(): List<Car> = carsStorage.getPopularCars()
 
-    suspend fun getCars(bearerTokens: BearerTokens) = crmStorage.getCarList(bearerTokens = bearerTokens)
-    suspend fun getTariffByCar(carId: Int) = crmStorage.getTariffByCar(carId = carId)
+    suspend fun getCars(accessToken: String, refreshToken: String) =
+        crmStorage.getCarList(accessToken = accessToken, refreshToken = refreshToken)
+
+    suspend fun getTariffByCar(carId: Int, accessToken: String, refreshToken: String) =
+        crmStorage.getTariffByCar(
+            carId = carId,
+            accessToken = accessToken,
+            refreshToken = refreshToken
+        )
+
     suspend fun postUser(userRequest: UserRequest) = crmStorage.authUser(userRequest = userRequest)
+
+    suspend fun getPlaces(accessToken: String, refreshToken: String) =
+        crmStorage.getPlaces(accessToken = accessToken, refreshToken = refreshToken)
 }
