@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.screens.registration.components
+package com.vodimobile.presentation.components
 
 
 import androidx.compose.foundation.BorderStroke
