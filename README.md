@@ -77,10 +77,10 @@ _Будет позже_
   
 **IOS 🍏**
 - [SwiftUI](https://developer.apple.com/tutorials/swiftui/)
-- Паттерн MVI
+- Паттерн MVVM
 - Clean architecture
-- Минимальная поддерживаемая версия IOS 15, максимальная - текущая.
-- Lint
+- Минимальная поддерживаемая версия IOS 16, максимальная - текущая.
+- [SwiftLint](https://github.com/realm/SwiftLint)
   
 **Shared 🔮**
 - [Data Store](https://developer.android.com/kotlin/multiplatform/datastore) с использованием [Mutex](https://github.com/android/kotlin-multiplatform-samples/blob/main/DiceRoller/shared/src/commonMain/kotlin/com/google/samples/apps/diceroller/createDataStore.kt) в KMP
