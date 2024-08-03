@@ -1,12 +1,8 @@
 package com.vodimobile.domain.model
 
-import com.vodimobile.domain.model.remote.dto.car_list.CarDTO
-import com.vodimobile.domain.model.remote.CarType
 import com.vodimobile.shared.resources.SharedRes
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
-import dev.icerock.moko.resources.desc.Resource
-import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 

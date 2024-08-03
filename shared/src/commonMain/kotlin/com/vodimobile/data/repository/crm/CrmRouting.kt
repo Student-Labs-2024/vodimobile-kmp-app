@@ -33,4 +33,8 @@ object CrmRouting {
             const val CITY_ID: String = "city_id"
         }
     }
+
+    object ServiceList {
+        const val SERVICE_LIST = "service_list"
+    }
 }

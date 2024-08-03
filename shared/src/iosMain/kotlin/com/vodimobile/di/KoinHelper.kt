@@ -43,4 +43,7 @@ class KoinHelper : KoinComponent {
         refreshToken: String,
         carFreeListParamsDTO: CarFreeListParamsDTO
     ) = crmStorage.getFreeCars(accessToken, refreshToken, carFreeListParamsDTO)
+
+    suspend fun getServices(accessToken: String, refreshToken: String) =
+        crmStorage.getServices(accessToken, refreshToken)
 }

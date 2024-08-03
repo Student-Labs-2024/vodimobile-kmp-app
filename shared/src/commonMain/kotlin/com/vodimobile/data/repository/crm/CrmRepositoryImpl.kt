@@ -7,6 +7,8 @@ import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
+import com.vodimobile.domain.model.remote.dto.service_list.ServiceDTO
+import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
@@ -90,7 +92,7 @@ class CrmRepositoryImpl : CrmRepository {
             {
                 "UserName": ${SharedBuildkonfig.crm_login},
                 "PasswordHash" : ${SharedBuildkonfig.crm_password_hash}",
-                "LongToken" : true
+                "LongToken" : false
             }
         """.trimIndent()
         val response: HttpResponse = client.post(
@@ -164,6 +166,27 @@ class CrmRepositoryImpl : CrmRepository {
 
         return if (httpResponse.status.isSuccess()) {
             CrmEither.CrmData(data = httpResponse.body())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun getAllServices(
+        accessToken: String,
+        refreshToken: String
+    ): CrmEither<List<ServicesDTO>, HttpStatusCode> {
+
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.ServiceList.SERVICE_LIST)))
+                    }
+                )
+
+        return if (httpResponse.status.isSuccess()) {
+            val serviceDTO: ServiceDTO = httpResponse.body()
+            CrmEither.CrmData(data = serviceDTO.services.toList())
         } else {
             CrmEither.CrmError(status = httpResponse.status)
         }

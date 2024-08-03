@@ -2,7 +2,7 @@ package com.vodimobile.utils.cars
 
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.Tariff
-import com.vodimobile.domain.model.remote.CarType
+import com.vodimobile.domain.model.CarType
 import com.vodimobile.shared.resources.SharedRes
 import kotlinx.datetime.LocalDate
 

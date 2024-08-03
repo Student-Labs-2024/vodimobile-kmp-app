@@ -11,6 +11,7 @@ import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
+import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import io.ktor.client.plugins.auth.providers.BearerTokens
@@ -21,7 +22,8 @@ class CrmStorage(
     private val getTariffListUseCase: GetTariffListUseCase,
     private val postNewUserUseCase: PostNewUserUseCase,
     private val getAllPlacesUseCase: GetAllPlacesUseCase,
-    private val getFreeCarsUseCaSE: GetFreeCarsUseCaSE
+    private val getFreeCarsUseCaSE: GetFreeCarsUseCaSE,
+    private val getServiceListUseCase: GetServiceListUseCase
 ) {
     suspend fun getCarList(
         accessToken: String,
@@ -59,4 +61,7 @@ class CrmStorage(
         refreshToken: String,
         carFreeListParamsDTO: CarFreeListParamsDTO
     ) = getFreeCarsUseCaSE.invoke(accessToken, refreshToken, carFreeListParamsDTO)
+
+    suspend fun getServices(accessToken: String, refreshToken: String) =
+        getServiceListUseCase.invoke(accessToken, refreshToken)
 }

@@ -1,4 +1,4 @@
-package com.vodimobile.domain.model.remote
+package com.vodimobile.domain.model
 
 enum class CarType {
     Economy,
