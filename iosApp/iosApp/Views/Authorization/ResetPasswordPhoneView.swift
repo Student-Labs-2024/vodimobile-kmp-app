@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ResetPasswordPhoneView: View {
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject private var viewModel = ResetPasswordViewModel()
+    @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
@@ -34,12 +34,14 @@ struct ResetPasswordPhoneView: View {
                     inputErrorType: $viewModel.inputError
                 )
                 .onChange(of: viewModel.isPhoneValid) { _ in
-                    isButtonEnabled.toggle()
+                    isButtonEnabled = true
                 }
                 
-                NavigationLink(destination: PinCodeView(
-                    phoneNumber: $viewModel.phone,
-                    isResetPasswordFlow: true)
+                NavigationLink(
+                    destination: PinCodeView(
+                        phoneNumber: $viewModel.phone,
+                        isResetPasswordFlow: true
+                    )
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

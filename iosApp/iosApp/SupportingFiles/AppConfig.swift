@@ -24,7 +24,7 @@ public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 public let textRegex = #"^[a-zA-Zа-яА-ЯёЁ]+(([' -][a-zA-Zа-яА-ЯёЁ ])?[a-zA-Zа-яА-ЯёЁ]*)*$"#
 public let passRegex = #"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*+-]).{8,}$"#
 public let capitalizeSymbolRegex = #"[A-Z]"#
-public let specialSymbolRegex = #"[!@#$%^+-=&*(),.?\":{}|<>]"#
+public let specialSymbolRegex = #"[!@#\$%\^\&*\)\(+=._-]"#
 
 // UI paddings
 public let screenWidth = UIScreen.main.bounds.width

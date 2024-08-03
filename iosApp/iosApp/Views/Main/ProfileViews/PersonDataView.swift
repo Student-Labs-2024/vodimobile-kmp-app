@@ -9,15 +9,11 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @ObservedObject private var viewModel: PersonalDataViewModel
+    @ObservedObject private var viewModel = UserDataViewModel()
     @FocusState private var focusedField: Field?
     
     enum Field {
         case fullname, phone
-    }
-    
-    init(viewModel: PersonalDataViewModel = .init()) {
-        self.viewModel = viewModel
     }
     
     var body: some View {

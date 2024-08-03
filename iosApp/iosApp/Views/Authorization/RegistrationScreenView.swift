@@ -11,7 +11,7 @@ import SwiftUI
 struct RegistrationScreenView: View {
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject private var viewModel = RegistrationViewModel()
+    @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
     

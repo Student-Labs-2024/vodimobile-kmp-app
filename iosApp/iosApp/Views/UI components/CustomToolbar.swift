@@ -45,7 +45,7 @@ struct CustomToolbar: ToolbarContent {
 
 struct TrailingToolbarItem: View {
     let image: Image
-    @ObservedObject var observedObject: PersonalDataViewModel
+    @ObservedObject var observedObject: UserDataViewModel
     var actionAfterTapping: () -> Void
     
     var body: some View {

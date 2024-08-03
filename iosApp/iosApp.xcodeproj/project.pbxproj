@@ -17,7 +17,7 @@
 		93328FBB2C4953E3008EADB4 /* ProfileCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */; };
 		93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FBC2C495594008EADB4 /* ConditionViewModel.swift */; };
 		93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 93351C852C42F7C100DD882A /* iPhoneNumberField */; };
-		933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */; };
+		933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */; };
 		933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF9D32C55850A005C57C4 /* AuthViewModel.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
@@ -109,7 +109,7 @@
 		93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellView.swift; sourceTree = "<group>"; };
 		93328FBC2C495594008EADB4 /* ConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionViewModel.swift; sourceTree = "<group>"; };
-		933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDataViewModel.swift; sourceTree = "<group>"; };
+		933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
 		933EF9D32C55850A005C57C4 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
@@ -419,7 +419,7 @@
 			children = (
 				936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */,
 				936B184D2C465392000AC6F8 /* FAQViewModel.swift */,
-				933CF9EA2C47C10300357B0C /* PersonalDataViewModel.swift */,
+				933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */,
 				934D957A2C4902A20027DFC8 /* ContactsViewModel.swift */,
 				93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */,
 				936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */,
@@ -668,7 +668,7 @@
 				93BF9E812C5ACE5100A6EE91 /* ButtonLikeTextFieldView.swift in Sources */,
 				931FDDA62C46F8BF007954FC /* R.generated.swift in Sources */,
 				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
-				933CF9EB2C47C10300357B0C /* PersonalDataViewModel.swift in Sources */,
+				933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,

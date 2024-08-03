@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import shared
 
-final class PersonalDataViewModel: ObservableObject {
+final class UserDataViewModel: ObservableObject {
     // fields content
     @Published var fullname = ""
     @Published var password = ""
@@ -165,6 +165,11 @@ final class PersonalDataViewModel: ObservableObject {
             }
         }
         self.isLoading.toggle()
+    }
+    
+    func comparePasswords() -> Bool {
+        oldStoragedPassword == oldPassword
+        // TODO: - Make logic for comparing password^ validation and saving
     }
     
     private func areAllFieldsFilled() -> Bool {
