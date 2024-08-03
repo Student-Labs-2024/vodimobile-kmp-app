@@ -155,14 +155,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController = navHostController
                 )
             }
-            composable(route = LeafHomeScreen.SUCCESSFUL_SCREEN) {
-                val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
-                SuccessfulAppScreen(
-                    onSuccessfulIntent = successfulAppViewModel::onIntent ,
-                    successfulEffect = successfulAppViewModel.successfulEffect,
-                    navHostController = navHostController
-                )
-            }
         }
         navigation(
             route = RootScreen.ORDERS_SCREEN,
@@ -170,6 +162,14 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
         ) {
             composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
 
+            }
+            composable(route = LeafOrdersScreen.SUCCESSFUL_SCREEN) {
+                val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
+                SuccessfulAppScreen(
+                    onSuccessfulIntent = successfulAppViewModel::onIntent ,
+                    successfulEffect = successfulAppViewModel.successfulEffect,
+                    navHostController = navHostController
+                )
             }
         }
         navigation(

@@ -56,7 +56,7 @@ fun SuccessfulAppScreen(
                 }
 
                 SuccessfulEffect.CloseClick -> {
-                    navHostController.navigate(route = LeafHomeScreen.HOME_SCREEN)
+                    navHostController.navigateUp()
                 }
             }
         }
