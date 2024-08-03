@@ -40,7 +40,8 @@ class GetCarListUseCase(
                         wheelDrive = carFromLocal.wheelDrive,
                         deposit = carFromLocal.deposit,
                         tariffs = carFromLocal.tariffs,
-                        images = carFromLocal.images
+                        images = carFromLocal.images,
+                        carType = carFromLocal.carType
                     )
                 }
                 CrmEither.CrmData(data = carList)
