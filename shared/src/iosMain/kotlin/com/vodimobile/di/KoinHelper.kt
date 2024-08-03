@@ -1,6 +1,7 @@
 package com.vodimobile.di
 
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
@@ -50,4 +51,10 @@ class KoinHelper : KoinComponent {
 
     suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) =
         crmStorage.refreshToken(refreshTokenRequest)
+
+    suspend fun getBidCost(
+        accessToken: String,
+        refreshToken: String,
+        bidCostParams: BidCostParams
+    ) = crmStorage.getBidCost(accessToken, refreshToken, bidCostParams)
 }

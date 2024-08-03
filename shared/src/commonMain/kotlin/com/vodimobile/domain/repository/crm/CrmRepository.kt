@@ -1,5 +1,7 @@
 package com.vodimobile.domain.repository.crm
 
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
@@ -44,4 +46,6 @@ interface CrmRepository {
     ): CrmEither<List<ServicesDTO>, HttpStatusCode>
 
     suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): CrmEither<UserResponse, HttpStatusCode>
+
+    suspend fun getBidCost(accessToken: String, refreshToken: String, bidCostParams: BidCostParams) : CrmEither<BidCostDTO, HttpStatusCode>
 }

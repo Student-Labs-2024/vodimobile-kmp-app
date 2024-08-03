@@ -2,6 +2,7 @@ package com.vodimobile.domain.storage.crm
 
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.Tariff
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
@@ -10,6 +11,7 @@ import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
+import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
@@ -26,7 +28,8 @@ class CrmStorage(
     private val getAllPlacesUseCase: GetAllPlacesUseCase,
     private val getFreeCarsUseCaSE: GetFreeCarsUseCaSE,
     private val getServiceListUseCase: GetServiceListUseCase,
-    private val refreshTokenUseCase: RefreshTokenUseCase
+    private val refreshTokenUseCase: RefreshTokenUseCase,
+    private val getBidCostUseCase: GetBidCostUseCase
 ) {
     suspend fun getCarList(
         accessToken: String,
@@ -70,4 +73,10 @@ class CrmStorage(
 
     suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) =
         refreshTokenUseCase.invoke(refreshTokenRequest)
+
+    suspend fun getBidCost(
+        accessToken: String,
+        refreshToken: String,
+        bidCostParams: BidCostParams
+    ) = getBidCostUseCase.invoke(accessToken, refreshToken, bidCostParams)
 }

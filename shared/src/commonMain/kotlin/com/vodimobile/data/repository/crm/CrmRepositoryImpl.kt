@@ -3,6 +3,8 @@ package com.vodimobile.data.repository.crm
 import com.vodimobile.domain.client.provideKtorClient
 import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
@@ -202,6 +204,39 @@ class CrmRepositoryImpl : CrmRepository {
                 Json.encodeToString(refreshTokenRequest)
             )
         })
+
+        return if (httpResponse.status.isSuccess()) {
+            CrmEither.CrmData(data = httpResponse.body())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun getBidCost(
+        accessToken: String,
+        refreshToken: String,
+        bidCostParams: BidCostParams
+    ): CrmEither<BidCostDTO, HttpStatusCode> {
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.BidCost.BID_COST)))
+                        parameters {
+                            parameter(CrmRouting.BidCost.PARAM.BEGIN, bidCostParams.begin)
+                            parameter(CrmRouting.BidCost.PARAM.END, bidCostParams.end)
+                            parameter(CrmRouting.BidCost.PARAM.CAR_ID, bidCostParams.car_id)
+                            parameter(
+                                CrmRouting.BidCost.PARAM.BEGIN_PLACE_ID,
+                                bidCostParams.begin_place_id
+                            )
+                            parameter(
+                                CrmRouting.BidCost.PARAM.END_PLACE_ID,
+                                bidCostParams.end_place_id
+                            )
+                        }
+                    }
+                )
 
         return if (httpResponse.status.isSuccess()) {
             CrmEither.CrmData(data = httpResponse.body())

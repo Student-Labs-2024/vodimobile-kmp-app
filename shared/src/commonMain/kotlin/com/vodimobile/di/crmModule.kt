@@ -4,6 +4,7 @@ import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
+import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
@@ -24,6 +25,7 @@ val crmModule = module {
     singleOf(::GetFreeCarsUseCaSE)
     singleOf(::GetServiceListUseCase)
     singleOf(::RefreshTokenUseCase)
+    singleOf(::GetBidCostUseCase)
 
     singleOf(::CrmStorage).bind<CrmStorage>()
 }

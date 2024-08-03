@@ -41,4 +41,17 @@ object CrmRouting {
     object ServiceList {
         const val SERVICE_LIST = "service_list"
     }
+
+    object BidCost {
+        const val BID_COST = "bid_cost"
+
+        object PARAM {
+            const val CAR_ID = "car_id"
+            const val BEGIN = "begin"
+            const val END = "end"
+            const val BEGIN_PLACE_ID = "begin_place_id"
+            const val END_PLACE_ID = "end_place_id"
+            const val SERVICES = "services"
+        }
+    }
 }
