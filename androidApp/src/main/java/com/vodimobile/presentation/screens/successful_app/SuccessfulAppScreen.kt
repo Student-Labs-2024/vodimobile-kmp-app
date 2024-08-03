@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,16 +32,18 @@ import com.vodimobile.presentation.screens.successful_app.store.SuccessfulIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.components.PrimaryButton
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "ComposeModifierMissing")
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint( "ComposeModifierMissing")
 @Composable
 fun SuccessfulAppScreen(
     onSuccessfulIntent: (SuccessfulIntent) -> Unit,
@@ -62,33 +64,37 @@ fun SuccessfulAppScreen(
         }
     }
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(top = 12.dp)
-            ) {
-                IconButton(onClick = {
-                    onSuccessfulIntent(SuccessfulIntent.CloseClick)
-                }
-                ) {
-                    Icon(
-                        modifier = Modifier.padding(start = 16.dp),
-                        imageVector = Icons.Rounded.Close,
-                        contentDescription = stringResource(id = R.string.close_button_content_description)
-                    )
-                }
-            }
+            TopAppBar(
+                modifier = Modifier.padding(top = 12.dp),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                navigationIcon = {
+                    IconButton(onClick = {
+                        onSuccessfulIntent(SuccessfulIntent.CloseClick)
+                    }) {
+                        Icon(
+                            modifier = Modifier.padding(start = 16.dp),
+                            tint = MaterialTheme.colorScheme.onBackground,
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = stringResource(id = R.string.close_button_content_description)
+                        )
+
+                    }
+                },
+                title = {}
+            )
         }
     ) {
+
         Spacer(modifier = Modifier.height(16.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(it)
-                .padding(horizontal = 16.dp, vertical = 20.dp),
+                .padding(horizontal = 16.dp, vertical = 20.dp)
+                .background(color = MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(
                 24.dp,
@@ -134,7 +140,9 @@ fun SuccessfulAppScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+
+
+@Preview(showBackground = true,uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun SuccessfulAppScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
@@ -148,7 +156,7 @@ private fun SuccessfulAppScreenPreview() {
 }
 
 
-@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun SuccessfulAppScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
