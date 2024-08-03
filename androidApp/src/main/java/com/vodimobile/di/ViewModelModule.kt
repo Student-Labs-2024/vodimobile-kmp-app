@@ -18,6 +18,7 @@ import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.screens.server_error.ServerErrorViewModel
 import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
+import com.vodimobile.presentation.screens.error_app.ErrorAppViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -49,4 +50,5 @@ val viewModelModule = module {
     viewModelOf(::AuthorizationViewModel)
     viewModelOf(::ResetPasswordViewModel)
     viewModelOf(::NewPasswordViewModel)
+    viewModelOf(::ErrorAppViewModel)
 }

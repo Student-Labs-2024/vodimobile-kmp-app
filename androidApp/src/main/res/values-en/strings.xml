@@ -108,4 +108,9 @@
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
 
     <string name="vehicle_fleet">Vehicle fleet</string>
+    <string name="error_app">error</string>
+    <string name="error_app_title">Something went wrong</string>
+    <string name="error_app_title2">Failed to submit request. Try again</string>
+    <string name="error_bt">Try again</string>
+    <string name="error_icon">back</string>
 </resources>
