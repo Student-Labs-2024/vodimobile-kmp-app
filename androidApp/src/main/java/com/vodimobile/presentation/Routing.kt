@@ -22,6 +22,7 @@ object LeafHomeScreen {
     const val NO_INTERNET_SCREEN = "no_internet"
     const val SERVER_ERROR_SCREEN = "server_error"
     const val ALL_CARS = "all_cars"
+    const val SUCCESSFUL_SCREEN = "successful"
 }
 
 object RegistrationScreens {
@@ -38,4 +39,8 @@ object DialogIdentifiers {
     const val LOG_OUT_DIALOG = "logout"
     const val DATE_SELECT_DIALOG = "date_select"
     const val LOADING_DIALOG = "loading_dialog"
+}
+
+object LeafOrdersScreen {
+    const val ORDERS_SCREEN = "orders"
 }

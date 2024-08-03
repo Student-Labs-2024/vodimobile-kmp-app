@@ -108,4 +108,8 @@
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
 
     <string name="vehicle_fleet">Vehicle fleet</string>
+    <string name="success_str">success</string>
+    <string name="succes_title">The application has been left</string>
+    <string name="success_bt">My orders</string>
+    <string name="success2_title">The manager will contact you soon. You can change the order and view its status in the orders</string>
 </resources>
