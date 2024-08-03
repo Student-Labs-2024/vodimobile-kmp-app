@@ -78,6 +78,8 @@
 "somethingWentWrongText" = "An error has occurred. Try the connection again.";
 "servetErrorTitle" = "Server error";
 "servetErrorText" = "Something went wrong on the server side. Try the connection again.";
+"signSuggestTitle" = "Sign in or create account";
+"signSuggestText" = "To submit a request, you must have an account";
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

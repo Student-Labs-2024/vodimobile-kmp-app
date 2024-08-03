@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
-		7555FF83242A565900829871 /* StartScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* StartScreenView.swift */; };
+		7555FF83242A565900829871 /* SignSuggestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* SignSuggestView.swift */; };
 		931FDDA62C46F8BF007954FC /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FDDA52C46F8BF007954FC /* R.generated.swift */; };
 		931FDDB12C46FA6D007954FC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 931FDDAF2C46FA6D007954FC /* Localizable.strings */; };
 		931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FDDB32C46FBE8007954FC /* FilledButton.swift */; };
@@ -83,7 +83,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* StartScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenView.swift; sourceTree = "<group>"; };
+		7555FF82242A565900829871 /* SignSuggestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignSuggestView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931FDDA52C46F8BF007954FC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		931FDDB02C46FA6D007954FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -293,7 +293,7 @@
 				934F0D602C3D93B3000B256E /* ConditionScreenView.swift */,
 				934F0D552C3D6DCB000B256E /* RegistrationScreenView.swift */,
 				93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */,
-				7555FF82242A565900829871 /* StartScreenView.swift */,
+				7555FF82242A565900829871 /* SignSuggestView.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -558,7 +558,7 @@
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,
 				93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */,
 				934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */,
-				7555FF83242A565900829871 /* StartScreenView.swift in Sources */,
+				7555FF83242A565900829871 /* SignSuggestView.swift in Sources */,
 				93328FB92C4947A1008EADB4 /* ProfileViewModel.swift in Sources */,
 				934D957F2C4913290027DFC8 /* MediaCellView.swift in Sources */,
 				931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */,

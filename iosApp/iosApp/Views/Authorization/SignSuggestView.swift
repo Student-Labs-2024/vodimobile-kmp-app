@@ -1,33 +1,37 @@
 import SwiftUI
 import shared
 
-struct StartScreenView: View {
+struct SignSuggestView: View {
     @State private var isButtonEnabled: Bool = true
-    @ObservedObject private var dataStorage = KMPDataStorage()
-    @State private var userData: User = KMPDataStorage.defaultUser
     
     var body: some View {
         NavigationView {
-            VStack(spacing: StartScreenConfig.spacingBetweenComponents) {
+            VStack(spacing: SignSuggestConfig.spacingBetweenComponents) {
                 HStack {
-                    Text(userData.description())
                     Spacer()
                     NavigationLink(destination: MainTabbarView()) {
                         Image.xmark
                             .resizable()
                             .foregroundColor(Color.black)
-                            .frame(width: StartScreenConfig.xmarkSize, height: StartScreenConfig.xmarkSize)
+                            .frame(width: SignSuggestConfig.xmarkSize, height: SignSuggestConfig.xmarkSize)
                     }
-                    .padding(.top, StartScreenConfig.xmarkTopPadding)
-                }.task {
-                    await dataStorage.editUserData()
-                    userData = dataStorage.gettingUser
+                    .padding(.top, SignSuggestConfig.xmarkTopPadding)
                 }
-                
-                Image(R.image.logo)
+               
+                Image(R.image.person)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding(.horizontal, StartScreenConfig.logoHorizontalPadding)
+                    .frame(maxWidth: SignSuggestConfig.imageSize)
+                    .padding(.top, SignSuggestConfig.topSpacingImage)
+                
+                VStack(spacing: SignSuggestConfig.spacingBetweenTitleAndText) {
+                    Text(R.string.localizable.signSuggestTitle)
+                        .font(.header1)
+                    Text(R.string.localizable.signSuggestText)
+                        .font(.paragraph4)
+                }
+                .padding(SignSuggestConfig.verticalPaddingTextBlock)
+                .multilineTextAlignment(.center)
                 
                 NavigationLink(destination: RegistrationScreenView()) {
                     Text(R.string.localizable.regButtonTitle)
@@ -45,5 +49,5 @@ struct StartScreenView: View {
 }
 
 #Preview {
-    StartScreenView()
+    SignSuggestView()
 }

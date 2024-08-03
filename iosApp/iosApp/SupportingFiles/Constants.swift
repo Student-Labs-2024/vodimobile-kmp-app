@@ -36,11 +36,14 @@ public let checkboxSize: CGFloat = 21
 public let аuthScreencontentTopPadding: CGFloat = 120
 
 /// UI screen paddings
-struct StartScreenConfig {
+struct SignSuggestConfig {
     static let spacingBetweenComponents: CGFloat = 20
     static let xmarkSize: CGFloat = 15
     static let xmarkTopPadding: CGFloat = 10
-    static let logoHorizontalPadding: CGFloat = 50
+    static let imageSize: CGFloat = screenWidth / 3.5
+    static let topSpacingImage: CGFloat = 50
+    static let spacingBetweenTitleAndText: CGFloat = 12
+    static let verticalPaddingTextBlock: CGFloat = 20
 }
 
 struct AuthAndRegScreensConfig {

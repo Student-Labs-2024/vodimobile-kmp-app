@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             KoinHelperKt.doInitKoin()
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: StartScreenView())
+            window.rootViewController = UIHostingController(rootView: SignSuggestView())
             self.window = window
             window.makeKeyAndVisible()
         }

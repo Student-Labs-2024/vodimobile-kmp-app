@@ -77,6 +77,8 @@
 "somethingWentWrongText" = "Произошла ошибка. Повторите попытку соединения.";
 "servetErrorTitle" = "Ошибка не сервере";
 "servetErrorText" = "Что-то пошло не так на стороне сервера. Повторите попытку соединения.";
+"signSuggestTitle" = "Войдите или создайте профиль";
+"signSuggestText" = "Чтобы оставить заявку необходимо иметь аккаунт";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";
