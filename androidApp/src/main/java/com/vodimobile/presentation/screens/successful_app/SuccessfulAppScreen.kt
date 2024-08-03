@@ -96,10 +96,7 @@ fun SuccessfulAppScreen(
                 .padding(horizontal = 16.dp, vertical = 20.dp)
                 .background(color = MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(
-                24.dp,
-                alignment = Alignment.CenterVertically
-            )
+            verticalArrangement = Arrangement.Center
         ) {
             Image(
                 modifier = Modifier
@@ -108,21 +105,29 @@ fun SuccessfulAppScreen(
                 painter = painterResource(id = R.drawable.success_img),
                 contentDescription = stringResource(R.string.success_str)
             )
-            Text(
-                modifier = Modifier
-                    .padding(start = 16.dp, top = 12.dp, end = 16.dp),
-                style = MaterialTheme.typography.bodyLarge,
-                text = stringResource(R.string.succes_title)
-            )
 
-            Text(
+            Column(
                 modifier = Modifier
-                    .padding(horizontal = 40.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium,
-                text = stringResource(R.string.success2_title)
-            )
-            Spacer(modifier = Modifier.height(12.dp))
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    style = MaterialTheme.typography.bodyLarge,
+                    text = stringResource(R.string.succes_title)
+                )
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 40.dp),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = stringResource(R.string.success2_title)
+                )
+            }
+            Spacer(modifier = Modifier.height(24.dp))
 
             Row(
                 modifier = Modifier
@@ -141,8 +146,7 @@ fun SuccessfulAppScreen(
 }
 
 
-
-@Preview(showBackground = true,uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun SuccessfulAppScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
