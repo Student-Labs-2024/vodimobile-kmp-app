@@ -4,6 +4,7 @@ import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
+import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
@@ -41,4 +42,6 @@ interface CrmRepository {
         accessToken: String,
         refreshToken: String
     ): CrmEither<List<ServicesDTO>, HttpStatusCode>
+
+    suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): CrmEither<UserResponse, HttpStatusCode>
 }

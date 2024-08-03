@@ -4,6 +4,7 @@ import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.Tariff
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
+import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
@@ -14,6 +15,7 @@ import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.http.HttpStatusCode
 
@@ -23,7 +25,8 @@ class CrmStorage(
     private val postNewUserUseCase: PostNewUserUseCase,
     private val getAllPlacesUseCase: GetAllPlacesUseCase,
     private val getFreeCarsUseCaSE: GetFreeCarsUseCaSE,
-    private val getServiceListUseCase: GetServiceListUseCase
+    private val getServiceListUseCase: GetServiceListUseCase,
+    private val refreshTokenUseCase: RefreshTokenUseCase
 ) {
     suspend fun getCarList(
         accessToken: String,
@@ -64,4 +67,7 @@ class CrmStorage(
 
     suspend fun getServices(accessToken: String, refreshToken: String) =
         getServiceListUseCase.invoke(accessToken, refreshToken)
+
+    suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) =
+        refreshTokenUseCase.invoke(refreshTokenRequest)
 }

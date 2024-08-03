@@ -7,6 +7,7 @@ import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
+import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.service_list.ServiceDTO
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
@@ -34,6 +35,8 @@ import io.ktor.http.Url
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.http.parameters
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class CrmRepositoryImpl : CrmRepository {
 
@@ -187,6 +190,21 @@ class CrmRepositoryImpl : CrmRepository {
         return if (httpResponse.status.isSuccess()) {
             val serviceDTO: ServiceDTO = httpResponse.body()
             CrmEither.CrmData(data = serviceDTO.services.toList())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): CrmEither<UserResponse, HttpStatusCode> {
+        val httpResponse: HttpResponse = client.post(block = {
+            url(url = Url(urlString = "http://$crmServerData/${CrmRouting.RefreshToken.REFRESH_TOKEN}"))
+            setBody(
+                Json.encodeToString(refreshTokenRequest)
+            )
+        })
+
+        return if (httpResponse.status.isSuccess()) {
+            CrmEither.CrmData(data = httpResponse.body())
         } else {
             CrmEither.CrmError(status = httpResponse.status)
         }

@@ -18,6 +18,10 @@ object CrmRouting {
         const val USER_AUTH = "api/v1/tokens/signin"
     }
 
+    object RefreshToken {
+        const val REFRESH_TOKEN = "api/v1/tokens/refresh"
+    }
+
     object Places {
         const val ALL_PLACES = "place_list"
     }

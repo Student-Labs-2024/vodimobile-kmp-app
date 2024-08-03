@@ -2,6 +2,7 @@ package com.vodimobile.di
 
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
+import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.cars.CarsStorage
@@ -46,4 +47,7 @@ class KoinHelper : KoinComponent {
 
     suspend fun getServices(accessToken: String, refreshToken: String) =
         crmStorage.getServices(accessToken, refreshToken)
+
+    suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest) =
+        crmStorage.refreshToken(refreshTokenRequest)
 }
