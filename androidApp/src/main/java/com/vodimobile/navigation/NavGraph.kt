@@ -19,6 +19,7 @@ import androidx.navigation.navigation
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
@@ -34,9 +35,9 @@ import com.vodimobile.presentation.screens.edit_profile.EditProfileScreen
 import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
 import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
+import com.vodimobile.presentation.screens.home.HomeScreen
 import com.vodimobile.presentation.screens.home.HomeViewModel
 import com.vodimobile.presentation.screens.home.store.HomeState
-import com.vodimobile.presentation.screens.home.HomeScreen
 import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
@@ -45,6 +46,10 @@ import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
+import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
+import com.vodimobile.presentation.screens.reset_password.ResetPasswordScreen
+import com.vodimobile.presentation.screens.reset_password.ResetPasswordViewModel
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RuleScreen
@@ -53,6 +58,8 @@ import com.vodimobile.presentation.screens.sms.SmsScreen
 import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreen
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
+import com.vodimobile.presentation.screens.successful_app.SuccessfulAppScreen
+import com.vodimobile.presentation.screens.successful_app.SuccessfulAppViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
@@ -91,7 +98,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     modifier = modifier
                 )
             }
-            composable(route = LeafHomeScreen.ALL_CARS){
+            composable(route = LeafHomeScreen.ALL_CARS) {
                 val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
                 VehicleFleetScreen(
                     onVehicleIntent = vehicleFleetModel::onIntent,
@@ -103,7 +110,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
-            ) { backEntry ->
+            ) {
                 var selectedDate by remember { mutableStateOf(longArrayOf(0L, 0L)) }
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
@@ -123,8 +130,10 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             composable(
-                route = "${RegistrationScreens.SMS_VERIFY}/{phone}",
-                arguments = listOf(navArgument("phone") { type = NavType.StringType })
+                route = "${RegistrationScreens.SMS_VERIFY}/{phone}/{screen}",
+                arguments = listOf(
+                    navArgument("phone") { type = NavType.StringType },
+                    navArgument("screen") { type = NavType.StringType })
             ) { backStackEntry ->
                 val smsViewModel: SmsViewModel = koinViewModel()
 
@@ -132,6 +141,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     smsState = smsViewModel.smsState.collectAsState(),
                     smsEffect = smsViewModel.smsEffect,
                     phone = backStackEntry.arguments?.getString("phone") ?: "",
+                    navigateScreen = backStackEntry.arguments?.getString("screen")
+                        ?: RootScreen.HOME_SCREEN,
                     onIntent = smsViewModel::onIntent,
                     navHostController = navHostController
                 )
@@ -145,8 +156,21 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
         }
-        composable(RootScreen.ORDERS_SCREEN) {
-            OrdersScreen()
+        navigation(
+            route = RootScreen.ORDERS_SCREEN,
+            startDestination = LeafOrdersScreen.ORDERS_SCREEN
+        ) {
+            composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
+
+            }
+            composable(route = LeafOrdersScreen.SUCCESSFUL_SCREEN) {
+                val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
+                SuccessfulAppScreen(
+                    onSuccessfulIntent = successfulAppViewModel::onIntent ,
+                    successfulEffect = successfulAppViewModel.successfulEffect,
+                    navHostController = navHostController
+                )
+            }
         }
         navigation(
             route = RootScreen.PROFILE_SCREEN,
@@ -281,8 +305,10 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             composable(
-                route = RegistrationScreens.SMS_VERIFY,
-                arguments = listOf(navArgument("phone") { type = NavType.StringType })
+                route = "${RegistrationScreens.SMS_VERIFY}/{phone}/{screen}",
+                arguments = listOf(
+                    navArgument("phone") { type = NavType.StringType },
+                    navArgument("screen") { type = NavType.StringType })
             ) { backStackEntry ->
                 val smsViewModel: SmsViewModel = koinViewModel()
 
@@ -290,7 +316,27 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     smsState = smsViewModel.smsState.collectAsState(),
                     smsEffect = smsViewModel.smsEffect,
                     phone = backStackEntry.arguments?.getString("phone") ?: "",
+                    navigateScreen = backStackEntry.arguments?.getString("screen")
+                        ?: RootScreen.HOME_SCREEN,
                     onIntent = smsViewModel::onIntent,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = RegistrationScreens.RESET_PASSWORD_SCREEN) {
+                val resetPasswordViewModel: ResetPasswordViewModel = koinViewModel()
+                ResetPasswordScreen(
+                    onResetPasswordIntent = resetPasswordViewModel::onIntent,
+                    resetPasswordState = resetPasswordViewModel.resetPasswordState.collectAsState(),
+                    passwordResetEffect = resetPasswordViewModel.resetPasswordEffect,
+                    navHostController = navHostController
+                )
+            }
+            composable(route = RegistrationScreens.NEW_PASSWORD_SCREEN) {
+                val newPasswordViewModel: NewPasswordViewModel = koinViewModel()
+                NewPasswordScreen(
+                    onNewPasswordIntent = newPasswordViewModel::onIntent,
+                    newPasswordState = newPasswordViewModel.newPasswordState.collectAsState(),
+                    newPasswordEffect = newPasswordViewModel.newPasswordEffect,
                     navHostController = navHostController
                 )
             }

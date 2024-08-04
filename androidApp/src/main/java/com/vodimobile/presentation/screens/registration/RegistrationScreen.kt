@@ -35,7 +35,7 @@ import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.ScreenHeader
-import com.vodimobile.presentation.screens.registration.components.AgreementBlock
+import com.vodimobile.presentation.components.AgreementBlock
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
 import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent

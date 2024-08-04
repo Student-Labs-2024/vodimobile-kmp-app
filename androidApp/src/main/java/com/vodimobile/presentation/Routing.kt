@@ -30,10 +30,17 @@ object RegistrationScreens {
     const val USER_AGREE_SCREEN = "user_agree"
     const val START_SCREEN = "start_screen"
     const val SMS_VERIFY = "sms_verify"
+    const val RESET_PASSWORD_SCREEN = "reset_password"
+    const val NEW_PASSWORD_SCREEN = "new_password"
 }
 
 object DialogIdentifiers {
     const val LOG_OUT_DIALOG = "logout"
     const val DATE_SELECT_DIALOG = "date_select"
     const val LOADING_DIALOG = "loading_dialog"
+}
+
+object LeafOrdersScreen {
+    const val ORDERS_SCREEN = "orders"
+    const val SUCCESSFUL_SCREEN = "successful"
 }

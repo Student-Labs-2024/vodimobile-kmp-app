@@ -8,12 +8,6 @@
 
 import SwiftUI
 
-enum TabType: Int {
-    case main
-    case myOrders
-    case profile
-}
-
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
     @EnvironmentObject var appState: AppState

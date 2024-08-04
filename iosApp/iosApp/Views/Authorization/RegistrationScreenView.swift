@@ -9,26 +9,52 @@
 import SwiftUI
 
 struct RegistrationScreenView: View {
-    @State private var emailFieldText = ""
-    @State private var emailIsValid = false
-    @State private var phoneFieldText = ""
-    @State private var phoneIsValid = false
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
+    @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                CustomTextFieldView(fieldContent: $emailFieldText, isValid: $emailIsValid, fieldType: .email)
-                    .onChange(of: emailIsValid) { _ in
-                        toggleButtonEnabled()
-                    }
+                BorderedTextField(
+                    fieldContent: $viewModel.fullname,
+                    isValid: $viewModel.isFullnameValid,
+                    fieldType: .fullName,
+                    inputErrorType: $viewModel.inputError
+                )
+                .onChange(of: viewModel.fullname) { _ in
+                    toggleButtonEnabled()
+                }
                 
-                CustomTextFieldView(fieldContent: $phoneFieldText, isValid: $phoneIsValid, fieldType: .phone)
-
-                NavigationLink(destination: PinCodeView(phoneNumber: $phoneFieldText)) {
+                BorderedTextField(
+                    fieldContent: $viewModel.phone,
+                    isValid: $viewModel.isPhoneValid,
+                    fieldType: .phone,
+                    inputErrorType: $viewModel.inputError
+                )
+                .onChange(of: viewModel.phone) { _ in
+                    toggleButtonEnabled()
+                }
+                
+                BorderedTextField(
+                    fieldContent: $viewModel.password,
+                    isValid: $viewModel.isPasswordValid,
+                    fieldType: .password,
+                    inputErrorType: $viewModel.inputError,
+                    isForgetBtnEnabled: false
+                )
+                .onChange(of: viewModel.password) { _ in
+                    toggleButtonEnabled()
+                }
+                
+                NavigationLink(
+                    destination: PinCodeView(
+                        phoneNumber: $viewModel.phone,
+                        isResetPasswordFlow: false
+                    )
+                ) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())
@@ -65,7 +91,10 @@ struct RegistrationScreenView: View {
     }
     
     private func toggleButtonEnabled() {
-        isButtonEnabled = emailIsValid && phoneIsValid && checkboxSelected
+        isButtonEnabled = viewModel.isFullnameValid &&
+        viewModel.isPhoneValid &&
+        viewModel.isPasswordValid &&
+        checkboxSelected
     }
 }
 
