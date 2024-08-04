@@ -13,18 +13,20 @@ struct UnderlineTextField: View {
     @Binding var text: String
     @Binding var isValid: Bool
     @State private var errorMessage: String = ""
+    @FocusState private var isFocused: Bool
+    @State private var isPlaceholderVisible: Bool = true
+    
     var fieldType: TextFieldType
     private var title: String
     private let keyboardType: UIKeyboardType
     private let regex: String
-    
-    @FocusState private var isFocused: Bool
-    @State private var isPlaceholderVisible: Bool = true
+    private let initText: String
     
     init(text: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
         self._text = text
         self.fieldType = fieldType
         self._isValid = isValid
+        self.initText = text.wrappedValue
         
         switch fieldType {
         case .email:
@@ -39,6 +41,10 @@ struct UnderlineTextField: View {
             title = TextFieldType.fullName.localizedStr
             keyboardType = .default
             regex = textRegex
+        case .password, .newPassword, .oldPassword:
+            title = TextFieldType.password.localizedStr
+            keyboardType = .default
+            regex = passRegex
         }
     }
     
@@ -50,7 +56,7 @@ struct UnderlineTextField: View {
                 .animation(.easeInOut(duration: 0.2), value: isFocused || !text.isEmpty)
             
             ZStack(alignment: .leading) {
-                if isPlaceholderVisible {
+                if isPlaceholderVisible && text.isEmpty {
                     Text(title)
                         .font(.paragraph5)
                         .foregroundColor(Color(R.color.grayTextColor))
@@ -95,6 +101,7 @@ struct UnderlineTextField: View {
                         .onChange(of: text) { _ in
                             validateInput()
                         }
+                        .disabled(!initText.isEmpty && !isFocused)
                 } else {
                     TextField("", text: $text)
                         .font(.paragraph2)
@@ -122,6 +129,7 @@ struct UnderlineTextField: View {
                     .foregroundColor(isFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)),
                 alignment: .bottom
             )
+            
         }
     }
     
@@ -129,7 +137,7 @@ struct UnderlineTextField: View {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
         let cleanedStr = text.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-
+        
         isValid = predicate.evaluate(with: cleanedStr)
         
         if !isValid && !text.isEmpty {

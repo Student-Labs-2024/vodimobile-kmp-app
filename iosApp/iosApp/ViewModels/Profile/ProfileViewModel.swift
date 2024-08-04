@@ -19,10 +19,6 @@ struct ProfileMenuCell: Identifiable {
     let title: String
     let cellType: ProfileCellType
     
-    enum ProfileCellType {
-        case conditions, faq, contacts
-    }
-    
     static let profileMenuCells = [
         ProfileMenuCell(id: 1, icon: Image.docText, title: R.string.localizable.rulesText(), cellType: .conditions),
         ProfileMenuCell(id: 2, icon: Image.infoCircle, title: R.string.localizable.faQ(), cellType: .faq),

@@ -17,6 +17,15 @@
 "rulesScreenTitle" = "Правила и условия";
 "homeScreenTitle" = "Главная";
 "myOrdersScreenTitle" = "Мои заказы";
+"carParkScreenTitle" = "Автопарк";
+"allCarsScreenTitle" = "Все авто";
+"economyScreenTitle" = "Эконом";
+"comfortScreenTitle" = "Комфорт";
+"premiumScreenTitle" = "Премиум";
+"sedansScreenTitle" = "Седаны";
+"jeepsScreenTitle" = "Внедорожники";
+"resetPassScreenTitle" = "Сброс пароля";
+"changePassword" = "Изменить пароль";
 
 // Buttons titles
 "authButtonTitle" = "Войти";
@@ -27,14 +36,35 @@
 "clearButton" = "Очистить";
 "saveButton" = "Сохранить";
 "findAutoButton" = "Найти машину";
+"allAutoButton" = "Все машины >";
+"bookButton" = "Забронировать";
 "reconnectButton" = "Повторить попытку";
+"forgetPassword" = "Забыли пароль?";
 
 // Field names
 "email" = "Email";
 "phone" = "Номер телефона";
+"phonePlaceholder" = "+X (XXX) XXX-XX-XX";
 "fullName" = "ФИО";
 "dateTextFieldPlaceholder" = "Когда?";
 "dateTextFieldTitle" = "Выберите даты аренды";
+"password" = "Пароль";
+"passwordPlaceholder" = "Придумайте пароль";
+"fullnamePlaceholder" = "Введите свое ФИО";
+"oldPassword" = "Старый пароль";
+"newPassword" = "Новый пароль";
+"passwordPlaceholder" = "Введите пароль";
+"newPasswordPlaceholder" = "Придумайте пароль";
+
+// Error strings
+"incorrectFullName" = "Неверный формат. Для ввода допускается только буквы без символов и пробелов";
+"incorrectPhone" = "Неверный формат номера телефона";
+"alreadyExistsPhone" = "Такой телефон уже существует. Осуществите вход";
+"incorrectPass" = "Неверный пароль. Повторите попытку.";
+"tooShortPass" = "Пароль меньше 8 символов";
+"noSpecSymboldsInPass" = "Пароль должен содержать хотя бы один спец.символ";
+"noUpperLettersInPass" = "Пароль должен содержать хотя бы одну заглавную букву";
+"invalidPass" = "Пароль некорректный";
 
 // Alert text
 "exitAlertTitle" = "Вы уверены, что хотите выйти из аккаунта?";
@@ -43,7 +73,7 @@
 "exitAlertText" = "Вы не сможете арендовать автомобили без аккаунта";
 "alertErrorSavingTitle" = "Ошибка сохранения";
 "alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
-"alertSavePersonDataTitle" = "Ваши данные успешно сохранены";
+"alertSavePersonDataTitle" = "Ваши данные были успешно сохранены";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";
@@ -75,10 +105,18 @@
 "internetConnectErrorText" = "Нет соединения с интернетом. Проверьте сеть и повторите попытку соединения.";
 "somethingWentWrongTitle" = "Что-то пошло не так";
 "somethingWentWrongText" = "Произошла ошибка. Повторите попытку соединения.";
-"servetErrorTitle" = "Ошибка не сервере";
-"servetErrorText" = "Что-то пошло не так на стороне сервера. Повторите попытку соединения.";
-"signSuggestTitle" = "Войдите или создайте профиль";
-"signSuggestText" = "Чтобы оставить заявку необходимо иметь аккаунт";
+"popularAuto" = "Популярные авто";
+"transmissionTitle" = "Коробка";
+"driveTypeTitle" = "Привод";
+"tankTitle" = "Бак";
+"prepositionPriceText" = "от";
+"currencyPriceText" = "руб.";
+"yearOfManufactureTitle" = "Год выпуска";
+"characteristicsTitle" = "Характеристики:";
+"generalAutoCardTitle" = "Перейти ко всему автопарку";
+"literText" = "л.";
+"resetScreenTitle" = "Введите номера телефона";
+"resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

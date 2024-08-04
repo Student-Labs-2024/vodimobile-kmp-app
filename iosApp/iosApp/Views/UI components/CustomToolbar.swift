@@ -45,7 +45,7 @@ struct CustomToolbar: ToolbarContent {
 
 struct TrailingToolbarItem: View {
     let image: Image
-    @ObservedObject var observedObject: PersonalDataViewModel
+    @ObservedObject var observedObject: UserDataViewModel
     var actionAfterTapping: () -> Void
     
     var body: some View {
@@ -58,14 +58,13 @@ struct TrailingToolbarItem: View {
                 .frame(width: 18, height: 18)
                 .fontWeight(.bold)
                 .foregroundStyle(
-                    observedObject.userInput.fieldsIsValid()
+                    observedObject.isFullnameValid
                     ? (observedObject.dataIsEditing ? Color(R.color.blueColor) : Color(R.color.grayDarkColor))
                     : Color(R.color.grayDarkColor)
                 )
         }
         .disabled(
-            !observedObject.userInput.fieldsIsValid() &&
-            observedObject.dataIsEditing
+            !observedObject.isFullnameValid || !observedObject.dataIsEditing
         )
     }
 }

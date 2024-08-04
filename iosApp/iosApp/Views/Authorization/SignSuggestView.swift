@@ -17,13 +17,13 @@ struct SignSuggestView: View {
                     }
                     .padding(.top, SignSuggestConfig.xmarkTopPadding)
                 }
-               
+
                 Image(R.image.person)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: SignSuggestConfig.imageSize)
                     .padding(.top, SignSuggestConfig.topSpacingImage)
-                
+
                 VStack(spacing: SignSuggestConfig.spacingBetweenTitleAndText) {
                     Text(R.string.localizable.signSuggestTitle)
                         .font(.header1)
