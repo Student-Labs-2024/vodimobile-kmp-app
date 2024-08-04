@@ -31,9 +31,14 @@ import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
+import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
+import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
@@ -204,7 +209,12 @@ private fun RegistrationScreenPreviewDark() {
                 crmStorage = CrmStorage(
                     getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
                     getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl())
+                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
+                    getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
+                    refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
+                    getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
+                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
+                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
                 )
             )
             RegistrationScreen(
@@ -265,8 +275,13 @@ private fun RegistrationScreenPreviewLight() {
                 crmStorage = CrmStorage(
                     getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
                     getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl())
-                ),
+                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
+                    getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
+                    refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
+                    getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
+                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
+                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                )
             )
             RegistrationScreen(
                 onRegistrationIntent = registrationViewModel::onIntent,
