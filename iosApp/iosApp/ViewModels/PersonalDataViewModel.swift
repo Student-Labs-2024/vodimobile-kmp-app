@@ -8,6 +8,7 @@
 
 import SwiftUI
 import shared
+import Combine
 
 final class PersonalDataViewModel: ObservableObject {
     @Published var userInput = UserInputData()
@@ -15,18 +16,42 @@ final class PersonalDataViewModel: ObservableObject {
     @Published var dataIsEditing: Bool = false
     @Published var showErrorAlert: Bool = false
     @Published var isLoading: Bool = false
-    @ObservedObject var dataStorage = KMPDataStorage()
+    @ObservedObject var dataStorage: KMPDataStorage
+
+    private var cancellables = Set<AnyCancellable>()
     
-    func makeFakeNetworkRequest() {
-        isLoading = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.isLoading = false
-            self.showErrorAlert = true
+    init(dataStorage: KMPDataStorage = KMPDataStorage()) {
+        self.dataStorage = dataStorage
+        setupBindings()
+        Task {
+            await loadUserData()
         }
     }
     
-    func saveEditedUserData() {
+    private func setupBindings() {
+        dataStorage.$gettingUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.updateUserInput(with: user)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func updateUserInput(with user: User) {
+        self.userInput.email = user.email ?? ""
+        self.userInput.fullname = user.fullName
+        self.userInput.phone = user.phone
+        self.userInput.password = user.password
+    }
+
+    @MainActor
+    func loadUserData() async {
+        isLoading = true
+        await dataStorage.getUser()
+        isLoading = false
+    }
+    
+    func saveEditedUserData() async {
         isLoading = true
         let newUserData = User(
             fullName: userInput.fullname,
@@ -36,17 +61,14 @@ final class PersonalDataViewModel: ObservableObject {
             email: userInput.email
         )
         
-        Task {
-//            do {
-//                try await self.dataStorage.editUserData(newUserData)
-//            } catch {
-//                self.showErrorAlert.toggle()
-//            }
-            
-            DispatchQueue.main.async {
-                self.isLoading.toggle()
-                self.dataHasBeenSaved.toggle()
-            }
+        do {
+            try await self.dataStorage.editUserData(newUserData)
+            self.isLoading = false
+            self.dataHasBeenSaved = true
+        } catch {
+            print(error)
+            self.isLoading = false
+            showErrorAlert.toggle()
         }
     }
 }
@@ -61,10 +83,10 @@ struct UserInputData: Equatable {
     var emailIsValid: Bool = false
     
     private func areAllFieldsFilled() -> Bool {
-        !fullname.isEmpty && !email.isEmpty && !phone.isEmpty
+        !fullname.isEmpty && !phone.isEmpty
     }
     
     func fieldsIsValid() -> Bool {
-        phoneIsValid && emailIsValid && fullnameIsValid && areAllFieldsFilled()
+        phoneIsValid && fullnameIsValid && areAllFieldsFilled()
     }
 }

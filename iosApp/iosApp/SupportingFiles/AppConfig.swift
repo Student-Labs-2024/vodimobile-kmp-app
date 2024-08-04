@@ -6,7 +6,6 @@
 //  Copyright © 2024 orgName. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
 struct CustomEnvironmentKey: EnvironmentKey {
@@ -23,6 +22,9 @@ extension EnvironmentValues {
 public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
 public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 public let textRegex = #"^[a-zA-Zа-яА-ЯёЁ]+(([' -][a-zA-Zа-яА-ЯёЁ ])?[a-zA-Zа-яА-ЯёЁ]*)*$"#
+public let passRegex = #"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*+-]).{8,}$"#
+public let capitalizeSymbolRegex = #"[A-Z]"#
+public let specialSymbolRegex = #"[!@#\$%\^\&*\)\(+=._-]"#
 
 // UI paddings
 public let screenWidth = UIScreen.main.bounds.width
@@ -33,7 +35,7 @@ public let horizontalPadding: CGFloat = 16
 public let checkboxLeadingPadding: CGFloat = 14
 public let spacingBetweenCheckboxAndText: CGFloat = 16
 public let checkboxSize: CGFloat = 21
-public let аuthScreencontentTopPadding: CGFloat = 120
+public let аuthScreencontentTopPadding: CGFloat = 60
 
 /// UI screen paddings
 struct SignSuggestConfig {

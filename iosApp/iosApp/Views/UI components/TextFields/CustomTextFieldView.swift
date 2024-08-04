@@ -10,25 +10,6 @@ import SwiftUI
 import iPhoneNumberField
 import RswiftResources
 
-enum TextFieldType {
-    case email
-    case phone
-    case fullName
-}
-
-extension TextFieldType {
-    var localizedStr: String {
-        switch self {
-        case .email:
-            return R.string.localizable.email()
-        case .phone:
-            return R.string.localizable.phone()
-        case .fullName:
-            return R.string.localizable.fullName()
-        }
-    }
-}
-
 struct CustomTextFieldView: View {
     @Binding var fieldContent: String
     @Binding var isValid: Bool

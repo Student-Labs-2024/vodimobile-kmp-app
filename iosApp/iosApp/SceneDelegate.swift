@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftUI
-import shared
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -20,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Use a UIHostingController as window root view controller
         if let windowScene = scene as? UIWindowScene {
-            KoinHelperKt.doInitKoin()
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: SignSuggestView())
             self.window = window

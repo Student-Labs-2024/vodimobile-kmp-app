@@ -17,8 +17,16 @@ struct PinCodeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.isAuthorized) private var isAuthorized
 
+    let isResetPasswordFlow: Bool
     private var sendCodeOnPhoneText: String {
         "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
+    }
+    @ViewBuilder private var destinationView: some View {
+        if isResetPasswordFlow {
+            ResetPasswordPassView()
+        } else {
+            MainTabbarView()
+        }
     }
     
     var body: some View {
@@ -45,7 +53,7 @@ struct PinCodeView: View {
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: MainTabbarView()) {
+                NavigationLink(destination: destinationView) {
                     Text(R.string.localizable.nextBtnName)
                 }
                 .buttonStyle(FilledBtnStyle())

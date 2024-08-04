@@ -11,7 +11,7 @@ import SwiftUI
 struct NetworkErrorView: View {
     var body: some View {
         VStack(spacing: 36) {
-            Image(R.image.errorCloud)
+            Image(R.image.warning)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)

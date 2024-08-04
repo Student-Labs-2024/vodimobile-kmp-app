@@ -11,15 +11,18 @@ import SwiftUI
 struct FilledButton: View {
 
     let configuration: ButtonStyle.Configuration
+    let height: CGFloat?
 
     @Environment(\.isEnabled) private var isEnabled: Bool
 
     var body: some View {
         configuration.label
             .padding()
+            .frame(maxWidth: .infinity, maxHeight: height)
+            .background(isEnabled ? (configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor)) : Color(R.color.blueLightColor))
             .frame(maxWidth: .infinity)
             .background(
-                isEnabled 
+                isEnabled
                 ? (configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
                 : Color(R.color.blueLightColor)
             )
