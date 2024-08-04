@@ -11,7 +11,7 @@ import SwiftUI
 struct ResetPasswordPassView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject private var viewModel = ResetPasswordViewModel()
+    @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
     

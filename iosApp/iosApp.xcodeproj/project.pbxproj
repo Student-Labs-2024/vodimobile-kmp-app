@@ -18,7 +18,6 @@
 		93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328FBC2C495594008EADB4 /* ConditionViewModel.swift */; };
 		93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = 93351C852C42F7C100DD882A /* iPhoneNumberField */; };
 		933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */; };
-		933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EF9D32C55850A005C57C4 /* AuthViewModel.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -72,12 +71,10 @@
 		93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */; };
 		937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */; };
 		937DBD592C4FD38600C43A86 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 937DBD582C4FD38600C43A86 /* .swiftlint.yml */; };
-		938872A52C5410ED00C49587 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938872A42C5410ED00C49587 /* RegistrationViewModel.swift */; };
 		939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939D49152C41615000BD65E1 /* CustomToolbar.swift */; };
 		93A257772C40F27900316EDE /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A257762C40F27900316EDE /* ContactsView.swift */; };
 		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
 		93BF9E782C5AAE7800A6EE91 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E772C5AAE7800A6EE91 /* ChangePasswordView.swift */; };
-		93BF9E7D2C5AB0F300A6EE91 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E7C2C5AB0F300A6EE91 /* ResetPasswordViewModel.swift */; };
 		93BF9E7F2C5AB62B00A6EE91 /* ResetPasswordPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E7E2C5AB62B00A6EE91 /* ResetPasswordPassView.swift */; };
 		93BF9E812C5ACE5100A6EE91 /* ButtonLikeTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E802C5ACE5100A6EE91 /* ButtonLikeTextFieldView.swift */; };
 		93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 93D1E05E2C45048200919749 /* RswiftLibrary */; };
@@ -110,7 +107,6 @@
 		93328FBA2C4953E3008EADB4 /* ProfileCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellView.swift; sourceTree = "<group>"; };
 		93328FBC2C495594008EADB4 /* ConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionViewModel.swift; sourceTree = "<group>"; };
 		933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
-		933EF9D32C55850A005C57C4 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -165,13 +161,11 @@
 		93745BC82C41AA6A00889B42 /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPDataStorage.swift; sourceTree = "<group>"; };
 		937DBD582C4FD38600C43A86 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		938872A42C5410ED00C49587 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		939D49152C41615000BD65E1 /* CustomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolbar.swift; sourceTree = "<group>"; };
 		939E23BD2C580C8A0020CAA8 /* ForgetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordView.swift; sourceTree = "<group>"; };
 		93A257762C40F27900316EDE /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
 		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93BF9E772C5AAE7800A6EE91 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
-		93BF9E7C2C5AB0F300A6EE91 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		93BF9E7E2C5AB62B00A6EE91 /* ResetPasswordPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPassView.swift; sourceTree = "<group>"; };
 		93BF9E802C5ACE5100A6EE91 /* ButtonLikeTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLikeTextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -423,7 +417,6 @@
 				934D957A2C4902A20027DFC8 /* ContactsViewModel.swift */,
 				93328FB82C4947A1008EADB4 /* ProfileViewModel.swift */,
 				936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */,
-				93BF9E7C2C5AB0F300A6EE91 /* ResetPasswordViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -432,8 +425,6 @@
 			isa = PBXGroup;
 			children = (
 				93328FBC2C495594008EADB4 /* ConditionViewModel.swift */,
-				933EF9D32C55850A005C57C4 /* AuthViewModel.swift */,
-				938872A42C5410ED00C49587 /* RegistrationViewModel.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -621,7 +612,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */,
-				938872A52C5410ED00C49587 /* RegistrationViewModel.swift in Sources */,
 				934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */,
 				935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */,
 				934D957B2C4902A20027DFC8 /* ContactsViewModel.swift in Sources */,
@@ -631,7 +621,6 @@
 				939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */,
 				93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */,
 				935481E02C5256770085B6CE /* Enums.swift in Sources */,
-				93BF9E7D2C5AB0F300A6EE91 /* ResetPasswordViewModel.swift in Sources */,
 				936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */,
 				935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */,
 				93689FE92C58BECD00A4FB13 /* MainViewModel.swift in Sources */,
@@ -672,7 +661,6 @@
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,
-				933EF9D42C55850A005C57C4 /* AuthViewModel.swift in Sources */,
 				936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */,
 				93745BC52C41A57700889B42 /* FAQView.swift in Sources */,
 				935DC3BC2C516E22009CBA43 /* AutoListView.swift in Sources */,
