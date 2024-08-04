@@ -40,17 +40,35 @@ class CrmStorageTest {
                 accessToken = SharedBuildkonfig.crm_test_access_token,
                 refreshToken = SharedBuildkonfig.crm_test_refresh_token
             )
+            assertResponse(response)
+        }
+    }
 
-            when (response) {
-                is CrmEither.CrmData -> {
-                    assertTrue(true, "Data is loaded")
-                }
-                is CrmEither.CrmError -> {
-                    assertTrue(false, "Error: ${response.status}")
-                }
-                CrmEither.CrmLoading -> {
-                    assertTrue(false, "Data is loading")
-                }
+    @Test
+    fun getPlacesRequestTest() {
+        runBlocking {
+            val crmRepository = CrmRepositoryImpl()
+
+            val response = crmRepository.getAllPlaces(
+                accessToken = SharedBuildkonfig.crm_test_access_token,
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token
+            )
+            assertResponse(response)
+        }
+    }
+
+    private fun <D, E> assertResponse(response: CrmEither<D, E>) {
+        when (response) {
+            is CrmEither.CrmData -> {
+                assertTrue(true, "Data is loaded")
+            }
+
+            is CrmEither.CrmError -> {
+                assertTrue(false, "Error: ${response.status}")
+            }
+
+            CrmEither.CrmLoading -> {
+                assertTrue(false, "Data is loading")
             }
         }
     }
