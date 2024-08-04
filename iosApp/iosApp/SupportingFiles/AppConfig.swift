@@ -8,6 +8,20 @@
 
 import SwiftUI
 
+final class AppState: ObservableObject {
+    @Published var isInternetErrorVisible: Bool = false
+    @Published var isConnected: Bool = true
+
+    func checkConnectivity() {
+        self.isConnected = NetworkMonitor.shared.isConnected
+        if !self.isConnected {
+            self.isInternetErrorVisible = true
+        } else {
+            self.isInternetErrorVisible = false
+        }
+    }
+}
+
 struct CustomEnvironmentKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }

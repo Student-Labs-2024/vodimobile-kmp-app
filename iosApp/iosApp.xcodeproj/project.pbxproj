@@ -49,6 +49,8 @@
 		935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */; };
 		935E1A922C51443F00A35E4E /* AutoSimpleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A912C51443F00A35E4E /* AutoSimpleCardView.swift */; };
 		935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */; };
+		935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */; };
+		936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */; };
 		935EE3032C4E2E6B0039A2DC /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */; };
 		935F029A2C5A8809003DA751 /* ResetPasswordPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
@@ -140,6 +142,8 @@
 		935E1A912C51443F00A35E4E /* AutoSimpleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSimpleCardView.swift; sourceTree = "<group>"; };
 		935E1A932C5148CA00A35E4E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectErrorView.swift; sourceTree = "<group>"; };
+		935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectErrorView.swift; sourceTree = "<group>"; };
+		936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
 		935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPhoneView.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 				934F0D4C2C3D5309000B256E /* Views */,
 				934F0D4B2C3D52EE000B256E /* SupportingFiles */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
+				936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -650,6 +655,7 @@
 				934D957F2C4913290027DFC8 /* MediaCellView.swift in Sources */,
 				931FDDB42C46FBE8007954FC /* FilledButton.swift in Sources */,
 				937361402C54C21D00132C14 /* BorderedTextField.swift in Sources */,
+				936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */,
 				93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
 				93BF9E782C5AAE7800A6EE91 /* ChangePasswordView.swift in Sources */,

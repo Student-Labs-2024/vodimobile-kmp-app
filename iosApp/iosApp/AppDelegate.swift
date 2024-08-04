@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // init Koin
         KoinHelperKt.doInitKoin()
+        NetworkMonitor.shared.startMonitoring()
         return true
     }
 

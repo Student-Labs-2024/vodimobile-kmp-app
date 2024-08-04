@@ -3,7 +3,8 @@ import shared
 
 struct SignSuggestView: View {
     @State private var isButtonEnabled: Bool = true
-    
+    @EnvironmentObject var appState: AppState
+
     var body: some View {
         NavigationView {
             VStack(spacing: SignSuggestConfig.spacingBetweenComponents) {
@@ -44,6 +45,12 @@ struct SignSuggestView: View {
                 Spacer()
             }
             .padding(.horizontal, horizontalPadding)
+            .fullScreenCover(isPresented: $appState.isInternetErrorVisible) {
+                InternetConnectErrorView()
+            }
+            .onAppear {
+                appState.checkConnectivity()
+            }
         }
     }
 }
