@@ -4,6 +4,9 @@
     <string name="requister_str">Зарегистрироваться</string>
     <string name="login_str">Войти</string>
 
+    <string name="login_or_create_title">Войдите или создайте профиль</string>
+    <string name="login_or_create_subtitle">Чтобы оставить заявку необходимо иметь аккаунт</string>
+
     <string name="label_name">ФИО</string>
     <string name="placeholder_name">Введите ваше ФИО</string>
     <string name="name_error">Неверный формат. Для ввода допускается только буквы без символов</string>

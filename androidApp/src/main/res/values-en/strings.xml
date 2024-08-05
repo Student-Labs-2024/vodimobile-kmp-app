@@ -5,6 +5,9 @@
     <string name="requister_str">Sign up</string>
     <string name="login_str">Login</string>
 
+    <string name="login_or_create_title">Log in or create a profile</string>
+    <string name="login_or_create_subtitle">To submit a request, you must have an account</string>
+
     <string name="label_name">Full name</string>
     <string name="placeholder_name">Enter your full name</string>
     <string name="name_error">Invalid format. Only letters without characters are allowed to be entered</string>

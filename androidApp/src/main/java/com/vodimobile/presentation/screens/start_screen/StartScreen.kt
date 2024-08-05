@@ -1,6 +1,7 @@
 package com.vodimobile.presentation.screens.start_screen
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,20 +9,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -59,7 +62,7 @@ fun StartScreen(
         Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(horizontal = 16.dp, vertical = 40.dp),
+            .padding(horizontal = 16.dp, vertical = 64.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
     ) {
@@ -76,17 +79,32 @@ fun StartScreen(
                 )
             }
         }
-        Spacer(
-            modifier = Modifier
-                .height(20.dp),
-        )
         Image(
-            painter = painterResource(id = R.drawable.logoapp),
+            painter = painterResource(id = R.drawable.profile),
             contentDescription = null,
             modifier = Modifier
-                .padding(vertical = 58.dp)
-                .size(width = 250.dp, height = 133.33.dp)
+                .padding(top = 60.dp)
+                .size(128.dp)
         )
+        Column(
+            modifier = Modifier.padding(vertical = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(
+                space = 12.dp,
+                alignment = Alignment.CenterVertically
+            ),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.login_or_create_title),
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Text(
+                text = stringResource(id = R.string.login_or_create_subtitle),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
         PrimaryButton(
             text = stringResource(id = R.string.requister_str),
             enabled = true,
@@ -103,9 +121,25 @@ fun StartScreen(
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun StartScreenPreview() {
+private fun StartScreenLightPreview() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            val startScreenViewModel = StartScreenViewModel()
+            StartScreen(
+                onStartScreenIntent = startScreenViewModel::onIntent,
+                startScreenEffect = startScreenViewModel.startScreenEffect,
+                navHostController = rememberNavController()
+            )
+        }
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun StartScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val startScreenViewModel = StartScreenViewModel()
