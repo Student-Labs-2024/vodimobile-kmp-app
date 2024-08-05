@@ -1,3 +1,4 @@
+import com.android.ddmlib.Log
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import java.io.FileInputStream
 import java.io.InputStreamReader
@@ -101,21 +102,26 @@ android {
 }
 
 fun getStringValueFromLocalProperties(name: String): String {
-    val result = project.getLocalProperty().getProperty(name).toString()
-    return result
+    val value = project.getLocalProperty().getProperty(name)?.toString()
+    if (value == null) {
+        throw GradleException("Property $name not found in local.properties")
+    }
+    return value
 }
 
 fun Project.getLocalProperty(file: String = "local.properties"): Properties {
     val properties = Properties()
-    val localProperties = File(file)
+    val localProperties = File(rootDir, file)
     if (localProperties.isFile) {
         InputStreamReader(FileInputStream(localProperties), Charsets.UTF_8).use { reader ->
             properties.load(reader)
         }
-    } else error("File from not found")
-
+    } else {
+        throw GradleException("File '$file' not found at path: ${localProperties.absolutePath}")
+    }
     return properties
 }
+
 
 buildkonfig {
     packageName = "com.vodimobile.shared.buildkonfig"

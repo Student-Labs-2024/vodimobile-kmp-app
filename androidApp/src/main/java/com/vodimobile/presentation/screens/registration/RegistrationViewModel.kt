@@ -91,7 +91,7 @@ class RegistrationViewModel(
                 viewModelScope.launch {
 
                     val crmEither: CrmEither<UserResponse, HttpStatusCode> =
-                        crmStorage.authUser(userRequest = UserRequest())
+                        crmStorage.authUser()
 
                     when (crmEither) {
                         is CrmEither.CrmData -> {

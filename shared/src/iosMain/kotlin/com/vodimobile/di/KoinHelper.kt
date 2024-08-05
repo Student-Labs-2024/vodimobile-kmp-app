@@ -12,8 +12,14 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 
 fun initKoin() {
-    startKoin {
-        modules(carModule, crmModule)
+    try {
+        startKoin {
+            // Declare modules
+            modules(carModule, crmModule)
+        }
+    } catch (e: Exception) {
+        // Handle or log the exception
+        println("Error initializing Koin: ${e.message}")
     }
 }
 

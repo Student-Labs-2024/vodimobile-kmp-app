@@ -31,7 +31,9 @@ final class PersonalDataViewModel: ObservableObject {
         let newUserData = User(
             fullName: userInput.fullname,
             password: userInput.password,
-            token: dataStorage.gettingUser.token,
+            accessToken: dataStorage.gettingUser.accessToken,
+            refreshToken: dataStorage.gettingUser.refreshToken,
+            expires: dataStorage.gettingUser.expires,
             phone: userInput.phone,
             email: userInput.email
         )
