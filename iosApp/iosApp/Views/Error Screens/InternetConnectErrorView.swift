@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct InternetConnectErrorView: View {
+    @EnvironmentObject var appState: AppState
+    
     var body: some View {
         VStack(spacing: 36) {
-            Image(R.image.noInternet)
+            Image(R.image.wifi)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)

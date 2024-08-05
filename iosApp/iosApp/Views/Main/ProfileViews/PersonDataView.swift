@@ -9,15 +9,11 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @ObservedObject private var viewModel: PersonalDataViewModel
+    @ObservedObject private var viewModel = UserDataViewModel()
     @FocusState private var focusedField: Field?
     
     enum Field {
-        case fullname, email, phone
-    }
-    
-    init(viewModel: PersonalDataViewModel = .init()) {
-        self.viewModel = viewModel
+        case fullname, phone
     }
     
     var body: some View {
@@ -25,13 +21,21 @@ struct PersonDataView: View {
             VStack(alignment: .leading, spacing: 25) {
                 Text(R.string.localizable.yourDataText).font(.header3)
                 
-                UnderlineTextField(text: $viewModel.userInput.fullname, isValid: $viewModel.userInput.fullnameIsValid, fieldType: .fullName)
-                    .focused($focusedField, equals: .fullname)
-                UnderlineTextField(text: $viewModel.userInput.email, isValid: $viewModel.userInput.emailIsValid, fieldType: .email)
-                    .focused($focusedField, equals: .email)
-                    .textInputAutocapitalization(.never)
-                UnderlineTextField(text: $viewModel.userInput.phone, isValid: $viewModel.userInput.phoneIsValid, fieldType: .phone)
-                    .focused($focusedField, equals: .phone)
+                UnderlineTextField(
+                    text: $viewModel.fullname,
+                    isValid: $viewModel.isFullnameValid,
+                    fieldType: .fullName
+                )
+                .focused($focusedField, equals: .fullname)
+                
+                ButtonLikeTextFieldView()
+                
+                UnderlineTextField(
+                    text: $viewModel.phone,
+                    isValid: $viewModel.isPhoneValid,
+                    fieldType: .phone
+                )
+                .focused($focusedField, equals: .phone)
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
@@ -42,21 +46,28 @@ struct PersonDataView: View {
             
             Spacer()
         }
-        .onChange(of: $viewModel.userInput.wrappedValue) { _ in
-            $viewModel.dataIsEditing.wrappedValue = true
+        .onChange(of: focusedField) { newValue in
+            if let _ = newValue {
+                $viewModel.dataIsEditing.wrappedValue = true
+            } else {
+                $viewModel.dataIsEditing.wrappedValue = false
+            }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
-        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert) {
+        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert, actions: {
             Button(R.string.localizable.closeButton(), role: .cancel) {
-                $viewModel.showErrorAlert.wrappedValue.toggle()
+                viewModel.showErrorAlert.toggle()
             }
-        } message: {
+        }, message: {
             Text(R.string.localizable.alertErrorSavingText)
-        }
+        })
         .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.dataHasBeenSaved) {
             Button(R.string.localizable.closeButton(), role: .cancel) {
-                $viewModel.dataHasBeenSaved.wrappedValue.toggle()
+                viewModel.dataHasBeenSaved.toggle()
             }
+        }
+        .onAppear {
+            viewModel.fetchUserData()
         }
         .background(Color(R.color.grayLightColor).ignoresSafeArea())
         .navigationBarBackButtonHidden()
@@ -67,9 +78,11 @@ struct PersonDataView: View {
                     image: Image.checkmark,
                     observedObject: viewModel,
                     actionAfterTapping: {
-                        viewModel.saveEditedUserData()
-                        viewModel.dataIsEditing = false
-                        focusedField = nil
+                        Task {
+                            focusedField = nil
+                            viewModel.saveEditedUserData()
+                            viewModel.fetchUserData()
+                        }
                     }
                 )
             )
