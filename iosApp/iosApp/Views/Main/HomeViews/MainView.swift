@@ -16,46 +16,62 @@ struct MainView: View {
     @State private var scrollOffset: CGPoint = .zero
     @State private var headerHeight: CGFloat = 0
     @State private var dragOffset: CGSize = .zero
-    @ObservedObject var viewModel = MainViewModel()
-    
+    @State private var showModalCard: Bool = false
+    @State private var selectedAuto: Car = Car.companion.empty()
+    @ObservedObject private var viewModel: MainViewModel = MainViewModel()
+
     var body: some View {
-        ZStack(alignment: .top) {
-            ScrollViewWithOffset(onScroll: handleScroll) {
-                LazyVStack {
-                    ForEach(0..<viewModel.listOfPopularCar.count , id: \.self) { index in
-                        VStack {
-                            Text("\(viewModel.listOfPopularCar[index].model.desc().localized())")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .padding(.horizontal)
-                                .padding(.vertical, 5)
+        NavigationView {
+            ZStack(alignment: .top) {
+                ScrollViewWithOffset(onScroll: handleScroll) {
+                    LazyVStack(spacing: 20) {
+                        HStack {
+                            Text(R.string.localizable.popularAuto).font(.header3)
+                            Spacer()
+                            NavigationLink(R.string.localizable.allAutoButton()) {
+                                AutoListView()
+                            }
+                            .font(.buttonTabbar)
+                            .foregroundStyle(Color(R.color.blueColor))
                         }
+                        .padding(.bottom, 10)
+
+                        ForEach(viewModel.listOfPopularCar.indices, id: \.self) { index in
+                            AutoSimpleCardView(
+                                car: viewModel.listOfPopularCar[index],
+                                showModal: $showModalCard,
+                                selectedAuto: $selectedAuto
+                            )
+                        }
+                        AutoGeneralCardView()
                     }
+                    .padding(.top, headerHeight * 1.75)
+                    .padding(.horizontal, 24)
                 }
-                .padding(.top, headerHeight * 1.7)
-            }
-            
-            // Expandable Toolbar
-            ExpandableToolbar(
-                isExpanded: $isExpanded,
-                dateRange: $dateRange,
-                showDatePicker: $showDatePicker,
-                headerHeight: $headerHeight,
-                dragOffset: $dragOffset
-            )
-            
-            // Date Picker Modal
-            if showDatePicker {
-                ModalDatePickerView(
+
+                // Expandable Toolbar
+                ExpandableToolbar(
+                    isExpanded: $isExpanded,
+                    dateRange: $dateRange,
                     showDatePicker: $showDatePicker,
-                    dateRange: $dateRange
+                    headerHeight: $headerHeight,
+                    dragOffset: $dragOffset
                 )
+
+                // Date Picker Modal
+                if showDatePicker {
+                    ModalDatePickerView(
+                        showDatePicker: $showDatePicker,
+                        dateRange: $dateRange
+                    )
+                }
+            }
+            .ignoresSafeArea(.container, edges: .top)
+            .background(Color(R.color.grayLightColor))
+            .sheet(isPresented: $showModalCard) {
+                ModalAutoView(carModel: $selectedAuto, showModalView: $showModalCard)
             }
         }
-        .ignoresSafeArea(.container, edges: .top)
     }
     
     func handleScroll(_ offset: CGPoint) {

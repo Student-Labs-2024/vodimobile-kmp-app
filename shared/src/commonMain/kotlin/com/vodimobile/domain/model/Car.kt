@@ -15,7 +15,7 @@ data class Car(
     val transmission: StringResource,
     val wheelDrive: StringResource,
     val tankValue: StringResource,
-    val carType: List<CarType>,
+    val carType: List<CarType> = emptyList(),
     val deposit: Float?,
     val tariffs: List<Tariff>,
     val images: List<ImageResource>,

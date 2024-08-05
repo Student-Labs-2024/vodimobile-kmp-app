@@ -16,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         // Override point for customization after application launch.
+        // init Koin
         KoinHelperKt.doInitKoin()
+        NetworkMonitor.shared.startMonitoring()
         return true
     }
 

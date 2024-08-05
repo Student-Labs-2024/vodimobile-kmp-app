@@ -11,7 +11,7 @@ import SwiftUI
 
 final class KMPDataStorage: ObservableObject {
     private let repository = UserDataStoreRepositoryImpl(dataStore: CreateDataStore_iosKt.createDataStore())
-    private let newUser = User(
+    let newUser = User(
         fullName: "test testov",
         password: "12344321",
         accessToken: "",
@@ -24,12 +24,12 @@ final class KMPDataStorage: ObservableObject {
     
     @Published var gettingUser: User = KMPDataStorage.defaultUser
 
-    func editUserData() async {
-        try? await repository.editUserData(user: newUser)
+    func editUserData(_ userData: User) async throws {
+        try await repository.editUserData(user: userData)
     }
     
     @MainActor
-    func getUser() async {
+    func getUser() async throws {
         for await flowUser in repository.getUserData() {
             self.gettingUser = flowUser
         }
