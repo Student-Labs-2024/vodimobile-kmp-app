@@ -95,8 +95,8 @@ class CrmRepositoryImpl : CrmRepository {
 
         val tmp = """
             {
-                "UserName": ${SharedBuildkonfig.crm_login},
-                "PasswordHash" : ${SharedBuildkonfig.crm_password_hash}",
+                "UserName": "${SharedBuildkonfig.crm_login}",
+                "PasswordHash" : "${SharedBuildkonfig.crm_password_hash}",
                 "LongToken" : false
             }
         """.trimIndent()

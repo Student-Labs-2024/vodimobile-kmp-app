@@ -136,7 +136,9 @@ final class UserDataViewModel: ObservableObject {
         let newUserData = User(
             fullName: currentUserData.fullName != fullname && !fullname.isEmpty ? fullname : currentUserData.fullName,
             password: currentUserData.password != password && !password.isEmpty ? password : currentUserData.password,
-            token: currentUserData.token,
+            accessToken: currentUserData.accessToken,
+            refreshToken: currentUserData.refreshToken,
+            expires: currentUserData.expires,
             phone: currentUserData.phone != phone && !phone.isEmpty ? phone : currentUserData.phone,
             email: currentUserData.email
         )

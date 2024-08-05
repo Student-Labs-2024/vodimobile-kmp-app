@@ -18,7 +18,7 @@ struct MainView: View {
     @State private var dragOffset: CGSize = .zero
     @State private var showModalCard: Bool = false
     @State private var selectedAuto: Car = Car.companion.empty()
-    @ObservedObject private var viewModel: MainViewModel = MainViewModel()
+    @ObservedObject private var viewModel = MainViewModel()
 
     var body: some View {
         NavigationView {

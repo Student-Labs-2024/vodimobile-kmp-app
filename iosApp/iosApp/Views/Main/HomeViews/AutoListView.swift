@@ -70,6 +70,9 @@ struct AutoListView: View {
                         }
                     }
             )
+            .onAppear {
+                viewModel.fetchAllCars()
+            }
         }
         .background(Color(R.color.grayLightColor))
         .navigationBarBackButtonHidden()
