@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +31,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 @Composable
 fun ServerErrorScreen(
     onServerErrorIntent: (ConnectionErrorIntent) -> Unit,
-    serverErrorEffect: MutableSharedFlow<ConnectionErrorEffect>,
+    @SuppressLint("ComposeMutableParameters") serverErrorEffect: MutableSharedFlow<ConnectionErrorEffect>,
     navHostController: NavHostController
 ) {
     Scaffold {
@@ -64,7 +62,6 @@ fun ServerErrorScreen(
                             .padding(vertical = 20.dp)
                             .size(128.dp),
                         painter = painterResource(id = R.drawable.server_error),
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                         contentDescription = stringResource(R.string.server_error)
                     )
                 }
