@@ -108,4 +108,10 @@
     <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
 
     <string name="vehicle_fleet">Vehicle fleet</string>
+    <string name="time_cancel">Cancel</string>
+    <string name="ok_time">OK</string>
+    <string name="select_time">Select time</string>
+    <string name="input_time">Input time</string>
+    <string name="switch_to_text_input">Switch to Text Input</string>
+    <string name="switch_to_touch_input">Switch to Touch Input</string>
 </resources>

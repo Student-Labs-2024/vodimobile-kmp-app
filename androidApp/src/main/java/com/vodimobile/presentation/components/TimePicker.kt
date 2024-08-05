@@ -17,7 +17,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
@@ -27,32 +26,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.vodimobile.presentation.theme.ExtendedTheme
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
-
+import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
+import com.vodimobile.android.R
 
 @SuppressLint("ComposeModifierMissing")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimePickerSwitchableSample() {
-    ExtendedTheme {
-
+fun TimePickerSwitchableSample(
+    onTimeSelected: (Long) -> Unit,
+    onCancel: () -> Unit
+) {
         var showTimePicker by remember { mutableStateOf(false) }
         val state = rememberTimePickerState()
-        val formatter = remember { SimpleDateFormat("hh:mm a", Locale.getDefault()) }
-        val snackState = remember { SnackbarHostState() }
+        val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
         val showingPicker = remember { mutableStateOf(true) }
         val configuration = LocalConfiguration.current
         val cal = Calendar.getInstance()
@@ -64,17 +61,21 @@ fun TimePickerSwitchableSample() {
             TimePickerDialog(
                 title =
                 if (showingPicker.value) {
-                    "Select Time "
+                    stringResource(R.string.select_time)
                 } else {
-                    "Enter Time"
+                    stringResource(R.string.input_time)
                 },
-                onCancel = { showTimePicker = false },
+                onCancel = {
+                    showTimePicker = false
+                    onCancel()
+                },
                 onConfirm = {
                     cal.set(Calendar.HOUR_OF_DAY, state.hour)
                     cal.set(Calendar.MINUTE, state.minute)
                     cal.isLenient = false
-                    finalTime = formatter.format(cal.time)
+                    finalTime = formatter.format(cal.timeInMillis)
                     showTimePicker = false
+                    onTimeSelected(cal.timeInMillis)
                 },
                 toggle = {
                     if (configuration.screenHeightDp > 400) {
@@ -89,9 +90,9 @@ fun TimePickerSwitchableSample() {
                                 icon,
                                 contentDescription =
                                 if (showingPicker.value) {
-                                    "Switch to Text Input"
+                                    stringResource(R.string.switch_to_text_input)
                                 } else {
-                                    "Switch to Touch Input"
+                                    stringResource(R.string.switch_to_touch_input)
                                 }
                             )
                         }
@@ -106,7 +107,6 @@ fun TimePickerSwitchableSample() {
             }
         }
     }
-}
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
@@ -137,7 +137,7 @@ fun TimePickerDialog(
                 modifier = Modifier.padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                androidx.compose.material3.Text(
+                Text(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 20.dp),
@@ -152,8 +152,8 @@ fun TimePickerDialog(
                 ) {
                     toggle()
                     Spacer(modifier = Modifier.weight(1f))
-                    TextButton(onClick = onCancel) { androidx.compose.material3.Text("Cancel") }
-                    TextButton(onClick = onConfirm) { androidx.compose.material3.Text("OK") }
+                    TextButton(onClick = onCancel) { Text(stringResource(R.string.time_cancel)) }
+                    TextButton(onClick = onConfirm) { Text(stringResource(R.string.ok_time)) }
                 }
             }
         }
