@@ -33,7 +33,7 @@ class KoinHelper : KoinComponent {
             refreshToken = refreshToken
         )
 
-    suspend fun postUser(userRequest: UserRequest) = crmStorage.authUser(userRequest = userRequest)
+    suspend fun postUser() = crmStorage.authUser()
 
     suspend fun getPlaces(accessToken: String, refreshToken: String) =
         crmStorage.getPlaces(accessToken = accessToken, refreshToken = refreshToken)

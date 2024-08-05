@@ -90,7 +90,7 @@ class CrmRepositoryImpl : CrmRepository {
         }
     }
 
-    override suspend fun postNewUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode> {
+    override suspend fun postNewUser(): CrmEither<UserResponse, HttpStatusCode> {
 //        val encodeToString: String = Json.encodeToString(userRequest)
 
         val tmp = """

@@ -50,8 +50,8 @@ class CrmStorage(
         )
     }
 
-    suspend fun authUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode> {
-        return postNewUserUseCase(userRequest = userRequest)
+    suspend fun authUser(): CrmEither<UserResponse, HttpStatusCode> {
+        return postNewUserUseCase()
     }
 
     suspend fun getPlaces(

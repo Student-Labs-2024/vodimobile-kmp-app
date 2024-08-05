@@ -27,7 +27,7 @@ interface CrmRepository {
         refreshToken: String
     ): CrmEither<TariffListDTO, HttpStatusCode>
 
-    suspend fun postNewUser(userRequest: UserRequest): CrmEither<UserResponse, HttpStatusCode>
+    suspend fun postNewUser(): CrmEither<UserResponse, HttpStatusCode>
 
     suspend fun getAllPlaces(
         accessToken: String,
