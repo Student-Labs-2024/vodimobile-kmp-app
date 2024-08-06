@@ -40,6 +40,7 @@
 		935481E02C5256770085B6CE /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481DF2C5256770085B6CE /* Enums.swift */; };
 		935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */; };
 		93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93577F112C4E6C85005FEAFF /* LoadingView.swift */; };
+		9359D23A2C614D5800FD9A25 /* KMPApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9359D2392C614D5800FD9A25 /* KMPApiManager.swift */; };
 		935CF95E2C58F02300F6F6CB /* AutoGeneralCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935CF95D2C58F02300F6F6CB /* AutoGeneralCardView.swift */; };
 		935CF9602C5908EF00F6F6CB /* AutoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935CF95F2C5908EF00F6F6CB /* AutoListViewModel.swift */; };
 		935DC3BC2C516E22009CBA43 /* AutoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DC3BB2C516E21009CBA43 /* AutoListView.swift */; };
@@ -132,6 +133,7 @@
 		935481DF2C5256770085B6CE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCardWithButtonView.swift; sourceTree = "<group>"; };
 		93577F112C4E6C85005FEAFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		9359D2392C614D5800FD9A25 /* KMPApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPApiManager.swift; sourceTree = "<group>"; };
 		935CF95D2C58F02300F6F6CB /* AutoGeneralCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGeneralCardView.swift; sourceTree = "<group>"; };
 		935CF95F2C5908EF00F6F6CB /* AutoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoListViewModel.swift; sourceTree = "<group>"; };
 		935DC3BB2C516E21009CBA43 /* AutoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoListView.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */,
+				9359D2392C614D5800FD9A25 /* KMPApiManager.swift */,
 			);
 			path = KotlinHelpers;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */,
 				93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
+				9359D23A2C614D5800FD9A25 /* KMPApiManager.swift in Sources */,
 				93BF9E782C5AAE7800A6EE91 /* ChangePasswordView.swift in Sources */,
 				937361422C54C9D200132C14 /* PasswordTextField.swift in Sources */,
 				935E1A922C51443F00A35E4E /* AutoSimpleCardView.swift in Sources */,

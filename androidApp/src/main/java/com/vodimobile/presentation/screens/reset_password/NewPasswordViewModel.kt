@@ -43,7 +43,7 @@ class NewPasswordViewModel(
             NewPasswordIntent.SaveData -> {
                 viewModelScope.launch {
                     with(newPasswordState.value) {
-                        dataStoreStorage.editPassword(password = password, token = "")
+                        dataStoreStorage.editPassword(password = password)
                     }
                     newPasswordEffect.emit(NewPasswordEffect.SaveData)
                 }

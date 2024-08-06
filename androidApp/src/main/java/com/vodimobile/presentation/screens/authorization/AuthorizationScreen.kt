@@ -28,8 +28,14 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
+import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
@@ -182,6 +188,13 @@ private fun AuthorizationScreenPreviewDark() {
                                 LocalContext.current
                             )
                         )
+                    ),
+                    editTokensUseCase = EditTokensUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
                     )
                 )
             )
@@ -225,6 +238,13 @@ private fun AuthorizationScreenPreviewLight() {
                         )
                     ),
                     editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editTokensUseCase = EditTokensUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
                                 LocalContext.current

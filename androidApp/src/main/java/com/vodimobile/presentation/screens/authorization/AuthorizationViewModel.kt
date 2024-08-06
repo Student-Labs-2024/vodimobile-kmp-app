@@ -70,7 +70,7 @@ class AuthorizationViewModel(
             AuthorizationIntent.AskPermission -> {
                 viewModelScope.launch {
                     with(authorizationState.value) {
-                        dataStoreStorage.editPassword(password = password, token = "")
+                        dataStoreStorage.editPassword(password = password)
                     }
                     authorizationEffect.emit(AuthorizationEffect.AskPermission)
                 }

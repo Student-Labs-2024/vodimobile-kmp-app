@@ -10,9 +10,20 @@ import shared
 import SwiftUI
 
 final class AutoListViewModel: ObservableObject {
-    @Published var listOfAllCar: [Car]
+    @Published var listOfAllCar = [Car]()
+    private var carsList = [Car]() {
+        didSet {
+            listOfAllCar = carsList
+        }
+    }
 
     init() {
-        self.listOfAllCar = KoinHelper().getPopularCars()
+        fetchAllCars()
+    }
+    
+    func fetchAllCars() {
+        Task {
+            carsList = await KMPApiManager.shared.fetchCars()
+        }
     }
 }

@@ -155,6 +155,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController = navHostController
                 )
             }
+            dialog(route = DialogIdentifiers.LOADING_DIALOG) {
+                ProgressDialogIndicator()
+            }
         }
         navigation(
             route = RootScreen.ORDERS_SCREEN,
