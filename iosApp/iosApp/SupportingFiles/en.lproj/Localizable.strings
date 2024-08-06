@@ -111,15 +111,15 @@
 "driveTypeTitle" = "Drive";
 "tankTitle" = "Tank";
 "prepositionPriceText" = "from";
-"currencyPriceText" = "rub.";
+"currencyPriceText" = "rub. per day";
 "yearOfManufactureTitle" = "Year of manufacture";
 "characteristicsTitle" = "Characteristics:";
 "generalAutoCardTitle" = "Go to the entire car park";
 "literText" = "liter(s)";
 "resetScreenTitle" = "Input phone number";
 "resetScreenSubtitle" = "The code for changing the password will be sent by SMS.";
-"servetErrorTitle" = "Server error";
-"servetErrorText" = "Something went wrong on the server side. Try the connection again.";
+"serverErrorTitle" = "Server error";
+"serverErrorText" = "Something went wrong on the server side. Try the connection again.";
 "signSuggestTitle" = "Sign in or create account";
 "signSuggestText" = "To submit a request, you must have an account";
 

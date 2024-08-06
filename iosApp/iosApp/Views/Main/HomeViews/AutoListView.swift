@@ -26,24 +26,50 @@ struct AutoListView: View {
                 )
             
             TabView(selection: $selectedTab) {
-                if selectedTab == 0 {
-                    ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack(spacing: 20) {
-                            ForEach(viewModel.listOfAllCar.indices, id: \.self) { index in
-                                AutoCardWithButtonView(
-                                    carModel: viewModel.listOfAllCar[index],
-                                    selectedAuto: $selectedAuto, 
-                                    showModal: $showModalCard
-                                )
-                            }
-                        }
-                        .padding(.horizontal, horizontalPadding)
-                        .padding(.vertical, 24)
-                    }
-                } else {
-                    Text("Page \(selectedTab)").tag(selectedTab)
+                switch selectedTab {
+                case 1:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .economy),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 2:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .comfort),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 3:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .premium),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 4:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .sedans),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 5:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .jeeps),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                default:
+                    ScrollableAutoListView(
+                        carList: viewModel.listOfAllCar,
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        refreshAction: viewModel.fetchAllCars
+                    )
                 }
-                
             }
             .ignoresSafeArea(.container)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -71,9 +97,13 @@ struct AutoListView: View {
                     }
             )
             .onAppear {
-                viewModel.fetchAllCars()
+                Task {
+                    await viewModel.fetchAllCars()
+                    viewModel.isLoading.toggle()
+                }
             }
         }
+        .loadingOverlay(isLoading: $viewModel.isLoading)
         .background(Color(R.color.grayLightColor))
         .navigationBarBackButtonHidden()
         .toolbar {

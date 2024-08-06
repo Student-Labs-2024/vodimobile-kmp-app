@@ -57,7 +57,7 @@ struct ModalAutoCardView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack {
             HStack {
                 Spacer()
                 ZStack {
@@ -82,12 +82,13 @@ struct ModalAutoCardView: View {
                 carPreview
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .frame(maxHeight: 200)
                     .padding(.horizontal, 55)
                 
                 HStack {
                     Text(carModel.model.resource).font(.header3)
                     Spacer()
-                    Text("от \(Int(carPrice)) руб.")
+                    Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
                         .font(.header4)
                         .foregroundStyle(Color(R.color.blueColor))
                         .fontWeight(.bold)
@@ -98,7 +99,7 @@ struct ModalAutoCardView: View {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
                     
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
                         HStack(spacing: 18) {
                             Image(R.image.transmission)
                                 .resizable()

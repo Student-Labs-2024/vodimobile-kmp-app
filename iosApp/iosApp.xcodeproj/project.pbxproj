@@ -40,6 +40,8 @@
 		935481E02C5256770085B6CE /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481DF2C5256770085B6CE /* Enums.swift */; };
 		935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */; };
 		93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93577F112C4E6C85005FEAFF /* LoadingView.swift */; };
+		9358EABA2C62AA2800488093 /* SwiftUIPullToRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 9358EAB92C62AA2800488093 /* SwiftUIPullToRefresh */; };
+		9358EABC2C62BC4D00488093 /* ScrollableAutoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9358EABB2C62BC4D00488093 /* ScrollableAutoListView.swift */; };
 		9359D23A2C614D5800FD9A25 /* KMPApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9359D2392C614D5800FD9A25 /* KMPApiManager.swift */; };
 		935CF95E2C58F02300F6F6CB /* AutoGeneralCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935CF95D2C58F02300F6F6CB /* AutoGeneralCardView.swift */; };
 		935CF9602C5908EF00F6F6CB /* AutoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935CF95F2C5908EF00F6F6CB /* AutoListViewModel.swift */; };
@@ -50,10 +52,9 @@
 		935E1A902C5137CC00A35E4E /* ModalDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */; };
 		935E1A922C51443F00A35E4E /* AutoSimpleCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935E1A912C51443F00A35E4E /* AutoSimpleCardView.swift */; };
 		935EE3012C4E28FD0039A2DC /* InternetConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */; };
-		935EE3032C4E2E6B0039A2DC /* ServerConnectErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */; };
-		936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */; };
 		935EE3032C4E2E6B0039A2DC /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */; };
 		935F029A2C5A8809003DA751 /* ResetPasswordPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */; };
+		936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
@@ -133,6 +134,7 @@
 		935481DF2C5256770085B6CE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCardWithButtonView.swift; sourceTree = "<group>"; };
 		93577F112C4E6C85005FEAFF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		9358EABB2C62BC4D00488093 /* ScrollableAutoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableAutoListView.swift; sourceTree = "<group>"; };
 		9359D2392C614D5800FD9A25 /* KMPApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMPApiManager.swift; sourceTree = "<group>"; };
 		935CF95D2C58F02300F6F6CB /* AutoGeneralCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoGeneralCardView.swift; sourceTree = "<group>"; };
 		935CF95F2C5908EF00F6F6CB /* AutoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoListViewModel.swift; sourceTree = "<group>"; };
@@ -144,10 +146,9 @@
 		935E1A912C51443F00A35E4E /* AutoSimpleCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSimpleCardView.swift; sourceTree = "<group>"; };
 		935E1A932C5148CA00A35E4E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectErrorView.swift; sourceTree = "<group>"; };
-		935EE3022C4E2E6B0039A2DC /* ServerConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnectErrorView.swift; sourceTree = "<group>"; };
-		936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
 		935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPhoneView.swift; sourceTree = "<group>"; };
+		936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -185,6 +186,7 @@
 			files = (
 				93351C862C42F7C100DD882A /* iPhoneNumberField in Frameworks */,
 				93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */,
+				9358EABA2C62AA2800488093 /* SwiftUIPullToRefresh in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +323,7 @@
 				935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */,
 				935481DD2C524C6B0085B6CE /* TopTabBarView.swift */,
 				93BF9E802C5ACE5100A6EE91 /* ButtonLikeTextFieldView.swift */,
+				9358EABB2C62BC4D00488093 /* ScrollableAutoListView.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 			packageProductDependencies = (
 				93351C852C42F7C100DD882A /* iPhoneNumberField */,
 				93D1E05E2C45048200919749 /* RswiftLibrary */,
+				9358EAB92C62AA2800488093 /* SwiftUIPullToRefresh */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -507,6 +511,7 @@
 				93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				93D1E05D2C45048200919749 /* XCRemoteSwiftPackageReference "R" */,
 				9370C1932C501B6100C783D8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				9358EAB82C62AA2800488093 /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -660,6 +665,7 @@
 				937361402C54C21D00132C14 /* BorderedTextField.swift in Sources */,
 				936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */,
 				93328FBD2C495594008EADB4 /* ConditionViewModel.swift in Sources */,
+				9358EABC2C62BC4D00488093 /* ScrollableAutoListView.swift in Sources */,
 				934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */,
 				9359D23A2C614D5800FD9A25 /* KMPApiManager.swift in Sources */,
 				93BF9E782C5AAE7800A6EE91 /* ChangePasswordView.swift in Sources */,
@@ -918,6 +924,14 @@
 				minimumVersion = 0.10.4;
 			};
 		};
+		9358EAB82C62AA2800488093 /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-pull-to-refresh";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.9;
+			};
+		};
 		9370C1932C501B6100C783D8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
@@ -941,6 +955,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93351C842C42F7C100DD882A /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
 			productName = iPhoneNumberField;
+		};
+		9358EAB92C62AA2800488093 /* SwiftUIPullToRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9358EAB82C62AA2800488093 /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */;
+			productName = SwiftUIPullToRefresh;
 		};
 		93D1E05E2C45048200919749 /* RswiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -117,6 +117,10 @@
 "literText" = "л.";
 "resetScreenTitle" = "Введите номера телефона";
 "resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
+"serverErrorTitle" = "Ошибка сервера";
+"serverErrorText" = "Что-то пошло не так на стороне сервера. Повторите попытку соединения.";
+"signSuggestTitle" = "Войдите или создайте профиль";
+"signSuggestText" = "Чтобы оставить заявку необходимо иметь аккаунт";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";
