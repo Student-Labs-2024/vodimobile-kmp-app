@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.SecondaryButton
 import com.vodimobile.presentation.screens.error_app.store.ErrorAppEffect
 import com.vodimobile.presentation.screens.error_app.store.ErrorAppIntent
@@ -54,12 +55,19 @@ fun ErrorAppScreen(
         errorAppEffect.collect { effect ->
             when (effect) {
                 ErrorAppEffect.BackClick -> {
-
-
+                    navHostController.navigateUp()
                 }
 
                 ErrorAppEffect.RepeatClick -> {
 
+                }
+
+                ErrorAppEffect.ProgressDialog -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
+                }
+
+                ErrorAppEffect.RemoveProgressDialog -> {
+                    navHostController.navigateUp()
                 }
             }
         }
