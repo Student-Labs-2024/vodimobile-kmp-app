@@ -33,6 +33,8 @@ import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
 import com.vodimobile.presentation.screens.edit_profile.EditProfileScreen
 import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
+import com.vodimobile.presentation.screens.error_app.ErrorAppScreen
+import com.vodimobile.presentation.screens.error_app.ErrorAppViewModel
 import com.vodimobile.presentation.screens.faq.FaqScreen
 import com.vodimobile.presentation.screens.faq.FaqViewModel
 import com.vodimobile.presentation.screens.home.HomeScreen
@@ -173,6 +175,13 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     successfulEffect = successfulAppViewModel.successfulEffect,
                     navHostController = navHostController
                 )
+            }
+            composable(route = LeafOrdersScreen.ERROR_APP_SCREEN) {
+                val errorAppViewModel: ErrorAppViewModel = koinViewModel()
+                ErrorAppScreen(
+                    onErrorAppIntent = errorAppViewModel::onIntent,
+                    errorAppEffect = errorAppViewModel.errorAppEffect,
+                    navHostController = navHostController)
             }
         }
         navigation(
