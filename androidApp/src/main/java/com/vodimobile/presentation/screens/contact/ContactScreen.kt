@@ -5,11 +5,11 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -17,7 +17,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,6 +59,7 @@ fun ContactScreen(
                 ContactEffect.VkClick -> {
                     openVk()
                 }
+
                 ContactEffect.WhatsappClick -> {
                     openWhatsapp(App.INSTANCE.getString(R.string.phone_number))
                 }
@@ -78,31 +78,40 @@ fun ContactScreen(
             )
         }
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
                 .padding(top = 16.dp)
                 .background(color = MaterialTheme.colorScheme.background)
         ) {
-            VersionItem(version = contactState.value.version, validYear = validYear)
-
-            Spacer(modifier = Modifier.height(20.dp))
-            ListInfoContact()
-
-
-            Spacer(modifier = Modifier.height(12.dp))
-            ListContactItem(
-                onVkClick = {
-                    onContactIntent(ContactIntent.VkClick)
-                },
-                onWhatsappClick = {
-                    onContactIntent(ContactIntent.WhatsappClick)
-                },
-                onTelegramClick = {
-                    onContactIntent(ContactIntent.TelegramClick)
-                }
-            )
+            item {
+                VersionItem(
+                    version = contactState.value.version,
+                    validYear = validYear)
+            }
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+            item {
+                ListInfoContact()
+            }
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+            item {
+                ListContactItem(
+                    onVkClick = {
+                        onContactIntent(ContactIntent.VkClick)
+                    },
+                    onWhatsappClick = {
+                        onContactIntent(ContactIntent.WhatsappClick)
+                    },
+                    onTelegramClick = {
+                        onContactIntent(ContactIntent.TelegramClick)
+                    }
+                )
+            }
         }
     }
 }
