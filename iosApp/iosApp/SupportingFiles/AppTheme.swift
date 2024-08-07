@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftUI
-import RswiftResources
+import shared
 
 extension Image {
     static let xmark: Image = Image(systemName: "xmark")
@@ -23,6 +23,23 @@ extension Image {
     static let rightArrowCircleFill: Image = Image(systemName: "arrow.forward.circle.fill")
     static let bell: Image = Image(systemName: "bell")
     static let minus: Image = Image(systemName: "minus")
+    static let infoCircleFill: Image = Image(systemName: "info.circle.fill")
+    static let questionFolder: Image = Image(systemName: "questionmark.folder")
+    static let car: Image = Image(systemName: "car")
+    static let eye: Image = Image(systemName: "eye")
+    static let eyeSlash: Image = Image(systemName: "eye.slash")
+}
+
+extension Image {
+    init(resource: KeyPath<SharedRes.images, shared.ImageResource>) {
+        self.init(uiImage: SharedRes.images()[keyPath: resource].toUIImage()!)
+    }
+}
+
+extension StringResource {
+    var resource: String {
+        self.desc().localized()
+    }
 }
 
 extension Font {
@@ -31,23 +48,35 @@ extension Font {
     public static let header2: Font = Font(R.font.akzidenzGroteskProRegular(size: 20) ?? .systemFont(ofSize: 20))
     public static let header3: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
     public static let header4: Font = Font(R.font.akzidenzGroteskProExt(size: 15) ?? .systemFont(ofSize: 15))
+    public static let header5: Font = Font(R.font.akzidenzGroteskProExt(size: 14) ?? .systemFont(ofSize: 14))
     // button text
     public static let button: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
+    public static let tag: Font = Font(R.font.akzidenzGroteskProMdEx(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonText: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonCheckBox: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonTabbar: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
+
+    public static let caption2: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
+    public static let caption1: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
+
     // paragraph text
     public static let paragraph1: Font = Font(R.font.akzidenzGroteskProMd(size: 18) ?? .systemFont(ofSize: 18))
     public static let paragraph2: Font = Font(R.font.akzidenzGroteskProRegular(size: 16) ?? .systemFont(ofSize: 16))
     public static let paragraph3: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
-    public static let paragraph4: Font = Font(R.font.akzidenzGroteskProRegular(size: 14) ?? .systemFont(ofSize: 14))
-    public static let paragraph5: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph5: Font = Font(R.font.akzidenzGroteskProRegular(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph4: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let paragraph6: Font = Font(R.font.akzidenzGroteskProLight(size: 12) ?? .systemFont(ofSize: 12))
 }
 
 struct FilledBtnStyle: ButtonStyle {
+    let heightButton: CGFloat?
+
+    init(heightButton: CGFloat? = nil) {
+        self.heightButton = heightButton
+    }
+
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        FilledButton(configuration: configuration)
+        FilledButton(configuration: configuration, height: heightButton)
     }
 }
 
@@ -72,6 +101,9 @@ struct BorderedTextFieldStyle: TextFieldStyle {
     var text: String
     var isFocused: Bool
     var isValid: Bool
+    private var textIsNotValid: Bool {
+        !isValid && !text.isEmpty
+    }
     func _body(configuration: TextField<_Label>) -> some View {
         configuration
             .frame(alignment: .leading)
@@ -84,8 +116,8 @@ struct BorderedTextFieldStyle: TextFieldStyle {
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(
-                        !isValid && !text.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
-                        lineWidth: isFocused || (!isValid && !text.isEmpty) ? 1 : 0
+                        textIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                        lineWidth: isFocused || textIsNotValid ? 1 : 0
                     )
             )
     }

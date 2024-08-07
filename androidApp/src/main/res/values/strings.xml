@@ -4,6 +4,9 @@
     <string name="requister_str">Зарегистрироваться</string>
     <string name="login_str">Войти</string>
 
+    <string name="login_or_create_title">Войдите или создайте профиль</string>
+    <string name="login_or_create_subtitle">Чтобы оставить заявку необходимо иметь аккаунт</string>
+
     <string name="label_name">ФИО</string>
     <string name="placeholder_name">Введите ваше ФИО</string>
     <string name="name_error">Неверный формат. Для ввода допускается только буквы без символов</string>
@@ -107,4 +110,8 @@
     <string name="error_app_title2">Не получилось оставить заявку. Попробуйте еще раз</string>
     <string name="error_bt">Повторить попытку</string>
     <string name="error_icon">назад</string>
+    <string name="success_str">успешно</string>
+    <string name="succes_title">Заявка оставлена</string>
+    <string name="success2_title">Менеджер скоро свяжется с вами. Изменить заказ и посмотреть его статус можно в заказах</string>
+    <string name="success_bt">Мои заказы</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.navigation.navigation
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
@@ -57,6 +58,8 @@ import com.vodimobile.presentation.screens.sms.SmsScreen
 import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreen
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
+import com.vodimobile.presentation.screens.successful_app.SuccessfulAppScreen
+import com.vodimobile.presentation.screens.successful_app.SuccessfulAppViewModel
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
@@ -152,9 +155,25 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController = navHostController
                 )
             }
+            dialog(route = DialogIdentifiers.LOADING_DIALOG) {
+                ProgressDialogIndicator()
+            }
         }
-        composable(RootScreen.ORDERS_SCREEN) {
-            OrdersScreen()
+        navigation(
+            route = RootScreen.ORDERS_SCREEN,
+            startDestination = LeafOrdersScreen.ORDERS_SCREEN
+        ) {
+            composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
+
+            }
+            composable(route = LeafOrdersScreen.SUCCESSFUL_SCREEN) {
+                val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
+                SuccessfulAppScreen(
+                    onSuccessfulIntent = successfulAppViewModel::onIntent ,
+                    successfulEffect = successfulAppViewModel.successfulEffect,
+                    navHostController = navHostController
+                )
+            }
         }
         navigation(
             route = RootScreen.PROFILE_SCREEN,

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform).apply(false)
     alias(libs.plugins.jetbrainsCompose).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
+    id("org.jetbrains.kotlin.jvm").version("1.7.20").apply(false)
 }
 
 buildscript {
@@ -17,5 +18,6 @@ buildscript {
 
     dependencies {
         classpath(libs.resources.generator)
+        classpath(libs.buildkonfig.gradle.plugin)
     }
 }

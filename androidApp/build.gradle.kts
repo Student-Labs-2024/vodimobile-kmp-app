@@ -99,4 +99,10 @@ dependencies {
     
     //Lint
     lintChecks(libs.compose.lint.checks)
+
+    //Ktor
+    implementation(libs.ktor.client.okhttp)
+
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.android)
 }

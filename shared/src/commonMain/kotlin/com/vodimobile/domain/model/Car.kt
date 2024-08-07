@@ -1,11 +1,8 @@
 package com.vodimobile.domain.model
 
-import com.vodimobile.domain.model.remote.CarType
 import com.vodimobile.shared.resources.SharedRes
 import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
-import dev.icerock.moko.resources.desc.Resource
-import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
@@ -18,7 +15,7 @@ data class Car(
     val transmission: StringResource,
     val wheelDrive: StringResource,
     val tankValue: StringResource,
-    val carType: List<CarType>,
+    val carType: List<CarType> = emptyList(),
     val deposit: Float?,
     val tariffs: List<Tariff>,
     val images: List<ImageResource>,
@@ -49,5 +46,23 @@ data class Car(
                 )
             )
         }
+
+//        fun Array<CarDTO>.toCar(tariffs: List<Tariff>) : List<Car>{
+//            return this.map {
+//                Car(
+//                    model = it.model,
+//                    carId = it.car_id,
+//                    cityId = it.city_id,
+//                    year = it.year,
+//                    number = it.number,
+//                    transmission = "",
+//                    wheelDrive = "",
+//                    tankValue = "",
+//                    deposit = 0.0f,
+//                    tariffs = tariffs,
+//                    images = emptyList()
+//                )
+//            }
+//        }
     }
 }

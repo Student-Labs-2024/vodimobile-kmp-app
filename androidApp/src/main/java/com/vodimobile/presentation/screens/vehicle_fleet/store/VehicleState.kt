@@ -2,9 +2,11 @@ package com.vodimobile.presentation.screens.vehicle_fleet.store
 
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.remote.either.CrmEither
+import io.ktor.http.HttpStatusCode
 
 data class VehicleState(
-    val carList: List<Car> = emptyList(),
+    val crmEither: CrmEither<List<Car>, HttpStatusCode> = CrmEither.CrmLoading,
     val selectedCar: Car = Car.empty(),
     val showBottomSheet: Boolean = false,
 

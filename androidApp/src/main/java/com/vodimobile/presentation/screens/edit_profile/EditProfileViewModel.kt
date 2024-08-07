@@ -91,7 +91,6 @@ class EditProfileViewModel(
                             user = User(
                                 fullName = editProfileState.value.fullName,
                                 password = editProfileState.value.user.password,
-                                token = editProfileState.value.user.token,
                                 phone = editProfileState.value.user.phone,
                                 email = editProfileState.value.user.email
                             )
