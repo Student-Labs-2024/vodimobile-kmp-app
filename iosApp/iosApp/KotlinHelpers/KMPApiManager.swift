@@ -73,17 +73,39 @@ final class KMPApiManager {
         return []
     }
     
-    func convertNSArrayToArray(nsArray: NSArray) -> [Car] {
-        var cars: [Car] = []
+    func fetchPlaces() async -> [Place] {
+        do {
+            let response = try await helper.getPlaces(
+                accessToken: tokens.0,
+                refreshToken: tokens.1
+            )
+            switch onEnum(of: response) {
+            case .crmData(let success):
+                print(success.data ?? "Empty data")
+                if let places = success.data {
+                    return convertNSArrayToArray(nsArray: places)
+                }
+            case .crmError(let error):
+                print(error.status?.value ?? "Empty error")
+            case .crmLoading(_):
+                print("loading...")
+            }
+        } catch {
+            print(error)
+        }
+        return []
+    }
+    
+    private func convertNSArrayToArray<T>(nsArray: NSArray) -> [T] {
+        var itemList: [T] = []
         
         for item in nsArray {
-            if let car = item as? Car {
-                cars.append(car)
+            if let item = item as? T {
+                itemList.append(item)
             } else {
                 print("Element is not of type Car: \(item)")
             }
         }
-        
-        return cars
+        return itemList
     }
 }

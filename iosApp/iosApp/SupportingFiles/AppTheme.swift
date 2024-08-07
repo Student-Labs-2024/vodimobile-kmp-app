@@ -28,6 +28,7 @@ extension Image {
     static let car: Image = Image(systemName: "car")
     static let eye: Image = Image(systemName: "eye")
     static let eyeSlash: Image = Image(systemName: "eye.slash")
+    static let clock: Image = Image(systemName: "clock")
 }
 
 extension Image {

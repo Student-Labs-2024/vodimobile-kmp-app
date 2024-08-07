@@ -141,7 +141,7 @@ struct BorderedTextField: View {
         }
     }
     
-    func handleErrorTypeChanging(errorMsg: inout String) {
+    private func handleErrorTypeChanging(errorMsg: inout String) {
         if let inputErrorType = inputErrorType {
             switch inputErrorType {
             case .alreadyExistsPhone:
@@ -176,6 +176,8 @@ struct BorderedTextField: View {
                 if fieldType == .password {
                     errorMsg = InputErrorType.invalidPass.errorString
                 }
+            case .selectDayTime, .selectNightTime:
+                errorMsg = ""
             }
         }
     }

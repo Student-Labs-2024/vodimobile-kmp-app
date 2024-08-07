@@ -33,8 +33,7 @@ struct ModalAutoCardView: View {
     private let carPreview: Image
     private let carPrice: Float
     private let carYear: Int
-    
-    let columns = [
+    private let columns = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
