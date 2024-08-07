@@ -18,6 +18,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafErrorScreen
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.LeafScreen
@@ -43,7 +44,6 @@ import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
-import com.vodimobile.presentation.screens.orders.OrdersScreen
 import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
@@ -66,39 +66,55 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
+import com.vodimobile.presentation.utils.internet.ConnectionStatus
+import com.vodimobile.presentation.utils.internet.connectivityState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
+
+    val connection by connectivityState()
+
     NavHost(
         navController = navHostController,
         startDestination = RootScreen.HOME_SCREEN
     ) {
         navigation(
             route = RootScreen.HOME_SCREEN,
-            startDestination = LeafHomeScreen.NO_INTERNET_SCREEN
+            startDestination = LeafHomeScreen.HOME_SCREEN
         ) {
             composable(
                 route = LeafHomeScreen.HOME_SCREEN
             ) { backStackEntry ->
-                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-date",
-                    initialValue = longArrayOf(0L, 0L),
-                ).collectAsState().value
-                val homeViewModel: HomeViewModel = koinViewModel()
-                HomeScreen(
-                    homeState = homeViewModel.homeState.collectAsState(
-                        initial = HomeState(
-                            selectedDate = selectedDate
-                        )
-                    ),
-                    homeEffect = homeViewModel.homeEffect,
-                    onHomeIntent = homeViewModel::onIntent,
-                    navHostController = navHostController,
-                    selectedDate = selectedDate,
-                    modifier = modifier
-                )
+
+                val isConnected = checkInternet(connection = connection)
+                if (isConnected) {
+                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                        "selected-date",
+                        initialValue = longArrayOf(0L, 0L),
+                    ).collectAsState().value
+                    val homeViewModel: HomeViewModel = koinViewModel()
+                    HomeScreen(
+                        homeState = homeViewModel.homeState.collectAsState(
+                            initial = HomeState(
+                                selectedDate = selectedDate
+                            )
+                        ),
+                        homeEffect = homeViewModel.homeEffect,
+                        onHomeIntent = homeViewModel::onIntent,
+                        navHostController = navHostController,
+                        selectedDate = selectedDate,
+                        modifier = modifier
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafHomeScreen.HOME_SCREEN,
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafHomeScreen.HOME_SCREEN}")
+                }
             }
             composable(route = LeafHomeScreen.ALL_CARS) {
                 val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
@@ -149,16 +165,24 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController = navHostController
                 )
             }
-            composable(route = LeafHomeScreen.NO_INTERNET_SCREEN) {
+            dialog(route = DialogIdentifiers.LOADING_DIALOG) {
+                ProgressDialogIndicator()
+            }
+            composable(
+                route = "${LeafErrorScreen.NO_INTERNET}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )
+            ) { backStackEntry->
+                val screen = backStackEntry.arguments?.getString("screen") ?: ""
+                print (screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
                     networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
-                    navHostController = navHostController
+                    navHostController = navHostController,
+                    screen = screen
                 )
-            }
-            dialog(route = DialogIdentifiers.LOADING_DIALOG) {
-                ProgressDialogIndicator()
             }
         }
         navigation(
@@ -171,7 +195,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             composable(route = LeafOrdersScreen.SUCCESSFUL_SCREEN) {
                 val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
                 SuccessfulAppScreen(
-                    onSuccessfulIntent = successfulAppViewModel::onIntent ,
+                    onSuccessfulIntent = successfulAppViewModel::onIntent,
                     successfulEffect = successfulAppViewModel.successfulEffect,
                     navHostController = navHostController
                 )
@@ -181,7 +205,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 ErrorAppScreen(
                     onErrorAppIntent = errorAppViewModel::onIntent,
                     errorAppEffect = errorAppViewModel.errorAppEffect,
-                    navHostController = navHostController)
+                    navHostController = navHostController
+                )
             }
         }
         navigation(
@@ -354,4 +379,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             }
         }
     }
+}
+
+private fun checkInternet(connection: ConnectionStatus): Boolean {
+    val isConnected = connection === ConnectionStatus.Available
+    return isConnected
 }

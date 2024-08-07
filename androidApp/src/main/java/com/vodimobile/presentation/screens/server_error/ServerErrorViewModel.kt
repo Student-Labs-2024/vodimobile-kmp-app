@@ -13,9 +13,9 @@ class ServerErrorViewModel : ViewModel() {
 
     fun onIntent(intent: ConnectionErrorIntent) {
         when (intent) {
-            ConnectionErrorIntent.ClickRepeat -> {
+            is ConnectionErrorIntent.ClickRepeat -> {
                 viewModelScope.launch {
-                    serverErrorEffect.emit(ConnectionErrorEffect.ClickRepeat)
+                    serverErrorEffect.emit(ConnectionErrorEffect.ClickRepeat(value = intent.value))
                 }
             }
         }

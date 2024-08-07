@@ -5,6 +5,7 @@ object RootScreen {
     const val ORDERS_SCREEN = "order_root"
     const val PROFILE_SCREEN = "profile_root"
     const val START_SCREEN = "start_root"
+    const val ERROR_SCREEN = "error_screen"
 }
 
 object LeafScreen {
@@ -44,4 +45,8 @@ object LeafOrdersScreen {
     const val ORDERS_SCREEN = "orders"
     const val SUCCESSFUL_SCREEN = "successful"
     const val ERROR_APP_SCREEN = "error"
+}
+
+object LeafErrorScreen {
+    const val NO_INTERNET = "no_internet"
 }
