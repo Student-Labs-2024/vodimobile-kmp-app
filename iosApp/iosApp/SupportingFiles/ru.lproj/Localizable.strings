@@ -57,7 +57,7 @@
 "newPassword" = "Новый пароль";
 "passwordPlaceholder" = "Введите пароль";
 "newPasswordPlaceholder" = "Придумайте пароль";
-"methodOfObtaining" = "Где заберёте авто?";
+"methodOfObtainingTitle" = "Где заберёте авто?";
 "methodOfObtaining" = "Выберите способ";
 "rentalTime" = "В какое время?";
 "rentalTimePlaceholder" = "Выберите время";

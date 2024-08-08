@@ -136,7 +136,7 @@ enum ButtonLikeTextFieldType {
         case .timePicker:
             return R.string.localizable.rentalTime()
         case .placePicker:
-            return R.string.localizable.fullName()
+            return R.string.localizable.methodOfObtaining()
         }
     }
 }

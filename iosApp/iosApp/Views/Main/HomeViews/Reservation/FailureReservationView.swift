@@ -11,12 +11,25 @@ import SwiftUI
 struct FailureReservationView: View {
     var body: some View {
         VStack(spacing: 36) {
+            HStack {
+                NavigationLink(destination: MainTabbarView()) {
+                    Image.chevronLeft
+                        .resizable()
+                        .foregroundColor(Color.black)
+                        .fontWeight(.bold)
+                        .frame(width: 12, height: 18)
+                }
+                .padding(.top, 10)
+                .padding(.horizontal, 5)
+                Spacer()
+            }
+            
             Image(R.image.failureCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)
                 .padding(.horizontal, 110)
-                .padding(.top, 20)
+                .padding(.top, 40)
             
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.requestFailedTitle)
@@ -30,13 +43,16 @@ struct FailureReservationView: View {
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
             
-            Button(R.string.localizable.reconnectButton()) {
-                // TODO: - add logic for repeat to request a reservation
-            }
+            NavigationLink(R.string.localizable.reconnectButton(), destination: {
+                MainTabbarView()
+                // TODO: - Make to move back on rootViewController
+            })
             .buttonStyle(BorderedBtnStyle())
+            
+            Spacer()
         }
+        .navigationBarBackButtonHidden()
         .padding(.horizontal, horizontalPadding)
-        .padding(.vertical, 50)
     }
 }
 

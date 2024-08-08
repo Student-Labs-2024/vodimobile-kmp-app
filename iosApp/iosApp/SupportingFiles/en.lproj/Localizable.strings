@@ -58,7 +58,7 @@
 "passwordPlaceholder" = "Input your password";
 "newPasswordPlaceholder" = "Input your new password";
 "fullnamePlaceholder" = "Input your full name";
-"methodOfObtaining" = "Where will you pick up the car?";
+"methodOfObtainingTitle" = "Where will you pick up the car?";
 "methodOfObtaining" = "Select method";
 "rentalTime" = "What time?";
 "rentalTimePlaceholder" = "Select time";

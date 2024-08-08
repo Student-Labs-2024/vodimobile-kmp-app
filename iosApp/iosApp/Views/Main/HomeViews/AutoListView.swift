@@ -34,7 +34,8 @@ struct AutoListView: View {
                                 AutoCardWithButtonView(
                                     carModel: viewModel.listOfAllCar[index],
                                     selectedAuto: $selectedAuto,
-                                    showModal: $showModalCard
+                                    showModal: $showModalCard,
+                                    showModalReservation: $showModalReservation
                                 )
                             }
                         }

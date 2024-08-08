@@ -38,7 +38,7 @@ struct DataPickerField: View {
                 rightImage
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 30 , height: 30)
+                    .frame(width: 20 , height: 20)
                     .foregroundColor(.gray)
             }
             .frame(alignment: .leading)
@@ -48,6 +48,7 @@ struct DataPickerField: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray, lineWidth: 1)
             }
+            .frame(maxHeight: 55)
         }
     }
     

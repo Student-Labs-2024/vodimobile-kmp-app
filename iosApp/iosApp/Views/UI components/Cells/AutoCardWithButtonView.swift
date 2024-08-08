@@ -13,13 +13,15 @@ struct AutoCardWithButtonView: View {
     let carModel: Car
     @Binding var showModal: Bool
     @Binding var selectedAuto: Car
+    @Binding var showModalReservation: Bool
     private var carPreview: Image
     private var carPrice: Float
     
     init(
         carModel: Car,
         selectedAuto: Binding<Car>,
-        showModal: Binding<Bool>
+        showModal: Binding<Bool>,
+        showModalReservation: Binding<Bool>
     ) {
         self.carModel = carModel
         if let image = carModel.images.first, let tariff = carModel.tariffs.first {
@@ -31,6 +33,7 @@ struct AutoCardWithButtonView: View {
         }
         self._selectedAuto = selectedAuto
         self._showModal = showModal
+        self._showModalReservation = showModalReservation
     }
     
     var body: some View {
@@ -53,8 +56,9 @@ struct AutoCardWithButtonView: View {
             }
             
             HStack {
-                NavigationLink(destination: MakeReservationView(car: carModel, dates: nil)) {
-                    Text(R.string.localizable.bookButton)
+                
+                Button(R.string.localizable.bookButton()) {
+                    showModalReservation.toggle()
                 }
                 .buttonStyle(FilledBtnStyle(heightButton: 40))
                 .padding(.trailing, 20)

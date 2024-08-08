@@ -11,12 +11,25 @@ import SwiftUI
 struct SuccessfulReservationView: View {
     var body: some View {
         VStack(spacing: 36) {
+            HStack {
+                NavigationLink(destination: MainTabbarView()) {
+                    Image.xmark
+                        .resizable()
+                        .foregroundColor(Color.black)
+                        .fontWeight(.bold)
+                        .frame(width: 18, height: 18)
+                }
+                .padding(.top, 10)
+                .padding(.horizontal, 5)
+                Spacer()
+            }
+            
             Image(R.image.successCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)
                 .padding(.horizontal, 110)
-                .padding(.top, 20)
+                .padding(.top, 40)
             
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.requestSubmittedTitle)
@@ -31,13 +44,14 @@ struct SuccessfulReservationView: View {
             .padding(.vertical, 12)
             
             NavigationLink(R.string.localizable.myOrdersScreenTitle(), destination: {
-                MainTabbarView()
-                // TODO: - Make to move back on rootViewController
+                MyOrdersView()
             })
-            .buttonStyle(FilledBtnStyle())
+            .buttonStyle(FilledBtnWithoutDisabledStyle())
+            
+            Spacer()
         }
+        .navigationBarBackButtonHidden()
         .padding(.horizontal, horizontalPadding)
-        .padding(.vertical, 50)
     }
 }
 

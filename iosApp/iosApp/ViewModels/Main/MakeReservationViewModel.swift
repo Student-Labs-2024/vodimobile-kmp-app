@@ -12,7 +12,9 @@ import shared
 final class MakeReservationViewModel: ObservableObject {
     // TODO: - Add network logic for request all place for pick up cars
     @Published var placesWithCost = [String]()
+    @Published var isSuccessed: Bool = true
     private var placeList = [Place]()
+    
     
     func fetchPlaceList() async {
         let places = await KMPApiManager.shared.fetchPlaces()

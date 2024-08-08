@@ -35,13 +35,13 @@ struct PlacePickerField: View {
             showPlacePicker = true
         }) {
             HStack(spacing: 10) {
-                Text(R.string.localizable.methodOfObtaining)
+                Text(R.string.localizable.methodOfObtainingTitle)
                     .foregroundColor(selectedPlace == nil ? .gray : .black)
                 Spacer()
                 rightImage
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 30 , height: 30)
+                    .frame(width: 16 , height: 16)
                     .foregroundColor(.gray)
             }
             .frame(alignment: .leading)
