@@ -17,6 +17,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
+import com.vodimobile.domain.model.Car
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.LeafOrdersScreen
@@ -24,6 +25,7 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
+import com.vodimobile.presentation.components.TimePickerSwitchableSample
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
@@ -41,11 +43,13 @@ import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
-import com.vodimobile.presentation.screens.orders.OrdersScreen
 import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.reservation.ReservationScreen
+import com.vodimobile.presentation.screens.reservation.ReservationViewModel
+import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
 import com.vodimobile.presentation.screens.reset_password.ResetPasswordScreen
@@ -106,6 +110,56 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
                     navHostController = navHostController,
                     selectedTagIndex = 0
+                )
+            }
+            composable(route = LeafHomeScreen.RESERVATION_SCREEN) { backStackEntry ->
+
+                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-date",
+                    initialValue = longArrayOf(0L, 0L),
+                ).collectAsState().value
+
+                val selectedTime = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-time",
+                    initialValue = "",
+                ).collectAsState().value
+
+                val selectedCar = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-car",
+                    initialValue = Car.empty(),
+                ).collectAsState().value
+
+                val reservationViewModel: ReservationViewModel = koinViewModel()
+                ReservationScreen(
+                    reservationState = reservationViewModel.reservationState.collectAsState(
+                        initial = ReservationState(
+                            time = selectedTime,
+                            date = selectedDate,
+                            car = selectedCar
+                        )
+                    ),
+                    onReservationIntent = reservationViewModel::onIntent,
+                    reservationEffect = reservationViewModel.reservationEffect,
+                    navHostController = navHostController,
+                    car = selectedCar,
+                    date = selectedDate,
+                    time = selectedTime
+                )
+            }
+            dialog(
+                route = DialogIdentifiers.TIME_SELECT_DIALOG
+            ) {
+                var selectedTime by remember { mutableStateOf("") }
+                TimePickerSwitchableSample(
+                    onTimeSelected = { time ->
+                        navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                            "selected-time",
+                            time,
+                        )
+                        selectedTime = time
+                        navHostController.navigateUp()
+                    },
+                    onCancel = { navHostController.navigateUp() }
                 )
             }
             dialog(
@@ -169,7 +223,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             composable(route = LeafOrdersScreen.SUCCESSFUL_SCREEN) {
                 val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
                 SuccessfulAppScreen(
-                    onSuccessfulIntent = successfulAppViewModel::onIntent ,
+                    onSuccessfulIntent = successfulAppViewModel::onIntent,
                     successfulEffect = successfulAppViewModel.successfulEffect,
                     navHostController = navHostController
                 )

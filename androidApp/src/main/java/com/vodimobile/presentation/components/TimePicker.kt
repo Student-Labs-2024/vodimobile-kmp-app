@@ -44,7 +44,7 @@ import com.vodimobile.android.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePickerSwitchableSample(
-    onTimeSelected: (Long) -> Unit,
+    onTimeSelected: (String) -> Unit,
     onCancel: () -> Unit
 ) {
         var showTimePicker by remember { mutableStateOf(false) }
@@ -75,7 +75,7 @@ fun TimePickerSwitchableSample(
                     cal.isLenient = false
                     finalTime = formatter.format(cal.timeInMillis)
                     showTimePicker = false
-                    onTimeSelected(cal.timeInMillis)
+                    onTimeSelected(finalTime)
                 },
                 toggle = {
                     if (configuration.screenHeightDp > 400) {
