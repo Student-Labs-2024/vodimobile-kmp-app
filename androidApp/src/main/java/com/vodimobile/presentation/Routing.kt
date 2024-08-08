@@ -43,4 +43,5 @@ object DialogIdentifiers {
 object LeafOrdersScreen {
     const val ORDERS_SCREEN = "orders"
     const val SUCCESSFUL_SCREEN = "successful"
+    const val ERROR_APP_SCREEN = "error"
 }
