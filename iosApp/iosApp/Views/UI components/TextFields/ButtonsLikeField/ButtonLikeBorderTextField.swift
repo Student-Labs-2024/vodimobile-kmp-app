@@ -15,10 +15,10 @@ struct ButtonLikeBorderedTextField: View {
     @Binding var inputErrorType: InputErrorType?
     @Binding var dateRange: ClosedRange<Date>?
     @Binding var showDatePicker: Bool
-    @Binding var showPlacePicker: Bool
-    @Binding var time: Date
-    @Binding var selectedPlace: Place?
-    @Binding var placesDataSource: [String]
+    @Binding var time: Date?
+    @Binding var showTimePicker: Bool
+    @Binding var selectedPlace: PlaceShort?
+    @Binding var placesDataSource: [PlaceShort]
     
     private let fieldType: ButtonLikeTextFieldType
     private let placeholder: String = ""
@@ -26,20 +26,20 @@ struct ButtonLikeBorderedTextField: View {
     init(
         fieldType: ButtonLikeTextFieldType,
         showDatePicker: Binding<Bool>? = nil,
-        showPlacePicker: Binding<Bool>? = nil,
         inputErrorType: Binding<InputErrorType?> = Binding.constant(nil),
         dateRange: Binding<ClosedRange<Date>?>? = nil,
-        time: Binding<Date>? = nil,
-        selectedPlace: Binding<Place?>? = nil,
-        placesDataSource: Binding<[String]>? = nil
+        time: Binding<Date?>? = nil,
+        showTimePicker: Binding<Bool>? = nil,
+        selectedPlace: Binding<PlaceShort?>? = nil,
+        placesDataSource: Binding<[PlaceShort]>? = nil
     ) {
         self.fieldType = fieldType
         self._inputErrorType = inputErrorType
         self._placesDataSource = placesDataSource ?? Binding.constant([])
         self._dateRange = dateRange ?? Binding.constant(nil)
         self._showDatePicker = showDatePicker ?? Binding.constant(false)
-        self._showPlacePicker = showPlacePicker ?? Binding.constant(false)
         self._time = time ?? Binding.constant(Date())
+        self._showTimePicker = showTimePicker ?? Binding.constant(false)
         self._selectedPlace = selectedPlace ?? Binding.constant(nil)
     }
     
@@ -57,32 +57,11 @@ struct ButtonLikeBorderedTextField: View {
             case .placePicker:
                 PlacePickerField(
                     selectedPlace: $selectedPlace,
-                    showPlacePicker: $showPlacePicker,
                     placesDataSource: placesDataSource,
                     rightImage: Image.chevronDown
                 )
             case .timePicker:
-                Button(action: {
-                    showPlacePicker = true
-                }) {
-                    HStack(spacing: 10) {
-                        Text(R.string.localizable.methodOfObtaining)
-                            .foregroundColor(selectedPlace == nil ? .gray : .black)
-                        Spacer()
-                        Image.clock
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20 , height: 20)
-                            .foregroundColor(.gray)
-                    }
-                    .frame(alignment: .leading)
-                    .padding(.all, 16)
-                    .background(Color(R.color.blueBoxColor))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1)
-                    }
-                }
+                TimePickerField(selectedTime: $time, showTimePicker: $showTimePicker)
                 
                 if inputErrorType != nil {
                     Text(errorMessage)

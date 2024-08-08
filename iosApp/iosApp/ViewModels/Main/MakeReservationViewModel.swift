@@ -10,29 +10,50 @@ import SwiftUI
 import shared
 
 final class MakeReservationViewModel: ObservableObject {
-    // TODO: - Add network logic for request all place for pick up cars
-    @Published var placesWithCost = [String]()
+    @Published var placesWithCost = [PlaceShort]()
     @Published var isSuccessed: Bool = true
-    private var placeList = [Place]()
+    @Published var isLoading: Bool = false
     
+    init() {
+        Task {
+            await fetchPlaceList()
+        }
+    }
     
     func fetchPlaceList() async {
+        isLoading.toggle()
         let places = await KMPApiManager.shared.fetchPlaces()
         
         DispatchQueue.main.async {
             self.handlerPlaceItems(places)
+            self.isLoading.toggle()
         }
     }
     
     private func handlerPlaceItems(_ places: [Place]) {
         for place in places where !place.archive {
             if place.deliveryCost > 0 {
-                placesWithCost.append("\(place.title) - \(place.deliveryCost) \(R.string.localizable.currencyPriceText())")
+                placesWithCost.append(
+                    PlaceShort(
+                        id: place.placeId,
+                        nameWithCost: "\(place.title) - \(Int(place.deliveryCost)) \(R.string.localizable.currencyPriceText())"
+                    )
+                )
             } else if place.deliveryCost == 0 {
-                placesWithCost.append("\(place.title) - \(R.string.localizable.freeText().lowercased())")
+                placesWithCost.append(
+                    PlaceShort(
+                        id: place.placeId,
+                        nameWithCost: "\(place.title) - \(R.string.localizable.freeText().lowercased())"
+                    )
+                )
             } else {
                 continue
             }
         }
     }
+}
+
+struct PlaceShort: Identifiable {
+    let id: Int32
+    let nameWithCost: String
 }

@@ -13,9 +13,9 @@ struct MakeReservationView: View {
     @State private var showDatePicker = false
     @State private var dateRange: ClosedRange<Date>?
     @State private var inputErrorType: InputErrorType?
-    @State private var time: Date = Date()
-    @State var selectedPlace: Place?
-    @State private var showPlacePicker = false
+    @State private var time: Date?
+    @State private var showTimePicker: Bool = false
+    @State var selectedPlace: PlaceShort?
     @State private var totalPrice: Int = 0
     @State private var comment: String = ""
     @FocusState private var focuseOnCommentField: Bool
@@ -120,7 +120,6 @@ struct MakeReservationView: View {
                             
                             ButtonLikeBorderedTextField(
                                 fieldType: .placePicker,
-                                showPlacePicker: $showPlacePicker,
                                 inputErrorType: $inputErrorType,
                                 selectedPlace: $selectedPlace,
                                 placesDataSource: $viewModel.placesWithCost
@@ -129,7 +128,8 @@ struct MakeReservationView: View {
                             ButtonLikeBorderedTextField(
                                 fieldType: .timePicker,
                                 inputErrorType: $inputErrorType,
-                                time: $time
+                                time: $time,
+                                showTimePicker: $showTimePicker
                             )
                             
                             AutoSizingTextEditor(text: $comment, isFocused: $focuseOnCommentField)
@@ -159,21 +159,18 @@ struct MakeReservationView: View {
                     .padding(.horizontal, 10)
                     .padding(.vertical, 20)
                 }
+                .padding(.horizontal, horizontalPadding)
                 
                 if showDatePicker {
                     ModalDatePickerView(
                         showDatePicker: $showDatePicker,
                         dateRange: $dateRange
                     )
-                } else if showPlacePicker {
-                    DatePicker(
-                        "",
-                        selection: $time,
-                        displayedComponents: .hourAndMinute
-                    )
+                } else if showTimePicker {
+                    ModalTimePicker(selectedTime: $time, showTimePicker: $showTimePicker)
                 }
             }
-            .padding(.horizontal, horizontalPadding)
+            .loadingOverlay(isLoading: $viewModel.isLoading)
             .navigationBarBackButtonHidden()
         }
     }
@@ -182,6 +179,6 @@ struct MakeReservationView: View {
 #Preview {
     MakeReservationView(
         car: Car.companion.empty(),
-        dates: "11 - 18 июля 2024"
+        dates: nil
     )
 }

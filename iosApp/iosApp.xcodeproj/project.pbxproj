@@ -69,6 +69,8 @@
 		9368EEAE2C64C4560036DBA2 /* SuccessfulReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEAD2C64C4560036DBA2 /* SuccessfulReservationView.swift */; };
 		9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEAF2C64C4680036DBA2 /* FailureReservationView.swift */; };
 		9368EEB22C65116B0036DBA2 /* AutoSizingTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEB12C65116B0036DBA2 /* AutoSizingTextEditor.swift */; };
+		9368EEB62C6565260036DBA2 /* ModalTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEB52C6565260036DBA2 /* ModalTimePicker.swift */; };
+		9368EEB82C6565480036DBA2 /* TimePickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEB72C6565480036DBA2 /* TimePickerField.swift */; };
 		936B18482C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */; };
 		936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B18492C4647FB000AC6F8 /* DetailRuleView.swift */; };
 		936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */; };
@@ -170,6 +172,8 @@
 		9368EEAD2C64C4560036DBA2 /* SuccessfulReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulReservationView.swift; sourceTree = "<group>"; };
 		9368EEAF2C64C4680036DBA2 /* FailureReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureReservationView.swift; sourceTree = "<group>"; };
 		9368EEB12C65116B0036DBA2 /* AutoSizingTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoSizingTextEditor.swift; sourceTree = "<group>"; };
+		9368EEB52C6565260036DBA2 /* ModalTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTimePicker.swift; sourceTree = "<group>"; };
+		9368EEB72C6565480036DBA2 /* TimePickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerField.swift; sourceTree = "<group>"; };
 		936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsViewModel.swift; sourceTree = "<group>"; };
 		936B18492C4647FB000AC6F8 /* DetailRuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleView.swift; sourceTree = "<group>"; };
 		936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleViewModel.swift; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				9337B67E2C63F79C00844EC4 /* DataPickerField.swift */,
 				93BF9E802C5ACE5100A6EE91 /* ButtonLikeUnderlinedTextField.swift */,
 				9337B6822C63F87700844EC4 /* PlacePickerField.swift */,
+				9368EEB72C6565480036DBA2 /* TimePickerField.swift */,
 			);
 			path = ButtonsLikeField;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 		934F0D592C3D7740000B256E /* UI components */ = {
 			isa = PBXGroup;
 			children = (
+				9368EEB92C6565600036DBA2 /* Modals */,
 				93328FBF2C495A49008EADB4 /* TextFields */,
 				93328FBE2C495A34008EADB4 /* Cells */,
 				934F0D5E2C3D9136000B256E /* CheckboxView.swift */,
@@ -343,9 +349,7 @@
 				931FDDB32C46FBE8007954FC /* FilledButton.swift */,
 				935E1A8B2C5126F900A35E4E /* ScrollViewWithOffset.swift */,
 				935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */,
-				935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */,
 				93577F112C4E6C85005FEAFF /* LoadingView.swift */,
-				935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */,
 				935481DD2C524C6B0085B6CE /* TopTabBarView.swift */,
 			);
 			path = "UI components";
@@ -403,6 +407,16 @@
 				9368EEAF2C64C4680036DBA2 /* FailureReservationView.swift */,
 			);
 			path = Reservation;
+			sourceTree = "<group>";
+		};
+		9368EEB92C6565600036DBA2 /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				935DC3BD2C517AAA009CBA43 /* ModalAutoCardVIew.swift */,
+				935E1A8F2C5137CC00A35E4E /* ModalDatePickerView.swift */,
+				9368EEB52C6565260036DBA2 /* ModalTimePicker.swift */,
+			);
+			path = Modals;
 			sourceTree = "<group>";
 		};
 		936B18462C4638B1000AC6F8 /* ViewModels */ = {
@@ -693,6 +707,7 @@
 				935CF95E2C58F02300F6F6CB /* AutoGeneralCardView.swift in Sources */,
 				934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */,
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,
+				9368EEB82C6565480036DBA2 /* TimePickerField.swift in Sources */,
 				93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */,
 				9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */,
 				934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */,
@@ -718,6 +733,7 @@
 				933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */,
+				9368EEB62C6565260036DBA2 /* ModalTimePicker.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				9368EEAE2C64C4560036DBA2 /* SuccessfulReservationView.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,

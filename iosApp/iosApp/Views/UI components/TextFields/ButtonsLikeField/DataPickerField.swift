@@ -33,12 +33,13 @@ struct DataPickerField: View {
         }) {
             HStack(spacing: 10) {
                 Text(formatDateRange())
-                    .foregroundColor(dateRange == nil ? .gray : .black)
+                    .foregroundColor(dateRange == nil ? Color(R.color.grayTextColor) : Color(R.color.blueColor))
+                    .font(.paragraph4)
                 Spacer()
                 rightImage
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20 , height: 20)
+                    .frame(width: 24 , height: 24)
                     .foregroundColor(.gray)
             }
             .frame(alignment: .leading)
