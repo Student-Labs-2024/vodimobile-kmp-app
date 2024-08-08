@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.components.ErrorItem
 import com.vodimobile.presentation.store.ConnectionErrorEffect
 import com.vodimobile.presentation.store.ConnectionErrorIntent
@@ -52,7 +51,6 @@ fun ConnectionErrorScreen(
                     is ConnectionErrorEffect.ClickRepeat -> {
                         val isConnected = connection === ConnectionStatus.Available
                         if (isConnected) {
-//                            navHostController.clearBackStack(route = LeafHomeScreen.NO_INTERNET_SCREEN)
                             navHostController.navigate(route = screen)
                         }
                     }

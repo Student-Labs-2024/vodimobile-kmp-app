@@ -117,14 +117,23 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 }
             }
             composable(route = LeafHomeScreen.ALL_CARS) {
-                val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
-                VehicleFleetScreen(
-                    onVehicleIntent = vehicleFleetModel::onIntent,
-                    vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
-                    vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
-                    navHostController = navHostController,
-                    selectedTagIndex = 0
-                )
+                val isConnected = checkInternet(connection = connection)
+                if (isConnected) {
+                    val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
+                    VehicleFleetScreen(
+                        onVehicleIntent = vehicleFleetModel::onIntent,
+                        vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
+                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
+                        navHostController = navHostController,
+                        selectedTagIndex = 0
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafHomeScreen.ALL_CARS,
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafHomeScreen.ALL_CARS}")
+                }
             }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
