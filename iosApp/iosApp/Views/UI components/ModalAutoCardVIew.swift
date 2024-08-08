@@ -12,11 +12,26 @@ import shared
 struct ModalAutoView: View {
     @Binding var carModel: Car
     @Binding var showModalView: Bool
-
+    @Binding var showModalReservation: Bool
+    
+    init(
+        carModel: Binding<Car>,
+        showModalView: Binding<Bool>,
+        showModalReservation: Binding<Bool>? = nil
+    ) {
+        self._carModel = carModel
+        self._showModalView = showModalView
+        self._showModalReservation = showModalReservation ?? Binding.constant(false)
+    }
+    
     var body: some View {
-        let ModalAutoCardView = ModalAutoCardView(carModel: $carModel, showModal: $showModalView)
-            .presentationDetents([.fraction(0.64)])
-            .presentationDragIndicator(.visible)
+        let ModalAutoCardView = ModalAutoCardView(
+            carModel: $carModel,
+            showModal: $showModalView,
+            showModalReservation: $showModalReservation
+        )
+        .presentationDetents([.fraction(0.64)])
+        .presentationDragIndicator(.visible)
         
         if #available(iOS 16.4, *) {
             ModalAutoCardView.presentationCornerRadius(24)
@@ -30,6 +45,7 @@ struct ModalAutoView: View {
 struct ModalAutoCardView: View {
     @Binding var carModel: Car
     @Binding var showModalView: Bool
+    @Binding var showModalReservation: Bool
     private let carPreview: Image
     private let carPrice: Float
     private let carYear: Int
@@ -38,8 +54,13 @@ struct ModalAutoCardView: View {
         GridItem(.flexible(), spacing: 20)
     ]
     
-    init(carModel: Binding<Car>, showModal: Binding<Bool>) {
+    init(
+        carModel: Binding<Car>,
+        showModal: Binding<Bool>,
+        showModalReservation: Binding<Bool>
+    ) {
         self._carModel = carModel
+        self._showModalReservation = showModalReservation
         if let image = carModel.wrappedValue.images.first,
            let tariff = carModel.wrappedValue.tariffs.first,
            let year = carModel.wrappedValue.year
@@ -167,7 +188,8 @@ struct ModalAutoCardView: View {
             }
             
             Button(R.string.localizable.bookButton()) {
-                // TODO: - Make the auto reserve logic
+                showModalView.toggle()
+                showModalReservation.toggle()
             }
             .buttonStyle(FilledBtnStyle())
             

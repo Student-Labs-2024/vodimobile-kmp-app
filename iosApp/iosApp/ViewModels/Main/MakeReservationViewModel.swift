@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 final class MakeReservationViewModel: ObservableObject {
+    // TODO: - Add network logic for request all place for pick up cars
     @Published var placesWithCost = [String]()
     private var placeList = [Place]()
     

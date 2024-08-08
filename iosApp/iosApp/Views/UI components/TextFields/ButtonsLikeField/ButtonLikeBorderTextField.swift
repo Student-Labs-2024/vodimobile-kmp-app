@@ -16,16 +16,55 @@ struct ButtonLikeBorderedTextField: View {
     @Binding var dateRange: ClosedRange<Date>?
     @Binding var showDatePicker: Bool
     @Binding var showPlacePicker: Bool
-    @Binding var time: Date
+    @Binding var time: Date?
     @Binding var selectedPlace: Place?
+    @Binding var placesDataSource: [String]
     
     private let fieldType: ButtonLikeTextFieldType
     private let placeholder: String = ""
     
     init(
-        fieldType: ButtonLikeTextFieldType
+        fieldType: ButtonLikeTextFieldType,
+        showDatePicker: Binding<Bool>? = nil,
+        showPlacePicker: Binding<Bool>? = nil,
+        inputErrorType: Binding<InputErrorType?> = Binding.constant(nil),
+        dateRange: Binding<ClosedRange<Date>?>? = nil,
+        time: Binding<Date?>? = nil,
+        selectedPlace: Binding<Place?>? = nil,
+        placesDataSource: Binding<[String]>? = nil
     ) {
         self.fieldType = fieldType
+        self._inputErrorType = inputErrorType
+        if let placesDataSource = placesDataSource {
+            self._placesDataSource = placesDataSource
+        } else {
+            self._placesDataSource = Binding.constant([])
+        }
+        if let dateRange = dateRange {
+            self._dateRange = dateRange
+        } else {
+            self._dateRange = Binding.constant(nil)
+        }
+        if let showDatePicker = showDatePicker {
+            self._showDatePicker = showDatePicker
+        } else {
+            self._showDatePicker = Binding.constant(false)
+        }
+        if let showPlacePicker = showPlacePicker {
+            self._showPlacePicker = showPlacePicker
+        } else {
+            self._showPlacePicker = Binding.constant(false)
+        }
+        if let time = time {
+            self._time = time
+        } else {
+            self._time = Binding.constant(nil)
+        }
+        if let selectedPlace = selectedPlace {
+            self._selectedPlace = selectedPlace
+        } else {
+            self._selectedPlace = Binding.constant(nil)
+        }
     }
     
     var body: some View {
@@ -34,15 +73,43 @@ struct ButtonLikeBorderedTextField: View {
             
             switch fieldType {
             case .datePicker:
-                DataPickerField(
-                    dateRange: $dateRange,
-                    showDatePicker: $showDatePicker,
-                    rightImage: Image(R.image.calendar)
-                )
+                if let unwrappedDateRange = dateRange {
+                    DataPickerField(
+                        dateRange: Binding(
+                            get: { unwrappedDateRange },
+                            set: { newValue in
+                                dateRange = newValue
+                            }),
+                        showDatePicker: $showDatePicker,
+                        rightImage: Image(R.image.calendar)
+                    )
+                }
             case .placePicker:
-                PlacePickerField(showPlacePicker: $showPlacePicker)
+                if let unwrappedSelectedPlace = selectedPlace
+                {
+                    PlacePickerField(
+                        selectedPlace: Binding(
+                            get: { unwrappedSelectedPlace },
+                            set: { newValue in
+                                selectedPlace = newValue
+                            }),
+                        showPlacePicker: $showPlacePicker, 
+                        placesDataSource: placesDataSource
+                    )
+                }
             case .timePicker:
-                DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
+                if let unwrappedTime = time {
+                    DatePicker(
+                        "",
+                        selection: Binding(
+                            get: { unwrappedTime },
+                            set: { newValue in
+                                time = newValue
+                            }
+                        ),
+                        displayedComponents: .hourAndMinute
+                    )
+                }
                 
                 if inputErrorType != nil {
                     Text(errorMessage)

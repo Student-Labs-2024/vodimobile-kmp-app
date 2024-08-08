@@ -131,6 +131,10 @@
 "autoDatesTitle" = "Период аренды";
 "totalPriceTitle" = "Итого:";
 "freeText" = "Бесплатно";
+"requestSubmittedTitle" = "Заявка оставлена";
+"requestSubmittedText" = "Менеджер скоро свяжется с вами. Изменить заказ и посмотреть его статус можно в заказах";
+"requestFailedTitle" = "Что-то пошло не так";
+"requestFailedText" = "Не получилось оставить заявку. Попробуйте еще раз";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

@@ -66,6 +66,8 @@
 		93654DF22C3EC5D5001CFB7D /* terms_and_conditions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */; };
 		93654DF42C3EC7D3001CFB7D /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */; };
 		93689FE92C58BECD00A4FB13 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93689FE82C58BECD00A4FB13 /* MainViewModel.swift */; };
+		9368EEAE2C64C4560036DBA2 /* SuccessfulReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEAD2C64C4560036DBA2 /* SuccessfulReservationView.swift */; };
+		9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368EEAF2C64C4680036DBA2 /* FailureReservationView.swift */; };
 		936B18482C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */; };
 		936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B18492C4647FB000AC6F8 /* DetailRuleView.swift */; };
 		936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */; };
@@ -164,6 +166,8 @@
 		93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terms_and_conditions.txt; sourceTree = "<group>"; };
 		93654DF32C3EC7D3001CFB7D /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		93689FE82C58BECD00A4FB13 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		9368EEAD2C64C4560036DBA2 /* SuccessfulReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulReservationView.swift; sourceTree = "<group>"; };
+		9368EEAF2C64C4680036DBA2 /* FailureReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureReservationView.swift; sourceTree = "<group>"; };
 		936B18472C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesAndConditionsViewModel.swift; sourceTree = "<group>"; };
 		936B18492C4647FB000AC6F8 /* DetailRuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleView.swift; sourceTree = "<group>"; };
 		936B184B2C4648B3000AC6F8 /* DetailRuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRuleViewModel.swift; sourceTree = "<group>"; };
@@ -388,6 +392,16 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		9368EEAC2C64C43E0036DBA2 /* Reservation */ = {
+			isa = PBXGroup;
+			children = (
+				9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */,
+				9368EEAD2C64C4560036DBA2 /* SuccessfulReservationView.swift */,
+				9368EEAF2C64C4680036DBA2 /* FailureReservationView.swift */,
+			);
+			path = Reservation;
+			sourceTree = "<group>";
+		};
 		936B18462C4638B1000AC6F8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,9 +424,9 @@
 		93A257732C40F22700316EDE /* HomeViews */ = {
 			isa = PBXGroup;
 			children = (
+				9368EEAC2C64C43E0036DBA2 /* Reservation */,
 				936198812C3F0CA100B0198D /* MainView.swift */,
 				935DC3BB2C516E21009CBA43 /* AutoListView.swift */,
-				9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */,
 			);
 			path = HomeViews;
 			sourceTree = "<group>";
@@ -699,7 +713,9 @@
 				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
 				933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
+				9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
+				9368EEAE2C64C4560036DBA2 /* SuccessfulReservationView.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,
 				936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */,
 				93745BC52C41A57700889B42 /* FAQView.swift in Sources */,

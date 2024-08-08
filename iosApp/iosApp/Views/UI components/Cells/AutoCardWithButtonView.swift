@@ -16,7 +16,11 @@ struct AutoCardWithButtonView: View {
     private var carPreview: Image
     private var carPrice: Float
     
-    init(carModel: Car, selectedAuto: Binding<Car>, showModal: Binding<Bool>) {
+    init(
+        carModel: Car,
+        selectedAuto: Binding<Car>,
+        showModal: Binding<Bool>
+    ) {
         self.carModel = carModel
         if let image = carModel.images.first, let tariff = carModel.tariffs.first {
             self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
@@ -49,9 +53,12 @@ struct AutoCardWithButtonView: View {
             }
             
             HStack {
-                Button(R.string.localizable.bookButton()) { }
-                    .buttonStyle(FilledBtnStyle(heightButton: 40))
-                    .padding(.trailing, 20)
+                NavigationLink(destination: MakeReservationView(car: carModel, dates: nil)) {
+                    Text(R.string.localizable.bookButton)
+                }
+                .buttonStyle(FilledBtnStyle(heightButton: 40))
+                .padding(.trailing, 20)
+                
                 ZStack {
                     Image.infoCircleFill
                         .resizable()

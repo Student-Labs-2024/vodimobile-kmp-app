@@ -11,17 +11,21 @@ import shared
 
 struct PlacePickerField: View {
     @Binding var selectedPlace: Place?
-    @Binding var placesDataSource: [String]
     @Binding var showPlacePicker: Bool
+    private let placesDataSource: [String]
     private let backgroundColor: SwiftUI.Color
     private let rightImage: Image
     
     init(
+        selectedPlace: Binding<Place?>,
         showPlacePicker: Binding<Bool>,
+        placesDataSource: [String],
         rightImage: Image = Image.clock,
         backgroundColor: SwiftUI.Color = Color(R.color.blueBoxColor)
     ) {
+        self._selectedPlace = selectedPlace
         self._showPlacePicker = showPlacePicker
+        self.placesDataSource = placesDataSource
         self.rightImage = rightImage
         self.backgroundColor = backgroundColor
     }
