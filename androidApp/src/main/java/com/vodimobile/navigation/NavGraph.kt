@@ -223,14 +223,22 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafScreen.PROFILE_SCREEN
         ) {
             composable(route = LeafScreen.PROFILE_SCREEN) {
-                val profileViewModel: ProfileViewModel =
-                    koinViewModel()
+                val isConnected = checkInternet(connection = connection)
+                if (isConnected) {
+                    val profileViewModel: ProfileViewModel = koinViewModel()
 
-                ProfileScreen(
-                    onProfileIntent = profileViewModel::onIntent,
-                    profileEffect = profileViewModel.profileEffect,
-                    navHostController = navHostController
-                )
+                    ProfileScreen(
+                        onProfileIntent = profileViewModel::onIntent,
+                        profileEffect = profileViewModel.profileEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafScreen.PROFILE_SCREEN,
+                    )
+                    navHostController.navigate(route= "${LeafErrorScreen.NO_INTERNET}/${LeafScreen.PROFILE_SCREEN}")
+                }
             }
             composable(route = LeafScreen.RULES_SCREEN) {
                 val rulesViewModel: RulesViewModel = koinViewModel()
@@ -307,6 +315,22 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             }
             dialog(route = DialogIdentifiers.LOADING_DIALOG) {
                 ProgressDialogIndicator()
+            }
+            composable(
+                route = "${LeafErrorScreen.NO_INTERNET}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val screen = backStackEntry.arguments?.getString("screen") ?: ""
+                print(screen)
+                val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
+                ConnectionErrorScreen(
+                    onNetworkErrorIntent = connectionErrorViewModel::onIntent,
+                    networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
             }
         }
         navigation(
