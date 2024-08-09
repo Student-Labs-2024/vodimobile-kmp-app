@@ -27,7 +27,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
-import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -39,12 +39,14 @@ import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
+import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.AgreementBlock
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
@@ -87,7 +89,7 @@ fun RegistrationScreen(
                 }
 
                 RegistrationEffect.SmsVerification -> {
-                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}")
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}/${RootScreen.HOME_SCREEN}")
                 }
 
                 RegistrationEffect.AskPermission -> {
@@ -204,17 +206,72 @@ private fun RegistrationScreenPreviewDark() {
                                 LocalContext.current
                             )
                         )
+                    ),
+                    editLastAuthUseCase = EditLastAuthUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
                     )
                 ),
                 crmStorage = CrmStorage(
-                    getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                    getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                    refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                    getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                    getCarListUseCase = GetCarListUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getTariffListUseCase = GetTariffListUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    postNewUserUseCase = PostNewUserUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getAllPlacesUseCase = GetAllPlacesUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    refreshTokenUseCase = RefreshTokenUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getServiceListUseCase = GetServiceListUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getBidCostUseCase = GetBidCostUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    )
                 )
             )
             RegistrationScreen(
@@ -270,17 +327,72 @@ private fun RegistrationScreenPreviewLight() {
                                 LocalContext.current
                             )
                         )
+                    ),
+                    editLastAuthUseCase = EditLastAuthUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
                     )
                 ),
                 crmStorage = CrmStorage(
-                    getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                    getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                    refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                    getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                    getCarListUseCase = GetCarListUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getTariffListUseCase = GetTariffListUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    postNewUserUseCase = PostNewUserUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getAllPlacesUseCase = GetAllPlacesUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    refreshTokenUseCase = RefreshTokenUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getServiceListUseCase = GetServiceListUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    ),
+                    getBidCostUseCase = GetBidCostUseCase(
+                        crmRepository = CrmRepositoryImpl(
+                            userDataStoreRepository = UserDataStoreRepositoryImpl(
+                                dataStore = getDataStore(LocalContext.current)
+                            )
+                        )
+                    )
                 )
             )
             RegistrationScreen(

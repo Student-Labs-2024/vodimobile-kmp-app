@@ -9,4 +9,5 @@ interface UserDataStoreRepository {
     suspend fun editPreregister(name: String, password: String, accessToken: String, refreshToken: String, expired: Long)
     suspend fun editPassword(password: String)
     suspend fun editTokens(accessToken: String, refreshToken: String, expires: Long)
+    suspend fun editLastAuth(lastAuth: Long)
 }

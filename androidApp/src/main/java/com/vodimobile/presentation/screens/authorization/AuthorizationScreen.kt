@@ -27,19 +27,21 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
-import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.authorization.components.AuthorizationBlock
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
@@ -81,7 +83,7 @@ fun AuthorizationScreen(
                 }
 
                 AuthorizationEffect.SmsVerification -> {
-                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${authorizationState.value.phoneNumber}")
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${authorizationState.value.phoneNumber}/${RootScreen.HOME_SCREEN}")
                 }
 
                 AuthorizationEffect.AskPermission -> {
@@ -195,6 +197,13 @@ private fun AuthorizationScreenPreviewDark() {
                                 LocalContext.current
                             )
                         )
+                    ),
+                    editLastAuthUseCase = EditLastAuthUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
                     )
                 )
             )
@@ -245,6 +254,13 @@ private fun AuthorizationScreenPreviewLight() {
                         )
                     ),
                     editTokensUseCase = EditTokensUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editLastAuthUseCase = EditLastAuthUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
                                 LocalContext.current

@@ -23,8 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
@@ -156,6 +157,13 @@ private fun NewPasswordScreenPreviewLight() {
                                 LocalContext.current
                             )
                         )
+                    ),
+                    editLastAuthUseCase = EditLastAuthUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
                     )
                 )
             )
@@ -205,6 +213,13 @@ private fun NewPasswordScreenPreviewDark() {
                         )
                     ),
                     editTokensUseCase = EditTokensUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editLastAuthUseCase = EditLastAuthUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
                                 LocalContext.current

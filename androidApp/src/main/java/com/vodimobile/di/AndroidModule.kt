@@ -1,8 +1,9 @@
 package com.vodimobile.di
 
 import com.vodimobile.domain.repository.data_store.UserDataStoreRepository
-import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
@@ -23,6 +24,7 @@ val androidModule = module {
     singleOf(::PreRegisterUserUseCase)
     singleOf(::EditPasswordUseCase)
     singleOf(::EditTokensUseCase)
+    singleOf(::EditLastAuthUseCase)
 
     singleOf(::UserDataStoreStorage)
 }

@@ -9,15 +9,17 @@ data class User(
     val refreshToken: String,
     val expires: Long,
     val phone: String,
-    val email: String?
+    val email: String?,
+    val lastAuth: Long?
 ) {
 
     constructor(
         fullName: String,
         password: String,
         phone: String,
-        email: String? = null
-    ) : this(fullName, password, "", "", 0L, phone, email)
+        email: String? = null,
+        lastAuth: Long?
+    ) : this(fullName, password, "", "", 0L, phone, email, lastAuth)
 
     companion object {
         fun empty(): User {
@@ -28,7 +30,8 @@ data class User(
                 "",
                 0L,
                 "",
-                ""
+                "",
+                0L
             )
         }
 

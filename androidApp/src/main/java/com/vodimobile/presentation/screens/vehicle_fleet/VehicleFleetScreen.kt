@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.model.Car
@@ -45,6 +45,7 @@ import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
+import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
@@ -177,6 +178,7 @@ fun VehicleFleetScreen(
                     is CrmEither.CrmError -> {
                         onVehicleIntent(VehicleIntent.DismissProgressDialog)
                     }
+
                     CrmEither.CrmLoading -> {
                         onVehicleIntent(VehicleIntent.ShowProgressDialog)
                     }
@@ -233,17 +235,88 @@ private fun VehicleFleetScreenPreview() {
                             LocalContext.current
                         )
                     )
+                ),
+                editLastAuthUseCase = EditLastAuthUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
                 )
             ),
             crmStorage = CrmStorage(
-                getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                getCarListUseCase = GetCarListUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                getTariffListUseCase = GetTariffListUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                postNewUserUseCase = PostNewUserUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                getAllPlacesUseCase = GetAllPlacesUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                refreshTokenUseCase = RefreshTokenUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                getServiceListUseCase = GetServiceListUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                ),
+                getBidCostUseCase = GetBidCostUseCase(
+                    crmRepository = CrmRepositoryImpl(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                )
             )
         )
 

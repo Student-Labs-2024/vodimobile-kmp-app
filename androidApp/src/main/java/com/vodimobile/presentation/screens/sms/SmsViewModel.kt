@@ -34,11 +34,6 @@ class SmsViewModel : ViewModel() {
                     userCode = smsState.value.userCode
                 )
 
-                Log.d(
-                    "TAG",
-                    smsState.value.code.toString() + "   " + smsState.value.userCode.toString()
-                )
-
                 smsState.update {
                     it.copy(
                         isIncorrectCode = isCodeCorrect

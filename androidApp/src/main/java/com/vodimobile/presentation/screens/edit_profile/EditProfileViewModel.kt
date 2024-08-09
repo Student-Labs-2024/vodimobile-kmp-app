@@ -92,7 +92,8 @@ class EditProfileViewModel(
                                 fullName = editProfileState.value.fullName,
                                 password = editProfileState.value.user.password,
                                 phone = editProfileState.value.user.phone,
-                                email = editProfileState.value.user.email
+                                email = editProfileState.value.user.email,
+                                lastAuth = editProfileState.value.user.lastAuth
                             )
                         )
                         editProfileEffect.emit(EditProfileEffect.RemoveProgressDialog)

@@ -1,4 +1,4 @@
-package com.vodimobile.data.data_store
+package com.vodimobile.data.repository.data_store
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -23,7 +23,8 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             refreshToken = it[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: "",
             expires = it[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] ?: 0L,
             phone = it[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: "",
-            email = it[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: ""
+            email = it[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: "",
+            lastAuth = it[longPreferencesKey(Constants.DATA_STORE_USER_LAST_AUTH)] ?: 0L
         )
     }
 
@@ -50,6 +51,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             val password =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: ""
             val phone = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: ""
+            val lastAuth = preferences[longPreferencesKey(Constants.DATA_STORE_USER_LAST_AUTH)] ?: 0L
 
             return@map User(
                 fullName = fullName,
@@ -59,6 +61,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
                 expires = expires,
                 phone = phone,
                 email = email,
+                lastAuth = lastAuth
             )
         }
 
@@ -87,6 +90,12 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] =
                 refreshToken
             preferences[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] = expires
+        }
+    }
+
+    override suspend fun editLastAuth(lastAuth: Long) {
+        dataStore.edit { preferences ->
+            preferences[longPreferencesKey(Constants.DATA_STORE_USER_LAST_AUTH)] = lastAuth
         }
     }
 }
