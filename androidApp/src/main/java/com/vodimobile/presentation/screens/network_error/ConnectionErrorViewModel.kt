@@ -12,9 +12,9 @@ class ConnectionErrorViewModel : ViewModel() {
 
     fun onIntent(intent: ConnectionErrorIntent) {
         when (intent) {
-            ConnectionErrorIntent.ClickRepeat -> {
+            is ConnectionErrorIntent.ClickRepeat -> {
                 viewModelScope.launch {
-                    connectionErrorEffect.emit(ConnectionErrorEffect.ClickRepeat)
+                    connectionErrorEffect.emit(ConnectionErrorEffect.ClickRepeat(value = intent.value))
                 }
             }
         }

@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.components.ErrorItem
 import com.vodimobile.presentation.store.ConnectionErrorEffect
 import com.vodimobile.presentation.store.ConnectionErrorIntent
@@ -38,21 +37,21 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 fun ConnectionErrorScreen(
     onNetworkErrorIntent: (ConnectionErrorIntent) -> Unit,
     @SuppressLint("ComposeMutableParameters") networkErrorEffect: MutableSharedFlow<ConnectionErrorEffect>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    screen: String
 ) {
     Scaffold {
         val connection by connectivityState()
 
-        onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat)
+        onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat(value = screen))
 
         LaunchedEffect(key1 = Unit) {
             networkErrorEffect.collect { effect ->
                 when (effect) {
-                    ConnectionErrorEffect.ClickRepeat -> {
+                    is ConnectionErrorEffect.ClickRepeat -> {
                         val isConnected = connection === ConnectionStatus.Available
                         if (isConnected) {
-                            navHostController.clearBackStack(route = LeafHomeScreen.NO_INTERNET_SCREEN)
-                            navHostController.navigate(route = LeafHomeScreen.HOME_SCREEN)
+                            navHostController.navigate(route = screen)
                         }
                     }
                 }
@@ -71,7 +70,9 @@ fun ConnectionErrorScreen(
             ErrorItem(
                 title = stringResource(R.string.connection_error),
                 subtitle = stringResource(R.string.connection_error_subtitle),
-                onNetworkErrorIntent = onNetworkErrorIntent,
+                onNetworkErrorIntent = {
+                    onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat(value = screen))
+                },
                 icon = {
                     Image(
                         modifier = Modifier
@@ -80,7 +81,8 @@ fun ConnectionErrorScreen(
                         painter = painterResource(id = R.drawable.connection_error),
                         contentDescription = stringResource(R.string.connection_error)
                     )
-                }
+                },
+                screen = screen
             )
         }
     }
@@ -94,7 +96,8 @@ private fun NetworkErrorScreenLight() {
         ConnectionErrorScreen(
             onNetworkErrorIntent = connectionErrorViewModel::onIntent,
             networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
-            navHostController = rememberNavController()
+            navHostController = rememberNavController(),
+            screen = ""
         )
     }
 }
@@ -107,7 +110,8 @@ private fun NetworkErrorScreenNight() {
         ConnectionErrorScreen(
             onNetworkErrorIntent = connectionErrorViewModel::onIntent,
             networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
-            navHostController = rememberNavController()
+            navHostController = rememberNavController(),
+            screen = ""
         )
     }
 }

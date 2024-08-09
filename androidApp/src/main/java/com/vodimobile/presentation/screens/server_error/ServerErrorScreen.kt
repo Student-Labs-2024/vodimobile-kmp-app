@@ -32,14 +32,15 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 fun ServerErrorScreen(
     onServerErrorIntent: (ConnectionErrorIntent) -> Unit,
     @SuppressLint("ComposeMutableParameters") serverErrorEffect: MutableSharedFlow<ConnectionErrorEffect>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    screen: String
 ) {
     Scaffold {
 
         LaunchedEffect(key1 = Unit) {
             serverErrorEffect.collect { effect ->
                 when (effect) {
-                    ConnectionErrorEffect.ClickRepeat -> {}
+                    is ConnectionErrorEffect.ClickRepeat -> {}
                 }
             }
         }
@@ -64,7 +65,8 @@ fun ServerErrorScreen(
                         painter = painterResource(id = R.drawable.server_error),
                         contentDescription = stringResource(R.string.server_error)
                     )
-                }
+                },
+                screen = screen
             )
         }
     }
@@ -78,7 +80,8 @@ private fun ServerErrorScreenLight() {
         ServerErrorScreen(
             onServerErrorIntent = serverErrorViewModel::onIntent,
             serverErrorEffect = serverErrorViewModel.serverErrorEffect,
-            navHostController = rememberNavController()
+            navHostController = rememberNavController(),
+            screen = ""
         )
     }
 }
@@ -91,7 +94,8 @@ private fun ServerErrorScreenNight() {
         ServerErrorScreen(
             onServerErrorIntent = serverErrorViewModel::onIntent,
             serverErrorEffect = serverErrorViewModel.serverErrorEffect,
-            navHostController = rememberNavController()
+            navHostController = rememberNavController(),
+            screen = ""
         )
     }
 }

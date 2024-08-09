@@ -25,8 +25,9 @@ fun ErrorItem(
     title: String,
     subtitle: String,
     icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    onNetworkErrorIntent: (ConnectionErrorIntent) -> Unit
+    onNetworkErrorIntent: (ConnectionErrorIntent) -> Unit,
+    screen: String,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier
@@ -77,7 +78,7 @@ fun ErrorItem(
                 text = stringResource(R.string.try_again_bt),
                 enabled = true,
                 onClick = {
-                    onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat)
+                    onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat(value = screen))
                 }
             )
         }

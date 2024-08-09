@@ -1,5 +1,5 @@
 package com.vodimobile.presentation.store
 
 sealed class ConnectionErrorEffect {
-    data object ClickRepeat : ConnectionErrorEffect()
+    data class ClickRepeat(val value: String) : ConnectionErrorEffect()
 }
