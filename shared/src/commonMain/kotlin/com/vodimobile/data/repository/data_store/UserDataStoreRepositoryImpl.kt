@@ -98,4 +98,10 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             preferences[longPreferencesKey(Constants.DATA_STORE_USER_LAST_AUTH)] = lastAuth
         }
     }
+
+    override suspend fun editUserPhoneNumber(phone: String) {
+        dataStore.edit { preferences ->
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] = phone
+        }
+    }
 }

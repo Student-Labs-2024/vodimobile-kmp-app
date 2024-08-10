@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.android.R
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.sms.store.SmsEffect
 import com.vodimobile.presentation.screens.sms.store.SmsIntent
 import com.vodimobile.presentation.screens.sms.store.SmsState
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
-class SmsViewModel : ViewModel() {
+class SmsViewModel(private val userDataStoreStorage: UserDataStoreStorage) : ViewModel() {
     val smsState = MutableStateFlow(
         SmsState(
             code = phoneCodeGenerator()
@@ -41,6 +42,7 @@ class SmsViewModel : ViewModel() {
                 }
                 if (isCodeCorrect) {
                     viewModelScope.launch {
+                        userDataStoreStorage.editPhone(phone = smsState.value.phoneNumber)
                         smsEffect.emit(SmsEffect.SmsCodeCorrect)
                     }
                 }

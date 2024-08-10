@@ -5,6 +5,7 @@ import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserPhoneNumberUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,8 @@ class UserDataStoreStorage(
     private val preRegisterUserUseCase: PreRegisterUserUseCase,
     private val editPasswordUseCase: EditPasswordUseCase,
     private val editTokensUseCase: EditTokensUseCase,
-    private val editLastAuthUseCase: EditLastAuthUseCase
+    private val editLastAuthUseCase: EditLastAuthUseCase,
+    private val editUserPhoneNumberUseCase: EditUserPhoneNumberUseCase
 ) {
     suspend fun edit(user: User) {
         editUserDataStoreUseCase(user = user)
@@ -45,5 +47,9 @@ class UserDataStoreStorage(
 
     suspend fun editLastAuth(lastAuth: Long) {
         editLastAuthUseCase.invoke(lastAuth)
+    }
+
+    suspend fun editPhone(phone: String) {
+        editUserPhoneNumberUseCase(phone)
     }
 }
