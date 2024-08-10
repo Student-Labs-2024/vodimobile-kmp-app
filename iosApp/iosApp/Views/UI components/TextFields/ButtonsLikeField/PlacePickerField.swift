@@ -13,17 +13,17 @@ struct PlacePickerField: View {
     @Binding var selectedPlace: PlaceShort?
     private let placesDataSource: [PlaceShort]
     private let backgroundColor: SwiftUI.Color
-    private let rightImage: Image
+    private let icon: Image
     
     init(
         selectedPlace: Binding<PlaceShort?>,
         placesDataSource: [PlaceShort],
-        rightImage: Image = Image.clock,
+        icon: Image = Image.clock,
         backgroundColor: SwiftUI.Color = Color(R.color.blueBoxColor)
     ) {
         self._selectedPlace = selectedPlace
         self.placesDataSource = placesDataSource
-        self.rightImage = rightImage
+        self.icon = icon
         self.backgroundColor = backgroundColor
     }
     
@@ -44,7 +44,7 @@ struct PlacePickerField: View {
                 
                 Spacer()
                 
-                Image.chevronDown
+                icon
                     .foregroundColor(Color(R.color.grayDarkColor))
             }
             .padding(16)

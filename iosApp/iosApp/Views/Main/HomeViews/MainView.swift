@@ -39,7 +39,7 @@ struct MainView: View {
                         
                         ForEach(viewModel.listOfPopularCar.indices, id: \.self) { index in
                             AutoSimpleCardView(
-                                car: viewModel.listOfPopularCar[index],
+                                carModel: $viewModel.listOfPopularCar[index],
                                 showModal: $showModalCard,
                                 selectedAuto: $selectedAuto
                             )

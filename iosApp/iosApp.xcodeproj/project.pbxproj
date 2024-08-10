@@ -41,6 +41,7 @@
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
 		9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351F2262C3FC024003A0BCB /* PersonDataView.swift */; };
+		9353B9802C67591800AC62CF /* AutoCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9353B97F2C67591800AC62CF /* AutoCardViewModel.swift */; };
 		935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481DD2C524C6B0085B6CE /* TopTabBarView.swift */; };
 		935481E02C5256770085B6CE /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481DF2C5256770085B6CE /* Enums.swift */; };
 		935481E22C525B6E0085B6CE /* AutoCardWithButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */; };
@@ -143,6 +144,7 @@
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
 		9351F2262C3FC024003A0BCB /* PersonDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataView.swift; sourceTree = "<group>"; };
+		9353B97F2C67591800AC62CF /* AutoCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCardViewModel.swift; sourceTree = "<group>"; };
 		935481DD2C524C6B0085B6CE /* TopTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabBarView.swift; sourceTree = "<group>"; };
 		935481DF2C5256770085B6CE /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCardWithButtonView.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				935CF95F2C5908EF00F6F6CB /* AutoListViewModel.swift */,
 				93689FE82C58BECD00A4FB13 /* MainViewModel.swift */,
 				9337B6842C63FFC000844EC4 /* MakeReservationViewModel.swift */,
+				9353B97F2C67591800AC62CF /* AutoCardViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -683,6 +686,7 @@
 				93654DEE2C3E932E001CFB7D /* AppConfig.swift in Sources */,
 				9337B67F2C63F79C00844EC4 /* DataPickerField.swift in Sources */,
 				939D49162C41615000BD65E1 /* CustomToolbar.swift in Sources */,
+				9353B9802C67591800AC62CF /* AutoCardViewModel.swift in Sources */,
 				93745BC72C41A5DF00889B42 /* RulesAndConditionsView.swift in Sources */,
 				935481E02C5256770085B6CE /* Enums.swift in Sources */,
 				936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */,

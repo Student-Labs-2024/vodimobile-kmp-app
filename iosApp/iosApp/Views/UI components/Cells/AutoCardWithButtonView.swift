@@ -10,47 +10,44 @@ import SwiftUI
 import shared
 
 struct AutoCardWithButtonView: View {
-    let carModel: Car
     @Binding var showModal: Bool
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
-    private var carPreview: Image
-    private var carPrice: Float
+    @ObservedObject var viewModel: AutoCardViewModel
+    private let columns = [
+        GridItem(.flexible(), spacing: 20),
+        GridItem(.flexible(), spacing: 20)
+    ]
     
     init(
-        carModel: Car,
+        carModel: Binding<Car>,
         selectedAuto: Binding<Car>,
         showModal: Binding<Bool>,
         showModalReservation: Binding<Bool>
     ) {
-        self.carModel = carModel
-        if let image = carModel.images.first, let tariff = carModel.tariffs.first {
-            self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
-            self.carPrice = tariff.cost
-        } else {
-            self.carPreview = Image.questionFolder
-            self.carPrice = 0
-        }
+        self.viewModel = .init(carModel: carModel)
         self._selectedAuto = selectedAuto
-        self._showModal = showModal
         self._showModalReservation = showModalReservation
+        self._showModal = showModal
     }
     
     var body: some View {
         VStack(spacing: 12) {
-            carPreview
+            viewModel.carPreview
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 25)
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(carModel.model.resource).font(.header3)
-                    Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
-                        .font(.header4)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color(R.color.blueColor))
-                        .multilineTextAlignment(.leading)
+                    Text(viewModel.carModel.model.resource).font(.header3)
+                    if let carPrice = viewModel.carModel.tariffs.first?.cost {
+                        Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
+                            .font(.header4)
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color(R.color.blueColor))
+                            .multilineTextAlignment(.leading)
+                    }
                 }
                 Spacer()
             }
@@ -73,7 +70,7 @@ struct AutoCardWithButtonView: View {
                 .frame(width: 40, height: 40)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
                 .onTapGesture {
-                    selectedAuto = carModel
+                    selectedAuto = viewModel.carModel
                     showModal = true
                 }
             }

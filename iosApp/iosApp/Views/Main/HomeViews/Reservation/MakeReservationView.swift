@@ -11,40 +11,22 @@ import shared
 
 struct MakeReservationView: View {
     @Binding private var showModal: Bool
-    @ObservedObject var viewModel = MakeReservationViewModel()
+    @ObservedObject var viewModel: MakeReservationViewModel
     
     @ViewBuilder private var destinationView: some View {
-        if viewModel.isSuccessed {
+        if viewModel.isSuccessed == .success {
             SuccessfulReservationView()
         } else {
             FailureReservationView()
         }
     }
-    private let car: Car
-    private let dates: String?
-    private let carPreview: Image
-    private let carPrice: Float
-    private let carYear: Int
     
     init(
         car: Car,
         dates: String?,
         showModal: Binding<Bool>? = nil
     ) {
-        self.car = car
-        if let image = car.images.first,
-           let tariff = car.tariffs.first,
-           let year = car.year
-        {
-            self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
-            self.carPrice = tariff.cost
-            self.carYear = Int(truncating: year)
-        } else {
-            self.carPreview = Image.questionFolder
-            self.carPrice = 0
-            self.carYear = 0
-        }
-        self.dates = dates
+        self.viewModel = .init(car: car, dates: dates)
         self._showModal = showModal ?? Binding.constant(false)
     }
     
@@ -66,7 +48,7 @@ struct MakeReservationView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 24) {
                             HStack {
-                                carPreview
+                                viewModel.carPreview
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: screenWidth / 2.3)
@@ -78,11 +60,11 @@ struct MakeReservationView: View {
                                         Text(R.string.localizable.autoNameTitle)
                                             .font(.paragraph5)
                                             .foregroundStyle(Color(R.color.grayTextColor))
-                                        Text(car.model.resource)
+                                        Text(viewModel.car.model.resource)
                                             .font(.header5)
                                     }
                                     
-                                    if let dates = dates {
+                                    if let dates = viewModel.dates {
                                         VStack(alignment: .leading) {
                                             Text(R.string.localizable.autoDatesTitle)
                                                 .font(.paragraph5)
@@ -100,7 +82,7 @@ struct MakeReservationView: View {
                                     .fill(Color(R.color.blueBoxColor))
                             )
                             
-                            if dates == nil {
+                            if viewModel.dates == nil {
                                 ButtonLikeBorderedTextField(
                                     fieldType: .datePicker,
                                     showDatePicker: $viewModel.showDatePicker,

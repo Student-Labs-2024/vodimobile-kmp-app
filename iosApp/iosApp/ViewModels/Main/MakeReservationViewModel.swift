@@ -11,7 +11,7 @@ import shared
 
 final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
-    @Published var isSuccessed: Bool = true
+    @Published var isSuccessed: RequestReservationState = .success
     @Published var isLoading: Bool = false
     @Published var showDatePicker = false
     @Published var dateRange: ClosedRange<Date>? = nil
@@ -23,7 +23,23 @@ final class MakeReservationViewModel: ObservableObject {
     @Published var comment: String? = nil
     @FocusState var focuseOnCommentField: Bool
     
-    init() {
+    let car: Car
+    let dates: String?
+    var carPreview: Image {
+        if let image = car.images.first {
+            return Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
+        } else {
+            return Image.questionFolder
+        }
+    }
+    
+    init(
+        car: Car,
+        dates: String?
+    ) {
+        self.car = car
+        self.dates = dates
+        
         Task {
             await fetchPlaceList()
         }

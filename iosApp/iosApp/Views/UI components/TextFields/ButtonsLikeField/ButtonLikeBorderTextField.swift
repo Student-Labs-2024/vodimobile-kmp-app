@@ -58,7 +58,7 @@ struct ButtonLikeBorderedTextField: View {
                 PlacePickerField(
                     selectedPlace: $selectedPlace,
                     placesDataSource: placesDataSource,
-                    rightImage: Image.chevronDown
+                    icon: Image.chevronDown
                 )
             case .timePicker:
                 TimePickerField(selectedTime: $time, showTimePicker: $showTimePicker)

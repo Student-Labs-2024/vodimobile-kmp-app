@@ -43,12 +43,9 @@ struct ModalAutoView: View {
 
 
 struct ModalAutoCardView: View {
-    @Binding var carModel: Car
     @Binding var showModalView: Bool
     @Binding var showModalReservation: Bool
-    private let carPreview: Image
-    private let carPrice: Float
-    private let carYear: Int
+    @ObservedObject var viewModel: AutoCardViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -59,20 +56,8 @@ struct ModalAutoCardView: View {
         showModal: Binding<Bool>,
         showModalReservation: Binding<Bool>
     ) {
-        self._carModel = carModel
+        self.viewModel = .init(carModel: carModel)
         self._showModalReservation = showModalReservation
-        if let image = carModel.wrappedValue.images.first,
-           let tariff = carModel.wrappedValue.tariffs.first,
-           let year = carModel.wrappedValue.year
-        {
-            self.carPreview = Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
-            self.carPrice = tariff.cost
-            self.carYear = Int(truncating: year)
-        } else {
-            self.carPreview = Image.questionFolder
-            self.carPrice = 0
-            self.carYear = 0
-        }
         self._showModalView = showModal
     }
     
@@ -99,18 +84,20 @@ struct ModalAutoCardView: View {
             Spacer()
             
             VStack {
-                carPreview
+                viewModel.carPreview
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .padding(.horizontal, 55)
                 
                 HStack {
-                    Text(carModel.model.resource).font(.header3)
+                    Text(viewModel.carModel.model.resource).font(.header3)
                     Spacer()
-                    Text("от \(Int(carPrice)) руб.")
-                        .font(.header4)
-                        .foregroundStyle(Color(R.color.blueColor))
-                        .fontWeight(.bold)
+                    if let carPrice = viewModel.carModel.tariffs.first?.cost {
+                        Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
+                            .font(.header4)
+                            .foregroundStyle(Color(R.color.blueColor))
+                            .fontWeight(.bold)
+                    }
                 }
                 .padding(.vertical, 15)
                 
@@ -128,7 +115,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.transmissionTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(carModel.transmission.resource)
+                                Text(viewModel.carModel.transmission.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -144,7 +131,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.driveTypeTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text(carModel.wheelDrive.resource)
+                                Text(viewModel.carModel.wheelDrive.resource)
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)
@@ -160,10 +147,12 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.yearOfManufactureTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text("\(carYear)".replacingOccurrences(of: " ", with: ""))
-                                    .foregroundStyle(Color(R.color.grayTextColor))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
+                                if let carYear = viewModel.carModel.year {
+                                    Text("\(carYear)".replacingOccurrences(of: " ", with: ""))
+                                        .foregroundStyle(Color(R.color.grayTextColor))
+                                        .font(.caption1)
+                                        .fontWeight(.bold)
+                                }
                             }
                         }
                         
@@ -176,7 +165,7 @@ struct ModalAutoCardView: View {
                                 Text(R.string.localizable.tankTitle)
                                     .font(.caption1)
                                     .fontWeight(.bold)
-                                Text("\(carModel.tankValue.resource) \(R.string.localizable.literText())")
+                                Text("\(viewModel.carModel.tankValue.resource) \(R.string.localizable.literText())")
                                     .foregroundStyle(Color(R.color.grayTextColor))
                                     .font(.caption1)
                                     .fontWeight(.bold)

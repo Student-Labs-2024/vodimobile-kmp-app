@@ -104,6 +104,11 @@ enum InputErrorType: String {
     }
 }
 
+// State
+enum RequestReservationState {
+    case success, fail
+}
+
 // field types
 enum TextFieldType: String {
     case email, phone, fullName, password, oldPassword, newPassword

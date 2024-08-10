@@ -88,10 +88,6 @@ struct FilledBtnWithoutDisabledStyle: ButtonStyle {
             .padding()
             .frame(maxWidth: .infinity)
             .background(configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
-            .frame(maxWidth: .infinity)
-            .background(
-                configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor)
-            )
             .foregroundColor(.white)
             .cornerRadius(15)
             .font(.button)

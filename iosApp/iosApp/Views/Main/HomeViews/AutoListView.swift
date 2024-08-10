@@ -32,7 +32,7 @@ struct AutoListView: View {
                         LazyVStack(spacing: 20) {
                             ForEach(viewModel.listOfAllCar.indices, id: \.self) { index in
                                 AutoCardWithButtonView(
-                                    carModel: viewModel.listOfAllCar[index],
+                                    carModel: $viewModel.listOfAllCar[index],
                                     selectedAuto: $selectedAuto,
                                     showModal: $showModalCard,
                                     showModalReservation: $showModalReservation
