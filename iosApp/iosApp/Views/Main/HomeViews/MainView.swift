@@ -30,7 +30,10 @@ struct MainView: View {
                             Text(R.string.localizable.popularAuto).font(.header3)
                             Spacer()
                             NavigationLink(R.string.localizable.allAutoButton()) {
-                                AutoListView(showModalReservation: $showModalReservation)
+                                AutoListView(
+                                    selectedAuto: $selectedAuto,
+                                    showModalReservation: $showModalReservation
+                                )
                             }
                             .font(.buttonTabbar)
                             .foregroundStyle(Color(R.color.blueColor))
@@ -44,7 +47,10 @@ struct MainView: View {
                                 selectedAuto: $selectedAuto
                             )
                         }
-                        AutoGeneralCardView(showModalReservation: $showModalReservation)
+                        AutoGeneralCardView(
+                            selectedAuto: $selectedAuto,
+                            showModalReservation: $showModalReservation
+                        )
                     }
                     .padding(.top, headerHeight * 1.75)
                     .padding(.horizontal, 24)

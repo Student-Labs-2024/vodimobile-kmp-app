@@ -129,8 +129,8 @@ struct MakeReservationView: View {
                         }
                         .buttonStyle(FilledBtnStyle())
                         .disabled(
-                            viewModel.selectedPlace == nil ||
-                            viewModel.time == nil ||
+                            viewModel.selectedPlace == nil &&
+                            viewModel.time == nil &&
                             viewModel.dateRange == nil
                         )
                     }

@@ -19,7 +19,7 @@ final class KMPApiManager {
             await setUserTokens()
         }
     }
-
+    
     func setUserTokens() async {
         do {
             let response = try await helper.postUser()
@@ -27,7 +27,7 @@ final class KMPApiManager {
             case .crmData(let success):
                 let user = success.data
                 if let user = user {
-                   let newUser = User(
+                    let newUser = User(
                         fullName:  dataStorage.gettingUser.fullName,
                         password:  dataStorage.gettingUser.password,
                         accessToken:  user.accessToken,
@@ -72,13 +72,11 @@ final class KMPApiManager {
         return []
     }
     
-    private func convertNSArrayToArray(nsArray: NSArray) -> [Car] {
-        var cars: [Car] = []
     func fetchPlaces() async -> [Place] {
         do {
             let response = try await helper.getPlaces(
-                accessToken: tokens.0,
-                refreshToken: tokens.1
+                accessToken: dataStorage.gettingUser.accessToken,
+                refreshToken: dataStorage.gettingUser.refreshToken
             )
             switch onEnum(of: response) {
             case .crmData(let success):
@@ -96,10 +94,10 @@ final class KMPApiManager {
         }
         return []
     }
-
+    
     private func convertNSArrayToArray<T>(nsArray: NSArray) -> [T] {
         var itemList: [T] = []
-
+        
         for item in nsArray {
             if let item = item as? T {
                 itemList.append(item)
@@ -109,5 +107,4 @@ final class KMPApiManager {
         }
         return itemList
     }
-}
 }

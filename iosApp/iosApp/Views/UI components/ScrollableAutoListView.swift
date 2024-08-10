@@ -11,9 +11,10 @@ import shared
 import SwiftUIPullToRefresh
 
 struct ScrollableAutoListView: View {
-    var carList: [Car]
+    @Binding var carList: [Car]
     @Binding var selectedAuto: Car
     @Binding var showModalCard: Bool
+    @Binding var showModalReservation: Bool
     let refreshAction: () async -> ()
     
     var body: some View {
@@ -27,9 +28,10 @@ struct ScrollableAutoListView: View {
             LazyVStack(spacing: 20) {
                 ForEach(carList.indices, id: \.self) { index in
                     AutoCardWithButtonView(
-                        carModel: carList[index],
+                        carModel: $carList[index],
                         selectedAuto: $selectedAuto,
-                        showModal: $showModalCard
+                        showModal: $showModalCard,
+                        showModalReservation: $showModalReservation
                     )
                 }
             }

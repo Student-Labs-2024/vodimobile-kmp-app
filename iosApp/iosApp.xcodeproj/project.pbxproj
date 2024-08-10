@@ -22,6 +22,7 @@
 		9337B6832C63F87700844EC4 /* PlacePickerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337B6822C63F87700844EC4 /* PlacePickerField.swift */; };
 		9337B6852C63FFC000844EC4 /* MakeReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337B6842C63FFC000844EC4 /* MakeReservationViewModel.swift */; };
 		933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */; };
+		933EC2F72C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */; };
 		9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
@@ -92,7 +93,6 @@
 		93AA80E02C45697600D5061E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AA80DF2C45697600D5061E /* Launch Screen.storyboard */; };
 		93BF9E782C5AAE7800A6EE91 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E772C5AAE7800A6EE91 /* ChangePasswordView.swift */; };
 		93BF9E7F2C5AB62B00A6EE91 /* ResetPasswordPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E7E2C5AB62B00A6EE91 /* ResetPasswordPassView.swift */; };
-		93BF9E812C5ACE5100A6EE91 /* ButtonLikeUnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BF9E802C5ACE5100A6EE91 /* ButtonLikeUnderlinedTextField.swift */; };
 		93D1E05F2C45048200919749 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 93D1E05E2C45048200919749 /* RswiftLibrary */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +127,7 @@
 		9337B6822C63F87700844EC4 /* PlacePickerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePickerField.swift; sourceTree = "<group>"; };
 		9337B6842C63FFC000844EC4 /* MakeReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationViewModel.swift; sourceTree = "<group>"; };
 		933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
+		933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLikeUnderlinedTextField.swift; sourceTree = "<group>"; };
 		9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
@@ -198,7 +199,6 @@
 		93AA80DF2C45697600D5061E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93BF9E772C5AAE7800A6EE91 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		93BF9E7E2C5AB62B00A6EE91 /* ResetPasswordPassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPassView.swift; sourceTree = "<group>"; };
-		93BF9E802C5ACE5100A6EE91 /* ButtonLikeUnderlinedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLikeUnderlinedTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,8 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				9337B67C2C63E7A800844EC4 /* ButtonLikeBorderTextField.swift */,
+				933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */,
 				9337B67E2C63F79C00844EC4 /* DataPickerField.swift */,
-				93BF9E802C5ACE5100A6EE91 /* ButtonLikeUnderlinedTextField.swift */,
 				9337B6822C63F87700844EC4 /* PlacePickerField.swift */,
 				9368EEB72C6565480036DBA2 /* TimePickerField.swift */,
 			);
@@ -357,7 +357,6 @@
 				935E1A8D2C51365800A35E4E /* ExpantableToolbar.swift */,
 				93577F112C4E6C85005FEAFF /* LoadingView.swift */,
 				935481DD2C524C6B0085B6CE /* TopTabBarView.swift */,
-				93BF9E802C5ACE5100A6EE91 /* ButtonLikeTextFieldView.swift */,
 				9358EABB2C62BC4D00488093 /* ScrollableAutoListView.swift */,
 			);
 			path = "UI components";
@@ -719,6 +718,7 @@
 				935CF95E2C58F02300F6F6CB /* AutoGeneralCardView.swift in Sources */,
 				934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */,
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,
+				933EC2F72C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift in Sources */,
 				9368EEB82C6565480036DBA2 /* TimePickerField.swift in Sources */,
 				93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */,
 				9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */,
@@ -740,7 +740,6 @@
 				93A257772C40F27900316EDE /* ContactsView.swift in Sources */,
 				936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */,
 				937DBD552C4FCF3800C43A86 /* KMPDataStorage.swift in Sources */,
-				93BF9E812C5ACE5100A6EE91 /* ButtonLikeUnderlinedTextField.swift in Sources */,
 				931FDDA62C46F8BF007954FC /* R.generated.swift in Sources */,
 				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
 				933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */,

@@ -55,6 +55,7 @@ struct AutoCardWithButtonView: View {
             HStack {
                 
                 Button(R.string.localizable.bookButton()) {
+                    selectedAuto = viewModel.carModel
                     showModalReservation.toggle()
                 }
                 .buttonStyle(FilledBtnStyle(heightButton: 40))

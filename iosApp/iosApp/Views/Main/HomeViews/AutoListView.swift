@@ -10,12 +10,12 @@ import SwiftUI
 import shared
 
 struct AutoListView: View {
+    @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
-    @State private var selectedAuto: Car = Car.companion.empty()
     @State private var dragOffset: CGSize = .zero
-    @ObservedObject private var viewModel: AutoListViewModel = AutoListViewModel()
+    @ObservedObject private var viewModel = AutoListViewModel()
     
     var body: some View {
         VStack {
@@ -33,6 +33,7 @@ struct AutoListView: View {
                         carList: viewModel.filterCars(by: .economy),
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 2:
@@ -40,6 +41,7 @@ struct AutoListView: View {
                         carList: viewModel.filterCars(by: .comfort),
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 3:
@@ -47,6 +49,7 @@ struct AutoListView: View {
                         carList: viewModel.filterCars(by: .premium),
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 4:
@@ -54,6 +57,7 @@ struct AutoListView: View {
                         carList: viewModel.filterCars(by: .sedans),
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 5:
@@ -61,13 +65,15 @@ struct AutoListView: View {
                         carList: viewModel.filterCars(by: .jeeps),
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
                         refreshAction: viewModel.fetchAllCars
                     )
                 default:
                     ScrollableAutoListView(
-                        carList: viewModel.listOfAllCar,
+                        carList: $viewModel.listOfAllCar,
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
                         refreshAction: viewModel.fetchAllCars
                     )
                 }
@@ -100,7 +106,6 @@ struct AutoListView: View {
             .onAppear {
                 Task {
                     await viewModel.fetchAllCars()
-                    viewModel.isLoading.toggle()
                 }
             }
             .sheet(isPresented: $showModalCard) {
@@ -121,5 +126,8 @@ struct AutoListView: View {
 }
 
 #Preview {
-    AutoListView(showModalReservation: Binding.constant(false))
+    AutoListView(
+        selectedAuto: Binding.constant(Car.companion.empty()),
+        showModalReservation: Binding.constant(false)
+    )
 }
