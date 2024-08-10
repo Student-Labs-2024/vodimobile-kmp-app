@@ -176,6 +176,10 @@ struct BorderedTextField: View {
                 if fieldType == .password {
                     errorMsg = InputErrorType.invalidPass.errorString
                 }
+            case .oldPasswordIsWrong:
+                if fieldType == .oldPassword {
+                    errorMsg = InputErrorType.oldPasswordIsWrong.errorString
+                }
             }
         }
     }

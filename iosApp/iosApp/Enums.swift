@@ -76,6 +76,7 @@ enum InputErrorType: String {
     case tooShortPass
     case noSpecSymboldsInPass
     case noUpperLettersInPass
+    case oldPasswordIsWrong
     
     var errorString: String {
         switch self {
@@ -95,6 +96,8 @@ enum InputErrorType: String {
             return R.string.localizable.noUpperLettersInPass()
         case .invalidPass:
             return R.string.localizable.invalidPass()
+        case .oldPasswordIsWrong:
+            return R.string.localizable.oldPassIsWrong()
         }
     }
 }

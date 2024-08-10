@@ -27,7 +27,7 @@ final class KMPApiManager {
             case .crmData(let success):
                 let user = success.data
                 if let user = user {
-                    let newUser = User(
+                   let newUser = User(
                         fullName:  dataStorage.gettingUser.fullName,
                         password:  dataStorage.gettingUser.password,
                         accessToken:  user.accessToken,

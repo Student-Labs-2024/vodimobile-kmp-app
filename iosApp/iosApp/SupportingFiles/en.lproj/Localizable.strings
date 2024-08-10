@@ -66,6 +66,7 @@
 "noSpecSymboldsInPass" = "Password must contain at least one special character";
 "noUpperLettersInPass" = "Password must contain at least one capital letter";
 "invalidPass" = "Invalid password";
+"oldPassIsWrong" = "Your input old password is wrong";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";
