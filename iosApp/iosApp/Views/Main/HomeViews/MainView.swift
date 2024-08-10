@@ -18,6 +18,7 @@ struct MainView: View {
     @State private var dragOffset: CGSize = .zero
     @State private var showModalCard: Bool = false
     @State private var selectedAuto: Car = Car.companion.empty()
+    @State private var showModalReservation: Bool = false
     @ObservedObject private var viewModel = MainViewModel()
 
     var body: some View {
@@ -29,26 +30,26 @@ struct MainView: View {
                             Text(R.string.localizable.popularAuto).font(.header3)
                             Spacer()
                             NavigationLink(R.string.localizable.allAutoButton()) {
-                                AutoListView()
+                                AutoListView(showModalReservation: $showModalReservation)
                             }
                             .font(.buttonTabbar)
                             .foregroundStyle(Color(R.color.blueColor))
                         }
                         .padding(.bottom, 10)
-
+                        
                         ForEach(viewModel.listOfPopularCar.indices, id: \.self) { index in
                             AutoSimpleCardView(
-                                car: viewModel.listOfPopularCar[index],
+                                carModel: $viewModel.listOfPopularCar[index],
                                 showModal: $showModalCard,
                                 selectedAuto: $selectedAuto
                             )
                         }
-                        AutoGeneralCardView()
+                        AutoGeneralCardView(showModalReservation: $showModalReservation)
                     }
                     .padding(.top, headerHeight * 1.75)
                     .padding(.horizontal, 24)
                 }
-
+                
                 // Expandable Toolbar
                 ExpandableToolbar(
                     isExpanded: $isExpanded,
@@ -57,7 +58,7 @@ struct MainView: View {
                     headerHeight: $headerHeight,
                     dragOffset: $dragOffset
                 )
-
+                
                 // Date Picker Modal
                 if showDatePicker {
                     ModalDatePickerView(
@@ -66,12 +67,26 @@ struct MainView: View {
                     )
                 }
             }
+            .sheet(isPresented: $showModalCard) {
+                ModalAutoView(
+                    carModel: $selectedAuto,
+                    showModalView: $showModalCard,
+                    showModalReservation: $showModalReservation
+                )
+            }
             .ignoresSafeArea(.container, edges: .top)
             .background(Color(R.color.grayLightColor))
-            .sheet(isPresented: $showModalCard) {
-                ModalAutoView(carModel: $selectedAuto, showModalView: $showModalCard)
-            }
         }
+        .fullScreenCover(
+            isPresented: $showModalReservation,
+            content: {
+                MakeReservationView(
+                    car: selectedAuto,
+                    dates: nil,
+                    showModal: $showModalReservation
+                )
+            }
+        )
     }
     
     func handleScroll(_ offset: CGPoint) {

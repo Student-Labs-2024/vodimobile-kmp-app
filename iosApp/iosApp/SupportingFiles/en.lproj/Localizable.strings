@@ -26,6 +26,7 @@
 "jeepsScreenTitle" = "Jeeps";
 "resetPassScreenTitle" = "Reset password";
 "changePassword" = "Change the password";
+"reservationScreenTitle" = "Making reservation";
 
 // Buttons titles
 "regButtonTitle" = "Sign up";
@@ -42,6 +43,7 @@
 "findAutoButton" = "Find auto";
 "allAutoButton" = "All auto >";
 "bookButton" = "Book";
+"leaveReuqestButton" = "Request for booking";
 
 // Field names
 "email" = "Email";
@@ -56,6 +58,12 @@
 "passwordPlaceholder" = "Input your password";
 "newPasswordPlaceholder" = "Input your new password";
 "fullnamePlaceholder" = "Input your full name";
+"methodOfObtainingTitle" = "Where will you pick up the car?";
+"methodOfObtaining" = "Select method";
+"rentalTime" = "What time?";
+"rentalTimePlaceholder" = "Select time";
+"commentToReservation" = "Comment to reservation";
+"commentToReservationPlaceholder" = "Enter comment...";
 
 // Error strings
 "incorrectFullName" = "Invalid format. Only letters without characters and whitespaces are allowed to be entered";
@@ -66,6 +74,8 @@
 "noSpecSymboldsInPass" = "Password must contain at least one special character";
 "noUpperLettersInPass" = "Password must contain at least one capital letter";
 "invalidPass" = "Invalid password";
+"selectDayTime" = "Select time from 9am to 8pm";
+"selectNightTime" = "Select time from 8pm to 9am";
 
 // Alert text
 "exitAlertTitle" = "Are you sure you want to log out of your account?";
@@ -122,6 +132,15 @@
 "servetErrorText" = "Something went wrong on the server side. Try the connection again.";
 "signSuggestTitle" = "Sign in or create account";
 "signSuggestText" = "To submit a request, you must have an account";
+"autoNameTitle" = "Automobile";
+"autoDatesTitle" = "The rental period";
+"totalPriceTitle" = "Total:";
+"freeText" = "Free";
+"requestSubmittedTitle" = "Booking request submitted";
+"requestSubmittedText" = "The manager will contact you soon. You can change the order and see its status in orders";
+"requestFailedTitle" = "Something went wrong";
+"requestFailedText" = "Failed to submit request. Try again.";
+
 
 // Rules and Condition resources
 "ruleTitle1" = "Rental conditions for drivers";

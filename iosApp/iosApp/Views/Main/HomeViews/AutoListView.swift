@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct AutoListView: View {
+    @Binding var showModalReservation: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var selectedAuto: Car = Car.companion.empty()
@@ -31,9 +32,10 @@ struct AutoListView: View {
                         LazyVStack(spacing: 20) {
                             ForEach(viewModel.listOfAllCar.indices, id: \.self) { index in
                                 AutoCardWithButtonView(
-                                    carModel: viewModel.listOfAllCar[index],
-                                    selectedAuto: $selectedAuto, 
-                                    showModal: $showModalCard
+                                    carModel: $viewModel.listOfAllCar[index],
+                                    selectedAuto: $selectedAuto,
+                                    showModal: $showModalCard,
+                                    showModalReservation: $showModalReservation
                                 )
                             }
                         }
@@ -73,18 +75,22 @@ struct AutoListView: View {
             .onAppear {
                 viewModel.fetchAllCars()
             }
+            .sheet(isPresented: $showModalCard) {
+                ModalAutoView(
+                    carModel: $selectedAuto,
+                    showModalView: $showModalCard,
+                    showModalReservation: $showModalReservation
+                )
+            }
         }
         .background(Color(R.color.grayLightColor))
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)
         }
-        .sheet(isPresented: $showModalCard) {
-            ModalAutoView(carModel: $selectedAuto, showModalView: $showModalCard)
-        }
     }
 }
 
 #Preview {
-    AutoListView()
+    AutoListView(showModalReservation: Binding.constant(false))
 }

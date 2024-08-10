@@ -76,6 +76,7 @@ enum InputErrorType: String {
     case tooShortPass
     case noSpecSymboldsInPass
     case noUpperLettersInPass
+    case selectDayTime, selectNightTime
     
     var errorString: String {
         switch self {
@@ -95,8 +96,17 @@ enum InputErrorType: String {
             return R.string.localizable.noUpperLettersInPass()
         case .invalidPass:
             return R.string.localizable.invalidPass()
+        case .selectDayTime:
+            return R.string.localizable.selectDayTime()
+        case .selectNightTime:
+            return R.string.localizable.selectNightTime()
         }
     }
+}
+
+// State
+enum RequestReservationState {
+    case success, fail
 }
 
 // field types
@@ -117,6 +127,21 @@ enum TextFieldType: String {
             return R.string.localizable.oldPassword()
         case .newPassword:
             return R.string.localizable.newPassword()
+        }
+    }
+}
+
+enum ButtonLikeTextFieldType {
+    case placePicker, timePicker, datePicker
+    
+    var localizedStr: String {
+        switch self {
+        case .datePicker:
+            return R.string.localizable.dateTextFieldTitle()
+        case .timePicker:
+            return R.string.localizable.rentalTime()
+        case .placePicker:
+            return R.string.localizable.methodOfObtaining()
         }
     }
 }
