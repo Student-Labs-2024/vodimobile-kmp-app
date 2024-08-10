@@ -10,11 +10,16 @@ import SwiftUI
 
 struct AutoSizingTextEditor: View {
     @Binding var text: String
+    @Binding private var isFocused: Bool
     @State private var textViewHeight: CGFloat = 50
-    @FocusState.Binding private var isFocused: Bool
+    @State private var isPlaceholderVisible: Bool = true
     
-    init(text: Binding<String>, isFocused: FocusState<Bool>.Binding) {
-        self._text = text
+    init(text: Binding<String?>, isFocused: Binding<Bool>) {
+        if let unwrapText = text.wrappedValue {
+            _text = Binding.constant(unwrapText)
+        } else {
+            _text = Binding.constant("")
+        }
         self._isFocused = isFocused
     }
 
@@ -23,18 +28,31 @@ struct AutoSizingTextEditor: View {
             Text(R.string.localizable.commentToReservation)
                 .font(.header4)
             GeometryReader { geometry in
-                TextEditor(text: $text)
-                    .frame(height: textViewHeight)
-                    .background(GeometryReader { geo -> SwiftUI.Color in
-                        DispatchQueue.main.async {
-                            let size = geo.size
-                            if size.height != textViewHeight {
-                                textViewHeight = size.height
+                Group {
+                    if text.isEmpty && isPlaceholderVisible {
+                        Text(R.string.localizable.commentToReservationPlaceholder)
+                            .font(.paragraph4)
+                            .foregroundStyle(Color(R.color.grayTextColor))
+                    } else {
+                        TextEditor(text: $text)
+                            .frame(height: textViewHeight)
+                            .background(GeometryReader { geo -> SwiftUI.Color in
+                                DispatchQueue.main.async {
+                                    let size = geo.size
+                                    if size.height != textViewHeight {
+                                        textViewHeight = size.height
+                                    }
+                                }
+                                return Color.clear
+                            })
+                            .padding(.horizontal, 5)
+                            .font(.paragraph4)
+                            .foregroundStyle(Color(R.color.blueColor))
+                            .onChange(of: text) { newValue in
+                                self.isPlaceholderVisible = newValue.isEmpty ? true : false
                             }
-                        }
-                        return Color.clear
-                    })
-                    .padding(.horizontal, 4)
+                    }
+                }
             }
             .padding(5)
             .frame(minHeight: textViewHeight, maxHeight: textViewHeight)
@@ -43,6 +61,11 @@ struct AutoSizingTextEditor: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color(R.color.grayDarkColor), lineWidth: 1)
             )
+            .onTapGesture {
+                if text.isEmpty {
+                    isPlaceholderVisible = false
+                }
+            }
         }
         .animation(.easeInOut, value: textViewHeight)
     }

@@ -13,6 +13,15 @@ final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
     @Published var isSuccessed: Bool = true
     @Published var isLoading: Bool = false
+    @Published var showDatePicker = false
+    @Published var dateRange: ClosedRange<Date>? = nil
+    @Published var inputErrorType: InputErrorType?
+    @Published var time: Date? = nil
+    @Published var showTimePicker: Bool = false
+    @Published var selectedPlace: PlaceShort? = nil
+    @Published var totalPrice: Int = 0
+    @Published var comment: String? = nil
+    @FocusState var focuseOnCommentField: Bool
     
     init() {
         Task {

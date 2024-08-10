@@ -10,15 +10,6 @@ import SwiftUI
 import shared
 
 struct MakeReservationView: View {
-    @State private var showDatePicker = false
-    @State private var dateRange: ClosedRange<Date>?
-    @State private var inputErrorType: InputErrorType?
-    @State private var time: Date?
-    @State private var showTimePicker: Bool = false
-    @State var selectedPlace: PlaceShort?
-    @State private var totalPrice: Int = 0
-    @State private var comment: String = ""
-    @FocusState private var focuseOnCommentField: Bool
     @Binding private var showModal: Bool
     @ObservedObject var viewModel = MakeReservationViewModel()
     
@@ -112,27 +103,27 @@ struct MakeReservationView: View {
                             if dates == nil {
                                 ButtonLikeBorderedTextField(
                                     fieldType: .datePicker,
-                                    showDatePicker: $showDatePicker,
-                                    inputErrorType: $inputErrorType,
-                                    dateRange: $dateRange
+                                    showDatePicker: $viewModel.showDatePicker,
+                                    inputErrorType: $viewModel.inputErrorType,
+                                    dateRange: $viewModel.dateRange
                                 )
                             }
                             
                             ButtonLikeBorderedTextField(
                                 fieldType: .placePicker,
-                                inputErrorType: $inputErrorType,
-                                selectedPlace: $selectedPlace,
+                                inputErrorType: $viewModel.inputErrorType,
+                                selectedPlace: $viewModel.selectedPlace,
                                 placesDataSource: $viewModel.placesWithCost
                             )
                             
                             ButtonLikeBorderedTextField(
                                 fieldType: .timePicker,
-                                inputErrorType: $inputErrorType,
-                                time: $time,
-                                showTimePicker: $showTimePicker
+                                inputErrorType: $viewModel.inputErrorType,
+                                time: $viewModel.time,
+                                showTimePicker: $viewModel.showTimePicker
                             )
                             
-                            AutoSizingTextEditor(text: $comment, isFocused: $focuseOnCommentField)
+                            AutoSizingTextEditor(text: $viewModel.comment, isFocused: $viewModel.focuseOnCommentField)
                             
                             
                             Spacer()
@@ -147,7 +138,7 @@ struct MakeReservationView: View {
                             Text(R.string.localizable.totalPriceTitle)
                                 .font(.header3)
                             Spacer()
-                            Text("\(totalPrice) \(R.string.localizable.currencyPriceText())")
+                            Text("\(viewModel.totalPrice) \(R.string.localizable.currencyPriceText())")
                                 .font(.header3)
                         }
                         
@@ -155,19 +146,24 @@ struct MakeReservationView: View {
                             destinationView
                         }
                         .buttonStyle(FilledBtnStyle())
+                        .disabled(
+                            viewModel.selectedPlace == nil ||
+                            viewModel.time == nil ||
+                            viewModel.dateRange == nil
+                        )
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 20)
                 }
                 .padding(.horizontal, horizontalPadding)
                 
-                if showDatePicker {
+                if viewModel.showDatePicker {
                     ModalDatePickerView(
-                        showDatePicker: $showDatePicker,
-                        dateRange: $dateRange
+                        showDatePicker: $viewModel.showDatePicker,
+                        dateRange: $viewModel.dateRange
                     )
-                } else if showTimePicker {
-                    ModalTimePicker(selectedTime: $time, showTimePicker: $showTimePicker)
+                } else if viewModel.showTimePicker {
+                    ModalTimePicker(selectedTime: $viewModel.time, showTimePicker: $viewModel.showTimePicker)
                 }
             }
             .loadingOverlay(isLoading: $viewModel.isLoading)
