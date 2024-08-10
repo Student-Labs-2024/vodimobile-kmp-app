@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ButtonLikeTextFieldView: View {
+struct ButtonLikeUnderlinedTextField: View {
     var body: some View {
         NavigationLink(destination: ChangePasswordView()) {
             HStack {
@@ -37,5 +37,5 @@ struct ButtonLikeTextFieldView: View {
 }
 
 #Preview {
-    ButtonLikeTextFieldView()
+    ButtonLikeUnderlinedTextField()
 }

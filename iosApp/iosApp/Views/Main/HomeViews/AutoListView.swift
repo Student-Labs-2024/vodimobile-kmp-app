@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct AutoListView: View {
+    @Binding var showModalReservation: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var selectedAuto: Car = Car.companion.empty()
@@ -102,6 +103,13 @@ struct AutoListView: View {
                     viewModel.isLoading.toggle()
                 }
             }
+            .sheet(isPresented: $showModalCard) {
+                ModalAutoView(
+                    carModel: $selectedAuto,
+                    showModalView: $showModalCard,
+                    showModalReservation: $showModalReservation
+                )
+            }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
         .background(Color(R.color.grayLightColor))
@@ -109,12 +117,9 @@ struct AutoListView: View {
         .toolbar {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)
         }
-        .sheet(isPresented: $showModalCard) {
-            ModalAutoView(carModel: $selectedAuto, showModalView: $showModalCard)
-        }
     }
 }
 
 #Preview {
-    AutoListView()
+    AutoListView(showModalReservation: Binding.constant(false))
 }

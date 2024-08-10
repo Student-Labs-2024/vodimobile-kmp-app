@@ -26,6 +26,7 @@
 "jeepsScreenTitle" = "Внедорожники";
 "resetPassScreenTitle" = "Сброс пароля";
 "changePassword" = "Изменить пароль";
+"reservationScreenTitle" = "Оформление брони";
 
 // Buttons titles
 "authButtonTitle" = "Войти";
@@ -40,6 +41,7 @@
 "bookButton" = "Забронировать";
 "reconnectButton" = "Повторить попытку";
 "forgetPassword" = "Забыли пароль?";
+"leaveReuqestButton" = "Оставить заявку";
 
 // Field names
 "email" = "Email";
@@ -55,6 +57,12 @@
 "newPassword" = "Новый пароль";
 "passwordPlaceholder" = "Введите пароль";
 "newPasswordPlaceholder" = "Придумайте пароль";
+"methodOfObtainingTitle" = "Где заберёте авто?";
+"methodOfObtaining" = "Выберите способ";
+"rentalTime" = "В какое время?";
+"rentalTimePlaceholder" = "Выберите время";
+"commentToReservation" = "Комментарий к бронированию";
+"commentToReservationPlaceholder" = "Введите комментарий...";
 
 // Error strings
 "incorrectFullName" = "Неверный формат. Для ввода допускается только буквы без символов и пробелов";
@@ -65,7 +73,8 @@
 "noSpecSymboldsInPass" = "Пароль должен содержать хотя бы один спец.символ";
 "noUpperLettersInPass" = "Пароль должен содержать хотя бы одну заглавную букву";
 "invalidPass" = "Пароль некорректный";
-"oldPassIsWrong" = "Неверный старый пароль";
+"selectDayTime" = "Выберите время с 9 до 20 часов";
+"selectNightTime" = "Выберите время с 20 до 9 часов";
 
 // Alert text
 "exitAlertTitle" = "Вы уверены, что хотите выйти из аккаунта?";
@@ -118,10 +127,14 @@
 "literText" = "л.";
 "resetScreenTitle" = "Введите номера телефона";
 "resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
-"serverErrorTitle" = "Ошибка сервера";
-"serverErrorText" = "Что-то пошло не так на стороне сервера. Повторите попытку соединения.";
-"signSuggestTitle" = "Войдите или создайте профиль";
-"signSuggestText" = "Чтобы оставить заявку необходимо иметь аккаунт";
+"autoNameTitle" = "Автомобиль";
+"autoDatesTitle" = "Период аренды";
+"totalPriceTitle" = "Итого:";
+"freeText" = "Бесплатно";
+"requestSubmittedTitle" = "Заявка оставлена";
+"requestSubmittedText" = "Менеджер скоро свяжется с вами. Изменить заказ и посмотреть его статус можно в заказах";
+"requestFailedTitle" = "Что-то пошло не так";
+"requestFailedText" = "Не получилось оставить заявку. Попробуйте еще раз";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

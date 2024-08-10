@@ -19,7 +19,6 @@ object LeafScreen {
 
 object LeafHomeScreen {
     const val HOME_SCREEN = "home"
-    const val NO_INTERNET_SCREEN = "no_internet"
     const val SERVER_ERROR_SCREEN = "server_error"
     const val ALL_CARS = "all_cars"
 }
@@ -43,4 +42,9 @@ object DialogIdentifiers {
 object LeafOrdersScreen {
     const val ORDERS_SCREEN = "orders"
     const val SUCCESSFUL_SCREEN = "successful"
+    const val ERROR_APP_SCREEN = "error"
+}
+
+object LeafErrorScreen {
+    const val NO_INTERNET = "no_internet"
 }

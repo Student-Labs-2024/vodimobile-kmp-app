@@ -7,6 +7,7 @@ data class Place(
     val title: String,
     val cityId: Int,
     val deliveryCost: Float,
+    val archive: Boolean
 ) {
     companion object {
         fun PlacesDTO.toPlace(): Place {
@@ -14,7 +15,8 @@ data class Place(
                 placeId = this.place_id,
                 title = this.title,
                 cityId = this.city_id,
-                deliveryCost = this.delivery_cost
+                deliveryCost = this.delivery_cost,
+                archive = this.archive
             )
         }
     }
