@@ -22,17 +22,6 @@ final class AppState: ObservableObject {
     }
 }
 
-struct CustomEnvironmentKey: EnvironmentKey {
-    static let defaultValue: Bool = false
-}
-
-extension EnvironmentValues {
-    var isAuthorized: Bool {
-        get { self[CustomEnvironmentKey.self] }
-        set { self[CustomEnvironmentKey.self] = newValue }
-    }
-}
-
 public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
 public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 public let textRegex = #"^[a-zA-Zа-яА-ЯёЁ]+(([' -][a-zA-Zа-яА-ЯёЁ ])?[a-zA-Zа-яА-ЯёЁ]*)*$"#

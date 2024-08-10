@@ -11,7 +11,7 @@ import SwiftUI
 
 final class KMPDataStorage: ObservableObject {
     private let repository = UserDataStoreRepositoryImpl(dataStore: CreateDataStore_iosKt.createDataStore())
-    @Published var gettingUser: User = User.companion.empty()
+    @Published var gettingUser: User? = nil
 
     func editUserData(_ userData: User) async throws {
         try await repository.editUserData(user: userData)

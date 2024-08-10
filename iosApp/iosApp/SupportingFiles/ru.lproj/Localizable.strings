@@ -42,6 +42,7 @@
 "reconnectButton" = "Повторить попытку";
 "forgetPassword" = "Забыли пароль?";
 "leaveReuqestButton" = "Оставить заявку";
+"loginToAccount" = "Войти в аккаунт";
 
 // Field names
 "email" = "Email";

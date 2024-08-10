@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
+    @StateObject private var authManager = AuthManager()
     @EnvironmentObject var appState: AppState
     
     var body: some View {
@@ -21,6 +22,7 @@ struct MainTabbarView: View {
                     MainView().tag(TabType.main)
                     MyOrdersView().tag(TabType.myOrders)
                     ProfileView().tag(TabType.profile)
+                        .environmentObject(authManager)
                 }
                 
                 HStack(spacing: 0) {
@@ -67,7 +69,9 @@ struct MainTabbarView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
-        .fullScreenCover(isPresented: $appState.isInternetErrorVisible) {
+        .fullScreenCover(
+            isPresented: $appState.isInternetErrorVisible
+        ) {
             InternetConnectErrorView()
         }
         .onAppear {

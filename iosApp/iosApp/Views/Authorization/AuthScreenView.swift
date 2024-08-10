@@ -12,6 +12,7 @@ struct AuthScreenView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
     @ObservedObject private var viewModel = UserDataViewModel()
+    @EnvironmentObject var authManager: AuthManager
     
     @Environment(\.dismiss) private var dismiss
     
@@ -41,7 +42,8 @@ struct AuthScreenView: View {
                 
                 NavigationLink(destination: PinCodeView(
                     phoneNumber: $viewModel.phone,
-                    isResetPasswordFlow: false)
+                    isResetPasswordFlow: false
+                ).environmentObject(authManager)
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

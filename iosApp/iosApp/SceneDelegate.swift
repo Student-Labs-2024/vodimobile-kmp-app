@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use a UIHostingController as window root view controller
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let rootVC = SignSuggestView().environmentObject(appState)
+            let rootVC = MainTabbarView().environmentObject(appState)
             window.rootViewController = UIHostingController(rootView: rootVC)
             self.window = window
             window.makeKeyAndVisible()

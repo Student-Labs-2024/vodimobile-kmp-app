@@ -27,17 +27,19 @@ final class KMPApiManager {
             case .crmData(let success):
                 let user = success.data
                 if let user = user {
-                    let newUser = User(
-                        fullName:  dataStorage.gettingUser.fullName,
-                        password:  dataStorage.gettingUser.password,
-                        accessToken:  user.accessToken,
-                        refreshToken:  user.refreshToken,
-                        expires:  user.expires,
-                        phone:  dataStorage.gettingUser.phone,
-                        email:  dataStorage.gettingUser.email
-                    )
-                    DispatchQueue.main.async {
-                        self.dataStorage.gettingUser = newUser
+                    if let storageUser = dataStorage.gettingUser {
+                        let newUser = User(
+                            fullName:  storageUser.fullName,
+                            password:  storageUser.password,
+                            accessToken:  user.accessToken,
+                            refreshToken:  user.refreshToken,
+                            expires:  user.expires,
+                            phone:  storageUser.phone,
+                            email:  storageUser.email
+                        )
+                        DispatchQueue.main.async {
+                            self.dataStorage.gettingUser = newUser
+                        }
                     }
                 }
             case .crmError(let error):
@@ -52,19 +54,21 @@ final class KMPApiManager {
     
     func fetchCars() async -> [Car] {
         do {
-            let response = try await helper.getCars(
-                accessToken: dataStorage.gettingUser.accessToken,
-                refreshToken: dataStorage.gettingUser.refreshToken
-            )
-            switch onEnum(of: response) {
-            case .crmData(let success):
-                if let cars = success.data {
-                    return convertNSArrayToArray(nsArray: cars)
+            if let storageUser = dataStorage.gettingUser {
+                let response = try await helper.getCars(
+                    accessToken: storageUser.accessToken,
+                    refreshToken: storageUser.refreshToken
+                )
+                switch onEnum(of: response) {
+                case .crmData(let success):
+                    if let cars = success.data {
+                        return convertNSArrayToArray(nsArray: cars)
+                    }
+                case .crmError(let error):
+                    print(error.status?.value ?? "Empty error")
+                case .crmLoading(_):
+                    print("loading...")
                 }
-            case .crmError(let error):
-                print(error.status?.value ?? "Empty error")
-            case .crmLoading(_):
-                print("loading...")
             }
         } catch {
             print(error)
@@ -74,20 +78,22 @@ final class KMPApiManager {
     
     func fetchPlaces() async -> [Place] {
         do {
-            let response = try await helper.getPlaces(
-                accessToken: dataStorage.gettingUser.accessToken,
-                refreshToken: dataStorage.gettingUser.refreshToken
-            )
-            switch onEnum(of: response) {
-            case .crmData(let success):
-                print(success.data ?? "Empty data")
-                if let places = success.data {
-                    return convertNSArrayToArray(nsArray: places)
+            if let storageUser = dataStorage.gettingUser {
+                let response = try await helper.getPlaces(
+                    accessToken: storageUser.accessToken,
+                    refreshToken: storageUser.refreshToken
+                )
+                switch onEnum(of: response) {
+                case .crmData(let success):
+                    print(success.data ?? "Empty data")
+                    if let places = success.data {
+                        return convertNSArrayToArray(nsArray: places)
+                    }
+                case .crmError(let error):
+                    print(error.status?.value ?? "Empty error")
+                case .crmLoading(_):
+                    print("loading...")
                 }
-            case .crmError(let error):
-                print(error.status?.value ?? "Empty error")
-            case .crmLoading(_):
-                print("loading...")
             }
         } catch {
             print(error)

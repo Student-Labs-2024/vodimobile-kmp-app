@@ -37,14 +37,16 @@ final class UserDataViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
-        self.fullname = dataStorage.gettingUser.fullName
-        self.phone = dataStorage.gettingUser.phone
-        self.oldStoragedPassword = dataStorage.gettingUser.password
+        if let storageUser = dataStorage.gettingUser {
+            self.fullname = storageUser.fullName
+            self.phone = storageUser.phone
+            self.oldStoragedPassword = storageUser.password
+        }
         
         dataStorage.$gettingUser
             .sink { newValue in
-                self.fullname = newValue.fullName
-                self.phone = newValue.phone
+                self.fullname = newValue?.fullName ?? ""
+                self.phone = newValue?.phone ?? ""
             }
             .store(in: &cancellableSet)
         
@@ -135,25 +137,25 @@ final class UserDataViewModel: ObservableObject {
     
     func saveEditedUserData() {
         isLoading = true
-        let currentUserData = dataStorage.gettingUser
-        let newUserData = User(
-            fullName: currentUserData.fullName != fullname && !fullname.isEmpty ? fullname : currentUserData.fullName,
-            password: currentUserData.password != password && !password.isEmpty ? password : currentUserData.password,
-            accessToken: currentUserData.accessToken,
-            refreshToken: currentUserData.refreshToken,
-            expires: currentUserData.expires,
-            phone: currentUserData.phone != phone && !phone.isEmpty ? phone : currentUserData.phone,
-            email: currentUserData.email
-        )
-        
-        Task {
-            do {
-                try await self.dataStorage.editUserData(newUserData)
-                
-                self.dataHasBeenSaved.toggle()
-            } catch {
-                print(error)
-                self.showErrorAlert = true
+        if let storageUser = dataStorage.gettingUser {
+            let newUserData = User(
+                fullName: storageUser.fullName != fullname && !fullname.isEmpty ? fullname : storageUser.fullName,
+                password: storageUser.password != password && !password.isEmpty ? password : storageUser.password,
+                accessToken: storageUser.accessToken,
+                refreshToken: storageUser.refreshToken,
+                expires: storageUser.expires,
+                phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone,
+                email: storageUser.email
+            )
+            
+            Task {
+                do {
+                    try await self.dataStorage.editUserData(newUserData)
+                    self.dataHasBeenSaved.toggle()
+                } catch {
+                    print(error)
+                    self.showErrorAlert = true
+                }
             }
         }
         self.isLoading.toggle()
@@ -174,7 +176,7 @@ final class UserDataViewModel: ObservableObject {
     
     func comparePasswords() -> Bool {
         oldStoragedPassword == oldPassword
-        // TODO: - Make logic for comparing password^ validation and saving
+        // TODO: - Make logic for comparing password, validation and saving
     }
     
     private func areAllFieldsFilled() -> Bool {

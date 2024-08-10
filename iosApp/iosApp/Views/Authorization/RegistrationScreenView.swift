@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct RegistrationScreenView: View {
+    @EnvironmentObject var authManager: AuthManager
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
     @ObservedObject private var viewModel = UserDataViewModel()
@@ -53,7 +54,7 @@ struct RegistrationScreenView: View {
                     destination: PinCodeView(
                         phoneNumber: $viewModel.phone,
                         isResetPasswordFlow: false
-                    )
+                    ).environmentObject(authManager)
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

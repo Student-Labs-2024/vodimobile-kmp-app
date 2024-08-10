@@ -7,15 +7,16 @@
 //
 
 import SwiftUI
+import shared
 
 struct PinCodeView: View {
     @State private var pin: [String] = ["", "", "", ""]
     @FocusState private var focusedField: Int?
     @State private var isButtonEnabled: Bool = false
     @Binding var phoneNumber: String
+    @EnvironmentObject var authManager: AuthManager
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.isAuthorized) private var isAuthorized
 
     let isResetPasswordFlow: Bool
     private var sendCodeOnPhoneText: String {
@@ -58,6 +59,11 @@ struct PinCodeView: View {
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
+                .onTapGesture {
+                    if isButtonEnabled {
+                        authManager.login(user: User.companion.empty())
+                    }
+                }
             }
             
             HStack {

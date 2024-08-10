@@ -44,6 +44,7 @@
 "allAutoButton" = "All auto >";
 "bookButton" = "Book";
 "leaveReuqestButton" = "Request for booking";
+"loginToAccount" = "Login to account";
 
 // Field names
 "email" = "Email";
