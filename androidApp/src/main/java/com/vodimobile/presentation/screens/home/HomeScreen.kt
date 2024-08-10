@@ -30,6 +30,7 @@ import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.screens.home.components.AllCars
 import com.vodimobile.presentation.screens.home.components.HomeScreenSupBar
@@ -50,6 +51,7 @@ fun HomeScreen(
     onHomeIntent: (HomeIntent) -> Unit,
     navHostController: NavHostController,
     selectedDate: LongArray,
+    noAuth: Boolean,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -70,10 +72,19 @@ fun HomeScreen(
                 is HomeEffect.BookCarClick -> {
 
                 }
+
+                HomeEffect.UnauthedUser -> {
+                    if (noAuth) {
+                        navHostController.navigate(route = RootScreen.START_SCREEN) {
+                            popUpTo(RootScreen.START_SCREEN)
+                        }
+                    }
+                }
             }
         }
     }
-
+    if (noAuth)
+        onHomeIntent(HomeIntent.InitUser)
     ExtendedTheme {
         Scaffold(
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
@@ -138,14 +149,16 @@ private fun HomeScreenDarkPreview() {
                 getPopularCarsUseCase = GetPopularCarsUseCase(
                     CarRepositoryImpl()
                 )
-            )
+            ),
+            userDataStoreStorage = null
         )
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+            noAuth = false
         )
     }
 }
@@ -159,14 +172,16 @@ private fun HomeScreenLightPreview() {
                 getPopularCarsUseCase = GetPopularCarsUseCase(
                     CarRepositoryImpl()
                 )
-            )
+            ),
+            userDataStoreStorage = null
         )
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+            noAuth = false
         )
     }
 }

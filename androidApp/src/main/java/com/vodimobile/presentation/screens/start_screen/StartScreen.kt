@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.RegistrationScreens
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenEffect
@@ -49,7 +50,14 @@ fun StartScreen(
     LaunchedEffect(key1 = Unit) {
         startScreenEffect.collect { effect ->
             when (effect) {
-                StartScreenEffect.CloseClick -> navHostController.navigateUp()
+                StartScreenEffect.CloseClick -> {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "no-auth",
+                        false,
+                    )
+                    navHostController.navigateUp()
+                }
+
                 StartScreenEffect.ClickLogin -> navHostController.navigate(RegistrationScreens.AUTHORIZATION_SCREEN)
                 StartScreenEffect.ClickRegistration -> {
                     navHostController.navigate(route = RegistrationScreens.REGISTRATION_SCREEN)

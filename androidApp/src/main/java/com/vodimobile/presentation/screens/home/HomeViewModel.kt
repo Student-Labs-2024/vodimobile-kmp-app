@@ -2,7 +2,9 @@ package com.vodimobile.presentation.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.storage.cars.CarsStorage
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.home.store.HomeState
@@ -11,7 +13,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeViewModel(carsStorage: CarsStorage) : ViewModel() {
+class HomeViewModel(
+    carsStorage: CarsStorage,
+    private val userDataStoreStorage: UserDataStoreStorage?
+) : ViewModel() {
 
     val homeState = MutableStateFlow(
         HomeState(
@@ -61,6 +66,17 @@ class HomeViewModel(carsStorage: CarsStorage) : ViewModel() {
             is HomeIntent.BookCarClick -> {
                 viewModelScope.launch {
                     homeEffect.emit(HomeEffect.BookCarClick(carId = intent.car.carId))
+                }
+            }
+
+            HomeIntent.InitUser -> {
+                viewModelScope.launch {
+                    val userFlow = userDataStoreStorage!!.getUser()
+                    userFlow.collect { value: User ->
+                        if (value.phone.isEmpty()) {
+                            homeEffect.emit(HomeEffect.UnauthedUser)
+                        }
+                    }
                 }
             }
         }
