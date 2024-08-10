@@ -43,6 +43,7 @@ import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserPhoneNumberUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.RegistrationScreens
@@ -213,6 +214,13 @@ private fun RegistrationScreenPreviewDark() {
                                 LocalContext.current
                             )
                         )
+                    ),
+                    editUserPhoneNumberUseCase = EditUserPhoneNumberUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
                     )
                 ),
                 crmStorage = CrmStorage(
@@ -329,6 +337,13 @@ private fun RegistrationScreenPreviewLight() {
                         )
                     ),
                     editLastAuthUseCase = EditLastAuthUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editUserPhoneNumberUseCase = EditUserPhoneNumberUseCase(
                         userDataStoreRepository = UserDataStoreRepositoryImpl(
                             dataStore = getDataStore(
                                 LocalContext.current
