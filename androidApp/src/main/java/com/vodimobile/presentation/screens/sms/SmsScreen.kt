@@ -30,6 +30,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditLastAuthUseCase
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserPhoneNumberUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.sms.components.SendCodeAgain
 import com.vodimobile.presentation.screens.sms.components.SmsField
@@ -39,6 +48,7 @@ import com.vodimobile.presentation.screens.sms.store.SmsIntent
 import com.vodimobile.presentation.screens.sms.store.SmsState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")
@@ -180,7 +190,57 @@ data class SmsFieldState(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun SmsScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
-        val smsViewModel = SmsViewModel()
+        val smsViewModel = SmsViewModel(
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editTokensUseCase = EditTokensUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editLastAuthUseCase = EditLastAuthUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editUserPhoneNumberUseCase = EditUserPhoneNumberUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            )
+        )
         SmsScreen(
             navHostController = rememberNavController(),
             smsState = smsViewModel.smsState.collectAsState(),
@@ -196,7 +256,57 @@ private fun SmsScreenPreviewDark() {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun SmsScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
-        val smsViewModel = SmsViewModel()
+        val smsViewModel = SmsViewModel(
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editTokensUseCase = EditTokensUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editLastAuthUseCase = EditLastAuthUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editUserPhoneNumberUseCase = EditUserPhoneNumberUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            )
+        )
         SmsScreen(
             navHostController = rememberNavController(),
             smsState = smsViewModel.smsState.collectAsState(),
