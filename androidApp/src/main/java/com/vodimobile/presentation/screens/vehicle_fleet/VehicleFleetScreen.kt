@@ -29,14 +29,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.repository.data_store.UserDataStoreRepositoryImpl
-import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.remote.either.CrmEither
-import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
-import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
@@ -53,18 +50,14 @@ import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.AutoTypeTagList
-import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
-import com.vodimobile.presentation.screens.home.store.HomeEffect
-import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.utils.data_store.getDataStore
-import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
@@ -151,6 +144,16 @@ fun VehicleFleetScreen(
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                when (val either = vehicleState.value.crmUserEither) {
+                    is CrmEither.CrmData -> {
+                        onVehicleIntent(VehicleIntent.InitUser(userResponse = either.data))
+                    }
+
+                    is CrmEither.CrmError -> {}
+                    CrmEither.CrmLoading -> {}
+                }
+
                 when (val either = vehicleState.value.crmEither) {
                     is CrmEither.CrmData -> {
                         itemsIndexed(either.data) { _, item: Car ->
@@ -177,6 +180,9 @@ fun VehicleFleetScreen(
 
                     is CrmEither.CrmError -> {
                         onVehicleIntent(VehicleIntent.DismissProgressDialog)
+                        if (either.status.value == 401) {
+                            onVehicleIntent(VehicleIntent.AuthUser)
+                        }
                     }
 
                     CrmEither.CrmLoading -> {

@@ -2,12 +2,14 @@ package com.vodimobile.presentation.screens.vehicle_fleet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -65,13 +67,18 @@ class VehicleFleetViewModel(
             }
 
             VehicleIntent.InitCars -> {
-                val userFLow = userDataStoreStorage.getUser()
                 viewModelScope.launch {
+                    val userFLow = userDataStoreStorage.getUser()
                     userFLow.collect { user ->
+
+                        val accessToken = user.accessToken
+                        val refreshToken = user.accessToken
+
                         val crmEither = crmStorage.getCarList(
-                            accessToken = user.accessToken,
-                            refreshToken = user.refreshToken
+                            accessToken = accessToken,
+                            refreshToken = refreshToken
                         )
+
                         vehicleState.update {
                             it.copy(crmEither = crmEither)
                         }
@@ -90,6 +97,30 @@ class VehicleFleetViewModel(
                 viewModelScope.launch {
                     delay(1.seconds)
                     vehicleFleetEffect.emit(VehicleEffect.ShowLoadingDialog)
+                }
+            }
+
+            VehicleIntent.AuthUser -> {
+                viewModelScope.launch {
+                    val authUser: CrmEither<UserResponse, HttpStatusCode> = crmStorage.authUser()
+                    vehicleState.update {
+                        it.copy(
+                            crmUserEither = authUser
+                        )
+                    }
+                }
+            }
+
+            is VehicleIntent.InitUser -> {
+                viewModelScope.launch {
+                    with(intent.userResponse) {
+                        userDataStoreStorage.editTokens(
+                            accessToken = accessToken,
+                            refreshToken = refreshToken,
+                            expires = expires
+                        )
+                        userDataStoreStorage.editLastAuth(lastAuth = System.currentTimeMillis())
+                    }
                 }
             }
         }

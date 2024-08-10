@@ -1,7 +1,6 @@
 package com.vodimobile.data.repository.crm
 
 import com.vodimobile.domain.client.provideKtorClient
-import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
@@ -14,7 +13,6 @@ import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.service_list.ServiceDTO
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
-import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
@@ -43,35 +41,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.time.Duration.Companion.minutes
 
 class CrmRepositoryImpl(private val userDataStoreRepository: UserDataStoreRepository) :
     CrmRepository {
 
     private val crmServerData: CrmServerData = getCrmServerDataFromLocalProperties()
     private val client: HttpClient = provideKtorClient()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override suspend fun getCarList(
         accessToken: String,
         refreshToken: String
     ): CrmEither<CarListDTO, HttpStatusCode> {
-
-        if (isTokenDead()) {
-            postNewUser()
-        }
-        val tokens = getTokens()
-
         val httpResponse: HttpResponse =
-            authConfig(tokens.first, tokens.second)
+            authConfig(accessToken, refreshToken)
                 .get(
                     block = {
                         url(url = Url(crmServerData.buildUrl(CrmRouting.Cars.ALL_CARS)))
@@ -279,49 +264,6 @@ class CrmRepositoryImpl(private val userDataStoreRepository: UserDataStoreReposi
                     }
                 }
             }
-        }
-    }
-
-    private suspend fun isTokenDead(): Boolean {
-        var user: User = User.empty()
-        val job = coroutineScope.launch {
-            userDataStoreRepository.getUserData().collect {
-                user = it
-            }
-        }
-        job.join()
-
-        val expires: LocalDateTime =
-            Instant.fromEpochMilliseconds(user.expires).toLocalDateTime(TimeZone.of("Russia/Omsk"))
-        val lastAuth: LocalDateTime = Instant.fromEpochMilliseconds(user.lastAuth!!)
-            .toLocalDateTime(TimeZone.of("Russia/Omsk"))
-
-        return if (expires.minute == 10) {
-            lastAuth.time.minute - expires.time.minute <= 0
-        } else {
-            false
-        }
-    }
-
-    private suspend fun getTokens(): Pair<String, String> {
-        var user: User = User.empty()
-        val job = coroutineScope.launch {
-            userDataStoreRepository.getUserData().collect {
-                user = it
-            }
-        }
-        job.join()
-
-        val refreshToken = user.refreshToken
-        val accessToken = user.accessToken
-
-        return if (refreshToken.isEmpty() && accessToken.isEmpty()) {
-            Pair(
-                SharedBuildkonfig.crm_test_access_token,
-                SharedBuildkonfig.crm_test_refresh_token
-            )
-        } else {
-            Pair(accessToken, refreshToken)
         }
     }
 }
