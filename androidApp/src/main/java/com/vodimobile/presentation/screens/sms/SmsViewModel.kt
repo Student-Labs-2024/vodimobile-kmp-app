@@ -55,6 +55,11 @@ class SmsViewModel(private val userDataStoreStorage: UserDataStoreStorage) : Vie
             }
 
             is SmsIntent.SendSmsCode -> {
+                smsState.update {
+                    it.copy(
+                        phoneNumber = intent.phone
+                    )
+                }
                 sendSms(phone = intent.phone, context = intent.context)
             }
 

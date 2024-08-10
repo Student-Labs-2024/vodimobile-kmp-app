@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import com.vodimobile.presentation.theme.ExtendedTheme
 
 @Composable
@@ -20,13 +21,15 @@ fun ProfileField(
     label: String,
     modifier: Modifier = Modifier,
     text: String = "",
-    trailingIcon: @Composable (() -> Unit)? = null
+    trailingIcon: @Composable (() -> Unit)? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     TextField(
         value = text,
         onValueChange = {
             onValueChange(it)
         },
+        visualTransformation = visualTransformation,
         label = {
             Text(
                 text = label,
