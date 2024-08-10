@@ -13,7 +13,7 @@ struct ModalAutoView: View {
     @Binding var carModel: Car
     @Binding var showModalView: Bool
     @Binding var showModalReservation: Bool
-    
+
     init(
         carModel: Binding<Car>,
         showModalView: Binding<Bool>,
@@ -23,7 +23,7 @@ struct ModalAutoView: View {
         self._showModalView = showModalView
         self._showModalReservation = showModalReservation ?? Binding.constant(false)
     }
-    
+
     var body: some View {
         let ModalAutoCardView = ModalAutoCardView(
             carModel: $carModel,
@@ -62,7 +62,7 @@ struct ModalAutoCardView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack {
             HStack {
                 Spacer()
                 ZStack {
@@ -87,6 +87,7 @@ struct ModalAutoCardView: View {
                 viewModel.carPreview
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .frame(maxHeight: 200)
                     .padding(.horizontal, 55)
                 
                 HStack {
@@ -105,7 +106,7 @@ struct ModalAutoCardView: View {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
                     
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
                         HStack(spacing: 18) {
                             Image(R.image.transmission)
                                 .resizable()

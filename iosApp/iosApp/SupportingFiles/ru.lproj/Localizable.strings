@@ -73,6 +73,7 @@
 "noSpecSymboldsInPass" = "Пароль должен содержать хотя бы один спец.символ";
 "noUpperLettersInPass" = "Пароль должен содержать хотя бы одну заглавную букву";
 "invalidPass" = "Пароль некорректный";
+"oldPassIsWrong" = "Введенный старый пароль неверный";
 "selectDayTime" = "Выберите время с 9 до 20 часов";
 "selectNightTime" = "Выберите время с 20 до 9 часов";
 
@@ -127,6 +128,10 @@
 "literText" = "л.";
 "resetScreenTitle" = "Введите номера телефона";
 "resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
+"serverErrorTitle" = "Ошибка сервера";
+"serverErrorText" = "Что-то пошло не так со стороны сервера. Попробуйте снова";
+"signSuggestTitle" = "Войти или создать аккаунт";
+"signSuggestText" = "Чтобы оставить заявку необходимо иметь аккаунт";
 "autoNameTitle" = "Автомобиль";
 "autoDatesTitle" = "Период аренды";
 "totalPriceTitle" = "Итого:";

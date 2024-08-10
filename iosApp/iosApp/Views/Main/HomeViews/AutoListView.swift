@@ -10,12 +10,12 @@ import SwiftUI
 import shared
 
 struct AutoListView: View {
+    @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
-    @State private var selectedAuto: Car = Car.companion.empty()
     @State private var dragOffset: CGSize = .zero
-    @ObservedObject private var viewModel: AutoListViewModel = AutoListViewModel()
+    @ObservedObject private var viewModel = AutoListViewModel()
     
     var body: some View {
         VStack {
@@ -27,25 +27,56 @@ struct AutoListView: View {
                 )
             
             TabView(selection: $selectedTab) {
-                if selectedTab == 0 {
-                    ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack(spacing: 20) {
-                            ForEach(viewModel.listOfAllCar.indices, id: \.self) { index in
-                                AutoCardWithButtonView(
-                                    carModel: $viewModel.listOfAllCar[index],
-                                    selectedAuto: $selectedAuto,
-                                    showModal: $showModalCard,
-                                    showModalReservation: $showModalReservation
-                                )
-                            }
-                        }
-                        .padding(.horizontal, horizontalPadding)
-                        .padding(.vertical, 24)
-                    }
-                } else {
-                    Text("Page \(selectedTab)").tag(selectedTab)
+                switch selectedTab {
+                case 1:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .economy),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 2:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .comfort),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 3:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .premium),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 4:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .sedans),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                case 5:
+                    ScrollableAutoListView(
+                        carList: viewModel.filterCars(by: .jeeps),
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
+                        refreshAction: viewModel.fetchAllCars
+                    )
+                default:
+                    ScrollableAutoListView(
+                        carList: $viewModel.listOfAllCar,
+                        selectedAuto: $selectedAuto,
+                        showModalCard: $showModalCard,
+                        showModalReservation: $showModalReservation,
+                        refreshAction: viewModel.fetchAllCars
+                    )
                 }
-                
             }
             .ignoresSafeArea(.container)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -73,7 +104,9 @@ struct AutoListView: View {
                     }
             )
             .onAppear {
-                viewModel.fetchAllCars()
+                Task {
+                    await viewModel.fetchAllCars()
+                }
             }
             .sheet(isPresented: $showModalCard) {
                 ModalAutoView(
@@ -83,6 +116,7 @@ struct AutoListView: View {
                 )
             }
         }
+        .loadingOverlay(isLoading: $viewModel.isLoading)
         .background(Color(R.color.grayLightColor))
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -92,5 +126,8 @@ struct AutoListView: View {
 }
 
 #Preview {
-    AutoListView(showModalReservation: Binding.constant(false))
+    AutoListView(
+        selectedAuto: Binding.constant(Car.companion.empty()),
+        showModalReservation: Binding.constant(false)
+    )
 }

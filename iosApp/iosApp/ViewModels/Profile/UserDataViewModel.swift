@@ -16,7 +16,7 @@ final class UserDataViewModel: ObservableObject {
     @Published var password = ""
     @Published var phone = ""
     @Published var oldPassword = ""
-    private var oldStoragedPassword: String = KMPDataStorage.defaultUser.password
+    private var oldStoragedPassword: String = ""
     private var newUserData: User = User.companion.empty()
     // fields validation
     @Published var isFullnameValid = false
@@ -37,11 +37,14 @@ final class UserDataViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
+        self.fullname = dataStorage.gettingUser.fullName
+        self.phone = dataStorage.gettingUser.phone
+        self.oldStoragedPassword = dataStorage.gettingUser.password
+        
         dataStorage.$gettingUser
             .sink { newValue in
                 self.fullname = newValue.fullName
                 self.phone = newValue.phone
-                self.oldStoragedPassword = newValue.password
             }
             .store(in: &cancellableSet)
         

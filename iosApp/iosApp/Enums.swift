@@ -76,8 +76,9 @@ enum InputErrorType: String {
     case tooShortPass
     case noSpecSymboldsInPass
     case noUpperLettersInPass
+    case oldPasswordIsWrong
     case selectDayTime, selectNightTime
-    
+
     var errorString: String {
         switch self {
         case .incorrectFullName:
@@ -96,6 +97,8 @@ enum InputErrorType: String {
             return R.string.localizable.noUpperLettersInPass()
         case .invalidPass:
             return R.string.localizable.invalidPass()
+        case .oldPasswordIsWrong:
+            return R.string.localizable.oldPassIsWrong()
         case .selectDayTime:
             return R.string.localizable.selectDayTime()
         case .selectNightTime:
@@ -133,7 +136,7 @@ enum TextFieldType: String {
 
 enum ButtonLikeTextFieldType {
     case placePicker, timePicker, datePicker
-    
+
     var localizedStr: String {
         switch self {
         case .datePicker:

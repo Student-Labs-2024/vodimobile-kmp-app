@@ -178,6 +178,10 @@ struct BorderedTextField: View {
                 }
             case .selectDayTime, .selectNightTime:
                 errorMsg = ""
+            case .oldPasswordIsWrong:
+                if fieldType == .oldPassword {
+                    errorMsg = InputErrorType.oldPasswordIsWrong.errorString
+                }
             }
         }
     }
