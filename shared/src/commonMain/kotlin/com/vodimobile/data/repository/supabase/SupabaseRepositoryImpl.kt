@@ -31,23 +31,58 @@ class SupabaseRepositoryImpl : SupabaseRepository {
         }
     }
 
-    override suspend fun insertPassword(userId: Int, password: String) {
-        TODO("Not yet implemented")
+    override suspend fun updatePassword(userId: Int, password: String) {
+        supabaseClient.from(SupabaseTables.USER_TABLE).update({
+            set(SupabaseColumns.User.PASSWORD, password)
+        }) {
+            filter {
+                eq(SupabaseColumns.User.USER_ID, userId)
+            }
+        }
     }
 
-    override suspend fun insertFullName(userId: Int, fullName: String) {
-        TODO("Not yet implemented")
+    override suspend fun updateFullName(userId: Int, fullName: String) {
+        supabaseClient.from(SupabaseTables.USER_TABLE).update({
+            set(SupabaseColumns.User.FULL_NAME, fullName)
+        }) {
+            filter {
+                eq(SupabaseColumns.User.USER_ID, userId)
+            }
+        }
     }
 
-    override suspend fun insertPhone(userId: Int, phone: String) {
-        TODO("Not yet implemented")
+    override suspend fun updatePhone(userId: Int, phone: String) {
+        supabaseClient.from(SupabaseTables.USER_TABLE).update({
+            set(SupabaseColumns.User.PHONE, phone)
+        }) {
+            filter {
+                eq(SupabaseColumns.User.USER_ID, userId)
+            }
+        }
     }
 
-    override suspend fun insertAccessToken(userId: Int, accessToken: String) {
-        TODO("Not yet implemented")
+    override suspend fun updateTokens(userId: Int, accessToken: String, refreshToken: String) {
+        supabaseClient.from(SupabaseTables.USER_TABLE).update({
+            set(SupabaseColumns.User.ACCESS_TOKEN, accessToken)
+            set(SupabaseColumns.User.REFRESH_TOKEN, refreshToken)
+        }) {
+            filter {
+                eq(SupabaseColumns.User.USER_ID, userId)
+            }
+        }
     }
 
-    override suspend fun insertRefreshToken(userId: Int, refreshToken: String) {
-        TODO("Not yet implemented")
+    override suspend fun updateUser(userDTO: UserDTO) {
+        supabaseClient.from(SupabaseTables.USER_TABLE).update({
+            set(SupabaseColumns.User.PHONE, userDTO.phone)
+            set(SupabaseColumns.User.PASSWORD, userDTO.password)
+            set(SupabaseColumns.User.ACCESS_TOKEN, userDTO.access_token)
+            set(SupabaseColumns.User.REFRESH_TOKEN, userDTO.refresh_token)
+            set(SupabaseColumns.User.FULL_NAME, userDTO.full_name)
+        }) {
+            filter {
+                eq(SupabaseColumns.User.USER_ID, userDTO.user_id)
+            }
+        }
     }
 }

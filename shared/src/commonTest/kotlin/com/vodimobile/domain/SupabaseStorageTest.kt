@@ -13,7 +13,8 @@ class SupabaseStorageTest {
         runBlocking {
             val supabaseRepository = SupabaseRepositoryImpl()
 
-            val userDTO: UserDTO = supabaseRepository.getUser(password = "12345", phone = "+00000000000")
+            val userDTO: UserDTO =
+                supabaseRepository.getUser(password = "12345", phone = "+00000000000")
             assertEquals(userDTO.full_name, "Test")
         }
     }
@@ -26,7 +27,7 @@ class SupabaseStorageTest {
             val userDTO: UserDTO = UserDTO(
                 user_id = -100,
                 password = "qwerty",
-                phone = "+00000000000",
+                phone = "+00000000002",
                 access_token = "hello",
                 refresh_token = "world",
                 full_name = "Slava Test User"
@@ -34,8 +35,20 @@ class SupabaseStorageTest {
             supabaseRepository.insertUser(userDTO)
 
             val user: UserDTO =
-                supabaseRepository.getUser(password = "qwerty", phone = "+00000000000")
+                supabaseRepository.getUser(password = "qwerty", phone = "+00000000002")
             assertEquals(user.full_name, "Slava Test User")
+        }
+    }
+
+    @Test
+    fun updateTestUserTest() {
+        runBlocking {
+            val supabaseRepository = SupabaseRepositoryImpl()
+            supabaseRepository.updateFullName(userId = 2, fullName = "Слава Дейч")
+
+            val userDTO: UserDTO =
+                supabaseRepository.getUser(password = "qwerty", phone = "+00000000000")
+            assertEquals(userDTO.full_name, "Слава Дейч")
         }
     }
 }
