@@ -20,7 +20,7 @@ jobs:
           cache: gradle
       - name: Run Android Lint
         run: |
-          ./gradlew lint -Pandroid.lintOptions.check '!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')
+          ./gradlew lint -Pandroid.lintOptions.check "!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')"
       - name: Upload lint results
         uses: actions/upload-artifact@v3
         with:
