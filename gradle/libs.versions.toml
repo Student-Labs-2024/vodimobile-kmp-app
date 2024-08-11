@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.0"
 atomicfu = "0.23.2"
+bom = "2.5.4"
 composeLintChecks = "1.3.1"
 coreSplashscreen = "1.1.0-rc01"
 datastore = "1.1.1"
@@ -49,6 +50,8 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
+gotrue-kt = { module = "io.github.jan-tennert.supabase:gotrue-kt" }
+bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "bom" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
@@ -58,6 +61,8 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+realtime-kt = { module = "io.github.jan-tennert.supabase:realtime-kt" }
+postgrest-kt = { module = "io.github.jan-tennert.supabase:postgrest-kt" }
 resources-generator = { module = "dev.icerock.moko:resources-generator", version.ref = "mokoResources" }
 testng = { group = "org.testng", name = "testng", version.ref = "testng" }
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
