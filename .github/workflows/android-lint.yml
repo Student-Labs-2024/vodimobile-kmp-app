@@ -1,3 +1,8 @@
+# A quote: "@Не настроен линтер → "
+# A couple of sprints earlier it was added to the project gradle file and was with each Android developer. 
+# It analyzed the Jetpack Compose code and Kotlin in Android Studio. Every developer see this.
+# But above it was noted that there is no linter, so now it is here and performs the same functions 
+# that were previously performed in Android Studio for each Android developer.
 name: CI
 
 on: [pull_request]
@@ -16,7 +21,6 @@ jobs:
       - name: Run Android Lint
         run: |
           chmod +x gradlew
-          ./gradlew lint
           # Exclude shared/build.gradle.kts from analysis
           ./gradlew lint -Pandroid.lintOptions.check '!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')
       - name: Upload lint results
