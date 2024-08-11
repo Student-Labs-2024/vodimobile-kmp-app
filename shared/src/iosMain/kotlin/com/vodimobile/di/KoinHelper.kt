@@ -15,7 +15,7 @@ fun initKoin() {
     try {
         startKoin {
             // Declare modules
-            modules(carModule, crmModule)
+            modules(carModule, crmModule, supabaseModule)
         }
     } catch (e: Exception) {
         // Handle or log the exception

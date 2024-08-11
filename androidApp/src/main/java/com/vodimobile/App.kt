@@ -6,6 +6,7 @@ import android.content.Context
 import com.vodimobile.di.carModule
 import com.vodimobile.di.crmModule
 import com.vodimobile.di.repositoryModule
+import com.vodimobile.di.supabaseModule
 import com.vodimobile.di.validatorModule
 import com.vodimobile.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -33,7 +34,8 @@ class App : Application() {
                 androidModule,
                 repositoryModule,
                 carModule,
-                crmModule
+                crmModule,
+                supabaseModule
             )
         }
     }
