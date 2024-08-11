@@ -10,12 +10,13 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var authManager: AuthManager
+    @EnvironmentObject var dataStorage: KMPDataStorage
     @ObservedObject private var viewModel: ProfileViewModel
     @State private var showAlert: Bool = false
-    @State private var showSignSuggestModel: Bool = false
+    @State private var showSignSuggestModal: Bool = false
     
-    init(viewModel: ProfileViewModel = .init()) {
-        self.viewModel = viewModel
+    init() {
+        self.viewModel = .init()
     }
     
     var body: some View {
@@ -65,7 +66,7 @@ struct ProfileView: View {
                             }
                         } else {
                             Button {
-                                showSignSuggestModel.toggle()
+                                showSignSuggestModal.toggle()
                             } label: {
                                 HStack(spacing: ProfileConfig.horizontalSpacingAvatarAndText) {
                                     ZStack(alignment: .center) {
@@ -131,7 +132,9 @@ struct ProfileView: View {
                             R.string.localizable.exitAlertTitle(),
                             isPresented: $showAlert
                         ) {
-                            Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {}
+                            Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {
+                                authManager.logout()
+                            }
                             
                             Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {
                                 showAlert.toggle()
@@ -148,8 +151,10 @@ struct ProfileView: View {
             .background(Color(R.color.grayLightColor))
             .navigationBarBackButtonHidden()
         }
-        .fullScreenCover(isPresented: $showSignSuggestModel) {
-            SignSuggestView(showSignSuggestModel: $showSignSuggestModel).environmentObject(authManager)
+        .fullScreenCover(isPresented: $showSignSuggestModal) {
+            SignSuggestView(
+                showSignSuggestModal: $showSignSuggestModal
+            ).environmentObject(authManager)
         }
     }
 }

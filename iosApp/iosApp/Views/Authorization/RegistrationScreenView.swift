@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct RegistrationScreenView: View {
-    @EnvironmentObject var authManager: AuthManager
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
+    @Binding var showSignSuggestModal: Bool
     @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
@@ -53,8 +53,9 @@ struct RegistrationScreenView: View {
                 NavigationLink(
                     destination: PinCodeView(
                         phoneNumber: $viewModel.phone,
+                        showSignSuggestModal: $showSignSuggestModal,
                         isResetPasswordFlow: false
-                    ).environmentObject(authManager)
+                    )
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }
@@ -100,5 +101,5 @@ struct RegistrationScreenView: View {
 }
 
 #Preview {
-    RegistrationScreenView()
+    RegistrationScreenView(showSignSuggestModal: Binding.constant(false))
 }

@@ -14,6 +14,7 @@ struct PinCodeView: View {
     @FocusState private var focusedField: Int?
     @State private var isButtonEnabled: Bool = false
     @Binding var phoneNumber: String
+    @Binding var showSignSuggestModal: Bool
     @EnvironmentObject var authManager: AuthManager
     
     @Environment(\.dismiss) private var dismiss
@@ -21,13 +22,6 @@ struct PinCodeView: View {
     let isResetPasswordFlow: Bool
     private var sendCodeOnPhoneText: String {
         "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
-    }
-    @ViewBuilder private var destinationView: some View {
-        if isResetPasswordFlow {
-            ResetPasswordPassView()
-        } else {
-            MainTabbarView()
-        }
     }
     
     var body: some View {
@@ -54,25 +48,32 @@ struct PinCodeView: View {
                     toggleButtonEnabled()
                 }
                 
-                NavigationLink(destination: destinationView) {
-                    Text(R.string.localizable.nextBtnName)
-                }
-                .buttonStyle(FilledBtnStyle())
-                .disabled(!isButtonEnabled)
-                .onTapGesture {
-                    if isButtonEnabled {
-                        authManager.login(user: User.companion.empty())
+                if isResetPasswordFlow {
+                    NavigationLink(destination: ResetPasswordPassView()) {
+                        Text(R.string.localizable.nextBtnName)
                     }
+                    .buttonStyle(FilledBtnStyle())
+                    .disabled(!isButtonEnabled)
+                } else {
+                    Button(R.string.localizable.nextBtnName(), action: {
+                        authManager.login(user: User.companion.empty())
+                        showSignSuggestModal.toggle()
+                    })
+                    .buttonStyle(FilledBtnStyle())
+                    .disabled(!isButtonEnabled)
                 }
+                
             }
             
             HStack {
                 Text(R.string.localizable.notGetCodeText)
                     .foregroundColor(.black)
                     .font(.paragraph4)
-                Button(action: {
-                    print("Отправить код повторно нажат")
-                }) {
+                Button(
+                    action: {
+                        print("Отправить код повторно нажат")
+                    }
+                ) {
                     Text(R.string.localizable.resendBtnText)
                         .foregroundColor(Color(R.color.blueColor))
                         .font(.buttonText)

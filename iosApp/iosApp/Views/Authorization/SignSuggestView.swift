@@ -4,7 +4,7 @@ import shared
 struct SignSuggestView: View {
     @EnvironmentObject var authManager: AuthManager
     @State private var isButtonEnabled: Bool = true
-    @Binding var showSignSuggestModel: Bool
+    @Binding var showSignSuggestModal: Bool
     @EnvironmentObject var appState: AppState
 
     var body: some View {
@@ -13,7 +13,7 @@ struct SignSuggestView: View {
                 HStack {
                     Spacer()
                     Button {
-                        showSignSuggestModel.toggle()
+                        showSignSuggestModal.toggle()
                     } label: {
                         Image.xmark
                             .resizable()
@@ -38,11 +38,11 @@ struct SignSuggestView: View {
                 .padding(SignSuggestConfig.verticalPaddingTextBlock)
                 .multilineTextAlignment(.center)
                 
-                NavigationLink(destination: RegistrationScreenView().environmentObject(authManager)) {
+                NavigationLink(destination: RegistrationScreenView(showSignSuggestModal: $showSignSuggestModal)) {
                     Text(R.string.localizable.regButtonTitle)
                 }.buttonStyle(FilledBtnStyle())
                 
-                NavigationLink(destination: AuthScreenView().environmentObject(authManager)) {
+                NavigationLink(destination: AuthScreenView(showSignSuggestModal: $showSignSuggestModal)) {
                     Text(R.string.localizable.authButtonTitle)
                 }.buttonStyle(BorderedBtnStyle())
                 
@@ -60,5 +60,5 @@ struct SignSuggestView: View {
 }
 
 #Preview {
-    SignSuggestView(showSignSuggestModel: Binding.constant(true))
+    SignSuggestView(showSignSuggestModal: Binding.constant(true))
 }

@@ -11,20 +11,21 @@ import shared
 
 final class AuthManager: ObservableObject {
     @Published var isAuthenticated: Bool = false
-    @ObservedObject var dataStorage = KMPDataStorage()
+    private var user: User?
+    // TODO: - Make a single datastorage state oject in app
     
     func signUp(userData: User) {
-        dataStorage.gettingUser = userData
+        self.user = userData
         self.isAuthenticated = true
     }
     
     func login(user: User) {
-        dataStorage.gettingUser = user
+        self.user = user
         self.isAuthenticated = true
     }
     
     func logout() {
-        dataStorage.gettingUser = nil
+        self.user = nil
         self.isAuthenticated = false
     }
 }
