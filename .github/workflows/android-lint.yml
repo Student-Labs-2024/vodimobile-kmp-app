@@ -21,7 +21,6 @@ jobs:
       - name: Run Android Lint
         run: |
           chmod +x gradlew
-          # Exclude shared/build.gradle.kts from analysis
           ./gradlew lint -Pandroid.lintOptions.check '!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')
       - name: Upload lint results
         uses: actions/upload-artifact@v3
