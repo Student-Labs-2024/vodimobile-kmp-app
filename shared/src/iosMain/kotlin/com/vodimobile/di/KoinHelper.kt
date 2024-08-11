@@ -1,12 +1,14 @@
 package com.vodimobile.di
 
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -26,6 +28,7 @@ fun initKoin() {
 class KoinHelper : KoinComponent {
     private val carsStorage by inject<CarsStorage>()
     private val crmStorage by inject<CrmStorage>()
+    private val supabaseStorage by inject<SupabaseStorage>()
 
     fun getPopularCars(): List<Car> = carsStorage.getPopularCars()
 
@@ -61,4 +64,17 @@ class KoinHelper : KoinComponent {
         refreshToken: String,
         bidCostParams: BidCostParams
     ) = crmStorage.getBidCost(accessToken, refreshToken, bidCostParams)
+
+
+    suspend fun getUser(password: String, phone: String) = supabaseStorage.getUser(password, phone)
+    suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = user)
+    suspend fun updatePhone(userId: Int, phone: String) = supabaseStorage.updatePhone(userId, phone)
+    suspend fun updatePassword(userId: Int, password: String) =
+        supabaseStorage.updatePassword(userId, password)
+
+    suspend fun updateFullName(userId: Int, fullName: String) =
+        supabaseStorage.updateFullName(userId, fullName)
+
+    suspend fun updateTokens(userId: Int, accessToken: String, refreshToken: String) =
+        supabaseStorage.updateTokens(userId, accessToken, refreshToken)
 }
