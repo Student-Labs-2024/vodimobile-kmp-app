@@ -8,6 +8,6 @@ data class Order(
     val status: CarStatus,
     val rentalPeriod: DateRange,
     val pickupLocation: String,
-    val pickupTime: Long,
+    val pickupTime: TimeRange,
     val specifications: Car
 )
