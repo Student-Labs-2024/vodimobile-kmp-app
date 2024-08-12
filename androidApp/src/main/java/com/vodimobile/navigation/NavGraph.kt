@@ -1,5 +1,6 @@
 package com.vodimobile.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -95,6 +96,11 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         "selected-date",
                         initialValue = longArrayOf(0L, 0L),
                     ).collectAsState().value
+                    val noAuth = backStackEntry.savedStateHandle.getStateFlow(
+                        "no-auth",
+                        initialValue = true,
+                    ).collectAsState().value
+
                     val homeViewModel: HomeViewModel = koinViewModel()
                     HomeScreen(
                         homeState = homeViewModel.homeState.collectAsState(
@@ -106,7 +112,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         onHomeIntent = homeViewModel::onIntent,
                         navHostController = navHostController,
                         selectedDate = selectedDate,
-                        modifier = modifier
+                        modifier = modifier,
+                        noAuth = noAuth,
                     )
                 } else {
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(

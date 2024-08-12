@@ -6,4 +6,5 @@ sealed class AuthorizationEffect {
     data object ReturnBack : AuthorizationEffect()
     data object AskPermission : AuthorizationEffect()
     data object RememberPassword: AuthorizationEffect()
+    data object AuthError : AuthorizationEffect()
 }

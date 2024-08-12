@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.authorization
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -11,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -29,17 +33,25 @@ import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
-import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.RegistrationScreens
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.authorization.components.AuthorizationBlock
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
@@ -52,7 +64,7 @@ import com.vodimobile.presentation.utils.PhoneNumberValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-@SuppressLint("ComposeModifierMissing")
+@SuppressLint("ComposeModifierMissing", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthorizationScreen(
     onAuthorizationIntent: (AuthorizationIntent) -> Unit,
@@ -68,6 +80,7 @@ fun AuthorizationScreen(
             onAuthorizationIntent(AuthorizationIntent.SmsVerification)
         }
     }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = Unit) {
         authorizationEffect.collect { effect ->
@@ -81,26 +94,34 @@ fun AuthorizationScreen(
                 }
 
                 AuthorizationEffect.SmsVerification -> {
-                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${authorizationState.value.phoneNumber}")
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${authorizationState.value.phoneNumber}/${RootScreen.HOME_SCREEN}")
                 }
 
                 AuthorizationEffect.AskPermission -> {
                     when (PackageManager.PERMISSION_GRANTED) {
                         ContextCompat.checkSelfPermission(
                             App.INSTANCE,
-                            android.Manifest.permission.SEND_SMS
+                            Manifest.permission.SEND_SMS
                         ) -> {
                             onAuthorizationIntent(AuthorizationIntent.SmsVerification)
                         }
 
                         else -> {
-                            launcher.launch(android.Manifest.permission.SEND_SMS)
+                            launcher.launch(Manifest.permission.SEND_SMS)
                         }
                     }
                 }
 
                 AuthorizationEffect.RememberPassword -> {
                     navHostController.navigate(RegistrationScreens.RESET_PASSWORD_SCREEN)
+                }
+
+                AuthorizationEffect.AuthError -> {
+                    snackbarHostState
+                        .showSnackbar(
+                            message = App.INSTANCE.resources.getString(R.string.auth_2_user_supabase_error),
+                            duration = SnackbarDuration.Short
+                        )
                 }
             }
         }
@@ -112,44 +133,50 @@ fun AuthorizationScreen(
         if (isButtonClicked.value) isButtonClicked.value = false
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 16.dp)
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
     ) {
-        ScreenHeader(
-            title = stringResource(
-                id = R.string.login_str
-            ),
-            onNavigateBack = {
-                onAuthorizationIntent(AuthorizationIntent.ReturnBack)
-            }
-        )
-        Spacer(modifier = Modifier.height(100.dp))
-        AuthorizationBlock(
-            authorizationState = authorizationState.value,
-            isShowError = isButtonClicked.value,
-            onPhoneNumberChanged = {
-                onAuthorizationIntent(AuthorizationIntent.PhoneNumberChange(it))
-                resetButtonClicked()
-            },
-            onPasswordChange = {
-                onAuthorizationIntent(AuthorizationIntent.PasswordChange(it))
-                resetButtonClicked()
-            },
-            onClickRememberPassword = { onAuthorizationIntent(AuthorizationIntent.RememberPassword) }
-        )
-        Spacer(modifier = Modifier.height(28.dp))
-        AgreementBlock(
-            onClickUserAgreement = {
-                onAuthorizationIntent(AuthorizationIntent.OpenUserAgreement)
-            },
-            onClickNextButton = {
-                isButtonClicked.value = true
-                if (!authorizationState.value.phoneNumberError && !authorizationState.value.passwordError)
-                    onAuthorizationIntent(AuthorizationIntent.AskPermission)
-            }
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 64.dp, horizontal = 16.dp)
+        ) {
+            ScreenHeader(
+                title = stringResource(
+                    id = R.string.login_str
+                ),
+                onNavigateBack = {
+                    onAuthorizationIntent(AuthorizationIntent.ReturnBack)
+                }
+            )
+            Spacer(modifier = Modifier.height(100.dp))
+            AuthorizationBlock(
+                authorizationState = authorizationState.value,
+                isShowError = isButtonClicked.value,
+                onPhoneNumberChanged = {
+                    onAuthorizationIntent(AuthorizationIntent.PhoneNumberChange(it))
+                    resetButtonClicked()
+                },
+                onPasswordChange = {
+                    onAuthorizationIntent(AuthorizationIntent.PasswordChange(it))
+                    resetButtonClicked()
+                },
+                onClickRememberPassword = { onAuthorizationIntent(AuthorizationIntent.RememberPassword) }
+            )
+            Spacer(modifier = Modifier.height(28.dp))
+            AgreementBlock(
+                onClickUserAgreement = {
+                    onAuthorizationIntent(AuthorizationIntent.OpenUserAgreement)
+                },
+                onClickNextButton = {
+                    isButtonClicked.value = true
+                    if (!authorizationState.value.phoneNumberError && !authorizationState.value.passwordError)
+                        onAuthorizationIntent(AuthorizationIntent.AskPermission)
+                }
+            )
+        }
     }
 }
 
@@ -188,14 +215,15 @@ private fun AuthorizationScreenPreviewDark() {
                                 LocalContext.current
                             )
                         )
-                    ),
-                    editTokensUseCase = EditTokensUseCase(
-                        userDataStoreRepository = UserDataStoreRepositoryImpl(
-                            dataStore = getDataStore(
-                                LocalContext.current
-                            )
-                        )
                     )
+                ),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             AuthorizationScreen(
@@ -243,14 +271,15 @@ private fun AuthorizationScreenPreviewLight() {
                                 LocalContext.current
                             )
                         )
-                    ),
-                    editTokensUseCase = EditTokensUseCase(
-                        userDataStoreRepository = UserDataStoreRepositoryImpl(
-                            dataStore = getDataStore(
-                                LocalContext.current
-                            )
-                        )
                     )
+                ),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             AuthorizationScreen(

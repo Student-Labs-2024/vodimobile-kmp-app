@@ -19,17 +19,25 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.storage.cars.CarsStorage
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.screens.home.components.AllCars
 import com.vodimobile.presentation.screens.home.components.HomeScreenSupBar
@@ -39,6 +47,7 @@ import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,6 +59,7 @@ fun HomeScreen(
     onHomeIntent: (HomeIntent) -> Unit,
     navHostController: NavHostController,
     selectedDate: LongArray,
+    noAuth: Boolean,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -70,9 +80,20 @@ fun HomeScreen(
                 is HomeEffect.BookCarClick -> {
 
                 }
+
+                HomeEffect.UnauthedUser -> {
+                    if (noAuth) {
+                        navHostController.navigate(route = RootScreen.START_SCREEN) {
+                            popUpTo(RootScreen.START_SCREEN)
+                        }
+                    }
+                }
             }
         }
     }
+
+    if (noAuth)
+        onHomeIntent(HomeIntent.InitUser)
 
     ExtendedTheme {
         Scaffold(
@@ -138,6 +159,34 @@ private fun HomeScreenDarkPreview() {
                 getPopularCarsUseCase = GetPopularCarsUseCase(
                     CarRepositoryImpl()
                 )
+            ),
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
             )
         )
         HomeScreen(
@@ -145,7 +194,8 @@ private fun HomeScreenDarkPreview() {
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+            noAuth = false
         )
     }
 }
@@ -158,6 +208,34 @@ private fun HomeScreenLightPreview() {
             CarsStorage(
                 getPopularCarsUseCase = GetPopularCarsUseCase(
                     CarRepositoryImpl()
+                ),
+            ),
+            userDataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
                 )
             )
         )
@@ -166,7 +244,8 @@ private fun HomeScreenLightPreview() {
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+            noAuth = false
         )
     }
 }

@@ -2,7 +2,6 @@ package com.vodimobile.domain.storage.data_store
 
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
-import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
@@ -13,7 +12,6 @@ class UserDataStoreStorage(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val preRegisterUserUseCase: PreRegisterUserUseCase,
     private val editPasswordUseCase: EditPasswordUseCase,
-    private val editTokensUseCase: EditTokensUseCase
 ) {
     suspend fun edit(user: User) {
         editUserDataStoreUseCase(user = user)
@@ -28,16 +26,11 @@ class UserDataStoreStorage(
         password: String,
         accessToken: String,
         refreshToken: String,
-        expired: Long
     ) {
-        preRegisterUserUseCase(name, password, accessToken, refreshToken, expired)
+        preRegisterUserUseCase(name, password)
     }
 
     suspend fun editPassword(password: String) {
         editPasswordUseCase(password)
-    }
-
-    suspend fun editTokens(accessToken: String, refreshToken: String, expires: Long) {
-        editTokensUseCase(accessToken, refreshToken, expires)
     }
 }

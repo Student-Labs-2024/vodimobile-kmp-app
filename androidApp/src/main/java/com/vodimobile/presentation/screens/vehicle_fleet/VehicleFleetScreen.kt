@@ -46,7 +46,6 @@ import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
-import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
@@ -221,13 +220,6 @@ private fun VehicleFleetScreenPreview() {
                     )
                 ),
                 editPasswordUseCase = EditPasswordUseCase(
-                    userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(
-                            LocalContext.current
-                        )
-                    )
-                ),
-                editTokensUseCase = EditTokensUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
                             LocalContext.current

@@ -5,4 +5,5 @@ sealed class RegistrationEffect {
     data object SmsVerification : RegistrationEffect()
     data object ReturnBack : RegistrationEffect()
     data object AskPermission : RegistrationEffect()
+    data object SupabaseAuthUserError : RegistrationEffect()
 }

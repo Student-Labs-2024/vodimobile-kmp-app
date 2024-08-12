@@ -121,4 +121,6 @@
     <string name="success2_title">Менеджер скоро свяжется с вами. Изменить заказ и посмотреть его статус можно в заказах</string>
     <string name="success_bt">Мои заказы</string>
 
+    <string name="auth_user_supabase_error">Такой пользователь уже существует.</string>
+    <string name="auth_2_user_supabase_error">Такого пользователь не существует.</string>
 </resources>

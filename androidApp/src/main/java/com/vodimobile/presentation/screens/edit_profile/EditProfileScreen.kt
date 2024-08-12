@@ -38,7 +38,6 @@ import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
-import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
@@ -51,6 +50,8 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.InputMasks
+import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -179,13 +180,14 @@ fun EditProfileScreen(
                         )
 
                         ProfileField(
-                            text = editProfileState.value.phone,
+                            text = editProfileState.value.user.phone,
                             modifier = textModifier,
                             onValueChange = {
                                 onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
                             },
                             label = stringResource(id = R.string.label_phoneNumber),
-                            enabled = false
+                            enabled = false,
+                            visualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK)
                         )
                     }
                 }
@@ -223,13 +225,6 @@ private fun EditProfileScreenDarkPreview() {
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
                             App.INSTANCE
-                        )
-                    )
-                ),
-                editTokensUseCase = EditTokensUseCase(
-                    userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(
-                            LocalContext.current
                         )
                     )
                 )
@@ -273,13 +268,6 @@ private fun EditProfileScreenLightPreview() {
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
                             App.INSTANCE
-                        )
-                    )
-                ),
-                editTokensUseCase = EditTokensUseCase(
-                    userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(
-                            LocalContext.current
                         )
                     )
                 )

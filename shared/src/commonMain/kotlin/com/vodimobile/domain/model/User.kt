@@ -19,6 +19,20 @@ data class User(
         phone: String
     ) : this(-1, fullName, password, "", "", phone)
 
+    constructor(
+        id: Int,
+        fullName: String,
+        password: String,
+        accessToken: String,
+        refreshToken: String,
+    ) : this (-1, fullName, password, accessToken, refreshToken, "")
+
+    constructor(
+        id: Int,
+        fullName: String,
+        password: String,
+    ) : this (-1, fullName, password, "", "", "")
+
     companion object {
         fun empty(): User {
             return User(

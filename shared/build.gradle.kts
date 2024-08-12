@@ -54,11 +54,6 @@ kotlin {
             //Mutex
             implementation(libs.atomicfu)
 
-            //Koin tests
-//            implementation(libs.koin.test)
-//            implementation(libs.koin.test.junit4)
-//            implementation(libs.koin.android.test)
-
             //Ktor
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.encoding)
@@ -143,7 +138,6 @@ buildkonfig {
 
     val supabase_url = getStringValueFromLocalProperties(name = "supabase.url")
     val supabase_public = getStringValueFromLocalProperties(name = "supabase.public")
-    val supabase_secret = getStringValueFromLocalProperties(name = "supabase.secret")
 
     defaultConfigs {
         buildConfigField(STRING, "crm_server", cmr_server, nullable = false, const = true)
@@ -155,6 +149,5 @@ buildkonfig {
 
         buildConfigField(STRING, "supabase_url", supabase_url, nullable = false, const = true)
         buildConfigField(STRING, "supabase_public", supabase_public, nullable = false, const = true)
-        buildConfigField(STRING, "supabase_secret", supabase_secret, nullable = false, const = true)
     }
 }

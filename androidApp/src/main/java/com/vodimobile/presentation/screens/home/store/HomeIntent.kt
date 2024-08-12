@@ -9,4 +9,5 @@ sealed class HomeIntent {
     data object CloseModal : HomeIntent()
     data object AllCarsClick : HomeIntent()
     data class BookCarClick(val car: Car) : HomeIntent()
+    data object InitUser : HomeIntent()
 }

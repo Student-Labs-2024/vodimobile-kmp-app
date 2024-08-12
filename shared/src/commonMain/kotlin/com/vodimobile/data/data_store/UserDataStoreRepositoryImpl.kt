@@ -21,8 +21,6 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             id = it[intPreferencesKey(Constants.DATA_STORE_USER_ID)] ?: -1,
             fullName = it[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: "",
             password = it[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: "",
-            accessToken = it[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] ?: "",
-            refreshToken = it[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: "",
             phone = it[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: "",
         )
     }
@@ -40,10 +38,6 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             val id = preferences[intPreferencesKey(Constants.DATA_STORE_USER_ID)] ?: -1
             val fullName =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: ""
-            val accessToken =
-                preferences[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] ?: SharedBuildkonfig.crm_test_access_token
-            val refreshToken =
-                preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: SharedBuildkonfig.crm_test_refresh_token
             val password =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: ""
             val phone = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: ""
@@ -52,8 +46,6 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
                 id = id,
                 fullName = fullName,
                 password = password,
-                accessToken = accessToken,
-                refreshToken = refreshToken,
                 phone = phone,
             )
         }
@@ -61,28 +53,16 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
         return userFlow
     }
 
-    override suspend fun editPreregister(name: String, password: String, accessToken: String, refreshToken: String, expired: Long) {
+    override suspend fun editPreregister(name: String, password: String) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = name
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = password
-            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] = accessToken
-            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] = refreshToken
-            preferences[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] = expired
         }
     }
 
     override suspend fun editPassword(password: String) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = password
-        }
-    }
-
-    override suspend fun editTokens(accessToken: String, refreshToken: String, expires: Long) {
-        dataStore.edit { preferences ->
-            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] = accessToken
-            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] =
-                refreshToken
-            preferences[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] = expires
         }
     }
 }
