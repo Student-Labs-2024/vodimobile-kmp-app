@@ -4,7 +4,6 @@ import com.vodimobile.domain.model.Car
 import dev.icerock.moko.resources.StringResource
 
 data class Order(
-    val model: StringResource,
     val status: CarStatus,
     val rentalPeriod: DateRange,
     val pickupLocation: String,
