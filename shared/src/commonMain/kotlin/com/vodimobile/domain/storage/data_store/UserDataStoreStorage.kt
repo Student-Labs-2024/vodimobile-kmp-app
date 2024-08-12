@@ -24,10 +24,11 @@ class UserDataStoreStorage(
     suspend fun preregister(
         name: String,
         password: String,
+        id: Int,
         accessToken: String,
         refreshToken: String,
     ) {
-        preRegisterUserUseCase(name, password)
+        preRegisterUserUseCase(name, password, id)
     }
 
     suspend fun editPassword(password: String) {

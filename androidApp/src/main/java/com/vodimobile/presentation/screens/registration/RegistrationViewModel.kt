@@ -133,11 +133,7 @@ class RegistrationViewModel(
             password = registrationState.value.password,
             phone = registrationState.value.phoneNumber
         )
-        if (user == User.empty()) {
-            registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
-        } else {
-            dataStoreStorage.edit(user = user)
-        }
+        dataStoreStorage.edit(user = user)
     }
 
     private suspend fun saveInRemote(accessToken: String, refreshToken: String) {

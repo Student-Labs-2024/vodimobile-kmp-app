@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface UserDataStoreRepository {
     suspend fun editUserData(user: User)
     fun getUserData() : Flow<User>
-    suspend fun editPreregister(name: String, password: String)
+    suspend fun editPreregister(name: String, password: String, id: Int)
     suspend fun editPassword(password: String)
 }

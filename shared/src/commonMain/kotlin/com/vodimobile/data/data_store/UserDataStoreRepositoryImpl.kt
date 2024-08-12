@@ -27,6 +27,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
 
     override suspend fun editUserData(user: User) {
         dataStore.edit { preferences ->
+            preferences[intPreferencesKey(Constants.DATA_STORE_USER_ID)] = user.id
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = user.password
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] = user.phone
@@ -53,8 +54,9 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
         return userFlow
     }
 
-    override suspend fun editPreregister(name: String, password: String) {
+    override suspend fun editPreregister(name: String, password: String, id: Int) {
         dataStore.edit { preferences ->
+            preferences[intPreferencesKey(Constants.DATA_STORE_USER_ID)] = id
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = name
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = password
         }
