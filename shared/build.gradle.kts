@@ -74,6 +74,13 @@ kotlin {
 
             //Date time
             implementation(libs.kotlinx.datetime)
+
+            //Supabase
+            implementation(project.dependencies.platform(libs.bom))
+            implementation(libs.postgrest.kt)
+            implementation(libs.gotrue.kt)
+            implementation(libs.realtime.kt)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -134,6 +141,10 @@ buildkonfig {
     val crm_test_access_token = getStringValueFromLocalProperties(name = "crm.test.access.token")
     val crm_test_refresh_token = getStringValueFromLocalProperties(name = "crm.test.refresh.token")
 
+    val supabase_url = getStringValueFromLocalProperties(name = "supabase.url")
+    val supabase_public = getStringValueFromLocalProperties(name = "supabase.public")
+    val supabase_secret = getStringValueFromLocalProperties(name = "supabase.secret")
+
     defaultConfigs {
         buildConfigField(STRING, "crm_server", cmr_server, nullable = false, const = true)
         buildConfigField(STRING, "crm_port", cmr_port, nullable = false, const = true)
@@ -141,5 +152,9 @@ buildkonfig {
         buildConfigField(STRING, "crm_password_hash", crm_password_hash, nullable = false, const = true)
         buildConfigField(STRING, "crm_test_access_token", crm_test_access_token, nullable = false, const = true)
         buildConfigField(STRING, "crm_test_refresh_token", crm_test_refresh_token, nullable = false, const = true)
+
+        buildConfigField(STRING, "supabase_url", supabase_url, nullable = false, const = true)
+        buildConfigField(STRING, "supabase_public", supabase_public, nullable = false, const = true)
+        buildConfigField(STRING, "supabase_secret", supabase_secret, nullable = false, const = true)
     }
 }

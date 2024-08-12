@@ -3,6 +3,7 @@ package com.vodimobile.data.data_store
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.vodimobile.domain.repository.data_store.UserDataStoreRepository
@@ -17,20 +18,18 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
 
     val userFromFlow: Flow<User> = dataStore.data.map {
         User(
+            id = it[intPreferencesKey(Constants.DATA_STORE_USER_ID)] ?: -1,
             fullName = it[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: "",
             password = it[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: "",
             accessToken = it[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] ?: "",
             refreshToken = it[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: "",
-            expires = it[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] ?: 0L,
             phone = it[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: "",
-            email = it[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: ""
         )
     }
 
     override suspend fun editUserData(user: User) {
         dataStore.edit { preferences ->
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName
-            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] = user.email ?: ""
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = user.password
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] = user.phone
         }
@@ -38,27 +37,24 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
 
     override fun getUserData(): Flow<User> {
         val userFlow: Flow<User> = dataStore.data.map { preferences ->
+            val id = preferences[intPreferencesKey(Constants.DATA_STORE_USER_ID)] ?: -1
             val fullName =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] ?: ""
-            val email = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_EMAIL)] ?: ""
             val accessToken =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_ACCESS_TOKEN)] ?: SharedBuildkonfig.crm_test_access_token
             val refreshToken =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_REFRESH_TOKEN)] ?: SharedBuildkonfig.crm_test_refresh_token
-            val expires =
-                preferences[longPreferencesKey(Constants.DATA_STORE_USER_EXPIRES_TOKEN)] ?: 0L
             val password =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: ""
             val phone = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: ""
 
             return@map User(
+                id = id,
                 fullName = fullName,
                 password = password,
                 accessToken = accessToken,
                 refreshToken = refreshToken,
-                expires = expires,
                 phone = phone,
-                email = email,
             )
         }
 
