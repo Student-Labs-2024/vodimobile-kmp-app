@@ -32,8 +32,9 @@ class ChangePasswordViewModel(
                 viewModelScope.launch {
                     val userFlow: Flow<User> = dataStoreStorage.getUser()
                     userFlow.collect {
+                        val user = supabaseStorage.getUser(password = it.password, phone = it.phone)
                         supabaseStorage.updatePassword(
-                            userId = it.id,
+                            userId = user.id,
                             password = newPasswordState.value.password
                         )
                         changePasswordEffect.emit(ChangePasswordEffect.SaveChanges)
