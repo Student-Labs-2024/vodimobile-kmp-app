@@ -11,3 +11,5 @@ val Shapes = Shapes(
     large = RoundedCornerShape(15.dp),
     extraLarge = RoundedCornerShape(24.dp)
 )
+
+val normal = RoundedCornerShape(20.dp)
