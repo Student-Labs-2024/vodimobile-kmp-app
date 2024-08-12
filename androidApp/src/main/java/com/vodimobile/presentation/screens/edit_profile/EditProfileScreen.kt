@@ -36,11 +36,19 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
@@ -228,6 +236,14 @@ private fun EditProfileScreenDarkPreview() {
                         )
                     )
                 )
+            ),
+            supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
@@ -271,6 +287,14 @@ private fun EditProfileScreenLightPreview() {
                         )
                     )
                 )
+            ),
+            supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(

@@ -1,10 +1,12 @@
 package com.vodimobile.presentation.screens.edit_profile
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
@@ -16,7 +18,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class EditProfileViewModel(
-    private val userDataStoreStorage: UserDataStoreStorage
+    private val userDataStoreStorage: UserDataStoreStorage,
+    private val supabaseStorage: SupabaseStorage,
 ) : ViewModel() {
 
     val editProfileState = MutableStateFlow(EditProfileState())
@@ -97,6 +100,7 @@ class EditProfileViewModel(
                                 id = editProfileState.value.user.id,
                             )
                         )
+                        supabaseStorage.updateFullName(userId = editProfileState.value.user.id, fullName = editProfileState.value.user.fullName)
                         editProfileEffect.emit(EditProfileEffect.RemoveProgressDialog)
                         editProfileEffect.emit(
                             EditProfileEffect.SaveData(
