@@ -14,6 +14,8 @@ struct ProfileCellView: View {
     @ViewBuilder
     var destinationView: some View {
         switch cell.cellType {
+        case .personalData:
+            PersonDataView()
         case .conditions:
             RulesAndConditionsView()
         case .contacts:
@@ -25,19 +27,21 @@ struct ProfileCellView: View {
     
     var body: some View {
         NavigationLink(destination: destinationView) {
-            HStack(spacing: ProfileConfig.horizontalSpacingBetweenIconAndText) {
-                cell.icon
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: ProfileConfig.mainIconsSize, height: ProfileConfig.mainIconsSize)
+            VStack(alignment: .leading) {
+                Text(cell.title).font(.header4).lineLimit(2).foregroundStyle(.black)
                 
-                Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
-                
-                Spacer()
-                
-                Image.chevronRight
+                HStack {
+                    Spacer()
+                    cell.icon
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: ProfileConfig.mainIconsWidth, height: ProfileConfig.mainIconsHeight)
+                    
+                }
             }
-            .foregroundStyle(Color(R.color.grayDarkColor))
         }
+        .padding(.vertical, 34)
+        .padding(.horizontal, 24)
+        .background(RoundedRectangle(cornerRadius: 20).fill(.white))
     }
 }

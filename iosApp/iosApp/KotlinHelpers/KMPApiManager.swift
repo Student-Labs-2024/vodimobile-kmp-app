@@ -8,13 +8,16 @@
 
 import SwiftUI
 import shared
+import Combine
 
 final class KMPApiManager {
     private var helper = KoinHelper()
     private var dataStorage = KMPDataStorage()
     static let shared = KMPApiManager()
+    // TODO: - Make logic with appState observing
     
     init() {
+        
         Task {
             await setUserTokens()
         }
@@ -22,57 +25,58 @@ final class KMPApiManager {
     
     func setUserTokens() async {
         do {
-            let response = try await helper.postUser()
-            switch onEnum(of: response) {
-            case .crmData(let success):
-                let user = success.data
-                if let user = user {
-                    if let storageUser = dataStorage.gettingUser {
-                        let newUser = User(
-                            fullName:  storageUser.fullName,
-                            password:  storageUser.password,
-                            accessToken:  user.accessToken,
-                            refreshToken:  user.refreshToken,
-                            expires:  user.expires,
-                            phone:  storageUser.phone,
-                            email:  storageUser.email
-                        )
-                        DispatchQueue.main.async {
-                            self.dataStorage.gettingUser = newUser
-                        }
-                    }
-                }
-            case .crmError(let error):
-                print(error.status?.value ?? "Empty error")
-            case .crmLoading(_):
-                print("loading...")
-            }
+//            let response = try await helper.postUser()
+//            switch onEnum(of: response) {
+//            case .crmData(let success):
+//                let user = success.data
+//                if let user = user {
+//                    if let storageUser = dataStorage.gettingUser {
+//                        let newUser = User(
+//                            id: storageUser.id,
+//                            fullName:  storageUser.fullName,
+//                            password:  storageUser.password,
+//                            accessToken:  user.accessToken,
+//                            refreshToken:  user.refreshToken,
+//                            phone:  storageUser.phone
+//                        )
+//                        DispatchQueue.main.async {
+//                            self.dataStorage.gettingUser = newUser
+//                        }
+//                    }
+//                }
+//            case .crmError(let error):
+//                print(error.status?.value ?? "Empty error")
+//            case .crmLoading(_):
+//                print("loading...")
+//            }
         } catch {
             print(error)
         }
+        
     }
     
     func fetchCars() async -> [Car] {
         do {
-            if let storageUser = dataStorage.gettingUser {
-                let response = try await helper.getCars(
-                    accessToken: storageUser.accessToken,
-                    refreshToken: storageUser.refreshToken
-                )
-                switch onEnum(of: response) {
-                case .crmData(let success):
-                    if let cars = success.data {
-                        return convertNSArrayToArray(nsArray: cars)
-                    }
-                case .crmError(let error):
-                    print(error.status?.value ?? "Empty error")
-                case .crmLoading(_):
-                    print("loading...")
-                }
-            }
+//            if let storageUser = dataStorage.gettingUser {
+//                let response = try await helper.getCars(
+//                    accessToken: storageUser.accessToken,
+//                    refreshToken: storageUser.refreshToken
+//                )
+//                switch onEnum(of: response) {
+//                case .crmData(let success):
+//                    if let cars = success.data {
+//                        return convertNSArrayToArray(nsArray: cars)
+//                    }
+//                case .crmError(let error):
+//                    print(error.status?.value ?? "Empty error")
+//                case .crmLoading(_):
+//                    print("loading...")
+//                }
+//            }
         } catch {
             print(error)
         }
+        
         return []
     }
     

@@ -29,7 +29,7 @@
 "reservationScreenTitle" = "Making reservation";
 
 // Buttons titles
-"regButtonTitle" = "Sign up";
+"regButtonTitle" = "Create account";
 "authButtonTitle" = " Log in";
 "nextBtnName" = "Next";
 "resendBtnText" = "Resend";
@@ -132,16 +132,16 @@
 "resetScreenSubtitle" = "The code for changing the password will be sent by SMS.";
 "serverErrorTitle" = "Server error";
 "serverErrorText" = "Something went wrong on the server side. Try the connection again.";
-"signSuggestTitle" = "Sign in or create account";
-"signSuggestText" = "To submit a request, you must have an account";
-"autoNameTitle" = "Automobile";
-"autoDatesTitle" = "The rental period";
+"signSuggestTitle" = "Log in to continue";
+"signSuggestText" = "Authorization is required to book a car.";
+"autoNameTitle" = "Car";
+"autoDatesTitle" = "Rental period";
 "totalPriceTitle" = "Total:";
 "freeText" = "Free";
-"requestSubmittedTitle" = "Booking request submitted";
-"requestSubmittedText" = "The manager will contact you soon. You can change the order and see its status in orders";
-"requestFailedTitle" = "Something went wrong";
-"requestFailedText" = "Failed to submit request. Try again.";
+"requestSubmittedTitle" = "Request successfully submitted!";
+"requestSubmittedText" = "The manager will contact you soon. You can manage the request in the \"My orders\" section.";
+"requestFailedTitle" = "Request not submitted";
+"requestFailedText" = "Please try again in a few minutes.";
 
 
 // Rules and Condition resources
