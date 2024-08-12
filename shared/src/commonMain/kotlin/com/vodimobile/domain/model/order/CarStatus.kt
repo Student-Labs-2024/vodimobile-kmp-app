@@ -1,22 +1,22 @@
 package com.vodimobile.domain.model.order
 
+import com.vodimobile.shared.resources.SharedRes
+import dev.icerock.moko.resources.StringResource
+
 
 sealed class CarStatus(
-    val title: String,
+    val title: StringResource,
 ) {
     object Approved : CarStatus(
-        title = stringResource(R.string.approved_order),
-    )
+        title = SharedRes.strings.approved_order)
 
     object Processing : CarStatus(
-        title = stringResource(R.string.processing_order),
-    )
+        title = SharedRes.strings.processing_order)
 
     object Completed : CarStatus(
-        title = stringResource(R.string.completed_order),
-    )
+        title = SharedRes.strings.completed_order)
+
 
     object Cancelled : CarStatus(
-        title = stringResource(R.string.cancelled_order),
-    )
+        title = SharedRes.strings.cancelled_order)
 }
