@@ -63,4 +63,10 @@
     <string name="wheel_drive_name_mazda_6_1">АКПП-Автомат</string>
     <string name="transmission_name_mazda_6_1">Передний</string>
     <string name="tank_value_name_mazda_6_1">60</string>
+
+    <string name="approved_order">Одобрено</string>
+    <string name="processing_order">В обработке</string>
+    <string name="completed_order">Завершено</string>
+    <string name="cancelled_order">Отменено</string>
+
 </resources>
