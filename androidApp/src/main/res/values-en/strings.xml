@@ -133,4 +133,6 @@
 
     <string name="auth_user_supabase_error">This user is already exists.</string>
     <string name="auth_2_user_supabase_error">This user does not exist.</string>
+    <string name="active_order">Active</string>
+    <string name="completed_order">Completed</string>
 </resources>
