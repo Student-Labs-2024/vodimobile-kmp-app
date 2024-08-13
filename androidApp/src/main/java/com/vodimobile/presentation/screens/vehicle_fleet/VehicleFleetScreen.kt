@@ -31,11 +31,13 @@ import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
@@ -49,6 +51,12 @@ import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ProgressDialogIndicator
@@ -236,6 +244,14 @@ private fun VehicleFleetScreenPreview() {
                 getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                 getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
                 getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+            ),
+            supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
             )
         )
 

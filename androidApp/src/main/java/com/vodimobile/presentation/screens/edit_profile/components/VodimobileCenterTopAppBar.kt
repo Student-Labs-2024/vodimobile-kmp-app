@@ -23,13 +23,12 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 @Composable
 fun VodimobileCenterTopAppBar(
     onNavBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onActionClick: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier,
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = ExtendedTheme.colorScheme.containerBack,
+            containerColor = ExtendedTheme.colorScheme.onSecondaryBackground,
             titleContentColor = MaterialTheme.colorScheme.onBackground,
         ),
         title = {
@@ -50,19 +49,6 @@ fun VodimobileCenterTopAppBar(
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = stringResource(id = R.string.return_)
-                )
-            }
-        },
-        actions = {
-            IconButton(
-                onClick = onActionClick,
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = ExtendedTheme.colorScheme.hintText
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Check,
-                    contentDescription = stringResource(id = R.string.save_personal_data)
                 )
             }
         }
