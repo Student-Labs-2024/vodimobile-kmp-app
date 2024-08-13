@@ -1,10 +1,12 @@
 package com.vodimobile.presentation.screens.edit_profile
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
@@ -16,7 +18,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class EditProfileViewModel(
-    private val userDataStoreStorage: UserDataStoreStorage
+    private val userDataStoreStorage: UserDataStoreStorage,
+    private val supabaseStorage: SupabaseStorage,
 ) : ViewModel() {
 
     val editProfileState = MutableStateFlow(EditProfileState())
@@ -87,14 +90,18 @@ class EditProfileViewModel(
                         action = -1
 
                         editProfileEffect.emit(EditProfileEffect.ProgressDialog)
+                        val user = supabaseStorage.getUser(password = editProfileState.value.user.password, phone = editProfileState.value.user.phone)
                         userDataStoreStorage.edit(
                             user = User(
                                 fullName = editProfileState.value.fullName,
                                 password = editProfileState.value.user.password,
                                 phone = editProfileState.value.user.phone,
-                                email = editProfileState.value.user.email
+                                accessToken = editProfileState.value.user.accessToken,
+                                refreshToken = editProfileState.value.user.refreshToken,
+                                id = user.id,
                             )
                         )
+                        supabaseStorage.updateFullName(userId = user.id, fullName = editProfileState.value.user.fullName)
                         editProfileEffect.emit(EditProfileEffect.RemoveProgressDialog)
                         editProfileEffect.emit(
                             EditProfileEffect.SaveData(

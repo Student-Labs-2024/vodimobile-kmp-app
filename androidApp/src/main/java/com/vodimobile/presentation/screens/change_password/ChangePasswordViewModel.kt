@@ -2,16 +2,24 @@ package com.vodimobile.presentation.screens.change_password
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.User
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordEffect
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordIntent
 import com.vodimobile.presentation.store.PasswordState
 import com.vodimobile.presentation.utils.PasswordValidator
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ChangePasswordViewModel(private val passwordValidator: PasswordValidator) : ViewModel() {
+class ChangePasswordViewModel(
+    private val passwordValidator: PasswordValidator,
+    private val supabaseStorage: SupabaseStorage,
+    private val dataStoreStorage: UserDataStoreStorage
+) : ViewModel() {
 
     val oldPasswordState = MutableStateFlow(PasswordState())
     val newPasswordState = MutableStateFlow(PasswordState())
@@ -22,7 +30,15 @@ class ChangePasswordViewModel(private val passwordValidator: PasswordValidator) 
         when (intent) {
             ChangePasswordIntent.SaveChanges -> {
                 viewModelScope.launch {
-                    changePasswordEffect.emit(ChangePasswordEffect.SaveChanges)
+                    val userFlow: Flow<User> = dataStoreStorage.getUser()
+                    userFlow.collect {
+                        val user = supabaseStorage.getUser(password = it.password, phone = it.phone)
+                        supabaseStorage.updatePassword(
+                            userId = user.id,
+                            password = newPasswordState.value.password
+                        )
+                        changePasswordEffect.emit(ChangePasswordEffect.SaveChanges)
+                    }
                 }
             }
 

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ResetPasswordPhoneView: View {
     @State private var isButtonEnabled: Bool = false
+    @Binding var showSignSuggestModal: Bool
     @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
@@ -40,6 +41,7 @@ struct ResetPasswordPhoneView: View {
                 NavigationLink(
                     destination: PinCodeView(
                         phoneNumber: $viewModel.phone,
+                        showSignSuggestModal: $showSignSuggestModal,
                         isResetPasswordFlow: true
                     )
                 ) {
@@ -61,5 +63,5 @@ struct ResetPasswordPhoneView: View {
 }
 
 #Preview {
-    ResetPasswordPhoneView()
+    ResetPasswordPhoneView(showSignSuggestModal: Binding.constant(false))
 }

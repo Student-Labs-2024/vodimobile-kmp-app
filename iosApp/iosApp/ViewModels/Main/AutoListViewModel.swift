@@ -11,19 +11,25 @@ import SwiftUI
 
 final class AutoListViewModel: ObservableObject {
     @Published var listOfAllCar = [Car]()
-    private var carsList = [Car]() {
-        didSet {
-            listOfAllCar = carsList
-        }
-    }
+    @Published var isLoading = false
 
     init() {
-        fetchAllCars()
+        Task {
+            await fetchAllCars()
+        }
     }
     
-    func fetchAllCars() {
-        Task {
-            carsList = await KMPApiManager.shared.fetchCars()
+    func fetchAllCars() async {
+        self.isLoading.toggle()
+        let carsList = await KMPApiManager.shared.fetchCars()
+        
+        DispatchQueue.main.async {
+            self.listOfAllCar = carsList
+            self.isLoading.toggle()
         }
+    }
+    
+    func filterCars(by autoType: CarType) -> Binding<[Car]> {
+        Binding.constant(listOfAllCar.filter({ $0.carType.contains { $0 == autoType } }))
     }
 }

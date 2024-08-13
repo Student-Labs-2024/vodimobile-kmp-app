@@ -112,6 +112,12 @@
 
     <string name="vehicle_fleet">Vehicle fleet</string>
 
+    <string name="error_app">error</string>
+    <string name="error_app_title">Something went wrong</string>
+    <string name="error_app_title2">Failed to submit request. Try again</string>
+    <string name="error_bt">Try again</string>
+    <string name="error_icon">back</string>
+
     <string name="time_cancel">Cancel</string>
     <string name="ok_time">OK</string>
     <string name="select_time">Select time</string>
@@ -119,9 +125,12 @@
     <string name="switch_to_text_input">Switch to Text Input</string>
     <string name="switch_to_touch_input">Switch to Touch Input</string>
 
+
     <string name="success_str">success</string>
     <string name="succes_title">The application has been left</string>
     <string name="success_bt">My orders</string>
     <string name="success2_title">The manager will contact you soon. You can change the order and view its status in the orders</string>
 
+    <string name="auth_user_supabase_error">This user is already exists.</string>
+    <string name="auth_2_user_supabase_error">This user does not exist.</string>
 </resources>

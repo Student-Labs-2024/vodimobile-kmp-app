@@ -15,6 +15,7 @@ extension Image {
     static let checkmark: Image = Image(systemName: "checkmark")
     static let chevronLeft: Image = Image(systemName: "chevron.left")
     static let chevronRight: Image = Image(systemName: "chevron.right")
+    static let chevronDown: Image = Image(systemName: "chevron.down")
     static let docText: Image = Image(systemName: "doc.text")
     static let infoCircle: Image = Image(systemName: "info.circle")
     static let letter: Image = Image(systemName: "envelope")
@@ -28,6 +29,7 @@ extension Image {
     static let car: Image = Image(systemName: "car")
     static let eye: Image = Image(systemName: "eye")
     static let eyeSlash: Image = Image(systemName: "eye.slash")
+    static let clock: Image = Image(systemName: "clock")
 }
 
 extension Image {
@@ -77,6 +79,18 @@ struct FilledBtnStyle: ButtonStyle {
 
     public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         FilledButton(configuration: configuration, height: heightButton)
+    }
+}
+
+struct FilledBtnWithoutDisabledStyle: ButtonStyle {
+    public func makeBody(configuration: ButtonStyle.Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
+            .foregroundColor(.white)
+            .cornerRadius(15)
+            .font(.button)
     }
 }
 

@@ -28,7 +28,7 @@ struct PersonDataView: View {
                 )
                 .focused($focusedField, equals: .fullname)
                 
-                ButtonLikeTextFieldView()
+                ButtonLikeUnderlinedTextField()
                 
                 UnderlineTextField(
                     text: $viewModel.phone,

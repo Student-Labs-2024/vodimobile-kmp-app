@@ -145,7 +145,8 @@ struct PasswordTextField: View {
                 
                 if isForgetButtonEnabled {
                     NavigationLink(R.string.localizable.forgetPassword()) {
-                        ResetPasswordPhoneView()
+                        // TODO: - Make modal ResetPasswordPhoneView
+                        ResetPasswordPhoneView(showSignSuggestModal: Binding.constant(false))
                     }
                     .font(.paragraph5)
                     .foregroundStyle(Color(R.color.grayTextColor))

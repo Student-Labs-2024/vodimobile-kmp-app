@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.registration
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -11,6 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -29,8 +34,10 @@ import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
@@ -40,13 +47,20 @@ import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
-import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.RegistrationScreens
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.AgreementBlock
+import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
 import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
@@ -58,7 +72,7 @@ import com.vodimobile.presentation.utils.PhoneNumberValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-@SuppressLint("ComposeModifierMissing")
+@SuppressLint("ComposeModifierMissing", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun RegistrationScreen(
     onRegistrationIntent: (RegistrationIntent) -> Unit,
@@ -74,6 +88,7 @@ fun RegistrationScreen(
             onRegistrationIntent(RegistrationIntent.SmsVerification)
         }
     }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = Unit) {
         registrationEffect.collect { effect ->
@@ -87,22 +102,30 @@ fun RegistrationScreen(
                 }
 
                 RegistrationEffect.SmsVerification -> {
-                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}")
+                    navHostController.navigate(route = "${RegistrationScreens.SMS_VERIFY}/${registrationState.value.phoneNumber}/${RootScreen.HOME_SCREEN}")
                 }
 
                 RegistrationEffect.AskPermission -> {
                     when (PackageManager.PERMISSION_GRANTED) {
                         ContextCompat.checkSelfPermission(
                             App.INSTANCE,
-                            android.Manifest.permission.SEND_SMS
+                            Manifest.permission.SEND_SMS
                         ) -> {
                             onRegistrationIntent(RegistrationIntent.SmsVerification)
                         }
 
                         else -> {
-                            launcher.launch(android.Manifest.permission.SEND_SMS)
+                            launcher.launch(Manifest.permission.SEND_SMS)
                         }
                     }
+                }
+
+                RegistrationEffect.SupabaseAuthUserError -> {
+                    snackbarHostState
+                        .showSnackbar(
+                            message = App.INSTANCE.resources.getString(R.string.auth_user_supabase_error),
+                            duration = SnackbarDuration.Short
+                        )
                 }
             }
         }
@@ -114,50 +137,56 @@ fun RegistrationScreen(
         if (isButtonClicked.value) isButtonClicked.value = false
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 16.dp)
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
     ) {
-        ScreenHeader(
-            title = stringResource(
-                id = R.string.title_screen_registration
-            ),
-            onNavigateBack = {
-                onRegistrationIntent(RegistrationIntent.ReturnBack)
-            }
-        )
-        Spacer(modifier = Modifier.height(100.dp))
-        RegistrationBlock(
-            registrationState = registrationState.value,
-            isShowError = isButtonClicked.value,
-            onNameChanged = {
-                onRegistrationIntent(RegistrationIntent.NameChanged(it))
-                resetButtonClicked()
-            },
-            onPhoneNumberChanged = {
-                onRegistrationIntent(RegistrationIntent.PhoneNumberChange(it))
-                resetButtonClicked()
-            },
-            onPasswordChange = {
-                onRegistrationIntent(RegistrationIntent.PasswordChange(it))
-                resetButtonClicked()
-            }
-        )
-        Spacer(modifier = Modifier.height(28.dp))
-        AgreementBlock(
-            onClickUserAgreement = {
-                onRegistrationIntent(RegistrationIntent.OpenUserAgreement)
-            },
-            onClickNextButton = {
-                isButtonClicked.value = true
-                if (!registrationState.value.nameError &&
-                    !registrationState.value.phoneNumberError &&
-                    !registrationState.value.passwordError
-                )
-                    onRegistrationIntent(RegistrationIntent.AskPermission)
-            }
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 64.dp, horizontal = 16.dp)
+        ) {
+            ScreenHeader(
+                title = stringResource(
+                    id = R.string.title_screen_registration
+                ),
+                onNavigateBack = {
+                    onRegistrationIntent(RegistrationIntent.ReturnBack)
+                }
+            )
+            Spacer(modifier = Modifier.height(100.dp))
+            RegistrationBlock(
+                registrationState = registrationState.value,
+                isShowError = isButtonClicked.value,
+                onNameChanged = {
+                    onRegistrationIntent(RegistrationIntent.NameChanged(it))
+                    resetButtonClicked()
+                },
+                onPhoneNumberChanged = {
+                    onRegistrationIntent(RegistrationIntent.PhoneNumberChange(it))
+                    resetButtonClicked()
+                },
+                onPasswordChange = {
+                    onRegistrationIntent(RegistrationIntent.PasswordChange(it))
+                    resetButtonClicked()
+                }
+            )
+            Spacer(modifier = Modifier.height(28.dp))
+            AgreementBlock(
+                onClickUserAgreement = {
+                    onRegistrationIntent(RegistrationIntent.OpenUserAgreement)
+                },
+                onClickNextButton = {
+                    isButtonClicked.value = true
+                    if (!registrationState.value.nameError &&
+                        !registrationState.value.phoneNumberError &&
+                        !registrationState.value.passwordError
+                    )
+                        onRegistrationIntent(RegistrationIntent.AskPermission)
+                }
+            )
+        }
     }
 }
 
@@ -197,13 +226,6 @@ private fun RegistrationScreenPreviewDark() {
                                 LocalContext.current
                             )
                         )
-                    ),
-                    editTokensUseCase = EditTokensUseCase(
-                        userDataStoreRepository = UserDataStoreRepositoryImpl(
-                            dataStore = getDataStore(
-                                LocalContext.current
-                            )
-                        )
                     )
                 ),
                 crmStorage = CrmStorage(
@@ -215,6 +237,14 @@ private fun RegistrationScreenPreviewDark() {
                     getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                     getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
                     getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                ),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             RegistrationScreen(
@@ -263,13 +293,6 @@ private fun RegistrationScreenPreviewLight() {
                                 LocalContext.current
                             )
                         )
-                    ),
-                    editTokensUseCase = EditTokensUseCase(
-                        userDataStoreRepository = UserDataStoreRepositoryImpl(
-                            dataStore = getDataStore(
-                                LocalContext.current
-                            )
-                        )
                     )
                 ),
                 crmStorage = CrmStorage(
@@ -281,6 +304,14 @@ private fun RegistrationScreenPreviewLight() {
                     getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                     getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
                     getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                ),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             RegistrationScreen(

@@ -10,6 +10,9 @@ import SwiftUI
 import shared
 
 struct AutoGeneralCardView: View {
+    @Binding var selectedAuto: Car
+    @Binding var showModalReservation: Bool
+    
     var body: some View {
         VStack(spacing: 12) {
             Image(resource: \.more_cars)
@@ -20,7 +23,10 @@ struct AutoGeneralCardView: View {
             HStack {
                 Text(R.string.localizable.generalAutoCardTitle).font(.header4)
                 Spacer()
-                NavigationLink(destination: AutoListView()) {
+                NavigationLink(destination: AutoListView(
+                    selectedAuto: $selectedAuto, 
+                    showModalReservation: $showModalReservation)
+                ) {
                     Image.rightArrowCircleFill
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -34,8 +40,4 @@ struct AutoGeneralCardView: View {
         .padding(.vertical, 24)
         .background(RoundedRectangle(cornerRadius: 24).fill(.white))
     }
-}
-
-#Preview {
-    AutoGeneralCardView()
 }

@@ -2,7 +2,9 @@ import SwiftUI
 import shared
 
 struct SignSuggestView: View {
+    @EnvironmentObject var authManager: AuthManager
     @State private var isButtonEnabled: Bool = true
+    @Binding var showSignSuggestModal: Bool
     @EnvironmentObject var appState: AppState
 
     var body: some View {
@@ -10,7 +12,9 @@ struct SignSuggestView: View {
             VStack(spacing: SignSuggestConfig.spacingBetweenComponents) {
                 HStack {
                     Spacer()
-                    NavigationLink(destination: MainTabbarView()) {
+                    Button {
+                        showSignSuggestModal.toggle()
+                    } label: {
                         Image.xmark
                             .resizable()
                             .foregroundColor(Color.black)
@@ -34,11 +38,11 @@ struct SignSuggestView: View {
                 .padding(SignSuggestConfig.verticalPaddingTextBlock)
                 .multilineTextAlignment(.center)
                 
-                NavigationLink(destination: RegistrationScreenView()) {
+                NavigationLink(destination: RegistrationScreenView(showSignSuggestModal: $showSignSuggestModal)) {
                     Text(R.string.localizable.regButtonTitle)
                 }.buttonStyle(FilledBtnStyle())
                 
-                NavigationLink(destination: AuthScreenView()) {
+                NavigationLink(destination: AuthScreenView(showSignSuggestModal: $showSignSuggestModal)) {
                     Text(R.string.localizable.authButtonTitle)
                 }.buttonStyle(BorderedBtnStyle())
                 
@@ -56,5 +60,5 @@ struct SignSuggestView: View {
 }
 
 #Preview {
-    SignSuggestView()
+    SignSuggestView(showSignSuggestModal: Binding.constant(true))
 }

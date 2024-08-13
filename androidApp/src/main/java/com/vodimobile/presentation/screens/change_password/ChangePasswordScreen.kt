@@ -13,12 +13,27 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.change_password.components.ChangePasswordBlock
@@ -27,6 +42,7 @@ import com.vodimobile.presentation.screens.change_password.store.ChangePasswordI
 import com.vodimobile.presentation.store.PasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.PasswordValidator
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")
@@ -105,7 +121,43 @@ private fun ChangePasswordScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val changePasswordViewModel = ChangePasswordViewModel(
-                passwordValidator = PasswordValidator()
+                passwordValidator = PasswordValidator(),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
+                ),
+                dataStoreStorage = UserDataStoreStorage(
+                    editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(LocalContext.current)
+                        )
+                    ),
+                    getUserDataUseCase = GetUserDataUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    preRegisterUserUseCase = PreRegisterUserUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                )
             )
             ChangePasswordScreen(
                 onChangePasswordIntent = changePasswordViewModel::onIntent,
@@ -125,7 +177,43 @@ private fun ChangePasswordScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val changePasswordViewModel = ChangePasswordViewModel(
-                passwordValidator = PasswordValidator()
+                passwordValidator = PasswordValidator(),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
+                ),
+                dataStoreStorage = UserDataStoreStorage(
+                    editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(LocalContext.current)
+                        )
+                    ),
+                    getUserDataUseCase = GetUserDataUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    preRegisterUserUseCase = PreRegisterUserUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    ),
+                    editPasswordUseCase = EditPasswordUseCase(
+                        userDataStoreRepository = UserDataStoreRepositoryImpl(
+                            dataStore = getDataStore(
+                                LocalContext.current
+                            )
+                        )
+                    )
+                )
             )
             ChangePasswordScreen(
                 onChangePasswordIntent = changePasswordViewModel::onIntent,

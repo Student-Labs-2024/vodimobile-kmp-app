@@ -9,11 +9,14 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var authManager: AuthManager
+    @EnvironmentObject var dataStorage: KMPDataStorage
     @ObservedObject private var viewModel: ProfileViewModel
     @State private var showAlert: Bool = false
+    @State private var showSignSuggestModal: Bool = false
     
-    init(viewModel: ProfileViewModel = .init()) {
-        self.viewModel = viewModel
+    init() {
+        self.viewModel = .init()
     }
     
     var body: some View {
@@ -27,38 +30,71 @@ struct ProfileView: View {
                 
                 VStack(spacing: ProfileConfig.spacingBetweenBlocks) {
                     VStack {
-                        NavigationLink(destination: PersonDataView()) {
-                            HStack(spacing: ProfileConfig.horizontalSpacingAvatarAndText) {
-                                ZStack(alignment: .center) {
-                                    Image.person
-                                        .frame(width: ProfileConfig.avatarIconSize, height: ProfileConfig.avatarIconSize)
-                                        .fontWeight(.bold)
-                                }
-                                .frame(
-                                    width: ProfileConfig.avatarFrameSize,
-                                    height: ProfileConfig.avatarFrameSize,
-                                    alignment: .center
-                                )
-                                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor)))
-                                
-                                VStack(alignment: .leading) {
-                                    Text(R.string.localizable.personData)
-                                        .font(.paragraph2)
-                                        .foregroundStyle(.black)
-                                    Text(R.string.localizable.personDataText)
-                                        .font(.paragraph5)
-                                        .foregroundStyle(Color(R.color.grayTextColor))
-                                }
-                                
-                                Spacer()
-                                
-                                Image(R.image.editIcon)
+                        if authManager.isAuthenticated {
+                            NavigationLink(destination: PersonDataView()) {
+                                HStack(spacing: ProfileConfig.horizontalSpacingAvatarAndText) {
+                                    ZStack(alignment: .center) {
+                                        Image.person
+                                            .frame(width: ProfileConfig.avatarIconSize, height: ProfileConfig.avatarIconSize)
+                                            .fontWeight(.bold)
+                                    }
                                     .frame(
-                                        width: ProfileConfig.editIconSize,
-                                        height: ProfileConfig.editIconSize
+                                        width: ProfileConfig.avatarFrameSize,
+                                        height: ProfileConfig.avatarFrameSize,
+                                        alignment: .center
                                     )
+                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor)))
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(R.string.localizable.personData)
+                                            .font(.paragraph2)
+                                            .foregroundStyle(.black)
+                                        Text(R.string.localizable.personDataText)
+                                            .font(.paragraph5)
+                                            .foregroundStyle(Color(R.color.grayTextColor))
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(R.image.editIcon)
+                                        .frame(
+                                            width: ProfileConfig.editIconSize,
+                                            height: ProfileConfig.editIconSize
+                                        )
+                                }
+                                .foregroundStyle(Color(R.color.grayDarkColor))
                             }
-                            .foregroundStyle(Color(R.color.grayDarkColor))
+                        } else {
+                            Button {
+                                showSignSuggestModal.toggle()
+                            } label: {
+                                HStack(spacing: ProfileConfig.horizontalSpacingAvatarAndText) {
+                                    ZStack(alignment: .center) {
+                                        Image.person
+                                            .frame(width: ProfileConfig.avatarIconSize, height: ProfileConfig.avatarIconSize)
+                                            .fontWeight(.bold)
+                                    }
+                                    .frame(
+                                        width: ProfileConfig.avatarFrameSize,
+                                        height: ProfileConfig.avatarFrameSize,
+                                        alignment: .center
+                                    )
+                                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor)))
+                                    
+                                    Text(R.string.localizable.loginToAccount)
+                                        .font(.paragraph5)
+                                        .foregroundStyle(.black)
+                                    
+                                    Spacer()
+                                    
+                                    Image.chevronRight
+                                        .frame(
+                                            width: ProfileConfig.editIconSize,
+                                            height: ProfileConfig.editIconSize
+                                        )
+                                }
+                                .foregroundStyle(Color(R.color.grayDarkColor))
+                            }
                         }
                     }
                     .padding(.horizontal, 20)
@@ -73,30 +109,39 @@ struct ProfileView: View {
                     .padding(ProfileConfig.insetPaddingBlock)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
                     
-                    VStack {
-                        Button(action: {
-                            showAlert.toggle()
-                        }, label: {
-                            HStack(spacing: 20) {
-                                Image(R.image.exitIcon)
-                                
-                                Text(R.string.localizable.exitText)
-                                
-                                Spacer()
-                            }
-                            .foregroundStyle(Color(R.color.redColor))
-                        })
-                    }
-                    .padding(ProfileConfig.insetPaddingExitButton)
-                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
-                    .alert(R.string.localizable.exitAlertTitle(), isPresented: $showAlert) {
-                        Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {}
-                        
-                        Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {
-                            showAlert.toggle()
+                    if authManager.isAuthenticated {
+                        VStack {
+                            Button(action: {
+                                showAlert.toggle()
+                                // TODO: - Appear modal with sign suggesting
+                            }, label: {
+                                HStack(spacing: 20) {
+                                    Image(R.image.exitIcon)
+                                    
+                                    Text(R.string.localizable.exitText)
+                                    
+                                    Spacer()
+                                }
+                                .foregroundStyle(Color(R.color.redColor))
+                            })
                         }
-                    } message: {
-                        Text(R.string.localizable.exitAlertText)
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, ProfileConfig.insetPaddingExitButton)
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
+                        .alert(
+                            R.string.localizable.exitAlertTitle(),
+                            isPresented: $showAlert
+                        ) {
+                            Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {
+                                authManager.logout()
+                            }
+                            
+                            Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {
+                                showAlert.toggle()
+                            }
+                        } message: {
+                            Text(R.string.localizable.exitAlertText)
+                        }
                     }
                 }
                 
@@ -105,6 +150,11 @@ struct ProfileView: View {
             .padding(.horizontal, horizontalPadding)
             .background(Color(R.color.grayLightColor))
             .navigationBarBackButtonHidden()
+        }
+        .fullScreenCover(isPresented: $showSignSuggestModal) {
+            SignSuggestView(
+                showSignSuggestModal: $showSignSuggestModal
+            ).environmentObject(authManager)
         }
     }
 }

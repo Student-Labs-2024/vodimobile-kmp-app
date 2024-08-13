@@ -19,10 +19,10 @@ struct ServerErrorView: View {
                 .padding(.top, 20)
             
             VStack(alignment: .center, spacing: 24) {
-                Text(R.string.localizable.servetErrorTitle)
+                Text(R.string.localizable.serverErrorTitle)
                     .font(.header1).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
-                Text(R.string.localizable.servetErrorText)
+                Text(R.string.localizable.serverErrorText)
                     .font(.paragraph2)
                     .foregroundStyle(.black)
                     .multilineTextAlignment(.center)

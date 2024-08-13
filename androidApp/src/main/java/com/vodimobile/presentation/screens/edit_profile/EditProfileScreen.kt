@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Text
@@ -36,14 +38,22 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
-import com.vodimobile.domain.use_case.data_store.EditTokensUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
+import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
 import com.vodimobile.presentation.screens.edit_profile.components.VodimobileCenterTopAppBar
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
@@ -51,6 +61,8 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.InputMasks
+import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -115,10 +127,11 @@ fun EditProfileScreen(
         Scaffold(
             topBar = {
                 VodimobileCenterTopAppBar(
-                    onNavBackClick = { onEditProfileIntent(EditProfileIntent.ClickBack) },
-                    onActionClick = { onEditProfileIntent(EditProfileIntent.SaveData) })
+                    modifier = Modifier.padding(top = 12.dp),
+                    onNavBackClick = { onEditProfileIntent(EditProfileIntent.ClickBack) }
+                )
             },
-            containerColor = ExtendedTheme.colorScheme.containerBack,
+            containerColor = ExtendedTheme.colorScheme.onSecondaryBackground,
             snackbarHost = {
                 SnackbarHost(hostState = snackbarHostState)
             },
@@ -131,7 +144,7 @@ fun EditProfileScreen(
             ) {
                 Card(
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.background
+                        containerColor = ExtendedTheme.colorScheme.containerBack
                     )
                 ) {
                     Column(
@@ -179,13 +192,21 @@ fun EditProfileScreen(
                         )
 
                         ProfileField(
-                            text = editProfileState.value.phone,
+                            text = editProfileState.value.user.phone,
                             modifier = textModifier,
                             onValueChange = {
                                 onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
                             },
                             label = stringResource(id = R.string.label_phoneNumber),
-                            enabled = false
+                            enabled = false,
+                            visualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK)
+                        )
+
+                        Spacer(modifier = Modifier.height(20.dp))
+                        PrimaryButton(
+                            text = stringResource(id = R.string.text_save_button),
+                            enabled = !editProfileState.value.isFullNameError,
+                            onClick = { onEditProfileIntent(EditProfileIntent.SaveData) }
                         )
                     }
                 }
@@ -202,37 +223,38 @@ private fun EditProfileScreenDarkPreview() {
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(App.INSTANCE)
+                        dataStore = getDataStore(LocalContext.current)
                     )
                 ),
                 getUserDataUseCase = GetUserDataUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 preRegisterUserUseCase = PreRegisterUserUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 editPasswordUseCase = EditPasswordUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
-                        )
-                    )
-                ),
-                editTokensUseCase = EditTokensUseCase(
-                    userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(
                             LocalContext.current
                         )
                     )
                 )
+            ),
+            supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
@@ -252,37 +274,38 @@ private fun EditProfileScreenLightPreview() {
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(App.INSTANCE)
+                        dataStore = getDataStore(LocalContext.current)
                     )
                 ),
                 getUserDataUseCase = GetUserDataUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 preRegisterUserUseCase = PreRegisterUserUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 editPasswordUseCase = EditPasswordUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
-                        )
-                    )
-                ),
-                editTokensUseCase = EditTokensUseCase(
-                    userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(
                             LocalContext.current
                         )
                     )
                 )
+            ),
+            supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(

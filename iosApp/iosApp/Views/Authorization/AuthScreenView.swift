@@ -11,6 +11,7 @@ import SwiftUI
 struct AuthScreenView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
+    @Binding var showSignSuggestModal: Bool
     @ObservedObject private var viewModel = UserDataViewModel()
     
     @Environment(\.dismiss) private var dismiss
@@ -41,7 +42,9 @@ struct AuthScreenView: View {
                 
                 NavigationLink(destination: PinCodeView(
                     phoneNumber: $viewModel.phone,
-                    isResetPasswordFlow: false)
+                    showSignSuggestModal: $showSignSuggestModal,
+                    isResetPasswordFlow: false
+                )
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }
@@ -84,5 +87,5 @@ struct AuthScreenView: View {
 }
 
 #Preview {
-    AuthScreenView()
+    AuthScreenView(showSignSuggestModal: Binding.constant(false))
 }

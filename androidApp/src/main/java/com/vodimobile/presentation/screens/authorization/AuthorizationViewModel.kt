@@ -2,7 +2,9 @@ package com.vodimobile.presentation.screens.authorization
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 class AuthorizationViewModel(
     private val phoneNumberValidator: PhoneNumberValidator,
     private val passwordValidator: PasswordValidator,
-    private val dataStoreStorage: UserDataStoreStorage
+    private val dataStoreStorage: UserDataStoreStorage,
+    private val supabaseStorage: SupabaseStorage
 ) : ViewModel() {
 
     val authorizationState = MutableStateFlow(AuthorizationState())
@@ -72,7 +75,7 @@ class AuthorizationViewModel(
                     with(authorizationState.value) {
                         dataStoreStorage.editPassword(password = password)
                     }
-                    authorizationEffect.emit(AuthorizationEffect.AskPermission)
+                    getFrom()
                 }
             }
 
@@ -90,5 +93,19 @@ class AuthorizationViewModel(
 
     private fun validatePassword(password: String): Boolean {
         return passwordValidator.isValidPassword(password)
+    }
+
+    private suspend fun getFrom() {
+        val user: User = supabaseStorage.getUser(
+            password = authorizationState.value.password,
+            phone = authorizationState.value.phoneNumber
+        )
+
+        if (user == User.empty()) {
+            authorizationEffect.emit(AuthorizationEffect.AuthError)
+        } else {
+            authorizationEffect.emit(AuthorizationEffect.AskPermission)
+            dataStoreStorage.edit(user = user)
+        }
     }
 }

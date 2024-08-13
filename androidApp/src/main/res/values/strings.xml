@@ -105,17 +105,22 @@
     <string name="server_error">Ошибка на сервере</string>
     <string name="server_error_subtitle">Что-то пошло не так на стороне сервера. Повторите попытку соединения.</string>
     <string name="vehicle_fleet">Автопарк</string>
-
+    <string name="error_app">ошибка</string>
+    <string name="error_app_title">Что-то пошло не так</string>
+    <string name="error_app_title2">Не получилось оставить заявку. Попробуйте еще раз</string>
+    <string name="error_bt">Повторить попытку</string>
+    <string name="error_icon">назад</string>
     <string name="time_cancel">Отмена</string>
     <string name="ok_time">OK</string>
     <string name="select_time">Выберите время</string>
     <string name="input_time">Введите время</string>
     <string name="switch_to_text_input">Переключиться на ввод текста</string>
     <string name="switch_to_touch_input">Переключитесь на сенсорный ввод</string>
-
     <string name="success_str">успешно</string>
     <string name="succes_title">Заявка оставлена</string>
     <string name="success2_title">Менеджер скоро свяжется с вами. Изменить заказ и посмотреть его статус можно в заказах</string>
     <string name="success_bt">Мои заказы</string>
 
+    <string name="auth_user_supabase_error">Такой пользователь уже существует.</string>
+    <string name="auth_2_user_supabase_error">Такого пользователь не существует.</string>
 </resources>

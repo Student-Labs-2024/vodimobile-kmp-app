@@ -13,54 +13,33 @@ final class KMPApiManager {
     private var helper = KoinHelper()
     private var dataStorage = KMPDataStorage()
     static let shared = KMPApiManager()
-    private var tokens: (String, String) = ("","")
     
     init() {
-        setUserTokens()
-    }
-    
-    func setUserTokens() {
         Task {
-            do {
-                let response = try await helper.postUser()
-                switch onEnum(of: response) {
-                case .crmData(let success):
-                    let user = success.data
-                    if let user = user {
-                        let newUser = User(
-                            fullName:  dataStorage.gettingUser.fullName,
-                            password:  dataStorage.gettingUser.password,
-                            accessToken:  user.accessToken,
-                            refreshToken:  user.refreshToken,
-                            expires:  user.expires,
-                            phone:  dataStorage.gettingUser.phone,
-                            email:  dataStorage.gettingUser.email
-                        )
-                        dataStorage.gettingUser = newUser
-                        tokens = (user.accessToken, user.refreshToken)
-                    }
-                case .crmError(let error):
-                    print(error.status?.value ?? "Empty error")
-                case .crmLoading(_):
-                    print("loading...")
-                }
-            } catch {
-                print(error)
-            }
+            await setUserTokens()
         }
     }
     
-    func fetchCars() async -> [Car] {
+    func setUserTokens() async {
         do {
-            let response = try await helper.getCars(
-                accessToken: tokens.0,
-                refreshToken: tokens.1
-            )
+            let response = try await helper.postUser()
             switch onEnum(of: response) {
             case .crmData(let success):
-                print(success.data ?? "Empty data")
-                if let cars = success.data {
-                    return convertNSArrayToArray(nsArray: cars)
+                let user = success.data
+                if let user = user {
+                    if let storageUser = dataStorage.gettingUser {
+                        let newUser = User(
+                            id: storageUser.id,
+                            fullName:  storageUser.fullName,
+                            password:  storageUser.password,
+                            accessToken:  user.accessToken,
+                            refreshToken:  user.refreshToken,
+                            phone:  storageUser.phone
+                        )
+                        DispatchQueue.main.async {
+                            self.dataStorage.gettingUser = newUser
+                        }
+                    }
                 }
             case .crmError(let error):
                 print(error.status?.value ?? "Empty error")
@@ -70,20 +49,67 @@ final class KMPApiManager {
         } catch {
             print(error)
         }
+    }
+    
+    func fetchCars() async -> [Car] {
+        do {
+            if let storageUser = dataStorage.gettingUser {
+                let response = try await helper.getCars(
+                    accessToken: storageUser.accessToken,
+                    refreshToken: storageUser.refreshToken
+                )
+                switch onEnum(of: response) {
+                case .crmData(let success):
+                    if let cars = success.data {
+                        return convertNSArrayToArray(nsArray: cars)
+                    }
+                case .crmError(let error):
+                    print(error.status?.value ?? "Empty error")
+                case .crmLoading(_):
+                    print("loading...")
+                }
+            }
+        } catch {
+            print(error)
+        }
         return []
     }
     
-    func convertNSArrayToArray(nsArray: NSArray) -> [Car] {
-        var cars: [Car] = []
+    func fetchPlaces() async -> [Place] {
+        do {
+            if let storageUser = dataStorage.gettingUser {
+                let response = try await helper.getPlaces(
+                    accessToken: storageUser.accessToken,
+                    refreshToken: storageUser.refreshToken
+                )
+                switch onEnum(of: response) {
+                case .crmData(let success):
+                    print(success.data ?? "Empty data")
+                    if let places = success.data {
+                        return convertNSArrayToArray(nsArray: places)
+                    }
+                case .crmError(let error):
+                    print(error.status?.value ?? "Empty error")
+                case .crmLoading(_):
+                    print("loading...")
+                }
+            }
+        } catch {
+            print(error)
+        }
+        return []
+    }
+    
+    private func convertNSArrayToArray<T>(nsArray: NSArray) -> [T] {
+        var itemList: [T] = []
         
         for item in nsArray {
-            if let car = item as? Car {
-                cars.append(car)
+            if let item = item as? T {
+                itemList.append(item)
             } else {
                 print("Element is not of type Car: \(item)")
             }
         }
-        
-        return cars
+        return itemList
     }
 }
