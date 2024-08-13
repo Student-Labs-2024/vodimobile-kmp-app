@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -86,7 +86,7 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it)
@@ -97,65 +97,71 @@ fun ProfileScreen(
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
-                ) {
-                    ProfileItemBlock(
-                        title = stringResource(id = R.string.personal_data_title),
-                        onClick = { onProfileIntent(ProfileIntent.PersonalDataClick) },
-                        icon = {
-                            Image(
-                                modifier = Modifier.size(width = 100.dp, height = 80.dp),
-                                painter = painterResource(id = R.drawable.user),
-                                contentDescription = stringResource(id = R.string.personal_data_title)
-                            )
-                        }
-                    )
-                    ProfileItemBlock(
-                        title = stringResource(id = R.string.rules_and_conditions),
-                        onClick = { onProfileIntent(ProfileIntent.RulesClick) },
-                        icon = {
-                            Image(
-                                modifier = Modifier.size(width = 100.dp, height = 80.dp),
-                                painter = painterResource(id = R.drawable.rules),
-                                contentDescription = stringResource(id = R.string.rules_and_conditions)
-                            )
-                        }
-                    )
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
-                ) {
-                    ProfileItemBlock(
-                        title = stringResource(id = R.string.faq),
-                        onClick = { onProfileIntent(ProfileIntent.FaqClick) },
-                        icon = {
-                            Image(
-                                modifier = Modifier.size(width = 100.dp, height = 80.dp),
-                                painter = painterResource(id = R.drawable.help),
-                                contentDescription = stringResource(id = R.string.faq)
-                            )
-                        }
-                    )
-                    ProfileItemBlock(
-                        title = stringResource(id = R.string.contacts),
-                        onClick = { onProfileIntent(ProfileIntent.ContactsClick) },
-                        icon = {
-                            Image(
-                                modifier = Modifier.size(width = 100.dp, height = 80.dp),
-                                painter = painterResource(id = R.drawable.contacts),
-                                contentDescription = stringResource(id = R.string.contacts)
-                            )
-                        }
-                    )
-                }
-                ExitBlock(
-                    onClick = {
-                        onProfileIntent(ProfileIntent.AppExitClick)
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
+                    ) {
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.personal_data_title),
+                            onClick = { onProfileIntent(ProfileIntent.PersonalDataClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.user),
+                                    contentDescription = stringResource(id = R.string.personal_data_title)
+                                )
+                            }
+                        )
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.rules_and_conditions),
+                            onClick = { onProfileIntent(ProfileIntent.RulesClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.rules),
+                                    contentDescription = stringResource(id = R.string.rules_and_conditions)
+                                )
+                            }
+                        )
                     }
-                )
+                }
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
+                    ) {
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.faq),
+                            onClick = { onProfileIntent(ProfileIntent.FaqClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.help),
+                                    contentDescription = stringResource(id = R.string.faq)
+                                )
+                            }
+                        )
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.contacts),
+                            onClick = { onProfileIntent(ProfileIntent.ContactsClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.contacts),
+                                    contentDescription = stringResource(id = R.string.contacts)
+                                )
+                            }
+                        )
+                    }
+                }
+                item {
+                    ExitBlock(
+                        onClick = {
+                            onProfileIntent(ProfileIntent.AppExitClick)
+                        }
+                    )
+                }
             }
         }
     }
