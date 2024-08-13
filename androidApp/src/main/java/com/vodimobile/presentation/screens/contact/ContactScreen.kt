@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,6 +64,10 @@ fun ContactScreen(
                 ContactEffect.WhatsappClick -> {
                     openWhatsapp(App.INSTANCE.getString(R.string.phone_number))
                 }
+
+                ContactEffect.PhoneClick -> {
+                    openDialer(App.INSTANCE.getString(R.string.phone_number))
+                }
             }
         }
     }
@@ -88,13 +93,16 @@ fun ContactScreen(
             item {
                 VersionItem(
                     version = contactState.value.version,
-                    validYear = validYear)
+                    validYear = validYear
+                )
             }
             item {
                 Spacer(modifier = Modifier.height(20.dp))
             }
             item {
-                ListInfoContact()
+                ListInfoContact(
+                    onPhoneClick = { onContactIntent(ContactIntent.PhoneClick) }
+                )
             }
             item {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -173,7 +181,7 @@ private fun openWhatsapp(phoneNumber: String) {
     try {
         val intent = Intent(
             Intent.ACTION_VIEW, Uri.parse(
-                App.INSTANCE.getString(R.string.whatsapp_url,phoneNumber)
+                App.INSTANCE.getString(R.string.whatsapp_url, phoneNumber)
             )
         )
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -182,7 +190,7 @@ private fun openWhatsapp(phoneNumber: String) {
 
         val webIntent = Intent(
             Intent.ACTION_VIEW, Uri.parse(
-                App.INSTANCE.getString(R.string.whatsapp_web_url,phoneNumber)
+                App.INSTANCE.getString(R.string.whatsapp_web_url, phoneNumber)
             )
         )
         webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -203,5 +211,24 @@ private fun openVk() {
         val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(vkUrl))
         webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         App.INSTANCE.startActivity(webIntent)
+    }
+}
+
+private fun openDialer(phoneNumber: String) {
+
+    try {
+        val intent = Intent(
+            Intent.ACTION_DIAL,
+            Uri.parse("tel:${phoneNumber}")
+        )
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        App.INSTANCE.startActivity(intent)
+    } catch (e: Exception) {
+
+        Toast.makeText(
+            App.INSTANCE,
+            App.INSTANCE.getString(R.string.error_phone),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

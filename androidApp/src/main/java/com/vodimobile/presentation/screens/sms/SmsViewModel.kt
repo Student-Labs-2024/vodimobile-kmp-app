@@ -1,11 +1,14 @@
 package com.vodimobile.presentation.screens.sms
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.telephony.SmsManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.presentation.screens.sms.store.SmsEffect
 import com.vodimobile.presentation.screens.sms.store.SmsIntent
@@ -111,16 +114,19 @@ class SmsViewModel : ViewModel() {
     }
 
     private fun sendSms(context: Context, phone: String) {
-        val smsManager: SmsManager = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val smsManager: SmsManager =
             context.getSystemService(SmsManager::class.java)
-        } else {
-            SmsManager.getDefault()
-        }
 
         val msg = context.resources.getString(R.string.code, smsState.value.code)
+        val sentPI: PendingIntent = PendingIntent.getBroadcast(
+            App.INSTANCE,
+            0,
+            Intent("SMS_SENT"),
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         Log.i("SMS_CODE", smsState.value.code.toString())
 
-        smsManager.sendTextMessage(phone, null, msg, null, null)
+        smsManager.sendTextMessage(phone, null, msg, sentPI, null)
     }
 }

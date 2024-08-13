@@ -29,13 +29,12 @@ final class KMPApiManager {
                 if let user = user {
                     if let storageUser = dataStorage.gettingUser {
                         let newUser = User(
+                            id: storageUser.id,
                             fullName:  storageUser.fullName,
                             password:  storageUser.password,
                             accessToken:  user.accessToken,
                             refreshToken:  user.refreshToken,
-                            expires:  user.expires,
-                            phone:  storageUser.phone,
-                            email:  storageUser.email
+                            phone:  storageUser.phone
                         )
                         DispatchQueue.main.async {
                             self.dataStorage.gettingUser = newUser

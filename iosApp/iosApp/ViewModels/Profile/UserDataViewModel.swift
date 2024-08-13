@@ -139,13 +139,12 @@ final class UserDataViewModel: ObservableObject {
         isLoading = true
         if let storageUser = dataStorage.gettingUser {
             let newUserData = User(
+                id: storageUser.id,
                 fullName: storageUser.fullName != fullname && !fullname.isEmpty ? fullname : storageUser.fullName,
                 password: storageUser.password != password && !password.isEmpty ? password : storageUser.password,
                 accessToken: storageUser.accessToken,
                 refreshToken: storageUser.refreshToken,
-                expires: storageUser.expires,
-                phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone,
-                email: storageUser.email
+                phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone
             )
             
             Task {
