@@ -135,4 +135,6 @@
     <string name="auth_2_user_supabase_error">This user does not exist.</string>
     <string name="active_order">Active</string>
     <string name="completed_order">Completed</string>
+    <string name="order_title1">Your orders will be here</string>
+    <string name="order_titile2">You can apply in the main page</string>
 </resources>

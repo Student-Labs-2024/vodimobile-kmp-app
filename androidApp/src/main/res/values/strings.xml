@@ -125,4 +125,6 @@
     <string name="auth_2_user_supabase_error">Такого пользователь не существует.</string>
     <string name="active_order">Активные</string>
     <string name="completed_order">Завершенные</string>
+    <string name="order_title1">Здесь будут ваши заказы</string>
+    <string name="order_titile2">Оформить заявку можно в главной</string>
 </resources>
