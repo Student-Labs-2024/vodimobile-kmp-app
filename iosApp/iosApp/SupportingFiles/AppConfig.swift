@@ -75,8 +75,8 @@ struct ProfileConfig {
     static let avatarIconSize: CGFloat = 24
     static let avatarFrameSize: CGFloat = 48
     static let editIconSize: CGFloat = 24
-    static let horizontalSpacingBetweenIconAndText: CGFloat = 20
-    static let mainIconsSize: CGFloat = 20
+    static let mainIconsHeight: CGFloat = 100
+    static let mainIconsWidth: CGFloat = 80
     static let insetPaddingBlock: CGFloat = 28
     static let insetPaddingExitButton: CGFloat = 18
 }

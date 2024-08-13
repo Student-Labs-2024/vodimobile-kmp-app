@@ -20,7 +20,7 @@ enum MediaType {
 }
 
 enum ProfileCellType {
-    case conditions, faq, contacts
+    case personalData, conditions, faq, contacts
 }
 
 // Main tab view

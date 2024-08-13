@@ -10,10 +10,14 @@ import SwiftUI
 
 struct ProfileCellView: View {
     let cell: ProfileMenuCell
+    @Binding var showSignSuggestModal: Bool
+    @EnvironmentObject var authManager: AuthManager
     
     @ViewBuilder
     var destinationView: some View {
         switch cell.cellType {
+        case .personalData:
+            PersonDataView()
         case .conditions:
             RulesAndConditionsView()
         case .contacts:
@@ -24,20 +28,57 @@ struct ProfileCellView: View {
     }
     
     var body: some View {
-        NavigationLink(destination: destinationView) {
-            HStack(spacing: ProfileConfig.horizontalSpacingBetweenIconAndText) {
-                cell.icon
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: ProfileConfig.mainIconsSize, height: ProfileConfig.mainIconsSize)
+        let navigationLinkToView = NavigationLink(destination: destinationView) {
+            VStack(alignment: .leading) {
+                Text(cell.title).font(.header4).lineLimit(2).foregroundStyle(.black)
                 
-                Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
-                
-                Spacer()
-                
-                Image.chevronRight
+                HStack {
+                    Spacer()
+                    cell.icon
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                }
             }
-            .foregroundStyle(Color(R.color.grayDarkColor))
         }
+            .padding(.vertical, 34)
+            .padding(.horizontal, 24)
+            .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+        
+        let buttonSwitchModal =
+        Button(action: {
+            showSignSuggestModal.toggle()
+        }, label: {
+            VStack(alignment: .leading) {
+                Text(cell.title)
+                    .font(.header4)
+                    .lineLimit(2)
+                    .foregroundStyle(.black)
+                    .multilineTextAlignment(.leading)
+                
+                HStack {
+                    Spacer()
+                    cell.icon
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                }
+            }
+            .padding(.vertical, 34)
+            .padding(.horizontal, 24)
+            .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+        })
+        
+        switch cell.cellType {
+        case .conditions, .contacts, .faq:
+            navigationLinkToView
+        case .personalData:
+            if authManager.isAuthenticated {
+                navigationLinkToView
+            } else {
+                buttonSwitchModal
+            }
+        }
+        
     }
 }
