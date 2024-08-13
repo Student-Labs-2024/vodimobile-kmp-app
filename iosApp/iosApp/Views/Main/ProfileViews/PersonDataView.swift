@@ -38,9 +38,14 @@ struct PersonDataView: View {
                 .focused($focusedField, equals: .phone)
                 
                 Button(R.string.localizable.saveChangePersonalData()) {
+                    focusedField = nil
                     viewModel.saveEditedUserData()
+                    viewModel.fetchUserData()
                 }
                 .buttonStyle(FilledBtnStyle())
+                .disabled(
+                    !viewModel.isFullnameValid || !viewModel.dataIsEditing
+                )
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
@@ -52,11 +57,7 @@ struct PersonDataView: View {
             Spacer()
         }
         .onChange(of: focusedField) { newValue in
-            if let _ = newValue {
-                $viewModel.dataIsEditing.wrappedValue = true
-            } else {
-                $viewModel.dataIsEditing.wrappedValue = false
-            }
+            $viewModel.dataIsEditing.wrappedValue = newValue != nil ? true : false
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
         .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert, actions: {
@@ -77,18 +78,7 @@ struct PersonDataView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(
-                title: R.string.localizable.profileScreenTitle,
-                trailingToolbarItem: TrailingToolbarItem(
-                    image: Image.checkmark,
-                    observedObject: viewModel,
-                    actionAfterTapping: {
-                        Task {
-                            focusedField = nil
-                            viewModel.saveEditedUserData()
-                            viewModel.fetchUserData()
-                        }
-                    }
-                )
+                title: R.string.localizable.profileScreenTitle
             )
         }
     }
