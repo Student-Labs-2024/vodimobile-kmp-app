@@ -1,12 +1,17 @@
 package com.vodimobile.domain.model.order
 
+import com.vodimobile.domain.model.Bid
 import com.vodimobile.domain.model.Car
-import dev.icerock.moko.resources.StringResource
 
 data class Order(
+    val userId: Int,
+    val bidNumber: Int,
+    val bid: Bid,
     val status: CarStatus,
-    val rentalPeriod: DateRange,
-    val pickupLocation: String,
-    val pickupTime: TimeRange,
-    val specifications: Car
+    val rentalDatePeriod: DateRange,
+    val startLocation: String,
+    val finishLocation: String,
+    val rentalTimePeriod: TimeRange,
+    val car: Car,
+    val services: Array<String>
 )

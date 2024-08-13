@@ -1,7 +1,10 @@
 package com.vodimobile.domain.storage.supabase
 
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.model.supabase.OrderDTO
+import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -14,7 +17,9 @@ class SupabaseStorage(
     private val updatePasswordUseCase: UpdatePasswordUseCase,
     private val updateFullNameUseCase: UpdateFullNameUseCase,
     private val updatePhoneUseCase: UpdatePhoneUseCase,
-    private val updateTokensUseCase: UpdateTokensUseCase
+    private val updateTokensUseCase: UpdateTokensUseCase,
+    private val insertOrderUseCase: InsertOrderUseCase,
+    private val getOrdersUseCase: GetOrdersUseCase
 ) {
     suspend fun getUser(password: String, phone: String) =
         getUserUseCase(password = password, phone = phone)
@@ -30,4 +35,7 @@ class SupabaseStorage(
     suspend fun updatePhone(userId: Int, phone: String) = updatePhoneUseCase(userId, phone)
     suspend fun updateTokens(userId: Int, accessToken: String, refreshToken: String) =
         updateTokensUseCase(userId, accessToken, refreshToken)
+
+    suspend fun insertOrder(orderDTO: OrderDTO) = insertOrderUseCase(orderDTO = orderDTO)
+    suspend fun getOrders(userId: Int) = getOrdersUseCase(userId = userId)
 }
