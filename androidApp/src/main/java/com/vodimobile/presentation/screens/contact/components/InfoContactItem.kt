@@ -1,6 +1,8 @@
 package com.vodimobile.presentation.screens.contact.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,11 +20,13 @@ import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.theme.divider
 
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun InfoContactItem(
     title: String,
     subtitle: String,
-    icon: @Composable () -> Unit
+    icon: @Composable () -> Unit,
+    onClick: () -> Unit = {}
 ) {
 
     Column(
@@ -56,7 +60,9 @@ fun InfoContactItem(
                     color = MaterialTheme.colorScheme.onBackground.copy(BottomAppBarAlpha.BACKGROUND_ALPHA)
                 )
                 Text(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onClick() },
                     text = subtitle,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground
