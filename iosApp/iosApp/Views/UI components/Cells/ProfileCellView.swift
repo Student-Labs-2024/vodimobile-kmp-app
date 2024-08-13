@@ -35,7 +35,7 @@ struct ProfileCellView: View {
                     cell.icon
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: ProfileConfig.mainIconsWidth, height: ProfileConfig.mainIconsHeight)
+//                        .frame(width: ProfileConfig.mainIconsWidth, height: ProfileConfig.mainIconsHeight)
                     
                 }
             }

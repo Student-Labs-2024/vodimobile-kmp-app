@@ -43,6 +43,7 @@
 "forgetPassword" = "Забыли пароль?";
 "leaveReuqestButton" = "Оставить заявку";
 "loginToAccount" = "Войти в аккаунт";
+"saveChangePersonalData" = "Сохранить изменения";
 
 // Field names
 "email" = "Email";

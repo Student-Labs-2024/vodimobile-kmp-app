@@ -36,10 +36,15 @@ struct PersonDataView: View {
                     fieldType: .phone
                 )
                 .focused($focusedField, equals: .phone)
+                
+                Button(R.string.localizable.saveChangePersonalData()) {
+                    viewModel.saveEditedUserData()
+                }
+                .buttonStyle(FilledBtnStyle())
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
-            .background(Color.white)
+            .background(Color(R.color.blueBoxColor))
             .cornerRadius(20)
             .padding(.horizontal, 16)
             .padding(.top, 50)
@@ -69,7 +74,6 @@ struct PersonDataView: View {
         .onAppear {
             viewModel.fetchUserData()
         }
-        .background(Color(R.color.grayLightColor).ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(

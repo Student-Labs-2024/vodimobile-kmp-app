@@ -45,6 +45,7 @@
 "bookButton" = "Book";
 "leaveReuqestButton" = "Request for booking";
 "loginToAccount" = "Login to account";
+"saveChangePersonalData" = "Save changes";
 
 // Field names
 "email" = "Email";
