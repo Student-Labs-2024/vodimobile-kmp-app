@@ -39,11 +39,12 @@ fun OrderCard(
             .wrapContentWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
-        shape = RectangleShape
+        shape = MaterialTheme.shapes.small
     ) {
         Row(
             modifier = Modifier
-                .wrapContentSize(),
+                .wrapContentSize()
+                .padding(horizontal = 16.dp, vertical = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
