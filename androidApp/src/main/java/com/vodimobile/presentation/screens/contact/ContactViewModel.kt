@@ -46,6 +46,12 @@ class ContactViewModel : ViewModel() {
                     contactEffect.emit(ContactEffect.BackClick)
                 }
             }
+
+            is ContactIntent.PhoneClick -> {
+                viewModelScope.launch {
+                    contactEffect.emit(ContactEffect.PhoneClick)
+                }
+            }
         }
     }
 

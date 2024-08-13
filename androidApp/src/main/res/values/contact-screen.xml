@@ -5,4 +5,5 @@
     <string name="vk_url">https://vk.com/vodimobil</string>
     <string name="whatsapp_url">whatsapp://send?phone=%s</string>
     <string name="whatsapp_web_url">https://api.whatsapp.com/send?phone=%s</string>
+    <string name="error_phone">Ошибка обработки данных</string>
 </resources>
