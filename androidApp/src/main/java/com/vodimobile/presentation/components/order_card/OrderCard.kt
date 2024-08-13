@@ -5,10 +5,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -22,25 +23,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.order.Order
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.DatePatterns
 
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun OrderCard(
     carItem: Car,
+    orderItem: Order,
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .wrapContentWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
         shape = RectangleShape
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
+                .wrapContentSize(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -52,7 +55,10 @@ fun OrderCard(
                     alignment = Alignment.CenterVertically
                 )
             ) {
-                OrderState()
+                OrderState(
+                    title = stringResource(id = orderItem.status.title.resourceId),
+                    status = orderItem.status
+                )
 
                 Image(
                     modifier = Modifier
@@ -63,28 +69,29 @@ fun OrderCard(
             }
             Column(
                 modifier = Modifier
-                    .wrapContentHeight()
+                    .wrapContentSize()
                     .padding(vertical = 10.dp),
                 verticalArrangement = Arrangement.spacedBy(
-                    space = 4.dp,alignment = Alignment.CenterVertically)
+                    space = 4.dp, alignment = Alignment.CenterVertically
+                )
             ) {
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .wrapContentWidth(),
                     text = stringResource(id = carItem.model.resourceId),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    text = "11 - 18 июля 2024",
+                        .wrapContentWidth(),
+                    text = "khhi",
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.labelSmall
                 )
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .wrapContentWidth(),
                     text = "16 800 руб.",
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.labelSmall
@@ -98,6 +105,6 @@ fun OrderCard(
 @Composable
 private fun OrderCardPreview() {
     VodimobileTheme(dynamicColor = false) {
-        OrderCard(carItem = Car.empty())
+        OrderCard(carItem = Car.empty(), orderItem = Order.empty())
     }
 }

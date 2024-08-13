@@ -11,23 +11,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.domain.model.order.CarStatus
+import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
-fun OrderState() {
-    Card(
-        modifier = Modifier
-            .wrapContentHeight(),
-        shape = MaterialTheme.shapes.extraSmall,
-        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer)
-    ) {
-        Text(
+fun OrderState(
+    title : String?,
+    status: CarStatus
+) {
+    ExtendedTheme {
+        Card(
             modifier = Modifier
-                .padding(vertical = 6.dp, horizontal = 12.dp),
-            color = MaterialTheme.colorScheme.onBackground,
-            text = "Одобрено"
-        )
+                .wrapContentHeight(),
+            shape = MaterialTheme.shapes.extraSmall,
+            colors = CardDefaults.cardColors(
+                when (status) {
+                    CarStatus.Approved -> ExtendedTheme.colorScheme.approvedOrder
+                    CarStatus.Processing -> ExtendedTheme.colorScheme.processingOrder
+                    CarStatus.Cancelled -> ExtendedTheme.colorScheme.cancelledOrder
+                    CarStatus.Completed -> ExtendedTheme.colorScheme.hintText
+                }
+
+            )
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(vertical = 6.dp, horizontal = 12.dp),
+                color = MaterialTheme.colorScheme.onBackground,
+                text = title ?: "",
+                style = MaterialTheme.typography.displaySmall
+            )
+        }
     }
 }
 
@@ -35,6 +51,6 @@ fun OrderState() {
 @Composable
 private fun OrderStatePreview() {
     VodimobileTheme(dynamicColor = false) {
-        OrderState()
+        OrderState(title = "", status = CarStatus.Processing)
     }
 }
