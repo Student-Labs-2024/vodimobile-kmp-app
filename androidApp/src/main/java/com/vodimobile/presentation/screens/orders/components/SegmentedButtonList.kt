@@ -2,8 +2,10 @@ package com.vodimobile.presentation.screens.orders.components
 
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -40,7 +42,7 @@ fun SegmentedButtonList(
         shape = RoundedCornerShape(28.dp)
 
     ) {
-        LazyRow(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(12.dp)
@@ -50,25 +52,45 @@ fun SegmentedButtonList(
                 ),
             horizontalArrangement = Arrangement.Center
         ) {
-            itemsIndexed(tags) { index, item ->
+            tags.forEachIndexed { index, item ->
                 SegmentedButton(
                     text = stringResource(id = item),
                     isSelected = index == selectedTagIndex,
                     onClick = { onSelected(index) }
                 )
             }
-      }
-  }
+        }
+    }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun SegmentedButtonListPreview() {
+private fun SegmentedButtonListLightPreview() {
     VodimobileTheme(dynamicColor = false) {
 
         val tags = listOf(
-           R.string.active_order,
-           R.string.completed_order
+            R.string.active_order,
+            R.string.completed_order
+        )
+
+        var selectedTagIndex by remember { mutableIntStateOf(0) }
+
+        SegmentedButtonList(
+            tags = tags,
+            selectedTagIndex = selectedTagIndex,
+            onSelected = { index -> selectedTagIndex = index }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun SegmentedButtonListDarkPreview() {
+    VodimobileTheme(dynamicColor = false) {
+
+        val tags = listOf(
+            R.string.active_order,
+            R.string.completed_order
         )
 
         var selectedTagIndex by remember { mutableIntStateOf(0) }
