@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
@@ -18,7 +19,8 @@ import kotlin.time.Duration.Companion.seconds
 
 class VehicleFleetViewModel(
     private val crmStorage: CrmStorage,
-    private val userDataStoreStorage: UserDataStoreStorage
+    private val userDataStoreStorage: UserDataStoreStorage,
+    private val supabaseStorage: SupabaseStorage
 ) : ViewModel() {
 
     val vehicleState = MutableStateFlow(VehicleState())
@@ -68,9 +70,10 @@ class VehicleFleetViewModel(
                 val userFLow = userDataStoreStorage.getUser()
                 viewModelScope.launch {
                     userFLow.collect { user ->
+                        val userFromRemote = supabaseStorage.getUser(password = user.password, phone = user.phone)
                         val crmEither = crmStorage.getCarList(
-                            accessToken = user.accessToken,
-                            refreshToken = user.refreshToken
+                            accessToken = userFromRemote.accessToken,
+                            refreshToken = userFromRemote.refreshToken
                         )
                         vehicleState.update {
                             it.copy(crmEither = crmEither)

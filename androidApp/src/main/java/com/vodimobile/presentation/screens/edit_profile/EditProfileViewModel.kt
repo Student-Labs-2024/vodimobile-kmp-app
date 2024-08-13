@@ -90,6 +90,7 @@ class EditProfileViewModel(
                         action = -1
 
                         editProfileEffect.emit(EditProfileEffect.ProgressDialog)
+                        val user = supabaseStorage.getUser(password = editProfileState.value.user.password, phone = editProfileState.value.user.phone)
                         userDataStoreStorage.edit(
                             user = User(
                                 fullName = editProfileState.value.fullName,
@@ -97,10 +98,10 @@ class EditProfileViewModel(
                                 phone = editProfileState.value.user.phone,
                                 accessToken = editProfileState.value.user.accessToken,
                                 refreshToken = editProfileState.value.user.refreshToken,
-                                id = editProfileState.value.user.id,
+                                id = user.id,
                             )
                         )
-                        supabaseStorage.updateFullName(userId = editProfileState.value.user.id, fullName = editProfileState.value.user.fullName)
+                        supabaseStorage.updateFullName(userId = user.id, fullName = editProfileState.value.user.fullName)
                         editProfileEffect.emit(EditProfileEffect.RemoveProgressDialog)
                         editProfileEffect.emit(
                             EditProfileEffect.SaveData(
