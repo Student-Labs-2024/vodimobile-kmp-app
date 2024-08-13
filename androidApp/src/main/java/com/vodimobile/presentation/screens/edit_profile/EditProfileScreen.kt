@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Text
@@ -51,6 +53,7 @@ import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
+import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
 import com.vodimobile.presentation.screens.edit_profile.components.VodimobileCenterTopAppBar
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
@@ -124,10 +127,11 @@ fun EditProfileScreen(
         Scaffold(
             topBar = {
                 VodimobileCenterTopAppBar(
-                    onNavBackClick = { onEditProfileIntent(EditProfileIntent.ClickBack) },
-                    onActionClick = { onEditProfileIntent(EditProfileIntent.SaveData) })
+                    modifier = Modifier.padding(top = 12.dp),
+                    onNavBackClick = { onEditProfileIntent(EditProfileIntent.ClickBack) }
+                )
             },
-            containerColor = ExtendedTheme.colorScheme.containerBack,
+            containerColor = ExtendedTheme.colorScheme.onSecondaryBackground,
             snackbarHost = {
                 SnackbarHost(hostState = snackbarHostState)
             },
@@ -140,7 +144,7 @@ fun EditProfileScreen(
             ) {
                 Card(
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.background
+                        containerColor = ExtendedTheme.colorScheme.containerBack
                     )
                 ) {
                     Column(
@@ -197,6 +201,13 @@ fun EditProfileScreen(
                             enabled = false,
                             visualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK)
                         )
+
+                        Spacer(modifier = Modifier.height(20.dp))
+                        PrimaryButton(
+                            text = stringResource(id = R.string.text_save_button),
+                            enabled = !editProfileState.value.isFullNameError,
+                            onClick = { onEditProfileIntent(EditProfileIntent.SaveData) }
+                        )
                     }
                 }
             }
@@ -212,27 +223,27 @@ private fun EditProfileScreenDarkPreview() {
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(App.INSTANCE)
+                        dataStore = getDataStore(LocalContext.current)
                     )
                 ),
                 getUserDataUseCase = GetUserDataUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 preRegisterUserUseCase = PreRegisterUserUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 editPasswordUseCase = EditPasswordUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 )
@@ -263,27 +274,27 @@ private fun EditProfileScreenLightPreview() {
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
-                        dataStore = getDataStore(App.INSTANCE)
+                        dataStore = getDataStore(LocalContext.current)
                     )
                 ),
                 getUserDataUseCase = GetUserDataUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 preRegisterUserUseCase = PreRegisterUserUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 ),
                 editPasswordUseCase = EditPasswordUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
                         dataStore = getDataStore(
-                            App.INSTANCE
+                            LocalContext.current
                         )
                     )
                 )
