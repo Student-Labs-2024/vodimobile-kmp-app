@@ -38,6 +38,14 @@ class CrmStorage(
         return getCarListUseCase(accessToken = accessToken, refreshToken = refreshToken)
     }
 
+    suspend fun getCarList(
+        accessToken: String,
+        refreshToken: String,
+        carIds: Array<Int>
+    ): CrmEither<List<Car>, HttpStatusCode> {
+        return getCarListUseCase(accessToken = accessToken, refreshToken = refreshToken, carIds = carIds)
+    }
+
     suspend fun getTariffByCar(
         carId: Int,
         accessToken: String,
