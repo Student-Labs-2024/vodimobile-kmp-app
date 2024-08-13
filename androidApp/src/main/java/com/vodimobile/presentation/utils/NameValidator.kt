@@ -3,7 +3,7 @@ package com.vodimobile.presentation.utils
 class NameValidator {
 
     companion object {
-        private const val REGEX_NAME = "([a-zA-Zа-яА-Я]+)"
+        private const val REGEX_NAME = "([a-zA-Zа-яА-Я\\s]+)"
     }
 
     fun isValidName(name: String): Boolean {
