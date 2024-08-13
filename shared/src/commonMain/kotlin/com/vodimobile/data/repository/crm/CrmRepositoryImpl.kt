@@ -246,14 +246,18 @@ class CrmRepositoryImpl : CrmRepository {
     }
 
     private fun authConfig(accessToken: String, refreshToken: String): HttpClient {
+
+        val ac = accessToken.ifEmpty { SharedBuildkonfig.crm_test_access_token }
+        val rt = refreshToken.ifEmpty { SharedBuildkonfig.crm_test_refresh_token }
+
         return client.config {
             install(Auth) {
                 bearer {
                     loadTokens {
-                        BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
+                        BearerTokens(accessToken = ac, refreshToken = rt)
                     }
                     refreshTokens {
-                        BearerTokens(accessToken = accessToken, refreshToken = refreshToken)
+                        BearerTokens(accessToken = ac, refreshToken = rt)
                     }
                 }
             }
