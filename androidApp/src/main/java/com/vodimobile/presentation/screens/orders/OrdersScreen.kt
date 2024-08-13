@@ -1,6 +1,7 @@
 package com.vodimobile.presentation.screens.orders
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.presentation.screens.orders.components.NoOrders
 import com.vodimobile.presentation.screens.orders.components.SegmentedButtonList
 import com.vodimobile.presentation.screens.orders.store.OrderState
 import com.vodimobile.presentation.theme.ExtendedTheme
@@ -70,64 +72,42 @@ fun OrdersScreen(
                             .padding(start = 16.dp, top = 20.dp, end = 16.dp)
                     ) {
                         SegmentedButtonList(
-                            tags = orderState.value.tags, selectedTagIndex = selectedTagIndex
-                        ) {
-
-                        }
+                            tags = orderState.value.tags, selectedTagIndex = selectedTagIndex,
+                            onSelected = {}
+                        )
                     }
                 }
             }
         ) { paddingValues ->
             Spacer(modifier = Modifier.height(28.dp))
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(paddingValues)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(
-                    32.dp, alignment = Alignment.Top
-                ),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(100.dp))
-                Image(
-                    modifier = Modifier
-                        .size(100.dp),
-                    painter = painterResource(id = R.drawable.order),
-                    contentDescription = null
-                )
-                Column(
-                    modifier = Modifier,
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            color = MaterialTheme.colorScheme.onBackground
-                        ),
-                        text = stringResource(R.string.order_title1)
-                    )
-                    Text(
-                        style = MaterialTheme.typography.labelMedium.copy(
-                            color = ExtendedTheme.colorScheme.greyLabel
-                        ),
-                        text = stringResource(R.string.order_titile2)
-                    )
-                }
-            }
+            if (orderState.value.orders.isEmpty())
+                NoOrders(paddingValues = paddingValues)
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun OrdersScreenPreview() {
+private fun OrdersScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         val orderViewModel = OrderViewModel()
         OrdersScreen(
             orderState = orderViewModel.orderState.collectAsState(),
             selectedTagIndex = 0,
-            navHostController = rememberNavController())
+            navHostController = rememberNavController()
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun OrdersScreenDarkPreview() {
+    VodimobileTheme(dynamicColor = false) {
+        val orderViewModel = OrderViewModel()
+        OrdersScreen(
+            orderState = orderViewModel.orderState.collectAsState(),
+            selectedTagIndex = 0,
+            navHostController = rememberNavController()
+        )
     }
 }
