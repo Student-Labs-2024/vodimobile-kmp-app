@@ -18,9 +18,9 @@ class ProfileViewModel : ViewModel() {
                 }
             }
 
-            ProfileIntent.ConstantsClick -> {
+            ProfileIntent.ContactsClick -> {
                 viewModelScope.launch {
-                    profileEffect.emit(ProfileEffect.ConstantsClick)
+                    profileEffect.emit(ProfileEffect.ContactsClick)
                 }
             }
 

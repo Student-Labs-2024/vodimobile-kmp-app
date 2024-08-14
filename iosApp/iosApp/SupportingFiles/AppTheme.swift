@@ -53,6 +53,7 @@ extension Font {
     public static let header5: Font = Font(R.font.akzidenzGroteskProExt(size: 14) ?? .systemFont(ofSize: 14))
     // button text
     public static let button: Font = Font(R.font.akzidenzGroteskProMdEx(size: 16) ?? .systemFont(ofSize: 16))
+    public static let buttonSmall: Font = Font(R.font.akzidenzGroteskProMd(size: 14) ?? .systemFont(ofSize: 14))
     public static let tag: Font = Font(R.font.akzidenzGroteskProMdEx(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonText: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonCheckBox: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
@@ -90,7 +91,7 @@ struct FilledBtnWithoutDisabledStyle: ButtonStyle {
             .background(configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
             .foregroundColor(.white)
             .cornerRadius(15)
-            .font(.button)
+            .font(.buttonSmall)
     }
 }
 

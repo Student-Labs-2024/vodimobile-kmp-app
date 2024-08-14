@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DateRangePicker
@@ -20,7 +19,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDateRangePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -56,14 +54,14 @@ fun DateSelectDialog(
             rememberDateRangePickerState(
                 initialSelectedStartDateMillis = initialDateInMillis[0],
                 initialSelectedEndDateMillis = initialDateInMillis[1],
-                yearRange = (currentYear - 1)..currentYear
+                yearRange = (currentYear - 1)..(currentYear + 1)
             )
         val selectedStartDateMillis = datePickerState.selectedStartDateMillis?.let {
             convertMillisToDate(it)
         }
         val selectedEndDateMillis = datePickerState.selectedEndDateMillis?.let {
             convertMillisToDate(it)
-        }
+        } ?: "?"
 
 
         val colors = DatePickerDefaults.colors(
@@ -96,7 +94,7 @@ fun DateSelectDialog(
                 title = {},
                 headline = {
                     Text(
-                        text = "$selectedStartDateMillis - $selectedEndDateMillis",
+                        text = "$selectedStartDateMillis - $selectedEndDateMillis ",
                         style = MaterialTheme.typography.bodyLarge.copy(fontSize = 24.sp),
                         modifier = Modifier
                             .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -154,7 +152,7 @@ fun DateSelectDialog(
 }
 
 private fun convertMillisToDate(millis: Long): String {
-    return DateFormat.formatter.format(Date(millis))
+    return DateFormat.formatter.format(Date(millis)) ?: "?"
 }
 
 @OptIn(ExperimentalComposeUiApi::class)

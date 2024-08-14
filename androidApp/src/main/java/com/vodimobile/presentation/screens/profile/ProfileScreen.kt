@@ -2,11 +2,14 @@ package com.vodimobile.presentation.screens.profile
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -14,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,9 +27,8 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
-import com.vodimobile.presentation.screens.profile.components.ContactsFaqRulesBlock
 import com.vodimobile.presentation.screens.profile.components.ExitBlock
-import com.vodimobile.presentation.screens.profile.components.PersonalDataCard
+import com.vodimobile.presentation.screens.profile.components.ProfileItemBlock
 import com.vodimobile.presentation.screens.profile.store.ProfileEffect
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
@@ -47,7 +50,7 @@ fun ProfileScreen(
                     navHostController.navigate(route = DialogIdentifiers.LOG_OUT_DIALOG)
                 }
 
-                ProfileEffect.ConstantsClick -> {
+                ProfileEffect.ContactsClick -> {
                     navHostController.navigate(route = LeafScreen.CONTACTS_SCREEN)
                 }
 
@@ -83,38 +86,82 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it)
-                    .padding(horizontal = 16.dp),
+                    .padding(top = 40.dp)
+                    .padding(vertical = 16.dp, horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(
-                    space = 16.dp,
-                    alignment = Alignment.CenterVertically
+                    space = 24.dp
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                PersonalDataCard(
-                    onEditClick = {
-                        onProfileIntent(ProfileIntent.PersonalDataClick)
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
+                    ) {
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.personal_data_title),
+                            onClick = { onProfileIntent(ProfileIntent.PersonalDataClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.user),
+                                    contentDescription = stringResource(id = R.string.personal_data_title)
+                                )
+                            }
+                        )
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.rules_and_conditions),
+                            onClick = { onProfileIntent(ProfileIntent.RulesClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.rules),
+                                    contentDescription = stringResource(id = R.string.rules_and_conditions)
+                                )
+                            }
+                        )
                     }
-                )
-                ContactsFaqRulesBlock(
-                    onRulesClick = {
-                        onProfileIntent(ProfileIntent.RulesClick)
-                    },
-                    onFAQClick = {
-                        onProfileIntent(ProfileIntent.FaqClick)
-                    },
-                    onContactsClick = {
-                        onProfileIntent(ProfileIntent.ConstantsClick)
+                }
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(space = 12.dp)
+                    ) {
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.faq),
+                            onClick = { onProfileIntent(ProfileIntent.FaqClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.help),
+                                    contentDescription = stringResource(id = R.string.faq)
+                                )
+                            }
+                        )
+                        ProfileItemBlock(
+                            title = stringResource(id = R.string.contacts),
+                            onClick = { onProfileIntent(ProfileIntent.ContactsClick) },
+                            icon = {
+                                Image(
+                                    modifier = Modifier.size(width = 100.dp, height = 80.dp),
+                                    painter = painterResource(id = R.drawable.contacts),
+                                    contentDescription = stringResource(id = R.string.contacts)
+                                )
+                            }
+                        )
                     }
-                )
-                ExitBlock(
-                    onClick = {
-                        onProfileIntent(ProfileIntent.AppExitClick)
-                    }
-                )
+                }
+                item {
+                    ExitBlock(
+                        onClick = {
+                            onProfileIntent(ProfileIntent.AppExitClick)
+                        }
+                    )
+                }
             }
         }
     }
@@ -123,7 +170,7 @@ fun ProfileScreen(
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun ProfileScreenPreviewLight() {
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
         val profileViewModel = ProfileViewModel()
         ProfileScreen(
             onProfileIntent = profileViewModel::onIntent,
@@ -136,7 +183,7 @@ private fun ProfileScreenPreviewLight() {
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun ProfileScreenPreviewNight() {
-    VodimobileTheme {
+    VodimobileTheme(dynamicColor = false) {
         val profileViewModel = ProfileViewModel()
         ProfileScreen(
             onProfileIntent = profileViewModel::onIntent,
