@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.reservation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -38,8 +39,11 @@ class ReservationViewModel(
                         )
                         when (crmEither) {
                             is CrmEither.CrmData -> {
+
+                                val car = crmEither.data.find { it.carId == reservationState.value.carId } ?: Car.empty()
+
                                 reservationState.update {
-                                    it.copy(carList = crmEither.data)
+                                    it.copy(selectedCar = car)
                                 }
                             }
 

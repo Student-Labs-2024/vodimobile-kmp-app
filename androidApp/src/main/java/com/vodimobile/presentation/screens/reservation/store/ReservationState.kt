@@ -16,7 +16,7 @@ data class ReservationState(
     val errorDate: Boolean = true,
     val comments: String = "",
     val carId: Int = 0,
-    val carList: List<Car> = emptyList()
+    val selectedCar: Car = Car.empty(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -35,7 +35,7 @@ data class ReservationState(
         if (errorEndTime != other.errorEndTime) return false
         if (comments != other.comments) return false
         if (carId != other.carId) return false
-        if (carList != other.carList) return false
+        if (selectedCar != other.selectedCar) return false
 
         return true
     }
@@ -52,7 +52,7 @@ data class ReservationState(
         result = 31 * result + errorEndTime.hashCode()
         result = 31 * result + comments.hashCode()
         result = 31 * result + carId.hashCode()
-        result = 31 * result + carList.hashCode()
+        result = 31 * result + selectedCar.hashCode()
         return result
     }
 }

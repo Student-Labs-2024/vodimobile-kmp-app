@@ -106,7 +106,7 @@ fun ReservationScreen(
                 }
 
                 is ReservationEffect.ShowTimePicker -> {
-                    navHostController.navigate("${DialogIdentifiers.TIME_SELECT_DIALOG}?timeType=${effect.type}")
+                    navHostController.navigate(route = "${DialogIdentifiers.TIME_SELECT_DIALOG}?timeType=${effect.type}")
                 }
 
                 ReservationEffect.ShowDatePicker -> {
@@ -128,132 +128,136 @@ fun ReservationScreen(
         if (isButtonClicked.value) isButtonClicked.value = false
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 16.dp)
+    Scaffold(
+        topBar = {
+            ScreenHeader(
+                modifier = Modifier.padding(top = 12.dp),
+                title = stringResource(
+                    id = R.string.title_reservation_screen
+                ),
+                onNavigateBack = {
+                    onReservationIntent(ReservationIntent.ReturnBack)
+                }
+            )
+        }
     ) {
-        ScreenHeader(
-            modifier = Modifier.padding(top = 12.dp),
-            title = stringResource(
-                id = R.string.title_reservation_screen
-            ),
-            onNavigateBack = {
-                onReservationIntent(ReservationIntent.ReturnBack)
-            }
-        )
-        reservationState.value.carList.find { it.carId == carId }?.let {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
+                .padding(it)
+        ) {
             ReservationCarDescription(
-                car = it,
+                car = reservationState.value.selectedCar,
                 date = fullDateToString(date),
                 modifier = Modifier.padding(top = 16.dp)
             )
-        }
-        ExtendedTheme {
+            ExtendedTheme {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(
+                        space = 8.dp
+                    )
+                ) {
+                    if (date.contentEquals(longArrayOf(0L, 0L))) {
+                        item {
+                            DescriptionDateField(
+                                label = stringResource(id = R.string.reservation_date_label),
+                                value = fullDateToString(date),
+                                placeholder = stringResource(id = R.string.reservation_date_placeholder),
+                                onClick = { onReservationIntent(ReservationIntent.ShowDatePicker) },
+                                isError = reservationState.value.errorDate && isButtonClicked.value,
+                                messageError = stringResource(id = R.string.error_date)
+                            )
+                        }
+                    }
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(
-                    space = 8.dp)
-            ) {
-                if (date.contentEquals(longArrayOf(0L, 0L))) {
                     item {
-                        DescriptionDateField(
-                            label = stringResource(id = R.string.reservation_date_label),
-                            value = fullDateToString(date),
-                            placeholder = stringResource(id = R.string.reservation_date_placeholder),
-                            onClick = { onReservationIntent(ReservationIntent.ShowDatePicker) },
-                            isError = reservationState.value.errorDate && isButtonClicked.value,
-                            messageError = stringResource(id = R.string.error_date)
+                        DescriptionPlaceField(
+                            label = stringResource(id = R.string.reservation_place_label),
+                            value = reservationState.value.place,
+                            placeholder = stringResource(id = R.string.reservation_place_placeholder),
+                            onValueChange = {
+                                onReservationIntent(ReservationIntent.PlaceChange(it))
+                                onReservationIntent(ReservationIntent.GetBidCost)
+                                resetButtonClicked()
+                            },
+                            places = reservationState.value.placeList
+                        )
+                    }
+                    item {
+                        DescriptionTimeField(
+                            label = stringResource(id = R.string.reservation_time_from_label),
+                            value = startTime,
+                            placeholder = stringResource(id = R.string.reservation_time_placeholder),
+                            onClick = {
+                                onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.START))
+                                resetButtonClicked()
+                            },
+                            isError = reservationState.value.errorStartTime && isButtonClicked.value,
+                            messageError = stringResource(id = R.string.error_time)
+                        )
+                    }
+                    item {
+                        DescriptionTimeField(
+                            label = stringResource(id = R.string.reservation_time_to_label),
+                            value = endTime,
+                            placeholder = stringResource(id = R.string.reservation_time_placeholder),
+                            onClick = {
+                                onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.END))
+                                resetButtonClicked()
+                            },
+                            isError = reservationState.value.errorEndTime && isButtonClicked.value,
+                            messageError = stringResource(id = R.string.empty_time)
+                        )
+                    }
+                    item {
+                        DescriptionCommentField(
+                            label = stringResource(id = R.string.reservation_comments_label),
+                            value = reservationState.value.comments,
+                            placeholder = stringResource(id = R.string.reservation_comments_placeholder),
+                            onValueChange = {
+                                onReservationIntent(ReservationIntent.CommentsChange(it))
+                                resetButtonClicked()
+                            }
                         )
                     }
                 }
-
-                item {
-                    DescriptionPlaceField(
-                        label = stringResource(id = R.string.reservation_place_label),
-                        value = reservationState.value.place,
-                        placeholder = stringResource(id = R.string.reservation_place_placeholder),
-                        onValueChange = {
-                            onReservationIntent(ReservationIntent.PlaceChange(it))
-                            onReservationIntent(ReservationIntent.GetBidCost)
-                            resetButtonClicked()
-                        },
-                        places = reservationState.value.placeList
-                    )
-                }
-                item {
-                    DescriptionTimeField(
-                        label = stringResource(id = R.string.reservation_time_from_label),
-                        value = startTime,
-                        placeholder = stringResource(id = R.string.reservation_time_placeholder),
-                        onClick = {
-                            onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.START))
-                            resetButtonClicked()
-                        },
-                        isError = reservationState.value.errorStartTime && isButtonClicked.value,
-                        messageError = stringResource(id = R.string.error_time)
-                    )
-                }
-                item {
-                    DescriptionTimeField(
-                        label = stringResource(id = R.string.reservation_time_to_label),
-                        value = endTime,
-                        placeholder = stringResource(id = R.string.reservation_time_placeholder),
-                        onClick = {
-                            onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.END))
-                            resetButtonClicked()
-                        },
-                        isError = reservationState.value.errorEndTime && isButtonClicked.value,
-                        messageError = stringResource(id = R.string.empty_time)
-                    )
-                }
-                item {
-                    DescriptionCommentField(
-                        label = stringResource(id = R.string.reservation_comments_label),
-                        value = reservationState.value.comments,
-                        placeholder = stringResource(id = R.string.reservation_comments_placeholder),
-                        onValueChange = {
-                            onReservationIntent(ReservationIntent.CommentsChange(it))
-                            resetButtonClicked()
-                        }
-                    )
-                }
             }
-        }
 
-        Column(
-            modifier = Modifier.padding(top = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Row(modifier = Modifier.padding(horizontal = 8.dp)) {
-                Text(
-                    text = stringResource(id = R.string.reservation_sum),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = reservationState.value.bidCost,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                    color = MaterialTheme.colorScheme.onBackground
+            Column(
+                modifier = Modifier.padding(top = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(modifier = Modifier.padding(horizontal = 8.dp)) {
+                    Text(
+                        text = stringResource(id = R.string.reservation_sum),
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(
+                        text = reservationState.value.bidCost,
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+                PrimaryButton(
+                    text = stringResource(id = R.string.reservation_put_bid),
+                    enabled = reservationState.value.place.isNotEmpty(),
+                    onClick = {
+                        isButtonClicked.value = true
+                        if (reservationState.value.startTime.isNotEmpty() &&
+                            reservationState.value.endTime.isNotEmpty() &&
+                            !reservationState.value.errorStartTime &&
+                            !reservationState.value.errorEndTime
+                        )
+                            onReservationIntent(ReservationIntent.PutBid)
+                    }
                 )
             }
-            PrimaryButton(
-                text = stringResource(id = R.string.reservation_put_bid),
-                enabled = reservationState.value.place.isNotEmpty(),
-                onClick = {
-                    isButtonClicked.value = true
-                    if (reservationState.value.startTime.isNotEmpty() &&
-                        reservationState.value.endTime.isNotEmpty() &&
-                        !reservationState.value.errorStartTime &&
-                        !reservationState.value.errorEndTime
-                    )
-                        onReservationIntent(ReservationIntent.PutBid)
-                }
-            )
         }
     }
 }
@@ -264,7 +268,7 @@ private fun fullDateToString(date: LongArray): String {
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun ReservationScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
@@ -324,7 +328,7 @@ private fun ReservationScreenLightPreview() {
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),
-                carId = 0,
+                carId = 17,
                 date = longArrayOf(0L, 0L),
                 startTime = "09:00",
                 endTime = "16:30"
@@ -334,7 +338,7 @@ private fun ReservationScreenLightPreview() {
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ReservationScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
@@ -394,7 +398,7 @@ private fun ReservationScreenDarkPreview() {
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),
-                carId = 0,
+                carId = 17,
                 date = longArrayOf(0L, 0L),
                 startTime = "09:00",
                 endTime = "16:30"
