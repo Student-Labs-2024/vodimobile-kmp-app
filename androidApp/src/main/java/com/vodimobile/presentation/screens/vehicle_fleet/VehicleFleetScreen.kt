@@ -19,6 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,16 +32,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
-import com.vodimobile.data.repository.car.CarRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.remote.either.CrmEither
-import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
-import com.vodimobile.domain.use_case.cars.GetPopularCarsUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
@@ -59,11 +59,8 @@ import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.AutoTypeTagList
-import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
-import com.vodimobile.presentation.screens.home.store.HomeEffect
-import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
@@ -82,6 +79,7 @@ fun VehicleFleetScreen(
     vehicleState: State<VehicleState>,
     navHostController: NavHostController,
     selectedTagIndex: Int,
+    dateRange: LongArray,
     modifier: Modifier = Modifier
 ) {
 
@@ -105,7 +103,7 @@ fun VehicleFleetScreen(
                 }
 
                 VehicleEffect.DismissLoadingDialog -> {
-                    navHostController.navigateUp()
+                    navHostController.clearBackStack(route = DialogIdentifiers.LOADING_DIALOG)
                 }
 
                 VehicleEffect.ShowLoadingDialog -> {
@@ -114,7 +112,7 @@ fun VehicleFleetScreen(
             }
         }
     }
-    onVehicleIntent(VehicleIntent.InitCars)
+    onVehicleIntent(VehicleIntent.InitCars(dateRange = dateRange))
     ExtendedTheme {
         Scaffold(
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
@@ -157,46 +155,37 @@ fun VehicleFleetScreen(
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                when (val either = vehicleState.value.crmEither) {
-                    is CrmEither.CrmData -> {
-                        itemsIndexed(either.data) { _, item: Car ->
-                            CardsSearch(
-                                carItem = item,
-                                onBookClick = { carItem ->
-                                    onVehicleIntent(
-                                        VehicleIntent.BookCarClick(
-                                            car = carItem
-                                        )
+                if (vehicleState.value.carList.isNotEmpty())
+                    itemsIndexed(vehicleState.value.carList) { _, item: Car ->
+                        CardsSearch(
+                            carItem = item,
+                            onBookClick = { carItem ->
+                                onVehicleIntent(
+                                    VehicleIntent.BookCarClick(
+                                        car = carItem
                                     )
-                                },
-                                onInfoClick = { carItem ->
-                                    onVehicleIntent(
-                                        VehicleIntent.InfoCarClick(
-                                            car = carItem
-                                        )
+                                )
+                            },
+                            onInfoClick = { carItem ->
+                                onVehicleIntent(
+                                    VehicleIntent.InfoCarClick(
+                                        car = carItem
                                     )
-                                }
-                            )
-                        }
-                        onVehicleIntent(VehicleIntent.DismissProgressDialog)
+                                )
+                            }
+                        )
                     }
-
-                    is CrmEither.CrmError -> {
-                        onVehicleIntent(VehicleIntent.DismissProgressDialog)
-                    }
-                    CrmEither.CrmLoading -> {
-                        onVehicleIntent(VehicleIntent.ShowProgressDialog)
-                    }
-                }
+                else
+                    onVehicleIntent(VehicleIntent.ShowProgressDialog)
             }
+        }
 
-            if (vehicleState.value.showBottomSheet) {
-                BottomCard(
-                    carItem = vehicleState.value.selectedCar,
-                    onDismiss = { onVehicleIntent(VehicleIntent.CloseModal) },
-                    onBookClick = { onVehicleIntent(VehicleIntent.BookCarClick(car = vehicleState.value.selectedCar)) }
-                )
-            }
+        if (vehicleState.value.showBottomSheet) {
+            BottomCard(
+                carItem = vehicleState.value.selectedCar,
+                onDismiss = { onVehicleIntent(VehicleIntent.CloseModal) },
+                onBookClick = { onVehicleIntent(VehicleIntent.BookCarClick(car = vehicleState.value.selectedCar)) }
+            )
         }
     }
 }
@@ -259,8 +248,9 @@ private fun VehicleFleetScreenPreview() {
             onVehicleIntent = vehicleFleetViewModel::onIntent,
             vehicleEffect = vehicleFleetViewModel.vehicleFleetEffect,
             vehicleState = vehicleFleetViewModel.vehicleState.collectAsState(),
+            navHostController = rememberNavController(),
             selectedTagIndex = 0,
-            navHostController = rememberNavController()
+            dateRange = longArrayOf(0L, 0L)
         )
     }
 }

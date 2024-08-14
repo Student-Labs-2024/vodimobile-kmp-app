@@ -8,7 +8,7 @@ sealed class VehicleIntent {
     data class BookCarClick(val car: Car) : VehicleIntent()
     data class InfoCarClick(val car: Car) : VehicleIntent()
     data object CloseModal : VehicleIntent()
-    data object InitCars : VehicleIntent()
+    data class InitCars(val dateRange: LongArray) : VehicleIntent()
     data object ShowProgressDialog : VehicleIntent()
     data object DismissProgressDialog : VehicleIntent()
 }

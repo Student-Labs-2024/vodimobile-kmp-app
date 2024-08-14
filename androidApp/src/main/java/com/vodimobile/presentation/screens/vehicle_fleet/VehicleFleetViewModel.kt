@@ -2,6 +2,8 @@ package com.vodimobile.presentation.screens.vehicle_fleet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
+import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -9,6 +11,7 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,35 +69,103 @@ class VehicleFleetViewModel(
                 }
             }
 
-            VehicleIntent.InitCars -> {
-                val userFLow = userDataStoreStorage.getUser()
+            is VehicleIntent.InitCars -> {
                 viewModelScope.launch {
-                    userFLow.collect { user ->
-                        val userFromRemote = supabaseStorage.getUser(password = user.password, phone = user.phone)
-                        val crmEither = crmStorage.getCarList(
-                            accessToken = userFromRemote.accessToken,
-                            refreshToken = userFromRemote.refreshToken
-                        )
-                        vehicleState.update {
-                            it.copy(crmEither = crmEither)
-                        }
+                    if (intent.dateRange[0] == 0L || intent.dateRange[0] < 0L) {
+                        getAllCars()
+                    } else {
+                        getRangeCars(begin = intent.dateRange[0], end = intent.dateRange[1])
                     }
                 }
             }
 
             VehicleIntent.DismissProgressDialog -> {
                 viewModelScope.launch {
-                    delay(1.seconds)
                     vehicleFleetEffect.emit(VehicleEffect.DismissLoadingDialog)
                 }
             }
 
             VehicleIntent.ShowProgressDialog -> {
                 viewModelScope.launch {
-                    delay(1.seconds)
                     vehicleFleetEffect.emit(VehicleEffect.ShowLoadingDialog)
                 }
             }
+        }
+    }
+
+    private suspend fun getAllCars() {
+        val userFLow = userDataStoreStorage.getUser()
+        userFLow.collect { user ->
+            val userFromRemote =
+                supabaseStorage.getUser(password = user.password, phone = user.phone)
+            val crmEither = crmStorage.getCarList(
+                accessToken = userFromRemote.accessToken,
+                refreshToken = userFromRemote.refreshToken
+            )
+
+            when (crmEither) {
+                is CrmEither.CrmData -> {
+                    vehicleState.update {
+                        it.copy(carList = crmEither.data)
+                    }
+                }
+
+                is CrmEither.CrmError -> {}
+
+                CrmEither.CrmLoading -> {}
+            }
+        }
+    }
+
+    private suspend fun getRangeCars(begin: Long, end: Long) {
+        val userFLow = userDataStoreStorage.getUser()
+        userFLow.collect { user ->
+            val userFromRemote =
+                supabaseStorage.getUser(password = user.password, phone = user.phone)
+
+            val crmEitherFreeCars: CrmEither<CarFreeListDTO, HttpStatusCode> =
+                crmStorage.getFreeCars(
+                    accessToken = userFromRemote.accessToken,
+                    refreshToken = userFromRemote.refreshToken,
+                    carFreeListParamsDTO = CarFreeListParamsDTO(
+                        begin = begin,
+                        end = end,
+                        includeIdles = true,
+                        includeReserves = false,
+                        cityId = 2
+                    )
+                )
+
+            when (crmEitherFreeCars) {
+                is CrmEither.CrmData -> {
+                    val crmEither = crmStorage.getCarList(
+                        accessToken = userFromRemote.accessToken,
+                        refreshToken = userFromRemote.refreshToken,
+                        carIds = crmEitherFreeCars.data.cars
+                    )
+                    when (crmEither) {
+                        is CrmEither.CrmData -> {
+                            vehicleState.update {
+                                it.copy(carList = crmEither.data)
+                            }
+                        }
+
+                        is CrmEither.CrmError -> {
+
+                        }
+
+                        CrmEither.CrmLoading -> {
+
+                        }
+                    }
+
+                }
+
+                is CrmEither.CrmError -> {}
+
+                CrmEither.CrmLoading -> {}
+            }
+
         }
     }
 }
