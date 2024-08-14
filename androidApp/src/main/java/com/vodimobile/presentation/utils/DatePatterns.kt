@@ -29,4 +29,24 @@ object DatePatterns {
                 ).format(Date(date[1]))
             }"
     }
+
+    @SuppressLint("ConstantLocale")
+    fun fullDateToStringRU(date: LongArray): String {
+        if (date[0] == 0L || date[0] < 0L) return ""
+
+        val startDate = Date(date[0])
+        val endDate = Date(date[1])
+
+        val startDay = SimpleDateFormat("d", Locale("ru")).format(startDate)
+        val startMonth = SimpleDateFormat("MMMM", Locale("ru")).format(startDate)
+        val endDay = SimpleDateFormat("d", Locale("ru")).format(endDate)
+        val endMonth = SimpleDateFormat("MMMM", Locale("ru")).format(endDate)
+        val year = SimpleDateFormat("yyyy", Locale("ru")).format(startDate)
+
+        return if (startMonth == endMonth) {
+            "$startDay-${endDay} $startMonth $year"
+        } else {
+            "$startDay $startMonth - $endDay $endMonth $year"
+        }
+    }
 }

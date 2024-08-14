@@ -13,7 +13,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class HomeViewModel(carsStorage: CarsStorage, private val userDataStoreStorage: UserDataStoreStorage) : ViewModel() {
+class HomeViewModel(
+    carsStorage: CarsStorage,
+    private val userDataStoreStorage: UserDataStoreStorage
+) : ViewModel() {
 
     val homeState = MutableStateFlow(
         HomeState(
@@ -62,7 +65,11 @@ class HomeViewModel(carsStorage: CarsStorage, private val userDataStoreStorage: 
 
             is HomeIntent.BookCarClick -> {
                 viewModelScope.launch {
-                    homeEffect.emit(HomeEffect.BookCarClick(carId = intent.car.carId))
+                    homeEffect.emit(
+                        HomeEffect.BookCarClick(
+                            carId = intent.carId
+                        )
+                    )
                 }
             }
 

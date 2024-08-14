@@ -32,8 +32,8 @@ fun DescriptionTimeField(
     value: String,
     placeholder: String,
     onClick: () -> Unit,
-    onValueChange: () -> Unit,
     isError: Boolean,
+    messageError: String,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -62,7 +62,8 @@ fun DescriptionTimeField(
                     .fillMaxWidth()
                     .padding(8.dp),
                 value = value,
-                onValueChange = { onValueChange() },
+                onValueChange = { },
+                readOnly = true,
                 placeholder = {
                     Text(
                         text = placeholder,
@@ -102,13 +103,13 @@ fun DescriptionTimeField(
                     }
                 },
                 enabled = true,
-                textStyle = MaterialTheme.typography.bodySmall,
+                textStyle = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface),
                 isError = isError
             )
         }
         if (isError) {
             Text(
-                text = stringResource(id = R.string.error_time),
+                text = messageError,
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.labelSmall,
                 modifier = Modifier.padding(start = 10.dp, top = 3.dp)
@@ -126,8 +127,8 @@ private fun DescriptionTimeFieldLightPreview() {
             value = "",
             placeholder = stringResource(id = R.string.reservation_place_placeholder),
             onClick = {},
-            onValueChange = {},
-            isError = false
+            isError = false,
+            messageError = ""
         )
     }
 }
@@ -141,8 +142,8 @@ private fun DescriptionTimeFieldDarkPreview() {
             value = "",
             placeholder = stringResource(id = R.string.reservation_place_placeholder),
             onClick = {},
-            onValueChange = {},
-            isError = false
+            isError = false,
+            messageError = ""
         )
     }
 }

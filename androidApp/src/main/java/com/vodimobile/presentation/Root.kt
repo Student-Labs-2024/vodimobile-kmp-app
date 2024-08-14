@@ -47,8 +47,8 @@ private fun getIsShowBottomBar(currentRoute: String?): Boolean {
             currentRoute != LeafScreen.CHANGE_PASSWORD_SCREEN &&
             currentRoute != RegistrationScreens.RESET_PASSWORD_SCREEN &&
             currentRoute != RegistrationScreens.NEW_PASSWORD_SCREEN &&
-            currentRoute != LeafHomeScreen.RESERVATION_SCREEN
-    currentRoute != LeafErrorScreen.NO_INTERNET &&
+            currentRoute != LeafHomeScreen.RESERVATION_SCREEN &&
+            currentRoute != LeafErrorScreen.NO_INTERNET &&
             currentRoute != LeafScreen.EDIT_PROFILE
 }
 

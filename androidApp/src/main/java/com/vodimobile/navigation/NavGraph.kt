@@ -17,7 +17,6 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
-import com.vodimobile.domain.model.Car
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafErrorScreen
 import com.vodimobile.presentation.LeafHomeScreen
@@ -52,6 +51,7 @@ import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.reservation.ReservationScreen
 import com.vodimobile.presentation.screens.reservation.ReservationViewModel
+import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
@@ -156,49 +156,73 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafHomeScreen.ALL_CARS}")
                 }
             }
-            composable(route = LeafHomeScreen.RESERVATION_SCREEN) { backStackEntry ->
+            composable(
+                route = "${LeafHomeScreen.RESERVATION_SCREEN}/{carId}?date={date}",
+                arguments = listOf(
+                    navArgument("carId") { type = NavType.IntType },
+                    navArgument("date") {
+                        type = NavType.LongArrayType
+                        nullable = true
+                    }
+                )
+            ) { backStackEntry ->
+
+                val carId = backStackEntry.arguments?.getInt("carId") ?: 0
+                val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
 
                 val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-date",
                     initialValue = longArrayOf(0L, 0L),
                 ).collectAsState().value
 
-                val selectedTime = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-time",
+                val finalDate = if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
+
+                val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-start-time",
                     initialValue = "",
                 ).collectAsState().value
 
-                val selectedCar = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-car",
-                    initialValue = Car.empty(),
+                val selectedEndTime = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-end-time",
+                    initialValue = "",
                 ).collectAsState().value
 
                 val reservationViewModel: ReservationViewModel = koinViewModel()
                 ReservationScreen(
                     reservationState = reservationViewModel.reservationState.collectAsState(
                         initial = ReservationState(
-                            time = selectedTime,
-                            date = selectedDate,
-                            car = selectedCar
+                            startTime = selectedStartTime,
+                            endTime = selectedEndTime,
+                            date = finalDate,
+                            carId = carId
                         )
                     ),
                     onReservationIntent = reservationViewModel::onIntent,
                     reservationEffect = reservationViewModel.reservationEffect,
                     navHostController = navHostController,
-                    car = selectedCar,
-                    date = selectedDate,
-                    time = selectedTime
+                    carId = carId,
+                    date = finalDate,
+                    startTime = selectedStartTime,
+                    endTime = selectedEndTime
                 )
             }
             dialog(
-                route = DialogIdentifiers.TIME_SELECT_DIALOG
-            ) {
+                route = "${DialogIdentifiers.TIME_SELECT_DIALOG}?timeType={timeType}",
+                arguments = listOf(
+                    navArgument("timeType") {
+                        type = NavType.StringType
+                        nullable = true
+                    })
+            ) { backStackEntry ->
+                val timeType = TimeType.valueOf(
+                    backStackEntry.arguments?.getString("timeType") ?: TimeType.START.name
+                )
                 var selectedTime by remember { mutableStateOf("") }
                 TimePickerSwitchableSample(
                     onTimeSelected = { time ->
                         navHostController.previousBackStackEntry?.savedStateHandle?.set(
-                            "selected-time",
-                            time,
+                            if (timeType == TimeType.START) "selected-start-time" else "selected-end-time",
+                            time
                         )
                         selectedTime = time
                         navHostController.navigateUp()

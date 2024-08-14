@@ -27,7 +27,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 @Composable
 fun ReservationCarDescription(
     car: Car,
-    date: LongArray,
+    date: String,
     modifier: Modifier = Modifier
 ) {
 
@@ -53,7 +53,7 @@ fun ReservationCarDescription(
                     modifier = Modifier
                         .size(width = 160.dp, height = 96.dp),
                     painter = painterResource(id = car.images[0].drawableResId),
-                    contentDescription = null
+                    contentDescription = stringResource(id = car.model.resourceId)
                 )
                 Column(
                     modifier = Modifier.wrapContentHeight(),
@@ -67,10 +67,12 @@ fun ReservationCarDescription(
                         title = stringResource(id = R.string.desc_reservation_title),
                         subtitle = stringResource(id = car.model.resourceId)
                     )
-                    CarDescriptionItem(
-                        title = stringResource(id = R.string.desc_reservation_subtitle),
-                        subtitle = date.toString()
-                    )
+                    if (date.isNotEmpty()) {
+                        CarDescriptionItem(
+                            title = stringResource(id = R.string.desc_reservation_subtitle),
+                            subtitle = date
+                        )
+                    }
                 }
             }
         }
@@ -81,7 +83,7 @@ fun ReservationCarDescription(
 @Composable
 private fun ReservationCarDescLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        ReservationCarDescription(car = Car.empty(), date = longArrayOf(0L, 0L))
+        ReservationCarDescription(car = Car.empty(), date = "")
     }
 }
 
@@ -89,6 +91,6 @@ private fun ReservationCarDescLightPreview() {
 @Composable
 private fun ReservationCarDescDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        ReservationCarDescription(car = Car.empty(), date = longArrayOf(0L, 0L))
+        ReservationCarDescription(car = Car.empty(), date = "11-18 августа 2024")
     }
 }

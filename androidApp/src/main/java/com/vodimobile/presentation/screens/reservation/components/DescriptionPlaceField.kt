@@ -60,7 +60,7 @@ fun DescriptionPlaceField(
     value: String,
     placeholder: String,
     onValueChange: (Pair<Int, String>) -> Unit,
-    @SuppressLint("ComposeUnstableCollections") items: List<Place>,
+    @SuppressLint("ComposeUnstableCollections") places: List<Place>,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -122,7 +122,7 @@ fun DescriptionPlaceField(
         }
     }
     ExtendedTheme {
-        Column() {
+        Column(modifier = Modifier.fillMaxWidth()) {
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -132,6 +132,7 @@ fun DescriptionPlaceField(
                     },
                 value = value,
                 onValueChange = { },
+                readOnly = true,
                 placeholder = {
                     Text(
                         text = placeholder,
@@ -171,7 +172,7 @@ fun DescriptionPlaceField(
                     }
                 },
                 enabled = true,
-                textStyle = MaterialTheme.typography.bodySmall
+                textStyle = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface)
             )
 
             Box(modifier = Modifier.padding(8.dp)) {
@@ -187,7 +188,7 @@ fun DescriptionPlaceField(
                         .background(color = MaterialTheme.colorScheme.onPrimary)
                         .width(with(LocalDensity.current) { textFieldSize.width.toDp() })
                 ) {
-                    items.forEachIndexed { index, item ->
+                    places.forEachIndexed { index, item ->
                         val description = createFullPlaceDescription(item)
                         DropdownMenuItem(
                             text = {
@@ -222,7 +223,7 @@ private fun DescriptionFieldLightPreview() {
             value = "",
             placeholder = stringResource(id = R.string.reservation_place_placeholder),
             onValueChange = {},
-            items = listOf()
+            places = listOf()
         )
     }
 }
@@ -236,7 +237,7 @@ private fun DescriptionFieldDarkPreview() {
             value = "",
             placeholder = stringResource(id = R.string.reservation_place_placeholder),
             onValueChange = {},
-            items = listOf()
+            places = listOf()
         )
     }
 }
