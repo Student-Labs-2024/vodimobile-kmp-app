@@ -45,7 +45,9 @@ import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -254,7 +256,9 @@ private fun EditProfileScreenDarkPreview() {
                 updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
                 updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
-                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
+                insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
@@ -305,7 +309,9 @@ private fun EditProfileScreenLightPreview() {
                 updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
                 updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
-                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl())
+                updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
+                insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
