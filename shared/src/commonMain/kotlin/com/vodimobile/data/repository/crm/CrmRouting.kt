@@ -54,4 +54,16 @@ object CrmRouting {
             const val SERVICES = "services"
         }
     }
+
+    object CarPeriodList {
+        const val CAR_PERIOD = "car_period_list"
+
+        object PARAM {
+            const val CAR_ID = "car_id"
+            const val BEGIN = "begin"
+            const val END = "end"
+            const val INCLUDE_RESERVES = "include_reserves"
+            const val INCLUDE_IDLES = "include_idles"
+        }
+    }
 }

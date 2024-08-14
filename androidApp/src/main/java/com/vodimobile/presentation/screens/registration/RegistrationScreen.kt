@@ -40,6 +40,7 @@ import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
@@ -238,7 +239,8 @@ private fun RegistrationScreenPreviewDark() {
                     refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
                     getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                     getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+                    getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl())
                 ),
                 supabaseStorage = SupabaseStorage(
                     getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
@@ -307,7 +309,8 @@ private fun RegistrationScreenPreviewLight() {
                     refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
                     getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                     getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+                    getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl())
                 ),
                 supabaseStorage = SupabaseStorage(
                     getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),

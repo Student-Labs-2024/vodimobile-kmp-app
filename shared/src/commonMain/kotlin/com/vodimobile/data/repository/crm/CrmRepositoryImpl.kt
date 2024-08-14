@@ -5,6 +5,8 @@ import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeDTO
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
@@ -233,6 +235,48 @@ class CrmRepositoryImpl : CrmRepository {
                             parameter(
                                 CrmRouting.BidCost.PARAM.END_PLACE_ID,
                                 bidCostParams.end_place_id
+                            )
+                        }
+                    }
+                )
+
+        return if (httpResponse.status.isSuccess()) {
+            CrmEither.CrmData(data = httpResponse.body())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun getCarFreeDateRange(
+        accessToken: String,
+        refreshToken: String,
+        carFreeDateRangeParams: CarFreeDateRangeParams
+    ): CrmEither<CarFreeDateRangeDTO, HttpStatusCode> {
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.CarPeriodList.CAR_PERIOD)))
+                        parameters {
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.CAR_ID,
+                                carFreeDateRangeParams.car_id
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.BEGIN,
+                                carFreeDateRangeParams.begin
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.END,
+                                carFreeDateRangeParams.end
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.INCLUDE_RESERVES,
+                                carFreeDateRangeParams.include_reserves
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.INCLUDE_IDLES,
+                                carFreeDateRangeParams.include_idles
                             )
                         }
                     }

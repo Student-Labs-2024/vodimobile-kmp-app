@@ -1,10 +1,12 @@
 package com.vodimobile.domain
 
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
@@ -33,7 +35,8 @@ class CrmStorageTest {
                 refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
                 getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                 getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl())
             )
 
             val response = crmStorage.getCarList(
@@ -57,10 +60,31 @@ class CrmStorageTest {
         }
     }
 
+    @Test
+    fun getFreeCarDateRangeTest() {
+        runBlocking {
+            val crmRepository = CrmRepositoryImpl()
+
+            val response = crmRepository.getCarFreeDateRange(
+                accessToken = SharedBuildkonfig.crm_test_access_token,
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token,
+                carFreeDateRangeParams = CarFreeDateRangeParams(
+                    car_id = 17,
+                    begin = "2024-10-01 10:00",
+                    end = "2024-10-03 10:00",
+                    include_idles = true,
+                    include_reserves = true
+                )
+            )
+
+            assertResponse(response = response)
+        }
+    }
+
     private fun <D, E> assertResponse(response: CrmEither<D, E>) {
         when (response) {
             is CrmEither.CrmData -> {
-                assertTrue(true, "Data is loaded")
+                assertTrue(true, "Data is loaded \n${response.data}")
             }
 
             is CrmEither.CrmError -> {
