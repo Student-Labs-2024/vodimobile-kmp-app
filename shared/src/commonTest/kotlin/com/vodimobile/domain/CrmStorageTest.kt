@@ -1,9 +1,15 @@
 package com.vodimobile.domain
 
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.crm.CrmRouting
+import com.vodimobile.di.crmModule
+import com.vodimobile.domain.model.crm.CrmServerData
+import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
@@ -36,7 +42,8 @@ class CrmStorageTest {
                 getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                 getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
                 getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
-                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl())
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+                createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
             )
 
             val response = crmStorage.getCarList(
@@ -75,6 +82,67 @@ class CrmStorageTest {
                     include_idles = true,
                     include_reserves = true
                 )
+            )
+
+            assertResponse(response = response)
+        }
+    }
+
+    @Test
+    fun createBidTestUsingRepository() {
+        runBlocking {
+            val crmRepository = CrmRepositoryImpl()
+
+            val testBid = BidCreateParams(
+                fio = "Tst test test",
+                phone = "+79139746487",
+                car_id = 22,
+                begin = "2024-08-03 12:00",
+                end = "2024-08-06 12:00",
+                begin_place_id = 2,
+                end_place_id = 2
+            )
+
+            val response = crmRepository.createBid(
+                accessToken = SharedBuildkonfig.crm_test_access_token,
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token,
+                bidCreateParams = testBid
+            )
+
+            assertResponse(response = response)
+        }
+    }
+
+    @Test
+    fun createBidTestUsingStorage() {
+        runBlocking {
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+                createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
+            )
+
+            val testBid = BidCreateParams(
+                fio = "Tst test test",
+                phone = "+79139746487",
+                car_id = 22,
+                begin = "2024-08-03 12:00",
+                end = "2024-08-06 12:00",
+                begin_place_id = 2,
+                end_place_id = 2
+            )
+
+            val response = crmStorage.createBid(
+                accessToken = SharedBuildkonfig.crm_test_access_token,
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token,
+                bidCreateParams = testBid
             )
 
             assertResponse(response = response)

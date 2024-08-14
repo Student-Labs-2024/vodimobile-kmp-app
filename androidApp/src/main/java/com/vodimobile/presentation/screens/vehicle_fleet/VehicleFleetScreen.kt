@@ -39,6 +39,7 @@ import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
 import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
@@ -236,7 +237,8 @@ private fun VehicleFleetScreenPreview() {
                 getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                 getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
                 getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
-                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl())
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+                createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
             ),
             supabaseStorage = SupabaseStorage(
                 getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),

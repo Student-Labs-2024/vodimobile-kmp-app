@@ -7,6 +7,8 @@ import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRang
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
@@ -60,4 +62,10 @@ interface CrmRepository {
         refreshToken: String,
         carFreeDateRangeParams: CarFreeDateRangeParams
     ): CrmEither<CarFreeDateRangeDTO, HttpStatusCode>
+
+    suspend fun createBid(
+        accessToken: String,
+        refreshToken: String,
+        bidCreateParams: BidCreateParams
+    ): CrmEither<BidCreateDTO, HttpStatusCode>
 }
