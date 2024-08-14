@@ -16,7 +16,7 @@ object DatePatterns {
 
     @SuppressLint("ConstantLocale")
     fun fullDate(date: LongArray): String {
-        return if (date[0] == 0L || date[0] < 0L) "" else
+        return if (date[0] == 0L) "" else
             "${
                 SimpleDateFormat(
                     "dd.MM.yyyy",
@@ -26,7 +26,7 @@ object DatePatterns {
                 SimpleDateFormat(
                     "dd.MM.yyyy",
                     Locale.getDefault()
-                ).format(Date(date[0]))
+                ).format(Date(date[1]))
             }"
     }
 }

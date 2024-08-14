@@ -30,7 +30,7 @@
 
 // Buttons titles
 "authButtonTitle" = "Войти";
-"regButtonTitle" = "Зарегистрироваться";
+"regButtonTitle" = "Создать аккаунт";
 "nextBtnName" = "Далее";
 "resendBtnText" = "Отправить повторно";
 "closeButton" = "Закрыть";
@@ -43,6 +43,7 @@
 "forgetPassword" = "Забыли пароль?";
 "leaveReuqestButton" = "Оставить заявку";
 "loginToAccount" = "Войти в аккаунт";
+"saveChangePersonalData" = "Сохранить изменения";
 
 // Field names
 "email" = "Email";
@@ -131,16 +132,16 @@
 "resetScreenSubtitle" = "Код для смены пароля будет выслан по СМС.";
 "serverErrorTitle" = "Ошибка сервера";
 "serverErrorText" = "Что-то пошло не так со стороны сервера. Попробуйте снова";
-"signSuggestTitle" = "Войти или создать аккаунт";
-"signSuggestText" = "Чтобы оставить заявку необходимо иметь аккаунт";
+"signSuggestTitle" = "Войдите, чтобы продолжить";
+"signSuggestText" = "Для бронирования автомобиля требуется авторизация.";
 "autoNameTitle" = "Автомобиль";
 "autoDatesTitle" = "Период аренды";
 "totalPriceTitle" = "Итого:";
 "freeText" = "Бесплатно";
-"requestSubmittedTitle" = "Заявка оставлена";
-"requestSubmittedText" = "Менеджер скоро свяжется с вами. Изменить заказ и посмотреть его статус можно в заказах";
-"requestFailedTitle" = "Что-то пошло не так";
-"requestFailedText" = "Не получилось оставить заявку. Попробуйте еще раз";
+"requestSubmittedTitle" = "Заявка успешно оформлена!";
+"requestSubmittedText" = "Менеджер скоро свяжется с вами. Управлять заявкой можно в разделе \"Мои заказы\".";
+"requestFailedTitle" = "Заявка не оформлена";
+"requestFailedText" = "Пожалуйста, попробуйте еще раз через несколько минут.";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

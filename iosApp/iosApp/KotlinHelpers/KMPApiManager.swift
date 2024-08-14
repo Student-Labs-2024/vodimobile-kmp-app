@@ -8,13 +8,16 @@
 
 import SwiftUI
 import shared
+import Combine
 
 final class KMPApiManager {
     private var helper = KoinHelper()
     private var dataStorage = KMPDataStorage()
     static let shared = KMPApiManager()
+    // TODO: - Make logic with appState observing
     
     init() {
+        
         Task {
             await setUserTokens()
         }
@@ -49,6 +52,7 @@ final class KMPApiManager {
         } catch {
             print(error)
         }
+        
     }
     
     func fetchCars() async -> [Car] {
@@ -72,6 +76,7 @@ final class KMPApiManager {
         } catch {
             print(error)
         }
+        
         return []
     }
     

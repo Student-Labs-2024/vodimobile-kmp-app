@@ -1,6 +1,5 @@
 package com.vodimobile.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -72,6 +71,7 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
+import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.connectivityState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -128,16 +128,25 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafHomeScreen.HOME_SCREEN}")
                 }
             }
-            composable(route = LeafHomeScreen.ALL_CARS) {
+            composable(route = LeafHomeScreen.ALL_CARS) { backStackEntry ->
                 val isConnected = checkInternet(connection = connection)
                 if (isConnected) {
+                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                        "selected-date",
+                        initialValue = longArrayOf(0L, 0L),
+                    ).collectAsState().value
                     val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
                     VehicleFleetScreen(
                         onVehicleIntent = vehicleFleetModel::onIntent,
                         vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
-                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
+                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(
+                            initial = VehicleState(
+                                dateRange = selectedDate
+                            )
+                        ),
                         navHostController = navHostController,
-                        selectedTagIndex = 0
+                        selectedTagIndex = 0,
+                        dateRange = selectedDate
                     )
                 } else {
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(
@@ -244,9 +253,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 arguments = listOf(
                     navArgument("screen") { type = NavType.StringType }
                 )
-            ) { backStackEntry->
+            ) { backStackEntry ->
                 val screen = backStackEntry.arguments?.getString("screen") ?: ""
-                print (screen)
+                print(screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
@@ -299,7 +308,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         "screen",
                         LeafScreen.PROFILE_SCREEN,
                     )
-                    navHostController.navigate(route= "${LeafErrorScreen.NO_INTERNET}/${LeafScreen.PROFILE_SCREEN}")
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafScreen.PROFILE_SCREEN}")
                 }
             }
             composable(route = LeafScreen.RULES_SCREEN) {

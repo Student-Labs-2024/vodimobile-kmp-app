@@ -1,6 +1,7 @@
 package com.vodimobile.data.repository.supabase
 
 import com.vodimobile.domain.client.provideSupabaseClient
+import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.model.supabase.UserDTO
 import com.vodimobile.domain.repository.supabase.SupabaseRepository
 import io.github.jan.supabase.postgrest.from
@@ -84,5 +85,42 @@ class SupabaseRepositoryImpl : SupabaseRepository {
                 eq(SupabaseColumns.User.USER_ID, userDTO.user_id)
             }
         }
+    }
+
+    override suspend fun insertOrder(orderDTO: OrderDTO) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).insert(
+            mapOf(
+                SupabaseColumns.Orders.USER_ID to orderDTO.user_id,
+                SupabaseColumns.Orders.BID_NUMBER to orderDTO.bid_number,
+                SupabaseColumns.Orders.CRM_BID_ID to orderDTO.crm_bid_id,
+                SupabaseColumns.Orders.CAR_ID to orderDTO.car_id,
+            )
+        ) { single() }
+
+
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update({
+            set(SupabaseColumns.Orders.BID_STATUS, orderDTO.bid_status)
+            set(SupabaseColumns.Orders.DATE_START, orderDTO.date_start)
+            set(SupabaseColumns.Orders.TIME_START, orderDTO.time_start)
+            set(SupabaseColumns.Orders.DATE_FINISH, orderDTO.date_finish)
+            set(SupabaseColumns.Orders.TIME_FINISH, orderDTO.time_finish)
+            set(SupabaseColumns.Orders.PLACE_START, orderDTO.place_start)
+            set(SupabaseColumns.Orders.PLACE_FINISH, orderDTO.place_finish)
+            set(SupabaseColumns.Orders.COST, orderDTO.cost)
+            set(SupabaseColumns.Orders.SERVICES, orderDTO.services)
+        }) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, orderDTO.user_id)
+                eq(SupabaseColumns.Orders.BID_NUMBER, orderDTO.bid_number)
+            }
+        }
+    }
+
+    override suspend fun getOrders(userId: Int): List<OrderDTO> {
+        val ordersDTO =
+            supabaseClient.from(SupabaseTables.ORDERS_TABLE).select().decodeList<OrderDTO>()
+                .filter { it.user_id == userId }
+
+        return ordersDTO
     }
 }
