@@ -1,6 +1,7 @@
 package com.vodimobile.presentation.utils
 
 import android.annotation.SuppressLint
+import com.vodimobile.domain.model.order.Order
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -28,5 +29,37 @@ object DatePatterns {
                     Locale.getDefault()
                 ).format(Date(date[1]))
             }"
+    }
+
+    fun formatRentalPeriod(order: Order): String {
+        val start = Date(order.rentalDatePeriod.startDate)
+        val end = Date(order.rentalDatePeriod.endDate)
+
+        val dayStart = SimpleDateFormat("d", Locale("ru")).format(start)
+
+        val monthStart = SimpleDateFormat("dd MMMM", Locale("ru")).format(start)
+        val monthEnd = SimpleDateFormat("dd MMMM", Locale("ru")).format(end)
+
+        val yearStart = SimpleDateFormat("YYYY", Locale("ru")).format(start)
+        val yearEnd = SimpleDateFormat("YYYY", Locale("ru")).format(end)
+
+
+        return when {
+            yearStart == yearEnd && monthStart == monthEnd -> {
+                // Если годы и месяцы совпадают
+                "$dayStart - ${monthEnd} $yearStart"
+            }
+
+            yearStart == yearEnd -> {
+                "$dayStart ${monthStart}  - ${monthEnd} $yearEnd"
+                // Если только годы совпадают
+
+            }
+
+            else -> {
+                // Если годы не совпадают
+                "$dayStart ${monthStart} $yearStart - ${monthEnd} $yearEnd"
+            }
+        }
     }
 }

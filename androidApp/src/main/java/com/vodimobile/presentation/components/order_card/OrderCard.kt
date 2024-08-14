@@ -86,7 +86,7 @@ fun OrderCard(
                 Text(
                     modifier = Modifier
                         .wrapContentWidth(),
-                    text = "khhi",
+                    text = DatePatterns.formatRentalPeriod(order = orderItem),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.labelSmall
                 )
