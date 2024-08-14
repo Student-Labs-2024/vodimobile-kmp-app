@@ -137,4 +137,5 @@
     <string name="completed_order">Completed</string>
     <string name="order_title1">Your orders will be here</string>
     <string name="order_titile2">You can apply in the main page</string>
+    <string name="my_orders">My orders</string>
 </resources>
