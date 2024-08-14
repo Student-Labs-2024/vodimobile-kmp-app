@@ -12,12 +12,11 @@ import Combine
 
 final class KMPApiManager {
     private var helper = KoinHelper()
-    private var dataStorage = KMPDataStorage()
+    @ObservedObject var dataStorage = KMPDataStorage.shared
     static let shared = KMPApiManager()
     // TODO: - Make logic with appState observing
     
     init() {
-        
         Task {
             await setUserTokens()
         }

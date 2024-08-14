@@ -32,7 +32,7 @@ final class UserDataViewModel: ObservableObject {
     @Published var showErrorAlert: Bool = false
     @Published var isLoading: Bool = false
     // data storage
-    @ObservedObject var dataStorage = KMPDataStorage()
+    @ObservedObject var dataStorage = KMPDataStorage.shared
     // observable set
     private var cancellableSet: Set<AnyCancellable> = []
 
@@ -164,11 +164,7 @@ final class UserDataViewModel: ObservableObject {
         isLoading = true
         
         Task.detached {
-            do {
-               try await self.dataStorage.getUser()
-            } catch {
-                print(error)
-            }
+            await self.dataStorage.getUser()
         }
         self.isLoading.toggle()
     }

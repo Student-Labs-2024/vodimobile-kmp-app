@@ -20,7 +20,7 @@ struct MainView: View {
     @State private var selectedAuto: Car = Car.companion.empty()
     @State private var showModalReservation: Bool = false
     @State private var showSignSuggestModal: Bool = false
-    @EnvironmentObject var authManager: AuthManager
+    @ObservedObject var authManager = AuthManager.shared
     @ObservedObject private var viewModel = MainViewModel()
 
     var body: some View {

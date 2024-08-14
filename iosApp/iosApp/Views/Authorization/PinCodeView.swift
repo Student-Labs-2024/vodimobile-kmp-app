@@ -15,7 +15,17 @@ struct PinCodeView: View {
     @State private var isButtonEnabled: Bool = false
     @Binding var phoneNumber: String
     @Binding var showSignSuggestModal: Bool
-    @EnvironmentObject var authManager: AuthManager
+    private var authManager = AuthManager.shared
+    
+    init(
+        phoneNumber: Binding<String>,
+        showSignSuggestModal: Binding<Bool>,
+        isResetPasswordFlow: Bool = false
+    ) {
+        self._phoneNumber = phoneNumber
+        self._showSignSuggestModal = showSignSuggestModal
+        self.isResetPasswordFlow = isResetPasswordFlow
+    }
     
     @Environment(\.dismiss) private var dismiss
 

@@ -10,22 +10,22 @@ import SwiftUI
 import shared
 
 final class AuthManager: ObservableObject {
+    static let shared = AuthManager()
     @Published var isAuthenticated: Bool = false
-    private var user: User?
-    // TODO: - Make a single datastorage state oject in app
+    @ObservedObject var dataStorage = KMPDataStorage.shared
     
     func signUp(userData: User) {
-        self.user = userData
+        self.dataStorage.gettingUser = userData
         self.isAuthenticated = true
     }
     
     func login(user: User) {
-        self.user = user
+        self.dataStorage.gettingUser = user
         self.isAuthenticated = true
     }
     
     func logout() {
-        self.user = nil
+        self.dataStorage.gettingUser = nil
         self.isAuthenticated = false
     }
 }

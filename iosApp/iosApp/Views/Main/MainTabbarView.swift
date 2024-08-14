@@ -10,8 +10,6 @@ import SwiftUI
 
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
-    @StateObject var authManager = AuthManager()
-    @StateObject var dataStorage = KMPDataStorage()
     @EnvironmentObject var appState: AppState
     
     var body: some View {
@@ -24,8 +22,6 @@ struct MainTabbarView: View {
                     MyOrdersView().tag(TabType.myOrders)
                     ProfileView().tag(TabType.profile)
                 }
-                .environmentObject(authManager)
-                .environmentObject(dataStorage)
                 
                 HStack(spacing: 0) {
                     TabBarItem(

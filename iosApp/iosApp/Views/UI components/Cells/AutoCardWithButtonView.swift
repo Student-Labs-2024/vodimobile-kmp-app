@@ -14,7 +14,7 @@ struct AutoCardWithButtonView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
-    @EnvironmentObject var authManager: AuthManager
+    @ObservedObject var authManager = AuthManager.shared
     @ObservedObject var viewModel: AutoCardViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 20),
