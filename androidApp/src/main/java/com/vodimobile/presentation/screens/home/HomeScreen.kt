@@ -103,7 +103,7 @@ fun HomeScreen(
                     date = selectedDate,
                     onNotificationButtonClick = { onHomeIntent(HomeIntent.NotificationButtonClick) },
                     onFieldClick = { onHomeIntent(HomeIntent.FieldClick) },
-                    onButtonClick = {}
+                    onButtonClick = { onHomeIntent(HomeIntent.AllCarsClick) }
                 )
             }
         ) { paddingValues ->
