@@ -12,6 +12,7 @@ import shared
 struct AutoListView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
@@ -34,6 +35,7 @@ struct AutoListView: View {
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 2:
@@ -42,6 +44,7 @@ struct AutoListView: View {
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 3:
@@ -50,6 +53,7 @@ struct AutoListView: View {
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 4:
@@ -58,6 +62,7 @@ struct AutoListView: View {
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal,
                         refreshAction: viewModel.fetchAllCars
                     )
                 case 5:
@@ -66,6 +71,7 @@ struct AutoListView: View {
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal,
                         refreshAction: viewModel.fetchAllCars
                     )
                 default:
@@ -74,6 +80,7 @@ struct AutoListView: View {
                         selectedAuto: $selectedAuto,
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal,
                         refreshAction: viewModel.fetchAllCars
                     )
                 }
@@ -112,6 +119,7 @@ struct AutoListView: View {
                 ModalAutoView(
                     carModel: $selectedAuto,
                     showModalView: $showModalCard,
+                    showSignSuggestModal: $showSignSuggestModal,
                     showModalReservation: $showModalReservation
                 )
             }
@@ -128,6 +136,7 @@ struct AutoListView: View {
 #Preview {
     AutoListView(
         selectedAuto: Binding.constant(Car.companion.empty()),
-        showModalReservation: Binding.constant(false)
+        showModalReservation: Binding.constant(false),
+        showSignSuggestModal: Binding.constant(false)
     )
 }

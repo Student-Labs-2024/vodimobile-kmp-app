@@ -13,6 +13,8 @@ struct AutoCardWithButtonView: View {
     @Binding var showModal: Bool
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
+    @EnvironmentObject var authManager: AuthManager
     @ObservedObject var viewModel: AutoCardViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 20),
@@ -23,12 +25,14 @@ struct AutoCardWithButtonView: View {
         carModel: Binding<Car>,
         selectedAuto: Binding<Car>,
         showModal: Binding<Bool>,
-        showModalReservation: Binding<Bool>
+        showModalReservation: Binding<Bool>,
+        showSignSuggestModal: Binding<Bool>
     ) {
         self.viewModel = .init(carModel: carModel)
         self._selectedAuto = selectedAuto
         self._showModalReservation = showModalReservation
         self._showModal = showModal
+        self._showSignSuggestModal = showSignSuggestModal
     }
     
     var body: some View {
@@ -55,8 +59,12 @@ struct AutoCardWithButtonView: View {
             HStack {
                 
                 Button(R.string.localizable.bookButton()) {
-                    selectedAuto = viewModel.carModel
-                    showModalReservation.toggle()
+                    if authManager.isAuthenticated {
+                        selectedAuto = viewModel.carModel
+                        showModalReservation.toggle()
+                    } else {
+                        showSignSuggestModal.toggle()
+                    }
                 }
                 .buttonStyle(FilledBtnStyle(heightButton: 40))
                 .padding(.trailing, 20)

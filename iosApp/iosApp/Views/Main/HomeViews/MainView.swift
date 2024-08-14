@@ -19,6 +19,8 @@ struct MainView: View {
     @State private var showModalCard: Bool = false
     @State private var selectedAuto: Car = Car.companion.empty()
     @State private var showModalReservation: Bool = false
+    @State private var showSignSuggestModal: Bool = false
+    @EnvironmentObject var authManager: AuthManager
     @ObservedObject private var viewModel = MainViewModel()
 
     var body: some View {
@@ -32,7 +34,8 @@ struct MainView: View {
                             NavigationLink(R.string.localizable.allAutoButton()) {
                                 AutoListView(
                                     selectedAuto: $selectedAuto,
-                                    showModalReservation: $showModalReservation
+                                    showModalReservation: $showModalReservation,
+                                    showSignSuggestModal: $showSignSuggestModal
                                 )
                             }
                             .font(.buttonTabbar)
@@ -43,13 +46,15 @@ struct MainView: View {
                         ForEach(viewModel.listOfPopularCar.indices, id: \.self) { index in
                             AutoSimpleCardView(
                                 carModel: $viewModel.listOfPopularCar[index],
-                                showModal: $showModalCard,
+                                showModal: $showModalCard, 
+                                showSignSuggestModal: $showSignSuggestModal,
                                 selectedAuto: $selectedAuto
                             )
                         }
                         AutoGeneralCardView(
                             selectedAuto: $selectedAuto,
-                            showModalReservation: $showModalReservation
+                            showModalReservation: $showModalReservation,
+                            showSignSuggestModal: $showSignSuggestModal
                         )
                     }
                     .padding(.top, headerHeight * 1.75)
@@ -77,6 +82,7 @@ struct MainView: View {
                 ModalAutoView(
                     carModel: $selectedAuto,
                     showModalView: $showModalCard,
+                    showSignSuggestModal: $showSignSuggestModal,
                     showModalReservation: $showModalReservation
                 )
             }
@@ -91,6 +97,12 @@ struct MainView: View {
                     dates: nil,
                     showModal: $showModalReservation
                 )
+            }
+        )
+        .fullScreenCover(
+            isPresented: $showSignSuggestModal,
+            content: {
+                SignSuggestView(showSignSuggestModal: $showSignSuggestModal)
             }
         )
     }
