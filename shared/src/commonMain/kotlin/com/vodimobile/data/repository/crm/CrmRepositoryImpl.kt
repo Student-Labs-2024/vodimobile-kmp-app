@@ -5,38 +5,49 @@ import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeDTO
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.service_list.ServiceDTO
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
-import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
 import com.vodimobile.utils.date_formats.parseToCrmDate
+import com.vodimobile.utils.file.getName
+import com.vodimobile.utils.file.readBytes
 import com.vodimobile.utils.local_properties.getCrmServerDataFromLocalProperties
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.post
+import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.Url
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.http.parameters
+import io.ktor.util.InternalAPI
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -242,6 +253,112 @@ class CrmRepositoryImpl : CrmRepository {
             CrmEither.CrmData(data = httpResponse.body())
         } else {
             CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun getCarFreeDateRange(
+        accessToken: String,
+        refreshToken: String,
+        carFreeDateRangeParams: CarFreeDateRangeParams
+    ): CrmEither<CarFreeDateRangeDTO, HttpStatusCode> {
+        val httpResponse: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get(
+                    block = {
+                        url(url = Url(crmServerData.buildUrl(CrmRouting.CarPeriodList.CAR_PERIOD)))
+                        parameters {
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.CAR_ID,
+                                carFreeDateRangeParams.car_id
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.BEGIN,
+                                carFreeDateRangeParams.begin
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.END,
+                                carFreeDateRangeParams.end
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.INCLUDE_RESERVES,
+                                carFreeDateRangeParams.include_reserves
+                            )
+                            parameter(
+                                CrmRouting.CarPeriodList.PARAM.INCLUDE_IDLES,
+                                carFreeDateRangeParams.include_idles
+                            )
+                        }
+                    }
+                )
+
+        return if (httpResponse.status.isSuccess()) {
+            CrmEither.CrmData(data = httpResponse.body())
+        } else {
+            CrmEither.CrmError(status = httpResponse.status)
+        }
+    }
+
+    override suspend fun createBid(
+        accessToken: String,
+        refreshToken: String,
+        bidCreateParams: BidCreateParams
+    ): CrmEither<BidCreateDTO, HttpStatusCode> {
+        val response: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .put(block = {
+                    url(url = Url(crmServerData.buildUrl(CrmRouting.BidCreate.BID_CREATE)))
+                    setBody(
+                        MultiPartFormDataContent(
+                            formData {
+
+                                append(CrmRouting.BidCreate.PARAM.FIO, bidCreateParams.fio)
+                                append(CrmRouting.BidCreate.PARAM.PHONE, bidCreateParams.phone)
+                                append(CrmRouting.BidCreate.PARAM.CAR_ID, bidCreateParams.car_id)
+
+                                append(CrmRouting.BidCreate.PARAM.BEGIN, bidCreateParams.begin)
+                                append(CrmRouting.BidCreate.PARAM.END, bidCreateParams.end)
+
+                                append(
+                                    CrmRouting.BidCreate.PARAM.BEGIN_PLACE_ID,
+                                    bidCreateParams.begin_place_id
+                                )
+                                append(
+                                    CrmRouting.BidCreate.PARAM.END_PLACE_ID,
+                                    bidCreateParams.end_place_id
+                                )
+
+                                if (bidCreateParams.prepayment != null) append(
+                                    CrmRouting.BidCreate.PARAM.PREPAYMENT,
+                                    bidCreateParams.prepayment
+                                )
+
+                                if (bidCreateParams.services != null) append(
+                                    CrmRouting.BidCreate.PARAM.SERVICES,
+                                    bidCreateParams.services
+                                )
+
+                                if (bidCreateParams.files != null)
+                                    bidCreateParams.files.forEach { file ->
+                                        append(
+                                            key = CrmRouting.BidCreate.PARAM.FILES,
+                                            value = file.readBytes(),
+                                            headers = Headers.build {
+                                                val fileName = file.getName()
+                                                append(HttpHeaders.ContentType, "image/png")
+                                                append(HttpHeaders.ContentDisposition, "filename=\"${fileName}\"")
+                                            })
+                                    }
+
+                            },
+                            boundary = "WebAppBoundary"
+                        )
+                    )
+                })
+
+        return if (response.status.isSuccess()) {
+            CrmEither.CrmData(data = response.body())
+        } else {
+            CrmEither.CrmError(status = response.status)
         }
     }
 
