@@ -54,4 +54,36 @@ object CrmRouting {
             const val SERVICES = "services"
         }
     }
+
+    object CarPeriodList {
+        const val CAR_PERIOD = "car_period_list"
+
+        object PARAM {
+            const val CAR_ID = "car_id"
+            const val BEGIN = "begin"
+            const val END = "end"
+            const val INCLUDE_RESERVES = "include_reserves"
+            const val INCLUDE_IDLES = "include_idles"
+        }
+    }
+
+    object BidCreate {
+        const val BID_CREATE = "bid_create"
+
+        object PARAM {
+            const val FIO = "fio"
+            const val PHONE = "phone"
+            const val CAR_ID = "car_id"
+
+            const val BEGIN = "begin"
+            const val END = "end"
+
+            const val BEGIN_PLACE_ID = "begin_place_id"
+            const val END_PLACE_ID = "end_place_id"
+
+            const val PREPAYMENT = "prepayment"
+            const val SERVICES = "services"
+            const val FILES = "files"
+        }
+    }
 }

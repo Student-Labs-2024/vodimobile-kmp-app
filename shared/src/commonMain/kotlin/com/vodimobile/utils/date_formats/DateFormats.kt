@@ -42,3 +42,20 @@ fun Long.parseToSupabaseDate(): String {
 
     return format
 }
+
+@OptIn(FormatStringsInDatetimeFormats::class)
+fun Long.parseToCrmDateTime(): String {
+
+    val formatPattern = "yyyy-MM-dd hh:mm"
+    val dateTimeFormat = LocalDateTime.Format {
+        byUnicodePattern(formatPattern)
+    }
+
+    val fromEpochMilliseconds: Instant = Instant.fromEpochMilliseconds(this)
+    val localDateTime: LocalDateTime =
+        fromEpochMilliseconds.toLocalDateTime(TimeZone.of("Russia/Omsk"))
+    val format: String = localDateTime.format(dateTimeFormat)
+
+
+    return format
+}

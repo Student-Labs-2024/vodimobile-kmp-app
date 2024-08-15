@@ -135,4 +135,8 @@
     <string name="auth_2_user_supabase_error">This user does not exist.</string>
     <string name="coast_order">%s rub</string>
     <string name="about_the_order">about the order</string>
+
+    <string name="delete_order">Are you sure you want to delete order?</string>
+    <string name="delete_order_back">Cansel</string>
+    <string name="delete_order_cansel">Delete</string>
 </resources>

@@ -2,9 +2,13 @@ package com.vodimobile.domain.repository.crm
 
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeDTO
+import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.place_list.PlaceDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
@@ -47,5 +51,21 @@ interface CrmRepository {
 
     suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): CrmEither<UserResponse, HttpStatusCode>
 
-    suspend fun getBidCost(accessToken: String, refreshToken: String, bidCostParams: BidCostParams) : CrmEither<BidCostDTO, HttpStatusCode>
+    suspend fun getBidCost(
+        accessToken: String,
+        refreshToken: String,
+        bidCostParams: BidCostParams
+    ): CrmEither<BidCostDTO, HttpStatusCode>
+
+    suspend fun getCarFreeDateRange(
+        accessToken: String,
+        refreshToken: String,
+        carFreeDateRangeParams: CarFreeDateRangeParams
+    ): CrmEither<CarFreeDateRangeDTO, HttpStatusCode>
+
+    suspend fun createBid(
+        accessToken: String,
+        refreshToken: String,
+        bidCreateParams: BidCreateParams
+    ): CrmEither<BidCreateDTO, HttpStatusCode>
 }
