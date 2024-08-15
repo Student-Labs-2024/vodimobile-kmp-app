@@ -9,11 +9,16 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @ObservedObject private var viewModel = UserDataViewModel()
+    @ObservedObject private var viewModel: UserDataViewModel
     @FocusState private var focusedField: Field?
     
     enum Field {
         case fullname, phone
+    }
+    
+    init() {
+        self.viewModel = .init()
+        self.viewModel.fetchUserData()
     }
     
     var body: some View {
@@ -60,20 +65,25 @@ struct PersonDataView: View {
             $viewModel.dataIsEditing.wrappedValue = newValue != nil ? true : false
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
-        .alert(R.string.localizable.alertErrorSavingTitle(), isPresented: $viewModel.showErrorAlert, actions: {
-            Button(R.string.localizable.closeButton(), role: .cancel) {
-                viewModel.showErrorAlert.toggle()
+        .alert(
+            R.string.localizable.alertErrorSavingTitle(),
+            isPresented: $viewModel.showErrorAlert,
+            actions: {
+                Button(R.string.localizable.closeButton(), role: .cancel) {
+                    viewModel.showErrorAlert.toggle()
+                }
+            }, message: {
+                Text(R.string.localizable.alertErrorSavingText)
+            })
+        .alert(
+            R.string.localizable.alertSavePersonDataTitle(),
+            isPresented: $viewModel.dataHasBeenSaved) {
+                Button(R.string.localizable.closeButton(), role: .cancel) {
+                    viewModel.dataHasBeenSaved.toggle()
+                }
             }
-        }, message: {
-            Text(R.string.localizable.alertErrorSavingText)
-        })
-        .alert(R.string.localizable.alertSavePersonDataTitle(), isPresented: $viewModel.dataHasBeenSaved) {
-            Button(R.string.localizable.closeButton(), role: .cancel) {
-                viewModel.dataHasBeenSaved.toggle()
-            }
-        }
-        .onAppear {
-            viewModel.fetchUserData()
+            .onAppear {
+                viewModel.fetchUserData()
         }
         .navigationBarBackButtonHidden()
         .toolbar {

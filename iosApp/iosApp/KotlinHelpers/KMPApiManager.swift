@@ -26,7 +26,8 @@ final class KMPApiManager {
     func getSupaUser(pass: String, phone: String) async -> User? {
         if appState.isConnected {
             do {
-                return try await helper.getUser(password: pass, phone: phone)
+                let supaUser = try await helper.getUser(password: pass, phone: phone)
+                return supaUser != User.companion.empty() ? supaUser : nil
             } catch {
                 print(error)
             }
@@ -154,9 +155,14 @@ final class KMPApiManager {
 
 final class AuthManager: ObservableObject {
     static let shared = AuthManager()
-    @Published var isAuthenticated: Bool = false
+    @Published var isAuthenticated = false
     @ObservedObject var dataStorage = KMPDataStorage.shared
     private var apiManager = KMPApiManager.shared
+    
+    init() {
+        self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
+                               dataStorage.gettingUser != nil
+    }
     
     func signUp(fullname: String, phone: String, password: String) async {
         await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
@@ -167,6 +173,13 @@ final class AuthManager: ObservableObject {
     
     func login(phone: String, pass: String) async {
         let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone)
+        if let supaUser = supaUser {
+            do {
+                try await self.dataStorage.editUserData(supaUser)
+            } catch {
+                print(error)
+            }
+        }
         self.dataStorage.gettingUser = supaUser
         self.isAuthenticated = true
     }

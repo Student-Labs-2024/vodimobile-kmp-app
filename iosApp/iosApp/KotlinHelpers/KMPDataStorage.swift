@@ -16,7 +16,6 @@ final class KMPDataStorage: ObservableObject {
     @Published var gettingUser: User? = nil
     
     init() {
-        self.gettingUser = User.companion.empty()
         Task {
             await getUser()
         }

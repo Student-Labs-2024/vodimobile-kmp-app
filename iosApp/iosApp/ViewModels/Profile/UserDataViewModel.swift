@@ -47,6 +47,7 @@ final class UserDataViewModel: ObservableObject {
             .sink { newValue in
                 self.fullname = newValue?.fullName ?? ""
                 self.phone = newValue?.phone ?? ""
+                self.password = newValue?.password ?? ""
             }
             .store(in: &cancellableSet)
         
@@ -70,8 +71,7 @@ final class UserDataViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { phone in
                 let pattern = phoneRegex
-                if let _ = self.handlePhoneString(phone, pattern: pattern)
-                {
+                if let _ = self.handlePhoneString(phone, pattern: pattern) {
                     return true
                 } else {
                     if !phone.isEmpty {
@@ -135,10 +135,6 @@ final class UserDataViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
     
-    func changeUserData() {
-        
-    }
-    
     func saveEditedUserData() {
         isLoading = true
         if let storageUser = dataStorage.gettingUser {
@@ -165,9 +161,9 @@ final class UserDataViewModel: ObservableObject {
     }
     
     func fetchUserData() {
-        isLoading = true
+        isLoading.toggle()
         
-        Task.detached {
+        Task {
             await self.dataStorage.getUser()
         }
         isLoading.toggle()
