@@ -41,6 +41,7 @@ import com.vodimobile.android.R
 import com.vodimobile.domain.model.order.Order
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
 import com.vodimobile.presentation.components.order_card.OrderCard
 import com.vodimobile.presentation.screens.orders.components.NoOrders
@@ -66,7 +67,7 @@ fun OrdersScreen(
         orderEffect.collect { effect ->
             when (effect) {
                 OrderEffect.InfoOrderClick -> {
-
+                    navHostController.navigate(route = LeafOrdersScreen.ABOUT_ORDER_SCREEN)
                 }
 
                 OrderEffect.ShowProgressDialog -> {
@@ -132,7 +133,10 @@ fun OrdersScreen(
                         .fillMaxWidth()
                         .padding(paddingValues)
                         .padding(top = 28.dp, start = 16.dp, end = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
+                    verticalArrangement = Arrangement.spacedBy(
+                        space = 20.dp,
+                        alignment = Alignment.Top
+                    )
                 ) {
                     items(orderState.value.orders) { item ->
                         OrderCard(

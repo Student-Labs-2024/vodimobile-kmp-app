@@ -129,9 +129,18 @@
     <string name="order_titile2">Оформить заявку можно в главной</string>
     <string name="my_orders">Мои заказы</string>
     <string name="coast_order">%s руб</string>
-    <string name="about_the_order">о заказе</string>
+    <string name="about_the_order">О заказе</string>
 
     <string name="delete_order">Вы уверены, что хотите отменить заявку?</string>
     <string name="delete_order_back">Назад</string>
     <string name="delete_order_cansel">Отменить</string>
+
+    <string name="auto">Автомобиль</string>
+    <string name="order_status">Статус заказа</string>
+    <string name="rent_period">Период аренды:</string>
+    <string name="where_take_auto">Где заберете авто</string>
+    <string name="what_time">В какое время:</string>
+    <string name="auto_charestiristics">Характеристики автомобиля:</string>
+    <string name="sum_order">Итого:</string>
+    <string name="change_order">Изменить заявку</string>
 </resources>
