@@ -10,8 +10,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.order.Order
 import com.vodimobile.presentation.theme.VodimobileTheme
@@ -33,6 +38,7 @@ import com.vodimobile.presentation.utils.DatePatterns
 fun OrderCard(
     carItem: Car,
     orderItem: Order,
+    onClick: (Order) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -93,9 +99,20 @@ fun OrderCard(
                 Text(
                     modifier = Modifier
                         .wrapContentWidth(),
-                    text = "16 800 руб.",
+                    text = stringResource(id = R.string.coast_order, orderItem.bid.cost),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.labelSmall
+                )
+            }
+            IconButton(
+                onClick = {
+
+                }
+            ) {
+                Icon(
+                    modifier = Modifier.padding(start = 12.dp),
+                    imageVector = Icons.Rounded.KeyboardArrowRight,
+                    contentDescription = stringResource(R.string.about_the_order)
                 )
             }
         }
@@ -106,6 +123,10 @@ fun OrderCard(
 @Composable
 private fun OrderCardPreview() {
     VodimobileTheme(dynamicColor = false) {
-        OrderCard(carItem = Car.empty(), orderItem = Order.empty())
+        OrderCard(
+            carItem = Car.empty(),
+            orderItem = Order.empty(),
+            onClick = {}
+        )
     }
 }
