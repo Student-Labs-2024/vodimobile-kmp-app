@@ -76,6 +76,9 @@ kotlin {
             implementation(libs.gotrue.kt)
             implementation(libs.realtime.kt)
 
+            //Okio
+            implementation(libs.okio)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

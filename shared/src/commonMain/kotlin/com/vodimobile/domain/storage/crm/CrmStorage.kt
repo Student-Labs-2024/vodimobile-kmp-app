@@ -3,12 +3,15 @@ package com.vodimobile.domain.storage.crm
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
@@ -25,7 +28,9 @@ class CrmStorage(
     private val getFreeCarsUseCaSE: GetFreeCarsUseCaSE,
     private val getServiceListUseCase: GetServiceListUseCase,
     private val refreshTokenUseCase: RefreshTokenUseCase,
-    private val getBidCostUseCase: GetBidCostUseCase
+    private val getBidCostUseCase: GetBidCostUseCase,
+    private val getCarFreeDateRange: GetCarFreeDateRange,
+    private val createBidUseCase: CreateBidUseCase
 ) {
     suspend fun getCarList(
         accessToken: String,
@@ -39,7 +44,11 @@ class CrmStorage(
         refreshToken: String,
         carIds: Array<Int>
     ): CrmEither<List<Car>, HttpStatusCode> {
-        return getCarListUseCase(accessToken = accessToken, refreshToken = refreshToken, carIds = carIds)
+        return getCarListUseCase(
+            accessToken = accessToken,
+            refreshToken = refreshToken,
+            carIds = carIds
+        )
     }
 
     suspend fun getTariffByCar(
@@ -83,4 +92,24 @@ class CrmStorage(
         refreshToken: String,
         bidCostParams: BidCostParams
     ) = getBidCostUseCase.invoke(accessToken, refreshToken, bidCostParams)
+
+    suspend fun getCarFreeDateRange(
+        accessToken: String,
+        refreshToken: String,
+        carId: Int,
+        begin: Long,
+        end: Long
+    ) = getCarFreeDateRange.invoke(
+        accessToken = accessToken,
+        refreshToken = refreshToken,
+        carId = carId,
+        begin = begin,
+        end = end
+    )
+
+    suspend fun createBid(
+        accessToken: String,
+        refreshToken: String,
+        bidCreateParams: BidCreateParams
+    ) = createBidUseCase(accessToken, refreshToken, bidCreateParams)
 }
