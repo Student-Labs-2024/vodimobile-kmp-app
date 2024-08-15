@@ -41,9 +41,10 @@ struct AuthScreenView: View {
                 }
                 
                 NavigationLink(destination: PinCodeView(
-                    phoneNumber: $viewModel.phone,
                     showSignSuggestModal: $showSignSuggestModal,
-                    isResetPasswordFlow: false
+                    authFlowType: .auth,
+                    phoneNumber: viewModel.phone,
+                    pass: viewModel.password
                 )
                 ) {
                     Text(R.string.localizable.nextBtnName)

@@ -107,8 +107,8 @@ class CrmRepositoryImpl : CrmRepository {
         val tmp = """
             {
                 "UserName": "${SharedBuildkonfig.crm_login}",
-                "PasswordHash" : "${SharedBuildkonfig.crm_password_hash}",
-                "LongToken" : true
+                "PasswordHash": "${SharedBuildkonfig.crm_password_hash}",
+                "LongToken": true
             }
         """.trimIndent()
         val response: HttpResponse = client.post(

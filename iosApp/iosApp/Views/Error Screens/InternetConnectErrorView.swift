@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InternetConnectErrorView: View {
-    @EnvironmentObject var appState: AppState
+    @ObservedObject var appState = AppState.shared
     
     var body: some View {
         VStack(spacing: 36) {
@@ -33,6 +33,7 @@ struct InternetConnectErrorView: View {
             Spacer()
             
             Button(R.string.localizable.reconnectButton()) {
+                appState.checkConnectivity()
                 // TODO: - add logic for repeat to connect with server
             }
             .buttonStyle(BorderedBtnStyle())

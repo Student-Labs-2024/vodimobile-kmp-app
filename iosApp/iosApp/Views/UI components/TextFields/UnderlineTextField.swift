@@ -20,13 +20,11 @@ struct UnderlineTextField: View {
     private var title: String
     private let keyboardType: UIKeyboardType
     private let regex: String
-    private let initText: String
     
     init(text: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
         self._text = text
         self.fieldType = fieldType
         self._isValid = isValid
-        self.initText = text.wrappedValue
         
         switch fieldType {
         case .email:
@@ -66,7 +64,7 @@ struct UnderlineTextField: View {
                 }
                 
                 if fieldType == .phone {
-                    iPhoneNumberField(title, text: $text)
+                    iPhoneNumberField(text, text: $text)
                         .formatted()
                         .prefixHidden(false)
                         .clearButtonMode(.never)
@@ -101,9 +99,9 @@ struct UnderlineTextField: View {
                         .onChange(of: text) { _ in
                             validateInput()
                         }
-                        .disabled(!initText.isEmpty && !isFocused)
+                        .disabled(!text.isEmpty && text != "+" && !isFocused)
                 } else {
-                    TextField("", text: $text)
+                    TextField(text, text: $text)
                         .font(.paragraph2)
                         .focused($isFocused)
                         .padding(.bottom, 5)

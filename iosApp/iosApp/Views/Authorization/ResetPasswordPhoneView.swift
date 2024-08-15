@@ -40,9 +40,10 @@ struct ResetPasswordPhoneView: View {
                 
                 NavigationLink(
                     destination: PinCodeView(
-                        phoneNumber: $viewModel.phone,
                         showSignSuggestModal: $showSignSuggestModal,
-                        isResetPasswordFlow: true
+                        authFlowType: .resetPassword,
+                        phoneNumber: viewModel.phone,
+                        pass: viewModel.password
                     )
                 ) {
                     Text(R.string.localizable.nextBtnName)

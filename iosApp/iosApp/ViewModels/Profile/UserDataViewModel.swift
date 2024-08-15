@@ -32,7 +32,7 @@ final class UserDataViewModel: ObservableObject {
     @Published var showErrorAlert: Bool = false
     @Published var isLoading: Bool = false
     // data storage
-    @ObservedObject var dataStorage = KMPDataStorage()
+    @ObservedObject var dataStorage = KMPDataStorage.shared
     // observable set
     private var cancellableSet: Set<AnyCancellable> = []
 
@@ -47,6 +47,7 @@ final class UserDataViewModel: ObservableObject {
             .sink { newValue in
                 self.fullname = newValue?.fullName ?? ""
                 self.phone = newValue?.phone ?? ""
+                self.password = newValue?.password ?? ""
             }
             .store(in: &cancellableSet)
         
@@ -70,8 +71,7 @@ final class UserDataViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { phone in
                 let pattern = phoneRegex
-                if let _ = self.handlePhoneString(phone, pattern: pattern)
-                {
+                if let _ = self.handlePhoneString(phone, pattern: pattern) {
                     return true
                 } else {
                     if !phone.isEmpty {
@@ -161,16 +161,12 @@ final class UserDataViewModel: ObservableObject {
     }
     
     func fetchUserData() {
-        isLoading = true
+        isLoading.toggle()
         
-        Task.detached {
-            do {
-               try await self.dataStorage.getUser()
-            } catch {
-                print(error)
-            }
+        Task {
+            await self.dataStorage.getUser()
         }
-        self.isLoading.toggle()
+        isLoading.toggle()
     }
     
     func comparePasswords() -> Bool {

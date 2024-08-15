@@ -13,15 +13,29 @@ struct PinCodeView: View {
     @State private var pin: [String] = ["", "", "", ""]
     @FocusState private var focusedField: Int?
     @State private var isButtonEnabled: Bool = false
-    @Binding var phoneNumber: String
     @Binding var showSignSuggestModal: Bool
-    @EnvironmentObject var authManager: AuthManager
-    
-    @Environment(\.dismiss) private var dismiss
-
-    let isResetPasswordFlow: Bool
+    private let authFlowType: AuthFlowType
     private var sendCodeOnPhoneText: String {
         "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
+    }
+    private let fullname: String
+    private let phoneNumber: String
+    private let pass: String
+    private let authManager = AuthManager.shared
+    @Environment(\.dismiss) private var dismiss
+    
+    init(
+        showSignSuggestModal: Binding<Bool>,
+        authFlowType: AuthFlowType,
+        phoneNumber: String,
+        pass: String,
+        fullname: String? = nil
+    ) {
+        self._showSignSuggestModal = showSignSuggestModal
+        self.fullname = fullname ?? ""
+        self.phoneNumber = phoneNumber
+        self.pass = pass
+        self.authFlowType = authFlowType
     }
     
     var body: some View {
@@ -48,21 +62,36 @@ struct PinCodeView: View {
                     toggleButtonEnabled()
                 }
                 
-                if isResetPasswordFlow {
+                switch authFlowType {
+                case .registration:
+                    Button(R.string.localizable.nextBtnName(), action: {
+                        Task {
+                            await authManager.signUp(
+                                fullname: fullname,
+                                phone: phoneNumber,
+                                password: pass
+                            )
+                        }
+                        showSignSuggestModal.toggle()
+                    })
+                    .buttonStyle(FilledBtnStyle())
+                    .disabled(!isButtonEnabled)
+                case .auth:
+                    Button(R.string.localizable.nextBtnName(), action: {
+                        Task {
+                            await authManager.login(phone: phoneNumber, pass: pass)
+                        }
+                        showSignSuggestModal.toggle()
+                    })
+                    .buttonStyle(FilledBtnStyle())
+                    .disabled(!isButtonEnabled)
+                case .resetPassword:
                     NavigationLink(destination: ResetPasswordPassView()) {
                         Text(R.string.localizable.nextBtnName)
                     }
                     .buttonStyle(FilledBtnStyle())
                     .disabled(!isButtonEnabled)
-                } else {
-                    Button(R.string.localizable.nextBtnName(), action: {
-                        authManager.login(user: User.companion.empty())
-                        showSignSuggestModal.toggle()
-                    })
-                    .buttonStyle(FilledBtnStyle())
-                    .disabled(!isButtonEnabled)
                 }
-                
             }
             
             HStack {

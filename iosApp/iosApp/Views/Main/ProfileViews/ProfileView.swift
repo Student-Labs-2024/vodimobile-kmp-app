@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject var authManager: AuthManager
-    @EnvironmentObject var dataStorage: KMPDataStorage
+    @ObservedObject var authManager = AuthManager.shared
     @ObservedObject private var viewModel: ProfileViewModel
     @State private var showAlert: Bool = false
     @State private var showSignSuggestModal: Bool = false
@@ -46,7 +45,6 @@ struct ProfileView: View {
                         VStack {
                             Button(action: {
                                 showAlert.toggle()
-                                // TODO: - Appear modal with sign suggesting
                             }, label: {
                                 HStack(spacing: 20) {
                                     Image(R.image.exitIcon)
