@@ -1,5 +1,7 @@
 package com.vodimobile.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,8 +27,8 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
-import com.vodimobile.presentation.components.TimePickerSwitchable
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.TimePickerSwitchable
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
@@ -54,8 +56,8 @@ import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.reservation.ReservationScreen
 import com.vodimobile.presentation.screens.reservation.ReservationViewModel
-import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
+import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
 import com.vodimobile.presentation.screens.reset_password.ResetPasswordScreen
@@ -80,6 +82,7 @@ import com.vodimobile.presentation.utils.internet.connectivityState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.koinViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalCoroutinesApi::class)
 @Composable
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
