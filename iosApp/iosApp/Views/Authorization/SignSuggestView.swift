@@ -4,7 +4,7 @@ import shared
 struct SignSuggestView: View {
     @State private var isButtonEnabled: Bool = true
     @Binding var showSignSuggestModal: Bool
-    @EnvironmentObject var appState: AppState
+    @ObservedObject var appState = AppState.shared
     private var authManager = AuthManager.shared
     
     init(showSignSuggestModal: Binding<Bool>) {

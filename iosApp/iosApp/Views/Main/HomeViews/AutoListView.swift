@@ -110,11 +110,6 @@ struct AutoListView: View {
                         }
                     }
             )
-            .onAppear {
-                Task {
-                    await viewModel.fetchAllCars()
-                }
-            }
             .sheet(isPresented: $showModalCard) {
                 ModalAutoView(
                     carModel: $selectedAuto,

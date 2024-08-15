@@ -135,6 +135,10 @@ final class UserDataViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
     
+    func changeUserData() {
+        
+    }
+    
     func saveEditedUserData() {
         isLoading = true
         if let storageUser = dataStorage.gettingUser {
@@ -166,7 +170,7 @@ final class UserDataViewModel: ObservableObject {
         Task.detached {
             await self.dataStorage.getUser()
         }
-        self.isLoading.toggle()
+        isLoading.toggle()
     }
     
     func comparePasswords() -> Bool {

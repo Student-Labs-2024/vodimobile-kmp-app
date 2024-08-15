@@ -52,8 +52,11 @@ struct RegistrationScreenView: View {
                 
                 NavigationLink(
                     destination: PinCodeView(
-                        phoneNumber: $viewModel.phone,
-                        showSignSuggestModal: $showSignSuggestModal
+                        showSignSuggestModal: $showSignSuggestModal,
+                        authFlowType: .registration,
+                        phoneNumber: viewModel.phone,
+                        pass: viewModel.password,
+                        fullname: viewModel.fullname
                     )
                 ) {
                     Text(R.string.localizable.nextBtnName)

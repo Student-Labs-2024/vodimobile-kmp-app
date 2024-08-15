@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
-    @EnvironmentObject var appState: AppState
+    @ObservedObject var appState = AppState.shared
     
     var body: some View {
         GeometryReader { geometry in

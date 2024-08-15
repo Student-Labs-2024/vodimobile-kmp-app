@@ -112,6 +112,10 @@ enum RequestReservationState {
     case success, fail
 }
 
+enum AuthFlowType {
+    case registration, auth, resetPassword
+}
+
 // field types
 enum TextFieldType: String {
     case email, phone, fullName, password, oldPassword, newPassword
