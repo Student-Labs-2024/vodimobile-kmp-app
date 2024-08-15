@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.domain.model.order.Order
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
@@ -126,7 +128,11 @@ fun OrdersScreen(
                 }
             } else {
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(paddingValues)
+                        .padding(top = 28.dp, start = 16.dp, end = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
                 ) {
                     items(orderState.value.orders) { item ->
                         OrderCard(
@@ -149,7 +155,13 @@ private fun OrdersScreenLightPreview() {
         val orderViewModel = OrderViewModel()
         OrdersScreen(
             orderIntent = orderViewModel::onIntent,
-            orderState = orderViewModel.orderState.collectAsState(),
+            orderState = orderViewModel.orderState.collectAsState(
+                initial = OrderState(
+                    orders = listOf(
+                        Order.empty(), Order.empty()
+                    )
+                )
+            ),
             orderEffect = orderViewModel.orderEffect,
             navHostController = rememberNavController()
         )

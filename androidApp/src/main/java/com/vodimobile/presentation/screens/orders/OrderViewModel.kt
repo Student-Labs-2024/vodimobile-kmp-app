@@ -2,11 +2,13 @@ package com.vodimobile.presentation.screens.orders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.order.Order
 import com.vodimobile.presentation.screens.orders.store.OrderEffect
 import com.vodimobile.presentation.screens.orders.store.OrderIntent
 import com.vodimobile.presentation.screens.orders.store.OrderState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class OrderViewModel() : ViewModel() {
@@ -34,6 +36,13 @@ class OrderViewModel() : ViewModel() {
 
             OrderIntent.InitCards -> {
                 viewModelScope.launch {
+                    orderState.update {
+                        it.copy(
+                            orders = listOf(
+                                Order.empty(), Order.empty()
+                            )
+                        )
+                    }
                 }
             }
         }

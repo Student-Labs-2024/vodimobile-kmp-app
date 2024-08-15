@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -42,14 +43,15 @@ fun OrderCard(
 ) {
     Card(
         modifier = modifier
-            .wrapContentWidth()
+            .fillMaxWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
         shape = MaterialTheme.shapes.small
     ) {
         Row(
             modifier = Modifier
-                .wrapContentSize()
+                .wrapContentHeight()
+                .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
