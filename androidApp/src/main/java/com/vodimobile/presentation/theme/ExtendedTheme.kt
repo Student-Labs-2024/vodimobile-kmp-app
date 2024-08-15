@@ -15,6 +15,7 @@ data class ExtendedColors(
     val onSecondaryBackground: Color,
     val hintText: Color,
     val smsTextFieldBack: Color,
+    val greyLabel: Color,
     val smsTextFieldBorder: Color,
     val approvedOrder: Color,
     val processingOrder: Color,
@@ -29,6 +30,7 @@ val LocalExtendedColors = staticCompositionLocalOf {
         hintText = Color.Unspecified,
         smsTextFieldBack = Color.Unspecified,
         smsTextFieldBorder = Color.Unspecified,
+        greyLabel = Color.Unspecified,
         approvedOrder = Color.Unspecified,
         processingOrder = Color.Unspecified,
         cancelledOrder = Color.Unspecified
@@ -48,6 +50,7 @@ fun ExtendedTheme(
             hintText = hintTextDark,
             smsTextFieldBack = smsTextFieldBackDark,
             smsTextFieldBorder = smsTextFieldBorderDark,
+            greyLabel = greyLabelDark,
             approvedOrder = greenDark,
             processingOrder = yellowLDark,
             cancelledOrder = pinkDark
@@ -61,6 +64,7 @@ fun ExtendedTheme(
             hintText = hintTextLight,
             smsTextFieldBack = smsTextFieldBackLight,
             smsTextFieldBorder = smsTextFieldBorderLight,
+            greyLabel = greyLabelLight,
             approvedOrder = greenLight,
             processingOrder = yellowLight,
             cancelledOrder = pinkLight

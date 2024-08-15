@@ -36,12 +36,12 @@ import com.vodimobile.presentation.utils.DatePatterns
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun OrderCard(
-    carItem: Car,
     orderItem: Order,
+    modifier: Modifier = Modifier,
     onClick: (Order) -> Unit
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
@@ -70,7 +70,7 @@ fun OrderCard(
                 Image(
                     modifier = Modifier
                         .size(width = 147.dp, height = 48.dp),
-                    painter = painterResource(id = carItem.images[0].drawableResId),
+                    painter = painterResource(id = orderItem.car.images[0].drawableResId),
                     contentDescription = null
                 )
             }
@@ -85,7 +85,7 @@ fun OrderCard(
                 Text(
                     modifier = Modifier
                         .wrapContentWidth(),
-                    text = stringResource(id = carItem.model.resourceId),
+                    text = stringResource(id = orderItem.car.model.resourceId),
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.headlineSmall
                 )
@@ -124,7 +124,6 @@ fun OrderCard(
 private fun OrderCardPreview() {
     VodimobileTheme(dynamicColor = false) {
         OrderCard(
-            carItem = Car.empty(),
             orderItem = Order.empty(),
             onClick = {}
         )

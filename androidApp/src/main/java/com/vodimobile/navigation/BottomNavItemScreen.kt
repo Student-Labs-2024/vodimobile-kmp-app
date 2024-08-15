@@ -2,6 +2,7 @@ package com.vodimobile.navigation
 
 import com.vodimobile.android.R
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RootScreen
 
@@ -25,7 +26,7 @@ sealed class BottomNavItemScreen(
         R.string.orders_screen_label,
         R.drawable.order_icon,
         RootScreen.ORDERS_SCREEN,
-        emptyList()
+        listOf(LeafOrdersScreen.ORDERS_SCREEN)
     )
 
     data object Profile : BottomNavItemScreen(
