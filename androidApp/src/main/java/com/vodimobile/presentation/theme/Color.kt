@@ -94,3 +94,13 @@ val smsTextFieldBorderDark = Color(0xFF111418)
 
 val greyLabelLight = Color(0xFF595959)
 val greyLabelDark = Color(0xFF595959)
+
+
+val greenLight = Color(0xFFD8FFE6)
+val greenDark = Color(0xFFD8FFE6)
+
+val yellowLight = Color(0xFFFFF3B2)
+val yellowLDark = Color(0xFFFFF3B2)
+
+val pinkLight = Color(0xFFFFB5B1)
+val pinkDark = Color(0xFFFFB5B1)
