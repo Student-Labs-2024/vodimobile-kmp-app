@@ -51,14 +51,13 @@ object DatePatterns {
             }
 
             yearStart == yearEnd -> {
-                "$dayStart ${monthStart}  - ${monthEnd} $yearEnd"
                 // Если только годы совпадают
-
+                "${monthStart}  - ${monthEnd} $yearEnd"
             }
 
             else -> {
                 // Если годы не совпадают
-                "$dayStart ${monthStart} $yearStart - ${monthEnd} $yearEnd"
+                "${monthStart} $yearStart - ${monthEnd} $yearEnd"
             }
         }
     }
