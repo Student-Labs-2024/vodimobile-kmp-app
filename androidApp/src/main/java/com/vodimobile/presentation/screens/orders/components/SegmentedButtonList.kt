@@ -32,10 +32,11 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 @Composable
 fun SegmentedButtonList(
     @SuppressLint("ComposeUnstableCollections") tags: List<Int>,
-    selectedTagIndex: Int,
     onSelected: (Int) -> Unit
 ) {
-    var currentListValue by remember { mutableStateOf("Active") }
+    val selectedIndex = remember {
+        mutableStateOf(0)
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -57,8 +58,11 @@ fun SegmentedButtonList(
             tags.forEachIndexed { index, item ->
                 SegmentedButton(
                     text = stringResource(id = item),
-                    isSelected = index == selectedTagIndex,
-                    onClick = { onSelected(index) }
+                    isSelected = index == selectedIndex.value,
+                    onClick = {
+                        selectedIndex.value = index
+                        onSelected(index)
+                    }
                 )
             }
         }
@@ -74,13 +78,9 @@ private fun SegmentedButtonListLightPreview() {
             R.string.active_order,
             R.string.completed_order
         )
-
-        var selectedTagIndex by remember { mutableIntStateOf(0) }
-
         SegmentedButtonList(
             tags = tags,
-            selectedTagIndex = selectedTagIndex,
-            onSelected = { index -> selectedTagIndex = index }
+            onSelected = { }
         )
     }
 }
@@ -94,13 +94,9 @@ private fun SegmentedButtonListDarkPreview() {
             R.string.active_order,
             R.string.completed_order
         )
-
-        var selectedTagIndex by remember { mutableIntStateOf(0) }
-
         SegmentedButtonList(
             tags = tags,
-            selectedTagIndex = selectedTagIndex,
-            onSelected = { index -> selectedTagIndex = index }
+            onSelected = { }
         )
     }
 }

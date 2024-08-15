@@ -31,6 +31,11 @@ class OrderViewModel() : ViewModel() {
                     orderEffect.emit(OrderEffect.DismissProgressDialog)
                 }
             }
+
+            OrderIntent.InitCards -> {
+                viewModelScope.launch {
+                }
+            }
         }
     }
 }

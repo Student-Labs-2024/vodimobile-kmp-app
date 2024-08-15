@@ -129,7 +129,7 @@
     <string name="order_titile2">Оформить заявку можно в главной</string>
     <string name="my_orders">Мои заказы</string>
     <string name="coast_order">%s руб</string>
-    <string name="about_the_order">о заказе</string
+    <string name="about_the_order">о заказе</string>
 
     <string name="delete_order">Вы уверены, что хотите отменить заявку?</string>
     <string name="delete_order_back">Назад</string>

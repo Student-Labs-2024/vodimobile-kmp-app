@@ -14,18 +14,15 @@ import com.vodimobile.presentation.ProgressDialog
 import com.vodimobile.presentation.SmallProgressDialog
 
 @Composable
-internal fun SmallProgressDialogIndicator() {
+internal fun SmallProgressDialogIndicator(modifier: Modifier = Modifier) {
     Card(
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier
+        modifier = modifier
             .size(SmallProgressDialog.PROGRESS_DIALOG_CARD_DP_SIZE),
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .align(alignment = Alignment.Center)
                     .padding(all = SmallProgressDialog.PADDING),
             )
-        }
     }
 }

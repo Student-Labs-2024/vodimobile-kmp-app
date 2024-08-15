@@ -222,10 +222,10 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 if (isConnected) {
                     val orderViewModel: OrderViewModel = koinViewModel()
                     OrdersScreen(
+                        modifier = modifier,
                         orderIntent = orderViewModel::onIntent,
                         orderState = orderViewModel.orderState.collectAsState(),
                         orderEffect = orderViewModel.orderEffect,
-                        selectedTagIndex = 0,
                         navHostController = navHostController
                     )
                 } else {

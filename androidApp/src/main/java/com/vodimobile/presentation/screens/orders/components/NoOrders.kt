@@ -23,19 +23,18 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
-fun NoOrders(paddingValues: PaddingValues) {
+fun NoOrders(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(paddingValues)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .then(modifier),
         verticalArrangement = Arrangement.spacedBy(
             space = 32.dp,
             alignment = Alignment.Top
         ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(100.dp))
         Image(
             modifier = Modifier
                 .size(100.dp),
