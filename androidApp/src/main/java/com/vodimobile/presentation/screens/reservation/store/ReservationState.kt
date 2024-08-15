@@ -8,12 +8,13 @@ data class ReservationState(
     val bidCost: String = "",
     val place: String = "",
     val placeId: Int = 0,
-    val date: LongArray = longArrayOf(),
-    val startTime: String = "",
-    val endTime: String = "",
-    val errorStartTime: Boolean = true,
-    val errorEndTime: Boolean = true,
+    val errorPlace: Boolean = true,
+    val date: LongArray = longArrayOf(0L, 0L),
     val errorDate: Boolean = true,
+    val startTime: String = "",
+    val errorStartTime: Boolean = true,
+    val endTime: String = "",
+    val errorEndTime: Boolean = true,
     val comments: String = "",
     val carId: Int = 0,
     val selectedCar: Car = Car.empty(),
@@ -31,8 +32,6 @@ data class ReservationState(
         if (!date.contentEquals(other.date)) return false
         if (startTime != other.startTime) return false
         if (endTime != other.endTime) return false
-        if (errorStartTime != other.errorStartTime) return false
-        if (errorEndTime != other.errorEndTime) return false
         if (comments != other.comments) return false
         if (carId != other.carId) return false
         if (selectedCar != other.selectedCar) return false
@@ -48,8 +47,6 @@ data class ReservationState(
         result = 31 * result + date.contentHashCode()
         result = 31 * result + startTime.hashCode()
         result = 31 * result + endTime.hashCode()
-        result = 31 * result + errorStartTime.hashCode()
-        result = 31 * result + errorEndTime.hashCode()
         result = 31 * result + comments.hashCode()
         result = 31 * result + carId.hashCode()
         result = 31 * result + selectedCar.hashCode()

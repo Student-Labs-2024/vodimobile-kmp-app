@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -35,8 +34,10 @@ import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
 import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
 import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
 import com.vodimobile.domain.use_case.crm.GetCarListUseCase
 import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
 import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
@@ -117,15 +118,36 @@ fun ReservationScreen(
     }
 
     onReservationIntent(ReservationIntent.GetAllPLaces)
-    onReservationIntent(ReservationIntent.GetBidCost)
 
-    if (reservationState.value.startTime.isNotEmpty() && reservationState.value.endTime.isNotEmpty()) {
+    LaunchedEffect(carId) {
+        onReservationIntent(ReservationIntent.CarIdChange(carId))
+        onReservationIntent(ReservationIntent.GetAllCars)
+    }
+    LaunchedEffect(date) {
+        onReservationIntent(ReservationIntent.DateChange(date))
+    }
+    LaunchedEffect(startTime) {
+        onReservationIntent(ReservationIntent.StartTimeChange(startTime))
+    }
+    LaunchedEffect(endTime) {
+        onReservationIntent(ReservationIntent.EndTimeChange(endTime))
+    }
+
+    if (!reservationState.value.errorPlace &&
+        !reservationState.value.errorDate &&
+        !reservationState.value.errorStartTime &&
+        !reservationState.value.errorEndTime
+    ) {
         onReservationIntent(ReservationIntent.GetBidCost)
     }
-    val isButtonClicked = remember { mutableStateOf(false) }
 
+    val isButtonClicked = remember { mutableStateOf(false) }
     fun resetButtonClicked() {
         if (isButtonClicked.value) isButtonClicked.value = false
+    }
+
+    val emptyInitialDateFlag = remember {
+        mutableStateOf(false)
     }
 
     Scaffold(
@@ -149,25 +171,32 @@ fun ReservationScreen(
         ) {
             ReservationCarDescription(
                 car = reservationState.value.selectedCar,
-                date = fullDateToString(date),
+                date = if (!emptyInitialDateFlag.value) fullDateToString(date) else
+                    fullDateToString(
+                        longArrayOf(0L, 0L)
+                    ),
                 modifier = Modifier.padding(top = 16.dp)
             )
             ExtendedTheme {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 12.dp),
+                        .padding(top = 12.dp, bottom = 16.dp),
                     verticalArrangement = Arrangement.spacedBy(
                         space = 8.dp
                     )
                 ) {
-                    if (date.contentEquals(longArrayOf(0L, 0L))) {
+                    if (date.contentEquals(longArrayOf(0L, 0L)) || emptyInitialDateFlag.value) {
+                        emptyInitialDateFlag.value = true
                         item {
                             DescriptionDateField(
                                 label = stringResource(id = R.string.reservation_date_label),
                                 value = fullDateToString(date),
                                 placeholder = stringResource(id = R.string.reservation_date_placeholder),
-                                onClick = { onReservationIntent(ReservationIntent.ShowDatePicker) },
+                                onClick = {
+                                    onReservationIntent(ReservationIntent.ShowDatePicker)
+                                    resetButtonClicked()
+                                },
                                 isError = reservationState.value.errorDate && isButtonClicked.value,
                                 messageError = stringResource(id = R.string.error_date)
                             )
@@ -181,7 +210,6 @@ fun ReservationScreen(
                             placeholder = stringResource(id = R.string.reservation_place_placeholder),
                             onValueChange = {
                                 onReservationIntent(ReservationIntent.PlaceChange(it))
-                                onReservationIntent(ReservationIntent.GetBidCost)
                                 resetButtonClicked()
                             },
                             places = reservationState.value.placeList
@@ -193,8 +221,8 @@ fun ReservationScreen(
                             value = startTime,
                             placeholder = stringResource(id = R.string.reservation_time_placeholder),
                             onClick = {
-                                onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.START))
                                 resetButtonClicked()
+                                onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.START))
                             },
                             isError = reservationState.value.errorStartTime && isButtonClicked.value,
                             messageError = stringResource(id = R.string.error_time)
@@ -206,8 +234,8 @@ fun ReservationScreen(
                             value = endTime,
                             placeholder = stringResource(id = R.string.reservation_time_placeholder),
                             onClick = {
-                                onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.END))
                                 resetButtonClicked()
+                                onReservationIntent(ReservationIntent.ShowTimePicker(TimeType.END))
                             },
                             isError = reservationState.value.errorEndTime && isButtonClicked.value,
                             messageError = stringResource(id = R.string.empty_time)
@@ -224,39 +252,50 @@ fun ReservationScreen(
                             }
                         )
                     }
-                }
-            }
-
-            Column(
-                modifier = Modifier.padding(top = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Row(modifier = Modifier.padding(horizontal = 8.dp)) {
-                    Text(
-                        text = stringResource(id = R.string.reservation_sum),
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        text = reservationState.value.bidCost,
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-                PrimaryButton(
-                    text = stringResource(id = R.string.reservation_put_bid),
-                    enabled = reservationState.value.place.isNotEmpty(),
-                    onClick = {
-                        isButtonClicked.value = true
-                        if (reservationState.value.startTime.isNotEmpty() &&
-                            reservationState.value.endTime.isNotEmpty() &&
-                            !reservationState.value.errorStartTime &&
-                            !reservationState.value.errorEndTime
-                        )
-                            onReservationIntent(ReservationIntent.PutBid)
+                    item {
+                        Spacer(modifier = Modifier.weight(1f))
                     }
-                )
+                    item {
+                        Column(
+                            modifier = Modifier.padding(top = 12.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Row(modifier = Modifier.padding(horizontal = 8.dp)) {
+                                Text(
+                                    text = stringResource(id = R.string.reservation_sum),
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                    color = MaterialTheme.colorScheme.onBackground
+                                )
+                                Spacer(modifier = Modifier.weight(1f))
+                                Text(
+                                    text = reservationState.value.bidCost,
+                                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                                    color = MaterialTheme.colorScheme.onBackground
+                                )
+                            }
+                            PrimaryButton(
+                                text = stringResource(id = R.string.reservation_put_bid),
+                                enabled = reservationState.value.place.isNotEmpty(),
+                                onClick = {
+                                    isButtonClicked.value = true
+                                    if (reservationState.value.startTime.isNotEmpty() &&
+                                        reservationState.value.endTime.isNotEmpty() &&
+                                        !reservationState.value.date.contentEquals(
+                                            longArrayOf(
+                                                0L,
+                                                0L
+                                            )
+                                        ) &&
+                                        !reservationState.value.errorDate &&
+                                        !reservationState.value.errorStartTime &&
+                                        !reservationState.value.errorEndTime
+                                    )
+                                        onReservationIntent(ReservationIntent.PutBid)
+                                }
+                            )
+                        }
+                    }
+                }
             }
         }
     }
@@ -310,7 +349,9 @@ private fun ReservationScreenLightPreview() {
                     refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
                     getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                     getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+                    getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+                    createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
                 ),
                 supabaseStorage = SupabaseStorage(
                     getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
@@ -328,10 +369,10 @@ private fun ReservationScreenLightPreview() {
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),
-                carId = 17,
                 date = longArrayOf(0L, 0L),
                 startTime = "09:00",
-                endTime = "16:30"
+                endTime = "16:30",
+                carId = 17
             )
         }
     }
@@ -380,7 +421,9 @@ private fun ReservationScreenDarkPreview() {
                     refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
                     getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
                     getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl())
+                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+                    getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+                    createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
                 ),
                 supabaseStorage = SupabaseStorage(
                     getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
@@ -398,10 +441,10 @@ private fun ReservationScreenDarkPreview() {
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),
-                carId = 17,
                 date = longArrayOf(0L, 0L),
                 startTime = "09:00",
-                endTime = "16:30"
+                endTime = "16:30",
+                carId = 17
             )
         }
     }

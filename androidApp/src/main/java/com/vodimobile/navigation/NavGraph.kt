@@ -200,10 +200,10 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onReservationIntent = reservationViewModel::onIntent,
                     reservationEffect = reservationViewModel.reservationEffect,
                     navHostController = navHostController,
-                    carId = carId,
                     date = finalDate,
                     startTime = selectedStartTime,
-                    endTime = selectedEndTime
+                    endTime = selectedEndTime,
+                    carId = carId
                 )
             }
             dialog(

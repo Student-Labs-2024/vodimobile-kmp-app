@@ -3,6 +3,8 @@ package com.vodimobile.presentation.screens.reservation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -40,7 +42,9 @@ class ReservationViewModel(
                         when (crmEither) {
                             is CrmEither.CrmData -> {
 
-                                val car = crmEither.data.find { it.carId == reservationState.value.carId } ?: Car.empty()
+                                val car =
+                                    crmEither.data.find { it.carId == reservationState.value.carId }
+                                        ?: Car.empty()
 
                                 reservationState.update {
                                     it.copy(selectedCar = car)
@@ -91,7 +95,51 @@ class ReservationViewModel(
                     reservationState.update {
                         it.copy(
                             placeId = intent.value.first,
-                            place = intent.value.second
+                            place = intent.value.second,
+                            errorPlace = intent.value.second.isEmpty()
+                        )
+                    }
+                }
+            }
+
+            is ReservationIntent.StartTimeChange -> {
+                viewModelScope.launch {
+                    reservationState.update {
+                        it.copy(
+                            startTime = intent.value,
+                            errorStartTime = intent.value.isEmpty()
+                        )
+                    }
+                }
+            }
+
+            is ReservationIntent.EndTimeChange -> {
+                viewModelScope.launch {
+                    reservationState.update {
+                        it.copy(
+                            endTime = intent.value,
+                            errorEndTime = intent.value.isEmpty()
+                        )
+                    }
+                }
+            }
+
+            is ReservationIntent.DateChange -> {
+                viewModelScope.launch {
+                    reservationState.update {
+                        it.copy(
+                            date = intent.value,
+                            errorDate = intent.value.contentEquals(longArrayOf(0L, 0L))
+                        )
+                    }
+                }
+            }
+
+            is ReservationIntent.CarIdChange -> {
+                viewModelScope.launch {
+                    reservationState.update {
+                        it.copy(
+                            carId = intent.value
                         )
                     }
                 }
@@ -132,42 +180,76 @@ class ReservationViewModel(
             }
 
             ReservationIntent.GetBidCost -> {
-//                viewModelScope.launch {
-//                    val userFLow = dataStoreStorage.getUser()
-//                    userFLow.collect { user ->
-//                        val userFromRemote =
-//                            supabaseStorage.getUser(password = user.password, phone = user.phone)
-//                        val crmEither = crmStorage.getBidCost(
-//                            accessToken = userFromRemote.accessToken,
-//                            refreshToken = userFromRemote.refreshToken,
-//                            bidCostParams = BidCostParams(
-//                                car_id = reservationState.value.carId,
-//                                begin = "${reservationState.value.date[0]} ${reservationState.value.startTime})",
-//                                end = "${reservationState.value.date[1]} ${reservationState.value.endTime})",
-//                                begin_place_id = reservationState.value.placeId,
-//                                end_place_id = reservationState.value.placeId,
-//                                services = null
-//                            )
-//                        )
-//                        when (crmEither) {
-//                            is CrmEither.CrmData -> {
-//                                reservationState.update {
-//                                    it.copy(bidCost = crmEither.data.cost.toString())
-//                                }
-//                            }
-//
-//                            is CrmEither.CrmError -> {}
-//
-//                            CrmEither.CrmLoading -> {}
-//                        }
-//                    }
-//                }
+                viewModelScope.launch {
+                    val userFLow = dataStoreStorage.getUser()
+                    userFLow.collect { user ->
+                        val userFromRemote =
+                            supabaseStorage.getUser(
+                                password = user.password,
+                                phone = user.phone
+                            )
+                        val crmEither = crmStorage.getBidCost(
+                            accessToken = userFromRemote.accessToken,
+                            refreshToken = userFromRemote.refreshToken,
+                            bidCostParams = BidCostParams(
+                                car_id = reservationState.value.carId,
+                                begin = "${reservationState.value.date[0]} ${reservationState.value.startTime})",
+                                end = "${reservationState.value.date[1]} ${reservationState.value.endTime})",
+                                begin_place_id = reservationState.value.placeId,
+                                end_place_id = reservationState.value.placeId,
+                                services = null
+                            )
+                        )
+                        when (crmEither) {
+                            is CrmEither.CrmData -> {
+                                reservationState.update {
+                                    it.copy(bidCost = crmEither.data.cost.toString())
+                                }
+                            }
+
+                            is CrmEither.CrmError -> {}
+
+                            CrmEither.CrmLoading -> {}
+                        }
+                    }
+                }
             }
 
             ReservationIntent.PutBid -> {
                 viewModelScope.launch {
+                    reservationEffect.emit(ReservationEffect.ShowLoadingDialog)
                     val userFLow = dataStoreStorage.getUser()
-                    userFLow.collect {}
+                    userFLow.collect { user ->
+                        val userFromRemote =
+                            supabaseStorage.getUser(
+                                password = user.password,
+                                phone = user.phone
+                            )
+                        val crmEither = crmStorage.createBid(
+                            accessToken = userFromRemote.accessToken,
+                            refreshToken = userFromRemote.refreshToken,
+                            bidCreateParams = BidCreateParams(
+                                fio = userFromRemote.fullName,
+                                phone = userFromRemote.phone,
+                                car_id = reservationState.value.carId,
+                                begin = "${reservationState.value.date[0]} ${reservationState.value.startTime})",
+                                end = "${reservationState.value.date[1]} ${reservationState.value.endTime})",
+                                begin_place_id = reservationState.value.placeId,
+                                end_place_id = reservationState.value.placeId,
+                                services = null,
+                                prepayment = null,
+                                files = null
+                            )
+                        )
+                        when (crmEither) {
+                            is CrmEither.CrmData -> {}
+
+                            is CrmEither.CrmError -> {}
+
+                            CrmEither.CrmLoading -> {}
+                        }
+                    }
+                    reservationEffect.emit(ReservationEffect.DismissLoadingDialog)
                     reservationEffect.emit(ReservationEffect.PutBid)
                 }
             }

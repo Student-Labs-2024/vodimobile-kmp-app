@@ -124,7 +124,7 @@
     <string name="auth_user_supabase_error">Такой пользователь уже существует.</string>
     <string name="auth_2_user_supabase_error">Такого пользователь не существует.</string>
     <string name="coast_order">%s руб</string>
-    <string name="about_the_order">о заказе</string
+    <string name="about_the_order">о заказе</string>
 
     <string name="delete_order">Вы уверены, что хотите отменить заявку?</string>
     <string name="delete_order_back">Назад</string>
