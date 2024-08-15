@@ -26,6 +26,7 @@ import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.TimePickerSwitchable
+import com.vodimobile.presentation.components.SmallProgressDialogIndicator
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
@@ -45,6 +46,8 @@ import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
+import com.vodimobile.presentation.screens.orders.OrderViewModel
+import com.vodimobile.presentation.screens.orders.OrdersScreen
 import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
@@ -294,7 +297,23 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafOrdersScreen.ORDERS_SCREEN
         ) {
             composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
-
+                val isConnected = checkInternet(connection = connection)
+                if (isConnected) {
+                    val orderViewModel: OrderViewModel = koinViewModel()
+                    OrdersScreen(
+                        modifier = modifier,
+                        orderIntent = orderViewModel::onIntent,
+                        orderState = orderViewModel.orderState.collectAsState(),
+                        orderEffect = orderViewModel.orderEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafOrdersScreen.ORDERS_SCREEN,
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafOrdersScreen.ORDERS_SCREEN}")
+                }
             }
             composable(route = LeafOrdersScreen.SUCCESSFUL_SCREEN) {
                 val successfulAppViewModel: SuccessfulAppViewModel = koinViewModel()
@@ -310,6 +329,25 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onErrorAppIntent = errorAppViewModel::onIntent,
                     errorAppEffect = errorAppViewModel.errorAppEffect,
                     navHostController = navHostController
+                )
+            }
+            composable(route = DialogIdentifiers.SMALL_LOADING_DIALOG) {
+                SmallProgressDialogIndicator()
+            }
+            composable(
+                route = "${LeafErrorScreen.NO_INTERNET}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )
+            ) { backStackEntry->
+                val screen = backStackEntry.arguments?.getString("screen") ?: ""
+                print (screen)
+                val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
+                ConnectionErrorScreen(
+                    onNetworkErrorIntent = connectionErrorViewModel::onIntent,
+                    networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
                 )
             }
         }

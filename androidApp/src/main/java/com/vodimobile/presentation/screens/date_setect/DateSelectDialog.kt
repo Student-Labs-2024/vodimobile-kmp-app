@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vodimobile.android.R
+import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.presentation.DateFormat
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
@@ -43,7 +44,8 @@ import java.util.Date
 fun DateSelectDialog(
     onDismissClick: () -> Unit,
     onConfirmClick: (Long, Long) -> Unit,
-    initialDateInMillis: LongArray
+    initialDateInMillis: LongArray,
+    @SuppressLint("ComposeUnstableCollections") unAvailablePeriods: List<DateRange> = emptyList()
 ) {
     val cal = Calendar.getInstance()
     cal.timeInMillis = System.currentTimeMillis()
@@ -78,6 +80,10 @@ fun DateSelectDialog(
 
             todayDateBorderColor = MaterialTheme.colorScheme.primaryContainer,
             todayContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+
+            dayInSelectionRangeContainerColor = ExtendedTheme.colorScheme.smsTextFieldBack,
+            disabledSelectedDayContentColor = ExtendedTheme.colorScheme.hintText,
+            disabledDayContentColor = ExtendedTheme.colorScheme.hintText,
         )
 
         DatePickerDialog(
@@ -104,7 +110,12 @@ fun DateSelectDialog(
                 colors = colors,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(350.dp)
+                    .height(350.dp),
+                dateValidator = { date: Long ->
+                    unAvailablePeriods.none { unavailablePeriod ->
+                        date in unavailablePeriod.startDate..unavailablePeriod.endDate
+                    }
+                }
             )
 
             Divider(
@@ -222,7 +233,8 @@ private fun DateSelectDialogPreviewLightEN() {
         DateSelectDialog(
             {},
             { l, o -> },
-            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+            unAvailablePeriods = listOf(DateRange(startDate = 1723712487000L, endDate = 1724230887000))
         )
     }
 }

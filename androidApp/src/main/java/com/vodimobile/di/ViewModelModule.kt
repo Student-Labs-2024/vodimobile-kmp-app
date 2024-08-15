@@ -21,6 +21,7 @@ import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import com.vodimobile.presentation.screens.error_app.ErrorAppViewModel
 import com.vodimobile.presentation.screens.successful_app.SuccessfulAppViewModel
+import com.vodimobile.presentation.screens.orders.OrderViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -55,4 +56,5 @@ val viewModelModule = module {
     viewModelOf(::ErrorAppViewModel)
     viewModelOf(::SuccessfulAppViewModel)
     viewModelOf(::ReservationViewModel)
+    viewModelOf(::OrderViewModel)
 }

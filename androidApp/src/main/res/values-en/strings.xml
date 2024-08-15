@@ -133,6 +133,11 @@
 
     <string name="auth_user_supabase_error">This user is already exists.</string>
     <string name="auth_2_user_supabase_error">This user does not exist.</string>
+    <string name="active_order">Active</string>
+    <string name="completed_order">Completed</string>
+    <string name="order_title1">Your orders will be here</string>
+    <string name="order_titile2">You can apply in the main page</string>
+    <string name="my_orders">My orders</string>
     <string name="coast_order">%s rub</string>
     <string name="about_the_order">about the order</string>
 

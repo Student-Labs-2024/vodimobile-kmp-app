@@ -39,6 +39,7 @@ object DialogIdentifiers {
     const val DATE_SELECT_DIALOG = "date_select"
     const val LOADING_DIALOG = "loading_dialog"
     const val TIME_SELECT_DIALOG = "time_select"
+    const val SMALL_LOADING_DIALOG = "small_loading_dialog"
     const val DELETE_ORDER_DIALOG = "delete_order"
 }
 
@@ -46,6 +47,7 @@ object LeafOrdersScreen {
     const val ORDERS_SCREEN = "orders"
     const val SUCCESSFUL_SCREEN = "successful"
     const val ERROR_APP_SCREEN = "error"
+    const val NO_ORDERS_SCREEN = "no_orders"
 }
 
 object LeafErrorScreen {
