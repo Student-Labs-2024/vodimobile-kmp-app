@@ -1,6 +1,7 @@
 package com.vodimobile.presentation.components
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -17,6 +18,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimeInput
@@ -38,75 +40,71 @@ import java.util.Calendar
 import java.util.Locale
 import androidx.compose.material3.Text
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.vodimobile.android.R
+import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("ComposeModifierMissing")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimePickerSwitchableSample(
+fun TimePickerSwitchable(
     onTimeSelected: (String) -> Unit,
     onCancel: () -> Unit
 ) {
-        var showTimePicker by remember { mutableStateOf(false) }
-        val state = rememberTimePickerState()
-        val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
-        val showingPicker = remember { mutableStateOf(true) }
-        val configuration = LocalConfiguration.current
-        val cal = Calendar.getInstance()
-        var finalTime by remember {
-            mutableStateOf(formatter.format(cal.time))
-        }
-
-        if (showTimePicker) {
-            TimePickerDialog(
-                title =
-                if (showingPicker.value) {
-                    stringResource(R.string.select_time)
-                } else {
-                    stringResource(R.string.input_time)
-                },
-                onCancel = {
-                    showTimePicker = false
-                    onCancel()
-                },
-                onConfirm = {
-                    cal.set(Calendar.HOUR_OF_DAY, state.hour)
-                    cal.set(Calendar.MINUTE, state.minute)
-                    cal.isLenient = false
-                    finalTime = formatter.format(cal.timeInMillis)
-                    showTimePicker = false
-                    onTimeSelected(finalTime)
-                },
-                toggle = {
-                    if (configuration.screenHeightDp > 400) {
-                        IconButton(onClick = { showingPicker.value = !showingPicker.value }) {
-                            val icon =
-                                if (showingPicker.value) {
-                                    Icons.Outlined.Keyboard
-                                } else {
-                                    Icons.Outlined.Schedule
-                                }
-                            Icon(
-                                icon,
-                                contentDescription =
-                                if (showingPicker.value) {
-                                    stringResource(R.string.switch_to_text_input)
-                                } else {
-                                    stringResource(R.string.switch_to_touch_input)
-                                }
-                            )
+    val state = rememberTimePickerState()
+    val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
+    val showingPicker = remember { mutableStateOf(true) }
+    val configuration = LocalConfiguration.current
+    val cal = Calendar.getInstance()
+    var finalTime by remember {
+        mutableStateOf(formatter.format(cal.time))
+    }
+    TimePickerDialog(
+        title =
+        if (showingPicker.value) {
+            stringResource(R.string.select_time)
+        } else {
+            stringResource(R.string.input_time)
+        },
+        onCancel = {
+            onCancel()
+        },
+        onConfirm = {
+            cal.set(Calendar.HOUR_OF_DAY, state.hour)
+            cal.set(Calendar.MINUTE, state.minute)
+            cal.isLenient = false
+            finalTime = formatter.format(cal.timeInMillis)
+            onTimeSelected(finalTime)
+        },
+        toggle = {
+            if (configuration.screenHeightDp > 400) {
+                IconButton(onClick = { showingPicker.value = !showingPicker.value }) {
+                    val icon =
+                        if (showingPicker.value) {
+                            Icons.Outlined.Keyboard
+                        } else {
+                            Icons.Outlined.Schedule
                         }
-                    }
-                }
-            ) {
-                if (showingPicker.value && configuration.screenHeightDp > 400) {
-                    TimePicker(state = state)
-                } else {
-                    TimeInput(state = state)
+                    Icon(
+                        icon,
+                        contentDescription =
+                        if (showingPicker.value) {
+                            stringResource(R.string.switch_to_text_input)
+                        } else {
+                            stringResource(R.string.switch_to_touch_input)
+                        }
+                    )
                 }
             }
         }
+    ) {
+        if (showingPicker.value && configuration.screenHeightDp > 400) {
+            TimePicker(state = state)
+        } else {
+            TimeInput(state = state)
+        }
     }
+}
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
@@ -156,6 +154,18 @@ fun TimePickerDialog(
                     TextButton(onClick = onConfirm) { Text(stringResource(R.string.ok_time)) }
                 }
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+@Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+private fun TimePickerSwitchableSamplePreview() {
+    VodimobileTheme(dynamicColor = false) {
+        Scaffold {
+            TimePickerSwitchable({},{})
         }
     }
 }

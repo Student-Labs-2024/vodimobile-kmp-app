@@ -25,7 +25,7 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
-import com.vodimobile.presentation.components.TimePickerSwitchableSample
+import com.vodimobile.presentation.components.TimePickerSwitchable
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
@@ -218,7 +218,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     backStackEntry.arguments?.getString("timeType") ?: TimeType.START.name
                 )
                 var selectedTime by remember { mutableStateOf("") }
-                TimePickerSwitchableSample(
+                TimePickerSwitchable(
                     onTimeSelected = { time ->
                         navHostController.previousBackStackEntry?.savedStateHandle?.set(
                             if (timeType == TimeType.START) "selected-start-time" else "selected-end-time",
