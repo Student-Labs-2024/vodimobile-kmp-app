@@ -5,6 +5,7 @@ import com.vodimobile.presentation.screens.reservation.utils.TimeType
 sealed class ReservationIntent {
     data object GetAllPLaces : ReservationIntent()
     data object GetAllCars : ReservationIntent()
+    data object GetCarFreeDate : ReservationIntent()
     data class PlaceChange(val value: Pair<Int, String>) : ReservationIntent()
     data class CommentsChange(val value: String) : ReservationIntent()
     data class DateChange(val value: LongArray) : ReservationIntent() {

@@ -1,5 +1,7 @@
 package com.vodimobile.presentation.screens.reservation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.Car
@@ -12,6 +14,8 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.reservation.store.ReservationEffect
 import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
+import com.vodimobile.presentation.screens.reservation.utils.getEndDateTime
+import com.vodimobile.presentation.screens.reservation.utils.getStartDateTime
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -26,6 +30,7 @@ class ReservationViewModel(
     val reservationState = MutableStateFlow(ReservationState())
     val reservationEffect = MutableSharedFlow<ReservationEffect>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onIntent(intent: ReservationIntent) {
         when (intent) {
 
@@ -155,6 +160,28 @@ class ReservationViewModel(
                 }
             }
 
+            is ReservationIntent.GetCarFreeDate -> {
+                viewModelScope.launch {
+                    val userFLow = dataStoreStorage.getUser()
+                    userFLow.collect { user ->
+                        val userFromRemote =
+                            supabaseStorage.getUser(password = user.password, phone = user.phone)
+                        val startFreeDate = getStartFreeDateTime()
+                        val endFreeDate = getEndFreeDateTime(startFreeDate)
+                        val freeDates = crmStorage.getCarFreeDateRange(
+                            accessToken = userFromRemote.accessToken,
+                            refreshToken = userFromRemote.refreshToken,
+                            carId = reservationState.value.carId,
+                            begin = startFreeDate,
+                            end = endFreeDate
+                        )
+                        reservationState.update {
+                            it.copy(freeDates = freeDates)
+                        }
+                    }
+                }
+            }
+
             is ReservationIntent.ShowTimePicker -> {
                 viewModelScope.launch {
                     reservationEffect.emit(ReservationEffect.ShowTimePicker(intent.type))
@@ -255,4 +282,14 @@ class ReservationViewModel(
             }
         }
     }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+private fun getStartFreeDateTime(): Long {
+    return getStartDateTime()
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+private fun getEndFreeDateTime(start: Long): Long {
+    return getEndDateTime(start)
 }
