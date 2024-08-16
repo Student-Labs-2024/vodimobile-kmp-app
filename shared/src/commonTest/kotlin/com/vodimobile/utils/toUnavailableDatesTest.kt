@@ -8,6 +8,7 @@ import kotlin.test.assertEquals
 
 class ToUnavailableDatesTest {
 
+    @Deprecated("Functions was modified")
     @Test
     fun toUnavailableDatesTest() {
         val list = listOf(
@@ -22,6 +23,6 @@ class ToUnavailableDatesTest {
         )
 
         val toUnavailableDates = list.toUnavailableDates()
-        assertEquals(toUnavailableDates, expected)
+        assertEquals(expected, toUnavailableDates)
     }
 }
