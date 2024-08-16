@@ -26,6 +26,8 @@ import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
+import com.vodimobile.presentation.screens.about_order.AboutOrderScreen
+import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
@@ -33,6 +35,7 @@ import com.vodimobile.presentation.screens.change_password.ChangePasswordViewMod
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
+import com.vodimobile.presentation.screens.delete_order.DeleteOrderDialog
 import com.vodimobile.presentation.screens.edit_profile.EditProfileScreen
 import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
 import com.vodimobile.presentation.screens.error_app.ErrorAppScreen
@@ -260,9 +263,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 arguments = listOf(
                     navArgument("screen") { type = NavType.StringType }
                 )
-            ) { backStackEntry->
+            ) { backStackEntry ->
                 val screen = backStackEntry.arguments?.getString("screen") ?: ""
-                print (screen)
+                print(screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
@@ -270,6 +273,22 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController = navHostController,
                     screen = screen
                 )
+            }
+            composable(route = LeafOrdersScreen.ABOUT_ORDER_SCREEN) {
+                val aboutOrderViewModel: AboutOrderViewModel = koinViewModel()
+                AboutOrderScreen(
+                    aboutOrderState = aboutOrderViewModel.aboutOrderState.collectAsState(),
+                    aboutOrderEffect = aboutOrderViewModel.aboutOrderEffect,
+                    onAboutOrderIntent = aboutOrderViewModel::onAboutOrderIntent,
+                    navHostController = navHostController
+                )
+            }
+            dialog(route = DialogIdentifiers.DELETE_ORDER_DIALOG) {
+                DeleteOrderDialog(
+                    onDismiss = {
+                        navHostController.navigateUp()
+                    },
+                    onConfirm = {})
             }
         }
         navigation(

@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -15,12 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.presentation.theme.VodimobileTheme
 
+@SuppressLint("ComposeParameterOrder", "ComposeModifierReused")
 @Composable
 fun PrimaryButton(
-    modifier: Modifier = Modifier,
     text: String,
     enabled: Boolean,
-    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Button(
         modifier = modifier

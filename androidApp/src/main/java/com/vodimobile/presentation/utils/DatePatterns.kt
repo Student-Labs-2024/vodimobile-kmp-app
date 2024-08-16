@@ -35,13 +35,13 @@ object DatePatterns {
         val start = Date(order.rentalDatePeriod.startDate)
         val end = Date(order.rentalDatePeriod.endDate)
 
-        val dayStart = SimpleDateFormat("d", Locale("ru")).format(start)
+        val dayStart = SimpleDateFormat("d", Locale.getDefault()).format(start)
 
-        val monthStart = SimpleDateFormat("dd MMMM", Locale("ru")).format(start)
-        val monthEnd = SimpleDateFormat("dd MMMM", Locale("ru")).format(end)
+        val monthStart = SimpleDateFormat("dd MMMM", Locale.getDefault()).format(start)
+        val monthEnd = SimpleDateFormat("dd MMMM", Locale.getDefault()).format(end)
 
-        val yearStart = SimpleDateFormat("YYYY", Locale("ru")).format(start)
-        val yearEnd = SimpleDateFormat("YYYY", Locale("ru")).format(end)
+        val yearStart = SimpleDateFormat("YYYY", Locale.getDefault()).format(start)
+        val yearEnd = SimpleDateFormat("YYYY", Locale.getDefault()).format(end)
 
 
         return when {
@@ -58,6 +58,30 @@ object DatePatterns {
             else -> {
                 // Если годы не совпадают
                 "${monthStart} $yearStart - ${monthEnd} $yearEnd"
+            }
+        }
+    }
+
+    fun formatRentalTime(order: Order): String {
+        val start = Date(order.rentalDatePeriod.startDate)
+        val end = Date(order.rentalDatePeriod.endDate)
+
+        val minuteStart = SimpleDateFormat("mm", Locale.getDefault()).format(start)
+        val minuteEnd = SimpleDateFormat("mm", Locale.getDefault()).format(end)
+
+        val hourStart = SimpleDateFormat("hh", Locale.getDefault()).format(start)
+        val hourEnd = SimpleDateFormat("hh", Locale.getDefault()).format(end)
+
+        val hourMinuteStart = SimpleDateFormat("hh:mm", Locale.getDefault()).format(start)
+        val hourMinuteEnd = SimpleDateFormat("hh:mm", Locale.getDefault()).format(end)
+
+        return when {
+            hourStart == hourEnd -> {
+                "$hourStart:$minuteStart-$minuteEnd"
+            }
+
+            else -> {
+                "$hourMinuteStart-$hourMinuteEnd"
             }
         }
     }
