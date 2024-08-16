@@ -1,0 +1,27 @@
+name: Tests
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Install Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.3.3
+
+      - name: Run Tests
+        run: |
+          ./gradlew :shared:test --no-daemon
+          ./gradlew :androidApp:test --no-daemon --exclude-task ':androidApp:testDebugUnitTest'
