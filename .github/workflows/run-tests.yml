@@ -5,22 +5,15 @@ on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup JDK
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Install Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.5.0
-
+          distribution: zulu
+          java-version: 21
+          cache: gradle
       - name: Run Tests
         run: |
           ./gradlew :shared:test --no-daemon
