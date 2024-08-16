@@ -6,6 +6,7 @@ import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
+import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -77,4 +78,10 @@ class KoinHelper : KoinComponent {
 
     suspend fun updateTokens(userId: Int, accessToken: String, refreshToken: String) =
         supabaseStorage.updateTokens(userId, accessToken, refreshToken)
+
+    suspend fun insertOrder(orderDTO: OrderDTO) =
+        supabaseStorage.insertOrder(orderDTO = orderDTO)
+
+    suspend fun getOrders(userId: Int) =
+        supabaseStorage.getOrders(userId = userId)
 }

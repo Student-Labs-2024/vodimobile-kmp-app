@@ -46,6 +46,7 @@ object LeafOrdersScreen {
     const val SUCCESSFUL_SCREEN = "successful"
     const val ERROR_APP_SCREEN = "error"
     const val NO_ORDERS_SCREEN = "no_orders"
+    const val ABOUT_ORDER_SCREEN = "about_order"
 }
 
 object LeafErrorScreen {
