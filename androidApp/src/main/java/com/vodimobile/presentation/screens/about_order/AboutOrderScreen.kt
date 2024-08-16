@@ -3,10 +3,10 @@ package com.vodimobile.presentation.screens.about_order
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -104,22 +104,26 @@ fun AboutOrderScreen(
                     }
                 })
         }) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(it)
                 .padding(horizontal = 16.dp, vertical = 20.dp),
             verticalArrangement = Arrangement.spacedBy(space = 20.dp)
         ) {
-            AboutCarItem(car = aboutOrderState.value.order.car)
-            OrderStatusEnum(order = aboutOrderState.value.order)
-            Divider(modifier = Modifier.fillMaxWidth())
-            SumItem(cost = aboutOrderState.value.order.bid.cost)
-            ButtonsItem(
-                onChangeClick = {},
-                onCanselClick = {
-                    onAboutOrderIntent(AboutOrderIntent.CanselOrder)
-                }
-            )
+            item {
+                AboutCarItem(car = aboutOrderState.value.order.car)
+                OrderStatusEnum(order = aboutOrderState.value.order)
+            }
+            item {
+                Divider(modifier = Modifier.fillMaxWidth())
+                SumItem(cost = aboutOrderState.value.order.bid.cost)
+                ButtonsItem(
+                    onChangeClick = {},
+                    onCanselClick = {
+                        onAboutOrderIntent(AboutOrderIntent.CanselOrder)
+                    }
+                )
+            }
         }
     }
 }
