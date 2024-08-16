@@ -6,7 +6,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
@@ -85,7 +84,7 @@ private fun reduceDay(timeZone: TimeZone = TimeZone.currentSystemDefault(), date
     val tempLD = LocalDate(
         year = tempLDT.year,
         monthNumber = tempLDT.monthNumber,
-        dayOfMonth = if (tempLDT.dayOfMonth == 1) tempLDT.dayOfMonth else (tempLDT.dayOfMonth - 2)
+        dayOfMonth = if (tempLDT.dayOfMonth == 1) tempLDT.dayOfMonth else (tempLDT.dayOfMonth - 1)
     )
     val tempLT = LocalTime(
         hour = tempLDT.hour,
