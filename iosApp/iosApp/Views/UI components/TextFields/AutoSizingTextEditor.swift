@@ -32,7 +32,7 @@ struct AutoSizingTextEditor: View {
                     if text.isEmpty && isPlaceholderVisible {
                         Text(R.string.localizable.commentToReservationPlaceholder)
                             .font(.paragraph4)
-                            .foregroundStyle(Color(R.color.grayTextColor))
+                            .foregroundStyle(Color(R.color.grayText))
                     } else {
                         TextEditor(text: $text)
                             .frame(height: textViewHeight)
@@ -59,7 +59,7 @@ struct AutoSizingTextEditor: View {
             .background(RoundedRectangle(cornerRadius: 10).fill(.white))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(R.color.grayDarkColor), lineWidth: 1)
+                    .stroke(Color(R.color.grayDark), lineWidth: 1)
             )
             .onTapGesture {
                 if text.isEmpty {

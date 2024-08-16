@@ -24,7 +24,7 @@ struct ResetPasswordPhoneView: View {
                     
                     Text(R.string.localizable.resetScreenSubtitle)
                         .font(.paragraph2)
-                        .foregroundStyle(Color(R.color.grayTextColor))
+                        .foregroundStyle(Color(R.color.grayText))
                 }
                 .padding(.vertical, 24)
             

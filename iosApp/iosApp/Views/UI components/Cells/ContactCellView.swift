@@ -21,7 +21,7 @@ struct ContactCellView: View {
             VStack(alignment: .leading) {
                 Text("\(cell.title):")
                     .font(.paragraph5)
-                    .foregroundStyle(Color(R.color.grayTextColor))
+                    .foregroundStyle(Color(R.color.grayText))
                 
                 if let url = URL(string: cell.contact) {
                     Link(destination: url) {
@@ -32,7 +32,7 @@ struct ContactCellView: View {
                             Spacer()
                         }.overlay {
                             Rectangle()
-                                .fill(Color(R.color.grayDarkColor))
+                                .fill(Color(R.color.grayDark))
                                 .frame(height: 0.5, alignment: .bottom)
                                 .offset(y: 10)
                         }
@@ -45,7 +45,7 @@ struct ContactCellView: View {
                         Spacer()
                     }.overlay {
                         Rectangle()
-                            .fill(Color(R.color.grayDarkColor))
+                            .fill(Color(R.color.grayDark))
                             .frame(height: 0.5, alignment: .bottom)
                             .offset(y: 10)
                     }

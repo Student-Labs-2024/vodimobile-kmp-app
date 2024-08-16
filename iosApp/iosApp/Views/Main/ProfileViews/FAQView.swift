@@ -30,11 +30,11 @@ struct FAQScreenView: View {
                         .font(.header3)
                     Text(R.string.localizable.questionAndAnswerText)
                         .font(.paragraph4)
-                        .foregroundStyle(Color(R.color.grayTextColor))
+                        .foregroundStyle(Color(R.color.grayText))
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 25)
-                .background(Color(R.color.blueBoxColor))
+                .background(Color(R.color.blueBox))
                 .padding(.top, 10)
                 
                 LazyVStack(alignment: .leading) {
@@ -73,7 +73,7 @@ struct DisclosureListView: View {
                         .multilineTextAlignment(.leading)
                         .padding(24)
                         .frame(maxWidth: .infinity)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
+                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLight)))
                 },
                 label: {
                     Text(listOfQuestions[index].title)

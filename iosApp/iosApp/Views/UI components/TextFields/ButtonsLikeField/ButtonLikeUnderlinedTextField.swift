@@ -15,14 +15,14 @@ struct ButtonLikeUnderlinedTextField: View {
                 HStack {
                     Text(R.string.localizable.changePassword)
                         .font(.paragraph5)
-                        .foregroundColor(Color(R.color.grayTextColor))
+                        .foregroundColor(Color(R.color.grayText))
                         .padding(.bottom, 5)
                     Spacer()
                 }
                 .overlay(
                     Rectangle()
                         .frame(height: 1)
-                        .foregroundColor(Color(R.color.grayDarkColor)),
+                        .foregroundColor(Color(R.color.grayDark)),
                     alignment: .bottom
                 )
                 .frame(maxWidth: .infinity)
@@ -30,7 +30,7 @@ struct ButtonLikeUnderlinedTextField: View {
                 Image.chevronRight
                     .padding(.vertical, 16)
                     .padding(.leading, 16)
-                    .foregroundStyle(Color(R.color.grayDarkColor))
+                    .foregroundStyle(Color(R.color.grayDark))
             }
         }
     }

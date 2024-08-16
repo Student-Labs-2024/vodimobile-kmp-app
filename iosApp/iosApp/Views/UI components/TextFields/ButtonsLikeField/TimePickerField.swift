@@ -24,20 +24,20 @@ struct TimePickerField: View {
                             .font(.paragraph4)
                     } else {
                         Text(R.string.localizable.rentalTimePlaceholder)
-                            .foregroundColor(Color(R.color.grayTextColor))
+                            .foregroundColor(Color(R.color.grayText))
                             .font(.paragraph4)
                     }
                     
                     Spacer()
                     
                     Image.clock
-                        .foregroundColor(Color(R.color.grayDarkColor))
+                        .foregroundColor(Color(R.color.grayDark))
                 }
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.gray, lineWidth: 1)
-                        .background(Color(R.color.blueBoxColor))
+                        .background(Color(R.color.blueBox))
                 )
             }
         }

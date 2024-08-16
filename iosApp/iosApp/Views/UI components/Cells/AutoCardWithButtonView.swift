@@ -73,11 +73,11 @@ struct AutoCardWithButtonView: View {
                     Image.infoCircleFill
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .foregroundStyle(Color(R.color.grayDark))
                         .frame(width: 20, height: 20)
                 }
                 .frame(width: 40, height: 40)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLightColor)))
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLight)))
                 .onTapGesture {
                     selectedAuto = viewModel.carModel
                     showModal = true

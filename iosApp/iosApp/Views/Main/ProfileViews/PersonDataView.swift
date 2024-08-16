@@ -54,7 +54,7 @@ struct PersonDataView: View {
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
-            .background(Color(R.color.blueBoxColor))
+            .background(Color(R.color.blueBox))
             .cornerRadius(20)
             .padding(.horizontal, 16)
             .padding(.top, 50)

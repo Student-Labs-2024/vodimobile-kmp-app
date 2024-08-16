@@ -19,7 +19,7 @@ struct DataPickerField: View {
         dateRange: Binding<ClosedRange<Date>?>,
         showDatePicker: Binding<Bool>,
         rightImage: Image,
-        backgroundColor: SwiftUI.Color = Color(R.color.blueBoxColor)
+        backgroundColor: SwiftUI.Color = Color(R.color.blueBox)
     ) {
         self._dateRange = dateRange
         self._showDatePicker = showDatePicker
@@ -33,7 +33,7 @@ struct DataPickerField: View {
         }) {
             HStack(spacing: 10) {
                 Text(formatDateRange())
-                    .foregroundColor(dateRange == nil ? Color(R.color.grayTextColor) : Color(R.color.blueColor))
+                    .foregroundColor(dateRange == nil ? Color(R.color.grayText) : Color(R.color.blueColor))
                     .font(.paragraph4)
                 Spacer()
                 rightImage

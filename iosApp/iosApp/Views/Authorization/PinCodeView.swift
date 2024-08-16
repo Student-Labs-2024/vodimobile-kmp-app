@@ -49,7 +49,7 @@ struct PinCodeView: View {
                 
                 Text(sendCodeOnPhoneText)
                     .font(.paragraph2)
-                    .foregroundColor(Color(R.color.grayTextColor))
+                    .foregroundColor(Color(R.color.grayText))
                     .multilineTextAlignment(.center)
                 
                 HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
@@ -125,7 +125,7 @@ struct PinCodeView: View {
     @ViewBuilder
     private func PinCodeTextField(index: Int) -> some View {
         let isFieldFocused = focusedField == index
-        let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)
+        let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDark)
         let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2
 
         TextField("", text: $pin[index])
@@ -135,7 +135,7 @@ struct PinCodeView: View {
             .frame(width: 56, height: 56)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color(R.color.grayLightColor))
+                    .fill(Color(R.color.grayLight))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

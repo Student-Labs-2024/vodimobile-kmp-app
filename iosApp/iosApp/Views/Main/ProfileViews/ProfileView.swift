@@ -79,7 +79,7 @@ struct ProfileView: View {
                 Spacer()
             }
             .padding(.horizontal, horizontalPadding)
-            .background(Color(R.color.grayLightColor))
+            .background(Color(R.color.grayLight))
             .navigationBarBackButtonHidden()
         }
         .fullScreenCover(isPresented: $showSignSuggestModal) {

@@ -79,10 +79,10 @@ struct ModalAutoCardView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 10, height: 10)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .foregroundStyle(Color(R.color.grayDark))
                 }
                 .frame(width: 30, height: 30)
-                .background(Circle().fill(Color(R.color.grayLightColor)))
+                .background(Circle().fill(Color(R.color.grayLight)))
                 .onTapGesture {
                     showModalView.toggle()
                 }
@@ -125,7 +125,7 @@ struct ModalAutoCardView: View {
                                     .font(.caption1)
                                     .fontWeight(.bold)
                                 Text(viewModel.carModel.transmission.resource)
-                                    .foregroundStyle(Color(R.color.grayTextColor))
+                                    .foregroundStyle(Color(R.color.grayText))
                                     .font(.caption1)
                                     .fontWeight(.bold)
                             }
@@ -141,7 +141,7 @@ struct ModalAutoCardView: View {
                                     .font(.caption1)
                                     .fontWeight(.bold)
                                 Text(viewModel.carModel.wheelDrive.resource)
-                                    .foregroundStyle(Color(R.color.grayTextColor))
+                                    .foregroundStyle(Color(R.color.grayText))
                                     .font(.caption1)
                                     .fontWeight(.bold)
                             }
@@ -158,7 +158,7 @@ struct ModalAutoCardView: View {
                                     .fontWeight(.bold)
                                 if let carYear = viewModel.carModel.year {
                                     Text("\(carYear)".replacingOccurrences(of: " ", with: ""))
-                                        .foregroundStyle(Color(R.color.grayTextColor))
+                                        .foregroundStyle(Color(R.color.grayText))
                                         .font(.caption1)
                                         .fontWeight(.bold)
                                 }
@@ -175,7 +175,7 @@ struct ModalAutoCardView: View {
                                     .font(.caption1)
                                     .fontWeight(.bold)
                                 Text("\(viewModel.carModel.tankValue.resource) \(R.string.localizable.literText())")
-                                    .foregroundStyle(Color(R.color.grayTextColor))
+                                    .foregroundStyle(Color(R.color.grayText))
                                     .font(.caption1)
                                     .fontWeight(.bold)
                             }

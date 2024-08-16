@@ -65,7 +65,7 @@ extension Font {
     // paragraph text
     public static let paragraph1: Font = Font(R.font.akzidenzGroteskProMd(size: 18) ?? .systemFont(ofSize: 18))
     public static let paragraph2: Font = Font(R.font.akzidenzGroteskProRegular(size: 16) ?? .systemFont(ofSize: 16))
-    public static let paragraph3: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
+    public static let paragraph3: Font = Font(R.font.akzidenzGroteskProMdEx(size: 15) ?? .systemFont(ofSize: 15))
     public static let paragraph5: Font = Font(R.font.akzidenzGroteskProRegular(size: 14) ?? .systemFont(ofSize: 14))
     public static let paragraph4: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let paragraph6: Font = Font(R.font.akzidenzGroteskProLight(size: 12) ?? .systemFont(ofSize: 12))
@@ -88,7 +88,7 @@ struct FilledBtnWithoutDisabledStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .background(configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
+            .background(configuration.isPressed ? Color(R.color.blueDark) : Color(R.color.blueColor))
             .foregroundColor(.white)
             .cornerRadius(15)
             .font(.buttonSmall)
@@ -126,12 +126,12 @@ struct BorderedTextFieldStyle: TextFieldStyle {
             .padding(16)
             .foregroundStyle(Color.black)
             .multilineTextAlignment(.leading)
-            .background(Color(R.color.grayLightColor))
+            .background(Color(R.color.grayLight))
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(
-                        textIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                        textIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDark),
                         lineWidth: isFocused || textIsNotValid ? 1 : 0
                     )
             )
@@ -150,7 +150,7 @@ struct BorderedDateTextFieldStyle: TextFieldStyle {
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(R.color.grayDarkColor), lineWidth: 1)
+                    .stroke(Color(R.color.grayDark), lineWidth: 1)
             )
     }
 }

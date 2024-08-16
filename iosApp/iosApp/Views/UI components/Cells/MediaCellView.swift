@@ -24,7 +24,7 @@ struct MediaCellView: View {
                     Spacer()
                     
                     Image.chevronRight
-                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .foregroundStyle(Color(R.color.grayDark))
                         .fontWeight(.bold)
                 }
             }
@@ -39,7 +39,7 @@ struct MediaCellView: View {
                 Spacer()
                 
                 Image.chevronRight
-                    .foregroundStyle(Color(R.color.grayDarkColor))
+                    .foregroundStyle(Color(R.color.grayDark))
                     .fontWeight(.bold)
             }
         }

@@ -19,7 +19,7 @@ struct PlacePickerField: View {
         selectedPlace: Binding<PlaceShort?>,
         placesDataSource: [PlaceShort],
         icon: Image = Image.clock,
-        backgroundColor: SwiftUI.Color = Color(R.color.blueBoxColor)
+        backgroundColor: SwiftUI.Color = Color(R.color.blueBox)
     ) {
         self._selectedPlace = selectedPlace
         self.placesDataSource = placesDataSource
@@ -39,21 +39,21 @@ struct PlacePickerField: View {
         } label: {
             HStack {
                 Text(selectedPlace?.nameWithCost ?? R.string.localizable.methodOfObtaining())
-                    .foregroundColor(selectedPlace != nil ? Color(R.color.blueColor) : Color(R.color.grayDarkColor))
+                    .foregroundColor(selectedPlace != nil ? Color(R.color.blueColor) : Color(R.color.grayDark))
                     .font(.paragraph4)
                 
                 Spacer()
                 
                 icon
-                    .foregroundColor(Color(R.color.grayDarkColor))
+                    .foregroundColor(Color(R.color.grayDark))
             }
             .padding(16)
             .background(
-                RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBoxColor))
+                RoundedRectangle(cornerRadius: 10).fill(Color(R.color.blueBox))
             )
             .overlay {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(R.color.grayDarkColor), lineWidth: 1)
+                    .stroke(Color(R.color.grayDark), lineWidth: 1)
             }
         }
     }

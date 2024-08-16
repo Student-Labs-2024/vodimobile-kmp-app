@@ -19,12 +19,12 @@ struct FilledButton: View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity, maxHeight: height)
-            .background(isEnabled ? (configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor)) : Color(R.color.blueLightColor))
+            .background(isEnabled ? (configuration.isPressed ? Color(R.color.blueDark) : Color(R.color.blueColor)) : Color(R.color.blueLight))
             .frame(maxWidth: .infinity)
             .background(
                 isEnabled
-                ? (configuration.isPressed ? Color(R.color.blueDarkColor) : Color(R.color.blueColor))
-                : Color(R.color.blueLightColor)
+                ? (configuration.isPressed ? Color(R.color.blueDark) : Color(R.color.blueColor))
+                : Color(R.color.blueLight)
             )
             .foregroundColor(.white)
             .cornerRadius(15)

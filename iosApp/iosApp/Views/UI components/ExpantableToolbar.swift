@@ -34,7 +34,7 @@ struct ExpandableToolbar: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 65)
-                    .background(Color(R.color.blueDarkColor))
+                    .background(Color(R.color.blueDark))
                     .padding(.bottom, !isExpanded ? 25 : 0)
                     
                     if isExpanded {
@@ -80,7 +80,7 @@ struct ExpandableToolbar: View {
                         .animation(.spring(), value: isExpanded)
                     }
                 }
-                .background(Color(R.color.blueDarkColor))
+                .background(Color(R.color.blueDark))
                 .cornerRadius(24)
                 .animation(.spring(), value: isExpanded)
                 .onAppear {

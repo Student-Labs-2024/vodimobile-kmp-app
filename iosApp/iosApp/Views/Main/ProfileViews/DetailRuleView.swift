@@ -28,7 +28,7 @@ struct DetailRuleView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 25)
                 .padding(.horizontal, 28)
-                .background(RoundedRectangle(cornerRadius: 30, style: .circular).fill(Color(R.color.blueBoxColor)))
+                .background(RoundedRectangle(cornerRadius: 30, style: .circular).fill(Color(R.color.blueBox)))
                 
                 Spacer()
             }

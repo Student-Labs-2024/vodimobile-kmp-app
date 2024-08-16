@@ -120,7 +120,7 @@ struct AutoListView: View {
             }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
-        .background(Color(R.color.grayLightColor))
+        .background(Color(R.color.grayLight))
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)

@@ -59,7 +59,7 @@ struct MakeReservationView: View {
                                     VStack(alignment: .leading) {
                                         Text(R.string.localizable.autoNameTitle)
                                             .font(.paragraph5)
-                                            .foregroundStyle(Color(R.color.grayTextColor))
+                                            .foregroundStyle(Color(R.color.grayText))
                                         Text(viewModel.car.model.resource)
                                             .font(.header5)
                                     }
@@ -68,7 +68,7 @@ struct MakeReservationView: View {
                                         VStack(alignment: .leading) {
                                             Text(R.string.localizable.autoDatesTitle)
                                                 .font(.paragraph5)
-                                                .foregroundStyle(Color(R.color.grayTextColor))
+                                                .foregroundStyle(Color(R.color.grayText))
                                             Text(dates).font(.header5)
                                         }
                                     }
@@ -79,7 +79,7 @@ struct MakeReservationView: View {
                             .padding(.vertical, 24)
                             .background(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .fill(Color(R.color.blueBoxColor))
+                                    .fill(Color(R.color.blueBox))
                             )
                             
                             if viewModel.dates == nil {

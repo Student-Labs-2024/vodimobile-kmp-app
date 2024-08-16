@@ -50,14 +50,14 @@ struct UnderlineTextField: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(.paragraph5)
-                .foregroundColor(isFocused || !text.isEmpty ? Color(R.color.grayDarkColor) : .clear)
+                .foregroundColor(isFocused || !text.isEmpty ? Color(R.color.grayDark) : .clear)
                 .animation(.easeInOut(duration: 0.2), value: isFocused || !text.isEmpty)
             
             ZStack(alignment: .leading) {
                 if isPlaceholderVisible && text.isEmpty {
                     Text(title)
                         .font(.paragraph5)
-                        .foregroundColor(Color(R.color.grayTextColor))
+                        .foregroundColor(Color(R.color.grayText))
                         .onTapGesture {
                             self.isFocused = true
                         }
@@ -124,7 +124,7 @@ struct UnderlineTextField: View {
             .overlay(
                 Rectangle()
                     .frame(height: 1)
-                    .foregroundColor(isFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)),
+                    .foregroundColor(isFocused ? Color(R.color.blueColor) : Color(R.color.grayDark)),
                 alignment: .bottom
             )
             

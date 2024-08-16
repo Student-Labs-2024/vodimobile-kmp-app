@@ -52,12 +52,12 @@ struct IphonePhoneTextField: View {
                 .padding(16)
                 .foregroundStyle(Color.black)
                 .multilineTextAlignment(.leading)
-                .background(Color(R.color.grayLightColor))
+                .background(Color(R.color.grayLight))
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(
-                            !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                            !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDark),
                             lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
                         )
                 )
@@ -79,7 +79,7 @@ struct IphonePhoneTextField: View {
                             self.isEditing = false
                         }) {
                             Image.xmark
-                                .foregroundColor(Color(R.color.grayDarkColor))
+                                .foregroundColor(Color(R.color.grayDark))
                                 .padding(8)
                         }
                     }

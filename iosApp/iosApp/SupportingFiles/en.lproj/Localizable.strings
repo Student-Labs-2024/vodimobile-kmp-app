@@ -125,6 +125,7 @@
 "tankTitle" = "Tank";
 "prepositionPriceText" = "from";
 "currencyPriceText" = "rub. per day";
+"currencyText" = "rub.";
 "yearOfManufactureTitle" = "Year of manufacture";
 "characteristicsTitle" = "Characteristics:";
 "generalAutoCardTitle" = "Go to the entire car park";
@@ -143,6 +144,11 @@
 "requestSubmittedText" = "The manager will contact you soon. You can manage the request in the \"My orders\" section.";
 "requestFailedTitle" = "Request not submitted";
 "requestFailedText" = "Please try again in a few minutes.";
+/// my orders screen
+"activeTab" = "Active";
+"completedTab" = "Completed";
+"emptyDataTitle" = "Your orders will be here";
+"emptyDataText" = "You can submit your application on the main page";
 
 
 // Rules and Condition resources

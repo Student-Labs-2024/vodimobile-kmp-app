@@ -27,11 +27,11 @@ struct TabBarItem: View {
                     .resizable()
                     .renderingMode(.template)
                     .frame(width: 20, height: 20)
-                    .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayDarkColor))
+                    .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayDark))
                 
                 Text(title)
                     .font(.buttonTabbar)
-                    .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayDarkColor))
+                    .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayDark))
             }
             .padding(.top, 15)
             .frame(width: itemWidth)

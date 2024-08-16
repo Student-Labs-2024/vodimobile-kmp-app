@@ -62,7 +62,7 @@ struct AuthScreenView: View {
                 VStack(alignment: .leading) {
                     Text(R.string.localizable.conditionText)
                         .font(.paragraph5)
-                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .foregroundStyle(Color(R.color.grayDark))
                     
                     NavigationLink(destination: ConditionScreenView()) {
                         Text(R.string.localizable.conditionLink)

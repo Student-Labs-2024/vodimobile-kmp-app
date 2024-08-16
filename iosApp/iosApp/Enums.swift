@@ -66,6 +66,11 @@ enum AutoListType {
     }
 }
 
+// My order view
+enum MyOrderTab {
+    case active, completed
+}
+
 // Errors
 enum InputErrorType: String {
     case incorrectFullName

@@ -34,15 +34,15 @@ struct ContactsView: View {
                         
                         Text("\(R.string.localizable.version()) \(appVersion)")
                             .font(.paragraph4)
-                            .foregroundStyle(Color(R.color.grayTextColor))
+                            .foregroundStyle(Color(R.color.grayText))
                         Text(R.string.localizable.brandLabel)
                             .font(.paragraph4)
-                            .foregroundStyle(Color(R.color.grayTextColor))
+                            .foregroundStyle(Color(R.color.grayText))
                         
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 25)
-                    .background(Color(R.color.blueBoxColor))
+                    .background(Color(R.color.blueBox))
                     .padding(.top, 40)
                     
                     VStack(spacing: 30) {

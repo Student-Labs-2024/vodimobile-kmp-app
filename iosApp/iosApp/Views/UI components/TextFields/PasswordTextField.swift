@@ -72,7 +72,7 @@ struct PasswordTextField: View {
                             isSecured.toggle()
                         }) {
                             Image.eyeSlash
-                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .foregroundStyle(Color(R.color.grayDark))
                         }
                     }
                     .frame(alignment: .leading)
@@ -80,12 +80,12 @@ struct PasswordTextField: View {
                     .padding(16)
                     .foregroundStyle(Color.black)
                     .multilineTextAlignment(.leading)
-                    .background(Color(R.color.grayLightColor))
+                    .background(Color(R.color.grayLight))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDark),
                                 lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
                             )
                     )
@@ -111,7 +111,7 @@ struct PasswordTextField: View {
                             isSecured.toggle()
                         }) {
                             Image.eye
-                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .foregroundStyle(Color(R.color.grayDark))
                         }
                     }
                     .frame(alignment: .leading)
@@ -119,12 +119,12 @@ struct PasswordTextField: View {
                     .padding(16)
                     .foregroundStyle(Color.black)
                     .multilineTextAlignment(.leading)
-                    .background(Color(R.color.grayLightColor))
+                    .background(Color(R.color.grayLight))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                                contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDark),
                                 lineWidth: isFocused || contentIsNotValid ? 1 : 0
                             )
                     )
@@ -149,7 +149,7 @@ struct PasswordTextField: View {
                         ResetPasswordPhoneView(showSignSuggestModal: Binding.constant(false))
                     }
                     .font(.paragraph5)
-                    .foregroundStyle(Color(R.color.grayTextColor))
+                    .foregroundStyle(Color(R.color.grayText))
                     .multilineTextAlignment(.trailing)
                 }
             }

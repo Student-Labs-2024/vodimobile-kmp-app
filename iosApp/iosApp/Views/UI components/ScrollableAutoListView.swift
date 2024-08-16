@@ -19,7 +19,7 @@ struct ScrollableAutoListView: View {
     let refreshAction: () async -> ()
     
     var body: some View {
-        RefreshableScrollView(loadingViewBackgroundColor: Color(R.color.grayLightColor), action: {
+        RefreshableScrollView(loadingViewBackgroundColor: Color(R.color.grayLight), action: {
             await refreshAction()
         }, progress: { state in
             RefreshActivityIndicator(isAnimating: state == .loading) {
