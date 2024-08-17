@@ -11,31 +11,12 @@ import shared
 
 struct OrderCell: View {
     var order: Order
-    private let statusColor = { (status: CarStatus) -> SwiftUI.Color in
-        switch onEnum(of: status) {
-        case .approved(let title):
-            return Color(R.color.approvedTag)
-        case .completed(let title):
-            return Color(R.color.completedTag)
-        case .cancelled(let title):
-            return Color(R.color.rejectedTag)
-        case .processing(let title):
-            return Color(R.color.processingTag)
-        }
-    }
     
     var body: some View {
         HStack(spacing: 10) {
             VStack {
                 HStack {
-                    Text(order.status.title.resource)
-                        .font(.caption2)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(
-                            RoundedRectangle(cornerRadius: 6)
-                                .fill(statusColor(order.status))
-                        )
+                    BidStatusText(status: order.status)
                     Spacer()
                 }
                 if let carImage = order.car.images.first {
@@ -68,4 +49,3 @@ struct OrderCell: View {
         .background(RoundedRectangle(cornerRadius: 10).fill(.white))
     }
 }
-

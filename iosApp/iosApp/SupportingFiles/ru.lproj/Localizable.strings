@@ -45,6 +45,9 @@
 "leaveReuqestButton" = "Оставить заявку";
 "loginToAccount" = "Войти в аккаунт";
 "saveChangePersonalData" = "Сохранить изменения";
+"backButton" = "Назад";
+"cancelShortButton" = "Отменить";
+"cancelBidButton" = "Отменить заявку";
 
 // Field names
 "email" = "Email";
@@ -88,6 +91,7 @@
 "alertErrorSavingTitle" = "Ошибка сохранения";
 "alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
 "alertSavePersonDataTitle" = "Ваши данные были успешно сохранены";
+"alertCancelBidTitle" = "Вы уверены, что хотите отменить заявку?";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";
@@ -149,6 +153,10 @@
 "completedTab" = "Завершенные";
 "emptyDataTitle" = "Здесь будут ваши заказы";
 "emptyDataText" = "Оформить заявку можно на главной";
+/// my order detail screen
+"rentalPeriod" = "Период аренды";
+"orderStatus" = "Статус заказа";
+"changeBidData" = "Изменить заявку";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

@@ -65,6 +65,8 @@
 		935EE3032C4E2E6B0039A2DC /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */; };
 		935F029A2C5A8809003DA751 /* ResetPasswordPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */; };
 		936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */; };
+		93604F9E2C711285009952C0 /* CarGridItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93604F9D2C711285009952C0 /* CarGridItemView.swift */; };
+		93604FA02C711453009952C0 /* BidStatusTextVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93604F9F2C711453009952C0 /* BidStatusTextVIew.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
@@ -177,6 +179,8 @@
 		935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPhoneView.swift; sourceTree = "<group>"; };
 		936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
+		93604F9D2C711285009952C0 /* CarGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarGridItemView.swift; sourceTree = "<group>"; };
+		93604F9F2C711453009952C0 /* BidStatusTextVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidStatusTextVIew.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -289,6 +293,8 @@
 				935481E12C525B6E0085B6CE /* AutoCardWithButtonView.swift */,
 				935CF95D2C58F02300F6F6CB /* AutoGeneralCardView.swift */,
 				937FE5682C70B11800298609 /* OrderCell.swift */,
+				93604F9D2C711285009952C0 /* CarGridItemView.swift */,
+				93604F9F2C711453009952C0 /* BidStatusTextVIew.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -743,11 +749,13 @@
 				935CF95E2C58F02300F6F6CB /* AutoGeneralCardView.swift in Sources */,
 				934F0D562C3D6DCB000B256E /* RegistrationScreenView.swift in Sources */,
 				9351F2272C3FC024003A0BCB /* PersonDataView.swift in Sources */,
+				93604F9E2C711285009952C0 /* CarGridItemView.swift in Sources */,
 				933EC2F72C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift in Sources */,
 				9368EEB82C6565480036DBA2 /* TimePickerField.swift in Sources */,
 				93577F122C4E6C85005FEAFF /* LoadingView.swift in Sources */,
 				9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */,
 				934F0D582C3D76E3000B256E /* AuthScreenView.swift in Sources */,
+				93604FA02C711453009952C0 /* BidStatusTextVIew.swift in Sources */,
 				7555FF83242A565900829871 /* SignSuggestView.swift in Sources */,
 				93328FB92C4947A1008EADB4 /* ProfileViewModel.swift in Sources */,
 				934D957F2C4913290027DFC8 /* MediaCellView.swift in Sources */,

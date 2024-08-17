@@ -47,6 +47,9 @@
 "leaveReuqestButton" = "Request for booking";
 "loginToAccount" = "Login to account";
 "saveChangePersonalData" = "Save changes";
+"backButton" = "Back";
+"cancelShortButton" = "Cancel";
+"cancelBidButton" = "Cancel the bid";
 
 // Field names
 "email" = "Email";
@@ -89,6 +92,7 @@
 "alertErrorSavingTitle" = "Saving error";
 "alertErrorSavingText" = "Your data has not been saved. Please try again";
 "alertSavePersonDataTitle" = "Your data has been successfully saved";
+"alertCancelBidTitle" = "Are you sure you want to cancel your bid?";
 
 // Info strings
 "conditionLink" = "the user agreement";
@@ -150,6 +154,10 @@
 "completedTab" = "Completed";
 "emptyDataTitle" = "Your orders will be here";
 "emptyDataText" = "You can submit your application on the main page";
+/// my order detail screen
+"rentalPeriod" = "Rental period";
+"orderStatus" = "Order status";
+"changeBidData" = "Change the bid";
 
 
 // Rules and Condition resources

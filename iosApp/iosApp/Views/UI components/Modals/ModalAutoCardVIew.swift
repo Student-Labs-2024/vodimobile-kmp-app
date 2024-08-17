@@ -115,71 +115,27 @@ struct ModalAutoCardView: View {
                         .font(.paragraph2)
                     
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
-                        HStack(spacing: 18) {
-                            Image(R.image.transmission)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.transmissionTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                Text(viewModel.carModel.transmission.resource)
-                                    .foregroundStyle(Color(R.color.grayText))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                            }
+                        CarGridItem(
+                            gridItemType: .transmission,
+                            value: viewModel.carModel.transmission.resource
+                        )
+                        
+                        CarGridItem(
+                            gridItemType: .gear,
+                            value: viewModel.carModel.wheelDrive.resource
+                        )
+                        
+                        if let carYear = viewModel.carModel.year {
+                            CarGridItem(
+                                gridItemType: .yearDev,
+                                value: carYear.stringValue
+                            )
                         }
                         
-                        HStack(spacing: 18) {
-                            Image(R.image.gear)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.driveTypeTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                Text(viewModel.carModel.wheelDrive.resource)
-                                    .foregroundStyle(Color(R.color.grayText))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                            }
-                        }
-                        
-                        HStack(spacing: 18) {
-                            Image(R.image.calendarYear)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.yearOfManufactureTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                if let carYear = viewModel.carModel.year {
-                                    Text("\(carYear)".replacingOccurrences(of: " ", with: ""))
-                                        .foregroundStyle(Color(R.color.grayText))
-                                        .font(.caption1)
-                                        .fontWeight(.bold)
-                                }
-                            }
-                        }
-                        
-                        HStack(spacing: 18) {
-                            Image(R.image.gasoline)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.tankTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                Text("\(viewModel.carModel.tankValue.resource) \(R.string.localizable.literText())")
-                                    .foregroundStyle(Color(R.color.grayText))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                            }
-                        }
+                        CarGridItem(
+                            gridItemType: .gasoline,
+                            value: viewModel.carModel.tankValue.resource
+                        )
                     }
                     .padding(.vertical, 10)
                 }
