@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
     id("org.jetbrains.kotlin.jvm").version("1.7.20").apply(false)
+    alias(libs.plugins.google.gms.google.services) apply false
 }
 
 buildscript {
