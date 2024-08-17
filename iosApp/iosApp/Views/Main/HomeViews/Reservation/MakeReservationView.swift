@@ -12,6 +12,7 @@ import shared
 struct MakeReservationView: View {
     @Binding private var showModal: Bool
     @ObservedObject var viewModel: MakeReservationViewModel
+    @Environment(\.dismiss) private var dismiss
     
     @ViewBuilder private var destinationView: some View {
         if viewModel.isSuccessed == .success {
@@ -37,6 +38,7 @@ struct MakeReservationView: View {
                     HStack {
                         Button(action: {
                             showModal.toggle()
+                            dismiss()
                         }, label: {
                             Image.chevronLeft.foregroundStyle(Color.black).fontWeight(.bold)
                         })
@@ -149,8 +151,8 @@ struct MakeReservationView: View {
                 }
             }
             .loadingOverlay(isLoading: $viewModel.isLoading)
-            .navigationBarBackButtonHidden()
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

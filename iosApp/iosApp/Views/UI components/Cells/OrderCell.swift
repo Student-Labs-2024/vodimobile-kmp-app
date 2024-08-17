@@ -35,8 +35,11 @@ struct OrderCell: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(order.car.model.resource)
                     .font(.paragraph3)
-                Text("\(order.rentalDatePeriod.startDate) - \(order.rentalDatePeriod.endDate)")
-                    .font(.paragraph6)
+                Text(CustomDateFormatter.shared.formatDates(
+                    startDateInMillis: order.rentalDatePeriod.startDate,
+                    endDateInMillis: order.rentalDatePeriod.endDate)
+                )
+                .font(.paragraph6)
                 Text("\(Int(order.bid.cost)) \(R.string.localizable.currencyText())")
                     .font(.paragraph6)
             }
@@ -47,5 +50,6 @@ struct OrderCell: View {
         .padding(.vertical, 20)
         .padding(.horizontal, 16)
         .background(RoundedRectangle(cornerRadius: 10).fill(.white))
+        
     }
 }

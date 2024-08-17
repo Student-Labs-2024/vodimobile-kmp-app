@@ -67,6 +67,7 @@
 		936045B42C5C07E6002D0507 /* NetworkMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */; };
 		93604F9E2C711285009952C0 /* CarGridItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93604F9D2C711285009952C0 /* CarGridItemView.swift */; };
 		93604FA02C711453009952C0 /* BidStatusTextVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93604F9F2C711453009952C0 /* BidStatusTextVIew.swift */; };
+		93604FA22C712E1A009952C0 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93604FA12C712E1A009952C0 /* DateFormatter.swift */; };
 		936198822C3F0CA100B0198D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198812C3F0CA100B0198D /* MainView.swift */; };
 		936198842C3F0CD200B0198D /* MyOrdersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198832C3F0CD200B0198D /* MyOrdersView.swift */; };
 		936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936198852C3F0CDF00B0198D /* ProfileView.swift */; };
@@ -181,6 +182,7 @@
 		936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
 		93604F9D2C711285009952C0 /* CarGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarGridItemView.swift; sourceTree = "<group>"; };
 		93604F9F2C711453009952C0 /* BidStatusTextVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidStatusTextVIew.swift; sourceTree = "<group>"; };
+		93604FA12C712E1A009952C0 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		936198812C3F0CA100B0198D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		936198832C3F0CD200B0198D /* MyOrdersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersView.swift; sourceTree = "<group>"; };
 		936198852C3F0CDF00B0198D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				934F0D4B2C3D52EE000B256E /* SupportingFiles */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */,
+				93604FA12C712E1A009952C0 /* DateFormatter.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -781,6 +784,7 @@
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
 				9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */,
 				9368EEB62C6565260036DBA2 /* ModalTimePicker.swift in Sources */,
+				93604FA22C712E1A009952C0 /* DateFormatter.swift in Sources */,
 				937FE56B2C70B14000298609 /* OrdersListView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				9368EEAE2C64C4560036DBA2 /* SuccessfulReservationView.swift in Sources */,

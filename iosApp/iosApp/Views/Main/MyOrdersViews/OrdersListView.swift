@@ -12,6 +12,8 @@ import shared
 
 struct OrdersListView: View {
     @Binding var ordersList: [Order]
+    @Binding var selectedOrder: Order
+    @Binding var showOrderModal: Bool
     var onRefresh: () -> ()
     
     var body: some View {
@@ -31,6 +33,10 @@ struct OrdersListView: View {
                 LazyVStack(spacing: 20) {
                     ForEach(ordersList, id: \.self) { order in
                         OrderCell(order: order)
+                            .onTapGesture {
+                                selectedOrder = order
+                                showOrderModal.toggle()
+                            }
                     }
                 }
             }

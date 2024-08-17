@@ -16,42 +16,48 @@ struct MyOrdersView: View {
     @ObservedObject var viewModel = MyOrdersViewModel()
     
     var body: some View {
-        VStack(spacing: 20) {
-            OrdersTopPickerView(selectedTab: $selectedTab)
-            
-            switch selectedTab {
-            case .active:
-                if !viewModel.activeOrderList.isEmpty {
-                    OrdersListView(
-                        ordersList: $viewModel.activeOrderList
-                    ) {
-                        viewModel.getAllOrders()
+        NavigationView {
+            VStack(spacing: 20) {
+                OrdersTopPickerView(selectedTab: $selectedTab)
+                
+                switch selectedTab {
+                case .active:
+                    if !viewModel.activeOrderList.isEmpty {
+                        OrdersListView(
+                            ordersList: $viewModel.activeOrderList,
+                            selectedOrder: $selectedOrder,
+                            showOrderModal: $showOrderModal
+                        ) {
+                            viewModel.getAllOrders()
+                        }
+                    } else {
+                        EmptyOrderListView()
                     }
-                } else {
-                    EmptyOrderListView()
-                }
-            case .completed:
-                if !viewModel.completedOrderList.isEmpty {
-                    OrdersListView(
-                        ordersList: $viewModel.completedOrderList
-                    ) {
-                        viewModel.getAllOrders()
+                case .completed:
+                    if !viewModel.completedOrderList.isEmpty {
+                        OrdersListView(
+                            ordersList: $viewModel.completedOrderList,
+                            selectedOrder: $selectedOrder,
+                            showOrderModal: $showOrderModal
+                        ) {
+                            viewModel.getAllOrders()
+                        }
+                    } else {
+                        EmptyOrderListView()
                     }
-                } else {
-                    EmptyOrderListView()
                 }
+                
+                Spacer()
             }
-            
-            Spacer()
+            .fullScreenCover(isPresented: $showOrderModal, content: {
+                OrderDetailView(
+                    order: selectedOrder,
+                    showOrderModal: $showOrderModal
+                )
+            })
+            .padding(.horizontal, horizontalPadding)
+            .background(Color(R.color.grayLight))
         }
-        .fullScreenCover(isPresented: $showOrderModal, content: {
-            OrderDetailView(
-                order: selectedOrder,
-                showOrderModal: $showOrderModal
-            )
-        })
-        .padding(.horizontal, horizontalPadding)
-        .background(Color(R.color.grayLight))
     }
 }
 
