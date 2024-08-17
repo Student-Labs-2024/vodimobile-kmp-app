@@ -19,7 +19,7 @@ fun Long.parseToCrmDate(): String {
 
     val fromEpochMilliseconds: Instant = Instant.fromEpochMilliseconds(this)
     val localDateTime: LocalDateTime =
-        fromEpochMilliseconds.toLocalDateTime(TimeZone.of("Russia/Omsk"))
+        fromEpochMilliseconds.toLocalDateTime(TimeZone.currentSystemDefault())
     val format: String = localDateTime.format(dateTimeFormat)
 
 
@@ -36,7 +36,7 @@ fun Long.parseToSupabaseDate(): String {
 
     val fromEpochMilliseconds: Instant = Instant.fromEpochMilliseconds(this)
     val localDateTime: LocalDateTime =
-        fromEpochMilliseconds.toLocalDateTime(TimeZone.of("Russia/Omsk"))
+        fromEpochMilliseconds.toLocalDateTime(TimeZone.currentSystemDefault())
     val format: String = localDateTime.format(dateTimeFormat)
 
 
@@ -53,7 +53,7 @@ fun Long.parseToCrmDateTime(): String {
 
     val fromEpochMilliseconds: Instant = Instant.fromEpochMilliseconds(this)
     val localDateTime: LocalDateTime =
-        fromEpochMilliseconds.toLocalDateTime(TimeZone.of("Russia/Omsk"))
+        fromEpochMilliseconds.toLocalDateTime(TimeZone.currentSystemDefault())
     val format: String = localDateTime.format(dateTimeFormat)
 
 
