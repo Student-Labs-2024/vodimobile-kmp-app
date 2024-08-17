@@ -59,7 +59,7 @@ extension Font {
     public static let buttonCheckBox: Font = Font(R.font.akzidenzGroteskProLight(size: 14) ?? .systemFont(ofSize: 14))
     public static let buttonTabbar: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
 
-    public static let caption2: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
+    public static let caption2: Font = Font(R.font.akzidenzGroteskProRegular(size: 12) ?? .systemFont(ofSize: 12))
     public static let caption1: Font = Font(R.font.akzidenzGroteskProMd(size: 12) ?? .systemFont(ofSize: 12))
 
     // paragraph text

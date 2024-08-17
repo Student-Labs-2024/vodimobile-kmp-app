@@ -27,6 +27,7 @@
 "resetPassScreenTitle" = "Reset password";
 "changePassword" = "Change the password";
 "reservationScreenTitle" = "Making reservation";
+"aboutOrder" = "About order";
 
 // Buttons titles
 "regButtonTitle" = "Create account";

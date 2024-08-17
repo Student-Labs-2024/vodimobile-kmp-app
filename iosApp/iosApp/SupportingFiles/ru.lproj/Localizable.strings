@@ -27,6 +27,7 @@
 "resetPassScreenTitle" = "Сброс пароля";
 "changePassword" = "Изменить пароль";
 "reservationScreenTitle" = "Оформление брони";
+"aboutOrder" = "О заказе";
 
 // Buttons titles
 "authButtonTitle" = "Войти";

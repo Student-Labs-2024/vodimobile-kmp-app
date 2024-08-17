@@ -10,9 +10,9 @@ import shared
 import SwiftUI
 
 final class MyOrdersViewModel: ObservableObject {
-    @Published var activeOrderList = [OrderDTO]()
-    @Published var completedOrderList = [OrderDTO]()
-    private var orderslist = [OrderDTO]() {
+    @Published var activeOrderList = [Order]()
+    @Published var completedOrderList = [Order]()
+    private var orderslist = [Order]() {
         didSet {
             activeOrderList = filterOrderList(by: .active)
             completedOrderList = filterOrderList(by: .completed)
@@ -21,7 +21,22 @@ final class MyOrdersViewModel: ObservableObject {
     private var apiManager = KMPApiManager.shared
     
     init() {
-        getAllOrders()
+        let empty = Order.companion.empty()
+        activeOrderList = [
+            Order(
+                userId: 0,
+                bidNumber: 1223432,
+                bid: empty.bid,
+                status: empty.status,
+                rentalDatePeriod: empty.rentalDatePeriod,
+                startLocation: empty.startLocation,
+                finishLocation: empty.finishLocation,
+                rentalTimePeriod: empty.rentalTimePeriod,
+                car: empty.car,
+                services: empty.services
+            )
+        ]
+//        getAllOrders()
     }
     
     func getAllOrders() {
@@ -33,17 +48,17 @@ final class MyOrdersViewModel: ObservableObject {
         }
     }
     
-    func filterOrderList(by type: MyOrderTab) -> [OrderDTO] {
+    func filterOrderList(by type: MyOrderTab) -> [Order] {
         switch type {
         case .active:
             return orderslist.filter {
-                $0.bid_status == CarStatus.Approved().title.resource ||
-                $0.bid_status == CarStatus.Processing().title.resource
+                $0.status == CarStatus.Approved() ||
+                $0.status == CarStatus.Processing()
             }
         case .completed:
             return orderslist.filter {
-                $0.bid_status == CarStatus.Cancelled().title.resource ||
-                $0.bid_status == CarStatus.Completed().title.resource
+                $0.status == CarStatus.Cancelled() ||
+                $0.status == CarStatus.Completed()
             }
         }
     }
