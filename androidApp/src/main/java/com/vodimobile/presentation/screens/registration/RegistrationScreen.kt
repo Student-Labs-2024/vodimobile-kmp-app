@@ -15,7 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -52,19 +51,19 @@ import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
-import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
-import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.AgreementBlock
-import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.registration.components.RegistrationBlock
 import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
@@ -200,6 +199,20 @@ fun RegistrationScreen(
 private fun RegistrationScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val crmRepository = CrmRepositoryImpl()
+
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
             val registrationViewModel = RegistrationViewModel(
                 nameValidator = NameValidator(),
                 phoneNumberValidator = PhoneNumberValidator(),
@@ -252,7 +265,8 @@ private fun RegistrationScreenPreviewDark() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl())
                 )
             )
             RegistrationScreen(
@@ -271,6 +285,20 @@ private fun RegistrationScreenPreviewDark() {
 private fun RegistrationScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val crmRepository = CrmRepositoryImpl()
+
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
             val registrationViewModel = RegistrationViewModel(
                 nameValidator = NameValidator(),
                 phoneNumberValidator = PhoneNumberValidator(),
@@ -323,7 +351,8 @@ private fun RegistrationScreenPreviewLight() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl())
                 )
             )
             RegistrationScreen(

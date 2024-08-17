@@ -3,14 +3,15 @@ package com.vodimobile.di
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.repository.supabase.SupabaseRepository
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
-import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
-import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -27,6 +28,7 @@ val supabaseModule = module {
     singleOf(::InsertUserUseCase)
     singleOf(::GetOrdersUseCase)
     singleOf(::InsertOrderUseCase)
+    singleOf(::UpdateOrderStatusUseCase)
 
     singleOf(::SupabaseStorage)
 }

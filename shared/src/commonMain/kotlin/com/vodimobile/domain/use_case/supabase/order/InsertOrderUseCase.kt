@@ -1,4 +1,4 @@
-package com.vodimobile.domain.use_case.supabase
+package com.vodimobile.domain.use_case.supabase.order
 
 import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.repository.supabase.SupabaseRepository

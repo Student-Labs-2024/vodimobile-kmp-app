@@ -1,4 +1,4 @@
-package com.vodimobile.domain.use_case.supabase
+package com.vodimobile.domain.use_case.supabase.order
 
 import com.vodimobile.domain.model.Bid
 import com.vodimobile.domain.model.Car

@@ -19,9 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -35,7 +32,6 @@ import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.model.Car
-import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -53,14 +49,15 @@ import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
-import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
-import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ScreenHeader
@@ -71,7 +68,6 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.utils.data_store.getDataStore
-import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
@@ -199,6 +195,21 @@ fun VehicleFleetScreen(
 private fun VehicleFleetScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
 
+        val crmRepository = CrmRepositoryImpl()
+
+        val crmStorage = CrmStorage(
+            getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+            getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+            postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+            getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+            refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+            getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+            getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+            getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+            getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+            createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+        )
+
         val vehicleFleetViewModel = VehicleFleetViewModel(
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
@@ -248,7 +259,8 @@ private fun VehicleFleetScreenPreview() {
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                 updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                 insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl())
             )
         )
 

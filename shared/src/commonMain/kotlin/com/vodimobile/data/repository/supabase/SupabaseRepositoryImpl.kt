@@ -123,4 +123,17 @@ class SupabaseRepositoryImpl : SupabaseRepository {
 
         return ordersDTO
     }
+
+    override suspend fun updateOrderStatus(userId: Int, orderId: Int, status: String) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.BID_STATUS, status)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
 }
