@@ -103,8 +103,8 @@ fun OrdersScreen(
     LaunchedEffect(key1 = Unit) {
         orderEffect.collect { effect ->
             when (effect) {
-                OrderEffect.InfoOrderClick -> {
-                    navHostController.navigate(route = LeafOrdersScreen.ABOUT_ORDER_SCREEN)
+                is OrderEffect.InfoOrderClick -> {
+                    navHostController.navigate(route = "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/${effect.orderId}")
                 }
 
                 OrderEffect.ShowProgressDialog -> {

@@ -44,7 +44,8 @@ class GetOrdersUseCase(
         return orderList.map { orderDTO ->
             Order(
                 userId = userId,
-                bidNumber = orderDTO.bid_id,
+                orderId = orderDTO.bid_id,
+                bidNumber = orderDTO.bid_number,
                 bid = Bid(
                     cost = orderDTO.cost.toDouble(),
                     prepay = 0.0,

@@ -29,7 +29,7 @@ class OrderViewModel(
         when (intent) {
             is OrderIntent.InfoOrderClick -> {
                 viewModelScope.launch {
-                    orderEffect.emit(OrderEffect.InfoOrderClick)
+                    orderEffect.emit(OrderEffect.InfoOrderClick(orderId = intent.order.orderId))
                 }
             }
 
