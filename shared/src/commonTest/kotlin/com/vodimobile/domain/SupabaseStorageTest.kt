@@ -238,7 +238,7 @@ class SupabaseStorageTest {
                 updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
             )
 
-            supabaseStorage.updatePlaceStart(userId = 2, orderId = 5, placeStart = "В городе")
+            supabaseStorage.updatePlaceStart(userId = 0, orderId = 11, placeStart = "В городе")
         }
     }
 }
