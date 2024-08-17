@@ -139,6 +139,20 @@ final class KMPApiManager {
         return []
     }
     
+    func fetchUserOrders() async -> [Order] {
+        if appState.isConnected {
+            do {
+                if let storageUser = dataStorage.gettingUser {
+                    let orders = try await helper.getOrders(userId: storageUser.id)
+                    
+                }
+            } catch {
+                print(error)
+            }
+        }
+        return []
+    }
+    
     private func convertNSArrayToArray<T>(nsArray: NSArray) -> [T] {
         var itemList: [T] = []
         
@@ -146,12 +160,81 @@ final class KMPApiManager {
             if let item = item as? T {
                 itemList.append(item)
             } else {
-                print("Element is not of type Car: \(item)")
+                print("Element is not of type T: \(item)")
             }
         }
         return itemList
     }
+    
+    private func convertOrderDTOToOrder<T>(orderList: [OrderDTO]) -> [T] {
+        var itemList: [T] = []
+        var carStatus = { (status: String) -> CarStatus in
+            switch status {
+            case CarStatus.Approved().title.resource:
+                return CarStatus.Approved()
+            case CarStatus.Completed().title.resource:
+                return CarStatus.Completed()
+            case CarStatus.Cancelled().title.resource:
+                return CarStatus.Cancelled()
+            case CarStatus.Processing().title.resource:
+                return CarStatus.Processing()
+            default:
+                return CarStatus.Cancelled()
+            }
+        }
+        
+        for item in orderList {
+            let CarEmpty = Car.companion.empty()
+            let item = Order(
+                userId: item.user_id,
+                bidNumber: item.bid_number,
+                bid: Bid(
+                    cost: Double(item.cost),
+                    prepay: 0,
+                    deposit: 0,
+                    errorMessage: ""
+                ),
+                status: carStatus(item.bid_status),
+                rentalDatePeriod: DateRange(startDate: item.date_start, endDate: item.date_finish),
+                startLocation: item.place_start,
+                finishLocation: item.place_finish,
+                rentalTimePeriod: TimeRange(startTime: item.time_start, finishTime: item.time_finish),
+                car: Car(
+                    carId: item.car_id,
+                    model: CarEmpty.model,
+                    number: CarEmpty.number,
+                    cityId: CarEmpty.cityId,
+                    year: CarEmpty.year,
+                    transmission: CarEmpty.transmission,
+                    wheelDrive: CarEmpty.wheelDrive,
+                    tankValue: CarEmpty.tankValue,
+                    carType: CarEmpty.carType,
+                    deposit: CarEmpty.deposit,
+                    tariffs: CarEmpty.tariffs,
+                    images: CarEmpty.images
+                ),
+                services: transformStringToIntArray(item.services)
+            )
+        } else {
+            print("Element is not of type Car: \(item)")
+        }
+        return itemList
+    }
+    
+    private func transformStringToIntArray(_ string: String) -> [Int] {
+        let charactersArray = Array(string)
+        var resultList = [Int]()
+
+        for char in charactersArray {
+            if let number = Int(String(char)) {
+                resultList.append(number)
+            } else {
+                continue
+            }
+        }
+    }
 }
+
 
 final class AuthManager: ObservableObject {
     static let shared = AuthManager()
@@ -161,7 +244,7 @@ final class AuthManager: ObservableObject {
     
     init() {
         self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
-                               dataStorage.gettingUser != nil
+        dataStorage.gettingUser != nil
     }
     
     func signUp(fullname: String, phone: String, password: String) async {

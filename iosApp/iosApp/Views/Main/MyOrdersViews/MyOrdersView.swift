@@ -18,16 +18,24 @@ struct MyOrdersView: View {
         VStack(spacing: 20) {
             OrdersTopPickerView(selectedTab: $selectedTab)
             
-            if !viewModel.orderslist.isEmpty {
-                switch selectedTab {
-                case .active:
-                    ActiveOrdersView(ordersList: $viewModel.orderslist)
-                case .completed:
-                    CompletedOrdersView()
+            switch selectedTab {
+            case .active:
+                if !viewModel.activeOrderList.isEmpty {
+                    ActiveOrdersView(
+                        ordersList: $viewModel.activeOrderList) {
+                            viewModel.getAllOrders()
+                        }
+                } else {
+                    EmptyOrderListView()
                 }
-            } else {
-                EmptyOrderListView()
+            case .completed:
+                if !viewModel.completedOrderList.isEmpty {
+                    CompletedOrdersView()
+                } else {
+                    EmptyOrderListView()
+                }
             }
+            
             
             Spacer()
         }
@@ -37,7 +45,8 @@ struct MyOrdersView: View {
 }
 
 struct ActiveOrdersView: View {
-    @Binding var ordersList: [Order]
+    @Binding var ordersList: [OrderDTO]
+    var onRefresh: () -> ()
     
     var body: some View {
         RefreshableScrollView(
@@ -46,7 +55,7 @@ struct ActiveOrdersView: View {
             loadingViewBackgroundColor: .clear,
             threshold: 50,
             onRefresh: { _ in
-                
+                onRefresh()
             },
             progress: { state in
                 RefreshActivityIndicator(isAnimating: state == .loading) {
@@ -76,17 +85,19 @@ struct CompletedOrdersView: View {
 }
 
 struct OrderCell: View {
-    var order: Order
-    private let statusColor: (CarStatus) -> SwiftUI.Color = { (status: CarStatus) -> SwiftUI.Color in
-        switch onEnum(of: status) {
-        case .approved(let title):
+    var order: OrderDTO
+    private let statusColor: (String) -> SwiftUI.Color = { (status: String) -> SwiftUI.Color in
+        switch status {
+        case CarStatus.Approved().title.resource:
             return Color(R.color.approvedTag)
-        case .completed(let title):
+        case CarStatus.Completed().title.resource:
             return Color(R.color.completedTag)
-        case .cancelled(let title):
+        case CarStatus.Cancelled().title.resource:
             return Color(R.color.rejectedTag)
-        case .processing(let title):
+        case CarStatus.Processing().title.resource:
             return Color(R.color.processingTag)
+        default:
+            return Color.clear
         }
     }
     
@@ -94,17 +105,17 @@ struct OrderCell: View {
         HStack(spacing: 12) {
             VStack {
                 HStack {
-                    Text(order.status.title.resource)
+                    Text(order.bid_status)
 //                        .font(.caption2)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 6)
-                                .fill(statusColor(order.status))
+                                .fill(statusColor(order.bid_status))
                         )
                     Spacer()
                 }
-                if let carImage = order.car.images.first {
+                if let carImage = order.carsMap[order.car_id].images.first {
                     Image(
                         ImageResource(
                             name: carImage.assetImageName,
