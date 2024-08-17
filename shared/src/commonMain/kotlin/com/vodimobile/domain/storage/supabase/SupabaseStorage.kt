@@ -37,5 +37,6 @@ class SupabaseStorage(
         updateTokensUseCase(userId, accessToken, refreshToken)
 
     suspend fun insertOrder(orderDTO: OrderDTO) = insertOrderUseCase(orderDTO = orderDTO)
-    suspend fun getOrders(userId: Int) = getOrdersUseCase(userId = userId)
+    suspend fun getOrders(userId: Int, accessToken: String, refreshToken: String) =
+        getOrdersUseCase(userId = userId, accessToken = accessToken, refreshToken = refreshToken)
 }
