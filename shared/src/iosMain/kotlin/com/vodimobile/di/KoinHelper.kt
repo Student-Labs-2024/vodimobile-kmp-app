@@ -82,6 +82,6 @@ class KoinHelper : KoinComponent {
     suspend fun insertOrder(orderDTO: OrderDTO) =
         supabaseStorage.insertOrder(orderDTO = orderDTO)
 
-    suspend fun getOrders(userId: Int) =
-        supabaseStorage.getOrders(userId = userId)
+    suspend fun getOrders(userId: Int, accessToken: String, refreshToken: String) =
+        supabaseStorage.getOrders(userId = userId, accessToken = accessToken, refreshToken = refreshToken)
 }

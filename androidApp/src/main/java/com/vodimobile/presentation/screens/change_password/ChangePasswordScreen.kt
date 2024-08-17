@@ -48,7 +48,13 @@ import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCostUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCrmOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateNumberUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.change_password.components.ChangePasswordBlock
@@ -160,7 +166,13 @@ private fun ChangePasswordScreenPreviewLight() {
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
                     getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
-                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl())
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                    updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                    updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                    updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                    updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
                 ),
                 dataStoreStorage = UserDataStoreStorage(
                     editUserDataStoreUseCase = EditUserDataStoreUseCase(
@@ -233,7 +245,13 @@ private fun ChangePasswordScreenPreviewNight() {
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
                     getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
-                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl())
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                    updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                    updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                    updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                    updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
                 ),
                 dataStoreStorage = UserDataStoreStorage(
                     editUserDataStoreUseCase = EditUserDataStoreUseCase(
