@@ -82,6 +82,27 @@ class KoinHelper : KoinComponent {
     suspend fun insertOrder(orderDTO: OrderDTO) =
         supabaseStorage.insertOrder(orderDTO = orderDTO)
 
-    suspend fun getOrders(userId: Int) =
-        supabaseStorage.getOrders(userId = userId)
+    suspend fun getOrders(userId: Int, accessToken: String, refreshToken: String) =
+        supabaseStorage.getOrders(userId = userId, accessToken = accessToken, refreshToken = refreshToken)
+
+    suspend fun updateStatus(userId: Int, orderId: Int, status: String) =
+        supabaseStorage.updateStatus(userId, orderId, status)
+
+    suspend fun updateNumber(userId: Int, orderId: Int, number: Int) =
+        supabaseStorage.updateNumber(userId, orderId, number)
+
+    suspend fun updateCrmOrder(userId: Int, orderId: Int, crmOrder: Int) =
+        supabaseStorage.updateCrmOrder(userId, orderId, crmOrder)
+
+    suspend fun updatePlaceStart(userId: Int, orderId: Int, placeStart: String) =
+        supabaseStorage.updatePlaceStart(userId, orderId, placeStart)
+
+    suspend fun updatePlaceFinish(userId: Int, orderId: Int, placeFinish: String) =
+        supabaseStorage.updatePlaceFinish(userId, orderId, placeFinish)
+
+    suspend fun updateCost(userId: Int, orderId: Int, coast: Float) =
+        supabaseStorage.updateCost(userId, orderId, coast)
+
+    suspend fun updateServices(userId: Int, orderId: Int, services: String) =
+        supabaseStorage.updateServices(userId, orderId, services)
 }

@@ -38,21 +38,40 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
+import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
+import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
+import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
+import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
+import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
+import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
+import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
-import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
-import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCostUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCrmOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateNumberUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.components.PrimaryButton
@@ -221,6 +240,20 @@ fun EditProfileScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun EditProfileScreenDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
+        val crmRepository = CrmRepositoryImpl()
+
+        val crmStorage = CrmStorage(
+            getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+            getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+            postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+            getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+            refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+            getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+            getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+            getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+            getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+            createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+        )
         val editProfileViewModel = EditProfileViewModel(
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
@@ -258,7 +291,14 @@ private fun EditProfileScreenDarkPreview() {
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                 updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                 insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
@@ -274,6 +314,20 @@ private fun EditProfileScreenDarkPreview() {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun EditProfileScreenLightPreview() {
     VodimobileTheme(dynamicColor = false) {
+        val crmRepository = CrmRepositoryImpl()
+
+        val crmStorage = CrmStorage(
+            getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+            getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+            postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+            getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+            refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+            getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+            getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+            getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+            getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+            createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+        )
         val editProfileViewModel = EditProfileViewModel(
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
@@ -311,7 +365,14 @@ private fun EditProfileScreenLightPreview() {
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                 updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                 insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
