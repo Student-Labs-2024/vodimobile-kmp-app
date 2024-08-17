@@ -1,8 +1,30 @@
 package com.vodimobile.domain
 
+import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.model.supabase.UserDTO
+import com.vodimobile.domain.storage.crm.CrmStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
+import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
+import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
+import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
+import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
+import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
+import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
+import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -85,6 +107,43 @@ class SupabaseStorageTest {
         runBlocking {
             val supabaseRepository = SupabaseRepositoryImpl()
             val orders = supabaseRepository.getOrders(userId = 0)
+            assertTrue(orders.isNotEmpty())
+        }
+    }
+
+    @Test
+    fun getOrdersUsingSupabaseStorageTest() {
+        runBlocking {
+            val supabaseRepository = SupabaseRepositoryImpl()
+            val crmRepository = CrmRepositoryImpl()
+
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
+            val supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(supabaseRepository),
+                insertOrderUseCase = InsertOrderUseCase(supabaseRepository),
+                insertUserUseCase = InsertUserUseCase(supabaseRepository),
+                updateFullNameUseCase = UpdateFullNameUseCase(supabaseRepository),
+                updatePasswordUseCase = UpdatePasswordUseCase(supabaseRepository),
+                updatePhoneUseCase = UpdatePhoneUseCase(supabaseRepository),
+                updateTokensUseCase = UpdateTokensUseCase(supabaseRepository),
+                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage)
+            )
+            val orders = supabaseStorage.getOrders(
+                userId = 0,
+                accessToken = SharedBuildkonfig.crm_test_access_token,
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token
+            )
             assertTrue(orders.isNotEmpty())
         }
     }
