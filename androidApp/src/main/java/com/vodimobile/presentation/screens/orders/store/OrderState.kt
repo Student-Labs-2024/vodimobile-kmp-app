@@ -8,5 +8,6 @@ data class OrderState(
         R.string.active_order,
         R.string.completed_order
     ),
-    val orders: List<Order> = emptyList()
+    val orders: List<Order> = emptyList(),
+    val isLoading: Boolean = true
 )

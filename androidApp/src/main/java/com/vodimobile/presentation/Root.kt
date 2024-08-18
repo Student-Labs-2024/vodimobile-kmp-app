@@ -50,7 +50,9 @@ private fun getIsShowBottomBar(currentRoute: String?): Boolean {
             currentRoute != LeafErrorScreen.NO_INTERNET &&
             currentRoute != LeafScreen.EDIT_PROFILE &&
             currentRoute != LeafOrdersScreen.ABOUT_ORDER_SCREEN &&
-            currentRoute != DialogIdentifiers.DELETE_ORDER_DIALOG
+            currentRoute != "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/{orderId}" &&
+            currentRoute != DialogIdentifiers.DELETE_ORDER_DIALOG &&
+            currentRoute != "${RegistrationScreens.SMS_VERIFY}/{phone}/{screen}"
 }
 
 @Preview
