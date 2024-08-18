@@ -24,8 +24,10 @@ fun Root() {
         bottomBar = {
             val backStackEntry: NavBackStackEntry? by navController.currentBackStackEntryAsState()
             val currentRoute = backStackEntry?.destination?.route
-            if (getIsShowBottomBar(currentRoute))
-                BottomBar(navController = navController)
+            if (currentRoute != null) {
+                if (getIsShowBottomBar(currentRoute))
+                    BottomBar(navController = navController)
+            }
         }
     ) { paddingValues ->
 
@@ -36,12 +38,11 @@ fun Root() {
     }
 }
 
-private fun getIsShowBottomBar(currentRoute: String?): Boolean {
+private fun getIsShowBottomBar(currentRoute: String): Boolean {
     return currentRoute != RootScreen.START_SCREEN &&
             currentRoute != RegistrationScreens.REGISTRATION_SCREEN &&
             currentRoute != RegistrationScreens.AUTHORIZATION_SCREEN &&
             currentRoute != RegistrationScreens.USER_AGREE_SCREEN &&
-            currentRoute != RegistrationScreens.SMS_VERIFY &&
             currentRoute != RegistrationScreens.START_SCREEN &&
             currentRoute != LeafHomeScreen.SERVER_ERROR_SCREEN &&
             currentRoute != LeafScreen.CHANGE_PASSWORD_SCREEN &&
@@ -50,9 +51,10 @@ private fun getIsShowBottomBar(currentRoute: String?): Boolean {
             currentRoute != LeafErrorScreen.NO_INTERNET &&
             currentRoute != LeafScreen.EDIT_PROFILE &&
             currentRoute != LeafOrdersScreen.ABOUT_ORDER_SCREEN &&
-            currentRoute != "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/{orderId}" &&
             currentRoute != DialogIdentifiers.DELETE_ORDER_DIALOG &&
-            currentRoute != "${RegistrationScreens.SMS_VERIFY}/{phone}/{screen}"
+            !currentRoute.contains(RegistrationScreens.SMS_VERIFY)
+            currentRoute != "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/{orderId}" &&
+            currentRoute != DialogIdentifiers.DELETE_ORDER_DIALOG
 }
 
 @Preview
