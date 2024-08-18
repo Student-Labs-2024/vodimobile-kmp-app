@@ -171,6 +171,7 @@ fun AuthorizationScreen(
             AuthorizationBlock(
                 authorizationState = authorizationState.value,
                 isShowError = isButtonClicked.value,
+                errorMsg = R.string.simple_password_error,
                 onPhoneNumberChanged = {
                     onAuthorizationIntent(AuthorizationIntent.PhoneNumberChange(it))
                     resetButtonClicked()

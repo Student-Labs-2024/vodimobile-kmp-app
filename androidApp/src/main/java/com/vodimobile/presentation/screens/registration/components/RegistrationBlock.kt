@@ -48,7 +48,8 @@ fun RegistrationBlock(
                 id = R.string.create_password_placeholder
             ),
             onValueChange = onPasswordChange,
-            isError = registrationState.passwordError && isShowError
+            isError = registrationState.passwordError && isShowError,
+            errorMsg = stringResource(id = R.string.simple_password_error)
         )
     }
 }

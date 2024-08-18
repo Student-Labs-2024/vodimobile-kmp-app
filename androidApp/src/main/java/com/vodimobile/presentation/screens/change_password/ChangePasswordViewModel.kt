@@ -81,8 +81,7 @@ class ChangePasswordViewModel(
     }
 
     private fun validateOldPassword(password: String): Boolean {
-        //change the logic when getting the api
-        return password.isNotEmpty()
+        return passwordValidator.isValidPassword(password)
     }
 
     private fun validateNewPassword(password: String): Boolean {
