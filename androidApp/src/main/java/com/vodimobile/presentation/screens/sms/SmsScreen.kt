@@ -29,6 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+//import com.google.android.gms.auth.api.identity.GetPhoneNumberHintIntentRequest
+//import com.google.android.gms.auth.api.identity.Identity
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.sms.components.SendCodeAgain
@@ -51,6 +53,7 @@ fun SmsScreen(
     onIntent: (SmsIntent) -> Unit,
     navHostController: NavHostController
 ) {
+    val context = LocalContext.current
     val focus = remember { FocusRequester() }
     val smsFields = remember {
         mutableStateListOf(
@@ -67,7 +70,7 @@ fun SmsScreen(
         }
     }
 
-    onIntent(SmsIntent.SendSmsCode(phone = phone, context = LocalContext.current))
+    onIntent(SmsIntent.SendSmsCode(phone = phone, context = context))
 
     LaunchedEffect(key1 = Unit) {
         smsEffect.collect { effect ->
