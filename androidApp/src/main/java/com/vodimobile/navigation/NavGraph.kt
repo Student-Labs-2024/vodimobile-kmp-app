@@ -206,7 +206,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             ) { backStackEntry ->
                 val screen = backStackEntry.arguments?.getString("screen") ?: ""
-                print(screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
@@ -274,14 +273,29 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     screen = screen
                 )
             }
-            composable(route = LeafOrdersScreen.ABOUT_ORDER_SCREEN) {
-                val aboutOrderViewModel: AboutOrderViewModel = koinViewModel()
-                AboutOrderScreen(
-                    aboutOrderState = aboutOrderViewModel.aboutOrderState.collectAsState(),
-                    aboutOrderEffect = aboutOrderViewModel.aboutOrderEffect,
-                    onAboutOrderIntent = aboutOrderViewModel::onAboutOrderIntent,
-                    navHostController = navHostController
-                )
+            composable(
+                route = "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/{orderId}",
+                arguments = listOf(
+                    navArgument("orderId") { type = NavType.StringType }
+                )) { backStackEntry ->
+                val isConnected = checkInternet(connection = connection)
+                if (isConnected) {
+                    val orderId = backStackEntry.arguments?.getString("orderId") ?: "0"
+                    val aboutOrderViewModel: AboutOrderViewModel = koinViewModel()
+                    AboutOrderScreen(
+                        aboutOrderState = aboutOrderViewModel.aboutOrderState.collectAsState(),
+                        aboutOrderEffect = aboutOrderViewModel.aboutOrderEffect,
+                        onAboutOrderIntent = aboutOrderViewModel::onAboutOrderIntent,
+                        navHostController = navHostController,
+                        orderId = orderId.toInt()
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafOrdersScreen.ABOUT_ORDER_SCREEN,
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafOrdersScreen.ABOUT_ORDER_SCREEN}")
+                }
             }
             dialog(route = DialogIdentifiers.DELETE_ORDER_DIALOG) {
                 DeleteOrderDialog(
@@ -289,6 +303,22 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         navHostController.navigateUp()
                     },
                     onConfirm = {})
+            }
+            composable(
+                route = "${LeafErrorScreen.NO_INTERNET}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val screen = backStackEntry.arguments?.getString("screen") ?: ""
+                print(screen)
+                val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
+                ConnectionErrorScreen(
+                    onNetworkErrorIntent = connectionErrorViewModel::onIntent,
+                    networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
             }
         }
         navigation(
