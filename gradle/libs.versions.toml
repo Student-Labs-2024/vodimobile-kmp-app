@@ -43,6 +43,8 @@ kotlinxSerializationJson = "1.7.1"
 #Buildconfig
 buildkonfigGradlePlugin = "0.15.1"
 kotlinGradlePlugin = "1.9.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseMessaging = "24.0.0"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -119,6 +121,7 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "mokoResources" }
 #Exports
 moko-graphics-export = { module = "dev.icerock.moko:graphics", version.ref = "mokoGraphicsExport"}
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -130,3 +133,4 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composePlugin"
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composeCompiler" }
 kotlinx-serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
