@@ -47,66 +47,61 @@ fun TimePickerSwitchableSample(
     onTimeSelected: (Long) -> Unit,
     onCancel: () -> Unit
 ) {
-        var showTimePicker by remember { mutableStateOf(false) }
-        val state = rememberTimePickerState()
-        val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
-        val showingPicker = remember { mutableStateOf(true) }
-        val configuration = LocalConfiguration.current
-        val cal = Calendar.getInstance()
-        var finalTime by remember {
-            mutableStateOf(formatter.format(cal.time))
-        }
+    var showTimePicker by remember { mutableStateOf(false) }
+    val state = rememberTimePickerState()
+    val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
+    val showingPicker = remember { mutableStateOf(true) }
+    val configuration = LocalConfiguration.current
+    val cal = Calendar.getInstance()
+    var finalTime by remember {
+        mutableStateOf(formatter.format(cal.time))
+    }
 
-        if (showTimePicker) {
-            TimePickerDialog(
-                title =
-                if (showingPicker.value) {
-                    stringResource(R.string.select_time)
-                } else {
-                    stringResource(R.string.input_time)
-                },
-                onCancel = {
-                    showTimePicker = false
-                    onCancel()
-                },
-                onConfirm = {
-                    cal.set(Calendar.HOUR_OF_DAY, state.hour)
-                    cal.set(Calendar.MINUTE, state.minute)
-                    cal.isLenient = false
-                    finalTime = formatter.format(cal.timeInMillis)
-                    showTimePicker = false
-                    onTimeSelected(cal.timeInMillis)
-                },
-                toggle = {
-                    if (configuration.screenHeightDp > 400) {
-                        IconButton(onClick = { showingPicker.value = !showingPicker.value }) {
-                            val icon =
-                                if (showingPicker.value) {
-                                    Icons.Outlined.Keyboard
-                                } else {
-                                    Icons.Outlined.Schedule
-                                }
-                            Icon(
-                                icon,
-                                contentDescription =
-                                if (showingPicker.value) {
-                                    stringResource(R.string.switch_to_text_input)
-                                } else {
-                                    stringResource(R.string.switch_to_touch_input)
-                                }
-                            )
-                        }
-                    }
-                }
-            ) {
-                if (showingPicker.value && configuration.screenHeightDp > 400) {
-                    TimePicker(state = state)
-                } else {
-                    TimeInput(state = state)
-                }
-            }
+    val titleResource = if (showingPicker.value) R.string.select_time else R.string.input_time
+    val iconResource = if (showingPicker.value) Icons.Outlined.Keyboard else Icons.Outlined.Schedule
+    val contentDescriptionResource =
+        if (showingPicker.value) R.string.switch_to_text_input else R.string.switch_to_touch_input
+    val isExpanded = configuration.screenHeightDp > 400
+
+    @Composable
+    fun TimePickerContent() {
+        if (showingPicker.value && isExpanded) {
+            TimePicker(state = state)
+        } else {
+            TimeInput(state = state)
         }
     }
+
+    if (showTimePicker) {
+        TimePickerDialog(
+            title = stringResource(id = titleResource),
+            onCancel = {
+                showTimePicker = false
+                onCancel()
+            },
+            onConfirm = {
+                cal.set(Calendar.HOUR_OF_DAY, state.hour)
+                cal.set(Calendar.MINUTE, state.minute)
+                cal.isLenient = false
+                finalTime = formatter.format(cal.timeInMillis)
+                showTimePicker = false
+                onTimeSelected(cal.timeInMillis)
+            },
+            toggle = {
+                if (isExpanded) {
+                    IconButton(onClick = { showingPicker.value = !showingPicker.value }) {
+                        Icon(
+                            iconResource,
+                            contentDescription = stringResource(id = contentDescriptionResource)
+                        )
+                    }
+                }
+            }
+        ) {
+            TimePickerContent()
+        }
+    }
+}
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
