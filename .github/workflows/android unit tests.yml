@@ -8,6 +8,14 @@ on:
       - '**.gradle'
       - gradle.properties
       - gradlew*
+  pull_request:
+    paths:
+      - .github/workflows/android-lint.yml
+      - '*/src/**'
+      - gradle/**
+      - '**.gradle'
+      - gradle.properties
+      - gradlew*
 
 jobs:
   test:
