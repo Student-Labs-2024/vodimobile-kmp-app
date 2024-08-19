@@ -77,7 +77,32 @@ class ReservationViewModel(
                         when (crmEither) {
                             is CrmEither.CrmData -> {
                                 reservationState.update {
-                                    it.copy(placeList = crmEither.data)
+                                    it.copy(placeList = crmEither.data.filter { item -> !item.archive })
+                                }
+                            }
+
+                            is CrmEither.CrmError -> {}
+
+                            CrmEither.CrmLoading -> {}
+                        }
+                    }
+                }
+            }
+
+            ReservationIntent.GetAllServices -> {
+                viewModelScope.launch {
+                    val userFLow = dataStoreStorage.getUser()
+                    userFLow.collect { user ->
+                        val userFromRemote =
+                            supabaseStorage.getUser(password = user.password, phone = user.phone)
+                        val crmEither = crmStorage.getServices(
+                            accessToken = userFromRemote.accessToken,
+                            refreshToken = userFromRemote.refreshToken
+                        )
+                        when (crmEither) {
+                            is CrmEither.CrmData -> {
+                                reservationState.update {
+                                    it.copy(serviceList = crmEither.data)
                                 }
                             }
 
@@ -95,13 +120,25 @@ class ReservationViewModel(
                 }
             }
 
-            is ReservationIntent.PlaceChange -> {
+            is ReservationIntent.GetPlaceChange -> {
                 viewModelScope.launch {
                     reservationState.update {
                         it.copy(
-                            placeId = intent.value.first,
-                            place = intent.value.second,
-                            errorPlace = intent.value.second.isEmpty()
+                            getPlaceId = intent.value.first,
+                            getPlace = intent.value.second,
+                            errorGetPlace = intent.value.second.isEmpty()
+                        )
+                    }
+                }
+            }
+
+            is ReservationIntent.ReturnPlaceChange -> {
+                viewModelScope.launch {
+                    reservationState.update {
+                        it.copy(
+                            returnPlaceId = intent.value.first,
+                            returnPlace = intent.value.second,
+                            errorReturnPlace = intent.value.second.isEmpty()
                         )
                     }
                 }
@@ -150,11 +187,15 @@ class ReservationViewModel(
                 }
             }
 
-            is ReservationIntent.CommentsChange -> {
+            is ReservationIntent.ServiceIdChange -> {
                 viewModelScope.launch {
                     reservationState.update {
                         it.copy(
-                            comments = intent.value
+                            selectedServiceIdList =
+                            if (intent.value in it.selectedServiceIdList)
+                                it.selectedServiceIdList - intent.value
+                            else
+                                it.selectedServiceIdList + intent.value
                         )
                     }
                 }
@@ -222,9 +263,9 @@ class ReservationViewModel(
                                 car_id = reservationState.value.carId,
                                 begin = "${reservationState.value.date[0]} ${reservationState.value.startTime})",
                                 end = "${reservationState.value.date[1]} ${reservationState.value.endTime})",
-                                begin_place_id = reservationState.value.placeId,
-                                end_place_id = reservationState.value.placeId,
-                                services = null
+                                begin_place_id = reservationState.value.getPlaceId,
+                                end_place_id = reservationState.value.returnPlaceId,
+                                services = reservationState.value.selectedServiceIdList.toTypedArray()
                             )
                         )
                         when (crmEither) {
@@ -261,9 +302,9 @@ class ReservationViewModel(
                                 car_id = reservationState.value.carId,
                                 begin = "${reservationState.value.date[0]} ${reservationState.value.startTime})",
                                 end = "${reservationState.value.date[1]} ${reservationState.value.endTime})",
-                                begin_place_id = reservationState.value.placeId,
-                                end_place_id = reservationState.value.placeId,
-                                services = null,
+                                begin_place_id = reservationState.value.getPlaceId,
+                                end_place_id = reservationState.value.returnPlaceId,
+                                services = reservationState.value.selectedServiceIdList,
                                 prepayment = null,
                                 files = null
                             )

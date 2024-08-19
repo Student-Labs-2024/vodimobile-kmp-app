@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -23,14 +27,15 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun DescriptionCommentField(
+fun TimeField(
     label: String,
     value: String,
     placeholder: String,
-    onValueChange: (String) -> Unit,
+    onClick: () -> Unit,
+    isError: Boolean,
+    messageError: String,
     modifier: Modifier = Modifier
 ) {
-
     val focusManager = LocalFocusManager.current
 
     Column(
@@ -52,13 +57,13 @@ fun DescriptionCommentField(
             )
         }
         ExtendedTheme {
-
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
                 value = value,
-                onValueChange = { onValueChange(it) },
+                onValueChange = { },
+                readOnly = true,
                 placeholder = {
                     Text(
                         text = placeholder,
@@ -70,11 +75,11 @@ fun DescriptionCommentField(
                     focusedBorderColor = MaterialTheme.colorScheme.tertiary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.tertiary,
                     errorBorderColor = MaterialTheme.colorScheme.error,
-                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-                    disabledContainerColor = MaterialTheme.colorScheme.onPrimary,
+                    focusedContainerColor = ExtendedTheme.colorScheme.containerBack,
+                    unfocusedContainerColor = ExtendedTheme.colorScheme.containerBack,
+                    disabledContainerColor = ExtendedTheme.colorScheme.containerBack,
                     cursorColor = MaterialTheme.colorScheme.onBackground,
-                    errorContainerColor = MaterialTheme.colorScheme.onPrimary,
+                    errorContainerColor = ExtendedTheme.colorScheme.containerBack,
                     errorCursorColor = MaterialTheme.colorScheme.onBackground,
                     focusedTextColor = MaterialTheme.colorScheme.onBackground,
                     unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
@@ -86,8 +91,28 @@ fun DescriptionCommentField(
                         focusManager.clearFocus()
                     }
                 ),
+                trailingIcon = {
+                    IconButton(
+                        onClick = onClick
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.AccessTime,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
+                },
                 enabled = true,
-                textStyle = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onBackground)
+                textStyle = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurface),
+                isError = isError
+            )
+        }
+        if (isError) {
+            Text(
+                text = messageError,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.padding(start = 10.dp, top = 3.dp)
             )
         }
     }
@@ -95,26 +120,30 @@ fun DescriptionCommentField(
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun DescriptionFieldLightPreview() {
+private fun DescriptionTimeFieldLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        DescriptionCommentField(
-            label = stringResource(id = R.string.reservation_comments_label),
+        TimeField(
+            label = stringResource(id = R.string.reservation_time_from_label),
             value = "",
-            placeholder = stringResource(id = R.string.reservation_comments_placeholder),
-            onValueChange = {}
+            placeholder = stringResource(id = R.string.reservation_place_placeholder),
+            onClick = {},
+            isError = false,
+            messageError = ""
         )
     }
 }
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun DescriptionFieldDarkPreview() {
+private fun DescriptionTimeFieldDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        DescriptionCommentField(
-            label = stringResource(id = R.string.reservation_comments_label),
+        TimeField(
+            label = stringResource(id = R.string.reservation_time_to_label),
             value = "",
-            placeholder = stringResource(id = R.string.reservation_comments_placeholder),
-            onValueChange = {}
+            placeholder = stringResource(id = R.string.reservation_place_placeholder),
+            onClick = {},
+            isError = false,
+            messageError = ""
         )
     }
 }

@@ -2,6 +2,8 @@ package com.vodimobile.presentation.screens.reservation
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -60,14 +62,15 @@ import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
-import com.vodimobile.presentation.screens.reservation.components.DescriptionCommentField
-import com.vodimobile.presentation.screens.reservation.components.DescriptionDateField
-import com.vodimobile.presentation.screens.reservation.components.DescriptionPlaceField
-import com.vodimobile.presentation.screens.reservation.components.DescriptionTimeField
+import com.vodimobile.presentation.screens.reservation.components.DateField
+import com.vodimobile.presentation.screens.reservation.components.DropDownField
 import com.vodimobile.presentation.screens.reservation.components.ReservationCarDescription
+import com.vodimobile.presentation.screens.reservation.components.ServiceItemList
+import com.vodimobile.presentation.screens.reservation.components.TimeField
 import com.vodimobile.presentation.screens.reservation.store.ReservationEffect
 import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
+import com.vodimobile.presentation.screens.reservation.utils.DescribableItem
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
@@ -117,7 +120,10 @@ fun ReservationScreen(
         }
     }
 
-    onReservationIntent(ReservationIntent.GetAllPLaces)
+    LaunchedEffect(key1 = Unit) {
+        onReservationIntent(ReservationIntent.GetAllPLaces)
+        onReservationIntent(ReservationIntent.GetAllServices)
+    }
 
     LaunchedEffect(carId) {
         onReservationIntent(ReservationIntent.CarIdChange(carId))
@@ -133,7 +139,8 @@ fun ReservationScreen(
         onReservationIntent(ReservationIntent.EndTimeChange(endTime))
     }
 
-    if (!reservationState.value.errorPlace &&
+    if (!reservationState.value.errorGetPlace &&
+        !reservationState.value.errorReturnPlace &&
         !reservationState.value.errorDate &&
         !reservationState.value.errorStartTime &&
         !reservationState.value.errorEndTime
@@ -150,6 +157,10 @@ fun ReservationScreen(
         mutableStateOf(false)
     }
 
+    val serviceList = remember {
+        mutableListOf(Int)
+    }
+
     Scaffold(
         topBar = {
             ScreenHeader(
@@ -162,12 +173,13 @@ fun ReservationScreen(
                 }
             )
         }
-    ) {
+    ) { padding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)
-                .padding(it)
+                .padding(padding)
         ) {
             ReservationCarDescription(
                 car = reservationState.value.selectedCar,
@@ -189,7 +201,7 @@ fun ReservationScreen(
                     if (date.contentEquals(longArrayOf(0L, 0L)) || emptyInitialDateFlag.value) {
                         emptyInitialDateFlag.value = true
                         item {
-                            DescriptionDateField(
+                            DateField(
                                 label = stringResource(id = R.string.reservation_date_label),
                                 value = fullDateToString(date),
                                 placeholder = stringResource(id = R.string.reservation_date_placeholder),
@@ -204,19 +216,25 @@ fun ReservationScreen(
                     }
 
                     item {
-                        DescriptionPlaceField(
-                            label = stringResource(id = R.string.reservation_place_label),
-                            value = reservationState.value.place,
+                        DropDownField(
+                            label = stringResource(id = R.string.reservation_place_get_label),
+                            value = reservationState.value.getPlace,
                             placeholder = stringResource(id = R.string.reservation_place_placeholder),
+                            tooltip = stringResource(id = R.string.tooltip_day_night_time),
                             onValueChange = {
-                                onReservationIntent(ReservationIntent.PlaceChange(it))
+                                onReservationIntent(ReservationIntent.GetPlaceChange(it))
                                 resetButtonClicked()
                             },
-                            places = reservationState.value.placeList
+                            items = reservationState.value.placeList.map { item ->
+                                DescribableItem(
+                                    item.title,
+                                    item.deliveryCost
+                                )
+                            }
                         )
                     }
                     item {
-                        DescriptionTimeField(
+                        TimeField(
                             label = stringResource(id = R.string.reservation_time_from_label),
                             value = startTime,
                             placeholder = stringResource(id = R.string.reservation_time_placeholder),
@@ -229,7 +247,25 @@ fun ReservationScreen(
                         )
                     }
                     item {
-                        DescriptionTimeField(
+                        DropDownField(
+                            label = stringResource(id = R.string.reservation_place_return_label),
+                            value = reservationState.value.returnPlace,
+                            placeholder = stringResource(id = R.string.reservation_place_placeholder),
+                            tooltip = stringResource(id = R.string.tooltip_day_night_time),
+                            onValueChange = {
+                                onReservationIntent(ReservationIntent.ReturnPlaceChange(it))
+                                resetButtonClicked()
+                            },
+                            items = reservationState.value.placeList.map { item ->
+                                DescribableItem(
+                                    item.title,
+                                    item.deliveryCost
+                                )
+                            }
+                        )
+                    }
+                    item {
+                        TimeField(
                             label = stringResource(id = R.string.reservation_time_to_label),
                             value = endTime,
                             placeholder = stringResource(id = R.string.reservation_time_placeholder),
@@ -242,14 +278,11 @@ fun ReservationScreen(
                         )
                     }
                     item {
-                        DescriptionCommentField(
-                            label = stringResource(id = R.string.reservation_comments_label),
-                            value = reservationState.value.comments,
-                            placeholder = stringResource(id = R.string.reservation_comments_placeholder),
-                            onValueChange = {
-                                onReservationIntent(ReservationIntent.CommentsChange(it))
-                                resetButtonClicked()
-                            }
+                        ServiceItemList(
+                            label = stringResource(id = R.string.reservation_services_label),
+                            serviceList = reservationState.value.serviceList,
+                            selectedServiceIndexes = reservationState.value.selectedServiceIdList,
+                            onSelected = { onReservationIntent(ReservationIntent.ServiceIdChange(it)) }
                         )
                     }
                     item {
@@ -275,7 +308,7 @@ fun ReservationScreen(
                             }
                             PrimaryButton(
                                 text = stringResource(id = R.string.reservation_put_bid),
-                                enabled = reservationState.value.place.isNotEmpty(),
+                                enabled = reservationState.value.getPlace.isNotEmpty(),
                                 onClick = {
                                     isButtonClicked.value = true
                                     if (reservationState.value.startTime.isNotEmpty() &&
@@ -306,6 +339,7 @@ private fun fullDateToString(date: LongArray): String {
     else fullDateToStringRU(date)
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
@@ -378,6 +412,7 @@ private fun ReservationScreenLightPreview() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

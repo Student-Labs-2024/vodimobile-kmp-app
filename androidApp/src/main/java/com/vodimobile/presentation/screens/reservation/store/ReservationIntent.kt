@@ -5,9 +5,11 @@ import com.vodimobile.presentation.screens.reservation.utils.TimeType
 sealed class ReservationIntent {
     data object GetAllPLaces : ReservationIntent()
     data object GetAllCars : ReservationIntent()
+    data object GetAllServices : ReservationIntent()
     data object GetCarFreeDate : ReservationIntent()
-    data class PlaceChange(val value: Pair<Int, String>) : ReservationIntent()
-    data class CommentsChange(val value: String) : ReservationIntent()
+    data class GetPlaceChange(val value: Pair<Int, String>) : ReservationIntent()
+    data class ReturnPlaceChange(val value: Pair<Int, String>) : ReservationIntent()
+    data class ServiceIdChange(val value: Int) : ReservationIntent()
     data class DateChange(val value: LongArray) : ReservationIntent() {
 
         override fun equals(other: Any?): Boolean {
@@ -23,7 +25,8 @@ sealed class ReservationIntent {
             return value.contentHashCode()
         }
     }
-    data class CarIdChange(val value: Int): ReservationIntent()
+
+    data class CarIdChange(val value: Int) : ReservationIntent()
     data class StartTimeChange(val value: String) : ReservationIntent()
     data class EndTimeChange(val value: String) : ReservationIntent()
     data object PutBid : ReservationIntent()

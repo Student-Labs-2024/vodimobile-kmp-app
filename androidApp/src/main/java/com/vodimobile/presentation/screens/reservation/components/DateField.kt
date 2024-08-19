@@ -27,7 +27,7 @@ import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun DescriptionDateField(
+fun DateField(
     label: String,
     value: String,
     placeholder: String,
@@ -123,7 +123,7 @@ fun DescriptionDateField(
 @Composable
 private fun DescriptionDateFieldLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        DescriptionDateField(
+        DateField(
             label = stringResource(id = R.string.reservation_date_label),
             value = "",
             placeholder = stringResource(id = R.string.reservation_date_placeholder),
@@ -138,7 +138,7 @@ private fun DescriptionDateFieldLightPreview() {
 @Composable
 private fun DescriptionDateFieldDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        DescriptionDateField(
+        DateField(
             label = stringResource(id = R.string.reservation_date_label),
             value = "",
             placeholder = stringResource(id = R.string.reservation_date_placeholder),

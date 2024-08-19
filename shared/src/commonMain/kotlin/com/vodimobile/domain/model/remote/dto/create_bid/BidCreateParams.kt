@@ -10,7 +10,7 @@ class BidCreateParams(
     val end: String,
     val begin_place_id: Int,
     val end_place_id: Int,
-    val services: String? = null,
+    val services: List<Int>? = null,
     val prepayment: Double? = null,
     val files: List<Path>? = null
 )

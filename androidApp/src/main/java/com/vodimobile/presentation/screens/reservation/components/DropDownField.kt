@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -47,7 +48,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.vodimobile.android.R
-import com.vodimobile.domain.model.Place
+import com.vodimobile.presentation.screens.reservation.utils.DescribableItem
+import com.vodimobile.presentation.screens.reservation.utils.createFullFieldDescription
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.theme.tooltip_container
@@ -55,18 +57,16 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DescriptionPlaceField(
+fun DropDownField(
     label: String,
     value: String,
     placeholder: String,
     onValueChange: (Pair<Int, String>) -> Unit,
-    @SuppressLint("ComposeUnstableCollections") places: List<Place>,
-    modifier: Modifier = Modifier
+    @SuppressLint("ComposeUnstableCollections") items: List<DescribableItem>,
+    modifier: Modifier = Modifier,
+    tooltip: String = ""
 ) {
     val focusManager = LocalFocusManager.current
-
-    val tooltipState = RichTooltipState()
-    val scope = rememberCoroutineScope()
 
     var expanded by remember { mutableStateOf(false) }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
@@ -93,30 +93,36 @@ fun DescriptionPlaceField(
                 color = MaterialTheme.colorScheme.onBackground
             )
 
-            RichTooltipBox(
-                modifier = Modifier.wrapContentHeight(),
-                colors = RichTooltipColors(
-                    containerColor = tooltip_container,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                    titleContentColor = tooltip_container,
-                    actionContentColor = tooltip_container
-                ),
-                text = {
-                    Text(
-                        text = stringResource(id = R.string.tooltip_day_night_time),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                },
-                tooltipState = tooltipState
-            ) {
-                IconButton(
-                    onClick = { scope.launch { tooltipState.show() } }
+            if (tooltip.isNotEmpty()) {
+
+                val tooltipState = RichTooltipState()
+                val scope = rememberCoroutineScope()
+
+                RichTooltipBox(
+                    modifier = Modifier.wrapContentHeight(),
+                    colors = RichTooltipColors(
+                        containerColor = tooltip_container,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        titleContentColor = tooltip_container,
+                        actionContentColor = tooltip_container
+                    ),
+                    text = {
+                        Text(
+                            text = tooltip,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    },
+                    tooltipState = tooltipState
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.HelpOutline,
-                        contentDescription = stringResource(R.string.reservation_tooltip_time),
-                        tint = MaterialTheme.colorScheme.tertiary
-                    )
+                    IconButton(
+                        onClick = { scope.launch { tooltipState.show() } }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.HelpOutline,
+                            contentDescription = tooltip,
+                            tint = MaterialTheme.colorScheme.tertiary
+                        )
+                    }
                 }
             }
         }
@@ -188,15 +194,18 @@ fun DescriptionPlaceField(
                         .background(color = MaterialTheme.colorScheme.onPrimary)
                         .width(with(LocalDensity.current) { textFieldSize.width.toDp() })
                 ) {
-                    places.forEachIndexed { index, item ->
-                        val description = createFullPlaceDescription(item)
+                    items.forEachIndexed { index, item ->
+                        val description = createFullFieldDescription(item)
                         DropdownMenuItem(
                             text = {
-                                Text(
-                                    text = description,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onBackground
-                                )
+                                Row(horizontalArrangement = Arrangement.SpaceBetween){
+                                    Text(
+                                        text = description,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onBackground
+                                    )
+                                    Icon(imageVector = Icons.Default.Check, contentDescription = "")
+                                }
                             },
                             onClick = {
                                 onValueChange(Pair(index, description))
@@ -210,20 +219,16 @@ fun DescriptionPlaceField(
     }
 }
 
-private fun createFullPlaceDescription(item: Place): String {
-    return "${item.title} - ${item.deliveryCost}"
-}
-
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun DescriptionFieldLightPreview() {
     VodimobileTheme(dynamicColor = false) {
-        DescriptionPlaceField(
-            label = stringResource(id = R.string.reservation_place_label),
+        DropDownField(
+            label = stringResource(id = R.string.reservation_place_get_label),
             value = "",
             placeholder = stringResource(id = R.string.reservation_place_placeholder),
             onValueChange = {},
-            places = listOf()
+            items = listOf()
         )
     }
 }
@@ -232,12 +237,12 @@ private fun DescriptionFieldLightPreview() {
 @Composable
 private fun DescriptionFieldDarkPreview() {
     VodimobileTheme(dynamicColor = false) {
-        DescriptionPlaceField(
-            label = stringResource(id = R.string.reservation_place_label),
+        DropDownField(
+            label = stringResource(id = R.string.reservation_place_get_label),
             value = "",
             placeholder = stringResource(id = R.string.reservation_place_placeholder),
             onValueChange = {},
-            places = listOf()
+            items = listOf()
         )
     }
 }
