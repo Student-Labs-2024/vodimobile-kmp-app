@@ -6,4 +6,5 @@ sealed class ContactEffect {
     data object WhatsappClick : ContactEffect()
     data object BackClick : ContactEffect()
     data object PhoneClick : ContactEffect()
+    data object EmailClick : ContactEffect()
 }

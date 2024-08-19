@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -68,6 +68,10 @@ fun ContactScreen(
                 ContactEffect.PhoneClick -> {
                     openDialer(App.INSTANCE.getString(R.string.phone_number))
                 }
+
+                ContactEffect.EmailClick -> {
+                    openMail(App.INSTANCE.getString(R.string.mail1_str))
+                }
             }
         }
     }
@@ -101,6 +105,7 @@ fun ContactScreen(
             }
             item {
                 ListInfoContact(
+                    onEmailClick = { onContactIntent(ContactIntent.EmailClick) },
                     onPhoneClick = { onContactIntent(ContactIntent.PhoneClick) }
                 )
             }
@@ -227,7 +232,35 @@ private fun openDialer(phoneNumber: String) {
 
         Toast.makeText(
             App.INSTANCE,
-            App.INSTANCE.getString(R.string.error_phone),
+            App.INSTANCE.getString(R.string.error),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+}
+
+@SuppressLint("StringFormatInvalid")
+private fun openMail(email: String) {
+
+    try {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        }
+        if (intent.resolveActivity(App.INSTANCE.packageManager) != null) {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            App.INSTANCE.startActivity(intent)
+        } else {
+            val webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(App.INSTANCE.getString(R.string.gmail_url, email))
+            )
+            App.INSTANCE.startActivity(webIntent)
+        }
+    } catch (e: Exception) {
+
+        Toast.makeText(
+            App.INSTANCE,
+            App.INSTANCE.getString(R.string.error),
             Toast.LENGTH_SHORT
         ).show()
     }
