@@ -1,4 +1,4 @@
-name: AndroidLint
+name: android lint
 
 on:
   pull_request:
@@ -19,18 +19,16 @@ jobs:
           distribution: zulu
           java-version: 21
           cache: gradle
+      - name: Create file
+        run: cat /home/runner/work/<Project-Name>/<Project-Name>/app/google-services.json | base64
+      - name: Putting data
+        env:
+          DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $DATA > /home/runner/work/<Project-Name>/<Project-Name>/app/google-services.json
       - name: Create local.properties
         run: | 
           echo "sdk.dir=$(pwd)/android-sdk" >> local.properties
-          echo "crm.server = 0.0.0.0" >> local.properties
-          echo "crm.port = 0" >> local.properties
-          echo "crm.login = no_login" >> local.properties
-          echo "crm.password.hash = abcd" >> local.properties
-          echo "crm.test.refresh.token = abcd" >> local.properties
-          echo "crm.test.access.token = abcd" >> local.properties
-          echo "supabase.url = abcd" >> local.properties
-          echo "supabase.public = abcd" >> local.properties
-          echo "supabase.secret = abcd" >> local.properties
+          echo ${{ secrets.USER }} > local.properties
       - run: ./gradlew lint
       - uses: yutailang0119/action-android-lint@v4
         with:
