@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vodimobile</string>
+
+    <string name="requister_str">Sign up</string>
+    <string name="login_str">Login</string>
+
+    <string name="login_or_create_title">Log in or create a profile</string>
+    <string name="login_or_create_subtitle">To submit a request, you must have an account</string>
+
+    <string name="label_name">Full name</string>
+    <string name="placeholder_name">Enter your full name</string>
+    <string name="name_error">Invalid format. Only letters without characters are allowed to be entered</string>
+    <string name="empty_name">This field is required</string>
+
+    <string name="label_phoneNumber">Phone Number</string>
+    <string name="placeholder_phoneNumber">+7</string>
+    <string name="phoneNumber_not_exist_error">There is no such phone number. Please try again</string>
+    <string name="phoneNumber_in_storage_error">The number has already been registered. Log in</string>
+
+    <string name="clear_registration_input">Clear input</string>
+
+    <string name="agreement_checkBox_desc">Consent to data processing</string>
+    <string name="agreement_text">I have read and agree to the terms\nUser Agreement</string>
+
+    <string name="text_next_button">Next</string>
+    <string name="header_back_content_desc">Back</string>
+    <string name="title_screen_registration">Registration</string>
+
+    <string name="title_user_agreement">Terms of the agreement</string>
+    <string name="text_user_agreement">User agreement</string>
+
+    <string name="close_button_content_description">Close</string>
+
+    <string name="rules_and_conditions">Rules and conditions</string>
+    <string name="faq">FAQ</string>
+    <string name="contacts">Contacts</string>
+    <string name="profile_title">Profile</string>
+    <string name="exit_account">Log out of account</string>
+    <string name="personal_data_title">Personal\ndata</string>
+    <string name="personal_data_subtitle">Full name, phone number, email</string>
+    <string name="edit_data">Edit data</string>
+
+    <string name="home_screen_label">Home</string>
+    <string name="orders_screen_label">My orders</string>
+    <string name="profile_screen_label">Profile</string>
+    <string name="str_rules_and_conditions_title">Rules and conditions</string>
+
+    <string name="str_rules">Rules and conditions</string>
+    <string name="str_arrowforward">Go over</string>
+
+    <string name="str_rules1">Rental conditions for drivers</string>
+    <string name="str_rules2">Stages of car rental</string>
+
+    <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
+    <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
+    <string name="whatsapp_str">Whatsapp</string>
+    <string name="telegram_str">Telegram</string>
+
+    <string name="title_list_contact">Our social networks</string>
+    <string name="vk_str">Vkontakte</string>
+    <string name="mail_str">Mail</string>
+    <string name="mail1_str">vodimobil@vodimobil.ru</string>
+    <string name="telephone_str">Phone number</string>
+    <string name="telephone1_str">+7 (950) 783 14-40</string>
+    <string name="adress_str">Office address:</string>
+    <string name="adress2_str">Omsk, Dmitrieva str., 5/6</string>
+    <string name="version_str">Version %s</string>
+
+    <string name="version_year_str">© 2016</string>
+    <string name="version1_str">Vodimobile</string>
+    <string name="title_contact_screen">Contacts</string>
+
+    <string name="faq_title">Question-answer from driver</string>
+    <string name="faq_subtitle">Find the answer to any question you are interested in.</string>
+
+    <string name="log_out_confirmation_title">Log out of your account?</string>
+    <string name="log_out_confirmation_body">You will not be able to rent cars without an account</string>
+    <string name="confirmation_cancel_button">Cancel</string>
+    <string name="confirmation_logout_button">Log out</string>
+
+    <string name="tariff">from %s rub per day.</string>
+    <string name="car">%s liters</string>
+    <string name="spec_tile">Specifications:</string>
+    <string name="transmis">Gearbox</string>
+    <string name="wheel_drive">Drive</string>
+    <string name="year_of_release">Year of release</string>
+    <string name="tank_value">Tank </string>
+    <string name="to_book">To book</string>
+
+
+    <string name="connection_error">Connection error</string>
+    <string name="connection_error_subtitle">There is no internet connection. Check the network and try the connection again.</string>
+    <string name="try_again_bt">Try again</string>
+
+    <string name="auto_tag_all">All cars</string>
+    <string name="auto_tag_economy">Economy</string>
+    <string name="auto_tag_comfort">Comfort</string>
+    <string name="auto_tag_premium">Premium</string>
+    <string name="auto_tag_sedan">Sedans</string>
+    <string name="auto_tag_off_road">Off-road cars</string>
+
+    <string name="choose_date_rent">Select the rental dates</string>
+    <string name="date_rent_placeholder">When?</string>
+    <string name="find_car_button">Find a car</string>
+    <string name="icon_calendar">Calendar</string>
+
+    <string name="notification_desc">Notifications</string>
+
+    <string name="server_error">Error on the server</string>
+    <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
+
+    <string name="vehicle_fleet">Vehicle fleet</string>
+
+    <string name="error_app">error</string>
+    <string name="error_app_title">Something went wrong</string>
+    <string name="error_app_title2">Failed to submit request. Try again</string>
+    <string name="error_bt">Try again</string>
+    <string name="error_icon">back</string>
+
+    <string name="time_cancel">Cancel</string>
+    <string name="ok_time">OK</string>
+    <string name="select_time">Select time</string>
+    <string name="input_time">Input time</string>
+    <string name="switch_to_text_input">Switch to Text Input</string>
+    <string name="switch_to_touch_input">Switch to Touch Input</string>
+
+
+    <string name="success_str">success</string>
+    <string name="succes_title">The application has been left</string>
+    <string name="success_bt">My orders</string>
+    <string name="success2_title">The manager will contact you soon. You can change the order and view its status in the orders</string>
+
+    <string name="auth_user_supabase_error">This user is already exists.</string>
+    <string name="auth_2_user_supabase_error">This user does not exist.</string>
+    <string name="active_order">Active</string>
+    <string name="completed_order">Completed</string>
+    <string name="order_title1">Your orders will be here</string>
+    <string name="order_titile2">You can apply in the main page</string>
+    <string name="my_orders">My orders</string>
+    <string name="coast_order">%s rub</string>
+    <string name="about_the_order">About the order</string>
+
+    <string name="delete_order">Are you sure you want to delete order?</string>
+    <string name="delete_order_back">Cansel</string>
+    <string name="delete_order_cansel">Delete</string>
+
+    <string name="auto">Automobile</string>
+    <string name="order_status">Order status</string>
+    <string name="rent_period">Rent period:</string>
+    <string name="where_take_auto">Place to take auto</string>
+    <string name="what_time">Rent time:</string>
+    <string name="auto_charestiristics">Automobile characteristics:</string>
+    <string name="sum_order">Summary:</string>
+    <string name="change_order">Change bid</string>
+
+    <string name="simple_password_error">Password must contain uppercase letters, numbers and special characters</string>
+</resources>
