@@ -23,13 +23,13 @@ jobs:
           distribution: zulu
           java-version: 21
           cache: gradle
-      - name: Putting data
-        run: | 
-         echo ${{ secrets.GOOGLE_SERVICES_JSON }} >> google-services.json
       - name: Create local.properties
         run: | 
           echo "sdk.dir=$(pwd)/android-sdk" >> local.properties
           echo ${{ secrets.LOCAL_PROPERTIES }} >> local.properties
+      - name: Create google-services.json
+        run: | 
+         echo ${{ secrets.GOOGLE_SERVICES_JSON }} >> google-services.json
       - run: ./gradlew lint
       - uses: yutailang0119/action-android-lint@v4
         with:
