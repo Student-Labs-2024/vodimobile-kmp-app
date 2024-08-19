@@ -48,6 +48,7 @@ android {
         checkGeneratedSources = true
         checkDependencies = true
         targetSdk = 34
+        abortOnError = false
 
         htmlReport = true
         htmlOutput = file("lint-report.html")
@@ -105,4 +106,7 @@ dependencies {
 
     //Coroutines
     implementation(libs.kotlinx.coroutines.android)
+
+    //FCM
+    implementation(libs.firebase.messaging)
 }

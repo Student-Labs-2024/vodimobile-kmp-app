@@ -6,6 +6,7 @@ import kotlinx.datetime.Clock
 
 data class Order(
     val userId: Int,
+    val orderId: Int,
     val bidNumber: Int,
     val bid: Bid,
     val status: CarStatus,
@@ -20,6 +21,7 @@ data class Order(
         fun empty() : Order {
             return Order(
                 userId = 0,
+                orderId = 0,
                 bidNumber = 0,
                 bid = Bid(
                     cost = 0.0,

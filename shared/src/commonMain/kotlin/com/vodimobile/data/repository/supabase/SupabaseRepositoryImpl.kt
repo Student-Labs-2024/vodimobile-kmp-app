@@ -123,4 +123,95 @@ class SupabaseRepositoryImpl : SupabaseRepository {
 
         return ordersDTO
     }
+
+    override suspend fun updateOrderStatus(userId: Int, orderId: Int, status: String) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.BID_STATUS, status)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
+
+    override suspend fun updateNumber(userId: Int, orderId: Int, number: Int) {
+        supabaseClient.from(SupabaseTables.USER_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.BID_NUMBER, number)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
+
+    override suspend fun updateCrmOrder(userId: Int, orderId: Int, crmOrder: Int) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.CRM_BID_ID, crmOrder)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
+
+    override suspend fun updatePlaceStart(userId: Int, orderId: Int, placeStart: String) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.PLACE_START, placeStart)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
+
+    override suspend fun updatePlaceFinish(userId: Int, orderId: Int, placeFinish: String) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.PLACE_FINISH, placeFinish)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
+
+    override suspend fun updateCost(userId: Int, orderId: Int, coast: Float) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.COST, coast)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
+
+    override  suspend fun updateServices(userId: Int, orderId: Int, services: String) {
+        supabaseClient.from(SupabaseTables.ORDERS_TABLE).update(
+            {
+                set(SupabaseColumns.Orders.SERVICES, services)
+            }
+        ) {
+            filter {
+                eq(SupabaseColumns.Orders.USER_ID, userId)
+                eq(SupabaseColumns.Orders.BID_ID, orderId)
+            }
+        }
+    }
 }

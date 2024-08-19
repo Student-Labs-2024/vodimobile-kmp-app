@@ -1,5 +1,6 @@
 package com.vodimobile.di
 
+import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreenViewModel
@@ -57,4 +58,5 @@ val viewModelModule = module {
     viewModelOf(::SuccessfulAppViewModel)
     viewModelOf(::ReservationViewModel)
     viewModelOf(::OrderViewModel)
+    viewModelOf(::AboutOrderViewModel)
 }

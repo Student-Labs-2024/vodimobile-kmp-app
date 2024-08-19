@@ -46,7 +46,8 @@ fun ChangePasswordBlock(
             label = stringResource(id = R.string.new_password_label),
             placeholder = stringResource(id = R.string.create_password_placeholder),
             onValueChange = onNewPasswordChanged,
-            isError = newPasswordState.passwordError
+            isError = newPasswordState.passwordError,
+            errorMsg = stringResource(id = R.string.simple_password_error)
         )
     }
 }
