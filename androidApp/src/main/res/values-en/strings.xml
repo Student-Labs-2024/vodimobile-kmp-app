@@ -139,9 +139,20 @@
     <string name="order_titile2">You can apply in the main page</string>
     <string name="my_orders">My orders</string>
     <string name="coast_order">%s rub</string>
-    <string name="about_the_order">about the order</string>
+    <string name="about_the_order">About the order</string>
 
     <string name="delete_order">Are you sure you want to delete order?</string>
     <string name="delete_order_back">Cansel</string>
     <string name="delete_order_cansel">Delete</string>
+
+    <string name="auto">Automobile</string>
+    <string name="order_status">Order status</string>
+    <string name="rent_period">Rent period:</string>
+    <string name="where_take_auto">Place to take auto</string>
+    <string name="what_time">Rent time:</string>
+    <string name="auto_charestiristics">Automobile characteristics:</string>
+    <string name="sum_order">Summary:</string>
+    <string name="change_order">Change bid</string>
+
+    <string name="simple_password_error">Password must contain uppercase letters, numbers and special characters</string>
 </resources>

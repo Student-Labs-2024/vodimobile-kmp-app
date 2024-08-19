@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -29,6 +30,8 @@ import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
 import com.vodimobile.presentation.components.TimePickerSwitchable
+import com.vodimobile.presentation.screens.about_order.AboutOrderScreen
+import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
 import com.vodimobile.presentation.screens.authorization.AuthorizationViewModel
 import com.vodimobile.presentation.screens.change_password.ChangePasswordScreen
@@ -36,6 +39,7 @@ import com.vodimobile.presentation.screens.change_password.ChangePasswordViewMod
 import com.vodimobile.presentation.screens.contact.ContactScreen
 import com.vodimobile.presentation.screens.contact.ContactViewModel
 import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
+import com.vodimobile.presentation.screens.delete_order.DeleteOrderDialog
 import com.vodimobile.presentation.screens.edit_profile.EditProfileScreen
 import com.vodimobile.presentation.screens.edit_profile.EditProfileViewModel
 import com.vodimobile.presentation.screens.error_app.ErrorAppScreen
@@ -78,7 +82,7 @@ import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
-import com.vodimobile.presentation.utils.internet.connectivityState
+import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.koinViewModel
 
@@ -87,7 +91,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
 
-    val connection by connectivityState()
+    val context = LocalContext.current
 
     NavHost(
         navController = navHostController,
@@ -101,7 +105,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 route = LeafHomeScreen.HOME_SCREEN
             ) { backStackEntry ->
 
-                val isConnected = checkInternet(connection = connection)
+                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                         "selected-date",
@@ -135,7 +139,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 }
             }
             composable(route = LeafHomeScreen.ALL_CARS) { backStackEntry ->
-                val isConnected = checkInternet(connection = connection)
+                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                         "selected-date",
@@ -285,7 +289,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             ) { backStackEntry ->
                 val screen = backStackEntry.arguments?.getString("screen") ?: ""
-                print(screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
@@ -300,7 +303,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafOrdersScreen.ORDERS_SCREEN
         ) {
             composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
-                val isConnected = checkInternet(connection = connection)
+                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val orderViewModel: OrderViewModel = koinViewModel()
                     OrdersScreen(
@@ -342,9 +345,56 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 arguments = listOf(
                     navArgument("screen") { type = NavType.StringType }
                 )
-            ) { backStackEntry->
+            ) { backStackEntry ->
                 val screen = backStackEntry.arguments?.getString("screen") ?: ""
-                print (screen)
+                print(screen)
+                val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
+                ConnectionErrorScreen(
+                    onNetworkErrorIntent = connectionErrorViewModel::onIntent,
+                    networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
+            }
+            composable(
+                route = "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/{orderId}",
+                arguments = listOf(
+                    navArgument("orderId") { type = NavType.StringType }
+                )) { backStackEntry ->
+                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val orderId = backStackEntry.arguments?.getString("orderId") ?: "0"
+                    val aboutOrderViewModel: AboutOrderViewModel = koinViewModel()
+                    AboutOrderScreen(
+                        aboutOrderState = aboutOrderViewModel.aboutOrderState.collectAsState(),
+                        aboutOrderEffect = aboutOrderViewModel.aboutOrderEffect,
+                        onAboutOrderIntent = aboutOrderViewModel::onAboutOrderIntent,
+                        navHostController = navHostController,
+                        orderId = orderId.toInt()
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafOrdersScreen.ABOUT_ORDER_SCREEN,
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafOrdersScreen.ABOUT_ORDER_SCREEN}")
+                }
+            }
+            dialog(route = DialogIdentifiers.DELETE_ORDER_DIALOG) {
+                DeleteOrderDialog(
+                    onDismiss = {
+                        navHostController.navigateUp()
+                    },
+                    onConfirm = {})
+            }
+            composable(
+                route = "${LeafErrorScreen.NO_INTERNET}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val screen = backStackEntry.arguments?.getString("screen") ?: ""
+                print(screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
@@ -359,7 +409,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafScreen.PROFILE_SCREEN
         ) {
             composable(route = LeafScreen.PROFILE_SCREEN) {
-                val isConnected = checkInternet(connection = connection)
+                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val profileViewModel: ProfileViewModel = koinViewModel()
 
@@ -459,7 +509,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             ) { backStackEntry ->
                 val screen = backStackEntry.arguments?.getString("screen") ?: ""
-                print(screen)
                 val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,

@@ -52,6 +52,11 @@ class ContactViewModel : ViewModel() {
                     contactEffect.emit(ContactEffect.PhoneClick)
                 }
             }
+            is ContactIntent.EmailClick -> {
+                viewModelScope.launch {
+                    contactEffect.emit(ContactEffect.EmailClick)
+                }
+            }
         }
     }
 

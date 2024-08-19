@@ -108,7 +108,7 @@ fun OrderCard(
             }
             IconButton(
                 onClick = {
-
+                    onClick(orderItem)
                 }
             ) {
                 Icon(

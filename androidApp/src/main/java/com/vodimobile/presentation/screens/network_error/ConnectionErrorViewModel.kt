@@ -2,8 +2,8 @@ package com.vodimobile.presentation.screens.network_error
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vodimobile.presentation.store.ConnectionErrorEffect
-import com.vodimobile.presentation.store.ConnectionErrorIntent
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorEffect
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 

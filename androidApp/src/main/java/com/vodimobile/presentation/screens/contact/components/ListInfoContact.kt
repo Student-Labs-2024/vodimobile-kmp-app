@@ -19,8 +19,9 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun ListInfoContact(
+    onPhoneClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onPhoneClick: () -> Unit
+    onEmailClick: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -38,7 +39,8 @@ fun ListInfoContact(
                     modifier = Modifier
                         .size(24.dp)
                 )
-            }
+            },
+            onClick = onEmailClick
         )
         InfoContactItem(
             title = stringResource(R.string.telephone_str),
@@ -72,6 +74,6 @@ fun ListInfoContact(
 @Composable
 private fun ListInfoContactPreview() {
     VodimobileTheme {
-        ListInfoContact(onPhoneClick = {})
+        ListInfoContact(onPhoneClick = {}, onEmailClick = {})
     }
 }
