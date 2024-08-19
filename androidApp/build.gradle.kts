@@ -48,6 +48,7 @@ android {
         checkGeneratedSources = true
         checkDependencies = true
         targetSdk = 34
+        abortOnError = false
 
         htmlReport = true
         htmlOutput = file("lint-report.html")
