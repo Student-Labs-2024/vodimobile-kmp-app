@@ -26,8 +26,7 @@ jobs:
           echo "supabase.public = abcd" >> local.properties
           echo "supabase.secret = abcd" >> local.properties
       - name: Run Android Lint
-        run: |
-          ./gradlew lint -Pandroid.lintOptions.check "!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')"
+        run: ./gradlew lint
       - name: Upload lint results
         uses: actions/upload-artifact@v3
         with:
