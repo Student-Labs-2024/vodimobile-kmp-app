@@ -25,6 +25,8 @@ jobs:
           echo "supabase.url = abcd" >> local.properties
           echo "supabase.public = abcd" >> local.properties
           echo "supabase.secret = abcd" >> local.properties
+      - name: Create google-services.json
+        run: echo "" >> google-services.json
       - name: Run Android Lint
         run: ./gradlew lint
       - name: Upload lint results
