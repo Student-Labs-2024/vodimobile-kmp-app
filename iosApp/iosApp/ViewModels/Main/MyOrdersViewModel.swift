@@ -25,6 +25,7 @@ final class MyOrdersViewModel: ObservableObject {
         activeOrderList = [
             Order(
                 userId: 0,
+                orderId: 16,
                 bidNumber: 1223432,
                 bid: empty.bid,
                 status: empty.status,
@@ -36,13 +37,13 @@ final class MyOrdersViewModel: ObservableObject {
                 services: empty.services
             )
         ]
-//        getAllOrders()
     }
     
     func getAllOrders() {
         Task {
             let orders = await apiManager.fetchUserOrders()
             await MainActor.run {
+                print(orders)
                 self.orderslist = orders
             }
         }

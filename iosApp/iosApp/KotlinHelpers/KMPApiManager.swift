@@ -72,6 +72,7 @@ final class KMPApiManager {
                             )
                             DispatchQueue.main.async {
                                 self.dataStorage.gettingUser = newUser
+                                print(self.dataStorage.gettingUser)
                             }
                         }
                     }
@@ -143,11 +144,14 @@ final class KMPApiManager {
         if appState.isConnected {
             do {
                 if let storageUser = dataStorage.gettingUser {
-                    return try await helper.getOrders(
+                    print(storageUser)
+                    let orders = try await helper.getOrders(
                         userId: storageUser.id,
                         accessToken: storageUser.accessToken,
                         refreshToken: storageUser.refreshToken
                     )
+                    print(orders)
+                    return orders
                 }
             } catch {
                 print(error)
@@ -184,21 +188,30 @@ final class AuthManager: ObservableObject {
     
     func signUp(fullname: String, phone: String, password: String) async {
         await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
-        let supaUser = await apiManager.getSupaUser(pass: password, phone: phone)
-        self.dataStorage.gettingUser = supaUser
-        self.isAuthenticated = true
+        await login(phone: fullname, pass: password)
     }
     
     func login(phone: String, pass: String) async {
         let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone)
+        var currentUser = User.companion.empty()
         if let supaUser = supaUser {
             do {
-                try await self.dataStorage.editUserData(supaUser)
+                if let storageUser = dataStorage.gettingUser {
+                    currentUser = User(
+                        id: supaUser.id,
+                        fullName: supaUser.fullName,
+                        password: supaUser.password,
+                        accessToken: storageUser.accessToken,
+                        refreshToken: storageUser.refreshToken,
+                        phone: supaUser.phone
+                    )
+                    try await self.dataStorage.editUserData(currentUser)
+                }
             } catch {
                 print(error)
             }
         }
-        self.dataStorage.gettingUser = supaUser
+        self.dataStorage.gettingUser = currentUser != User.companion.empty() ? currentUser : dataStorage.gettingUser
         self.isAuthenticated = true
     }
     

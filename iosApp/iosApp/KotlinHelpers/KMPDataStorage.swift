@@ -29,6 +29,7 @@ final class KMPDataStorage: ObservableObject {
     func getUser() async {
         for await flowUser in repository.getUserData() {
             self.gettingUser = flowUser
+            print(gettingUser)
         }
     }
 }

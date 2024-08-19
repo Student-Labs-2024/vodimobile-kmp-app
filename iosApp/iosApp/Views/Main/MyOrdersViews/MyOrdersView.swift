@@ -31,7 +31,9 @@ struct MyOrdersView: View {
                             viewModel.getAllOrders()
                         }
                     } else {
-                        EmptyOrderListView()
+                        EmptyOrderListView {
+                            viewModel.getAllOrders()
+                        }
                     }
                 case .completed:
                     if !viewModel.completedOrderList.isEmpty {
@@ -43,7 +45,9 @@ struct MyOrdersView: View {
                             viewModel.getAllOrders()
                         }
                     } else {
-                        EmptyOrderListView()
+                        EmptyOrderListView {
+                            viewModel.getAllOrders()
+                        }
                     }
                 }
                 

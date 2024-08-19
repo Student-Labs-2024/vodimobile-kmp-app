@@ -18,6 +18,16 @@ struct AutoListView: View {
     @State private var dragOffset: CGSize = .zero
     @ObservedObject private var viewModel = AutoListViewModel()
     
+    init(
+        selectedAuto: Binding<Car>,
+        showModalReservation: Binding<Bool>,
+        showSignSuggestModal: Binding<Bool>
+    ) {
+        self._selectedAuto = selectedAuto
+        self._showModalReservation = showModalReservation
+        self._showSignSuggestModal = showSignSuggestModal
+    }
+    
     var body: some View {
         VStack {
             TabBarView(index: $selectedTab)
@@ -117,6 +127,11 @@ struct AutoListView: View {
                     showSignSuggestModal: $showSignSuggestModal,
                     showModalReservation: $showModalReservation
                 )
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchAllCars()
             }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)

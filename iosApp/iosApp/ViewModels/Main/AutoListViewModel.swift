@@ -12,12 +12,6 @@ import SwiftUI
 final class AutoListViewModel: ObservableObject {
     @Published var listOfAllCar = [Car]()
     @Published var isLoading = false
-
-    init() {
-        Task {
-            await fetchAllCars()
-        }
-    }
     
     func fetchAllCars() async {
         self.isLoading.toggle()
