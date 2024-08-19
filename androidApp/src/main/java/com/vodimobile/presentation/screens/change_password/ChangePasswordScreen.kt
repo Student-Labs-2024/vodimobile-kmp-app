@@ -124,10 +124,7 @@ fun ChangePasswordScreen(
         Spacer(modifier = Modifier.height(28.dp))
         PrimaryButton(
             text = stringResource(id = R.string.text_save_button),
-            enabled = oldPasswordState.value.password.isNotEmpty() &&
-                    newPasswordState.value.password.isNotEmpty() &&
-                    !oldPasswordState.value.passwordError &&
-                    !newPasswordState.value.passwordError,
+            enabled = !oldPasswordState.value.passwordError && !newPasswordState.value.passwordError,
             onClick = {
                 onChangePasswordIntent(ChangePasswordIntent.SaveChanges)
             }

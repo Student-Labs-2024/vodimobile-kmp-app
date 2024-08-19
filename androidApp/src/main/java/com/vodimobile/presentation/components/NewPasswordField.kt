@@ -41,7 +41,8 @@ fun NewPasswordField(
     placeholder: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isError: Boolean = false
+    isError: Boolean = false,
+    errorMsg: String = ""
 ) {
     val focusManager = LocalFocusManager.current
     val showPassword = remember { mutableStateOf(false) }
@@ -116,14 +117,14 @@ fun NewPasswordField(
             shape = MaterialTheme.shapes.small
         )
         if (isError) {
-            if (value.isEmpty()) {
+//            if (value.isEmpty()) {
                 Text(
-                    text = stringResource(id = R.string.empty_password),
+                    text = errorMsg.ifEmpty { stringResource(id = R.string.empty_password) },
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.padding(start = 10.dp, top = 3.dp)
                 )
-            }
+//            }
         }
     }
 }

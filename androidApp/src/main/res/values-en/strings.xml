@@ -153,4 +153,6 @@
     <string name="auto_charestiristics">Automobile characteristics:</string>
     <string name="sum_order">Summary:</string>
     <string name="change_order">Change bid</string>
+
+    <string name="simple_password_error">Password must contain uppercase letters, numbers and special characters</string>
 </resources>
