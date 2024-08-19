@@ -31,9 +31,6 @@ jobs:
           echo "supabase.url = abcd" >> local.properties
           echo "supabase.public = abcd" >> local.properties
           echo "supabase.secret = abcd" >> local.properties
-      - name: Create google-services.json
-        run: |
-         echo "" >> google-services.json
       - run: ./gradlew lint
       - uses: yutailang0119/action-android-lint@v4
         with:
