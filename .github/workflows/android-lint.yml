@@ -22,6 +22,9 @@ jobs:
           echo "crm.password.hash = abcd" >> local.properties
           echo "crm.test.refresh.token = abcd" >> local.properties
           echo "crm.test.access.token = abcd" >> local.properties
+          echo "supabase.url = abcd" >> local.properties
+          echo "supabase.public = abcd" >> local.properties
+          echo "supabase.secret = abcd" >> local.properties
       - name: Run Android Lint
         run: |
           ./gradlew lint -Pandroid.lintOptions.check "!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')"
