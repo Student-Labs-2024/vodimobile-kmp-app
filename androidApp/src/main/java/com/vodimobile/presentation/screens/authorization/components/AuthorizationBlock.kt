@@ -23,6 +23,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 fun AuthorizationBlock(
     authorizationState: AuthorizationState,
     isShowError: Boolean,
+    errorMsg: Int,
     onPhoneNumberChanged: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onClickRememberPassword: () -> Unit
@@ -47,7 +48,7 @@ fun AuthorizationBlock(
             isError = authorizationState.passwordError && isShowError,
             errorMessage =
             if (authorizationState.password.isEmpty())
-                stringResource(id = R.string.empty_password) else stringResource(id = R.string.invalid_password),
+                stringResource(id = R.string.empty_password) else stringResource(id = errorMsg),
             onClickRememberPassword = onClickRememberPassword
         )
     }
@@ -63,6 +64,7 @@ private fun AuthorizationBlockLightPreview() {
             AuthorizationBlock(
                 authorizationState = AuthorizationState(),
                 isShowError = false,
+                errorMsg = R.string.invalid_password,
                 onPhoneNumberChanged = {},
                 onPasswordChange = {},
                 onClickRememberPassword = {}
@@ -81,6 +83,7 @@ private fun AuthorizationBlockNightPreview() {
             AuthorizationBlock(
                 authorizationState = AuthorizationState(),
                 isShowError = false,
+                errorMsg = R.string.invalid_password,
                 onPhoneNumberChanged = {},
                 onPasswordChange = {},
                 onClickRememberPassword = {}

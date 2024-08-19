@@ -4,4 +4,5 @@ sealed class AboutOrderIntent {
     data object BackClick : AboutOrderIntent()
     data object ChangeOrderClick : AboutOrderIntent()
     data object CanselOrder : AboutOrderIntent()
+    data class InitOrder(val orderId: Int) : AboutOrderIntent()
 }

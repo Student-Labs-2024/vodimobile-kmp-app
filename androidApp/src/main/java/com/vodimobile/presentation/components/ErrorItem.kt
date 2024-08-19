@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.store.ConnectionErrorIntent
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 
 @Composable
 fun ErrorItem(

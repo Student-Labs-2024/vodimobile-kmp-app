@@ -1,5 +1,5 @@
 {
-  "originHash" : "5a02782da745c142b1bbd09275bd7fc70a6b774a6fbf2e2144248fd739bd107b",
+  "originHash" : "20f75f70f630a2f1c6accd7df6c5ad605759a1672dfa27ad3befbb0fbdf51d66",
   "pins" : [
     {
       "identity" : "iphonenumberfield",
@@ -44,6 +44,15 @@
       "state" : {
         "revision" : "b8431a26655378581890d56b95a0b59aba9f62da",
         "version" : "0.55.1"
+      }
+    },
+    {
+      "identity" : "swiftui-pull-to-refresh",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/globulus/swiftui-pull-to-refresh",
+      "state" : {
+        "revision" : "1852a4eb7e7a12a768c64b25b1bd905993ced4eb",
+        "version" : "1.1.9"
       }
     },
     {

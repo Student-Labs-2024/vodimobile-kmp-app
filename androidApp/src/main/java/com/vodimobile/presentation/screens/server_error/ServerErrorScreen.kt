@@ -21,8 +21,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ErrorItem
-import com.vodimobile.presentation.store.ConnectionErrorEffect
-import com.vodimobile.presentation.store.ConnectionErrorIntent
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorEffect
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 

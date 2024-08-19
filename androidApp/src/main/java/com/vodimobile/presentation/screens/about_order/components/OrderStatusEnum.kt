@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +34,7 @@ fun OrderStatusEnum(order: Order, modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
+            .padding(top = 24.dp)
             .then(modifier),
         verticalArrangement = Arrangement.spacedBy(space = 22.dp, alignment = Alignment.Top)
     ) {
