@@ -1,4 +1,4 @@
-name: CI
+name: Android lint
 
 on: [pull_request]
 
@@ -16,6 +16,12 @@ jobs:
       - name: Create local.properties
         run: | 
           echo "sdk.dir=$(pwd)/android-sdk" >> local.properties
+          echo "crm.server = 0.0.0.0" >> local.properties
+          echo "crm.port = 0" >> local.properties
+          echo "crm.login = no_login" >> local.properties
+          echo "crm.password.hash = abcd" >> local.properties
+          echo "crm.test.refresh.token = abcd" >> local.properties
+          echo "crm.test.access.token = abcd" >> local.properties
       - name: Run Android Lint
         run: |
           ./gradlew lint -Pandroid.lintOptions.check "!' + file('/home/runner/work/vodimobile-kmp-app/vodimobile-kmp-app/shared/build.gradle.kts')"
