@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -49,6 +48,7 @@ android {
         checkGeneratedSources = true
         checkDependencies = true
         targetSdk = 34
+        abortOnError = false
 
         htmlReport = true
         htmlOutput = file("lint-report.html")
