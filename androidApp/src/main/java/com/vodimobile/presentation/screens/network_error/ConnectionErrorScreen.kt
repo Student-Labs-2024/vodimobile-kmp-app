@@ -11,9 +11,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,17 +22,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.ErrorItem
-import com.vodimobile.presentation.store.ConnectionErrorEffect
-import com.vodimobile.presentation.store.ConnectionErrorIntent
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorEffect
+import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
-import com.vodimobile.presentation.utils.internet.connectivityState
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 
 @SuppressLint("ComposeModifierMissing")
-@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun ConnectionErrorScreen(
     onNetworkErrorIntent: (ConnectionErrorIntent) -> Unit,
@@ -40,16 +38,15 @@ fun ConnectionErrorScreen(
     navHostController: NavHostController,
     screen: String
 ) {
+    val context = LocalContext.current
     Scaffold {
-        val connection by connectivityState()
-
         onNetworkErrorIntent(ConnectionErrorIntent.ClickRepeat(value = screen))
 
         LaunchedEffect(key1 = Unit) {
             networkErrorEffect.collect { effect ->
                 when (effect) {
                     is ConnectionErrorEffect.ClickRepeat -> {
-                        val isConnected = connection === ConnectionStatus.Available
+                        val isConnected = getCurrentConnectivityStatus(context = context) === ConnectionStatus.Available
                         if (isConnected) {
                             navHostController.navigate(route = screen)
                         }
