@@ -86,4 +86,13 @@ object CrmRouting {
             const val FILES = "files"
         }
     }
+
+    object BidStatus {
+        const val BID_STATUS = "bid_status"
+
+        object PARAM {
+            const val PHONE = "phone"
+            const val BID_NUMBER = "bid_number"
+        }
+    }
 }

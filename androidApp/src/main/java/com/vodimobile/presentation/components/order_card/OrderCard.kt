@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,6 +35,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun OrderCard(
@@ -46,7 +48,10 @@ fun OrderCard(
             .fillMaxWidth()
             .wrapContentHeight(),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
-        shape = MaterialTheme.shapes.small
+        shape = MaterialTheme.shapes.small,
+        onClick = {
+            onClick(orderItem)
+        }
     ) {
         Row(
             modifier = Modifier

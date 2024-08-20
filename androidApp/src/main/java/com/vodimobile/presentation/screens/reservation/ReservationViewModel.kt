@@ -5,6 +5,7 @@ import androidx.compose.ui.test.isNotEnabled
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.order.CarStatus
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.either.CrmEither
@@ -17,6 +18,8 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
 import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
+import com.vodimobile.utils.bid.bidGripReverse
+import com.vodimobile.utils.bid.crmBidGrid
 import com.vodimobile.utils.date_formats.parseDateTimeToLong
 import com.vodimobile.utils.date_formats.parseToCrmDate
 import kotlinx.coroutines.delay
@@ -367,13 +370,13 @@ class ReservationViewModel(
                                         user_id = userFromRemote.id,
                                         car_id = reservationState.value.carId,
                                         crm_bid_id = crmEither.data.bid_id ?: 0,
-                                        bid_status = "В обработке",
+                                        bid_status = bidGripReverse[CarStatus.Processing] ?: "Отменено",
                                         date_start = "${toFormat(reservationState.value.date[0])}",
                                         date_finish = "${toFormat(reservationState.value.date[1])}",
                                         time_start = "${reservationState.value.startTime}",
                                         time_finish = "${reservationState.value.endTime}",
-                                        place_start = reservationState.value.getPlace,
-                                        place_finish = reservationState.value.returnPlace,
+                                        place_start = reservationState.value.getPlace.split(" - ")[0],
+                                        place_finish = reservationState.value.returnPlace.split(" - ")[0],
                                         cost = reservationState.value.bidCost.toFloat(),
                                         services = if (reservationState.value.selectedServiceIdList.isNotEmpty()) reservationState.value.selectedServiceIdList.joinToString(", ") else ""
                                     )

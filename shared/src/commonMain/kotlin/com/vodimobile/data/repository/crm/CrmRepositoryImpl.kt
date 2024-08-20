@@ -5,6 +5,7 @@ import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
+import com.vodimobile.domain.model.remote.dto.bid_status.BidStatusDTO
 import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeDTO
 import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
@@ -346,7 +347,10 @@ class CrmRepositoryImpl : CrmRepository {
                                             headers = Headers.build {
                                                 val fileName = file.getName()
                                                 append(HttpHeaders.ContentType, "image/png")
-                                                append(HttpHeaders.ContentDisposition, "filename=\"${fileName}\"")
+                                                append(
+                                                    HttpHeaders.ContentDisposition,
+                                                    "filename=\"${fileName}\""
+                                                )
                                             })
                                     }
 
@@ -355,6 +359,30 @@ class CrmRepositoryImpl : CrmRepository {
                         )
                     )
                 })
+
+        return if (response.status.isSuccess()) {
+            CrmEither.CrmData(data = response.body())
+        } else {
+            CrmEither.CrmError(status = response.status)
+        }
+    }
+
+    override suspend fun getBidStatus(
+        accessToken: String,
+        refreshToken: String,
+        phone: String,
+        bidNumber: Int
+    ): CrmEither<BidStatusDTO, HttpStatusCode> {
+        val response: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get {
+                    url(url = Url(crmServerData.buildUrl(CrmRouting.BidStatus.BID_STATUS)))
+
+                    parameters {
+                        parameter(CrmRouting.BidStatus.PARAM.PHONE, phone)
+                        parameter(CrmRouting.BidStatus.PARAM.BID_NUMBER, bidNumber)
+                    }
+                }
 
         return if (response.status.isSuccess()) {
             CrmEither.CrmData(data = response.body())

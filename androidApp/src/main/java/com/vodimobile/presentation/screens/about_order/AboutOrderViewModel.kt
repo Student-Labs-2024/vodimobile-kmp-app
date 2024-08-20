@@ -51,7 +51,8 @@ class AboutOrderViewModel(
                             .getOrders(
                                 userId = user.id,
                                 accessToken = user.accessToken,
-                                refreshToken = user.refreshToken
+                                refreshToken = user.refreshToken,
+                                phone = user.phone
                             ).single {
                                 it.orderId == intent.orderId
                             }

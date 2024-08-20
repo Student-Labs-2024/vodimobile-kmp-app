@@ -265,7 +265,7 @@ private fun VehicleFleetScreenPreview() {
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                 updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                 insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
                 updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                 updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                 updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

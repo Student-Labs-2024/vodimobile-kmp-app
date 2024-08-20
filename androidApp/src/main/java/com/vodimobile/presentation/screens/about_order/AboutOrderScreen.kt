@@ -95,8 +95,8 @@ fun AboutOrderScreen(
     @SuppressLint("ComposeMutableParameters") aboutOrderEffect: MutableSharedFlow<AboutOrderEffect>,
     onAboutOrderIntent: (AboutOrderIntent) -> Unit,
     navHostController: NavHostController,
-    modifier: Modifier = Modifier,
-    orderId: Int
+    orderId: Int,
+    modifier: Modifier = Modifier
 ) {
 
     LaunchedEffect(key1 = Unit) {
@@ -180,13 +180,6 @@ fun AboutOrderScreen(
             item {
                 Divider(modifier = Modifier.fillMaxWidth())
                 SumItem(cost = aboutOrderState.value.order.bid.cost)
-                if (aboutOrderState.value.order.status == CarStatus.Processing)
-                    ButtonsItem(
-                        onChangeClick = {},
-                        onCanselClick = {
-                            onAboutOrderIntent(AboutOrderIntent.CanselOrder)
-                        }
-                    )
             }
         }
     }
@@ -219,7 +212,7 @@ private fun AboutOrderScreenDarkPreview() {
             updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
             updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
             insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
             updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
             updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
             updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -298,7 +291,7 @@ private fun AboutOrderScreenLightPreview() {
             updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
             updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
             insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
             updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
             updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
             updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

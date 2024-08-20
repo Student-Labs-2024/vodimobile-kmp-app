@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -120,7 +122,8 @@ fun OrdersScreen(
     orderIntent(OrderIntent.InitCards)
     ExtendedTheme {
         Scaffold(
-            modifier = modifier,
+            modifier = Modifier
+                .padding(bottom = 44.dp),
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
             topBar = {
                 Column(
@@ -233,7 +236,7 @@ private fun OrdersScreenLightPreview() {
             updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
             updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
             insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
             updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
             updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
             updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -318,7 +321,7 @@ private fun OrdersScreenDarkPreview() {
             updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
             updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
             insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
             updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
             updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
             updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

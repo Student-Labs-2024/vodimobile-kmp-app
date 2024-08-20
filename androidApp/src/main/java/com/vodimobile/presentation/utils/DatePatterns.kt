@@ -104,7 +104,7 @@ object DatePatterns {
         val hourMinuteEnd = SimpleDateFormat("hh:mm", Locale.getDefault()).format(end)
 
         return when {
-            hourStart == hourEnd -> {
+            hourStart == hourEnd && minuteStart != minuteEnd-> {
                 "$hourStart:$minuteStart-$minuteEnd"
             }
 

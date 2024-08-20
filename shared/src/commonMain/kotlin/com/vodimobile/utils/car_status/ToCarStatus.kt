@@ -20,6 +20,10 @@ fun String.toCarStatus(): CarStatus {
             return CarStatus.Cancelled
         }
 
+        "Создана бронь" -> {
+            return CarStatus.Reserve
+        }
+
         else -> {
             return CarStatus.Completed
         }

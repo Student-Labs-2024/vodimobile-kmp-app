@@ -68,5 +68,6 @@
     <string name="processing_order">В обработке</string>
     <string name="completed_order">Завершено</string>
     <string name="cancelled_order">Отменено</string>
+    <string name="accepted_as_reserve">Создана бронь</string>
 
 </resources>

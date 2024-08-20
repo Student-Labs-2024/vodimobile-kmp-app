@@ -413,7 +413,8 @@ private fun ReservationScreenLightPreview() {
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
                     getOrdersUseCase = GetOrdersUseCase(
                         SupabaseRepositoryImpl(),
-                        crmStorage = crmStorage
+                        crmStorage = crmStorage,
+                        crmRepository = CrmRepositoryImpl()
                     ),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
@@ -494,7 +495,7 @@ private fun ReservationScreenDarkPreview() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, CrmRepositoryImpl()),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
