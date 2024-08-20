@@ -23,11 +23,10 @@ struct MainTabbarView: View {
                     ProfileView().tag(TabType.profile)
                 }
 
-                HStack(spacing: 0) {
+                HStack {
                     TabBarItem(
                         icon: Image(R.image.home),
                         title: R.string.localizable.homeScreenTitle,
-                        badgeCount: 0,
                         isSelected: selectedTab ==  .main,
                         itemWidth: tabWidthSize
                     ) {
@@ -37,7 +36,6 @@ struct MainTabbarView: View {
                     TabBarItem(
                         icon: Image(R.image.car),
                         title: R.string.localizable.myOrdersScreenTitle,
-                        badgeCount: 0,
                         isSelected: selectedTab ==  .myOrders,
                         itemWidth: tabWidthSize
                     ) {
@@ -47,7 +45,6 @@ struct MainTabbarView: View {
                     TabBarItem(
                         icon: Image.personFill,
                         title: R.string.localizable.profileScreenTitle,
-                        badgeCount: 0,
                         isSelected: selectedTab == .profile,
                         itemWidth: tabWidthSize
                     ) {

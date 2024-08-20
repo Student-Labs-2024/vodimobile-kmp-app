@@ -27,6 +27,7 @@ final class KMPApiManager {
         if appState.isConnected {
             do {
                 let supaUser = try await helper.getUser(password: pass, phone: phone)
+                print("supaUser: \(supaUser)")
                 return supaUser != User.companion.empty() ? supaUser : nil
             } catch {
                 print(error)
@@ -70,8 +71,11 @@ final class KMPApiManager {
                                 refreshToken: user.refreshToken,
                                 phone: storageUser.phone
                             )
+                            print("storageUser changed: \(storageUser)")
+                            print("\n\nnewUser : \(newUser)")
                             await MainActor.run {
                                 self.dataStorage.gettingUser = newUser
+                                print(self.dataStorage.gettingUser)
                             }
                         }
                     }
@@ -143,7 +147,7 @@ final class KMPApiManager {
         if appState.isConnected {
             do {
                 if let storageUser = dataStorage.gettingUser {
-                    print(storageUser)
+                    print("storageUser fetchUserOrders \(storageUser)")
                     let orders = try await helper.getOrders(
                         userId: storageUser.id,
                         accessToken: storageUser.accessToken,
@@ -176,19 +180,29 @@ final class KMPApiManager {
 final class AuthManager: ObservableObject {
     static let shared = AuthManager()
     @Published var isAuthenticated = false
-    @ObservedObject var dataStorage = KMPDataStorage.shared
+    @ObservedObject var dataStorage = KMPDataStorage.shared {
+        didSet {
+            self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
+            dataStorage.gettingUser != nil
+        }
+    }
     private var apiManager = KMPApiManager.shared
 
-    init() {
-        self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
-        dataStorage.gettingUser != nil
+    private func handleUserChange(_ newUser: User?) {
+        if let newUser = newUser, newUser != User.companion.empty() {
+            self.isAuthenticated = true
+        } else {
+            self.isAuthenticated = false
+        }
     }
 
+    @MainActor
     func signUp(fullname: String, phone: String, password: String) async {
         await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
         await login(phone: fullname, pass: password)
     }
 
+    @MainActor
     func login(phone: String, pass: String) async {
         let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone)
         var currentUser = User.companion.empty()
@@ -199,20 +213,22 @@ final class AuthManager: ObservableObject {
                         id: supaUser.id,
                         fullName: supaUser.fullName,
                         password: supaUser.password,
-                        accessToken: storageUser.accessToken,
-                        refreshToken: storageUser.refreshToken,
+                        accessToken: supaUser.accessToken,
+                        refreshToken: supaUser.refreshToken,
                         phone: supaUser.phone
                     )
+                    print("currentUser login: \(currentUser)")
                     try await self.dataStorage.editUserData(currentUser)
+                    print("try await self.dataStorage.editUserData(currentUser) \(dataStorage.gettingUser)")
                 }
             } catch {
                 print(error)
             }
         }
-        self.dataStorage.gettingUser = currentUser != User.companion.empty() ? currentUser : dataStorage.gettingUser
         self.isAuthenticated = true
     }
 
+    @MainActor
     func logout() {
         self.dataStorage.gettingUser = nil
         self.isAuthenticated = false

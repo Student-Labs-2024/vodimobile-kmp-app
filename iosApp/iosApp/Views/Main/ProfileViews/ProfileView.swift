@@ -10,9 +10,9 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var authManager = AuthManager.shared
-    @ObservedObject private var viewModel: ProfileViewModel
     @State private var showAlert: Bool = false
     @State private var showSignSuggestModal: Bool = false
+    private var viewModel: ProfileViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)

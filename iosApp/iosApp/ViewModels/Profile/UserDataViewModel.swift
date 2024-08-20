@@ -37,12 +37,6 @@ final class UserDataViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
-        if let storageUser = dataStorage.gettingUser {
-            self.fullname = storageUser.fullName
-            self.phone = storageUser.phone
-            self.oldStoragedPassword = storageUser.password
-        }
-
         dataStorage.$gettingUser
             .sink { newValue in
                 self.fullname = newValue?.fullName ?? ""

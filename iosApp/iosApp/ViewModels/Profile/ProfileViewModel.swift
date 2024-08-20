@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-final class ProfileViewModel: ObservableObject {
+final class ProfileViewModel {
     let profileMenuData = ProfileMenuCell.profileMenuCells
 }
 

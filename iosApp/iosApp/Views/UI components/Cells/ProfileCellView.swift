@@ -38,7 +38,11 @@ struct ProfileCellView: View {
     var body: some View {
         let navigationLinkToView = NavigationLink(destination: destinationView) {
             VStack(alignment: .leading) {
-                Text(cell.title).font(.header4).lineLimit(2).foregroundStyle(.black)
+                Text(cell.title)
+                    .font(.header4)
+                    .lineLimit(2)
+                    .foregroundStyle(.black)
+                    .multilineTextAlignment(.leading)
 
                 HStack {
                     Spacer()
@@ -49,9 +53,9 @@ struct ProfileCellView: View {
                 }
             }
         }
-            .padding(.vertical, 34)
-            .padding(.horizontal, 24)
-            .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+        .padding(.vertical, 34)
+        .padding(.horizontal, 24)
+        .background(RoundedRectangle(cornerRadius: 20).fill(.white))
 
         let buttonSwitchModal =
         Button(action: {
@@ -87,6 +91,5 @@ struct ProfileCellView: View {
                 buttonSwitchModal
             }
         }
-
     }
 }

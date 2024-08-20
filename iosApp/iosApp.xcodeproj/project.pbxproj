@@ -25,6 +25,7 @@
 		933EC2F72C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */; };
 		9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */; };
 		93462FCD2C745F8900590701 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93462FCC2C745F8900590701 /* AppState.swift */; };
+		93462FCF2C747C0100590701 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93462FCE2C747C0100590701 /* PinCodeViewModel.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -141,6 +142,7 @@
 		933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLikeUnderlinedTextField.swift; sourceTree = "<group>"; };
 		9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
 		93462FCC2C745F8900590701 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		93462FCE2C747C0100590701 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			isa = PBXGroup;
 			children = (
 				93328FBC2C495594008EADB4 /* ConditionViewModel.swift */,
+				93462FCE2C747C0100590701 /* PinCodeViewModel.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -800,6 +803,7 @@
 				93745BC92C41AA6A00889B42 /* UnderlineTextField.swift in Sources */,
 				935CF9602C5908EF00F6F6CB /* AutoListViewModel.swift in Sources */,
 				936B18482C4638CB000AC6F8 /* RulesAndConditionsViewModel.swift in Sources */,
+				93462FCF2C747C0100590701 /* PinCodeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

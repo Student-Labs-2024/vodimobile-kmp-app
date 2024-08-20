@@ -13,7 +13,6 @@ struct TabBarItem: View {
 
     let icon: Image
     let title: StringResource
-    let badgeCount: Int
     let isSelected: Bool
     let itemWidth: CGFloat
     let onTap: () -> Void
