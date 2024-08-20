@@ -24,6 +24,7 @@
 		933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */; };
 		933EC2F72C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */; };
 		9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */; };
+		93462FCD2C745F8900590701 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93462FCC2C745F8900590701 /* AppState.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -139,6 +140,7 @@
 		933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
 		933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLikeUnderlinedTextField.swift; sourceTree = "<group>"; };
 		9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
+		93462FCC2C745F8900590701 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */,
 				93604FA12C712E1A009952C0 /* DateFormatter.swift */,
+				93462FCC2C745F8900590701 /* AppState.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
 				933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
+				93462FCD2C745F8900590701 /* AppState.swift in Sources */,
 				9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */,
 				9368EEB62C6565260036DBA2 /* ModalTimePicker.swift in Sources */,
 				93604FA22C712E1A009952C0 /* DateFormatter.swift in Sources */,

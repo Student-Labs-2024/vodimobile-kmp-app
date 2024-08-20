@@ -79,9 +79,6 @@ struct UnderlineTextField: View {
                                 text = ""
                             }
                         }
-                        .onEdit { _ in
-                            validateInput()
-                        }
                         .font(.paragraph2)
                         .focused($isFocused)
                         .padding(.bottom, 5)
@@ -92,14 +89,12 @@ struct UnderlineTextField: View {
                             }
                         }
                         .onChange(of: text) { newValue in
+                            validateInput()
                             withAnimation {
                                 isPlaceholderVisible = text.isEmpty && !isFocused
                             }
                         }
-                        .onChange(of: text) { _ in
-                            validateInput()
-                        }
-                        .disabled(!text.isEmpty && text != "+" && !isFocused)
+                        .disabled(!text.isEmpty && !isFocused)
                 } else {
                     TextField(text, text: $text)
                         .font(.paragraph2)
@@ -112,12 +107,10 @@ struct UnderlineTextField: View {
                             }
                         }
                         .onChange(of: text) { newValue in
+                            validateInput()
                             withAnimation {
                                 isPlaceholderVisible = text.isEmpty && !isFocused
                             }
-                        }
-                        .onChange(of: text) { _ in
-                            validateInput()
                         }
                 }
             }

@@ -2,7 +2,7 @@ package com.vodimobile.presentation.screens.contact.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.theme.divider
@@ -28,6 +31,8 @@ fun InfoContactItem(
     icon: @Composable () -> Unit,
     onClick: () -> Unit = {}
 ) {
+
+    val clipboardManager = LocalClipboardManager.current
 
     Column(
         modifier = Modifier
@@ -62,7 +67,14 @@ fun InfoContactItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onClick() },
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onLongPress = {
+                                    clipboardManager.setText(AnnotatedString(subtitle))
+                                },
+                                onTap = { onClick() }
+                            )
+                        },
                     text = subtitle,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground
