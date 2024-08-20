@@ -30,16 +30,17 @@ struct IphonePhoneTextField: View {
                 .clearButtonMode(.never)
                 .maximumDigits(14)
                 .onEditingBegan { _ in
+                    isEditing = true
                     if fieldContent.isEmpty {
                         fieldContent = "+"
                     }
-                    isEditing = true
                 }
                 .onEditingEnded { _ in
+                    isEditing = false
+                    isFocused = false
                     if fieldContent == "+" {
                         fieldContent = ""
                     }
-                    isEditing = false
                 }
                 .onEdit { _ in
                     if isValid {

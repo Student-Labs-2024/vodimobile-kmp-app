@@ -15,6 +15,7 @@ struct ScrollableAutoListView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalCard: Bool
     @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
     let refreshAction: () async -> ()
     
     var body: some View {
@@ -31,7 +32,8 @@ struct ScrollableAutoListView: View {
                         carModel: $carList[index],
                         selectedAuto: $selectedAuto,
                         showModal: $showModalCard,
-                        showModalReservation: $showModalReservation
+                        showModalReservation: $showModalReservation,
+                        showSignSuggestModal: $showSignSuggestModal
                     )
                 }
             }
