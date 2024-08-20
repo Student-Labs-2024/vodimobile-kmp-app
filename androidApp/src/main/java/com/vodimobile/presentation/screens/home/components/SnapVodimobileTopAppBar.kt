@@ -28,7 +28,7 @@ fun SnapVodimobileTopAppBar(
     onNotificationButtonClick: () -> Unit,
     onFieldClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onButtonClick: () -> Unit,
+    onButtonClick: () -> Unit
 ) {
     val smallScrollBarBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val largeScrollBehavior =
@@ -44,9 +44,6 @@ fun SnapVodimobileTopAppBar(
                 containerColor = MaterialTheme.colorScheme.primary,
             ),
             title = {},
-            actions = {
-                NotificationIcon(onClick = onNotificationButtonClick)
-            },
             scrollBehavior = smallScrollBarBehavior,
         )
 
