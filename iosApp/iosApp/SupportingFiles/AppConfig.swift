@@ -8,25 +8,6 @@
 
 import SwiftUI
 
-final class AppState: ObservableObject {
-    @Published var isInternetErrorVisible: Bool = false
-    @Published var isConnected: Bool = true
-    static let shared = AppState()
-    
-    init() {
-        checkConnectivity()
-    }
-
-    func checkConnectivity() {
-        self.isConnected = NetworkMonitor.shared.isConnected
-        if !self.isConnected {
-            self.isInternetErrorVisible = true
-        } else {
-            self.isInternetErrorVisible = false
-        }
-    }
-}
-
 public let emailRegex = #"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"#
 public let phoneRegex = #"^\+(?:[0-9] ?-?){6,14}[0-9]$"#
 public let textRegex = #"^[a-zA-Zа-яА-ЯёЁ]+(([' -][a-zA-Zа-яА-ЯёЁ ])?[a-zA-Zа-яА-ЯёЁ]*)*$"#

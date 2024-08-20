@@ -70,7 +70,7 @@ final class KMPApiManager {
                                 refreshToken:  user.refreshToken,
                                 phone:  storageUser.phone
                             )
-                            DispatchQueue.main.async {
+                            await MainActor.run {
                                 self.dataStorage.gettingUser = newUser
                             }
                         }

@@ -68,7 +68,7 @@
 "commentToReservationPlaceholder" = "Enter comment...";
 
 // Error strings
-"incorrectFullName" = "Invalid format. Only letters without symbols are allowed for input.";
+"incorrectFullName" = "Invalid format. Only letters without special symbols are allowed for input.";
 "incorrectPhone" = "Incorrect phone number format";
 "alreadyExistsPhone" = "Such a phone already exists. Log in";
 "incorrectPass" = "The password is incorrect. Please try again.";
