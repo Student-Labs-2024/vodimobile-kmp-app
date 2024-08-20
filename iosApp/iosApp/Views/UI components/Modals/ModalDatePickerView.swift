@@ -50,7 +50,7 @@ struct ModalDatePickerView: View {
                 displayedComponents: .date
             )
             .datePickerStyle(GraphicalDatePickerStyle())
-            .background(Color.white)
+            .background(Color(R.color.background))
             .cornerRadius(13)
             .padding(.horizontal, 6)
 
@@ -78,7 +78,7 @@ struct ModalDatePickerView: View {
                     .opacity(0.5)
             }
         }
-        .background(.white)
+        .background(Color(R.color.background))
         .cornerRadius(13)
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 16)

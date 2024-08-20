@@ -41,6 +41,6 @@ struct AutoGeneralCardView: View {
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 24)
-        .background(RoundedRectangle(cornerRadius: 24).fill(.white))
+        .background(RoundedRectangle(cornerRadius: 24).fill(Color(R.color.container)))
     }
 }

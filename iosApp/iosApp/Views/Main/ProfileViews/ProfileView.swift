@@ -27,7 +27,7 @@ struct ProfileView: View {
             VStack {
                 Text(R.string.localizable.profileScreenTitle)
                     .font(.header1)
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Color(R.color.text))
 
                 Spacer()
 

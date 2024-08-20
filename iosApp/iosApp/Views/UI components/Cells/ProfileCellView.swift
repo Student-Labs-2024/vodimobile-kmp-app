@@ -41,7 +41,7 @@ struct ProfileCellView: View {
                 Text(cell.title)
                     .font(.header4)
                     .lineLimit(2)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.leading)
 
                 HStack {
@@ -55,7 +55,7 @@ struct ProfileCellView: View {
         }
         .padding(.vertical, 34)
         .padding(.horizontal, 24)
-        .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+        .background(RoundedRectangle(cornerRadius: 20).fill(Color(R.color.container)))
 
         let buttonSwitchModal =
         Button(action: {
@@ -65,7 +65,7 @@ struct ProfileCellView: View {
                 Text(cell.title)
                     .font(.header4)
                     .lineLimit(2)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.leading)
 
                 HStack {
@@ -78,7 +78,7 @@ struct ProfileCellView: View {
             }
             .padding(.vertical, 34)
             .padding(.horizontal, 24)
-            .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+            .background(RoundedRectangle(cornerRadius: 20).fill(Color(R.color.container)))
         })
 
         switch cell.cellType {

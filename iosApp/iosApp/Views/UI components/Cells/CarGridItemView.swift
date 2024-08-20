@@ -49,6 +49,7 @@ struct CarGridItem: View {
                 Text(title)
                     .font(.caption1)
                     .fontWeight(.bold)
+                    .foregroundStyle(Color(R.color.background))
                 Text(value)
                     .foregroundStyle(Color(R.color.grayText))
                     .font(.caption1)

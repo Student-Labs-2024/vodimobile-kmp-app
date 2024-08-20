@@ -38,7 +38,11 @@ struct TabBarView: View {
                                 .font(.tag)
                                 .padding(.horizontal, 24)
                                 .padding(.vertical, 8)
-                                .foregroundColor(Color(R.color.blueColor))
+                                .foregroundColor(Color(R.color.topBarItem))
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color(R.color.containerItem))
+                                )
                         }
                     }
                     .padding(.horizontal, 5)

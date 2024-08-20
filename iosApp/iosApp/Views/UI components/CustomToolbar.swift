@@ -23,14 +23,14 @@ struct CustomToolbar: ToolbarContent {
             Button(action: {
                 dismiss()
             }, label: {
-                Image.chevronLeft.foregroundStyle(Color.black).fontWeight(.bold)
+                Image.chevronLeft.foregroundStyle(Color(R.color.text)).fontWeight(.bold)
             })
         }
 
         ToolbarItem(placement: .principal) {
             Text(title)
                 .font(.header1)
-                .foregroundColor(Color.black)
+                .foregroundColor(Color(R.color.text))
         }
     }
 }

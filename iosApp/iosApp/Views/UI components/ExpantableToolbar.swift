@@ -51,18 +51,26 @@ struct ExpandableToolbar: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 30, height: 30)
-                                            .foregroundColor(.gray)
-
+                                            .foregroundColor(Color(R.color.grayDark))
+                                        
                                         Text(formatDateRange())
-                                            .foregroundColor(dateRange == nil ? .gray : .black)
+                                            .foregroundColor(
+                                                dateRange == nil
+                                                ? Color(R.color.grayDark)
+                                                : Color(R.color.background)
+                                            )
                                         Spacer()
                                     }
                                     .frame(alignment: .leading)
                                     .padding(.all, 16)
                                     .background(
                                         RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color.gray, lineWidth: 1)
+                                            .fill(Color(R.color.containerItem))
                                     )
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color(R.color.grayDark), lineWidth: 1)
+                                    }
                                 }
 
                                 Button(R.string.localizable.findAutoButton()) {
@@ -72,7 +80,10 @@ struct ExpandableToolbar: View {
                             }
                             .padding(.vertical, 20)
                             .padding(.horizontal, 16)
-                            .background(RoundedRectangle(cornerRadius: 24).fill(.white))
+                            .background(
+                                RoundedRectangle(cornerRadius: 24)
+                                .fill(Color(R.color.container))
+                            )
                         }
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)

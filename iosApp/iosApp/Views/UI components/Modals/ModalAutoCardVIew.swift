@@ -116,6 +116,7 @@ struct ModalAutoCardView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
+                        .foregroundStyle(Color(R.color.background))
 
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
                         CarGridItem(
@@ -158,7 +159,7 @@ struct ModalAutoCardView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 16)
-        .background(Color.white)
+        .background(Color(R.color.background))
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

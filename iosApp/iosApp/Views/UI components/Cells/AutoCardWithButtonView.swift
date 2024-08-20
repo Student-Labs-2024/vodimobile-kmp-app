@@ -81,7 +81,7 @@ struct AutoCardWithButtonView: View {
                         .frame(width: 20, height: 20)
                 }
                 .frame(width: 40, height: 40)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLight)))
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayTheme)))
                 .onTapGesture {
                     selectedAuto = viewModel.carModel
                     showModal = true
@@ -90,6 +90,6 @@ struct AutoCardWithButtonView: View {
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 24)
-        .background(RoundedRectangle(cornerRadius: 24).fill(.white))
+        .background(RoundedRectangle(cornerRadius: 24).fill(Color(R.color.container)))
     }
 }

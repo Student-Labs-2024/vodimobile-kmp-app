@@ -33,7 +33,7 @@ struct AutoListView: View {
             TabBarView(index: $selectedTab)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(.white)
+                        .fill(Color(R.color.background))
                         .ignoresSafeArea(.all)
                 )
 
