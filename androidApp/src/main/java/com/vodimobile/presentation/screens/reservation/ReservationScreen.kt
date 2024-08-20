@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -50,18 +52,26 @@ import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
-import com.vodimobile.domain.use_case.supabase.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
-import com.vodimobile.domain.use_case.supabase.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCostUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCrmOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateNumberUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
 import com.vodimobile.presentation.screens.reservation.components.DateField
 import com.vodimobile.presentation.screens.reservation.components.DropDownField
 import com.vodimobile.presentation.screens.reservation.components.ReservationCarDescription
@@ -121,6 +131,10 @@ fun ReservationScreen(
     }
 
     LaunchedEffect(key1 = Unit) {
+        onReservationIntent(ReservationIntent.GetCarFreeDate)
+    }
+
+    LaunchedEffect(key1 = Unit) {
         onReservationIntent(ReservationIntent.GetAllPLaces)
         onReservationIntent(ReservationIntent.GetAllServices)
     }
@@ -155,10 +169,6 @@ fun ReservationScreen(
 
     val emptyInitialDateFlag = remember {
         mutableStateOf(false)
-    }
-
-    val serviceList = remember {
-        mutableListOf(Int)
     }
 
     Scaffold(
@@ -282,7 +292,13 @@ fun ReservationScreen(
                             label = stringResource(id = R.string.reservation_services_label),
                             serviceList = reservationState.value.serviceList,
                             selectedServiceIndexes = reservationState.value.selectedServiceIdList,
-                            onSelected = { onReservationIntent(ReservationIntent.ServiceIdChange(it)) }
+                            onSelected = {
+                                onReservationIntent(
+                                    ReservationIntent.ServiceIdChange(
+                                        it
+                                    )
+                                )
+                            }
                         )
                     }
                     item {
@@ -339,11 +355,22 @@ private fun fullDateToString(date: LongArray): String {
     else fullDateToStringRU(date)
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun ReservationScreenLightPreview() {
+    val crmStorage = CrmStorage(
+        getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
+        getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
+        postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
+        getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
+        refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
+        getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
+        getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
+        getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+        getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+        createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
+    )
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val reservationViewModel = ReservationViewModel(
@@ -375,18 +402,7 @@ private fun ReservationScreenLightPreview() {
                         )
                     )
                 ),
-                crmStorage = CrmStorage(
-                    getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                    getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                    refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                    getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
-                    getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
-                    createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
-                ),
+                crmStorage,
                 supabaseStorage = SupabaseStorage(
                     getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
                     insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
@@ -395,7 +411,17 @@ private fun ReservationScreenLightPreview() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                    getOrdersUseCase = GetOrdersUseCase(
+                        SupabaseRepositoryImpl(),
+                        crmStorage = crmStorage
+                    ),
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                    updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                    updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                    updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                    updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
                 )
             )
             ReservationScreen(
@@ -412,11 +438,22 @@ private fun ReservationScreenLightPreview() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ReservationScreenDarkPreview() {
+    val crmStorage = CrmStorage(
+        getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
+        getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
+        postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
+        getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
+        refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
+        getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
+        getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
+        getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
+        getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
+        createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
+    )
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
             val reservationViewModel = ReservationViewModel(
@@ -448,18 +485,7 @@ private fun ReservationScreenDarkPreview() {
                         )
                     )
                 ),
-                crmStorage = CrmStorage(
-                    getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                    postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                    getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                    refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                    getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                    getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                    getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
-                    getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
-                    createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
-                ),
+                crmStorage = crmStorage,
                 supabaseStorage = SupabaseStorage(
                     getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
                     insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
@@ -468,7 +494,15 @@ private fun ReservationScreenDarkPreview() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl())
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                    updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                    updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                    updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                    updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+
                 )
             )
             ReservationScreen(
@@ -476,7 +510,7 @@ private fun ReservationScreenDarkPreview() {
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),
-                date = longArrayOf(0L, 0L),
+                date = longArrayOf(1724145226000, 1725009226000),
                 startTime = "09:00",
                 endTime = "16:30",
                 carId = 17

@@ -1,7 +1,6 @@
 package com.vodimobile.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,6 +19,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
+import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafErrorScreen
 import com.vodimobile.presentation.LeafHomeScreen
@@ -29,7 +29,7 @@ import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
-import com.vodimobile.presentation.components.TimePickerSwitchable
+import com.vodimobile.presentation.components.TimePickerSwitchableSample
 import com.vodimobile.presentation.screens.about_order.AboutOrderScreen
 import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
@@ -81,13 +81,13 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
+import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
+import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.koinViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
 
@@ -105,7 +105,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 route = LeafHomeScreen.HOME_SCREEN
             ) { backStackEntry ->
 
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                         "selected-date",
@@ -139,7 +140,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 }
             }
             composable(route = LeafHomeScreen.ALL_CARS) { backStackEntry ->
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                         "selected-date",
@@ -227,14 +229,12 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 val timeType = TimeType.valueOf(
                     backStackEntry.arguments?.getString("timeType") ?: TimeType.START.name
                 )
-                var selectedTime by remember { mutableStateOf("") }
-                TimePickerSwitchable(
+                TimePickerSwitchableSample(
                     onTimeSelected = { time ->
                         navHostController.previousBackStackEntry?.savedStateHandle?.set(
                             if (timeType == TimeType.START) "selected-start-time" else "selected-end-time",
                             time
                         )
-                        selectedTime = time
                         navHostController.navigateUp()
                     },
                     onCancel = { navHostController.navigateUp() }
@@ -242,8 +242,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
-            ) {
+            ) { backStackEntry ->
                 var selectedDate by remember { mutableStateOf(longArrayOf(0L, 0L)) }
+
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
                     onConfirmClick = { start, finish ->
@@ -303,7 +304,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafOrdersScreen.ORDERS_SCREEN
         ) {
             composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val orderViewModel: OrderViewModel = koinViewModel()
                     OrdersScreen(
@@ -361,7 +363,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 arguments = listOf(
                     navArgument("orderId") { type = NavType.StringType }
                 )) { backStackEntry ->
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val orderId = backStackEntry.arguments?.getString("orderId") ?: "0"
                     val aboutOrderViewModel: AboutOrderViewModel = koinViewModel()
@@ -409,7 +412,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafScreen.PROFILE_SCREEN
         ) {
             composable(route = LeafScreen.PROFILE_SCREEN) {
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val profileViewModel: ProfileViewModel = koinViewModel()
 

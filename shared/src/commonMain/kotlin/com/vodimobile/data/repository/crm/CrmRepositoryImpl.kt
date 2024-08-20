@@ -298,6 +298,7 @@ class CrmRepositoryImpl : CrmRepository {
         }
     }
 
+    @OptIn(InternalAPI::class)
     override suspend fun createBid(
         accessToken: String,
         refreshToken: String,
@@ -334,7 +335,7 @@ class CrmRepositoryImpl : CrmRepository {
 
                                 if (bidCreateParams.services != null) append(
                                     CrmRouting.BidCreate.PARAM.SERVICES,
-                                    bidCreateParams.services
+                                    bidCreateParams.services.joinToString(", ", "[", "]")
                                 )
 
                                 if (bidCreateParams.files != null)

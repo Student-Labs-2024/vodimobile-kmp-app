@@ -38,16 +38,24 @@ object DatePatterns {
         val startDate = Date(date[0])
         val endDate = Date(date[1])
 
-        val startDay = SimpleDateFormat("d", Locale("ru")).format(startDate)
-        val startMonth = SimpleDateFormat("MMMM", Locale("ru")).format(startDate)
-        val endDay = SimpleDateFormat("d", Locale("ru")).format(endDate)
-        val endMonth = SimpleDateFormat("MMMM", Locale("ru")).format(endDate)
-        val year = SimpleDateFormat("yyyy", Locale("ru")).format(startDate)
+        val startDay = SimpleDateFormat("d", Locale.getDefault()).format(startDate)
+        val startMonth = SimpleDateFormat("MMMM", Locale.getDefault()).format(startDate)
+        val endDay = SimpleDateFormat("d", Locale.getDefault()).format(endDate)
+        val endMonth = SimpleDateFormat("MMMM", Locale.getDefault()).format(endDate)
+        val startYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(startDate)
+        val endYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
 
-        return if (startMonth == endMonth) {
-            "$startDay-${endDay} $startMonth $year"
+        return if (startYear == endYear) {
+            if (startMonth == endMonth) {
+                "$startDay-${endDay} $startMonth $startYear"
+            } else {
+                "$startDay $startMonth - $endDay $endMonth $startYear"
+            }
         } else {
-            "$startDay $startMonth - $endDay $endMonth $year"
+            val start = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(startDate)
+            val end = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate)
+
+            "$start - $end"
         }
     }
 

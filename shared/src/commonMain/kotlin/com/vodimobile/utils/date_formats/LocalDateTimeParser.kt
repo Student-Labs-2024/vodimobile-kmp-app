@@ -9,13 +9,15 @@ import kotlinx.datetime.format.byUnicodePattern
 import kotlinx.datetime.toInstant
 
 
-fun String.parseToLong(timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
-    return LocalDateTime.parse(input = this)
+fun String.parseToLong(): Long {
+    val timeZone: TimeZone = TimeZone.currentSystemDefault()
+    return LocalDateTime.parse(input = if(this.contains(" ")) this.replace(' ' , 'T').substring(0, this.length - 1) else this)
         .toInstant(timeZone = timeZone).toEpochMilliseconds()
 }
 
 @OptIn(FormatStringsInDatetimeFormats::class)
-fun String.parseDateToLong(timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
+fun String.parseDateToLong(): Long {
+    val timeZone: TimeZone = TimeZone.currentSystemDefault()
     val formatPattern = "dd.MM.yyyy"
     val localDate = LocalDate.Format {
         byUnicodePattern(formatPattern)
@@ -36,6 +38,20 @@ fun String.parseTimeToLong(timeZone: TimeZone = TimeZone.currentSystemDefault())
     }.parse(this)
 
     val localDateTime = LocalDateTime(date = LocalDate(2020, 1, 1), time = localTime)
+    return localDateTime
+        .toInstant(timeZone = timeZone).toEpochMilliseconds()
+}
+
+@OptIn(FormatStringsInDatetimeFormats::class)
+fun String.parseDateTimeToLong(date: String): Long {
+    val timeZone: TimeZone = TimeZone.currentSystemDefault()
+    val formatPatternDate = "dd.MM.yyyy"
+    val localDate = LocalDate.Format {
+        byUnicodePattern(formatPatternDate)
+    }.parse(date)
+
+    val localDateTime = LocalDateTime(date = localDate, time = LocalTime(0, 0))
+
     return localDateTime
         .toInstant(timeZone = timeZone).toEpochMilliseconds()
 }

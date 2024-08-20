@@ -42,32 +42,32 @@ fun List<DateRange>.toUnavailableDates(): List<DateRange> {
             endDate = reduceDay(date = list[0].startDate)
         )
     )
-    list.forEachIndexed { index, dateRange ->
-        if (index == 0) {
-            unavailableDates.add(
-                DateRange(
-                    startDate = dateRange.endDate,
-                    endDate = increaseDay(date = list[index + 1].startDate)
+        list.forEachIndexed { index, dateRange ->
+            if (index == 0 && index != list.lastIndex) {
+                unavailableDates.add(
+                    DateRange(
+                        startDate = dateRange.endDate,
+                        endDate = increaseDay(date = list[index + 1].startDate)
+                    )
                 )
-            )
-        }
-        if (index != 0 && index != list.lastIndex) {
-            unavailableDates.add(
-                DateRange(
-                    startDate = increaseDay(date = dateRange.endDate),
-                    endDate = reduceDay(date = dateRange.startDate)
+            }
+            if (index != 0 && index != list.lastIndex) {
+                unavailableDates.add(
+                    DateRange(
+                        startDate = increaseDay(date = dateRange.endDate),
+                        endDate = reduceDay(date = dateRange.startDate)
+                    )
                 )
-            )
-        }
-        if (index == list.lastIndex) {
-            unavailableDates.add(
-                DateRange(
-                    startDate = increaseDay(date = dateRange.endDate),
-                    endDate = after
+            }
+            if (index == list.lastIndex) {
+                unavailableDates.add(
+                    DateRange(
+                        startDate = increaseDay(date = dateRange.endDate),
+                        endDate = after
+                    )
                 )
-            )
+            }
         }
-    }
     return unavailableDates.toList()
 }
 

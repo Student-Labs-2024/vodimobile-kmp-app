@@ -34,6 +34,9 @@ import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.presentation.DateFormat
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
+import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
+import com.vodimobile.utils.date_formats.toUnavailableDates
 import java.util.Calendar
 import java.util.Date
 
@@ -45,11 +48,15 @@ fun DateSelectDialog(
     onDismissClick: () -> Unit,
     onConfirmClick: (Long, Long) -> Unit,
     initialDateInMillis: LongArray,
-    @SuppressLint("ComposeUnstableCollections") unAvailablePeriods: List<DateRange> = emptyList()
+    @SuppressLint("ComposeUnstableCollections") availablePeriods: List<DateRange> = emptyList()
 ) {
     val cal = Calendar.getInstance()
     cal.timeInMillis = System.currentTimeMillis()
     val currentYear = cal.get(Calendar.YEAR)
+    val unAvailablePeriods =
+        if (availablePeriods.isNotEmpty()) availablePeriods.toUnavailableDates() else listOf(
+            DateRange(startDate = reduceFreeYear(), endDate = increaseFreeYear())
+        )
 
     ExtendedTheme {
         val datePickerState =
@@ -112,9 +119,11 @@ fun DateSelectDialog(
                     .fillMaxWidth()
                     .height(350.dp),
                 dateValidator = { date: Long ->
-                    unAvailablePeriods.none { unavailablePeriod ->
-                        date in unavailablePeriod.startDate..unavailablePeriod.endDate
-                    }
+                    if (availablePeriods.isNotEmpty()) {
+                        unAvailablePeriods.none { unavailablePeriod ->
+                            date in unavailablePeriod.startDate..unavailablePeriod.endDate
+                        }
+                    } else true
                 }
             )
 
@@ -215,7 +224,12 @@ private fun DateSelectDialogPreviewDarkEn() {
         DateSelectDialog(
             {},
             { l, o -> },
-            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
+            longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
+            availablePeriods = listOf(
+                DateRange(startDate = 1723792708000, endDate = 1724051908000),
+                DateRange(startDate = 1724224708000, endDate = 1724224708000),
+                DateRange(startDate = 1724829508000, endDate = 1725088708000),
+            )
         )
     }
 }
@@ -234,7 +248,7 @@ private fun DateSelectDialogPreviewLightEN() {
             {},
             { l, o -> },
             longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
-            unAvailablePeriods = listOf(DateRange(startDate = 1723712487000L, endDate = 1724230887000))
+            availablePeriods = listOf(DateRange(startDate = 1723712487000, endDate = 1724230887000))
         )
     }
 }

@@ -1,6 +1,8 @@
 package com.vodimobile.utils.date_formats
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
@@ -12,7 +14,7 @@ import kotlinx.datetime.toLocalDateTime
 @OptIn(FormatStringsInDatetimeFormats::class)
 fun Long.parseToCrmDate(): String {
 
-    val formatPattern = "dd-MM-yyyy"
+    val formatPattern = "yyyy-MM-dd"
     val dateTimeFormat = LocalDateTime.Format {
         byUnicodePattern(formatPattern)
     }
@@ -45,8 +47,24 @@ fun Long.parseToSupabaseDate(): String {
 
 @OptIn(FormatStringsInDatetimeFormats::class)
 fun Long.parseToCrmDateTime(): String {
+    val formatPattern = "yyyy-MM-dd HH:mm"
+    val dateTimeFormat = LocalDateTime.Format {
+        byUnicodePattern(formatPattern)
+    }
 
-    val formatPattern = "yyyy-MM-dd hh:mm"
+    val fromEpochMilliseconds: Instant = Instant.fromEpochMilliseconds(this)
+    val localDateTime: LocalDateTime =
+        fromEpochMilliseconds.toLocalDateTime(TimeZone.currentSystemDefault())
+    val format: String = localDateTime.format(dateTimeFormat)
+
+
+    return format
+}
+
+@OptIn(FormatStringsInDatetimeFormats::class)
+fun Long.parseToCrmTime(): String {
+
+    val formatPattern = "HH:mm"
     val dateTimeFormat = LocalDateTime.Format {
         byUnicodePattern(formatPattern)
     }
