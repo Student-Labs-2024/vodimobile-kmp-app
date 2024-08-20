@@ -16,8 +16,8 @@ struct ScrollableAutoListView: View {
     @Binding var showModalCard: Bool
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
-    let refreshAction: () async -> ()
-    
+    let refreshAction: () async -> Void
+
     var body: some View {
         RefreshableScrollView(loadingViewBackgroundColor: Color(R.color.grayLight), action: {
             await refreshAction()

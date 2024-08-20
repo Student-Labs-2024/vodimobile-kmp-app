@@ -14,15 +14,15 @@ final class MakeReservationViewModel: ObservableObject {
     @Published var isSuccessed: RequestReservationState = .success
     @Published var isLoading: Bool = false
     @Published var showDatePicker = false
-    @Published var dateRange: ClosedRange<Date>? = nil
+    @Published var dateRange: ClosedRange<Date>?
     @Published var inputErrorType: InputErrorType?
-    @Published var time: Date? = nil
+    @Published var time: Date?
     @Published var showTimePicker: Bool = false
-    @Published var selectedPlace: PlaceShort? = nil
+    @Published var selectedPlace: PlaceShort?
     @Published var totalPrice: Int = 0
-    @Published var comment: String? = nil
+    @Published var comment: String?
     @FocusState var focuseOnCommentField: Bool
-    
+
     let car: Car
     let dates: String?
     var carPreview: Image {
@@ -32,29 +32,29 @@ final class MakeReservationViewModel: ObservableObject {
             return Image.questionFolder
         }
     }
-    
+
     init(
         car: Car,
         dates: String?
     ) {
         self.car = car
         self.dates = dates
-        
+
         Task {
             await fetchPlaceList()
         }
     }
-    
+
     func fetchPlaceList() async {
         isLoading.toggle()
         let places = await KMPApiManager.shared.fetchPlaces()
-        
+
         DispatchQueue.main.async {
             self.handlerPlaceItems(places)
             self.isLoading.toggle()
         }
     }
-    
+
     private func handlerPlaceItems(_ places: [Place]) {
         for place in places where !place.archive {
             if place.deliveryCost > 0 {

@@ -26,7 +26,7 @@ struct ButtonLikeUnderlinedTextField: View {
                     alignment: .bottom
                 )
                 .frame(maxWidth: .infinity)
-                
+
                 Image.chevronRight
                     .padding(.vertical, 16)
                     .padding(.leading, 16)

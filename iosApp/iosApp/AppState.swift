@@ -12,7 +12,7 @@ final class AppState: ObservableObject {
     @Published var isInternetErrorVisible: Bool = false
     @Published var isConnected: Bool = true
     static let shared = AppState()
-    
+
     init() {
         checkConnectivity()
     }

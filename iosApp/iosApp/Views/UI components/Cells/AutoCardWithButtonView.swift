@@ -20,7 +20,7 @@ struct AutoCardWithButtonView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
-    
+
     init(
         carModel: Binding<Car>,
         selectedAuto: Binding<Car>,
@@ -34,19 +34,23 @@ struct AutoCardWithButtonView: View {
         self._showModal = showModal
         self._showSignSuggestModal = showSignSuggestModal
     }
-    
+
     var body: some View {
         VStack(spacing: 12) {
             viewModel.carPreview
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 25)
-            
+
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(viewModel.carModel.model.resource).font(.header3)
                     if let carPrice = viewModel.carModel.tariffs.first?.cost {
-                        Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
+                        Text(
+                            R.string.localizable.prepositionPriceText() + " " +
+                            "\(Int(carPrice))" + " " +
+                            R.string.localizable.currencyPriceText()
+                        )
                             .font(.header4)
                             .fontWeight(.bold)
                             .foregroundStyle(Color(R.color.blueColor))
@@ -55,9 +59,9 @@ struct AutoCardWithButtonView: View {
                 }
                 Spacer()
             }
-            
+
             HStack {
-                
+
                 Button(R.string.localizable.bookButton()) {
                     if authManager.isAuthenticated {
                         selectedAuto = viewModel.carModel
@@ -68,7 +72,7 @@ struct AutoCardWithButtonView: View {
                 }
                 .buttonStyle(FilledBtnStyle(heightButton: 40))
                 .padding(.trailing, 20)
-                
+
                 ZStack {
                     Image.infoCircleFill
                         .resizable()

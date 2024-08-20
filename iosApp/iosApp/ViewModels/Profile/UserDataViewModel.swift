@@ -25,7 +25,7 @@ final class UserDataViewModel: ObservableObject {
     @Published var isPasswordHasCapitalLetter = false
     @Published var isPasswordHasSpecSymbol = false
     @Published var isPasswordValid = false
-    @Published var inputError: InputErrorType? = nil
+    @Published var inputError: InputErrorType?
     // work toggles
     @Published var dataHasBeenSaved: Bool = false
     @Published var dataIsEditing: Bool = false
@@ -42,7 +42,7 @@ final class UserDataViewModel: ObservableObject {
             self.phone = storageUser.phone
             self.oldStoragedPassword = storageUser.password
         }
-        
+
         dataStorage.$gettingUser
             .sink { newValue in
                 self.fullname = newValue?.fullName ?? ""
@@ -50,12 +50,12 @@ final class UserDataViewModel: ObservableObject {
                 self.password = newValue?.password ?? ""
             }
             .store(in: &cancellableSet)
-        
+
         $fullname
             .receive(on: RunLoop.main)
             .map { fullname in
                 let pattern = textRegex
-                if let _ = fullname.range(of: pattern, options: .regularExpression) {
+                if fullname.range(of: pattern, options: .regularExpression) != nil {
                     return true
                 } else {
                     if !fullname.isEmpty {
@@ -66,12 +66,12 @@ final class UserDataViewModel: ObservableObject {
             }
             .assign(to: \.isFullnameValid, on: self)
             .store(in: &cancellableSet)
-        
+
         $phone
             .receive(on: RunLoop.main)
             .map { phone in
                 let pattern = phoneRegex
-                if let _ = self.handlePhoneString(phone, pattern: pattern) {
+                if self.handlePhoneString(phone, pattern: pattern) != nil {
                     return true
                 } else {
                     if !phone.isEmpty {
@@ -82,7 +82,7 @@ final class UserDataViewModel: ObservableObject {
             }
             .assign(to: \.isPhoneValid, on: self)
             .store(in: &cancellableSet)
-        
+
         $password
             .receive(on: RunLoop.main)
             .map { password in
@@ -95,7 +95,7 @@ final class UserDataViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { password in
                 let pattern = capitalizeSymbolRegex
-                if let _ = password.range(of: pattern, options: .regularExpression) {
+                if password.range(of: pattern, options: .regularExpression) != nil {
                     return true
                 } else {
                     return false
@@ -103,12 +103,12 @@ final class UserDataViewModel: ObservableObject {
             }
             .assign(to: \.isPasswordHasCapitalLetter, on: self)
             .store(in: &cancellableSet)
-        
+
         $password
             .receive(on: RunLoop.main)
             .map { password in
                 let pattern = specialSymbolRegex
-                if let _ = password.range(of: pattern, options: .regularExpression) {
+                if password.range(of: pattern, options: .regularExpression) != nil {
                     return true
                 } else {
                     return false
@@ -134,7 +134,7 @@ final class UserDataViewModel: ObservableObject {
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellableSet)
     }
-    
+
     func saveEditedUserData() {
         isLoading = true
         if let storageUser = dataStorage.gettingUser {
@@ -146,7 +146,7 @@ final class UserDataViewModel: ObservableObject {
                 refreshToken: storageUser.refreshToken,
                 phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone
             )
-            
+
             Task {
                 do {
                     try await self.dataStorage.editUserData(newUserData)
@@ -159,29 +159,29 @@ final class UserDataViewModel: ObservableObject {
         }
         self.isLoading.toggle()
     }
-    
+
     func fetchUserData() {
         isLoading.toggle()
-        
+
         Task {
             await self.dataStorage.getUser()
         }
         isLoading.toggle()
     }
-    
+
     func comparePasswords() -> Bool {
         oldStoragedPassword == oldPassword
         // TODO: - Make logic for comparing password, validation and saving
     }
-    
+
     private func areAllFieldsFilled() -> Bool {
         !fullname.isEmpty && !password.isEmpty
     }
-    
+
     func fieldsIsValid() -> Bool {
         isPasswordValid && isFullnameValid && areAllFieldsFilled()
     }
-    
+
     private func handlePhoneString(_ phone: String, pattern: String) -> Range<String.Index>? {
         phone
             .replacingOccurrences(of: "(", with: "")

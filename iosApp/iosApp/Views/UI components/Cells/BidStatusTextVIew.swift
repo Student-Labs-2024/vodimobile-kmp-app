@@ -23,7 +23,7 @@ struct BidStatusText: View {
             return Color(R.color.processingTag)
         }
     }
-    
+
     var body: some View {
         Text(status.title.resource)
             .font(.caption2)

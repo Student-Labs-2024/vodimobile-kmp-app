@@ -17,7 +17,7 @@ struct OrderDetailView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
-    
+
     init(
         order: Order,
         showOrderModal: Binding<Bool>? = nil
@@ -25,7 +25,7 @@ struct OrderDetailView: View {
         self.viewModel = .init(order: order)
         self._showOrderModal = showOrderModal ?? Binding.constant(false)
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -48,7 +48,7 @@ struct OrderDetailView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxWidth: screenWidth / 3.5)
                                 .padding(.horizontal, 20)
-                            
+
                             VStack(alignment: .leading, spacing: 12) {
                                 VStack(alignment: .leading) {
                                     Text(R.string.localizable.autoNameTitle)
@@ -59,7 +59,7 @@ struct OrderDetailView: View {
                                 }
                             }
                             .multilineTextAlignment(.leading)
-                            
+
                             Spacer()
                         }
                         .padding(.horizontal, horizontalPadding)
@@ -68,9 +68,9 @@ struct OrderDetailView: View {
                             RoundedRectangle(cornerRadius: 16)
                                 .fill(Color(R.color.blueBox))
                         )
-                        
+
                     }
-                    
+
                     VStack(spacing: 25) {
                         HStack {
                             Text("\(R.string.localizable.orderStatus()):")
@@ -104,42 +104,42 @@ struct OrderDetailView: View {
                             )
                             )
                         }
-                        
+
                         VStack(alignment: .leading) {
                             Text(R.string.localizable.characteristicsTitle)
                                 .font(.paragraph2)
-                            
+
                             LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
                                 CarGridItem(
                                     gridItemType: .transmission,
                                     value: viewModel.order.car.transmission.resource
                                 )
-                                
+
                                 CarGridItem(
                                     gridItemType: .gear,
                                     value: viewModel.order.car.wheelDrive.resource
                                 )
-                                
+
                                 if let carYear = viewModel.order.car.year {
                                     CarGridItem(
                                         gridItemType: .yearDev,
                                         value: carYear.stringValue
                                     )
                                 }
-                                
+
                                 CarGridItem(
                                     gridItemType: .gasoline,
                                     value: viewModel.order.car.tankValue.resource
                                 )
                             }
                             .padding(.vertical, 15)
-                            
+
                             Rectangle()
                                 .fill(Color.gray)
                                 .frame(height: 1, alignment: .bottom)
                                 .opacity(0.5)
                         }
-                        
+
                         HStack {
                             Text(R.string.localizable.totalPriceTitle)
                                 .font(.header3)
@@ -150,10 +150,10 @@ struct OrderDetailView: View {
                     }
                     .multilineTextAlignment(.leading)
                     .padding(.vertical, 20)
-                    
+
                     HStack {
                         switch onEnum(of: viewModel.order.status) {
-                        case .approved(_):
+                        case .approved:
                             Button(action: {
                                 showCancelAlert.toggle()
                             }, label: {
@@ -169,13 +169,13 @@ struct OrderDetailView: View {
                                         ).fill(Color(R.color.grayLight))
                                     )
                             })
-                        case .processing(_):
+                        case .processing:
                             NavigationLink(R.string.localizable.changeBidData()) {
                                 MakeReservationView(car: viewModel.order.car, dates: nil)
                             }
                             .buttonStyle(FilledBtnWithoutDisabledStyle())
                             .font(.buttonSmall)
-                            
+
                             Button(action: {
                                 showCancelAlert.toggle()
                             }, label: {
@@ -190,12 +190,12 @@ struct OrderDetailView: View {
                                         ).fill(Color(R.color.grayLight))
                                     )
                             })
-                        case .completed(_):
+                        case .completed:
                             EmptyView()
-                        case .cancelled(_):
+                        case .cancelled:
                             EmptyView()
                         }
-                        
+
                     }
                     .padding(.top, 30)
                 }
@@ -209,7 +209,7 @@ struct OrderDetailView: View {
                 Button(R.string.localizable.backButton(), role: .cancel) {
                     showCancelAlert.toggle()
                 }
-                
+
                 Button(R.string.localizable.cancelShortButton(), role: .destructive) {
                     // TODO: - Make a bid cancel logic after tap
                 }

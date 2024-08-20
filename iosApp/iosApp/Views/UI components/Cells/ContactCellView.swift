@@ -10,19 +10,19 @@ import SwiftUI
 
 struct ContactCellView: View {
     let cell: ContactCell
-    
+
     var body: some View {
         HStack(spacing: 15) {
             Image(cell.icon)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 24)
-            
+
             VStack(alignment: .leading) {
                 Text("\(cell.title):")
                     .font(.paragraph5)
                     .foregroundStyle(Color(R.color.grayText))
-                
+
                 if let url = URL(string: cell.contact) {
                     Link(destination: url) {
                         HStack {

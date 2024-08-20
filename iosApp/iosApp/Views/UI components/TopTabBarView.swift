@@ -11,7 +11,7 @@ import SwiftUI
 struct TabBarView: View {
     @Binding var index: Int
     var titles = AutoListType.allCases
-    
+
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
@@ -19,7 +19,7 @@ struct TabBarView: View {
                     ForEach(titles.indices, id: \.self) { id in
                         let title = Text(titles[id]).id(id)
                             .onTapGesture {
-                                withAnimation() {
+                                withAnimation {
                                     index = id
                                 }
                             }
@@ -47,7 +47,7 @@ struct TabBarView: View {
                 .padding(.leading, 10)
             }
             .onChange(of: index) { value in
-                withAnimation() {
+                withAnimation {
                     proxy.scrollTo(value, anchor: UnitPoint(x: UnitPoint.leading.x + leftOffset, y: UnitPoint.leading.y))
                 }
             }

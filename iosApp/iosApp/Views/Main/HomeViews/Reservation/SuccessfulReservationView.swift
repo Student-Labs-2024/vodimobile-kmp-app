@@ -23,14 +23,14 @@ struct SuccessfulReservationView: View {
                 .padding(.horizontal, 5)
                 Spacer()
             }
-            
+
             Image(R.image.successCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)
                 .padding(.horizontal, 110)
                 .padding(.top, 40)
-            
+
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.requestSubmittedTitle)
                     .font(.header1).foregroundStyle(.black)
@@ -42,12 +42,12 @@ struct SuccessfulReservationView: View {
             }
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
-            
+
             NavigationLink(R.string.localizable.myOrdersScreenTitle(), destination: {
                 MyOrdersView()
             })
             .buttonStyle(FilledBtnWithoutDisabledStyle())
-            
+
             Spacer()
         }
         .navigationBarBackButtonHidden()

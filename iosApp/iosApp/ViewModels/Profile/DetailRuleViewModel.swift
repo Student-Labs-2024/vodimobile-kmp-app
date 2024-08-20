@@ -10,7 +10,7 @@ import Foundation
 
 final class DetailRuleViewModel {
     var rule: Rule
-    
+
     init(rule: Rule) {
         self.rule = rule
     }

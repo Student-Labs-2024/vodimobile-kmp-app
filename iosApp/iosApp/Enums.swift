@@ -36,7 +36,7 @@ enum ScrollOffsetNamespace {
 
 enum AutoListType {
     case allCars, economy, comfort, premium, sedans, jeeps
-    
+
     static var allCases: [String] {
         [
             AutoListType.allCars.localizedStr,
@@ -47,7 +47,7 @@ enum AutoListType {
             AutoListType.jeeps.localizedStr
         ]
     }
-    
+
     var localizedStr: String {
         switch self {
         case .allCars:
@@ -124,7 +124,7 @@ enum AuthFlowType {
 // field types
 enum TextFieldType: String {
     case email, phone, fullName, password, oldPassword, newPassword
-    
+
     var localizedStr: String {
         switch self {
         case .email:

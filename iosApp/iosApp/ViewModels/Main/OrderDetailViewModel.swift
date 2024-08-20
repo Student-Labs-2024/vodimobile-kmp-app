@@ -9,7 +9,7 @@
 import SwiftUI
 import shared
 
-final class OrderDetailViewModel : ObservableObject {
+final class OrderDetailViewModel: ObservableObject {
     var order: Order
     var orderCarPreview: Image {
         if let image = order.car.images.first {
@@ -18,7 +18,7 @@ final class OrderDetailViewModel : ObservableObject {
             return Image.questionFolder
         }
     }
-    
+
     init(order: Order) {
         self.order = order
     }

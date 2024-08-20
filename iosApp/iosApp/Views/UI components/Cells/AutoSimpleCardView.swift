@@ -17,7 +17,7 @@ struct AutoSimpleCardView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
-    
+
     init(
         carModel: Binding<Car>,
         showModal: Binding<Bool>,
@@ -28,19 +28,23 @@ struct AutoSimpleCardView: View {
         self._showModal = showModal
         self._selectedAuto = selectedAuto
     }
-    
+
     var body: some View {
         VStack(spacing: 12) {
             viewModel.carPreview
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 25)
-            
+
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(viewModel.carModel.model.resource).font(.header3)
                     if let carPrice = viewModel.carModel.tariffs.first?.cost {
-                        Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
+                        Text(
+                            R.string.localizable.prepositionPriceText() + " " +
+                            "\(Int(carPrice))" + " " +
+                            R.string.localizable.currencyPriceText()
+                        )
                             .font(.header4)
                             .fontWeight(.bold)
                             .foregroundStyle(Color(R.color.blueColor))

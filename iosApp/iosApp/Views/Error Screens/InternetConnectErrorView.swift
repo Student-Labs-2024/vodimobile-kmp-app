@@ -10,7 +10,7 @@ import SwiftUI
 
 struct InternetConnectErrorView: View {
     @ObservedObject var appState = AppState.shared
-    
+
     var body: some View {
         VStack(spacing: 36) {
             Image(R.image.wifi)
@@ -19,7 +19,7 @@ struct InternetConnectErrorView: View {
                 .foregroundStyle(.black)
                 .padding(.horizontal, 110)
                 .padding(.top, 20)
-            
+
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.internetConnectErrorTitle).font(.header1).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
@@ -29,9 +29,9 @@ struct InternetConnectErrorView: View {
             }
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
-            
+
             Spacer()
-            
+
             Button(R.string.localizable.reconnectButton()) {
                 appState.checkConnectivity()
                 // TODO: - add logic for repeat to connect with server

@@ -36,7 +36,7 @@ struct ModalAutoView: View {
         )
         .presentationDetents([.fraction(0.64)])
         .presentationDragIndicator(.visible)
-        
+
         if #available(iOS 16.4, *) {
             ModalAutoCardView.presentationCornerRadius(24)
         } else {
@@ -44,7 +44,6 @@ struct ModalAutoView: View {
         }
     }
 }
-
 
 struct ModalAutoCardView: View {
     @Binding var showModalView: Bool
@@ -56,7 +55,7 @@ struct ModalAutoCardView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
-    
+
     init(
         carModel: Binding<Car>,
         showModal: Binding<Bool>,
@@ -68,7 +67,7 @@ struct ModalAutoCardView: View {
         self._showModalView = showModal
         self._showSignSuggestModal = showSignSuggestModal
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -88,50 +87,54 @@ struct ModalAutoCardView: View {
                 }
             }
             .padding(.top, 30)
-            
+
             Spacer()
-            
+
             VStack {
                 viewModel.carPreview
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(maxHeight: 200)
                     .padding(.horizontal, 55)
-                
+
                 HStack {
                     Text(viewModel.carModel.model.resource).font(.header3)
                     Spacer()
                     if let carPrice = viewModel.carModel.tariffs.first?.cost {
-                        Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
-                            .font(.header4)
-                            .foregroundStyle(Color(R.color.blueColor))
-                            .fontWeight(.bold)
+                        Text(
+                            R.string.localizable.prepositionPriceText() +
+                            " \(Int(carPrice)) " +
+                            R.string.localizable.currencyPriceText()
+                        )
+                        .font(.header4)
+                        .foregroundStyle(Color(R.color.blueColor))
+                        .fontWeight(.bold)
                     }
                 }
                 .padding(.vertical, 15)
-                
+
                 VStack(alignment: .leading, spacing: 10) {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
-                    
+
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
                         CarGridItem(
                             gridItemType: .transmission,
                             value: viewModel.carModel.transmission.resource
                         )
-                        
+
                         CarGridItem(
                             gridItemType: .gear,
                             value: viewModel.carModel.wheelDrive.resource
                         )
-                        
+
                         if let carYear = viewModel.carModel.year {
                             CarGridItem(
                                 gridItemType: .yearDev,
                                 value: carYear.stringValue
                             )
                         }
-                        
+
                         CarGridItem(
                             gridItemType: .gasoline,
                             value: viewModel.carModel.tankValue.resource
@@ -140,7 +143,7 @@ struct ModalAutoCardView: View {
                     .padding(.vertical, 10)
                 }
             }
-            
+
             Button(R.string.localizable.bookButton()) {
                 showModalView.toggle()
                 if authManager.isAuthenticated {
@@ -150,7 +153,7 @@ struct ModalAutoCardView: View {
                 }
             }
             .buttonStyle(FilledBtnStyle())
-            
+
             Spacer()
         }
         .padding(.horizontal, 24)

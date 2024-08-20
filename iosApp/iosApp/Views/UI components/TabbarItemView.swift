@@ -10,14 +10,14 @@ import SwiftUI
 import RswiftResources
 
 struct TabBarItem: View {
-    
+
     let icon: Image
     let title: StringResource
     let badgeCount: Int
     let isSelected: Bool
     let itemWidth: CGFloat
     let onTap: () -> Void
-    
+
     var body: some View {
         Button {
             onTap()
@@ -28,7 +28,7 @@ struct TabBarItem: View {
                     .renderingMode(.template)
                     .frame(width: 20, height: 20)
                     .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayDark))
-                
+
                 Text(title)
                     .font(.buttonTabbar)
                     .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayDark))

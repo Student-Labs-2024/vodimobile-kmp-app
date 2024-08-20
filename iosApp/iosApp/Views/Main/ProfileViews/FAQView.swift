@@ -10,18 +10,18 @@ import SwiftUI
 
 struct FAQScreenView: View {
     @StateObject private var viewModel: FAQViewModel = FAQViewModel()
-    
+
     var attributedTitle: AttributedString {
         var attributedString = AttributedString(R.string.localizable.questionAndAnswerTitle())
         attributedString.font = .header3
-        
+
         if let range = attributedString.range(of: R.string.localizable.questionAndAnswerAttributedPartOfTitle()) {
             attributedString[range].foregroundColor = Color(R.color.blueColor)
         }
-        
+
         return attributedString
     }
-    
+
     var body: some View {
         VStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -36,7 +36,7 @@ struct FAQScreenView: View {
                 .padding(.vertical, 25)
                 .background(Color(R.color.blueBox))
                 .padding(.top, 10)
-                
+
                 LazyVStack(alignment: .leading) {
                     DisclosureListView(expandedIndices: $viewModel.expandedIndices, listOfQuestions: viewModel.listOfQuestions)
                 }
@@ -57,12 +57,12 @@ struct FAQScreenView: View {
 struct DisclosureListView: View {
     @Binding private var expandedIndices: [Bool]
     let listOfQuestions: [Question]
-    
+
     init(expandedIndices: Binding<[Bool]>, listOfQuestions: [Question]) {
         self._expandedIndices = expandedIndices
         self.listOfQuestions = listOfQuestions
     }
-    
+
     var body: some View {
         ForEach(Array(listOfQuestions.enumerated()), id: \.element.id) { index, _ in
             DisclosureGroup(
@@ -94,7 +94,7 @@ struct DisclosureListView: View {
                     }
                 }
             }
-            
+
             if index < expandedIndices.count - 1 {
                 Divider()
             }

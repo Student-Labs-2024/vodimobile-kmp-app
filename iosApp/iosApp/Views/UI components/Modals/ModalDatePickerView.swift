@@ -14,11 +14,11 @@ struct ModalDatePickerView: View {
     @Binding var showDatePicker: Bool
     @Binding var dateRange: ClosedRange<Date>?
     private let currentDate = Date()
-    
+
     var bounds: PartialRangeFrom<Date> {
         currentDate...
     }
-    
+
     var body: some View {
         Color.black.opacity(0.4)
             .edgesIgnoringSafeArea(.all)
@@ -53,7 +53,7 @@ struct ModalDatePickerView: View {
             .background(Color.white)
             .cornerRadius(13)
             .padding(.horizontal, 6)
-            
+
             HStack {
                 Button(R.string.localizable.clearButton()) {
                     dateRange = nil

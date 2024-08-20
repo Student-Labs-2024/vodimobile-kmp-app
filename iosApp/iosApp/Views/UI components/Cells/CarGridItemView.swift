@@ -16,11 +16,11 @@ struct CarGridItem: View {
     private let icon: Image
     private let title: String
     private var value: String
-    
+
     init(gridItemType: CarGridItemType, value: String) {
         self.gridItemType = gridItemType
         self.value = value
-        
+
         switch gridItemType {
         case .transmission:
             self.icon = Image(R.image.transmission)
@@ -38,7 +38,7 @@ struct CarGridItem: View {
             self.value = "\(value) \(R.string.localizable.literText())"
         }
     }
-    
+
     var body: some View {
         HStack(spacing: 18) {
             icon

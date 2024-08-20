@@ -16,12 +16,12 @@ struct IphonePhoneTextField: View {
     @Binding var inputErrorType: InputErrorType?
     @State var errorMessage: String = ""
     @FocusState.Binding var isFocused: Bool
-    
-    let errorHandler: (inout String) -> ()
+
+    let errorHandler: (inout String) -> Void
     let fieldName: String = TextFieldType.phone.localizedStr
     let placeholder: String = R.string.localizable.phonePlaceholder()
     let keyboardType: UIKeyboardType = .phonePad
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             iPhoneNumberField(placeholder, text: $fieldContent)
@@ -89,8 +89,8 @@ struct IphonePhoneTextField: View {
                 .onChange(of: inputErrorType) { _ in
                     errorHandler(&errorMessage)
                 }
-            
-            if let _ = inputErrorType {
+
+            if inputErrorType != nil {
                 Text(errorMessage)
                     .font(.paragraph6)
                     .foregroundStyle(Color(R.color.redColor))

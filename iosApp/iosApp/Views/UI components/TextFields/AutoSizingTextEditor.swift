@@ -13,7 +13,7 @@ struct AutoSizingTextEditor: View {
     @Binding private var isFocused: Bool
     @State private var textViewHeight: CGFloat = 50
     @State private var isPlaceholderVisible: Bool = true
-    
+
     init(text: Binding<String?>, isFocused: Binding<Bool>) {
         if let unwrapText = text.wrappedValue {
             _text = Binding.constant(unwrapText)
@@ -27,7 +27,7 @@ struct AutoSizingTextEditor: View {
         VStack(alignment: .leading) {
             Text(R.string.localizable.commentToReservation)
                 .font(.header4)
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 Group {
                     if text.isEmpty && isPlaceholderVisible {
                         Text(R.string.localizable.commentToReservationPlaceholder)

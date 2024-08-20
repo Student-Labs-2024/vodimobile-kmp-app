@@ -17,20 +17,20 @@ struct ProfileView: View {
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
-    
+
     init() {
         self.viewModel = .init()
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 Text(R.string.localizable.profileScreenTitle)
                     .font(.header1)
                     .foregroundStyle(Color.black)
-                
+
                 Spacer()
-                
+
                 VStack(spacing: ProfileConfig.spacingBetweenBlocks) {
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(viewModel.profileMenuData) { cell in
@@ -40,7 +40,7 @@ struct ProfileView: View {
                             )
                         }
                     }
-                    
+
                     if authManager.isAuthenticated {
                         VStack {
                             Button(action: {
@@ -48,9 +48,9 @@ struct ProfileView: View {
                             }, label: {
                                 HStack(spacing: 20) {
                                     Image(R.image.exitIcon)
-                                    
+
                                     Text(R.string.localizable.exitText)
-                                    
+
                                     Spacer()
                                 }
                                 .foregroundStyle(Color(R.color.redColor))
@@ -66,7 +66,7 @@ struct ProfileView: View {
                             Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {
                                 authManager.logout()
                             }
-                            
+
                             Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {
                                 showAlert.toggle()
                             }
@@ -75,7 +75,7 @@ struct ProfileView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
             }
             .padding(.horizontal, horizontalPadding)

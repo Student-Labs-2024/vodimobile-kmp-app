@@ -17,7 +17,7 @@ struct AutoListView: View {
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
     @ObservedObject private var viewModel = AutoListViewModel()
-    
+
     init(
         selectedAuto: Binding<Car>,
         showModalReservation: Binding<Bool>,
@@ -27,7 +27,7 @@ struct AutoListView: View {
         self._showModalReservation = showModalReservation
         self._showSignSuggestModal = showSignSuggestModal
     }
-    
+
     var body: some View {
         VStack {
             TabBarView(index: $selectedTab)
@@ -36,7 +36,7 @@ struct AutoListView: View {
                         .fill(.white)
                         .ignoresSafeArea(.all)
                 )
-            
+
             TabView(selection: $selectedTab) {
                 switch selectedTab {
                 case 1:
@@ -102,7 +102,7 @@ struct AutoListView: View {
                     .onEnded { value in
                         let horizontalAmount = value.translation.width
                         let verticalAmount = value.translation.height
-                        
+
                         if abs(horizontalAmount) > abs(verticalAmount) {
                             if horizontalAmount < -50 {
                                 withAnimation {

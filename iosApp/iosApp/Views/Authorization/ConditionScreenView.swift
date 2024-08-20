@@ -11,11 +11,11 @@ import SwiftUI
 struct ConditionScreenView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel: ConditionViewModel
-    
+
     init(viewModel: ConditionViewModel = .init()) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             Text(viewModel.conditionText)

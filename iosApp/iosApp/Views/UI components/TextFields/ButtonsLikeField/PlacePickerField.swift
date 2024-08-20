@@ -14,7 +14,7 @@ struct PlacePickerField: View {
     private let placesDataSource: [PlaceShort]
     private let backgroundColor: SwiftUI.Color
     private let icon: Image
-    
+
     init(
         selectedPlace: Binding<PlaceShort?>,
         placesDataSource: [PlaceShort],
@@ -26,7 +26,7 @@ struct PlacePickerField: View {
         self.icon = icon
         self.backgroundColor = backgroundColor
     }
-    
+
     var body: some View {
         Menu {
             ForEach(placesDataSource) { place in
@@ -41,9 +41,9 @@ struct PlacePickerField: View {
                 Text(selectedPlace?.nameWithCost ?? R.string.localizable.methodOfObtaining())
                     .foregroundColor(selectedPlace != nil ? Color(R.color.blueColor) : Color(R.color.grayDark))
                     .font(.paragraph4)
-                
+
                 Spacer()
-                
+
                 icon
                     .foregroundColor(Color(R.color.grayDark))
             }

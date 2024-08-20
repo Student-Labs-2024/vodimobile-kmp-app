@@ -23,14 +23,14 @@ struct FailureReservationView: View {
                 .padding(.horizontal, 5)
                 Spacer()
             }
-            
+
             Image(R.image.failureCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundStyle(.black)
                 .padding(.horizontal, 110)
                 .padding(.top, 40)
-            
+
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.requestFailedTitle)
                     .font(.header1).foregroundStyle(.black)
@@ -42,13 +42,13 @@ struct FailureReservationView: View {
             }
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
-            
+
             NavigationLink(R.string.localizable.reconnectButton(), destination: {
                 MainTabbarView()
                 // TODO: - Make to move back on rootViewController
             })
             .buttonStyle(BorderedBtnStyle())
-            
+
             Spacer()
         }
         .navigationBarBackButtonHidden()

@@ -11,13 +11,13 @@ import RswiftResources
 
 struct CustomToolbar: ToolbarContent {
     let title: StringResource
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     init(title: StringResource) {
         self.title = title
     }
-    
+
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
             Button(action: {
@@ -26,7 +26,7 @@ struct CustomToolbar: ToolbarContent {
                 Image.chevronLeft.foregroundStyle(Color.black).fontWeight(.bold)
             })
         }
-        
+
         ToolbarItem(placement: .principal) {
             Text(title)
                 .font(.header1)

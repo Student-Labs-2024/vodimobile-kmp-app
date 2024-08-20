@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OrdersTopPickerView: View {
     @Binding var selectedTab: MyOrderTab
-    
+
     var body: some View {
         HStack {
             tabButton(
@@ -22,7 +22,7 @@ struct OrdersTopPickerView: View {
                     selectedTab = .active
                 }
             }
-            
+
             tabButton(
                 title: R.string.localizable.completedTab(),
                 isSelected: selectedTab == .completed
@@ -37,7 +37,7 @@ struct OrdersTopPickerView: View {
         .frame(maxWidth: .infinity)
         .background(Capsule().fill(.white))
     }
-    
+
     @ViewBuilder
     private func tabButton(title: String, isSelected: Bool) -> some View {
         Text(title)

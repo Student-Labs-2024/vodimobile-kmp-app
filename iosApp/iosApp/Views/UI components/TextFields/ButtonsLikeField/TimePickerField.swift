@@ -11,7 +11,7 @@ import SwiftUI
 struct TimePickerField: View {
     @Binding var selectedTime: Date?
     @Binding var showTimePicker: Bool
-    
+
     var body: some View {
         VStack {
             Button(action: {
@@ -27,9 +27,9 @@ struct TimePickerField: View {
                             .foregroundColor(Color(R.color.grayText))
                             .font(.paragraph4)
                     }
-                    
+
                     Spacer()
-                    
+
                     Image.clock
                         .foregroundColor(Color(R.color.grayDark))
                 }
@@ -42,7 +42,7 @@ struct TimePickerField: View {
             }
         }
     }
-    
+
     private var timeFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.timeStyle = .short

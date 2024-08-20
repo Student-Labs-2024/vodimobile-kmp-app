@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MediaCellView: View {
     let cell: MediaLink
-    
+
     var body: some View {
         if let url = URL(string: cell.url) {
             Link(destination: url) {
@@ -20,9 +20,9 @@ struct MediaCellView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 32, height: 32)
                     Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
-                    
+
                     Spacer()
-                    
+
                     Image.chevronRight
                         .foregroundStyle(Color(R.color.grayDark))
                         .fontWeight(.bold)
@@ -35,9 +35,9 @@ struct MediaCellView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)
                 Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
-                
+
                 Spacer()
-                
+
                 Image.chevronRight
                     .foregroundStyle(Color(R.color.grayDark))
                     .fontWeight(.bold)

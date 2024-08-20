@@ -19,7 +19,7 @@ final class MyOrdersViewModel: ObservableObject {
         }
     }
     private var apiManager = KMPApiManager.shared
-    
+
     init() {
         let empty = Order.companion.empty()
         activeOrderList = [
@@ -38,7 +38,7 @@ final class MyOrdersViewModel: ObservableObject {
             )
         ]
     }
-    
+
     func getAllOrders() {
         Task {
             let orders = await apiManager.fetchUserOrders()
@@ -48,7 +48,7 @@ final class MyOrdersViewModel: ObservableObject {
             }
         }
     }
-    
+
     func filterOrderList(by type: MyOrderTab) -> [Order] {
         switch type {
         case .active:

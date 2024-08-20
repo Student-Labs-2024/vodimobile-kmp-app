@@ -12,7 +12,7 @@ import RswiftResources
 final class ContactsViewModel: ObservableObject {
     let contactCells: [ContactCell] = ContactCell.contactsData
     let mediaLinks: [MediaLink] = MediaLink.mediaLinks
-    
+
     func cleanPhoneNumber(_ phoneNumber: String) -> String {
         let allowedCharacters = CharacterSet(charactersIn: "0123456789")
         return phoneNumber.components(separatedBy: allowedCharacters.inverted).joined()
@@ -26,11 +26,11 @@ struct ContactCell: Identifiable {
     let icon: RswiftResources.ImageResource
     let title: String
     let contact: String
-    
+
     init(id: Int, cellType: CellType) {
         self.id = id
         self.cellType = cellType
-        
+
         switch self.cellType {
         case .email:
             self.icon = R.image.gmailIcon
@@ -46,7 +46,7 @@ struct ContactCell: Identifiable {
             self.contact = contactPhone
         }
     }
-    
+
     // static field
     static let contactsData = [
         ContactCell(id: 1, cellType: .email),
@@ -61,11 +61,11 @@ struct MediaLink: Identifiable {
     let icon: RswiftResources.ImageResource
     let title: String
     let url: String
-    
+
     init(id: Int, cellType: MediaType) {
         self.id = id
         self.cellType = cellType
-        
+
         switch self.cellType {
         case .vk:
             self.icon = R.image.vkIcon
@@ -81,7 +81,7 @@ struct MediaLink: Identifiable {
             self.url = tgLink
         }
     }
-    
+
     static let mediaLinks = [
         MediaLink(id: 1, cellType: .vk),
         MediaLink(id: 2, cellType: .whatsapp),

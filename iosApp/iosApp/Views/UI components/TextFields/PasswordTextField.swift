@@ -16,8 +16,8 @@ struct PasswordTextField: View {
     @State var errorMessage: String = ""
     @State var isSecured: Bool = true
     @FocusState.Binding var isFocused: Bool
-    
-    let errorHandler: (inout String) -> ()
+
+    let errorHandler: (inout String) -> Void
     let isForgetButtonEnabled: Bool
     let fieldType: TextFieldType
     let fieldName: String = TextFieldType.password.localizedStr
@@ -26,7 +26,7 @@ struct PasswordTextField: View {
     private var contentIsNotValid: Bool {
         !isValid && !fieldContent.isEmpty
     }
-    
+
     init(
         fieldContent: Binding<String>,
         isValid: Binding<Bool>,
@@ -46,7 +46,7 @@ struct PasswordTextField: View {
         self.isForgetButtonEnabled = isForgetButtonEnabled
         self.fieldType = fieldType
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Group {
@@ -67,7 +67,7 @@ struct PasswordTextField: View {
                                     inputErrorType = nil
                                 }
                             }
-                        
+
                         Button(action: {
                             isSecured.toggle()
                         }) {
@@ -106,7 +106,7 @@ struct PasswordTextField: View {
                                     inputErrorType = nil
                                 }
                             }
-                        
+
                         Button(action: {
                             isSecured.toggle()
                         }) {
@@ -133,7 +133,7 @@ struct PasswordTextField: View {
             .onChange(of: inputErrorType) { _ in
                 errorHandler(&errorMessage)
             }
-            
+
             HStack {
                 if inputErrorType != nil {
                     Text(errorMessage)
@@ -142,7 +142,7 @@ struct PasswordTextField: View {
                         .padding(.leading, 10)
                 }
                 Spacer()
-                
+
                 if isForgetButtonEnabled {
                     NavigationLink(R.string.localizable.forgetPassword()) {
                         // TODO: - Make modal ResetPasswordPhoneView

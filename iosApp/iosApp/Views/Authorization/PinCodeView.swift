@@ -23,7 +23,7 @@ struct PinCodeView: View {
     private let pass: String
     private let authManager = AuthManager.shared
     @Environment(\.dismiss) private var dismiss
-    
+
     init(
         showSignSuggestModal: Binding<Bool>,
         authFlowType: AuthFlowType,
@@ -37,7 +37,7 @@ struct PinCodeView: View {
         self.pass = pass
         self.authFlowType = authFlowType
     }
-    
+
     var body: some View {
         VStack(spacing: PinCodeConfig.spacingBetweenGroupAndResendText) {
             VStack(spacing: PinCodeConfig.spacingBetweenMainComponents) {
@@ -46,12 +46,12 @@ struct PinCodeView: View {
                     .padding(.top, PinCodeConfig.contentTopPadding)
                     .foregroundColor(Color.black)
                     .multilineTextAlignment(.center)
-                
+
                 Text(sendCodeOnPhoneText)
                     .font(.paragraph2)
                     .foregroundColor(Color(R.color.grayText))
                     .multilineTextAlignment(.center)
-                
+
                 HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
                     ForEach(0..<4) { index in
                         PinCodeTextField(index: index)
@@ -61,7 +61,7 @@ struct PinCodeView: View {
                 .onChange(of: pin) { _ in
                     toggleButtonEnabled()
                 }
-                
+
                 switch authFlowType {
                 case .registration:
                     Button(R.string.localizable.nextBtnName(), action: {
@@ -93,7 +93,7 @@ struct PinCodeView: View {
                     .disabled(!isButtonEnabled)
                 }
             }
-            
+
             HStack {
                 Text(R.string.localizable.notGetCodeText)
                     .foregroundColor(.black)
@@ -109,7 +109,7 @@ struct PinCodeView: View {
                         .underline()
                 }
             }
-            
+
             Spacer()
         }
         .padding()
@@ -154,7 +154,7 @@ struct PinCodeView: View {
                 }
             }
     }
-    
+
     private func toggleButtonEnabled() {
         isButtonEnabled = pin.joined().count == 4
     }

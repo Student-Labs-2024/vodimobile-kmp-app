@@ -14,7 +14,7 @@ struct DataPickerField: View {
     @Binding var showDatePicker: Bool
     private let backgroundColor: SwiftUI.Color
     private let rightImage: Image
-    
+
     init(
         dateRange: Binding<ClosedRange<Date>?>,
         showDatePicker: Binding<Bool>,
@@ -26,7 +26,7 @@ struct DataPickerField: View {
         self.rightImage = rightImage
         self.backgroundColor = backgroundColor
     }
-    
+
     var body: some View {
         Button(action: {
             showDatePicker = true
@@ -39,7 +39,7 @@ struct DataPickerField: View {
                 rightImage
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 24 , height: 24)
+                    .frame(width: 24, height: 24)
                     .foregroundColor(.gray)
             }
             .frame(alignment: .leading)
@@ -52,18 +52,18 @@ struct DataPickerField: View {
             .frame(maxHeight: 55)
         }
     }
-    
+
     private func formatDateRange() -> String {
         guard let dateRange = dateRange else {
             return R.string.localizable.dateTextFieldPlaceholder()
         }
-        
+
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        
+
         let startDate = formatter.string(from: dateRange.lowerBound)
         let endDate = formatter.string(from: dateRange.upperBound)
-        
+
         if startDate == endDate {
             return startDate
         } else if calendar.compare(dateRange.lowerBound, to: dateRange.upperBound, toGranularity: .day) == .orderedAscending {

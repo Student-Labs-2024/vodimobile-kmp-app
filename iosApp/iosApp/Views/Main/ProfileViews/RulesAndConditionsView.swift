@@ -10,11 +10,11 @@ import SwiftUI
 
 struct RulesAndConditionsView: View {
     private var viewModel: RulesAndConditionsViewModel
-    
+
     init() {
         self.viewModel = RulesAndConditionsViewModel()
     }
-    
+
     var body: some View {
         VStack {
             List(viewModel.listOfRules, id: \.self) { rule in

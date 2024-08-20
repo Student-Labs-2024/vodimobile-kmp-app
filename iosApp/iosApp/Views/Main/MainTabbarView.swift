@@ -11,18 +11,18 @@ import SwiftUI
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
     @ObservedObject var appState = AppState.shared
-    
+
     var body: some View {
         GeometryReader { geometry in
             let tabWidthSize = geometry.size.width / 3
-            
+
             ZStack(alignment: Alignment.bottom) {
                 TabView(selection: $selectedTab) {
                     MainView().tag(TabType.main)
                     MyOrdersView().tag(TabType.myOrders)
                     ProfileView().tag(TabType.profile)
                 }
-                
+
                 HStack(spacing: 0) {
                     TabBarItem(
                         icon: Image(R.image.home),
@@ -33,7 +33,7 @@ struct MainTabbarView: View {
                     ) {
                         handleTabSelection(.main)
                     }
-                    
+
                     TabBarItem(
                         icon: Image(R.image.car),
                         title: R.string.localizable.myOrdersScreenTitle,
@@ -43,7 +43,7 @@ struct MainTabbarView: View {
                     ) {
                         handleTabSelection(.myOrders)
                     }
-                    
+
                     TabBarItem(
                         icon: Image.personFill,
                         title: R.string.localizable.profileScreenTitle,
@@ -76,7 +76,7 @@ struct MainTabbarView: View {
             appState.checkConnectivity()
         }
     }
-    
+
     private func handleTabSelection(_ tab: TabType) { selectedTab = tab }
 }
 

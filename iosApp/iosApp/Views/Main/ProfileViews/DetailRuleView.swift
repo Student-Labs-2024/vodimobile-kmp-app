@@ -10,17 +10,17 @@ import SwiftUI
 
 struct DetailRuleView: View {
     var viewModel: DetailRuleViewModel
-    
+
     init(rule: Rule) {
         self.viewModel = DetailRuleViewModel(rule: rule)
     }
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 24) {
                 Text(viewModel.rule.attributedTitle)
                     .multilineTextAlignment(.leading)
-                
+
                 VStack(alignment: .leading, spacing: 24) {
                     Text(viewModel.rule.ruleTitle).font(.paragraph2)
                     Text(viewModel.rule.ruleBody).font(.paragraph4)
@@ -29,7 +29,7 @@ struct DetailRuleView: View {
                 .padding(.vertical, 25)
                 .padding(.horizontal, 28)
                 .background(RoundedRectangle(cornerRadius: 30, style: .circular).fill(Color(R.color.blueBox)))
-                
+
                 Spacer()
             }
             .padding(.top, 40)

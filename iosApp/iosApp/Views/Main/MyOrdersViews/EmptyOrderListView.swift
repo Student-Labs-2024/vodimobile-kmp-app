@@ -10,8 +10,8 @@ import SwiftUI
 import SwiftUIPullToRefresh
 
 struct EmptyOrderListView: View {
-    var onRefresh: () -> ()
-    
+    var onRefresh: () -> Void
+
     var body: some View {
         RefreshableScrollView(
             showsIndicators: false,
@@ -40,8 +40,7 @@ struct EmptyOrderListView: View {
                 }
                 .padding(.top, screenHeight / 5)
             }
-        
-        
+
     }
 }
 

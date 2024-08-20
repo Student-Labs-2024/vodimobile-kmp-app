@@ -15,17 +15,17 @@ struct UnderlineTextField: View {
     @State private var errorMessage: String = ""
     @FocusState private var isFocused: Bool
     @State private var isPlaceholderVisible: Bool = true
-    
+
     var fieldType: TextFieldType
     private var title: String
     private let keyboardType: UIKeyboardType
     private let regex: String
-    
+
     init(text: Binding<String>, isValid: Binding<Bool>, fieldType: TextFieldType) {
         self._text = text
         self.fieldType = fieldType
         self._isValid = isValid
-        
+
         switch fieldType {
         case .email:
             title = TextFieldType.email.localizedStr
@@ -45,14 +45,14 @@ struct UnderlineTextField: View {
             regex = passRegex
         }
     }
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(.paragraph5)
                 .foregroundColor(isFocused || !text.isEmpty ? Color(R.color.grayDark) : .clear)
                 .animation(.easeInOut(duration: 0.2), value: isFocused || !text.isEmpty)
-            
+
             ZStack(alignment: .leading) {
                 if isPlaceholderVisible && text.isEmpty {
                     Text(title)
@@ -62,7 +62,7 @@ struct UnderlineTextField: View {
                             self.isFocused = true
                         }
                 }
-                
+
                 if fieldType == .phone {
                     iPhoneNumberField(text, text: $text)
                         .formatted()
@@ -88,7 +88,7 @@ struct UnderlineTextField: View {
                                 isPlaceholderVisible = !newValue && text.isEmpty
                             }
                         }
-                        .onChange(of: text) { newValue in
+                        .onChange(of: text) { _ in
                             validateInput()
                             withAnimation {
                                 isPlaceholderVisible = text.isEmpty && !isFocused
@@ -106,7 +106,7 @@ struct UnderlineTextField: View {
                                 isPlaceholderVisible = !newValue && text.isEmpty
                             }
                         }
-                        .onChange(of: text) { newValue in
+                        .onChange(of: text) { _ in
                             validateInput()
                             withAnimation {
                                 isPlaceholderVisible = text.isEmpty && !isFocused
@@ -120,17 +120,17 @@ struct UnderlineTextField: View {
                     .foregroundColor(isFocused ? Color(R.color.blueColor) : Color(R.color.grayDark)),
                 alignment: .bottom
             )
-            
+
         }
     }
-    
+
     private func validateInput() {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let errorResult: String = String(localized: String.LocalizationValue(stringLiteral: "inputErrorMsg"))
         let cleanedStr = text.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
-        
+
         isValid = predicate.evaluate(with: cleanedStr)
-        
+
         if !isValid && !text.isEmpty {
             errorMessage = "\(errorResult)\(title.lowercased())"
         } else {

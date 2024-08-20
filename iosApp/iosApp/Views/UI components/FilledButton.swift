@@ -19,7 +19,6 @@ struct FilledButton: View {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity, maxHeight: height)
-            .background(isEnabled ? (configuration.isPressed ? Color(R.color.blueDark) : Color(R.color.blueColor)) : Color(R.color.blueLight))
             .frame(maxWidth: .infinity)
             .background(
                 isEnabled

@@ -14,8 +14,8 @@ struct OrdersListView: View {
     @Binding var ordersList: [Order]
     @Binding var selectedOrder: Order
     @Binding var showOrderModal: Bool
-    var onRefresh: () -> ()
-    
+    var onRefresh: () -> Void
+
     var body: some View {
         RefreshableScrollView(
             showsIndicators: false,

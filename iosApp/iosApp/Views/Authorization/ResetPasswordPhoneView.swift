@@ -12,22 +12,22 @@ struct ResetPasswordPhoneView: View {
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
     @ObservedObject private var viewModel = UserDataViewModel()
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
                 VStack(spacing: 12) {
                     Text(R.string.localizable.resetScreenTitle)
                         .font(.header2)
-                    
+
                     Text(R.string.localizable.resetScreenSubtitle)
                         .font(.paragraph2)
                         .foregroundStyle(Color(R.color.grayText))
                 }
                 .padding(.vertical, 24)
-            
+
                 BorderedTextField(
                     fieldContent: $viewModel.phone,
                     isValid: $viewModel.isPhoneValid,
@@ -37,7 +37,7 @@ struct ResetPasswordPhoneView: View {
                 .onChange(of: viewModel.isPhoneValid) { _ in
                     isButtonEnabled = true
                 }
-                
+
                 NavigationLink(
                     destination: PinCodeView(
                         showSignSuggestModal: $showSignSuggestModal,

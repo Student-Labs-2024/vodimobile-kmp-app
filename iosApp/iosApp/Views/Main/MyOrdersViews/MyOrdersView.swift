@@ -14,12 +14,12 @@ struct MyOrdersView: View {
     @State var selectedOrder: Order = Order.companion.empty()
     @State var showOrderModal: Bool = false
     @ObservedObject var viewModel = MyOrdersViewModel()
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 OrdersTopPickerView(selectedTab: $selectedTab)
-                
+
                 switch selectedTab {
                 case .active:
                     if !viewModel.activeOrderList.isEmpty {
@@ -50,7 +50,7 @@ struct MyOrdersView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
             }
             .fullScreenCover(isPresented: $showOrderModal, content: {
