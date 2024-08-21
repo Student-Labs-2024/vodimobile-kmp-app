@@ -179,23 +179,28 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
 
                 val carId = backStackEntry.arguments?.getInt("carId") ?: 0
 
+                val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
+                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-date",
+                    initialValue = longArrayOf(0L, 0L),
+                ).collectAsState().value
                 val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-start-time",
                     initialValue = "",
                 ).collectAsState().value
-
                 val selectedEndTime = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-end-time",
                     initialValue = "",
                 ).collectAsState().value
 
+                val finalDate = if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
                 val reservationViewModel: ReservationViewModel = koinViewModel()
                 ReservationScreen(
                     reservationState = reservationViewModel.reservationState.collectAsState(
                         initial = ReservationState(
                             startTime = selectedStartTime,
                             endTime = selectedEndTime,
-                            date = generalState.value.selectedDate,
+                            date = finalDate,
                             carId = carId
                         )
                     ),
@@ -203,7 +208,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onGeneralIntent = generalViewModel::onIntent,
                     reservationEffect = reservationViewModel.reservationEffect,
                     navHostController = navHostController,
-                    date = generalState.value.selectedDate,
+                    date = finalDate,
                     startTime = selectedStartTime,
                     endTime = selectedEndTime,
                     carId = carId

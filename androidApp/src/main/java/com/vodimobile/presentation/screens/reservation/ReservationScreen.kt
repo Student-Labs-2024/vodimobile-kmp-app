@@ -71,6 +71,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
@@ -143,12 +144,21 @@ fun ReservationScreen(
                         )
                     }))
                 }
+
+                ReservationEffect.Fail -> {
+                    navHostController.navigate(route = LeafOrdersScreen.ERROR_APP_SCREEN)
+                }
+                ReservationEffect.Success -> {
+                    navHostController.navigateUp()
+                    navHostController.navigate(route = LeafOrdersScreen.SUCCESSFUL_SCREEN)
+                }
             }
         }
     }
 
     LaunchedEffect(key1 = Unit) {
         onReservationIntent(ReservationIntent.GetCarFreeDate(value = date))
+        onReservationIntent(ReservationIntent.DateChange(value = date))
     }
 
     LaunchedEffect(key1 = Unit) {

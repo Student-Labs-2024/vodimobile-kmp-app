@@ -58,7 +58,9 @@ private fun getIsShowBottomBar(currentRoute: String): Boolean {
             !currentRoute.contains(LeafErrorScreen.NO_INTERNET) &&
             !currentRoute.contains(LeafHomeScreen.RESERVATION_SCREEN) &&
             !currentRoute.contains(DialogIdentifiers.DELETE_ORDER_DIALOG) &&
-            !currentRoute.contains(DialogIdentifiers.TIME_SELECT_DIALOG)
+            !currentRoute.contains(DialogIdentifiers.TIME_SELECT_DIALOG) &&
+            currentRoute != LeafOrdersScreen.SUCCESSFUL_SCREEN &&
+            currentRoute != LeafOrdersScreen.ERROR_APP_SCREEN
 }
 
 @Preview

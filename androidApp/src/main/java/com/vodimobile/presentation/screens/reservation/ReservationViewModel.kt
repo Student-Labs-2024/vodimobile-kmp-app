@@ -175,13 +175,11 @@ class ReservationViewModel(
             }
 
             is ReservationIntent.DateChange -> {
-                viewModelScope.launch {
-                    reservationState.update {
-                        it.copy(
-                            date = intent.value,
-                            errorDate = intent.value.contentEquals(longArrayOf(0L, 0L))
-                        )
-                    }
+                reservationState.update {
+                    it.copy(
+                        date = intent.value,
+                        errorDate = intent.value.contentEquals(longArrayOf(0L, 0L))
+                    )
                 }
             }
 
@@ -374,10 +372,10 @@ class ReservationViewModel(
                                         crm_bid_id = crmEither.data.bid_id ?: 0,
                                         bid_status = bidGripReverse[CarStatus.Processing]
                                             ?: "Отменено",
-                                        date_start = "${toFormat(reservationState.value.date[0])}",
-                                        date_finish = "${toFormat(reservationState.value.date[1])}",
-                                        time_start = "${reservationState.value.startTime}",
-                                        time_finish = "${reservationState.value.endTime}",
+                                        date_start = toFormat(reservationState.value.date[0]),
+                                        date_finish = toFormat(reservationState.value.date[1]),
+                                        time_start = reservationState.value.startTime,
+                                        time_finish = reservationState.value.endTime,
                                         place_start = reservationState.value.getPlace.split(" - ")[0],
                                         place_finish = reservationState.value.returnPlace.split(" - ")[0],
                                         cost = reservationState.value.bidCost.toFloat(),
@@ -386,10 +384,15 @@ class ReservationViewModel(
                                         ) else ""
                                     )
                                 )
+
+                                reservationEffect.emit(ReservationEffect.DismissLoadingDialog)
+                                reservationEffect.emit(ReservationEffect.PutBid)
+                                reservationEffect.emit(ReservationEffect.Success)
                             }
 
                             is CrmEither.CrmError -> {
                                 reservationEffect.emit(ReservationEffect.DismissLoadingDialog)
+                                reservationEffect.emit(ReservationEffect.Fail)
                             }
 
                             CrmEither.CrmLoading -> {
@@ -397,8 +400,6 @@ class ReservationViewModel(
                             }
                         }
                     }
-                    reservationEffect.emit(ReservationEffect.DismissLoadingDialog)
-                    reservationEffect.emit(ReservationEffect.PutBid)
                 }
             }
         }
