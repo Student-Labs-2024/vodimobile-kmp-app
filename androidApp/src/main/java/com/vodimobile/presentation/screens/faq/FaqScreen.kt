@@ -34,7 +34,8 @@ fun FaqScreen(
     onFaqIntent: (FaqIntent) -> Unit,
     @SuppressLint("ComposeMutableParameters") faqEffect: MutableSharedFlow<FaqEffect>,
     faqState: State<FaqState>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
 
     LaunchedEffect(key1 = Unit) {
@@ -47,11 +48,14 @@ fun FaqScreen(
         }
     }
 
-    Scaffold(topBar = {
-        ScreenHeader(
-            title = stringResource(id = R.string.faq),
-            onNavigateBack = { onFaqIntent(FaqIntent.BackClick) })
-    }) { scaffoldPadding ->
+    Scaffold(
+        topBar = {
+            ScreenHeader(
+                title = stringResource(id = R.string.faq),
+                onNavigateBack = { onFaqIntent(FaqIntent.BackClick) })
+        },
+        modifier = modifier
+    ) { scaffoldPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()

@@ -383,7 +383,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onFaqIntent = faqViewModel::onIntent,
                     faqEffect = faqViewModel.faqEffect,
                     faqState = faqViewModel.faqState.collectAsState(),
-                    navHostController = navHostController
+                    navHostController = navHostController,
+                    modifier = modifier
                 )
             }
             composable(route = LeafScreen.CONTACTS_SCREEN) {
@@ -394,7 +395,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     contactEffect = contactViewModel.contactEffect,
                     contactState = contactViewModel.contactState.collectAsState(),
                     validYear = contactViewModel.getValidYear(startYear = stringResource(id = R.string.version_year_str)),
-                    navHostController = navHostController
+                    navHostController = navHostController,
+                    modifier = modifier
                 )
             }
             composable(route = LeafScreen.EDIT_PROFILE) {

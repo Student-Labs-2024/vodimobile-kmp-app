@@ -43,7 +43,8 @@ fun ContactScreen(
     @SuppressLint("ComposeMutableParameters") contactEffect: MutableSharedFlow<ContactEffect>,
     validYear: String,
     contactState: State<ContactState>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
 
     LaunchedEffect(key1 = Unit) {
@@ -85,7 +86,7 @@ fun ContactScreen(
                     onContactIntent(ContactIntent.BackClick)
                 }
             )
-        }
+        }, modifier = modifier
     ) {
         LazyColumn(
             modifier = Modifier
