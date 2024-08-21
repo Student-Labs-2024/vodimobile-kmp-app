@@ -93,43 +93,49 @@ fun ChangePasswordScreen(
             }
         }
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 16.dp)
-    ) {
-        ScreenHeader(
-            title = stringResource(
-                id = R.string.title_change_password_screen
-            ),
-            onNavigateBack = {
-                onChangePasswordIntent(ChangePasswordIntent.ReturnBack)
-            }
-        )
-        Spacer(modifier = Modifier.height(100.dp))
-        ChangePasswordBlock(
-            oldPasswordState = oldPasswordState.value,
-            newPasswordState = newPasswordState.value,
-            onOldPasswordChanged = {
-                onChangePasswordIntent(ChangePasswordIntent.OldPasswordChange(it))
-            },
-            onNewPasswordChanged = {
-                onChangePasswordIntent(ChangePasswordIntent.NewPasswordChange(it))
-            },
-            onClickRememberPassword = {
-                onChangePasswordIntent(ChangePasswordIntent.RememberPassword)
-            }
-        )
-        Spacer(modifier = Modifier.height(28.dp))
-        PrimaryButton(
-            text = stringResource(id = R.string.text_save_button),
-            enabled = !oldPasswordState.value.passwordError && !newPasswordState.value.passwordError,
-            onClick = {
-                onChangePasswordIntent(ChangePasswordIntent.SaveChanges)
-            }
-        )
+    Scaffold(
+        topBar = {
+            ScreenHeader(
+                modifier = Modifier.padding(top = 12.dp),
+                title = stringResource(
+                    id = R.string.title_change_password_screen
+                ),
+                onNavigateBack = {
+                    onChangePasswordIntent(ChangePasswordIntent.ReturnBack)
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(vertical = 60.dp, horizontal = 16.dp)
+        ) {
+            ChangePasswordBlock(
+                oldPasswordState = oldPasswordState.value,
+                newPasswordState = newPasswordState.value,
+                onOldPasswordChanged = {
+                    onChangePasswordIntent(ChangePasswordIntent.OldPasswordChange(it))
+                },
+                onNewPasswordChanged = {
+                    onChangePasswordIntent(ChangePasswordIntent.NewPasswordChange(it))
+                },
+                onClickRememberPassword = {
+                    onChangePasswordIntent(ChangePasswordIntent.RememberPassword)
+                }
+            )
+            Spacer(modifier = Modifier.height(28.dp))
+            PrimaryButton(
+                text = stringResource(id = R.string.text_save_button),
+                enabled = !oldPasswordState.value.passwordError && !newPasswordState.value.passwordError,
+                onClick = {
+                    onChangePasswordIntent(ChangePasswordIntent.SaveChanges)
+                }
+            )
+        }
     }
+
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

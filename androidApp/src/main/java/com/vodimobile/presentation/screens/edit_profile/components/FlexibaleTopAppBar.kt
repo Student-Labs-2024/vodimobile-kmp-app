@@ -25,7 +25,6 @@ import androidx.compose.material3.TopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -33,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.Layout
@@ -52,10 +50,10 @@ fun FlexibleTopBar(
     colors: FlexibleTopBarColors = FlexibleTopBarDefaults.topAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null,
     shape: FlexibleTopAppBarShape = FlexibleTopBarDefaults.topAppBarShape(),
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     var heightOffsetLimit by remember {
-        mutableFloatStateOf(0f)
+        mutableFloatStateOf(-100.0f)
     }
     LaunchedEffect(heightOffsetLimit) {
         if (scrollBehavior?.state?.heightOffsetLimit != heightOffsetLimit) {
@@ -100,7 +98,7 @@ fun FlexibleTopBar(
             modifier = modifier,
             measurePolicy = { measurables, constraints ->
                 val placeable = measurables.first().measure(constraints.copy(minWidth = 0))
-                heightOffsetLimit = placeable.height.toFloat() * -1
+                heightOffsetLimit = placeable.height.toFloat() * -0.9f
                 val scrollOffset = scrollBehavior?.state?.heightOffset ?: 0f
                 val height = placeable.height.toFloat() + scrollOffset
                 val layoutHeight = height.roundToInt()

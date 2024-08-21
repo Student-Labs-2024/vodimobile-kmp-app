@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -62,7 +63,7 @@ fun RuleDetailsScreen(
         }
     ) { innerPadding ->
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -70,12 +71,15 @@ fun RuleDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RuleTitleItem(title = ruleDetailsState.value.rulesAndConditionModelList[ruleId].title)
-
-            RuleInformationItem(
-                condition = ruleDetailsState.value.rulesAndConditionModelList[ruleId].rule,
-                conclusion = ruleDetailsState.value.rulesAndConditionModelList[ruleId].condition
-            )
+            item {
+                RuleTitleItem(title = ruleDetailsState.value.rulesAndConditionModelList[ruleId].title)
+            }
+            item {
+                RuleInformationItem(
+                    condition = ruleDetailsState.value.rulesAndConditionModelList[ruleId].rule,
+                    conclusion = ruleDetailsState.value.rulesAndConditionModelList[ruleId].condition
+                )
+            }
         }
     }
 }
