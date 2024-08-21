@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.vehicle_fleet
 import BottomCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

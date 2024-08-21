@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.components.NewPasswordField
 import com.vodimobile.presentation.components.OldPasswordField
-import com.vodimobile.presentation.store.PasswordState
+import com.vodimobile.presentation.screens.change_password.store.PasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("ComposeModifierMissing")

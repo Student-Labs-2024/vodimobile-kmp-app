@@ -81,10 +81,14 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
+import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.store.GeneralState
+import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
 import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -92,6 +96,8 @@ import org.koin.androidx.compose.koinViewModel
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
+    val generalViewModel = GeneralViewModel()
+    val generalState = generalViewModel.generalState.collectAsState()
 
     NavHost(
         navController = navHostController,
@@ -108,10 +114,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 val isConnected =
                     checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
-                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                        "selected-date",
-                        initialValue = longArrayOf(0L, 0L),
-                    ).collectAsState().value
                     val noAuth = backStackEntry.savedStateHandle.getStateFlow(
                         "no-auth",
                         initialValue = true,
@@ -121,13 +123,13 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     HomeScreen(
                         homeState = homeViewModel.homeState.collectAsState(
                             initial = HomeState(
-                                selectedDate = selectedDate
+                                selectedDate = generalState.value.selectedDate
                             )
                         ),
                         homeEffect = homeViewModel.homeEffect,
                         onHomeIntent = homeViewModel::onIntent,
                         navHostController = navHostController,
-                        selectedDate = selectedDate,
+                        selectedDate = generalState.value.selectedDate,
                         modifier = modifier,
                         noAuth = noAuth,
                     )
@@ -143,22 +145,18 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 val isConnected =
                     checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
-                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                        "selected-date",
-                        initialValue = longArrayOf(0L, 0L),
-                    ).collectAsState().value
                     val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
                     VehicleFleetScreen(
                         onVehicleIntent = vehicleFleetModel::onIntent,
                         vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
                         vehicleState = vehicleFleetModel.vehicleState.collectAsState(
                             initial = VehicleState(
-                                dateRange = selectedDate
+                                dateRange = generalState.value.selectedDate
                             )
                         ),
                         navHostController = navHostController,
                         selectedTagIndex = 0,
-                        dateRange = selectedDate
+                        dateRange = generalState.value.selectedDate
                     )
                 } else {
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(
@@ -182,13 +180,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 val carId = backStackEntry.arguments?.getInt("carId") ?: 0
                 val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
 
-                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-date",
-                    initialValue = longArrayOf(0L, 0L),
-                ).collectAsState().value
-
-                val finalDate = if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
-
                 val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-start-time",
                     initialValue = "",
@@ -205,14 +196,14 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         initial = ReservationState(
                             startTime = selectedStartTime,
                             endTime = selectedEndTime,
-                            date = finalDate,
+                            date = generalState.value.selectedDate,
                             carId = carId
                         )
                     ),
                     onReservationIntent = reservationViewModel::onIntent,
                     reservationEffect = reservationViewModel.reservationEffect,
                     navHostController = navHostController,
-                    date = finalDate,
+                    date = generalState.value.selectedDate,
                     startTime = selectedStartTime,
                     endTime = selectedEndTime,
                     carId = carId
@@ -243,8 +234,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
             ) { backStackEntry ->
-                var selectedDate by remember { mutableStateOf(longArrayOf(0L, 0L)) }
-
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
                     onConfirmClick = { start, finish ->
@@ -252,14 +241,15 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                             "selected-date",
                             longArrayOf(start, finish),
                         )
-                        selectedDate = longArrayOf(start, finish)
+                        generalViewModel.onIntent(GeneralIntent.ChangeSelectedDate(value = longArrayOf(start, finish)))
+
                         navHostController.navigateUp()
                     },
                     initialDateInMillis =
-                    if (selectedDate[0] == 0L || selectedDate[1] == 0L) longArrayOf(
+                    if (generalState.value.selectedDate[0] == 0L || generalState.value.selectedDate[1] == 0L) longArrayOf(
                         System.currentTimeMillis(),
                         System.currentTimeMillis()
-                    ) else selectedDate
+                    ) else generalState.value.selectedDate
                 )
             }
             composable(

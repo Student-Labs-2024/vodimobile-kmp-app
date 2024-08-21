@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.vehicle_fleet
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
