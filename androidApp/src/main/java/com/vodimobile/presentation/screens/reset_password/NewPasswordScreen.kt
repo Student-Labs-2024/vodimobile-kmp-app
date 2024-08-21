@@ -24,11 +24,40 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
+import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
+import com.vodimobile.domain.use_case.crm.CreateBidUseCase
+import com.vodimobile.domain.use_case.crm.GetAllPlacesUseCase
+import com.vodimobile.domain.use_case.crm.GetBidCostUseCase
+import com.vodimobile.domain.use_case.crm.GetCarFreeDateRange
+import com.vodimobile.domain.use_case.crm.GetCarListUseCase
+import com.vodimobile.domain.use_case.crm.GetFreeCarsUseCaSE
+import com.vodimobile.domain.use_case.crm.GetServiceListUseCase
+import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
+import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
+import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
+import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
+import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCostUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateCrmOrderUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateNumberUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
+import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.AgreementBlock
 import com.vodimobile.presentation.components.NewPasswordField
@@ -120,6 +149,19 @@ fun NewPasswordScreen(
 private fun NewPasswordScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val crmRepository = CrmRepositoryImpl()
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
             val newPasswordViewModel = NewPasswordViewModel(
                 passwordValidator = PasswordValidator(),
                 dataStoreStorage = UserDataStoreStorage(
@@ -149,6 +191,23 @@ private fun NewPasswordScreenPreviewLight() {
                             )
                         )
                     )
+                ),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
+                    insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                    updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                    updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                    updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                    updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
                 )
             )
             NewPasswordScreen(
@@ -167,6 +226,19 @@ private fun NewPasswordScreenPreviewLight() {
 private fun NewPasswordScreenPreviewDark() {
     VodimobileTheme(dynamicColor = false) {
         Scaffold {
+            val crmRepository = CrmRepositoryImpl()
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
             val newPasswordViewModel = NewPasswordViewModel(
                 passwordValidator = PasswordValidator(),
                 dataStoreStorage = UserDataStoreStorage(
@@ -196,7 +268,24 @@ private fun NewPasswordScreenPreviewDark() {
                             )
                         )
                     )
-                )
+                ),
+                supabaseStorage = SupabaseStorage(
+                    getUserUseCase = GetUserUseCase(SupabaseRepositoryImpl()),
+                    insertUserUseCase = InsertUserUseCase(SupabaseRepositoryImpl()),
+                    updateFullNameUseCase = UpdateFullNameUseCase(SupabaseRepositoryImpl()),
+                    updatePasswordUseCase = UpdatePasswordUseCase(SupabaseRepositoryImpl()),
+                    updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
+                    updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
+                    insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
+                    updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                    updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                    updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                    updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                ),
             )
             NewPasswordScreen(
                 onNewPasswordIntent = newPasswordViewModel::onIntent,
