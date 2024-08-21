@@ -75,8 +75,8 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.components.PrimaryButton
+import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
-import com.vodimobile.presentation.screens.edit_profile.components.VodimobileCenterTopAppBar
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
@@ -143,13 +143,13 @@ fun EditProfileScreen(
             }
         }
     }
-
     ExtendedTheme {
         Scaffold(
             topBar = {
-                VodimobileCenterTopAppBar(
+                ScreenHeader(
                     modifier = Modifier.padding(top = 12.dp),
-                    onNavBackClick = { onEditProfileIntent(EditProfileIntent.ClickBack) }
+                    title = stringResource(id = R.string.personal_data_title),
+                    onNavigateBack = { onEditProfileIntent(EditProfileIntent.ClickBack) }
                 )
             },
             containerColor = ExtendedTheme.colorScheme.onSecondaryBackground,

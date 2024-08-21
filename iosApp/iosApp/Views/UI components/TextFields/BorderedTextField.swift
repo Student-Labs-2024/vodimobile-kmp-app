@@ -42,7 +42,7 @@ struct BorderedTextField: View {
             placeholder = "example@gmail.com"
             keyboardType = .emailAddress
         case .phone:
-            placeholder = "+7"
+            placeholder = R.string.localizable.phonePlaceholder()
             keyboardType = .phonePad
         case .password, .oldPassword:
             placeholder = R.string.localizable.passwordPlaceholder()
@@ -85,7 +85,6 @@ struct BorderedTextField: View {
                 HStack {
                     TextField(placeholder, text: $fieldContent)
                         .keyboardType(keyboardType)
-                        .textInputAutocapitalization(.never)
                         .onChange(of: fieldContent, perform: { _ in
                             isEditing = true
                             if isValid {

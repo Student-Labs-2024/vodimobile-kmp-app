@@ -11,7 +11,15 @@ import SwiftUI
 struct ProfileCellView: View {
     let cell: ProfileMenuCell
     @Binding var showSignSuggestModal: Bool
-    @EnvironmentObject var authManager: AuthManager
+    @ObservedObject var authManager = AuthManager.shared
+    
+    init(
+        cell: ProfileMenuCell,
+        showSignSuggestModal: Binding<Bool>
+    ) {
+        self.cell = cell
+        self._showSignSuggestModal = showSignSuggestModal
+    }
     
     @ViewBuilder
     var destinationView: some View {

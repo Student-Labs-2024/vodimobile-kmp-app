@@ -13,14 +13,17 @@ struct ModalAutoView: View {
     @Binding var carModel: Car
     @Binding var showModalView: Bool
     @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
 
     init(
         carModel: Binding<Car>,
         showModalView: Binding<Bool>,
+        showSignSuggestModal: Binding<Bool>,
         showModalReservation: Binding<Bool>? = nil
     ) {
         self._carModel = carModel
         self._showModalView = showModalView
+        self._showSignSuggestModal = showSignSuggestModal
         self._showModalReservation = showModalReservation ?? Binding.constant(false)
     }
 
@@ -28,7 +31,8 @@ struct ModalAutoView: View {
         let ModalAutoCardView = ModalAutoCardView(
             carModel: $carModel,
             showModal: $showModalView,
-            showModalReservation: $showModalReservation
+            showModalReservation: $showModalReservation,
+            showSignSuggestModal: $showSignSuggestModal
         )
         .presentationDetents([.fraction(0.64)])
         .presentationDragIndicator(.visible)
@@ -45,6 +49,8 @@ struct ModalAutoView: View {
 struct ModalAutoCardView: View {
     @Binding var showModalView: Bool
     @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
+    @ObservedObject var authManager = AuthManager.shared
     @ObservedObject var viewModel: AutoCardViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 20),
@@ -54,11 +60,13 @@ struct ModalAutoCardView: View {
     init(
         carModel: Binding<Car>,
         showModal: Binding<Bool>,
-        showModalReservation: Binding<Bool>
+        showModalReservation: Binding<Bool>,
+        showSignSuggestModal: Binding<Bool>
     ) {
         self.viewModel = .init(carModel: carModel)
         self._showModalReservation = showModalReservation
         self._showModalView = showModal
+        self._showSignSuggestModal = showSignSuggestModal
     }
     
     var body: some View {
@@ -179,7 +187,11 @@ struct ModalAutoCardView: View {
             
             Button(R.string.localizable.bookButton()) {
                 showModalView.toggle()
-                showModalReservation.toggle()
+                if authManager.isAuthenticated {
+                    showModalReservation.toggle()
+                } else {
+                    showSignSuggestModal.toggle()
+                }
             }
             .buttonStyle(FilledBtnStyle())
             

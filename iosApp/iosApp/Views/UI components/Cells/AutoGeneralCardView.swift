@@ -12,6 +12,7 @@ import shared
 struct AutoGeneralCardView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
     
     var body: some View {
         VStack(spacing: 12) {
@@ -25,7 +26,9 @@ struct AutoGeneralCardView: View {
                 Spacer()
                 NavigationLink(destination: AutoListView(
                     selectedAuto: $selectedAuto, 
-                    showModalReservation: $showModalReservation)
+                    showModalReservation: $showModalReservation,
+                    showSignSuggestModal: $showSignSuggestModal
+                )
                 ) {
                     Image.rightArrowCircleFill
                         .resizable()

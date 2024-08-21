@@ -23,8 +23,8 @@
 		9337B6852C63FFC000844EC4 /* MakeReservationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337B6842C63FFC000844EC4 /* MakeReservationViewModel.swift */; };
 		933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */; };
 		933EC2F72C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */; };
-		933EC2F92C67F928000B49D7 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933EC2F82C67F927000B49D7 /* AuthManager.swift */; };
 		9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */; };
+		93462FCD2C745F8900590701 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93462FCC2C745F8900590701 /* AppState.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -129,8 +129,8 @@
 		9337B6842C63FFC000844EC4 /* MakeReservationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationViewModel.swift; sourceTree = "<group>"; };
 		933CF9EA2C47C10300357B0C /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
 		933EC2F62C67F63F000B49D7 /* ButtonLikeUnderlinedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonLikeUnderlinedTextField.swift; sourceTree = "<group>"; };
-		933EC2F82C67F927000B49D7 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
+		93462FCC2C745F8900590701 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 				934F0D4B2C3D52EE000B256E /* SupportingFiles */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 				936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */,
-				933EC2F82C67F927000B49D7 /* AuthManager.swift */,
+				93462FCC2C745F8900590701 /* AppState.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -716,7 +716,6 @@
 				9337B6832C63F87700844EC4 /* PlacePickerField.swift in Sources */,
 				936198862C3F0CDF00B0198D /* ProfileView.swift in Sources */,
 				93BF9E7F2C5AB62B00A6EE91 /* ResetPasswordPassView.swift in Sources */,
-				933EC2F92C67F928000B49D7 /* AuthManager.swift in Sources */,
 				936B184E2C465392000AC6F8 /* FAQViewModel.swift in Sources */,
 				935DC3BE2C517AAA009CBA43 /* ModalAutoCardVIew.swift in Sources */,
 				935CF95E2C58F02300F6F6CB /* AutoGeneralCardView.swift in Sources */,
@@ -748,6 +747,7 @@
 				935481DE2C524C6B0085B6CE /* TopTabBarView.swift in Sources */,
 				933CF9EB2C47C10300357B0C /* UserDataViewModel.swift in Sources */,
 				936B184A2C4647FB000AC6F8 /* DetailRuleView.swift in Sources */,
+				93462FCD2C745F8900590701 /* AppState.swift in Sources */,
 				9368EEB02C64C4680036DBA2 /* FailureReservationView.swift in Sources */,
 				9368EEB62C6565260036DBA2 /* ModalTimePicker.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,

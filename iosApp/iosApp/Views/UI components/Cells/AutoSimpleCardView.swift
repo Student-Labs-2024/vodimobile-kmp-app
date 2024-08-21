@@ -21,6 +21,7 @@ struct AutoSimpleCardView: View {
     init(
         carModel: Binding<Car>,
         showModal: Binding<Bool>,
+        showSignSuggestModal: Binding<Bool>,
         selectedAuto: Binding<Car>
     ) {
         self.viewModel = .init(carModel: carModel)

@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.contact.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,13 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.android.BuildConfig
 import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import java.util.Calendar
 
-
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun VersionItem(version: String, validYear: String) {
 
@@ -59,9 +58,9 @@ fun VersionItem(version: String, validYear: String) {
                     Image(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 4.dp)
+                            .padding(vertical = 10.dp, horizontal = 4.dp)
                             .size(48.dp),
-                        painter = painterResource(id = R.drawable.logo3),
+                        painter = painterResource(id = R.drawable.icon),
                         contentDescription = null
                     )
                 }
