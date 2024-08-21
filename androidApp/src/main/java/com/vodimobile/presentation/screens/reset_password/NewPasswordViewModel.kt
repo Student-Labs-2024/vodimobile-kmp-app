@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.reset_password
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordEffect
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordState
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class NewPasswordViewModel(
     private val passwordValidator: PasswordValidator,
-    private val dataStoreStorage: UserDataStoreStorage
+    private val dataStoreStorage: UserDataStoreStorage,
+    private val supabaseStorage: SupabaseStorage
 ) : ViewModel() {
 
     val newPasswordState = MutableStateFlow(NewPasswordState())
@@ -43,9 +45,13 @@ class NewPasswordViewModel(
             NewPasswordIntent.SaveData -> {
                 viewModelScope.launch {
                     with(newPasswordState.value) {
-                        dataStoreStorage.editPassword(password = password)
+                        dataStoreStorage.getUser().collect {
+                            val remoteUser = supabaseStorage.getUser(password = it.password, phone = it.phone)
+                            supabaseStorage.updatePassword(userId = remoteUser.id, password= password)
+                            dataStoreStorage.editPassword(password = password)
+                            newPasswordEffect.emit(NewPasswordEffect.SaveData)
+                        }
                     }
-                    newPasswordEffect.emit(NewPasswordEffect.SaveData)
                 }
             }
 

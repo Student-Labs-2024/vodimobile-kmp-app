@@ -55,6 +55,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
+import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.change_password.components.ChangePasswordBlock
@@ -88,7 +89,7 @@ fun ChangePasswordScreen(
                 }
 
                 ChangePasswordEffect.RememberPassword -> {
-
+                    navHostController.navigate(RegistrationScreens.RESET_PASSWORD_SCREEN)
                 }
             }
         }
