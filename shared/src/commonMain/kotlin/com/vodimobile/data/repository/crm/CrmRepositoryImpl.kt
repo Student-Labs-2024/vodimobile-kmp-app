@@ -246,6 +246,11 @@ class CrmRepositoryImpl : CrmRepository {
                                 CrmRouting.BidCost.PARAM.END_PLACE_ID,
                                 bidCostParams.end_place_id
                             )
+                            if (!bidCostParams.services.isNullOrEmpty())
+                                parameter(
+                                    CrmRouting.BidCost.PARAM.SERVICES,
+                                    bidCostParams.services.joinToString(prefix = "[", postfix = "]")
+                                )
                         }
                     }
                 )

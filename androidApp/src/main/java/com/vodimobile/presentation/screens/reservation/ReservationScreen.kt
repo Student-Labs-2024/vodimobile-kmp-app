@@ -159,6 +159,7 @@ fun ReservationScreen(
     LaunchedEffect(key1 = Unit) {
         onReservationIntent(ReservationIntent.GetCarFreeDate(value = date))
         onReservationIntent(ReservationIntent.DateChange(value = date))
+        onReservationIntent(ReservationIntent.InitUser)
     }
 
     LaunchedEffect(key1 = Unit) {

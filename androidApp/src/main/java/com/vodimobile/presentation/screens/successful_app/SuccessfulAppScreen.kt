@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vodimobile.presentation.LeafOrdersScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.PrimaryButton
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +55,7 @@ fun SuccessfulAppScreen(
         successfulEffect.collect { effect ->
             when (effect) {
                 SuccessfulEffect.ClickOrders -> {
-                    navHostController.navigate(route = LeafOrdersScreen.ORDERS_SCREEN)
+                    navHostController.navigate(route = RootScreen.ORDERS_SCREEN)
                 }
 
                 SuccessfulEffect.CloseClick -> {

@@ -59,7 +59,7 @@ fun ErrorAppScreen(
                 }
 
                 ErrorAppEffect.RepeatClick -> {
-
+                    navHostController.navigateUp()
                 }
 
                 ErrorAppEffect.ProgressDialog -> {

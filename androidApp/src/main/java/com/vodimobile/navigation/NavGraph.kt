@@ -1,12 +1,7 @@
 package com.vodimobile.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,7 +14,6 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
-import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafErrorScreen
 import com.vodimobile.presentation.LeafHomeScreen
@@ -82,13 +76,9 @@ import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.store.GeneralIntent
-import com.vodimobile.presentation.store.GeneralState
 import com.vodimobile.presentation.store.GeneralViewModel
-import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
-import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
-import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)

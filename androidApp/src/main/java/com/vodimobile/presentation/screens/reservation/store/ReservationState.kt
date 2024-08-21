@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.reservation.store
 
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.Place
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 
 data class ReservationState(
@@ -20,10 +21,11 @@ data class ReservationState(
     val errorStartTime: Boolean = true,
     val endTime: String = "",
     val errorEndTime: Boolean = true,
-    val selectedServiceIdList: List<Int> = emptyList(),
+    val selectedServiceIdList: List<ServicesDTO> = emptyList(),
     val carId: Int = 0,
     val selectedCar: Car = Car.empty(),
-    val freeDates: List<Pair<Long, Long>> = emptyList()
+    val freeDates: List<Pair<Long, Long>> = emptyList(),
+    val user: User = User.empty()
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -50,6 +52,7 @@ data class ReservationState(
         if (carId != other.carId) return false
         if (selectedCar != other.selectedCar) return false
         if (freeDates != other.freeDates) return false
+        if (user != other.user) return false
 
         return true
     }
@@ -74,6 +77,7 @@ data class ReservationState(
         result = 31 * result + carId
         result = 31 * result + selectedCar.hashCode()
         result = 31 * result + freeDates.hashCode()
+        result = 31 * result + user.hashCode()
         return result
     }
 }

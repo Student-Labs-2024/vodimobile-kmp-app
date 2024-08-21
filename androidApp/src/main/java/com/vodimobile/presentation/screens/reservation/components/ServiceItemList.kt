@@ -21,8 +21,8 @@ import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 fun ServiceItemList(
     label: String,
     @SuppressLint("ComposeUnstableCollections") serviceList: List<ServicesDTO>,
-    @SuppressLint("ComposeUnstableCollections") selectedServiceIndexes: List<Int>,
-    onSelected: (Int) -> Unit
+    @SuppressLint("ComposeUnstableCollections") selectedServiceIndexes: List<ServicesDTO>,
+    onSelected: (ServicesDTO) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -51,9 +51,9 @@ fun ServiceItemList(
         ) {
             itemsIndexed(serviceList) { index, item ->
                 ServiceItem(
-                    isSelected = index in selectedServiceIndexes,
+                    isSelected = item in selectedServiceIndexes,
                     item = item,
-                    onClick = { onSelected(index) }
+                    onClick = { onSelected(item) }
                 )
             }
         }
