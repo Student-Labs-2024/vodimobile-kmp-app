@@ -23,4 +23,8 @@ sealed class CarStatus(
     data object Cancelled : CarStatus(
         title = SharedRes.strings.cancelled_order
     )
+
+    data object Reserve : CarStatus (
+        title = SharedRes.strings.accepted_as_reserve
+    )
 }

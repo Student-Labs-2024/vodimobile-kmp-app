@@ -8,6 +8,6 @@ sealed class HomeIntent {
     data class ShowModal(val car: Car) : HomeIntent()
     data object CloseModal : HomeIntent()
     data object AllCarsClick : HomeIntent()
-    data class BookCarClick(val car: Car) : HomeIntent()
+    data class BookCarClick(val carId: Int) : HomeIntent()
     data object InitUser : HomeIntent()
 }

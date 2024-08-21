@@ -61,7 +61,7 @@ import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.change_password.components.ChangePasswordBlock
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordEffect
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordIntent
-import com.vodimobile.presentation.store.PasswordState
+import com.vodimobile.presentation.screens.change_password.store.PasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.utils.data_store.getDataStore
@@ -169,7 +169,7 @@ private fun ChangePasswordScreenPreviewLight() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                     updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -248,7 +248,7 @@ private fun ChangePasswordScreenPreviewNight() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                     updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

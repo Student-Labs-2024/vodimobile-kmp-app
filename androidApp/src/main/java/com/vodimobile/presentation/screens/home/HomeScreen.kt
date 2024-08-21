@@ -78,7 +78,7 @@ fun HomeScreen(
                 }
 
                 is HomeEffect.BookCarClick -> {
-
+                    navHostController.navigate("${LeafHomeScreen.RESERVATION_SCREEN}/${effect.carId}")
                 }
 
                 HomeEffect.UnauthedUser -> {
@@ -143,7 +143,7 @@ fun HomeScreen(
                 BottomCard(
                     carItem = homeState.value.selectedCar,
                     onDismiss = { onHomeIntent(HomeIntent.CloseModal) },
-                    onBookClick = { onHomeIntent(HomeIntent.BookCarClick(car = homeState.value.selectedCar)) }
+                    onBookClick = { onHomeIntent(HomeIntent.BookCarClick(carId = it.carId)) }
                 )
             }
         }

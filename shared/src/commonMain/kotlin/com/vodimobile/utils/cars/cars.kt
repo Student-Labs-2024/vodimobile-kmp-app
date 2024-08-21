@@ -7,7 +7,7 @@ import com.vodimobile.shared.resources.SharedRes
 import kotlinx.datetime.LocalDate
 
 internal val hyundai_solaris_1 = Car(
-    carId = 0,
+    carId = 17,
     model = SharedRes.strings.name_hyundai_solaris,
     number = "",
     cityId = 2,
@@ -30,7 +30,7 @@ internal val hyundai_solaris_1 = Car(
 )
 
 internal val hyundai_creta_1 = Car(
-    carId = 1,
+    carId = 24,
     model = SharedRes.strings.name_hyundai_creta,
     number = "",
     cityId = 2,
@@ -53,7 +53,7 @@ internal val hyundai_creta_1 = Car(
 )
 
 internal val mercedes_e_220_1 = Car(
-    carId = 2,
+    carId = 33,
     model = SharedRes.strings.name_mercedes_e_220,
     number = "",
     cityId = 2,
@@ -76,7 +76,7 @@ internal val mercedes_e_220_1 = Car(
 )
 
 internal val volkswagen_polo_1 = Car(
-    carId = 3,
+    carId = 44,
     model = SharedRes.strings.name_volkswagen_polo,
     number = "",
     cityId = 2,
@@ -99,7 +99,7 @@ internal val volkswagen_polo_1 = Car(
 )
 
 internal val datsun_on_do_1 = Car(
-    carId = 4,
+    carId = 21,
     model = SharedRes.strings.name_datsun_on_do,
     number = "",
     cityId = 2,

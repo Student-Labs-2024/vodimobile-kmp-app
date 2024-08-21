@@ -40,6 +40,7 @@ class GetCarFreeDateRange(private val crmRepository: CrmRepository) {
             is CrmEither.CrmError -> {
                 return emptyList()
             }
+
             CrmEither.CrmLoading -> {
                 return emptyList()
             }

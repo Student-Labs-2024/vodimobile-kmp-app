@@ -48,6 +48,7 @@ private fun getIsShowBottomBar(currentRoute: String): Boolean {
             currentRoute != LeafScreen.CHANGE_PASSWORD_SCREEN &&
             currentRoute != RegistrationScreens.RESET_PASSWORD_SCREEN &&
             currentRoute != RegistrationScreens.NEW_PASSWORD_SCREEN &&
+            currentRoute != LeafHomeScreen.RESERVATION_SCREEN &&
             currentRoute != LeafErrorScreen.NO_INTERNET &&
             currentRoute != LeafScreen.EDIT_PROFILE &&
             currentRoute != LeafOrdersScreen.ABOUT_ORDER_SCREEN &&
@@ -55,7 +56,11 @@ private fun getIsShowBottomBar(currentRoute: String): Boolean {
             !currentRoute.contains(RegistrationScreens.SMS_VERIFY) &&
             currentRoute != "${LeafOrdersScreen.ABOUT_ORDER_SCREEN}/{orderId}" &&
             !currentRoute.contains(LeafErrorScreen.NO_INTERNET) &&
-            currentRoute != DialogIdentifiers.DELETE_ORDER_DIALOG
+            !currentRoute.contains(LeafHomeScreen.RESERVATION_SCREEN) &&
+            !currentRoute.contains(DialogIdentifiers.DELETE_ORDER_DIALOG) &&
+            !currentRoute.contains(DialogIdentifiers.TIME_SELECT_DIALOG) &&
+            currentRoute != LeafOrdersScreen.SUCCESSFUL_SCREEN &&
+            currentRoute != LeafOrdersScreen.ERROR_APP_SCREEN
 }
 
 @Preview

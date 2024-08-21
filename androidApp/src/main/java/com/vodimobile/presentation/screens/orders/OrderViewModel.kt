@@ -77,7 +77,8 @@ class OrderViewModel(
                 supabaseStorage.getOrders(
                     userId = user.id,
                     accessToken = user.accessToken,
-                    refreshToken = user.refreshToken
+                    refreshToken = user.refreshToken,
+                    phone = user.phone
                 )
 
             orderState.update { it ->
@@ -91,7 +92,7 @@ class OrderViewModel(
 
     private fun CarStatus.filterByCarStatus(key: Int): Boolean {
         return if (key == 0) {
-            this == CarStatus.Approved || this == CarStatus.Processing
+            this == CarStatus.Approved || this == CarStatus.Processing || this == CarStatus.Reserve
         } else {
             this == CarStatus.Cancelled || this == CarStatus.Completed
         }

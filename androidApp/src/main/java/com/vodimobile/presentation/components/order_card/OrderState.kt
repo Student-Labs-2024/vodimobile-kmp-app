@@ -33,6 +33,7 @@ fun OrderState(
                     CarStatus.Processing -> ExtendedTheme.colorScheme.processingOrder
                     CarStatus.Cancelled -> ExtendedTheme.colorScheme.cancelledOrder
                     CarStatus.Completed -> ExtendedTheme.colorScheme.hintText
+                    CarStatus.Reserve -> ExtendedTheme.colorScheme.processingOrder
                 }
 
             )

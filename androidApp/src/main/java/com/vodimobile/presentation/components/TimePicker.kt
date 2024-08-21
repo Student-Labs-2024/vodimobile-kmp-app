@@ -44,10 +44,9 @@ import com.vodimobile.android.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePickerSwitchableSample(
-    onTimeSelected: (Long) -> Unit,
+    onTimeSelected: (String) -> Unit,
     onCancel: () -> Unit
 ) {
-    var showTimePicker by remember { mutableStateOf(false) }
     val state = rememberTimePickerState()
     val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
     val showingPicker = remember { mutableStateOf(true) }
@@ -72,34 +71,28 @@ fun TimePickerSwitchableSample(
         }
     }
 
-    if (showTimePicker) {
-        TimePickerDialog(
-            title = stringResource(id = titleResource),
-            onCancel = {
-                showTimePicker = false
-                onCancel()
-            },
-            onConfirm = {
-                cal.set(Calendar.HOUR_OF_DAY, state.hour)
-                cal.set(Calendar.MINUTE, state.minute)
-                cal.isLenient = false
-                finalTime = formatter.format(cal.timeInMillis)
-                showTimePicker = false
-                onTimeSelected(cal.timeInMillis)
-            },
-            toggle = {
-                if (isExpanded) {
-                    IconButton(onClick = { showingPicker.value = !showingPicker.value }) {
-                        Icon(
-                            iconResource,
-                            contentDescription = stringResource(id = contentDescriptionResource)
-                        )
-                    }
+    TimePickerDialog(
+        title = stringResource(id = titleResource),
+        onCancel = onCancel,
+        onConfirm = {
+            cal.set(Calendar.HOUR_OF_DAY, state.hour)
+            cal.set(Calendar.MINUTE, state.minute)
+            cal.isLenient = false
+            finalTime = formatter.format(cal.timeInMillis)
+            onTimeSelected(SimpleDateFormat("hh:mm", Locale.getDefault()).format(cal.time))
+        },
+        toggle = {
+            if (isExpanded) {
+                IconButton(onClick = { showingPicker.value = !showingPicker.value }) {
+                    Icon(
+                        iconResource,
+                        contentDescription = stringResource(id = contentDescriptionResource)
+                    )
                 }
             }
-        ) {
-            TimePickerContent()
         }
+    ) {
+        TimePickerContent()
     }
 }
 

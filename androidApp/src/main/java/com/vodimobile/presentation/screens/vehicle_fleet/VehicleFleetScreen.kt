@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.vehicle_fleet
 import BottomCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,9 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -65,6 +66,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
+import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
@@ -97,11 +99,10 @@ fun VehicleFleetScreen(
                 }
 
                 is VehicleEffect.BookCarClick -> {
-
+                    navHostController.navigate("${LeafHomeScreen.RESERVATION_SCREEN}/${effect.carId}?date=${dateRange}")
                 }
 
                 VehicleEffect.InfoCarClick -> {
-
                 }
 
                 VehicleEffect.CloseModel -> {
@@ -265,7 +266,7 @@ private fun VehicleFleetScreenPreview() {
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                 updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                 insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage),
+                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
                 updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                 updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                 updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

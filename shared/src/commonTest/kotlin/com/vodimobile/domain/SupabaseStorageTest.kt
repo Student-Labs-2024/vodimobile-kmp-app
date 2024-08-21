@@ -144,7 +144,7 @@ class SupabaseStorageTest {
                 updatePasswordUseCase = UpdatePasswordUseCase(supabaseRepository),
                 updatePhoneUseCase = UpdatePhoneUseCase(supabaseRepository),
                 updateTokensUseCase = UpdateTokensUseCase(supabaseRepository),
-                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage),
+                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage, CrmRepositoryImpl()),
                 updateOrderStatusUseCase = UpdateOrderStatusUseCase(supabaseRepository),
                 updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                 updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -156,7 +156,8 @@ class SupabaseStorageTest {
             val orders = supabaseStorage.getOrders(
                 userId = 0,
                 accessToken = SharedBuildkonfig.crm_test_access_token,
-                refreshToken = SharedBuildkonfig.crm_test_refresh_token
+                refreshToken = SharedBuildkonfig.crm_test_refresh_token,
+                phone = "000000"
             )
             assertTrue(orders.isNotEmpty())
         }
@@ -188,7 +189,7 @@ class SupabaseStorageTest {
                 updatePasswordUseCase = UpdatePasswordUseCase(supabaseRepository),
                 updatePhoneUseCase = UpdatePhoneUseCase(supabaseRepository),
                 updateTokensUseCase = UpdateTokensUseCase(supabaseRepository),
-                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage),
+                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage, CrmRepositoryImpl()),
                 updateOrderStatusUseCase = UpdateOrderStatusUseCase(supabaseRepository),
                 updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                 updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -228,7 +229,7 @@ class SupabaseStorageTest {
                 updatePasswordUseCase = UpdatePasswordUseCase(supabaseRepository),
                 updatePhoneUseCase = UpdatePhoneUseCase(supabaseRepository),
                 updateTokensUseCase = UpdateTokensUseCase(supabaseRepository),
-                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage),
+                getOrdersUseCase = GetOrdersUseCase(supabaseRepository, crmStorage, CrmRepositoryImpl()),
                 updateOrderStatusUseCase = UpdateOrderStatusUseCase(supabaseRepository),
                 updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                 updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

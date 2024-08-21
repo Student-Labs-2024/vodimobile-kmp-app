@@ -2,10 +2,6 @@ package com.vodimobile.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,6 +23,7 @@ import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.ProgressDialogIndicator
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.TimePickerSwitchableSample
 import com.vodimobile.presentation.screens.about_order.AboutOrderScreen
 import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
@@ -55,6 +52,10 @@ import com.vodimobile.presentation.screens.profile.ProfileScreen
 import com.vodimobile.presentation.screens.profile.ProfileViewModel
 import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
+import com.vodimobile.presentation.screens.reservation.ReservationScreen
+import com.vodimobile.presentation.screens.reservation.ReservationViewModel
+import com.vodimobile.presentation.screens.reservation.store.ReservationState
+import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
 import com.vodimobile.presentation.screens.reset_password.ResetPasswordScreen
@@ -74,9 +75,10 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
+import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -84,6 +86,8 @@ import org.koin.androidx.compose.koinViewModel
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
+    val generalViewModel = GeneralViewModel()
+    val generalState = generalViewModel.generalState.collectAsState()
 
     NavHost(
         navController = navHostController,
@@ -97,12 +101,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 route = LeafHomeScreen.HOME_SCREEN
             ) { backStackEntry ->
 
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
-                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                        "selected-date",
-                        initialValue = longArrayOf(0L, 0L),
-                    ).collectAsState().value
                     val noAuth = backStackEntry.savedStateHandle.getStateFlow(
                         "no-auth",
                         initialValue = true,
@@ -112,13 +113,13 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     HomeScreen(
                         homeState = homeViewModel.homeState.collectAsState(
                             initial = HomeState(
-                                selectedDate = selectedDate
+                                selectedDate = generalState.value.selectedDate
                             )
                         ),
                         homeEffect = homeViewModel.homeEffect,
                         onHomeIntent = homeViewModel::onIntent,
                         navHostController = navHostController,
-                        selectedDate = selectedDate,
+                        selectedDate = generalState.value.selectedDate,
                         modifier = modifier,
                         noAuth = noAuth,
                     )
@@ -131,24 +132,21 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 }
             }
             composable(route = LeafHomeScreen.ALL_CARS) { backStackEntry ->
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
-                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                        "selected-date",
-                        initialValue = longArrayOf(0L, 0L),
-                    ).collectAsState().value
                     val vehicleFleetModel: VehicleFleetViewModel = koinViewModel()
                     VehicleFleetScreen(
                         onVehicleIntent = vehicleFleetModel::onIntent,
                         vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
                         vehicleState = vehicleFleetModel.vehicleState.collectAsState(
                             initial = VehicleState(
-                                dateRange = selectedDate
+                                dateRange = generalState.value.selectedDate
                             )
                         ),
                         navHostController = navHostController,
                         selectedTagIndex = 0,
-                        dateRange = selectedDate
+                        dateRange = generalState.value.selectedDate
                     )
                 } else {
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(
@@ -158,10 +156,79 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafHomeScreen.ALL_CARS}")
                 }
             }
+            composable(
+                route = "${LeafHomeScreen.RESERVATION_SCREEN}/{carId}?date={date}",
+                arguments = listOf(
+                    navArgument("carId") { type = NavType.IntType },
+                    navArgument("date") {
+                        type = NavType.LongArrayType
+                        nullable = true
+                    }
+                )
+            ) { backStackEntry ->
+
+                val carId = backStackEntry.arguments?.getInt("carId") ?: 0
+
+                val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
+                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-date",
+                    initialValue = longArrayOf(0L, 0L),
+                ).collectAsState().value
+                val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-start-time",
+                    initialValue = "",
+                ).collectAsState().value
+                val selectedEndTime = backStackEntry.savedStateHandle.getStateFlow(
+                    "selected-end-time",
+                    initialValue = "",
+                ).collectAsState().value
+
+                val finalDate = if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
+                val reservationViewModel: ReservationViewModel = koinViewModel()
+                ReservationScreen(
+                    reservationState = reservationViewModel.reservationState.collectAsState(
+                        initial = ReservationState(
+                            startTime = selectedStartTime,
+                            endTime = selectedEndTime,
+                            date = finalDate,
+                            carId = carId
+                        )
+                    ),
+                    onReservationIntent = reservationViewModel::onIntent,
+                    onGeneralIntent = generalViewModel::onIntent,
+                    reservationEffect = reservationViewModel.reservationEffect,
+                    navHostController = navHostController,
+                    date = finalDate,
+                    startTime = selectedStartTime,
+                    endTime = selectedEndTime,
+                    carId = carId
+                )
+            }
+            dialog(
+                route = "${DialogIdentifiers.TIME_SELECT_DIALOG}?timeType={timeType}",
+                arguments = listOf(
+                    navArgument("timeType") {
+                        type = NavType.StringType
+                        nullable = true
+                    })
+            ) { backStackEntry ->
+                val timeType = TimeType.valueOf(
+                    backStackEntry.arguments?.getString("timeType") ?: TimeType.START.name
+                )
+                TimePickerSwitchableSample(
+                    onTimeSelected = { time ->
+                        navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                            if (timeType == TimeType.START) "selected-start-time" else "selected-end-time",
+                            time
+                        )
+                        navHostController.navigateUp()
+                    },
+                    onCancel = { navHostController.navigateUp() }
+                )
+            }
             dialog(
                 route = DialogIdentifiers.DATE_SELECT_DIALOG
-            ) {
-                var selectedDate by remember { mutableStateOf(longArrayOf(0L, 0L)) }
+            ) { backStackEntry ->
                 DateSelectDialog(
                     onDismissClick = { navHostController.navigateUp() },
                     onConfirmClick = { start, finish ->
@@ -169,14 +236,16 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                             "selected-date",
                             longArrayOf(start, finish),
                         )
-                        selectedDate = longArrayOf(start, finish)
+                        generalViewModel.onIntent(GeneralIntent.ChangeSelectedDate(value = longArrayOf(start, finish)))
+
                         navHostController.navigateUp()
                     },
                     initialDateInMillis =
-                    if (selectedDate[0] == 0L || selectedDate[1] == 0L) longArrayOf(
+                    if (generalState.value.selectedDate[0] == 0L || generalState.value.selectedDate[1] == 0L) longArrayOf(
                         System.currentTimeMillis(),
                         System.currentTimeMillis()
-                    ) else selectedDate
+                    ) else generalState.value.selectedDate,
+                    availablePeriods = generalState.value.availableDates
                 )
             }
             composable(
@@ -221,7 +290,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafOrdersScreen.ORDERS_SCREEN
         ) {
             composable(route = LeafOrdersScreen.ORDERS_SCREEN) {
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val orderViewModel: OrderViewModel = koinViewModel()
                     OrdersScreen(
@@ -279,7 +349,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 arguments = listOf(
                     navArgument("orderId") { type = NavType.StringType }
                 )) { backStackEntry ->
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val orderId = backStackEntry.arguments?.getString("orderId") ?: "0"
                     val aboutOrderViewModel: AboutOrderViewModel = koinViewModel()
@@ -327,7 +398,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             startDestination = LeafScreen.PROFILE_SCREEN
         ) {
             composable(route = LeafScreen.PROFILE_SCREEN) {
-                val isConnected = checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val profileViewModel: ProfileViewModel = koinViewModel()
 

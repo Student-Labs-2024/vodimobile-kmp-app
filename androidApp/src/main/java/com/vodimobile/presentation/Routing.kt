@@ -21,6 +21,7 @@ object LeafHomeScreen {
     const val HOME_SCREEN = "home"
     const val SERVER_ERROR_SCREEN = "server_error"
     const val ALL_CARS = "all_cars"
+    const val RESERVATION_SCREEN = "reservation"
 }
 
 object RegistrationScreens {
@@ -37,6 +38,7 @@ object DialogIdentifiers {
     const val LOG_OUT_DIALOG = "logout"
     const val DATE_SELECT_DIALOG = "date_select"
     const val LOADING_DIALOG = "loading_dialog"
+    const val TIME_SELECT_DIALOG = "time_select"
     const val SMALL_LOADING_DIALOG = "small_loading_dialog"
     const val DELETE_ORDER_DIALOG = "delete_order"
 }

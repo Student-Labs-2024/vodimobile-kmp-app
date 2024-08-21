@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_reservation_screen">Making a reservation</string>
+    <string name="desc_reservation_title">Automobile</string>
+    <string name="desc_reservation_subtitle">Rental period</string>
+
+    <string name="tooltip_day_night_time">Night time: from 8 p.m to 9 a.m/nDaytime: from 9 a.m. to 8 p.m.</string>
+
+    <string name="reservation_date_label">Rental dates</string>
+    <string name="reservation_date_placeholder">Select a date</string>
+    <string name="error_date">Select a date</string>
+
+    <string name="reservation_place_get_label">Where will you pick up the car?</string>
+    <string name="reservation_place_return_label">How will you return the car?</string>
+    <string name="reservation_place_placeholder">Choose a method</string>
+
+    <string name="reservation_services_label">Additional services</string>
+
+    <string name="reservation_time_from_label">When will you pick it up??</string>
+    <string name="reservation_time_to_label">When will you return it?</string>
+    <string name="reservation_time_placeholder">Choose a time</string>
+    <string name="error_time">Choose a time from 9 a.m. to 8 p.m.</string>
+    <string name="empty_time">Choose a time</string>
+
+    <string name="reservation_comments_label">Booking comment</string>
+    <string name="reservation_comments_placeholder">Enter a comment...</string>
+
+    <string name="cost_free">free</string>
+    <string name="reservation_sum">Total:</string>
+    <string name="reservation_put_bid">Put bid</string>
+</resources>

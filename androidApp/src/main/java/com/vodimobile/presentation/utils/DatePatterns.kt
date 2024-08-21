@@ -31,6 +31,34 @@ object DatePatterns {
             }"
     }
 
+    @SuppressLint("ConstantLocale")
+    fun fullDateToStringRU(date: LongArray): String {
+        if (date[0] == 0L || date[0] < 0L) return ""
+
+        val startDate = Date(date[0])
+        val endDate = Date(date[1])
+
+        val startDay = SimpleDateFormat("d", Locale.getDefault()).format(startDate)
+        val startMonth = SimpleDateFormat("MMMM", Locale.getDefault()).format(startDate)
+        val endDay = SimpleDateFormat("d", Locale.getDefault()).format(endDate)
+        val endMonth = SimpleDateFormat("MMMM", Locale.getDefault()).format(endDate)
+        val startYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(startDate)
+        val endYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
+
+        return if (startYear == endYear) {
+            if (startMonth == endMonth) {
+                "$startDay-${endDay} $startMonth $startYear"
+            } else {
+                "$startDay $startMonth - $endDay $endMonth $startYear"
+            }
+        } else {
+            val start = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(startDate)
+            val end = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate)
+
+            "$start - $end"
+        }
+    }
+
     fun formatRentalPeriod(order: Order): String {
         val start = Date(order.rentalDatePeriod.startDate)
         val end = Date(order.rentalDatePeriod.endDate)
@@ -76,7 +104,7 @@ object DatePatterns {
         val hourMinuteEnd = SimpleDateFormat("hh:mm", Locale.getDefault()).format(end)
 
         return when {
-            hourStart == hourEnd -> {
+            hourStart == hourEnd && minuteStart != minuteEnd-> {
                 "$hourStart:$minuteStart-$minuteEnd"
             }
 

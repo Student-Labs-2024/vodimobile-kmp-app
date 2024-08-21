@@ -5,6 +5,7 @@ import com.vodimobile.domain.model.crm.CrmServerData
 import com.vodimobile.domain.model.crm.CrmServerData.Companion.buildUrl
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostDTO
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
+import com.vodimobile.domain.model.remote.dto.bid_status.BidStatusDTO
 import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeDTO
 import com.vodimobile.domain.model.remote.dto.car_free_ate_range.CarFreeDateRangeParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
@@ -245,6 +246,11 @@ class CrmRepositoryImpl : CrmRepository {
                                 CrmRouting.BidCost.PARAM.END_PLACE_ID,
                                 bidCostParams.end_place_id
                             )
+                            if (!bidCostParams.services.isNullOrEmpty())
+                                parameter(
+                                    CrmRouting.BidCost.PARAM.SERVICES,
+                                    bidCostParams.services.joinToString(prefix = "[", postfix = "]")
+                                )
                         }
                     }
                 )
@@ -298,6 +304,7 @@ class CrmRepositoryImpl : CrmRepository {
         }
     }
 
+    @OptIn(InternalAPI::class)
     override suspend fun createBid(
         accessToken: String,
         refreshToken: String,
@@ -334,7 +341,7 @@ class CrmRepositoryImpl : CrmRepository {
 
                                 if (bidCreateParams.services != null) append(
                                     CrmRouting.BidCreate.PARAM.SERVICES,
-                                    bidCreateParams.services
+                                    bidCreateParams.services.joinToString(", ", "[", "]")
                                 )
 
                                 if (bidCreateParams.files != null)
@@ -345,7 +352,10 @@ class CrmRepositoryImpl : CrmRepository {
                                             headers = Headers.build {
                                                 val fileName = file.getName()
                                                 append(HttpHeaders.ContentType, "image/png")
-                                                append(HttpHeaders.ContentDisposition, "filename=\"${fileName}\"")
+                                                append(
+                                                    HttpHeaders.ContentDisposition,
+                                                    "filename=\"${fileName}\""
+                                                )
                                             })
                                     }
 
@@ -354,6 +364,30 @@ class CrmRepositoryImpl : CrmRepository {
                         )
                     )
                 })
+
+        return if (response.status.isSuccess()) {
+            CrmEither.CrmData(data = response.body())
+        } else {
+            CrmEither.CrmError(status = response.status)
+        }
+    }
+
+    override suspend fun getBidStatus(
+        accessToken: String,
+        refreshToken: String,
+        phone: String,
+        bidNumber: Int
+    ): CrmEither<BidStatusDTO, HttpStatusCode> {
+        val response: HttpResponse =
+            authConfig(accessToken, refreshToken)
+                .get {
+                    url(url = Url(crmServerData.buildUrl(CrmRouting.BidStatus.BID_STATUS)))
+
+                    parameters {
+                        parameter(CrmRouting.BidStatus.PARAM.PHONE, phone)
+                        parameter(CrmRouting.BidStatus.PARAM.BID_NUMBER, bidNumber)
+                    }
+                }
 
         return if (response.status.isSuccess()) {
             CrmEither.CrmData(data = response.body())

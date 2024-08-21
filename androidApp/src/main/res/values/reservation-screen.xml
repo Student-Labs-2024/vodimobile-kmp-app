@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_reservation_screen">Оформление брони</string>
+    <string name="desc_reservation_title">Автомобиль</string>
+    <string name="desc_reservation_subtitle">Период аренды</string>
+
+    <string name="tooltip_day_night_time">Ночное время: с 20:00 до 9:00\nДневное время: с 9:00 до 20:00</string>
+
+    <string name="reservation_date_label">Даты аренды</string>
+    <string name="reservation_date_placeholder">Выберите дату</string>
+    <string name="error_date">Выберите дату</string>
+
+    <string name="reservation_place_get_label">Где заберете авто?</string>
+    <string name="reservation_place_return_label">Как вернете авто?</string>
+    <string name="reservation_place_placeholder">Выберите способ</string>
+
+    <string name="reservation_services_label">Дополнительные услуги</string>
+
+    <string name="reservation_time_from_label">Когда заберете?</string>
+    <string name="reservation_time_to_label">Когда вернете?</string>
+    <string name="reservation_time_placeholder">Выберите время</string>
+    <string name="error_time">Выберите время с 9 до 20 часов</string>
+    <string name="empty_time">Выберите время</string>
+
+    <string name="reservation_comments_label">Комментарий к бронированию</string>
+    <string name="reservation_comments_placeholder">Введите комментарий...</string>
+
+    <string name="cost_free">бесплатно</string>
+    <string name="reservation_sum">Итого:</string>
+    <string name="reservation_put_bid">Оставить завяку</string>
+</resources>
