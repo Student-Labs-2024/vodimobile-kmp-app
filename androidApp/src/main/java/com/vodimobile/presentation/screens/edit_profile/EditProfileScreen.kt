@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowRight
@@ -158,77 +159,79 @@ fun EditProfileScreen(
             },
             modifier = modifier
         ) { paddingValues ->
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = 16.dp, vertical = 20.dp)
             ) {
-                Card(
-                    colors = CardDefaults.cardColors(
-                        containerColor = ExtendedTheme.colorScheme.containerBack
-                    )
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentHeight()
-                            .padding(horizontal = 16.dp, vertical = 40.dp),
-                        verticalArrangement = Arrangement.spacedBy(space = 12.dp),
-                        horizontalAlignment = Alignment.Start
+                item {
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = ExtendedTheme.colorScheme.containerBack
+                        )
                     ) {
-                        Text(
-                            text = stringResource(id = R.string.your_data),
-                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
-                            modifier = textModifier
-                        )
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                                .padding(horizontal = 16.dp, vertical = 40.dp),
+                            verticalArrangement = Arrangement.spacedBy(space = 12.dp),
+                            horizontalAlignment = Alignment.Start
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.your_data),
+                                style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
+                                modifier = textModifier
+                            )
 
-                        ProfileField(
-                            text = editProfileState.value.fullName,
-                            modifier = textModifier,
-                            onValueChange = {
-                                onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
-                            },
-                            label = stringResource(id = R.string.full_name),
-                            enabled = true
-                        )
+                            ProfileField(
+                                text = editProfileState.value.fullName,
+                                modifier = textModifier,
+                                onValueChange = {
+                                    onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
+                                },
+                                label = stringResource(id = R.string.full_name),
+                                enabled = true
+                            )
 
-                        ProfileField(
-                            modifier = textModifier,
-                            onValueChange = {
-                                onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
-                            },
-                            label = stringResource(id = R.string.change_password),
-                            trailingIcon = {
-                                IconButton(
-                                    onClick = { onEditProfileIntent(EditProfileIntent.EditPasswordClick) }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.KeyboardArrowRight,
-                                        contentDescription = stringResource(id = R.string.change_password)
-                                    )
-                                }
-                            },
-                            text = "",
-                            enabled = false,
-                        )
+                            ProfileField(
+                                modifier = textModifier,
+                                onValueChange = {
+                                    onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
+                                },
+                                label = stringResource(id = R.string.change_password),
+                                trailingIcon = {
+                                    IconButton(
+                                        onClick = { onEditProfileIntent(EditProfileIntent.EditPasswordClick) }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Rounded.KeyboardArrowRight,
+                                            contentDescription = stringResource(id = R.string.change_password)
+                                        )
+                                    }
+                                },
+                                text = "",
+                                enabled = false,
+                            )
 
-                        ProfileField(
-                            text = editProfileState.value.user.phone,
-                            modifier = textModifier,
-                            onValueChange = {
-                                onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
-                            },
-                            label = stringResource(id = R.string.label_phoneNumber),
-                            enabled = false,
-                            visualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK)
-                        )
+                            ProfileField(
+                                text = editProfileState.value.user.phone,
+                                modifier = textModifier,
+                                onValueChange = {
+                                    onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
+                                },
+                                label = stringResource(id = R.string.label_phoneNumber),
+                                enabled = false,
+                                visualTransformation = PhoneMaskVisualTransformation(InputMasks.RU_PHONE_MASK)
+                            )
 
-                        Spacer(modifier = Modifier.height(20.dp))
-                        PrimaryButton(
-                            text = stringResource(id = R.string.text_save_button),
-                            enabled = !editProfileState.value.isFullNameError,
-                            onClick = { onEditProfileIntent(EditProfileIntent.SaveData) }
-                        )
+                            Spacer(modifier = Modifier.height(20.dp))
+                            PrimaryButton(
+                                text = stringResource(id = R.string.text_save_button),
+                                enabled = !editProfileState.value.isFullNameError,
+                                onClick = { onEditProfileIntent(EditProfileIntent.SaveData) }
+                            )
+                        }
                     }
                 }
             }
