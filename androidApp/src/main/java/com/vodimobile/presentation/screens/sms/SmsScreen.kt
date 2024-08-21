@@ -70,7 +70,9 @@ fun SmsScreen(
         }
     }
 
-    onIntent(SmsIntent.SendSmsCode(phone = phone, context = context))
+    LaunchedEffect(key1 = Unit) {
+        onIntent(SmsIntent.SendSmsCode(phone = phone, context = context))
+    }
 
     LaunchedEffect(key1 = Unit) {
         smsEffect.collect { effect ->
