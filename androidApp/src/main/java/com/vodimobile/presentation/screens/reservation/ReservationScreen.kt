@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.reservation
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +37,7 @@ import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
+import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -82,16 +85,20 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.DescribableItem
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
+import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.store.GeneralState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
 fun ReservationScreen(
     onReservationIntent: (ReservationIntent) -> Unit,
+    onGeneralIntent: (GeneralIntent) -> Unit,
     reservationState: State<ReservationState>,
     @SuppressLint("ComposeMutableParameters") reservationEffect: MutableSharedFlow<ReservationEffect>,
     navHostController: NavHostController,
@@ -126,12 +133,22 @@ fun ReservationScreen(
                 ReservationEffect.ShowDatePicker -> {
                     navHostController.navigate(DialogIdentifiers.DATE_SELECT_DIALOG)
                 }
+
+                ReservationEffect.EmitGeneralStateChange -> {
+                    onGeneralIntent(GeneralIntent.ChangeSelectedDate(value = date))
+                    onGeneralIntent(GeneralIntent.ChangeAvailablePeriods(value = reservationState.value.freeDates.map {
+                        DateRange(
+                            startDate = it.first,
+                            endDate = it.second
+                        )
+                    }))
+                }
             }
         }
     }
 
     LaunchedEffect(key1 = Unit) {
-        onReservationIntent(ReservationIntent.GetCarFreeDate)
+        onReservationIntent(ReservationIntent.GetCarFreeDate(value = date))
     }
 
     LaunchedEffect(key1 = Unit) {
@@ -427,6 +444,7 @@ private fun ReservationScreenLightPreview() {
             )
             ReservationScreen(
                 onReservationIntent = reservationViewModel::onIntent,
+                onGeneralIntent = {},
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),
@@ -495,7 +513,11 @@ private fun ReservationScreenDarkPreview() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, CrmRepositoryImpl()),
+                    getOrdersUseCase = GetOrdersUseCase(
+                        SupabaseRepositoryImpl(),
+                        crmStorage,
+                        CrmRepositoryImpl()
+                    ),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -508,6 +530,7 @@ private fun ReservationScreenDarkPreview() {
             )
             ReservationScreen(
                 onReservationIntent = reservationViewModel::onIntent,
+                onGeneralIntent = {},
                 reservationState = reservationViewModel.reservationState.collectAsState(),
                 reservationEffect = reservationViewModel.reservationEffect,
                 navHostController = rememberNavController(),

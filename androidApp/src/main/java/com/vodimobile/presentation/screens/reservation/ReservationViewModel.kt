@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.order.CarStatus
+import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.either.CrmEither
@@ -251,9 +252,9 @@ class ReservationViewModel(
                             supabaseStorage.getUser(password = user.password, phone = user.phone)
 
                         val start =
-                            if (reservationState.value.date[0] != 0L) reservationState.value.date[0] else reduceFreeYear()
+                            if (intent.value[0] != 0L) intent.value[0] else reduceFreeYear()
                         val end =
-                            if (reservationState.value.date[1] != 0L) reservationState.value.date[1] else increaseFreeYear()
+                            if (intent.value[1] != 0L) intent.value[1] else increaseFreeYear()
 
                         val freeDates = crmStorage.getCarFreeDateRange(
                             accessToken = userFromRemote.accessToken,
@@ -265,6 +266,7 @@ class ReservationViewModel(
                         reservationState.update {
                             it.copy(freeDates = freeDates)
                         }
+                        reservationEffect.emit(ReservationEffect.EmitGeneralStateChange)
                     }
                 }
             }
@@ -370,7 +372,8 @@ class ReservationViewModel(
                                         user_id = userFromRemote.id,
                                         car_id = reservationState.value.carId,
                                         crm_bid_id = crmEither.data.bid_id ?: 0,
-                                        bid_status = bidGripReverse[CarStatus.Processing] ?: "Отменено",
+                                        bid_status = bidGripReverse[CarStatus.Processing]
+                                            ?: "Отменено",
                                         date_start = "${toFormat(reservationState.value.date[0])}",
                                         date_finish = "${toFormat(reservationState.value.date[1])}",
                                         time_start = "${reservationState.value.startTime}",
@@ -378,7 +381,9 @@ class ReservationViewModel(
                                         place_start = reservationState.value.getPlace.split(" - ")[0],
                                         place_finish = reservationState.value.returnPlace.split(" - ")[0],
                                         cost = reservationState.value.bidCost.toFloat(),
-                                        services = if (reservationState.value.selectedServiceIdList.isNotEmpty()) reservationState.value.selectedServiceIdList.joinToString(", ") else ""
+                                        services = if (reservationState.value.selectedServiceIdList.isNotEmpty()) reservationState.value.selectedServiceIdList.joinToString(
+                                            ", "
+                                        ) else ""
                                     )
                                 )
                             }

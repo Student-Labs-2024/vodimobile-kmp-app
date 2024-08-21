@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.date_setect
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -57,6 +58,9 @@ fun DateSelectDialog(
         if (availablePeriods.isNotEmpty()) availablePeriods.toUnavailableDates() else listOf(
             DateRange(startDate = reduceFreeYear(), endDate = increaseFreeYear())
         )
+
+    Log.d("TAG", "1) " + availablePeriods.size.toString())
+    Log.d("TAG", "2) " + unAvailablePeriods.size.toString())
 
     ExtendedTheme {
         val datePickerState =

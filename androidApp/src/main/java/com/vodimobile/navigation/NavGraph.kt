@@ -178,7 +178,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             ) { backStackEntry ->
 
                 val carId = backStackEntry.arguments?.getInt("carId") ?: 0
-                val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
 
                 val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
                     "selected-start-time",
@@ -201,6 +200,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         )
                     ),
                     onReservationIntent = reservationViewModel::onIntent,
+                    onGeneralIntent = generalViewModel::onIntent,
                     reservationEffect = reservationViewModel.reservationEffect,
                     navHostController = navHostController,
                     date = generalState.value.selectedDate,
@@ -249,7 +249,8 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     if (generalState.value.selectedDate[0] == 0L || generalState.value.selectedDate[1] == 0L) longArrayOf(
                         System.currentTimeMillis(),
                         System.currentTimeMillis()
-                    ) else generalState.value.selectedDate
+                    ) else generalState.value.selectedDate,
+                    availablePeriods = generalState.value.availableDates
                 )
             }
             composable(

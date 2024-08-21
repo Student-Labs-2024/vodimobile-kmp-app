@@ -6,8 +6,8 @@ fun increaseFreeYear(): Long {
     val current = System.currentTimeMillis()
     val cal = Calendar.getInstance()
     cal.timeInMillis = current
+    cal.add(Calendar.MONTH, 6)
 
-    cal.set(Calendar.YEAR, (cal.get(Calendar.MONTH) + 6))
     return cal.timeInMillis
 }
 

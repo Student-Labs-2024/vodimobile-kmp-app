@@ -9,4 +9,5 @@ sealed class ReservationEffect {
     data object DismissLoadingDialog: ReservationEffect()
     data object ShowLoadingDialog: ReservationEffect()
     data object ShowDatePicker: ReservationEffect()
+    data object EmitGeneralStateChange : ReservationEffect()
 }

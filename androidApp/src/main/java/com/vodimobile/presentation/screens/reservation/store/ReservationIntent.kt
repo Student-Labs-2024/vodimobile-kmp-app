@@ -6,7 +6,7 @@ sealed class ReservationIntent {
     data object GetAllPLaces : ReservationIntent()
     data object GetAllCars : ReservationIntent()
     data object GetAllServices : ReservationIntent()
-    data object GetCarFreeDate : ReservationIntent()
+    data class GetCarFreeDate(val value: LongArray) : ReservationIntent()
     data class GetPlaceChange(val value: Pair<Int, String>) : ReservationIntent()
     data class ReturnPlaceChange(val value: Pair<Int, String>) : ReservationIntent()
     data class ServiceIdChange(val value: Int) : ReservationIntent()
