@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.vehicle_fleet
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
@@ -12,13 +11,12 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
+import com.vodimobile.utils.cars.carCategoryMap
 import io.ktor.http.HttpStatusCode
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 
 class VehicleFleetViewModel(
@@ -58,8 +56,16 @@ class VehicleFleetViewModel(
                 }
             }
 
-            VehicleIntent.OnSelected -> {
-
+            is VehicleIntent.OnSelected -> {
+                vehicleState.update { state ->
+                    state.copy(
+                        selectedIndex = intent.value,
+                        filteredCars = vehicleState.value.cars.filter {
+                            if (intent.value != 0)
+                                it.carType.contains(carCategoryMap[intent.value])
+                            else true
+                        })
+                }
             }
 
             VehicleIntent.CloseModal -> {
@@ -72,7 +78,7 @@ class VehicleFleetViewModel(
 
             is VehicleIntent.InitCars -> {
                 viewModelScope.launch {
-                    if (intent.dateRange[0] == 0L || intent.dateRange[0] < 0L) {
+                    if (intent.dateRange[0] == 0L && intent.dateRange[1] == 0L) {
                         getAllCars()
                     } else {
                         getRangeCars(begin = intent.dateRange[0], end = intent.dateRange[1])
@@ -91,6 +97,15 @@ class VehicleFleetViewModel(
                     vehicleFleetEffect.emit(VehicleEffect.ShowLoadingDialog)
                 }
             }
+
+            is VehicleIntent.InitCarList -> {
+                vehicleState.update {
+                    it.copy(
+                        cars = intent.value,
+                        filteredCars = intent.value
+                    )
+                }
+            }
         }
     }
 
@@ -107,13 +122,28 @@ class VehicleFleetViewModel(
             when (crmEither) {
                 is CrmEither.CrmData -> {
                     vehicleState.update {
-                        it.copy(carList = crmEither.data)
+                        it.copy(
+                            isLoading = false,
+                            cars = crmEither.data,
+                            filteredCars = crmEither.data
+                        )
                     }
                 }
 
-                is CrmEither.CrmError -> {}
+                is CrmEither.CrmError -> {
+                    vehicleState.update {
+                        it.copy(isLoading = false)
+                    }
+                    viewModelScope.launch {
+                        vehicleFleetEffect.emit(VehicleEffect.ServerError)
+                    }
+                }
 
-                CrmEither.CrmLoading -> {}
+                CrmEither.CrmLoading -> {
+                    vehicleState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
             }
         }
     }
@@ -132,7 +162,7 @@ class VehicleFleetViewModel(
                         begin = begin,
                         end = end,
                         includeIdles = true,
-                        includeReserves = false,
+                        includeReserves = true,
                         cityId = 2
                     )
                 )
@@ -147,24 +177,38 @@ class VehicleFleetViewModel(
                     when (crmEither) {
                         is CrmEither.CrmData -> {
                             vehicleState.update {
-                                it.copy(carList = crmEither.data)
+                                it.copy(
+                                    isLoading = false,
+                                    cars = crmEither.data,
+                                    filteredCars = crmEither.data
+                                )
                             }
                         }
 
                         is CrmEither.CrmError -> {
-
+                            viewModelScope.launch {
+                                vehicleFleetEffect.emit(VehicleEffect.ServerError)
+                            }
                         }
 
-                        CrmEither.CrmLoading -> {
-
-                        }
+                        CrmEither.CrmLoading -> {}
                     }
-
                 }
 
-                is CrmEither.CrmError -> {}
+                is CrmEither.CrmError -> {
+                    vehicleState.update {
+                        it.copy(isLoading = false)
+                    }
+                    viewModelScope.launch {
+                        vehicleFleetEffect.emit(VehicleEffect.ServerError)
+                    }
+                }
 
-                CrmEither.CrmLoading -> {}
+                CrmEither.CrmLoading -> {
+                    vehicleState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
             }
 
         }
