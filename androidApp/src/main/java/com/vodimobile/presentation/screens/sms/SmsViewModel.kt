@@ -66,15 +66,18 @@ class SmsViewModel : ViewModel() {
             is SmsIntent.OnInputPartCode -> {
                 val list = smsState.value.userCode
 
-                if (list.size < 4) {
-                    list.add(index = intent.index, element = intent.partCode)
-                } else {
-                    list.set(index = intent.index, element = intent.partCode)
-                }
-                smsState.update {
-                    it.copy(
-                        userCode = list
-                    )
+                try {
+                    if (list.size < 4) {
+                        list.add(index = intent.index, element = intent.partCode)
+                    } else {
+                        list.set(index = intent.index, element = intent.partCode)
+                    }
+                    smsState.update {
+                        it.copy(
+                            userCode = list
+                        )
+                    }
+                } catch (_: Exception) {
                 }
             }
         }
