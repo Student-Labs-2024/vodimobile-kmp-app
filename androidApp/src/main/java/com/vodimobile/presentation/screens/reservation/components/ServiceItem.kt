@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.vodimobile.App
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.presentation.screens.reservation.utils.finalCost
 import com.vodimobile.presentation.theme.ExtendedTheme

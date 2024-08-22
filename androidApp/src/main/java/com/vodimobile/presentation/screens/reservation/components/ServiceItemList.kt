@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,7 +49,7 @@ fun ServiceItemList(
                 .padding(vertical = 4.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            itemsIndexed(serviceList) { index, item ->
+            items(serviceList) { item ->
                 ServiceItem(
                     isSelected = item in selectedServiceIndexes,
                     item = item,

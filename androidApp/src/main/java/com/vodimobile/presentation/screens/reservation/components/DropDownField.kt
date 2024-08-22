@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -198,14 +197,11 @@ fun DropDownField(
                         val description = createFullFieldDescription(item)
                         DropdownMenuItem(
                             text = {
-                                Row(horizontalArrangement = Arrangement.SpaceBetween){
-                                    Text(
-                                        text = description,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onBackground
-                                    )
-                                    Icon(imageVector = Icons.Default.Check, contentDescription = "")
-                                }
+                                Text(
+                                    text = description,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onBackground
+                                )
                             },
                             onClick = {
                                 onValueChange(Pair(index, description))
