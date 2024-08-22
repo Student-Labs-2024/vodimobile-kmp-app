@@ -452,6 +452,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     ProfileScreen(
                         onProfileIntent = profileViewModel::onIntent,
                         profileEffect = profileViewModel.profileEffect,
+                        profileState = profileViewModel.profileState.collectAsState(),
                         navHostController = navHostController
                     )
                 } else {

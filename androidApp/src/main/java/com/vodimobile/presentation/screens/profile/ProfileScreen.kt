@@ -15,8 +15,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,14 +28,24 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
+import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.domain.model.User
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
+import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
+import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
+import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.screens.profile.components.ExitBlock
 import com.vodimobile.presentation.screens.profile.components.ProfileItemBlock
 import com.vodimobile.presentation.screens.profile.store.ProfileEffect
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
+import com.vodimobile.presentation.screens.profile.store.ProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
+import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")
@@ -40,6 +53,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 fun ProfileScreen(
     onProfileIntent: (ProfileIntent) -> Unit,
     @SuppressLint("ComposeMutableParameters") profileEffect: MutableSharedFlow<ProfileEffect>,
+    profileState: State<ProfileState>,
     navHostController: NavHostController
 ) {
 
@@ -65,8 +79,15 @@ fun ProfileScreen(
                 ProfileEffect.RulesClick -> {
                     navHostController.navigate(route = LeafScreen.RULES_SCREEN)
                 }
+
+                ProfileEffect.Auth -> {
+                    navHostController.navigate(route = RootScreen.START_SCREEN)
+                }
             }
         }
+    }
+    LaunchedEffect(key1 = Unit) {
+        onProfileIntent(ProfileIntent.InitUser)
     }
 
     ExtendedTheme {
@@ -155,13 +176,14 @@ fun ProfileScreen(
                         )
                     }
                 }
-                item {
-                    ExitBlock(
-                        onClick = {
-                            onProfileIntent(ProfileIntent.AppExitClick)
-                        }
-                    )
-                }
+                if (profileState.value.user != User.empty())
+                    item {
+                        ExitBlock(
+                            onClick = {
+                                onProfileIntent(ProfileIntent.AppExitClick)
+                            }
+                        )
+                    }
             }
         }
     }
@@ -171,10 +193,40 @@ fun ProfileScreen(
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 private fun ProfileScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
-        val profileViewModel = ProfileViewModel()
+        val profileViewModel = ProfileViewModel(
+            dataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            )
+        )
         ProfileScreen(
             onProfileIntent = profileViewModel::onIntent,
             profileEffect = profileViewModel.profileEffect,
+            profileState = profileViewModel.profileState.collectAsState(),
             navHostController = rememberNavController()
         )
     }
@@ -184,10 +236,40 @@ private fun ProfileScreenPreviewLight() {
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 private fun ProfileScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
-        val profileViewModel = ProfileViewModel()
+        val profileViewModel = ProfileViewModel(
+            dataStoreStorage = UserDataStoreStorage(
+                editUserDataStoreUseCase = EditUserDataStoreUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(LocalContext.current)
+                    )
+                ),
+                getUserDataUseCase = GetUserDataUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                preRegisterUserUseCase = PreRegisterUserUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                ),
+                editPasswordUseCase = EditPasswordUseCase(
+                    userDataStoreRepository = UserDataStoreRepositoryImpl(
+                        dataStore = getDataStore(
+                            LocalContext.current
+                        )
+                    )
+                )
+            )
+        )
         ProfileScreen(
             onProfileIntent = profileViewModel::onIntent,
             profileEffect = profileViewModel.profileEffect,
+            profileState = profileViewModel.profileState.collectAsState(),
             navHostController = rememberNavController()
         )
     }
