@@ -40,7 +40,9 @@ fun ServerErrorScreen(
         LaunchedEffect(key1 = Unit) {
             serverErrorEffect.collect { effect ->
                 when (effect) {
-                    is ConnectionErrorEffect.ClickRepeat -> {}
+                    is ConnectionErrorEffect.ClickRepeat -> {
+                        navHostController.navigate(route = screen)
+                    }
                 }
             }
         }

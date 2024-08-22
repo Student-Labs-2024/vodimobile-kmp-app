@@ -33,6 +33,7 @@ import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.model.Car
+import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -86,7 +87,6 @@ fun VehicleFleetScreen(
     @SuppressLint("ComposeMutableParameters") vehicleEffect: MutableSharedFlow<VehicleEffect>,
     vehicleState: State<VehicleState>,
     navHostController: NavHostController,
-    selectedTagIndex: Int,
     dateRange: LongArray,
     modifier: Modifier = Modifier
 ) {
@@ -116,10 +116,16 @@ fun VehicleFleetScreen(
                 VehicleEffect.ShowLoadingDialog -> {
                     navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
                 }
+
+                VehicleEffect.ServerError -> {
+                    navHostController.navigate(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/${LeafHomeScreen.ALL_CARS}")
+                }
             }
         }
     }
-    onVehicleIntent(VehicleIntent.InitCars(dateRange = dateRange))
+    LaunchedEffect(key1 = vehicleState.value.cars) {
+        onVehicleIntent(VehicleIntent.InitCars(dateRange = dateRange))
+    }
     ExtendedTheme {
         Scaffold(
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
@@ -142,10 +148,11 @@ fun VehicleFleetScreen(
                     AutoTypeTagList(
                         modifier = Modifier,
                         tags = vehicleState.value.tags,
-                        selectedTagIndex = selectedTagIndex
-                    ) {
-
-                    }
+                        selectedTagIndex = vehicleState.value.selectedIndex,
+                        onSelected = {
+                            onVehicleIntent(VehicleIntent.OnSelected(it))
+                        }
+                    )
                 }
 
             }
@@ -162,8 +169,8 @@ fun VehicleFleetScreen(
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (vehicleState.value.carList.isNotEmpty())
-                    itemsIndexed(vehicleState.value.carList) { _, item: Car ->
+                if (!vehicleState.value.isLoading) {
+                    itemsIndexed(vehicleState.value.filteredCars) { _, item: Car ->
                         CardsSearch(
                             carItem = item,
                             onBookClick = { carItem ->
@@ -182,8 +189,9 @@ fun VehicleFleetScreen(
                             }
                         )
                     }
-                else
+                } else {
                     onVehicleIntent(VehicleIntent.ShowProgressDialog)
+                }
             }
         }
 
@@ -282,7 +290,6 @@ private fun VehicleFleetScreenPreview() {
             vehicleEffect = vehicleFleetViewModel.vehicleFleetEffect,
             vehicleState = vehicleFleetViewModel.vehicleState.collectAsState(),
             navHostController = rememberNavController(),
-            selectedTagIndex = 0,
             dateRange = longArrayOf(0L, 0L)
         )
     }

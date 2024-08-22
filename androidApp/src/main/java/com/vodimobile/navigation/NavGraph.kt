@@ -64,6 +64,8 @@ import com.vodimobile.presentation.screens.rule_details.RuleDetailsScreen
 import com.vodimobile.presentation.screens.rule_details.RuleDetailsViewModel
 import com.vodimobile.presentation.screens.rules.RuleScreen
 import com.vodimobile.presentation.screens.rules.RulesViewModel
+import com.vodimobile.presentation.screens.server_error.ServerErrorScreen
+import com.vodimobile.presentation.screens.server_error.ServerErrorViewModel
 import com.vodimobile.presentation.screens.sms.SmsScreen
 import com.vodimobile.presentation.screens.sms.SmsViewModel
 import com.vodimobile.presentation.screens.start_screen.StartScreen
@@ -145,7 +147,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                             )
                         ),
                         navHostController = navHostController,
-                        selectedTagIndex = 0,
                         dateRange = generalState.value.selectedDate
                     )
                 } else {
@@ -236,7 +237,14 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                             "selected-date",
                             longArrayOf(start, finish),
                         )
-                        generalViewModel.onIntent(GeneralIntent.ChangeSelectedDate(value = longArrayOf(start, finish)))
+                        generalViewModel.onIntent(
+                            GeneralIntent.ChangeSelectedDate(
+                                value = longArrayOf(
+                                    start,
+                                    finish
+                                )
+                            )
+                        )
 
                         navHostController.navigateUp()
                     },
@@ -280,6 +288,19 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
                     networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
+            }
+            composable(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/{screen}", arguments = listOf(
+                navArgument("screen") { type = NavType.StringType }
+            )) { backStackEntry ->
+                val screen =
+                    backStackEntry.arguments?.getString("screen") ?: LeafHomeScreen.HOME_SCREEN
+                val serverErrorViewModel: ServerErrorViewModel = koinViewModel()
+                ServerErrorScreen(
+                    onServerErrorIntent = serverErrorViewModel::onIntent,
+                    serverErrorEffect = serverErrorViewModel.serverErrorEffect,
                     navHostController = navHostController,
                     screen = screen
                 )
@@ -388,6 +409,20 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 ConnectionErrorScreen(
                     onNetworkErrorIntent = connectionErrorViewModel::onIntent,
                     networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
+            }
+            composable(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )) { backStackEntry ->
+                val screen =
+                    backStackEntry.arguments?.getString("screen") ?: LeafHomeScreen.HOME_SCREEN
+                val serverErrorViewModel: ServerErrorViewModel = koinViewModel()
+                ServerErrorScreen(
+                    onServerErrorIntent = serverErrorViewModel::onIntent,
+                    serverErrorEffect = serverErrorViewModel.serverErrorEffect,
                     navHostController = navHostController,
                     screen = screen
                 )
@@ -509,6 +544,20 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     screen = screen
                 )
             }
+            composable(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )) { backStackEntry ->
+                val screen =
+                    backStackEntry.arguments?.getString("screen") ?: LeafHomeScreen.HOME_SCREEN
+                val serverErrorViewModel: ServerErrorViewModel = koinViewModel()
+                ServerErrorScreen(
+                    onServerErrorIntent = serverErrorViewModel::onIntent,
+                    serverErrorEffect = serverErrorViewModel.serverErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
+            }
         }
         navigation(
             route = RootScreen.START_SCREEN,
@@ -585,6 +634,20 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     newPasswordState = newPasswordViewModel.newPasswordState.collectAsState(),
                     newPasswordEffect = newPasswordViewModel.newPasswordEffect,
                     navHostController = navHostController
+                )
+            }
+            composable(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )) { backStackEntry ->
+                val screen =
+                    backStackEntry.arguments?.getString("screen") ?: LeafHomeScreen.HOME_SCREEN
+                val serverErrorViewModel: ServerErrorViewModel = koinViewModel()
+                ServerErrorScreen(
+                    onServerErrorIntent = serverErrorViewModel::onIntent,
+                    serverErrorEffect = serverErrorViewModel.serverErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
                 )
             }
         }
