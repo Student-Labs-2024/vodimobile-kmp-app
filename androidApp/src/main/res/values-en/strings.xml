@@ -208,4 +208,5 @@ The current version of the Policy is freely available on the Internet at http://
     <string name="change_order">Change bid</string>
 
     <string name="simple_password_error">The password is incorrect. Try again.</string>
+    <string name="name_too_long">The full name must not exceed 100 characters.</string>
 </resources>
