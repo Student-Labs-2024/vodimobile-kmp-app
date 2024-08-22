@@ -33,6 +33,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 @Composable
 fun CarsCard(
     onBookClick: (Car) -> Unit,
+    onInfoClick: (Car) -> Unit,
     carItem: Car,
     modifier: Modifier = Modifier,
     isBookMode: Boolean = false
@@ -110,7 +111,7 @@ fun CarsCard(
                             containerColor = MaterialTheme.colorScheme.surfaceVariant
                         ),
                         onClick = {
-
+                            onInfoClick(carItem)
                         }, shape = MaterialTheme.shapes.small
                     ) {
                         Icon(
@@ -143,7 +144,8 @@ private fun CarsCardPreview() {
     VodimobileTheme(darkTheme = false, dynamicColor = false) {
         CarsCard(
             carItem = Car.empty(),
-            onBookClick = {}
+            onBookClick = {},
+            onInfoClick = {}
         )
     }
 }

@@ -131,7 +131,12 @@ fun HomeScreen(
                 itemsIndexed(homeState.value.carList) { _, item: Car ->
                     CarsCard(
                         carItem = item,
-                        onBookClick = { carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem)) }
+                        onBookClick = {
+                            carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem))
+                        },
+                        onInfoClick = {
+                            carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem))
+                        }
                     )
                 }
                 item {
