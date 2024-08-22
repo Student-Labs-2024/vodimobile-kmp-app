@@ -6,4 +6,5 @@ sealed class ProfileIntent {
     data object FaqClick : ProfileIntent()
     data object ContactsClick : ProfileIntent()
     data object AppExitClick : ProfileIntent()
+    data object InitUser : ProfileIntent()
 }

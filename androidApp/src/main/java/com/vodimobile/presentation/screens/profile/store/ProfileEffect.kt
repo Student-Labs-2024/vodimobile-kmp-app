@@ -6,4 +6,5 @@ sealed class ProfileEffect {
     data object FaqClick : ProfileEffect()
     data object ContactsClick : ProfileEffect()
     data object AppExitClick : ProfileEffect()
+    data object Auth : ProfileEffect()
 }
