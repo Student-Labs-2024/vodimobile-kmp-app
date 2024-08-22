@@ -35,7 +35,7 @@ struct PinCodeView: View {
                 Text(R.string.localizable.inputCodeText)
                     .font(.header2)
                     .padding(.top, PinCodeConfig.contentTopPadding)
-                    .foregroundColor(Color.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.center)
 
                 Text(viewModel.sendCodeOnPhoneText)
@@ -87,7 +87,7 @@ struct PinCodeView: View {
 
             HStack {
                 Text(R.string.localizable.notGetCodeText)
-                    .foregroundColor(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .font(.paragraph4)
                 Button(
                     action: {
@@ -126,7 +126,7 @@ struct PinCodeView: View {
             .frame(width: 56, height: 56)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color(R.color.grayLight))
+                    .fill(Color(R.color.grayTheme))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

@@ -38,7 +38,7 @@ struct ContactCell: Identifiable {
             self.contact = contactEmail
         case .officeLocation:
             self.icon = R.image.locationIcon
-            self.title = R.string.localizable.officeLocation()
+            self.title = R.string.localizable.officeLocationText()
             self.contact = contactLocation
         case .phone:
             self.icon = R.image.phoneIcon

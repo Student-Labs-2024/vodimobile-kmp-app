@@ -43,7 +43,7 @@ struct AutoSizingTextEditor: View {
                                         textViewHeight = size.height
                                     }
                                 }
-                                return Color.clear
+                                return Color(R.color.container)
                             })
                             .padding(.horizontal, 5)
                             .font(.paragraph4)
@@ -56,7 +56,7 @@ struct AutoSizingTextEditor: View {
             }
             .padding(5)
             .frame(minHeight: textViewHeight, maxHeight: textViewHeight)
-            .background(RoundedRectangle(cornerRadius: 10).fill(.white))
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.container)))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color(R.color.grayDark), lineWidth: 1)

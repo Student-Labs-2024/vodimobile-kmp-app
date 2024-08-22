@@ -100,7 +100,7 @@ struct BorderedBtnStyle: ButtonStyle {
         configuration.label
             .padding()
             .frame(maxWidth: .infinity)
-            .background(configuration.isPressed ? Color(uiColor: R.color.blueColor() ?? .clear): .white)
+            .background(configuration.isPressed ? Color(R.color.blueColor): .clear)
             .foregroundColor(configuration.isPressed ? .white : Color(R.color.blueColor))
             .overlay(
                 RoundedRectangle(cornerRadius: 15)

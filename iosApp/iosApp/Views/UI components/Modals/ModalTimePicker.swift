@@ -31,7 +31,7 @@ struct ModalTimePicker: View {
             .labelsHidden()
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.white)
+                    .fill(Color(R.color.background))
             )
         }
         .background(.white)

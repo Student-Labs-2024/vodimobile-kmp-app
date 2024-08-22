@@ -35,13 +35,16 @@ struct OrderCell: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(order.car.model.resource)
                     .font(.paragraph3)
+                    .foregroundStyle(Color(R.color.text))
                 Text(CustomDateFormatter.shared.formatDates(
                     startDateInMillis: order.rentalDatePeriod.startDate,
                     endDateInMillis: order.rentalDatePeriod.endDate)
                 )
                 .font(.paragraph6)
+                .foregroundStyle(Color(R.color.text))
                 Text("\(Int(order.bid.cost)) \(R.string.localizable.currencyText())")
                     .font(.paragraph6)
+                    .foregroundStyle(Color(R.color.text))
             }
 
             Image.chevronRight
@@ -49,7 +52,7 @@ struct OrderCell: View {
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 16)
-        .background(RoundedRectangle(cornerRadius: 10).fill(.white))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.container)))
 
     }
 }

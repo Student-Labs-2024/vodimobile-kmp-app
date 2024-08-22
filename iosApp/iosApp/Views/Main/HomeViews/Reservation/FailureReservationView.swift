@@ -15,7 +15,7 @@ struct FailureReservationView: View {
                 NavigationLink(destination: MainTabbarView()) {
                     Image.chevronLeft
                         .resizable()
-                        .foregroundColor(Color.black)
+                        .foregroundStyle(Color(R.color.text))
                         .fontWeight(.bold)
                         .frame(width: 12, height: 18)
                 }
@@ -27,7 +27,7 @@ struct FailureReservationView: View {
             Image(R.image.failureCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(.black)
+                .foregroundStyle(Color(R.color.text))
                 .padding(.horizontal, 110)
                 .padding(.top, 40)
 
@@ -37,7 +37,7 @@ struct FailureReservationView: View {
                     .multilineTextAlignment(.center)
                 Text(R.string.localizable.requestFailedText)
                     .font(.paragraph2)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, horizontalPadding)

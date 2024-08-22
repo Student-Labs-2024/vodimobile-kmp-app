@@ -40,11 +40,13 @@ struct MakeReservationView: View {
                             showModal.toggle()
                             dismiss()
                         }, label: {
-                            Image.chevronLeft.foregroundStyle(Color.black).fontWeight(.bold)
+                            Image.chevronLeft
+                                .foregroundStyle(Color(R.color.text))
+                                .fontWeight(.bold)
                         })
                         Text(R.string.localizable.reservationScreenTitle)
                             .font(.header1)
-                            .foregroundColor(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                             .frame(maxWidth: .infinity)
                     }
                     ScrollView(.vertical, showsIndicators: false) {

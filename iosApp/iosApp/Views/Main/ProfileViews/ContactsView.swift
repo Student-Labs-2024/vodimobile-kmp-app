@@ -20,7 +20,6 @@ struct ContactsView: View {
         VStack {
             ScrollView(.vertical) {
                 VStack(spacing: 20) {
-
                     VStack {
                         ZStack {
                             Image(R.image.logoSmall)

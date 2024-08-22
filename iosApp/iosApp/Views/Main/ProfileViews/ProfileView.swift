@@ -58,7 +58,12 @@ struct ProfileView: View {
                         }
                         .padding(.horizontal, 30)
                         .padding(.vertical, ProfileConfig.insetPaddingExitButton)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
+                        .background(
+                            RoundedRectangle(
+                                cornerRadius: 10,
+                                style: .continuous
+                            )
+                            .fill(Color(R.color.container)))
                         .alert(
                             R.string.localizable.exitAlertTitle(),
                             isPresented: $showAlert

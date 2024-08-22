@@ -50,9 +50,9 @@ struct IphonePhoneTextField: View {
                 }
                 .font(.paragraph4)
                 .padding(16)
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color(R.color.text))
                 .multilineTextAlignment(.leading)
-                .background(Color(R.color.grayLight))
+                .background(Color(R.color.grayTheme))
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)

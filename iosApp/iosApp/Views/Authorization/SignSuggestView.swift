@@ -21,7 +21,7 @@ struct SignSuggestView: View {
                     } label: {
                         Image.xmark
                             .resizable()
-                            .foregroundColor(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                             .frame(width: SignSuggestConfig.xmarkSize, height: SignSuggestConfig.xmarkSize)
                     }
                     .padding(.top, SignSuggestConfig.xmarkTopPadding)

@@ -15,7 +15,7 @@ struct SuccessfulReservationView: View {
                 NavigationLink(destination: MainTabbarView()) {
                     Image.xmark
                         .resizable()
-                        .foregroundColor(Color.black)
+                        .foregroundStyle(Color(R.color.text))
                         .fontWeight(.bold)
                         .frame(width: 18, height: 18)
                 }
@@ -27,17 +27,18 @@ struct SuccessfulReservationView: View {
             Image(R.image.successCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(.black)
+                .foregroundStyle(Color(R.color.text))
                 .padding(.horizontal, 110)
                 .padding(.top, 40)
 
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.requestSubmittedTitle)
-                    .font(.header1).foregroundStyle(.black)
+                    .font(.header1)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.center)
                 Text(R.string.localizable.requestSubmittedText)
                     .font(.paragraph2)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, horizontalPadding)

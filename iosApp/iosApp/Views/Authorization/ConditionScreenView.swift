@@ -20,7 +20,7 @@ struct ConditionScreenView: View {
         ScrollView(.vertical, showsIndicators: false) {
             Text(viewModel.conditionText)
                 .font(.paragraph2)
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color(R.color.text))
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.leading)
         }

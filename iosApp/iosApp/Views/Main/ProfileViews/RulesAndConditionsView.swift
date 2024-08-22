@@ -22,7 +22,7 @@ struct RulesAndConditionsView: View {
                     HStack {
                         Text(rule.title)
                             .font(.paragraph2)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                     }
                 })
                 .listRowSeparator(.hidden)
@@ -31,7 +31,7 @@ struct RulesAndConditionsView: View {
             .listStyle(.plain)
         }
         .padding(.vertical, 15)
-        .background(Color.white.ignoresSafeArea())
+//        .background(Color.white.ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: R.string.localizable.rulesScreenTitle)

@@ -35,14 +35,14 @@ struct OrdersTopPickerView: View {
         }
         .padding(12)
         .frame(maxWidth: .infinity)
-        .background(Capsule().fill(.white))
+        .background(Capsule().fill(Color(R.color.container)))
     }
 
     @ViewBuilder
     private func tabButton(title: String, isSelected: Bool) -> some View {
         Text(title)
             .font(.header5)
-            .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayLabel))
+            .foregroundColor(isSelected ? Color(R.color.blueColor) : Color(R.color.grayText))
             .padding(12)
             .frame(maxWidth: .infinity)
             .background(
@@ -51,7 +51,7 @@ struct OrdersTopPickerView: View {
                         isSelected ? Color(R.color.blueColor) : Color.clear,
                         lineWidth: 1.5
                     )
-                    .background(isSelected ? Capsule().fill(Color.white) : Capsule().fill(Color.clear))
+//                    .background(isSelected ? Capsule().fill(Color(R.color.container)) : Capsule().fill(Color.clear))
             )
             .buttonStyle(PlainButtonStyle())
     }

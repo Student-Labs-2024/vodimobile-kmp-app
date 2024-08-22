@@ -81,7 +81,7 @@ struct ModalAutoCardView: View {
                         .foregroundStyle(Color(R.color.grayDark))
                 }
                 .frame(width: 30, height: 30)
-                .background(Circle().fill(Color(R.color.grayLight)))
+                .background(Circle().fill(Color(R.color.grayTheme)))
                 .onTapGesture {
                     showModalView.toggle()
                 }

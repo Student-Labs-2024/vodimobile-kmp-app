@@ -26,6 +26,7 @@
 		9344CA8B2C6379700044B8A7 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */; };
 		93462FCD2C745F8900590701 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93462FCC2C745F8900590701 /* AppState.swift */; };
 		93462FCF2C747C0100590701 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93462FCE2C747C0100590701 /* PinCodeViewModel.swift */; };
+		934CAAC82C7715E50084F4B1 /* RoundedShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934CAAC72C7715E50084F4B1 /* RoundedShape.swift */; };
 		934D5DF32C3D3D8B0070904B /* AkzidenzBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */; };
 		934D5DF42C3D3D8B0070904B /* AkzidenzLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */; };
 		934D5DF52C3D3D8B0070904B /* AkzidenzMdex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */; };
@@ -143,6 +144,7 @@
 		9344CA8A2C6379700044B8A7 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
 		93462FCC2C745F8900590701 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		93462FCE2C747C0100590701 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
+		934CAAC72C7715E50084F4B1 /* RoundedShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShape.swift; sourceTree = "<group>"; };
 		934D5DEC2C3D3D8B0070904B /* AkzidenzBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzBold.ttf; sourceTree = "<group>"; };
 		934D5DED2C3D3D8B0070904B /* AkzidenzLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzLight.ttf; sourceTree = "<group>"; };
 		934D5DEE2C3D3D8B0070904B /* AkzidenzMdex.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AkzidenzMdex.ttf; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				93328FBF2C495A49008EADB4 /* TextFields */,
 				93328FBE2C495A34008EADB4 /* Cells */,
 				934F0D5E2C3D9136000B256E /* CheckboxView.swift */,
+				935058352C6F74AD009BF02F /* OrderTopPickerView.swift */,
 				936198882C3F133E00B0198D /* TabbarItemView.swift */,
 				939D49152C41615000BD65E1 /* CustomToolbar.swift */,
 				931FDDB32C46FBE8007954FC /* FilledButton.swift */,
@@ -387,6 +390,7 @@
 				93577F112C4E6C85005FEAFF /* LoadingView.swift */,
 				935481DD2C524C6B0085B6CE /* TopTabBarView.swift */,
 				9358EABB2C62BC4D00488093 /* ScrollableAutoListView.swift */,
+				934CAAC72C7715E50084F4B1 /* RoundedShape.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -489,7 +493,6 @@
 			children = (
 				936198832C3F0CD200B0198D /* MyOrdersView.swift */,
 				935058312C6F6C85009BF02F /* EmptyOrderListView.swift */,
-				935058352C6F74AD009BF02F /* OrderTopPickerView.swift */,
 				937FE56A2C70B14000298609 /* OrdersListView.swift */,
 				937FE56E2C70B40A00298609 /* OrderDetailView.swift */,
 			);
@@ -795,6 +798,7 @@
 				937FE56B2C70B14000298609 /* OrdersListView.swift in Sources */,
 				934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */,
 				9368EEAE2C64C4560036DBA2 /* SuccessfulReservationView.swift in Sources */,
+				934CAAC82C7715E50084F4B1 /* RoundedShape.swift in Sources */,
 				934D957D2C4911FE0027DFC8 /* ContactCellView.swift in Sources */,
 				936F37D72C53EAF500F56304 /* IphonePhoneTextField.swift in Sources */,
 				93745BC52C41A57700889B42 /* FAQView.swift in Sources */,

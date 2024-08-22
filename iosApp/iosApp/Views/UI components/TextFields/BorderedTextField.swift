@@ -58,7 +58,8 @@ struct BorderedTextField: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(fieldType.localizedStr).font(.header4).foregroundStyle(Color.black)
+            Text(fieldType.localizedStr).font(.header4)
+                .foregroundStyle(Color(R.color.text))
 
             switch fieldType {
             case .phone:
@@ -118,9 +119,9 @@ struct BorderedTextField: View {
                 .frame(alignment: .leading)
                 .font(.paragraph4)
                 .padding(16)
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color(R.color.text))
                 .multilineTextAlignment(.leading)
-                .background(Color(R.color.grayLight))
+                .background(Color(R.color.grayTheme))
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)

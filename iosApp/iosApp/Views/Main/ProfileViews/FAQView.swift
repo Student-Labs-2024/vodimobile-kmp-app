@@ -73,12 +73,12 @@ struct DisclosureListView: View {
                         .multilineTextAlignment(.leading)
                         .padding(24)
                         .frame(maxWidth: .infinity)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayLight)))
+                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.grayTheme)))
                 },
                 label: {
                     Text(listOfQuestions[index].title)
                         .font(.header3)
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(Color(R.color.text))
                         .multilineTextAlignment(.leading)
                 }
             )

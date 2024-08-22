@@ -52,13 +52,6 @@ struct MainTabbarView: View {
                     }
                 }
                 .background(Color(R.color.container))
-//                .overlay {
-//                    Rectangle()
-//                        .fill(Color.gray)
-//                        .frame(height: 0.5, alignment: .top)
-//                        .offset(y: -26)
-//                        .opacity(0.5)
-//                }
                 .padding(.vertical, 25)
             }
         }

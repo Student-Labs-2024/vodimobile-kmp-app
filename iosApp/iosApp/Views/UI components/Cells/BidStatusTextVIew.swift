@@ -27,6 +27,7 @@ struct BidStatusText: View {
     var body: some View {
         Text(status.title.resource)
             .font(.caption2)
+            .foregroundStyle(.black)
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
             .background(

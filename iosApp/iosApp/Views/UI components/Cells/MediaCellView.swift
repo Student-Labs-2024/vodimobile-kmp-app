@@ -19,7 +19,8 @@ struct MediaCellView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 32, height: 32)
-                    Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
+                    Text(cell.title).font(.paragraph2)
+                        .foregroundStyle(Color(R.color.text))
 
                     Spacer()
 
@@ -34,7 +35,8 @@ struct MediaCellView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)
-                Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
+                Text(cell.title).font(.paragraph2)
+                    .foregroundStyle(Color(R.color.text))
 
                 Spacer()
 

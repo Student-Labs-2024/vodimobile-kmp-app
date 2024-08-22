@@ -87,7 +87,7 @@ struct MainView: View {
                 )
             }
             .ignoresSafeArea(.container, edges: .top)
-            .background(Color(R.color.background))
+            .background(Color(R.color.bgContainer))
         }
         .fullScreenCover(
             isPresented: $showModalReservation,

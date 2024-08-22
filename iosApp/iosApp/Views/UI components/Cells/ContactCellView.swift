@@ -28,7 +28,7 @@ struct ContactCellView: View {
                         HStack {
                             Text(cell.contact)
                                 .font(.paragraph2)
-                                .foregroundStyle(Color.black)
+                                .foregroundStyle(Color(R.color.text))
                             Spacer()
                         }.overlay {
                             Rectangle()
@@ -41,7 +41,7 @@ struct ContactCellView: View {
                     HStack {
                         Text(cell.contact)
                             .font(.paragraph2)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                         Spacer()
                     }.overlay {
                         Rectangle()
