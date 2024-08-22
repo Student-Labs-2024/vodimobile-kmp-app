@@ -2,11 +2,7 @@ package com.vodimobile.presentation.screens.reservation
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,12 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -75,7 +69,6 @@ import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
-import com.vodimobile.presentation.screens.date_setect.DateSelectDialog
 import com.vodimobile.presentation.screens.reservation.components.DateField
 import com.vodimobile.presentation.screens.reservation.components.DropDownField
 import com.vodimobile.presentation.screens.reservation.components.ReservationCarDescription
@@ -87,13 +80,11 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.DescribableItem
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.store.GeneralIntent
-import com.vodimobile.presentation.store.GeneralState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
