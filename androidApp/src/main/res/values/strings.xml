@@ -199,5 +199,5 @@
     <string name="sum_order">Итого:</string>
     <string name="change_order">Изменить заявку</string>
 
-    <string name="simple_password_error">Пароль должен содержать заглавные буквы, цифры и специальные символы</string>
+    <string name="simple_password_error">Неверный пароль. Повторите попытку.</string>
 </resources>

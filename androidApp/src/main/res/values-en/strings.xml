@@ -207,5 +207,5 @@ The current version of the Policy is freely available on the Internet at http://
     <string name="sum_order">Summary:</string>
     <string name="change_order">Change bid</string>
 
-    <string name="simple_password_error">Password must contain uppercase letters, numbers and special characters</string>
+    <string name="simple_password_error">The password is incorrect. Try again.</string>
 </resources>
