@@ -167,43 +167,54 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     }
                 )
             ) { backStackEntry ->
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
 
                 val carId = backStackEntry.arguments?.getInt("carId") ?: 0
 
                 val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
-                val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-date",
-                    initialValue = longArrayOf(0L, 0L),
-                ).collectAsState().value
-                val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-start-time",
-                    initialValue = "",
-                ).collectAsState().value
-                val selectedEndTime = backStackEntry.savedStateHandle.getStateFlow(
-                    "selected-end-time",
-                    initialValue = "",
-                ).collectAsState().value
+                    val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
+                        "selected-date",
+                        initialValue = longArrayOf(0L, 0L),
+                    ).collectAsState().value
+                    val selectedStartTime = backStackEntry.savedStateHandle.getStateFlow(
+                        "selected-start-time",
+                        initialValue = "",
+                    ).collectAsState().value
+                    val selectedEndTime = backStackEntry.savedStateHandle.getStateFlow(
+                        "selected-end-time",
+                        initialValue = "",
+                    ).collectAsState().value
 
-                val finalDate = if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
-                val reservationViewModel: ReservationViewModel = koinViewModel()
-                ReservationScreen(
-                    reservationState = reservationViewModel.reservationState.collectAsState(
-                        initial = ReservationState(
-                            startTime = selectedStartTime,
-                            endTime = selectedEndTime,
-                            date = finalDate,
-                            carId = carId
-                        )
-                    ),
-                    onReservationIntent = reservationViewModel::onIntent,
-                    onGeneralIntent = generalViewModel::onIntent,
-                    reservationEffect = reservationViewModel.reservationEffect,
-                    navHostController = navHostController,
-                    date = finalDate,
-                    startTime = selectedStartTime,
-                    endTime = selectedEndTime,
-                    carId = carId
-                )
+                    val finalDate =
+                        if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
+                    val reservationViewModel: ReservationViewModel = koinViewModel()
+                    ReservationScreen(
+                        reservationState = reservationViewModel.reservationState.collectAsState(
+                            initial = ReservationState(
+                                startTime = selectedStartTime,
+                                endTime = selectedEndTime,
+                                date = finalDate,
+                                carId = carId
+                            )
+                        ),
+                        onReservationIntent = reservationViewModel::onIntent,
+                        onGeneralIntent = generalViewModel::onIntent,
+                        reservationEffect = reservationViewModel.reservationEffect,
+                        navHostController = navHostController,
+                        date = finalDate,
+                        startTime = selectedStartTime,
+                        endTime = selectedEndTime,
+                        carId = carId
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafHomeScreen.RESERVATION_SCREEN,
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafHomeScreen.RESERVATION_SCREEN}")
+                }
             }
             dialog(
                 route = "${DialogIdentifiers.TIME_SELECT_DIALOG}?timeType={timeType}",
@@ -507,24 +518,44 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             composable(route = LeafScreen.EDIT_PROFILE) {
-                val editProfileViewModel: EditProfileViewModel = koinViewModel()
-                EditProfileScreen(
-                    modifier = modifier,
-                    onEditProfileIntent = editProfileViewModel::onIntent,
-                    editProfileState = editProfileViewModel.editProfileState.collectAsState(),
-                    editProfileEffect = editProfileViewModel.editProfileEffect,
-                    navHostController = navHostController
-                )
+                val isConnected =
+                checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val editProfileViewModel: EditProfileViewModel = koinViewModel()
+                    EditProfileScreen(
+                        modifier = modifier,
+                        onEditProfileIntent = editProfileViewModel::onIntent,
+                        editProfileState = editProfileViewModel.editProfileState.collectAsState(),
+                        editProfileEffect = editProfileViewModel.editProfileEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafScreen.EDIT_PROFILE
+                    )
+                    navHostController.navigate(route = "${LeafErrorScreen.NO_INTERNET}/${LeafScreen.EDIT_PROFILE}")
+                }
             }
             composable(route = LeafScreen.CHANGE_PASSWORD_SCREEN) {
-                val changePasswordViewModel: ChangePasswordViewModel = koinViewModel()
-                ChangePasswordScreen(
-                    onChangePasswordIntent = changePasswordViewModel::onIntent,
-                    oldPasswordState = changePasswordViewModel.oldPasswordState.collectAsState(),
-                    newPasswordState = changePasswordViewModel.newPasswordState.collectAsState(),
-                    changePasswordEffect = changePasswordViewModel.changePasswordEffect,
-                    navHostController = navHostController
-                )
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val changePasswordViewModel: ChangePasswordViewModel = koinViewModel()
+                    ChangePasswordScreen(
+                        onChangePasswordIntent = changePasswordViewModel::onIntent,
+                        oldPasswordState = changePasswordViewModel.oldPasswordState.collectAsState(),
+                        newPasswordState = changePasswordViewModel.newPasswordState.collectAsState(),
+                        changePasswordEffect = changePasswordViewModel.changePasswordEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        LeafScreen.CHANGE_PASSWORD_SCREEN
+                        )
+                    navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${LeafScreen.CHANGE_PASSWORD_SCREEN}")
+                }
             }
             dialog(route = DialogIdentifiers.LOADING_DIALOG) {
                 ProgressDialogIndicator()
@@ -573,24 +604,44 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             composable(route = RegistrationScreens.REGISTRATION_SCREEN) {
-                val registrationViewModel: RegistrationViewModel = koinViewModel()
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val registrationViewModel: RegistrationViewModel = koinViewModel()
 
-                RegistrationScreen(
-                    onRegistrationIntent = registrationViewModel::onIntent,
-                    registrationState = registrationViewModel.registrationState.collectAsState(),
-                    registrationEffect = registrationViewModel.registrationEffect,
-                    navHostController = navHostController
-                )
+                    RegistrationScreen(
+                        onRegistrationIntent = registrationViewModel::onIntent,
+                        registrationState = registrationViewModel.registrationState.collectAsState(),
+                        registrationEffect = registrationViewModel.registrationEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        RegistrationScreens.REGISTRATION_SCREEN
+                    )
+                    navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${RegistrationScreens.REGISTRATION_SCREEN}")
+                }
             }
             composable(route = RegistrationScreens.AUTHORIZATION_SCREEN) {
-                val authorizationViewModel: AuthorizationViewModel = koinViewModel()
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val authorizationViewModel: AuthorizationViewModel = koinViewModel()
 
-                AuthorizationScreen(
-                    onAuthorizationIntent = authorizationViewModel::onIntent,
-                    authorizationState = authorizationViewModel.authorizationState.collectAsState(),
-                    authorizationEffect = authorizationViewModel.authorizationEffect,
-                    navHostController = navHostController
-                )
+                    AuthorizationScreen(
+                        onAuthorizationIntent = authorizationViewModel::onIntent,
+                        authorizationState = authorizationViewModel.authorizationState.collectAsState(),
+                        authorizationEffect = authorizationViewModel.authorizationEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        RegistrationScreens.AUTHORIZATION_SCREEN
+                    )
+                    navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${RegistrationScreens.AUTHORIZATION_SCREEN}")
+                }
             }
             composable(route = RegistrationScreens.USER_AGREE_SCREEN) {
                 val userAgreementViewModel: UserAgreementViewModel = koinViewModel()
@@ -619,22 +670,42 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             composable(route = RegistrationScreens.RESET_PASSWORD_SCREEN) {
-                val resetPasswordViewModel: ResetPasswordViewModel = koinViewModel()
-                ResetPasswordScreen(
-                    onResetPasswordIntent = resetPasswordViewModel::onIntent,
-                    resetPasswordState = resetPasswordViewModel.resetPasswordState.collectAsState(),
-                    passwordResetEffect = resetPasswordViewModel.resetPasswordEffect,
-                    navHostController = navHostController
-                )
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val resetPasswordViewModel: ResetPasswordViewModel = koinViewModel()
+                    ResetPasswordScreen(
+                        onResetPasswordIntent = resetPasswordViewModel::onIntent,
+                        resetPasswordState = resetPasswordViewModel.resetPasswordState.collectAsState(),
+                        passwordResetEffect = resetPasswordViewModel.resetPasswordEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        RegistrationScreens.RESET_PASSWORD_SCREEN
+                    )
+                    navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${RegistrationScreens.RESET_PASSWORD_SCREEN}")
+                }
             }
             composable(route = RegistrationScreens.NEW_PASSWORD_SCREEN) {
-                val newPasswordViewModel: NewPasswordViewModel = koinViewModel()
-                NewPasswordScreen(
-                    onNewPasswordIntent = newPasswordViewModel::onIntent,
-                    newPasswordState = newPasswordViewModel.newPasswordState.collectAsState(),
-                    newPasswordEffect = newPasswordViewModel.newPasswordEffect,
-                    navHostController = navHostController
-                )
+                val isConnected =
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                if (isConnected) {
+                    val newPasswordViewModel: NewPasswordViewModel = koinViewModel()
+                    NewPasswordScreen(
+                        onNewPasswordIntent = newPasswordViewModel::onIntent,
+                        newPasswordState = newPasswordViewModel.newPasswordState.collectAsState(),
+                        newPasswordEffect = newPasswordViewModel.newPasswordEffect,
+                        navHostController = navHostController
+                    )
+                } else {
+                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
+                        "screen",
+                        RegistrationScreens.NEW_PASSWORD_SCREEN
+                    )
+                    navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${RegistrationScreens.NEW_PASSWORD_SCREEN}")
+                }
             }
             composable(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/{screen}",
                 arguments = listOf(
@@ -646,6 +717,21 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 ServerErrorScreen(
                     onServerErrorIntent = serverErrorViewModel::onIntent,
                     serverErrorEffect = serverErrorViewModel.serverErrorEffect,
+                    navHostController = navHostController,
+                    screen = screen
+                )
+            }
+            composable(
+                route = "${LeafErrorScreen.NO_INTERNET}/{screen}",
+                arguments = listOf(
+                    navArgument("screen") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                val screen = backStackEntry.arguments?.getString("screen") ?: ""
+                val connectionErrorViewModel: ConnectionErrorViewModel = koinViewModel()
+                ConnectionErrorScreen(
+                    onNetworkErrorIntent = connectionErrorViewModel::onIntent,
+                    networkErrorEffect = connectionErrorViewModel.connectionErrorEffect,
                     navHostController = navHostController,
                     screen = screen
                 )
