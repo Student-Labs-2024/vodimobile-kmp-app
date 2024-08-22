@@ -30,60 +30,58 @@
     <string name="title_user_agreement">Terms of the agreement</string>
     <string name="text_user_agreement">
         <![CDATA[
-        1. Общие положения
-Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных ООО «Макс-авто (далее – Оператор).
+ 1. General Provisions
+This personal data processing policy has been drawn up in accordance with the requirements of the Federal Law of 27.07.2006. No. 152-FZ «On Personal Data» and defines the procedure for processing personal data and measures to ensure the security of personal data of Max-Auto LLC (hereinafter referred to as the Operator).
 
-Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни, личную и семейную тайну.
-Настоящая политика Оператора в отношении обработки персональных данных (далее – Политика) применяется ко всей информации, которую Оператор может получить о посетителях веб-сайта https://vodimobil.ru
+The Operator sets as its most important goal and condition for carrying out its activities the observance of the rights and freedoms of a person and citizen when processing his personal data, including the protection of the rights to privacy, personal and family secrets.
+This Operator policy regarding the processing of personal data (hereinafter referred to as the Policy) applies to all information that the Operator can receive about visitors to the website https://vodimobil.ru
 
-2. Основные понятия, используемые в Политике
-Автоматизированная обработка персональных данных – обработка персональных данных с помощью средств вычислительной техники;
-Блокирование персональных данных – временное прекращение обработки персональных данных (за исключением случаев, если обработка необходима для уточнения персональных данных);
-Веб-сайт – совокупность графических и информационных материалов, а также программ для ЭВМ и баз данных, обеспечивающих их доступность в сети интернет по сетевому адресу https://vodimobil.ru;
-Информационная система персональных данных — совокупность содержащихся в базах данных персональных данных, и обеспечивающих их обработку информационных технологий и технических средств;
-Обезличивание персональных данных — действия, в результате которых невозможно определить без использования дополнительной информации принадлежность персональных данных конкретному Пользователю или иному субъекту персональных данных;
-Обработка персональных данных – любое действие (операция) или совокупность действий (операций), совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных;
-Оператор – государственный орган, муниципальный орган, юридическое или физическое лицо, самостоятельно или совместно с другими лицами организующие и (или) осуществляющие обработку персональных данных, а также определяющие цели обработки персональных данных, состав персональных данных, подлежащих обработке, действия (операции), совершаемые с персональными данными;
-Персональные данные – любая информация, относящаяся прямо или косвенно к определенному или определяемому Пользователю веб-сайта https://vodimobil.ru;
-Пользователь – любой посетитель веб-сайта https://vodimobil.ru;
-Предоставление персональных данных – действия, направленные на раскрытие персональных данных определенному лицу или определенному кругу лиц;
-Распространение персональных данных – любые действия, направленные на раскрытие персональных данных неопределенному кругу лиц (передача персональных данных) или на ознакомление с персональными данными неограниченного круга лиц, в том числе обнародование персональных данных в средствах массовой информации, размещение в информационно-телекоммуникационных сетях или предоставление доступа к персональным данным каким-либо иным способом;
-Трансграничная передача персональных данных – передача персональных данных на территорию иностранного государства органу власти иностранного государства, иностранному физическому или иностранному юридическому лицу;
-Уничтожение персональных данных – любые действия, в результате которых персональные данные уничтожаются безвозвратно с невозможностью дальнейшего восстановления содержания персональных данных в информационной системе персональных данных и (или) результате которых уничтожаются материальные носители персональных данных.
+2. Basic concepts used in the Policy
+Automated processing of personal data is the processing of personal data using computer technology;
+Blocking of personal data is a temporary cessation of the processing of personal data (except in cases where processing is necessary to clarify personal data);
+Website – a collection of graphic and information materials, as well as computer programs and databases that make them available on the Internet at the network address https://vodimobil.ru;
+Personal data information system – a collection of personal data contained in databases and the information technologies and technical means that ensure their processing;
+Depersonalization of personal data – actions that make it impossible to determine, without the use of additional information, the ownership of personal data by a specific User or other subject of personal data;
+Personal data processing – any action (operation) or set of actions (operations) performed with the use of automation tools or without the use of such tools with personal data, including collection, recording, systematization, accumulation, storage, clarification (updating, modification), extraction, use, transfer (distribution, provision, access), depersonalization, blocking, deletion, destruction of personal data;
+Operator – a government agency, municipal agency, legal entity or individual, independently or jointly with other persons, organizing and (or) processing personal data, as well as determining the purposes of processing personal data, the composition of personal data to be processed, actions (operations) performed with personal data;
+Personal data – any information directly or indirectly related to a specific or determinable User of the website https://vodimobil.ru;
+User – any visitor to the website https://vodimobil.ru;
+Provision of personal data – actions aimed at disclosing personal data to a specific person or a specific circle of persons;
+Dissemination of personal data – any actions aimed at disclosing personal data to an indefinite circle of persons (transfer of personal data) or familiarizing an unlimited number of persons with personal data, including disclosure of personal data in the media, posting in information and telecommunication networks or providing access to personal data in any other way;
+Cross-border transfer of personal data – transfer of personal data to the territory of a foreign state to a foreign government body, foreign individual or foreign legal entity;
+Destruction of personal data – any actions as a result of which personal data are destroyed irrevocably with the impossibility of further restoration of the content of personal data in the personal data information system and (or) as a result of which tangible media of personal data are destroyed.
 
-3. Оператор может обрабатывать следующие персональные данные Пользователя
-Фамилия, имя, отчество;
-Электронный адрес;
-Номера телефонов;
-Также на сайте происходит сбор и обработка обезличенных данных о посетителях (в т.ч. файлов «cookie») с помощью сервисов интернет-статистики (Яндекс Метрика и Гугл Аналитика и других).
-Вышеперечисленные данные далее по тексту Политики объединены общим понятием Персональные данные.
+3. The Operator may process the following personal data of the User
+Surname, first name, patronymic;
+E-mail address;
+Phone numbers;
+The website also collects and processes anonymized data about visitors (including cookies) using Internet statistics services (Yandex Metrica and Google Analytics and others).
+The above data are further united in the text of the Policy by the general concept of Personal data.
 
-4. Цели обработки персональных данных
-Цель обработки персональных данных Пользователя — информирование Пользователя посредством отправки электронных писем; предоставление доступа Пользователю к сервисам, информации и/или материалам, содержащимся на веб-сайте.
-Также Оператор имеет право направлять Пользователю уведомления о новых продуктах и услугах, специальных предложениях и различных событиях. Пользователь всегда может отказаться от получения информационных сообщений, направив Оператору письмо на адрес электронной почты help@vodimobil.ru с пометкой «Отказ от уведомлениях о новых продуктах и услугах и специальных предложениях».
-Обезличенные данные Пользователей, собираемые с помощью сервисов интернет-статистики, служат для сбора информации о действиях Пользователей на сайте, улучшения качества сайта и его содержания.
+4. Purposes of personal data processing
+The purpose of processing the User`s personal data is to inform the User by sending emails; to provide the User with access to services, information and/or materials contained on the website.
+The Operator also has the right to send the User notifications about new products and services, special offers and various events. The User can always opt out of receiving informational messages by sending the Operator an email to help@vodimobil.ru with the subject line «Opt-out of notifications about new products and services and special offers».
+The anonymized data of Users collected using Internet statistics services is used to collect information about the actions of Users on the website, to improve the quality of the website and its content.
 
-5. Правовые основания обработки персональных данных
-Оператор обрабатывает персональные данные Пользователя только в случае их заполнения и/или отправки Пользователем самостоятельно через специальные формы, расположенные на сайте https://vodimobil.ru. Заполняя соответствующие формы и/или отправляя свои персональные данные Оператору, Пользователь выражает свое согласие с данной Политикой.
-Оператор обрабатывает обезличенные данные о Пользователе в случае, если это разрешено в настройках браузера Пользователя (включено сохранение файлов «cookie» и использование технологии JavaScript).
+5. Legal grounds for processing personal data
+The Operator processes the User`s personal data only if they are filled in and/or sent by the User independently through special forms located on the website https://vodimobil.ru. By filling in the relevant forms and/or sending their personal data to the Operator, the User expresses their consent to this Policy.
+The Operator processes anonymized data about the User if this is permitted in the User`s browser settings (the storage of cookies and the use of JavaScript technology are enabled).
 
-6. Порядок сбора, хранения, передачи и других видов обработки персональных данных
-Безопасность персональных данных, которые обрабатываются Оператором, обеспечивается путем реализации правовых, организационных и технических мер, необходимых для выполнения в полном объеме требований действующего законодательства в области защиты персональных данных.
-Оператор обеспечивает сохранность персональных данных и принимает все возможные меры, исключающие доступ к персональным данным неуполномоченных лиц.
-Персональные данные Пользователя никогда, ни при каких условиях не будут переданы третьим лицам, за исключением случаев, связанных с исполнением действующего законодательства.
-В случае выявления неточностей в персональных данных, Пользователь может актуализировать их самостоятельно, путем направления Оператору уведомление на адрес электронной почты Оператора help@vodimobil.ru с пометкой «Актуализация персональных данных».
-Срок обработки персональных данных является неограниченным. Пользователь может в любой момент отозвать свое согласие на обработку персональных данных, направив Оператору уведомление посредством электронной почты на электронный адрес Оператора help@vodimobil.ru с пометкой «Отзыв согласия на обработку персональных данных».
+6. The procedure for collecting, storing, transferring and other types of processing personal data
+The security of personal data processed by the Operator is ensured by implementing legal, organizational and technical measures necessary to fully comply with the requirements of the current legislation in the field of personal data protection.
+The Operator ensures the safety of personal data and takes all possible measures to prevent unauthorized persons from accessing personal data.
+The User`s personal data will never, under any circumstances, be transferred to third parties, except in cases related to compliance with current legislation.
+In the event of inaccuracies in personal data, the User can update them independently by sending a notification to the Operator`s e-mail address help@vodimobil.ru with the subject line «Updating personal data».
+The period for processing personal data is unlimited. The User may revoke their consent to the processing of personal data at any time by sending a notification to the Operator via e-mail to the Operator`s e-mail address help@vodimobil.ru with the subject line «Revocation of consent to the processing of personal data».
 
-7. Трансграничная передача персональных данных
-Оператор до начала осуществления трансграничной передачи персональных данных обязан убедиться в том, что иностранным государством, на территорию которого предполагается осуществлять передачу персональных данных, обеспечивается надежная защита прав субъектов персональных данных.
-Трансграничная передача персональных данных на территории иностранных государств, не отвечающих вышеуказанным требованиям, может осуществляться только в случае наличия согласия в письменной форме субъекта персональных данных на трансграничную передачу его персональных данных и/или исполнения договора, стороной которого является субъект персональных данных.
+7. Cross-border transfer of personal data
+Before commencing the cross-border transfer of personal data, the Operator is obliged to ensure that the foreign state to whose territory the personal data is to be transferred ensures reliable protection of the rights of personal data subjects.
+Cross-border transfer of personal data to the territory of foreign states that do not meet the above requirements may only be carried out if there is written consent from the personal data subject to the cross-border transfer of their personal data and/or execution of an agreement to which the personal data subject is a party.
 
-8. Заключительные положения
-Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты help@vodimobil.ru.
-В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.
-Актуальная версия Политики в свободном доступе расположена в сети Интернет по адресу http://vodimobil.ru/PrivacyPolicy.
-.]]>
-    </string>
+8. Final provisions
+The User may receive any clarifications on issues of interest regarding the processing of their personal data by contacting the Operator via e-mail help@vodimobil.ru.
+This document will reflect any changes to the Operator`s personal data processing policy. The policy is valid indefinitely until it is replaced by a new version.
+The current version of the Policy is freely available on the Internet at http://vodimobil.ru/PrivacyPolicy.]]></string>
 
     <string name="close_button_content_description">Close</string>
 
