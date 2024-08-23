@@ -43,8 +43,7 @@ class VehicleFleetViewModel(
                 }
             }
 
-
-            is VehicleIntent.InfoCarClick -> {
+            is VehicleIntent.ShowModal -> {
                 viewModelScope.launch {
                     vehicleState.update {
                         it.copy(
@@ -52,7 +51,6 @@ class VehicleFleetViewModel(
                             selectedCar = intent.car
                         )
                     }
-                    vehicleFleetEffect.emit(VehicleEffect.InfoCarClick)
                 }
             }
 
@@ -64,7 +62,8 @@ class VehicleFleetViewModel(
                             if (intent.value != 0)
                                 it.carType.contains(carCategoryMap[intent.value])
                             else true
-                        })
+                        }
+                    )
                 }
             }
 
