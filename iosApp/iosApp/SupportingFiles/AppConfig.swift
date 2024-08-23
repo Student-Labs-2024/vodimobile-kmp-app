@@ -75,3 +75,11 @@ public let whatsappLink = "https://wa.me/79507831440"
 public let vkLink = "https://vk.com/vodimobil"
 public let tgLink = "https://t.me/vodimobilomsk"
 let appVersion = "1.0.0"
+
+// extension for phone string
+extension String {
+    func cleanUp() -> String {
+        self.replacingOccurrences(of: " ", with: "")
+            .replacingOccurrences(of: "-", with: "")
+    }
+}

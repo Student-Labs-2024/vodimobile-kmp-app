@@ -14,9 +14,14 @@ final class AppState: ObservableObject {
     static let shared = AppState()
 
     init() {
-        checkConnectivity()
+        Task {
+            await MainActor.run {
+                checkConnectivity()
+            }
+        }
     }
 
+    @MainActor
     func checkConnectivity() {
         self.isConnected = NetworkMonitor.shared.isConnected
         if !self.isConnected {

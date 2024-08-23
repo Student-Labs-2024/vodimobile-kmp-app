@@ -69,7 +69,9 @@ struct ProfileView: View {
                             isPresented: $showAlert
                         ) {
                             Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {
-                                authManager.logout()
+                                Task {
+                                    await authManager.logout()
+                                }
                             }
 
                             Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {

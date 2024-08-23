@@ -28,11 +28,11 @@ struct MyOrdersView: View {
                             selectedOrder: $selectedOrder,
                             showOrderModal: $showOrderModal
                         ) {
-                            viewModel.getAllOrders()
+                            await viewModel.getAllOrders()
                         }
                     } else {
                         EmptyOrderListView {
-                            viewModel.getAllOrders()
+                            await viewModel.getAllOrders()
                         }
                     }
                 case .completed:
@@ -42,17 +42,22 @@ struct MyOrdersView: View {
                             selectedOrder: $selectedOrder,
                             showOrderModal: $showOrderModal
                         ) {
-                            viewModel.getAllOrders()
+                            Task {
+                               await viewModel.getAllOrders()
+                            }
                         }
                     } else {
                         EmptyOrderListView {
-                            viewModel.getAllOrders()
+                            Task {
+                               await viewModel.getAllOrders()
+                            }
                         }
                     }
                 }
 
                 Spacer()
             }
+            .loadingOverlay(isLoading: $viewModel.isLoading)
             .fullScreenCover(isPresented: $showOrderModal, content: {
                 OrderDetailView(
                     order: selectedOrder,

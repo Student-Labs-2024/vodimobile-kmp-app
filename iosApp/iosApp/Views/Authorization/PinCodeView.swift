@@ -71,8 +71,12 @@ struct PinCodeView: View {
                     Button(R.string.localizable.nextBtnName(), action: {
                         Task {
                             await viewModel.authManager.login(phone: viewModel.phoneNumber, pass: viewModel.pass)
+                            if viewModel.authManager.isAuthenticated {
+                                viewModel.showSignSuggestModal.toggle()
+                            } else {
+                                viewModel.showErrorAlert = true
+                            }
                         }
-                        viewModel.showSignSuggestModal.toggle()
                     })
                     .buttonStyle(FilledBtnStyle())
                     .disabled(!viewModel.isButtonEnabled)
@@ -103,6 +107,9 @@ struct PinCodeView: View {
 
             Spacer()
         }
+        .alert("Unauthorized", isPresented: $viewModel.showErrorAlert, actions: {
+            Button(R.string.localizable.closeButton(), role: .cancel) { }
+        })
         .padding()
         .onAppear {
             focusedField = 0

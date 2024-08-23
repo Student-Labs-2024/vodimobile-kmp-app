@@ -155,7 +155,7 @@ struct OrderDetailView: View {
 
                     HStack {
                         switch onEnum(of: viewModel.order.status) {
-                        case .approved:
+                        case .approved, .reserve:
                             Button(action: {
                                 showCancelAlert.toggle()
                             }, label: {
@@ -213,7 +213,15 @@ struct OrderDetailView: View {
                 }
 
                 Button(R.string.localizable.cancelShortButton(), role: .destructive) {
-                    // TODO: - Make a bid cancel logic after tap
+                    Task {
+                        if let user = viewModel.dataStorage.gettingUser {
+                            await viewModel.apiManager.updateOrderStatus(
+                                userId: user.id,
+                                orderId: viewModel.order.orderId,
+                                status: CarStatus.Cancelled().title.resource
+                            )
+                        }
+                    }
                 }
             }
         }

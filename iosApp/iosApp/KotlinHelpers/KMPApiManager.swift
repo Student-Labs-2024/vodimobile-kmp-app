@@ -10,10 +10,11 @@ import SwiftUI
 import shared
 import Combine
 
-final class KMPApiManager {
+final class KMPApiManager: ObservableObject {
     private var helper = KoinHelper()
     @ObservedObject var dataStorage = KMPDataStorage.shared
     @ObservedObject var appState = AppState.shared
+    @Published var isLoading = false
     static let shared = KMPApiManager()
 
     init() {
@@ -26,8 +27,7 @@ final class KMPApiManager {
     func getSupaUser(pass: String, phone: String) async -> User? {
         if appState.isConnected {
             do {
-                let supaUser = try await helper.getUser(password: pass, phone: phone)
-                print("supaUser: \(supaUser)")
+                let supaUser = try await helper.getUser(password: pass, phone: phone.cleanUp())
                 return supaUser != User.companion.empty() ? supaUser : nil
             } catch {
                 print(error)
@@ -37,26 +37,37 @@ final class KMPApiManager {
     }
 
     func regNewUser(fullname: String, phone: String, password: String) async {
-        if let storageUser = dataStorage.gettingUser {
-            do {
-                try await helper.insertUser(
-                    user: User(
-                        id: 0,
-                        fullName: fullname,
-                        password: password,
-                        accessToken: storageUser.accessToken,
-                        refreshToken: storageUser.refreshToken,
-                        phone: phone
+        if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
+            if let storageUser = dataStorage.gettingUser {
+                do {
+                    try await helper.insertUser(
+                        user: User(
+                            id: 0,
+                            fullName: fullname,
+                            password: password,
+                            accessToken: storageUser.accessToken,
+                            refreshToken: storageUser.refreshToken,
+                            phone: phone
+                        )
                     )
-                )
-            } catch {
-                print(error)
+                } catch {
+                    print(error)
+                }
+            }
+            await MainActor.run {
+                isLoading = false
             }
         }
     }
 
     func setUserTokens() async {
         if appState.isConnected {
+            await MainActor.run {
+                isLoading = false
+            }
             do {
                 let response = try await helper.postUser()
                 switch onEnum(of: response) {
@@ -71,11 +82,8 @@ final class KMPApiManager {
                                 refreshToken: user.refreshToken,
                                 phone: storageUser.phone
                             )
-                            print("storageUser changed: \(storageUser)")
-                            print("\n\nnewUser : \(newUser)")
                             await MainActor.run {
                                 self.dataStorage.gettingUser = newUser
-                                print(self.dataStorage.gettingUser)
                             }
                         }
                     }
@@ -87,11 +95,17 @@ final class KMPApiManager {
             } catch {
                 print(error)
             }
+            await MainActor.run {
+                isLoading = false
+            }
         }
     }
 
     func fetchCars() async -> [Car] {
         if appState.isConnected {
+            await MainActor.run {
+                isLoading = false
+            }
             do {
                 if let storageUser = dataStorage.gettingUser {
                     let response = try await helper.getCars(
@@ -112,12 +126,18 @@ final class KMPApiManager {
             } catch {
                 print(error)
             }
+            await MainActor.run {
+                isLoading = false
+            }
         }
         return []
     }
 
     func fetchPlaces() async -> [Place] {
         if appState.isConnected {
+            await MainActor.run {
+                isLoading = false
+            }
             do {
                 if let storageUser = dataStorage.gettingUser {
                     let response = try await helper.getPlaces(
@@ -139,28 +159,52 @@ final class KMPApiManager {
             } catch {
                 print(error)
             }
+            await MainActor.run {
+                isLoading = false
+            }
         }
         return []
     }
 
     func fetchUserOrders() async -> [Order] {
         if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
             do {
                 if let storageUser = dataStorage.gettingUser {
-                    print("storageUser fetchUserOrders \(storageUser)")
                     let orders = try await helper.getOrders(
                         userId: storageUser.id,
                         accessToken: storageUser.accessToken,
-                        refreshToken: storageUser.refreshToken
+                        refreshToken: storageUser.refreshToken,
+                        phone: storageUser.phone
                     )
-                    print(orders)
                     return orders
                 }
             } catch {
                 print(error)
             }
+            await MainActor.run {
+                isLoading = false
+            }
         }
         return []
+    }
+
+    func updateOrderStatus(userId: Int32, orderId: Int32, status: String) async {
+        if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
+            do {
+                try await helper.updateStatus(userId: userId, orderId: orderId, status: status)
+            } catch {
+                print(error)
+            }
+            await MainActor.run {
+                isLoading = false
+            }
+        }
     }
 
     private func convertNSArrayToArray<T>(nsArray: NSArray) -> [T] {
@@ -180,20 +224,24 @@ final class KMPApiManager {
 final class AuthManager: ObservableObject {
     static let shared = AuthManager()
     @Published var isAuthenticated = false
-    @ObservedObject var dataStorage = KMPDataStorage.shared {
-        didSet {
-            self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
-            dataStorage.gettingUser != nil
-        }
-    }
+    @Published var errorType: InputErrorType?
+    @ObservedObject var dataStorage = KMPDataStorage.shared
     private var apiManager = KMPApiManager.shared
+    private var cancellables = Set<AnyCancellable>()
 
-    private func handleUserChange(_ newUser: User?) {
-        if let newUser = newUser, newUser != User.companion.empty() {
-            self.isAuthenticated = true
-        } else {
-            self.isAuthenticated = false
+    init() {
+        dataStorage.$gettingUser
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.handleUserChange()
+            }
+            .store(in: &cancellables)
+        Task {
+            if let user = dataStorage.gettingUser, user != User.companion.empty() {
+                await login(phone: user.phone, pass: user.password)
+            }
         }
+        handleUserChange()
     }
 
     @MainActor
@@ -205,32 +253,34 @@ final class AuthManager: ObservableObject {
     @MainActor
     func login(phone: String, pass: String) async {
         let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone)
-        var currentUser = User.companion.empty()
-        if let supaUser = supaUser {
+        if let supaUser = supaUser, supaUser.id >= 0 {
+            dataStorage.gettingUser = supaUser
+            let savingUser = User(
+                id: supaUser.id,
+                fullName: supaUser.fullName,
+                password: pass,
+                accessToken: supaUser.accessToken,
+                refreshToken: supaUser.refreshToken,
+                phone: phone
+            )
             do {
-                if let storageUser = dataStorage.gettingUser {
-                    currentUser = User(
-                        id: supaUser.id,
-                        fullName: supaUser.fullName,
-                        password: supaUser.password,
-                        accessToken: supaUser.accessToken,
-                        refreshToken: supaUser.refreshToken,
-                        phone: supaUser.phone
-                    )
-                    print("currentUser login: \(currentUser)")
-                    try await self.dataStorage.editUserData(currentUser)
-                    print("try await self.dataStorage.editUserData(currentUser) \(dataStorage.gettingUser)")
-                }
+                try await dataStorage.editUserData(savingUser)
             } catch {
                 print(error)
             }
+            self.isAuthenticated = true
+        } else {
+            self.errorType = .incorrectPhone
         }
-        self.isAuthenticated = true
     }
 
     @MainActor
-    func logout() {
-        self.dataStorage.gettingUser = nil
-        self.isAuthenticated = false
+    func logout() async {
+        await dataStorage.cleanLocalDataStorage()
+    }
+
+    private func handleUserChange() {
+        self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
+        dataStorage.gettingUser != nil
     }
 }

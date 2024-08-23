@@ -160,49 +160,4 @@ struct BorderedTextField: View {
             errorMsg = ""
         }
     }
-
-//    private func handleErrorTypeChanging(errorMsg: inout String) {
-//        if let inputErrorType = inputErrorType {
-//            switch inputErrorType {
-//            case .alreadyExistsPhone:
-//                if fieldType == .phone {
-//                    errorMsg = InputErrorType.alreadyExistsPhone.errorString
-//                }
-//            case .incorrectFullName:
-//                if fieldType == .fullName {
-//                    errorMsg = InputErrorType.incorrectFullName.errorString
-//                }
-//            case .incorrectPass:
-//                if fieldType == .password {
-//                    errorMsg = InputErrorType.incorrectPass.errorString
-//                }
-//            case .incorrectPhone:
-//                if fieldType == .phone {
-//                    errorMsg = InputErrorType.incorrectPhone.errorString
-//                }
-//            case .noSpecSymboldsInPass:
-//                if fieldType == .password {
-//                    errorMsg = InputErrorType.noSpecSymboldsInPass.errorString
-//                }
-//            case .noUpperLettersInPass:
-//                if fieldType == .password {
-//                    errorMsg = InputErrorType.noUpperLettersInPass.errorString
-//                }
-//            case .tooShortPass:
-//                if fieldType == .password {
-//                    errorMsg = InputErrorType.tooShortPass.errorString
-//                }
-//            case .invalidPass:
-//                if fieldType == .password {
-//                    errorMsg = InputErrorType.invalidPass.errorString
-//                }
-//            case .selectDayTime, .selectNightTime:
-//                errorMsg = ""
-//            case .oldPasswordIsWrong:
-//                if fieldType == .oldPassword {
-//                    errorMsg = InputErrorType.oldPasswordIsWrong.errorString
-//                }
-//            }
-//        }
-//    }
 }

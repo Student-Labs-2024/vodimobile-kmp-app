@@ -52,7 +52,6 @@ struct ExpandableToolbar: View {
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 30, height: 30)
                                             .foregroundColor(Color(R.color.grayDark))
-                                        
                                         Text(formatDateRange())
                                             .foregroundColor(
                                                 dateRange == nil

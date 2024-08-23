@@ -10,16 +10,15 @@ import SwiftUI
 import SwiftUIPullToRefresh
 
 struct EmptyOrderListView: View {
-    var onRefresh: () -> Void
+    let refreshAction: () async -> Void
 
     var body: some View {
         RefreshableScrollView(
             showsIndicators: false,
-            shouldTriggerHapticFeedback: true,
             loadingViewBackgroundColor: .clear,
             threshold: 50,
-            onRefresh: { _ in
-                onRefresh()
+            action: {
+                await refreshAction()
             },
             progress: { state in
                 RefreshActivityIndicator(isAnimating: state == .loading) {
@@ -40,7 +39,6 @@ struct EmptyOrderListView: View {
                 }
                 .padding(.top, screenHeight / 5)
             }
-
     }
 }
 

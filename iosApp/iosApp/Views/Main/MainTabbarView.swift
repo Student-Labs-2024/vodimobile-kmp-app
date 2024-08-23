@@ -23,11 +23,11 @@ struct MainTabbarView: View {
                     ProfileView().tag(TabType.profile)
                 }
 
-                HStack {
+                HStack(spacing: 0) {
                     TabBarItem(
                         icon: Image(R.image.home),
                         title: R.string.localizable.homeScreenTitle,
-                        isSelected: selectedTab ==  .main,
+                        isSelected: selectedTab == .main,
                         itemWidth: tabWidthSize
                     ) {
                         handleTabSelection(.main)
@@ -36,7 +36,7 @@ struct MainTabbarView: View {
                     TabBarItem(
                         icon: Image(R.image.car),
                         title: R.string.localizable.myOrdersScreenTitle,
-                        isSelected: selectedTab ==  .myOrders,
+                        isSelected: selectedTab == .myOrders,
                         itemWidth: tabWidthSize
                     ) {
                         handleTabSelection(.myOrders)
@@ -51,15 +51,15 @@ struct MainTabbarView: View {
                         handleTabSelection(.profile)
                     }
                 }
+                .frame(maxWidth: .infinity)
                 .background(Color(R.color.container))
                 .padding(.vertical, 25)
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
         .ignoresSafeArea()
-        .navigationBarBackButtonHidden(true)
-        .fullScreenCover(
-            isPresented: $appState.isInternetErrorVisible
-        ) {
+        .navigationBarBackButtonHidden()
+        .fullScreenCover(isPresented: $appState.isInternetErrorVisible) {
             InternetConnectErrorView()
         }
         .onAppear {

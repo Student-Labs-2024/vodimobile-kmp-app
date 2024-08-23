@@ -8,44 +8,41 @@
 
 import shared
 import SwiftUI
+import Combine
 
 final class MyOrdersViewModel: ObservableObject {
     @Published var activeOrderList = [Order]()
     @Published var completedOrderList = [Order]()
-    private var orderslist = [Order]() {
-        didSet {
-            activeOrderList = filterOrderList(by: .active)
-            completedOrderList = filterOrderList(by: .completed)
+    @Published var orderslist = [Order]()
+    @Published var isLoading: Bool = false
+    private var apiManager = KMPApiManager.shared
+    private var cancellableSet: Set<AnyCancellable> = []
+
+    @MainActor
+    init() {
+        $orderslist
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.activeOrderList = self.filterOrderList(by: .active)
+                self.completedOrderList = self.filterOrderList(by: .completed)
+            }
+            .store(in: &cancellableSet)
+
+        Task {
+            await getAllOrders()
         }
     }
-    private var apiManager = KMPApiManager.shared
 
-    init() {
-        let empty = Order.companion.empty()
-        activeOrderList = [
-            Order(
-                userId: 0,
-                orderId: 16,
-                bidNumber: 1223432,
-                bid: empty.bid,
-                status: empty.status,
-                rentalDatePeriod: empty.rentalDatePeriod,
-                startLocation: empty.startLocation,
-                finishLocation: empty.finishLocation,
-                rentalTimePeriod: empty.rentalTimePeriod,
-                car: empty.car,
-                services: empty.services
-            )
-        ]
-    }
+    func getAllOrders() async {
+        await MainActor.run {
+            isLoading = true
+        }
 
-    func getAllOrders() {
-        Task {
-            let orders = await apiManager.fetchUserOrders()
-            await MainActor.run {
-                print(orders)
-                self.orderslist = orders
-            }
+        let orders = await apiManager.fetchUserOrders()
+
+        await MainActor.run {
+            self.orderslist = orders
+            self.isLoading = false
         }
     }
 

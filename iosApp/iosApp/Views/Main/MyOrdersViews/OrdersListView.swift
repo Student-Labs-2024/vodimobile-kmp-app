@@ -14,16 +14,16 @@ struct OrdersListView: View {
     @Binding var ordersList: [Order]
     @Binding var selectedOrder: Order
     @Binding var showOrderModal: Bool
-    var onRefresh: () -> Void
+    @ObservedObject var dataStorage = KMPDataStorage.shared
+    let onRefresh: () async -> Void
 
     var body: some View {
         RefreshableScrollView(
             showsIndicators: false,
-            shouldTriggerHapticFeedback: true,
             loadingViewBackgroundColor: .clear,
             threshold: 50,
-            onRefresh: { _ in
-                onRefresh()
+            action: {
+                await onRefresh()
             },
             progress: { state in
                 RefreshActivityIndicator(isAnimating: state == .loading) {

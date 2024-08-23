@@ -19,11 +19,13 @@ struct ScrollableAutoListView: View {
     let refreshAction: () async -> Void
 
     var body: some View {
-        RefreshableScrollView(loadingViewBackgroundColor: Color(R.color.grayLight), action: {
-            await refreshAction()
-        }, progress: { state in
-            RefreshActivityIndicator(isAnimating: state == .loading) {
-                $0.hidesWhenStopped = false
+        RefreshableScrollView(
+            loadingViewBackgroundColor: Color(R.color.grayLight),
+            action: {
+                await refreshAction()
+            }, progress: { state in
+                RefreshActivityIndicator(isAnimating: state == .loading) {
+                    $0.hidesWhenStopped = false
             }
         }) {
             LazyVStack(spacing: 20) {

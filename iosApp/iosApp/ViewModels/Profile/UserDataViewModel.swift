@@ -37,6 +37,10 @@ final class UserDataViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
+        self.fullname = KMPDataStorage.shared.gettingUser?.fullName ?? ""
+        self.password = KMPDataStorage.shared.gettingUser?.password ?? ""
+        self.phone = KMPDataStorage.shared.gettingUser?.phone ?? ""
+
         dataStorage.$gettingUser
             .sink { newValue in
                 self.fullname = newValue?.fullName ?? ""
@@ -77,6 +81,64 @@ final class UserDataViewModel: ObservableObject {
             .assign(to: \.isPhoneValid, on: self)
             .store(in: &cancellableSet)
 
+        observeToPassword()
+    }
+
+    func saveEditedUserData() {
+        isLoading = true
+        if let storageUser = dataStorage.gettingUser {
+            let newUserData = User(
+                id: storageUser.id,
+                fullName: storageUser.fullName != fullname && !fullname.isEmpty ? fullname : storageUser.fullName,
+                password: storageUser.password != password && !password.isEmpty ? password : storageUser.password,
+                accessToken: storageUser.accessToken,
+                refreshToken: storageUser.refreshToken,
+                phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone
+            )
+
+            Task {
+                do {
+                    try await self.dataStorage.editUserData(newUserData)
+                    self.dataHasBeenSaved.toggle()
+                } catch {
+                    print(error)
+                    self.showErrorAlert = true
+                }
+            }
+        }
+        self.isLoading.toggle()
+    }
+
+    func fetchUserData() {
+        isLoading.toggle()
+
+        Task {
+//            await self.dataStorage.getUser()
+        }
+        isLoading.toggle()
+    }
+
+    func comparePasswords() -> Bool {
+        oldStoragedPassword == oldPassword
+        // TODO: - Make logic for comparing password, validation and saving
+    }
+
+    private func areAllFieldsFilled() -> Bool {
+        !fullname.isEmpty && !password.isEmpty
+    }
+
+    func fieldsIsValid() -> Bool {
+        isPasswordValid && isFullnameValid && areAllFieldsFilled()
+    }
+
+    private func handlePhoneString(_ phone: String, pattern: String) -> Range<String.Index>? {
+        phone
+            .replacingOccurrences(of: "(", with: "")
+            .replacingOccurrences(of: ")", with: "")
+            .range(of: pattern, options: .regularExpression)
+    }
+
+    private func observeToPassword() {
         $password
             .receive(on: RunLoop.main)
             .map { password in
@@ -127,59 +189,5 @@ final class UserDataViewModel: ObservableObject {
             }
             .assign(to: \.isPasswordValid, on: self)
             .store(in: &cancellableSet)
-    }
-
-    func saveEditedUserData() {
-        isLoading = true
-        if let storageUser = dataStorage.gettingUser {
-            let newUserData = User(
-                id: storageUser.id,
-                fullName: storageUser.fullName != fullname && !fullname.isEmpty ? fullname : storageUser.fullName,
-                password: storageUser.password != password && !password.isEmpty ? password : storageUser.password,
-                accessToken: storageUser.accessToken,
-                refreshToken: storageUser.refreshToken,
-                phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone
-            )
-
-            Task {
-                do {
-                    try await self.dataStorage.editUserData(newUserData)
-                    self.dataHasBeenSaved.toggle()
-                } catch {
-                    print(error)
-                    self.showErrorAlert = true
-                }
-            }
-        }
-        self.isLoading.toggle()
-    }
-
-    func fetchUserData() {
-        isLoading.toggle()
-
-        Task {
-            await self.dataStorage.getUser()
-        }
-        isLoading.toggle()
-    }
-
-    func comparePasswords() -> Bool {
-        oldStoragedPassword == oldPassword
-        // TODO: - Make logic for comparing password, validation and saving
-    }
-
-    private func areAllFieldsFilled() -> Bool {
-        !fullname.isEmpty && !password.isEmpty
-    }
-
-    func fieldsIsValid() -> Bool {
-        isPasswordValid && isFullnameValid && areAllFieldsFilled()
-    }
-
-    private func handlePhoneString(_ phone: String, pattern: String) -> Range<String.Index>? {
-        phone
-            .replacingOccurrences(of: "(", with: "")
-            .replacingOccurrences(of: ")", with: "")
-            .range(of: pattern, options: .regularExpression)
     }
 }

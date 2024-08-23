@@ -15,6 +15,8 @@ struct BidStatusText: View {
         switch onEnum(of: status) {
         case .approved(let title):
             return Color(R.color.approvedTag)
+        case .reserve(let title):
+            return Color(R.color.approvedTag)
         case .completed(let title):
             return Color(R.color.completedTag)
         case .cancelled(let title):

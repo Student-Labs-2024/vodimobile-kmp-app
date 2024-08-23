@@ -18,6 +18,8 @@ final class OrderDetailViewModel: ObservableObject {
             return Image.questionFolder
         }
     }
+    let apiManager = KMPApiManager.shared
+    let dataStorage = KMPDataStorage.shared
 
     init(order: Order) {
         self.order = order

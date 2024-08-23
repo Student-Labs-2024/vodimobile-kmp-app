@@ -11,6 +11,7 @@ import SwiftUI
 final class PinCodeViewModel: ObservableObject {
     @Published var pin: [String] = ["", "", "", ""]
     @Published var isButtonEnabled: Bool = false
+    @Published var showErrorAlert: Bool = false
     @Binding var showSignSuggestModal: Bool
     let authFlowType: AuthFlowType
     var sendCodeOnPhoneText: String {
