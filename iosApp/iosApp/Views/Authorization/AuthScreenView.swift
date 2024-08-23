@@ -13,9 +13,9 @@ struct AuthScreenView: View {
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
     @ObservedObject private var viewModel = UserDataViewModel()
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
@@ -28,7 +28,7 @@ struct AuthScreenView: View {
                 .onChange(of: viewModel.isPhoneValid) { _ in
                     toggleButtonEnabled()
                 }
-                
+
                 BorderedTextField(
                     fieldContent: $viewModel.password,
                     isValid: $viewModel.isPasswordValid,
@@ -39,7 +39,7 @@ struct AuthScreenView: View {
                 .onChange(of: viewModel.isPasswordValid) { _ in
                     toggleButtonEnabled()
                 }
-                
+
                 NavigationLink(destination: PinCodeView(
                     showSignSuggestModal: $showSignSuggestModal,
                     authFlowType: .auth,
@@ -52,18 +52,18 @@ struct AuthScreenView: View {
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
             }
-            
+
             HStack(spacing: spacingBetweenCheckboxAndText) {
                 CheckboxView(isChecked: $checkboxSelected)
                     .onChange(of: checkboxSelected) { _ in
                         toggleButtonEnabled()
                     }
-                
+
                 VStack(alignment: .leading) {
                     Text(R.string.localizable.conditionText)
                         .font(.paragraph5)
-                        .foregroundStyle(Color(R.color.grayDarkColor))
-                    
+                        .foregroundStyle(Color(R.color.grayDark))
+
                     NavigationLink(destination: ConditionScreenView()) {
                         Text(R.string.localizable.conditionLink)
                             .foregroundColor(Color(R.color.blueColor))
@@ -81,7 +81,7 @@ struct AuthScreenView: View {
             CustomToolbar(title: R.string.localizable.authScreenTitle)
         }
     }
-    
+
     private func toggleButtonEnabled() {
         isButtonEnabled = viewModel.isPhoneValid && checkboxSelected
     }

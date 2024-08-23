@@ -43,7 +43,7 @@ final class NetworkMonitor {
             self?.isConnected = path.status != .unsatisfied
             self?.isExpensive = path.isExpensive
             self?.currentConnectionType = NWInterface.InterfaceType.allCases.filter { path.usesInterfaceType($0) }.first
-            
+
             NotificationCenter.default.post(name: .connectivityStatus, object: nil)
         }
         monitor.start(queue: queue)
@@ -60,7 +60,7 @@ final class ConnectivityObserver: ObservableObject {
 
     init() {
         NotificationCenter.default.publisher(for: NSNotification.Name.connectivityStatus)
-            .sink { [weak self] notification in
+            .sink { [weak self] _ in
                 self?.updateConnectivityStatus()
             }
             .store(in: &cancellables)

@@ -19,10 +19,10 @@ struct ButtonLikeBorderedTextField: View {
     @Binding var showTimePicker: Bool
     @Binding var selectedPlace: PlaceShort?
     @Binding var placesDataSource: [PlaceShort]
-    
+
     private let fieldType: ButtonLikeTextFieldType
     private let placeholder: String = ""
-    
+
     init(
         fieldType: ButtonLikeTextFieldType,
         showDatePicker: Binding<Bool>? = nil,
@@ -42,11 +42,11 @@ struct ButtonLikeBorderedTextField: View {
         self._showTimePicker = showTimePicker ?? Binding.constant(false)
         self._selectedPlace = selectedPlace ?? Binding.constant(nil)
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(fieldType.localizedStr).font(.header4).foregroundStyle(Color.black)
-            
+
             switch fieldType {
             case .datePicker:
                 DataPickerField(
@@ -62,7 +62,7 @@ struct ButtonLikeBorderedTextField: View {
                 )
             case .timePicker:
                 TimePickerField(selectedTime: $time, showTimePicker: $showTimePicker)
-                
+
                 if inputErrorType != nil {
                     Text(errorMessage)
                         .font(.paragraph6)
@@ -72,7 +72,7 @@ struct ButtonLikeBorderedTextField: View {
             }
         }
     }
-    
+
     private func handleErrorTypeChanging(errorMsg: inout String) {
         if let inputErrorType = inputErrorType {
             switch inputErrorType {

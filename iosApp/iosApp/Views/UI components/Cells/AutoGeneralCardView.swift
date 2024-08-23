@@ -13,19 +13,19 @@ struct AutoGeneralCardView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
-    
+
     var body: some View {
         VStack(spacing: 12) {
             Image(resource: \.more_cars)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 25)
-            
+
             HStack {
                 Text(R.string.localizable.generalAutoCardTitle).font(.header4)
                 Spacer()
                 NavigationLink(destination: AutoListView(
-                    selectedAuto: $selectedAuto, 
+                    selectedAuto: $selectedAuto,
                     showModalReservation: $showModalReservation,
                     showSignSuggestModal: $showSignSuggestModal
                 )
@@ -36,11 +36,11 @@ struct AutoGeneralCardView: View {
                         .frame(width: 30, height: 30)
                         .foregroundStyle(Color(R.color.blueColor))
                 }
-                
+
             }
         }
         .padding(.horizontal, 32)
         .padding(.vertical, 24)
-        .background(RoundedRectangle(cornerRadius: 24).fill(.white))
+        .background(RoundedRectangle(cornerRadius: 24).fill(Color(R.color.container)))
     }
 }

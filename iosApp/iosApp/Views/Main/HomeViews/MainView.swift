@@ -42,11 +42,11 @@ struct MainView: View {
                             .foregroundStyle(Color(R.color.blueColor))
                         }
                         .padding(.bottom, 10)
-                        
+
                         ForEach(viewModel.listOfPopularCar.indices, id: \.self) { index in
                             AutoSimpleCardView(
                                 carModel: $viewModel.listOfPopularCar[index],
-                                showModal: $showModalCard, 
+                                showModal: $showModalCard,
                                 showSignSuggestModal: $showSignSuggestModal,
                                 selectedAuto: $selectedAuto
                             )
@@ -60,7 +60,7 @@ struct MainView: View {
                     .padding(.top, headerHeight * 1.75)
                     .padding(.horizontal, 24)
                 }
-                
+
                 // Expandable Toolbar
                 ExpandableToolbar(
                     isExpanded: $isExpanded,
@@ -69,7 +69,7 @@ struct MainView: View {
                     headerHeight: $headerHeight,
                     dragOffset: $dragOffset
                 )
-                
+
                 // Date Picker Modal
                 if showDatePicker {
                     ModalDatePickerView(
@@ -87,7 +87,7 @@ struct MainView: View {
                 )
             }
             .ignoresSafeArea(.container, edges: .top)
-            .background(Color(R.color.grayLightColor))
+            .background(Color(R.color.bgContainer))
         }
         .fullScreenCover(
             isPresented: $showModalReservation,
@@ -106,7 +106,7 @@ struct MainView: View {
             }
         )
     }
-    
+
     func handleScroll(_ offset: CGPoint) {
         self.scrollOffset = offset
         isExpanded = offset.y < 0 ? false : true

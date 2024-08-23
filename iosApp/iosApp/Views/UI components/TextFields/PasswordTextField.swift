@@ -16,8 +16,8 @@ struct PasswordTextField: View {
     @State var errorMessage: String = ""
     @State var isSecured: Bool = true
     @FocusState.Binding var isFocused: Bool
-    
-    let errorHandler: (inout String) -> ()
+
+    let errorHandler: (inout String) -> Void
     let isForgetButtonEnabled: Bool
     let fieldType: TextFieldType
     let fieldName: String = TextFieldType.password.localizedStr
@@ -26,7 +26,7 @@ struct PasswordTextField: View {
     private var contentIsNotValid: Bool {
         !isValid && !fieldContent.isEmpty
     }
-    
+
     init(
         fieldContent: Binding<String>,
         isValid: Binding<Bool>,
@@ -46,7 +46,7 @@ struct PasswordTextField: View {
         self.isForgetButtonEnabled = isForgetButtonEnabled
         self.fieldType = fieldType
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             Group {
@@ -67,25 +67,25 @@ struct PasswordTextField: View {
                                     inputErrorType = nil
                                 }
                             }
-                        
+
                         Button(action: {
                             isSecured.toggle()
                         }) {
                             Image.eyeSlash
-                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .foregroundStyle(Color(R.color.grayDark))
                         }
                     }
                     .frame(alignment: .leading)
                     .font(.paragraph4)
                     .padding(16)
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.leading)
-                    .background(Color(R.color.grayLightColor))
+                    .background(Color(R.color.grayTheme))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDark),
                                 lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
                             )
                     )
@@ -106,12 +106,12 @@ struct PasswordTextField: View {
                                     inputErrorType = nil
                                 }
                             }
-                        
+
                         Button(action: {
                             isSecured.toggle()
                         }) {
                             Image.eye
-                                .foregroundStyle(Color(R.color.grayDarkColor))
+                                .foregroundStyle(Color(R.color.grayDark))
                         }
                     }
                     .frame(alignment: .leading)
@@ -119,12 +119,12 @@ struct PasswordTextField: View {
                     .padding(16)
                     .foregroundStyle(Color.black)
                     .multilineTextAlignment(.leading)
-                    .background(Color(R.color.grayLightColor))
+                    .background(Color(R.color.grayLight))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                                contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDark),
                                 lineWidth: isFocused || contentIsNotValid ? 1 : 0
                             )
                     )
@@ -133,7 +133,7 @@ struct PasswordTextField: View {
             .onChange(of: inputErrorType) { _ in
                 errorHandler(&errorMessage)
             }
-            
+
             HStack {
                 if inputErrorType != nil {
                     Text(errorMessage)
@@ -142,14 +142,14 @@ struct PasswordTextField: View {
                         .padding(.leading, 10)
                 }
                 Spacer()
-                
+
                 if isForgetButtonEnabled {
                     NavigationLink(R.string.localizable.forgetPassword()) {
                         // TODO: - Make modal ResetPasswordPhoneView
                         ResetPasswordPhoneView(showSignSuggestModal: Binding.constant(false))
                     }
                     .font(.paragraph5)
-                    .foregroundStyle(Color(R.color.grayTextColor))
+                    .foregroundStyle(Color(R.color.grayText))
                     .multilineTextAlignment(.trailing)
                 }
             }

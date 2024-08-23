@@ -13,7 +13,7 @@ struct AutoSizingTextEditor: View {
     @Binding private var isFocused: Bool
     @State private var textViewHeight: CGFloat = 50
     @State private var isPlaceholderVisible: Bool = true
-    
+
     init(text: Binding<String?>, isFocused: Binding<Bool>) {
         if let unwrapText = text.wrappedValue {
             _text = Binding.constant(unwrapText)
@@ -27,12 +27,12 @@ struct AutoSizingTextEditor: View {
         VStack(alignment: .leading) {
             Text(R.string.localizable.commentToReservation)
                 .font(.header4)
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 Group {
                     if text.isEmpty && isPlaceholderVisible {
                         Text(R.string.localizable.commentToReservationPlaceholder)
                             .font(.paragraph4)
-                            .foregroundStyle(Color(R.color.grayTextColor))
+                            .foregroundStyle(Color(R.color.grayText))
                     } else {
                         TextEditor(text: $text)
                             .frame(height: textViewHeight)
@@ -43,7 +43,7 @@ struct AutoSizingTextEditor: View {
                                         textViewHeight = size.height
                                     }
                                 }
-                                return Color.clear
+                                return Color(R.color.container)
                             })
                             .padding(.horizontal, 5)
                             .font(.paragraph4)
@@ -56,10 +56,10 @@ struct AutoSizingTextEditor: View {
             }
             .padding(5)
             .frame(minHeight: textViewHeight, maxHeight: textViewHeight)
-            .background(RoundedRectangle(cornerRadius: 10).fill(.white))
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color(R.color.container)))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(R.color.grayDarkColor), lineWidth: 1)
+                    .stroke(Color(R.color.grayDark), lineWidth: 1)
             )
             .onTapGesture {
                 if text.isEmpty {
