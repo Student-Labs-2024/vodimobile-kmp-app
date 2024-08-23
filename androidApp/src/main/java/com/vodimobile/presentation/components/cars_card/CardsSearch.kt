@@ -62,9 +62,9 @@ fun CardsSearch(
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .size(height = 96.dp, width = 328.dp),
+                        .size(height = 110.dp, width = 316.dp),
                     painter = painterResource(id = carItem.images[0].drawableResId),
-                    contentDescription = "Hyundai Solaris"
+                    contentDescription = stringResource(id = carItem.model.resourceId)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
