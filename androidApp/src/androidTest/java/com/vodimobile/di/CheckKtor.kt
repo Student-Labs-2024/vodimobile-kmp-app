@@ -25,7 +25,4 @@ class CheckKtor : KoinTest {
     fun shutdown() {
         stopKoin()
     }
-
-
-
 }
