@@ -34,7 +34,8 @@ fun RuleScreen(
     onRulesIntent: (RulesIntent) -> Unit,
     @SuppressLint("ComposeMutableParameters") rulesEffect: MutableSharedFlow<RulesEffect>,
     rulesState: State<RulesState>,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
 
     LaunchedEffect(key1 = Unit) {
@@ -60,7 +61,7 @@ fun RuleScreen(
                     onRulesIntent(RulesIntent.BackClick)
                 }
             )
-        }
+        }, modifier = modifier
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
