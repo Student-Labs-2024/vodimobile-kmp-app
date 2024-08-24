@@ -15,6 +15,7 @@ import com.vodimobile.presentation.utils.NameValidator
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,6 +32,7 @@ class RegistrationViewModel(
 
     val registrationState = MutableStateFlow(RegistrationState())
     val registrationEffect = MutableSharedFlow<RegistrationEffect>()
+    private val supervisorCoroutineContext = viewModelScope.coroutineContext + SupervisorJob()
 
     fun onIntent(intent: RegistrationIntent) {
         when (intent) {
@@ -89,7 +91,7 @@ class RegistrationViewModel(
             }
 
             RegistrationIntent.AskPermission -> {
-                viewModelScope.launch {
+                viewModelScope.launch(context = supervisorCoroutineContext) {
 
                     val crmEither: CrmEither<UserResponse, HttpStatusCode> =
                         crmStorage.authUser()
@@ -128,7 +130,7 @@ class RegistrationViewModel(
         return passwordValidator.isValidPassword(password)
     }
 
-    private suspend fun saveInLocal() {
+    private suspend inline fun saveInLocal() {
         val user: User = supabaseStorage.getUser(
             password = registrationState.value.password,
             phone = registrationState.value.phoneNumber
@@ -136,7 +138,7 @@ class RegistrationViewModel(
         dataStoreStorage.edit(user = user)
     }
 
-    private suspend fun saveInRemote(accessToken: String, refreshToken: String) {
+    private suspend inline fun saveInRemote(accessToken: String, refreshToken: String) {
         with(registrationState.value) {
             try {
                 supabaseStorage.insertUser(

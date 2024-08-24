@@ -8,7 +8,6 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
-import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -88,7 +87,7 @@ class AuthorizationViewModel(
     }
 
     private fun validatePhoneNumber(phoneNumber: String): Boolean {
-        return phoneNumberValidator.isValidPhoneNumber(phoneNumber) //add validate phone logic
+        return phoneNumberValidator.isValidPhoneNumber(phoneNumber)
     }
 
     private fun validatePassword(password: String): Boolean {

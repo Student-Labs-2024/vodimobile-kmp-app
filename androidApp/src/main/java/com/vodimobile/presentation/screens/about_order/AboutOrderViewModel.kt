@@ -9,6 +9,8 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.about_order.store.AboutOrderEffect
 import com.vodimobile.presentation.screens.about_order.store.AboutOrderIntent
 import com.vodimobile.presentation.screens.about_order.store.AboutOrderState
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -20,6 +22,7 @@ class AboutOrderViewModel(
 ) : ViewModel() {
     val aboutOrderState = MutableStateFlow(AboutOrderState())
     val aboutOrderEffect = MutableSharedFlow<AboutOrderEffect>()
+    private val supervisorCoroutineContext = viewModelScope.coroutineContext + SupervisorJob()
 
     fun onAboutOrderIntent(intent: AboutOrderIntent) {
         when (intent) {
@@ -42,28 +45,36 @@ class AboutOrderViewModel(
             }
 
             is AboutOrderIntent.InitOrder -> {
-                viewModelScope.launch {
-                    val userFlow = userDataStoreStorage.getUser()
-                    userFlow.collect { value ->
-                        val user: User =
-                            supabaseStorage.getUser(password = value.password, phone = value.phone)
-                        val order: Order = supabaseStorage
-                            .getOrders(
-                                userId = user.id,
-                                accessToken = user.accessToken,
-                                refreshToken = user.refreshToken,
-                                phone = user.phone
-                            ).single {
-                                it.orderId == intent.orderId
-                            }
-                        aboutOrderState.update {
-                            it.copy(
-                                order = order,
-                                isLoading = false
-                            )
-                        }
-                    }
+                viewModelScope.launch(supervisorCoroutineContext) {
+                    initOrder(orderId = intent.orderId)
                 }
+            }
+
+            AboutOrderIntent.CanselCoroutines -> {
+                supervisorCoroutineContext.cancelChildren()
+            }
+        }
+    }
+
+    private suspend inline fun initOrder(orderId: Int) {
+        val userFlow = userDataStoreStorage.getUser()
+        userFlow.collect { value ->
+            val user: User =
+                supabaseStorage.getUser(password = value.password, phone = value.phone)
+            val order: Order = supabaseStorage
+                .getOrders(
+                    userId = user.id,
+                    accessToken = user.accessToken,
+                    refreshToken = user.refreshToken,
+                    phone = user.phone
+                ).single {
+                    it.orderId == orderId
+                }
+            aboutOrderState.update {
+                it.copy(
+                    order = order,
+                    isLoading = false
+                )
             }
         }
     }

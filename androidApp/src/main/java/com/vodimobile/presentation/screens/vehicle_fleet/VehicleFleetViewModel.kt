@@ -13,6 +13,8 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.utils.cars.carCategoryMap
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -26,8 +28,8 @@ class VehicleFleetViewModel(
 ) : ViewModel() {
 
     val vehicleState = MutableStateFlow(VehicleState())
-
     val vehicleFleetEffect = MutableSharedFlow<VehicleEffect>()
+    private val supervisorCoroutineContext = viewModelScope.coroutineContext + SupervisorJob()
 
     fun onIntent(intent: VehicleIntent) {
         when (intent) {
@@ -76,7 +78,7 @@ class VehicleFleetViewModel(
             }
 
             is VehicleIntent.InitCars -> {
-                viewModelScope.launch {
+                viewModelScope.launch(context = supervisorCoroutineContext) {
                     if (intent.dateRange[0] == 0L && intent.dateRange[1] == 0L) {
                         getAllCars()
                     } else {
@@ -104,6 +106,10 @@ class VehicleFleetViewModel(
                         filteredCars = intent.value
                     )
                 }
+            }
+
+            VehicleIntent.CancelCoroutines -> {
+                supervisorCoroutineContext.cancelChildren()
             }
         }
     }
@@ -147,7 +153,7 @@ class VehicleFleetViewModel(
         }
     }
 
-    private suspend fun getRangeCars(begin: Long, end: Long) {
+    private suspend inline fun getRangeCars(begin: Long, end: Long) {
         val userFLow = userDataStoreStorage.getUser()
         userFLow.collect { user ->
             val userFromRemote =

@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.orders
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
@@ -11,10 +10,12 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.orders.store.OrderEffect
 import com.vodimobile.presentation.screens.orders.store.OrderIntent
 import com.vodimobile.presentation.screens.orders.store.OrderState
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 class OrderViewModel(
@@ -22,8 +23,10 @@ class OrderViewModel(
     private val userDataStoreStorage: UserDataStoreStorage
 ) : ViewModel() {
     val orderState = MutableStateFlow(OrderState())
-
     val orderEffect = MutableSharedFlow<OrderEffect>()
+    private val supervisorCoroutineContext = viewModelScope.coroutineContext + SupervisorJob()
+    private var activeOrdersJob: Job = Job()
+    private var canselOrdersJob: Job = Job()
 
     fun onIntent(intent: OrderIntent) {
         when (intent) {
@@ -46,20 +49,30 @@ class OrderViewModel(
             }
 
             OrderIntent.InitCards -> {
-                viewModelScope.launch {
+                activeOrdersJob = viewModelScope.launch(context = supervisorCoroutineContext) {
                     getOrders()
                 }
             }
 
             is OrderIntent.SelectOrders -> {
-                viewModelScope.launch {
+                canselOrdersJob = viewModelScope.launch(context = supervisorCoroutineContext) {
                     getOrders(index = intent.index)
                 }
+            }
+
+            OrderIntent.CanselAllCoroutines -> {
+                supervisorCoroutineContext.cancelChildren()
             }
         }
     }
 
     private suspend fun getOrders(index: Int = 0) {
+
+        if (index == 0) {
+            canselOrdersJob.cancel()
+        } else if (index == 1) {
+            activeOrdersJob.cancel()
+        }
 
         orderState.update {
             it.copy(

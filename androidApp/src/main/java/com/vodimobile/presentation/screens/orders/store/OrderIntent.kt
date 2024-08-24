@@ -8,4 +8,5 @@ sealed class OrderIntent {
     data object DismissProgressDialog : OrderIntent()
     data object InitCards : OrderIntent()
     data class SelectOrders(val index: Int) : OrderIntent()
+    data object CanselAllCoroutines : OrderIntent()
 }
