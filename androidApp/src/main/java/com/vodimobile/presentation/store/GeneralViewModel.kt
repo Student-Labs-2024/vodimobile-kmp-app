@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.store
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -17,7 +16,6 @@ class GeneralViewModel : ViewModel() {
             }
 
             is GeneralIntent.ChangeAvailablePeriods -> {
-                Log.d("TAG", intent.value.toString())
                 generalState.update {
                     it.copy(availableDates = intent.value)
                 }

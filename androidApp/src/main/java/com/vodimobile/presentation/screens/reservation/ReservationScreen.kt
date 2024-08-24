@@ -129,7 +129,6 @@ fun ReservationScreen(
                 }
 
                 ReservationEffect.EmitGeneralStateChange -> {
-                    onGeneralIntent(GeneralIntent.ChangeSelectedDate(value = date))
                     onGeneralIntent(GeneralIntent.ChangeAvailablePeriods(value = reservationState.value.freeDates.map {
                         DateRange(
                             startDate = it.first,
@@ -150,7 +149,6 @@ fun ReservationScreen(
     }
 
     LaunchedEffect(key1 = Unit) {
-        onReservationIntent(ReservationIntent.GetCarFreeDate(value = date))
         onReservationIntent(ReservationIntent.DateChange(value = date))
         onReservationIntent(ReservationIntent.InitUser)
     }
