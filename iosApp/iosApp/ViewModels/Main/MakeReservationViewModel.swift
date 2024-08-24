@@ -20,6 +20,7 @@ final class MakeReservationViewModel: ObservableObject {
     @Published var selectedPlace: PlaceShort?
     @Published var totalPrice: Int = 0
     @Published var comment: String?
+    @Published var bidCost: Double = 0
     @ObservedObject var apiManager = KMPApiManager.shared
     @FocusState var focuseOnCommentField: Bool
 
@@ -51,6 +52,19 @@ final class MakeReservationViewModel: ObservableObject {
         await MainActor.run {
             self.handlerPlaceItems(places)
         }
+    }
+    
+    func fetchBigCost() async -> Double {
+        let bidInfo = await apiManager.fetchBidCost(for: BidCostParams(
+            car_id: car.carId,
+            begin: <#T##String#>,
+            end: <#T##String#>,
+            begin_place_id: <#T##Int32#>,
+            end_place_id: <#T##Int32#>,
+            services: <#T##KotlinArray<KotlinInt>?#>
+        )
+        )
+        return bidInfo.cost
     }
 
     private func handlerPlaceItems(_ places: [Place]) {

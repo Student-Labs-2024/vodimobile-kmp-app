@@ -67,6 +67,11 @@ struct MyOrdersView: View {
             .padding(.horizontal, horizontalPadding)
             .background(Color(R.color.grayLight))
         }
+        .onAppear {
+            Task {
+                await viewModel.getAllOrders()
+            }
+        }
     }
 }
 

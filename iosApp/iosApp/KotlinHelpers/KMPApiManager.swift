@@ -124,6 +124,9 @@ final class KMPApiManager: ObservableObject {
                     switch onEnum(of: response) {
                     case .crmData(let success):
                         if let cars = success.data {
+                            await MainActor.run {
+                                isLoading = false
+                            }
                             return convertNSArrayToArray(nsArray: cars)
                         }
                     case .crmError(let error):
@@ -214,6 +217,31 @@ final class KMPApiManager: ObservableObject {
             await MainActor.run {
                 isLoading = false
             }
+        }
+    }
+    
+    func fetchBidCost(for bidCostParams: BidCostParams) async -> Bid {
+        do {
+            if let storageUser = dataStorage.gettingUser {
+                let response = try await helper.getBidCost(
+                    accessToken: storageUser.accessToken,
+                    refreshToken: storageUser.refreshToken,
+                    bidCostParams: bidCostParams
+                )
+                switch onEnum(of: response) {
+                case .crmData(let success):
+                    print(success.data ?? "Empty data")
+                    if let bidCost = success.data {
+                        return bidCost
+                    }
+                case .crmError(let error):
+                    print(error.status?.value ?? "Empty error")
+                case .crmLoading:
+                    print("loading...")
+                }
+            }
+        } catch {
+            print(error)
         }
     }
 
