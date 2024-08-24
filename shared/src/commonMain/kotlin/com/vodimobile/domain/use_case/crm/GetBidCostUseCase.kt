@@ -6,6 +6,8 @@ import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 class GetBidCostUseCase(private val crmRepository: CrmRepository) {
     suspend operator fun invoke(
@@ -13,7 +15,7 @@ class GetBidCostUseCase(private val crmRepository: CrmRepository) {
         refreshToken: String,
         bidCostParams: BidCostParams
     ): CrmEither<Bid, HttpStatusCode> {
-
+        delay(400.milliseconds)
         val bidCost: CrmEither<BidCostDTO, HttpStatusCode> =
             crmRepository.getBidCost(accessToken, refreshToken, bidCostParams)
 
