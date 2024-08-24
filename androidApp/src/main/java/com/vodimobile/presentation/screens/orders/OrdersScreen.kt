@@ -26,7 +26,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -116,7 +115,7 @@ fun OrdersScreen(
             }
         }
     }
-    SideEffect {
+    LaunchedEffect(key1 = Unit) {
         orderIntent(OrderIntent.InitCards)
     }
     DisposableEffect(key1 = Unit) {
