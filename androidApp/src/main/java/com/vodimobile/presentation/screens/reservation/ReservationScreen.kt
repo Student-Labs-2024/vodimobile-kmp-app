@@ -83,6 +83,7 @@ import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
+import com.vodimobile.shared.resources.SharedRes
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -99,6 +100,7 @@ fun ReservationScreen(
     date: LongArray,
     carId: Int
 ) {
+    val defaultStatusForBid = stringResource(id = SharedRes.strings.cancelled_order.resourceId)
     LaunchedEffect(key1 = Unit) {
         reservationEffect.collect { effect ->
             when (effect) {
@@ -358,7 +360,7 @@ fun ReservationScreen(
                                         !reservationState.value.errorStartTime &&
                                         !reservationState.value.errorEndTime
                                     )
-                                        onReservationIntent(ReservationIntent.PutBid)
+                                        onReservationIntent(ReservationIntent.PutBid(value = defaultStatusForBid))
                                 }
                             )
                         }
