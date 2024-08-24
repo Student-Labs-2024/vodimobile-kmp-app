@@ -2,7 +2,6 @@ package com.vodimobile.presentation.screens.date_setect
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,9 +34,6 @@ import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.presentation.DateFormat
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
-import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
-import com.vodimobile.utils.date_formats.toUnavailableDates
 import java.util.Calendar
 import java.util.Date
 
@@ -54,13 +50,6 @@ fun DateSelectDialog(
     val cal = Calendar.getInstance()
     cal.timeInMillis = System.currentTimeMillis()
     val currentYear = cal.get(Calendar.YEAR)
-    val unAvailablePeriods =
-        if (availablePeriods.isNotEmpty()) availablePeriods.toUnavailableDates() else listOf(
-            DateRange(startDate = reduceFreeYear(), endDate = increaseFreeYear())
-        )
-
-    Log.d("TAG", "1) " + availablePeriods.size.toString())
-    Log.d("TAG", "2) " + unAvailablePeriods.size.toString())
 
     ExtendedTheme {
         val datePickerState =
@@ -124,8 +113,8 @@ fun DateSelectDialog(
                     .height(350.dp),
                 dateValidator = { date: Long ->
                     if (availablePeriods.isNotEmpty()) {
-                        unAvailablePeriods.none { unavailablePeriod ->
-                            date in unavailablePeriod.startDate..unavailablePeriod.endDate
+                        availablePeriods.all { availablePeriod ->
+                            date in availablePeriod.startDate..availablePeriod.endDate
                         }
                     } else true
                 }

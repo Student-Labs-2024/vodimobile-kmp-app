@@ -200,4 +200,5 @@
     <string name="change_order">Изменить заявку</string>
 
     <string name="simple_password_error">Неверный пароль. Повторите попытку.</string>
+    <string name="name_too_long">ФИО не должно превышать 100 символов.</string>
 </resources>

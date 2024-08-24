@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.reservation.store
 
-import com.vodimobile.domain.model.remote.dto.service_list.ServiceDTO
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 
@@ -31,7 +30,7 @@ sealed class ReservationIntent {
     data class CarIdChange(val value: Int) : ReservationIntent()
     data class StartTimeChange(val value: String) : ReservationIntent()
     data class EndTimeChange(val value: String) : ReservationIntent()
-    data object PutBid : ReservationIntent()
+    data class PutBid(val value: String) : ReservationIntent()
     data object ReturnBack : ReservationIntent()
     data class ShowTimePicker(val type: TimeType) : ReservationIntent()
     data object DismissLoadingDialog : ReservationIntent()

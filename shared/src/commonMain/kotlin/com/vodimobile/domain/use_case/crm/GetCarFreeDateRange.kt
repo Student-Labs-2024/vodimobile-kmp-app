@@ -7,6 +7,8 @@ import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.utils.date_formats.parseToCrmDateTime
 import com.vodimobile.utils.date_formats.parseToLong
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 class GetCarFreeDateRange(private val crmRepository: CrmRepository) {
     suspend operator fun invoke(
@@ -16,6 +18,7 @@ class GetCarFreeDateRange(private val crmRepository: CrmRepository) {
         begin: Long,
         end: Long
     ): List<Pair<Long, Long>> {
+        delay(400.milliseconds)
         val carFreeDateRangeEither: CrmEither<CarFreeDateRangeDTO, HttpStatusCode> =
             crmRepository.getCarFreeDateRange(
                 accessToken,

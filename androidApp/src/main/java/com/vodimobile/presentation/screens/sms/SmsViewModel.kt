@@ -11,7 +11,7 @@ import com.vodimobile.App
 import com.vodimobile.presentation.screens.sms.store.SmsEffect
 import com.vodimobile.presentation.screens.sms.store.SmsIntent
 import com.vodimobile.presentation.screens.sms.store.SmsState
-import com.vodimobile.presentation.utils.phoneCodeGenerator
+import com.vodimobile.presentation.utils.sms.phoneCodeGenerator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,18 +66,12 @@ class SmsViewModel : ViewModel() {
             is SmsIntent.OnInputPartCode -> {
                 val list = smsState.value.userCode
 
-                try {
-                    if (list.size < 4) {
-                        list.add(index = intent.index, element = intent.partCode)
-                    } else {
-                        list.set(index = intent.index, element = intent.partCode)
-                    }
-                    smsState.update {
-                        it.copy(
-                            userCode = list
-                        )
-                    }
-                } catch (_: Exception) {
+                list.set(index = intent.index, element = intent.partCode)
+
+                smsState.update {
+                    it.copy(
+                        userCode = list
+                    )
                 }
             }
         }

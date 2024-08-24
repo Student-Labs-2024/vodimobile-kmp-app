@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +38,7 @@ import com.vodimobile.presentation.screens.sms.components.SendCodeAgain
 import com.vodimobile.presentation.screens.sms.components.SmsField
 import com.vodimobile.presentation.screens.sms.components.SmsHeadLine
 import com.vodimobile.presentation.screens.sms.store.SmsEffect
+import com.vodimobile.presentation.screens.sms.store.SmsFieldState
 import com.vodimobile.presentation.screens.sms.store.SmsIntent
 import com.vodimobile.presentation.screens.sms.store.SmsState
 import com.vodimobile.presentation.theme.ExtendedTheme
@@ -54,7 +56,7 @@ fun SmsScreen(
     navHostController: NavHostController
 ) {
     val context = LocalContext.current
-    val focus = remember { FocusRequester() }
+    val focus =  remember {FocusRequester()}
     val smsFields = remember {
         mutableStateListOf(
             SmsFieldState(focusRequester = focus),
@@ -118,42 +120,25 @@ fun SmsScreen(
                             state = fieldState,
                             error = !smsState.value.isIncorrectCode,
                             onValueChange = { partCode ->
-                                var part = 0
+                                val part: Int
                                 try {
                                     part = Integer.parseInt(
                                         partCode
                                     )
+                                    onIntent(
+                                        SmsIntent.OnInputPartCode(
+                                            partCode = part,
+                                            index = index
+                                        )
+                                    )
                                 } catch (_: NumberFormatException) {
 
                                 }
-
-                                onIntent(
-                                    SmsIntent.OnInputPartCode(
-                                        partCode = part,
-                                        index = index
-                                    )
-                                )
                             },
-                            onDone = { partCode ->
+                            onDone = {
                                 if (index < smsFields.size - 1) {
                                     smsFields[index + 1].focusRequester.requestFocus()
                                 }
-
-                                var part = 0
-                                try {
-                                    part = Integer.parseInt(
-                                        partCode
-                                    )
-                                } catch (_: NumberFormatException) {
-
-                                }
-
-                                onIntent(
-                                    SmsIntent.OnInputPartCode(
-                                        partCode = part,
-                                        index = index
-                                    )
-                                )
                             }
                         )
                     }
@@ -175,11 +160,6 @@ fun SmsScreen(
         }
     }
 }
-
-data class SmsFieldState(
-    val focusRequester: FocusRequester,
-    val text: MutableState<String> = mutableStateOf(""),
-)
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)

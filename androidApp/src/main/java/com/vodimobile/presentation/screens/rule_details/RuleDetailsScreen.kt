@@ -39,6 +39,7 @@ fun RuleDetailsScreen(
     ruleDetailsState: State<RuleDetailsState>,
     navHostController: NavHostController,
     ruleId: Int,
+    modifier: Modifier = Modifier
 ) {
 
     LaunchedEffect(key1 = Unit) {
@@ -60,7 +61,7 @@ fun RuleDetailsScreen(
                     onRuleDetailsIntent(RuleDetailsIntent.ReturnBack)
                 }
             )
-        }
+        }, modifier = modifier
     ) { innerPadding ->
 
         LazyColumn(

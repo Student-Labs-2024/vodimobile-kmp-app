@@ -88,7 +88,6 @@ fun VehicleFleetScreen(
     dateRange: LongArray,
     modifier: Modifier = Modifier
 ) {
-
     LaunchedEffect(key1 = Unit) {
         vehicleEffect.collect { effect ->
             when (effect) {
@@ -98,13 +97,6 @@ fun VehicleFleetScreen(
 
                 is VehicleEffect.BookCarClick -> {
                     navHostController.navigate("${LeafHomeScreen.RESERVATION_SCREEN}/${effect.carId}?date=${dateRange}")
-                }
-
-                VehicleEffect.InfoCarClick -> {
-                }
-
-                VehicleEffect.CloseModel -> {
-
                 }
 
                 VehicleEffect.DismissLoadingDialog -> {
@@ -142,7 +134,6 @@ fun VehicleFleetScreen(
                             onVehicleIntent(VehicleIntent.BackClick)
                         }
                     )
-
                     AutoTypeTagList(
                         modifier = Modifier,
                         tags = vehicleState.value.tags,
@@ -152,7 +143,6 @@ fun VehicleFleetScreen(
                         }
                     )
                 }
-
             }
         ) { paddingValues ->
             LazyColumn(
@@ -180,7 +170,7 @@ fun VehicleFleetScreen(
                             },
                             onInfoClick = { carItem ->
                                 onVehicleIntent(
-                                    VehicleIntent.InfoCarClick(
+                                    VehicleIntent.ShowModal(
                                         car = carItem
                                     )
                                 )
@@ -272,7 +262,11 @@ private fun VehicleFleetScreenPreview() {
                 updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                 updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                 insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
+                getOrdersUseCase = GetOrdersUseCase(
+                    SupabaseRepositoryImpl(),
+                    crmStorage,
+                    crmRepository
+                ),
                 updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                 updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                 updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
