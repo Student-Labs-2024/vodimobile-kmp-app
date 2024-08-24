@@ -16,6 +16,7 @@ fun NameField(
     isError: Boolean,
     onNameChanged: (String) -> Unit
 ) {
+    val maxNameLength = 100
     AuthenticationField(
         label = stringResource(id = R.string.label_name),
         value = value,
@@ -23,9 +24,11 @@ fun NameField(
         placeholder = stringResource(id = R.string.placeholder_name),
         keyboardType = KeyboardType.Text,
         isError = isError,
-        errorMessage =
-        if (value.isEmpty()) stringResource(id = R.string.empty_name)
-        else stringResource(id = R.string.name_error)
+        errorMessage = when {
+            value.isEmpty() -> stringResource(id = R.string.empty_name)
+            value.length > maxNameLength -> stringResource(id = R.string.name_too_long)
+            else -> stringResource(id = R.string.name_error)
+        }
     )
 }
 
