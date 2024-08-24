@@ -1,4 +1,4 @@
-package com.vodimobile.utils
+package com.vodimobile.utils.date
 
 import com.vodimobile.domain.model.order.DateRange
 import com.vodimobile.utils.date_formats.toUnavailableDates

@@ -19,14 +19,13 @@ import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
 import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
 import com.vodimobile.utils.bid.bidGripReverse
 import com.vodimobile.utils.date_formats.parseToCrmDate
+import com.vodimobile.utils.date_formats.parseToSupabaseDate
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration.Companion.seconds
 
@@ -231,7 +230,7 @@ class ReservationViewModel(
                 getBidCostIfPossible()
             }
 
-            ReservationIntent.PutBid -> {
+            is ReservationIntent.PutBid -> {
                 viewModelScope.launch(supervisorCoroutineContext) {
                     reservationEffect.emit(ReservationEffect.ShowLoadingDialog)
                     val crmEither = crmStorage.createBid(
@@ -241,11 +240,12 @@ class ReservationViewModel(
                             fio = reservationState.value.user.fullName,
                             phone = reservationState.value.user.phone,
                             car_id = reservationState.value.carId,
-                            begin = "${toFormat2(reservationState.value.date[0])} ${reservationState.value.startTime}",
-                            end = "${toFormat2(reservationState.value.date[1])} ${reservationState.value.endTime}",
+                            begin = "${reservationState.value.date[0].parseToCrmDate()} ${reservationState.value.startTime}",
+                            end = "${reservationState.value.date[1].parseToCrmDate()} ${reservationState.value.endTime}",
                             begin_place_id = reservationState.value.getPlaceId,
                             end_place_id = reservationState.value.returnPlaceId,
-                            services = reservationState.value.selectedServiceIdList.map { it.service_id }.ifEmpty { null },
+                            services = reservationState.value.selectedServiceIdList.map { it.service_id }
+                                .ifEmpty { null },
                             prepayment = null,
                             files = null
                         )
@@ -261,17 +261,18 @@ class ReservationViewModel(
                                     car_id = reservationState.value.carId,
                                     crm_bid_id = crmEither.data.bid_id ?: 0,
                                     bid_status = bidGripReverse[CarStatus.Processing]
-                                        ?: "Отменено",
-                                    date_start = toFormat(reservationState.value.date[0]),
-                                    date_finish = toFormat(reservationState.value.date[1]),
+                                        ?: intent.value,
+                                    date_start = reservationState.value.date[0].parseToSupabaseDate(),
+                                    date_finish = reservationState.value.date[1].parseToSupabaseDate(),
                                     time_start = reservationState.value.startTime,
                                     time_finish = reservationState.value.endTime,
                                     place_start = reservationState.value.getPlace.split(" - ")[0],
                                     place_finish = reservationState.value.returnPlace.split(" - ")[0],
                                     cost = reservationState.value.bidCost.toFloat(),
-                                    services = if (reservationState.value.selectedServiceIdList.isNotEmpty()) reservationState.value.selectedServiceIdList.joinToString(
-                                        ", "
-                                    ) else ""
+                                    services = if (reservationState.value.selectedServiceIdList.isNotEmpty()) reservationState.value.selectedServiceIdList.map { it.service_id }
+                                        .joinToString(
+                                            ", "
+                                        ) else ""
                                 )
                             )
 
@@ -325,7 +326,8 @@ class ReservationViewModel(
                         end = "${reservationState.value.date[1].parseToCrmDate()} ${reservationState.value.endTime}",
                         begin_place_id = reservationState.value.getPlaceId,
                         end_place_id = reservationState.value.returnPlaceId,
-                        services = reservationState.value.selectedServiceIdList.map { it.service_id }.toTypedArray()
+                        services = reservationState.value.selectedServiceIdList.map { it.service_id }
+                            .toTypedArray()
                     )
                 )
                 when (crmEither) {
@@ -341,17 +343,5 @@ class ReservationViewModel(
                 }
             }
         }
-    }
-
-    private fun toFormat(date: Long): String {
-        return SimpleDateFormat(
-            "dd.MM.yyyy", Locale.getDefault()
-        ).format(date)
-    }
-
-    private fun toFormat2(date: Long): String {
-        return SimpleDateFormat(
-            "yyyy-MM-dd", Locale.getDefault()
-        ).format(date)
     }
 }
