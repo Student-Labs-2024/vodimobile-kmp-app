@@ -1,7 +1,5 @@
 package com.vodimobile.presentation.screens.reservation.store
 
-import android.content.Context
-import com.vodimobile.domain.model.remote.dto.service_list.ServiceDTO
 import com.vodimobile.domain.model.remote.dto.service_list.ServicesDTO
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 
