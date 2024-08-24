@@ -13,17 +13,18 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import com.vodimobile.presentation.screens.sms.SmsFieldState
+import com.vodimobile.presentation.screens.sms.store.SmsFieldState
 import com.vodimobile.presentation.theme.ExtendedTheme
 
 @Composable
 fun RowScope.SmsField(
     state: SmsFieldState,
-    error: Boolean = false,
     onDone: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    error: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
-    val maxLength = 2
+    val maxLength = 1
     val textFieldStyle = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
     val textFieldColors = OutlinedTextFieldDefaults.colors(
         focusedBorderColor = MaterialTheme.colorScheme.primary,
@@ -45,7 +46,8 @@ fun RowScope.SmsField(
         modifier = Modifier
             .wrapContentSize()
             .focusRequester(state.focusRequester)
-            .weight(1.0f),
+            .weight(1.0f)
+            .then(modifier),
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
         keyboardOptions = KeyboardOptions(
