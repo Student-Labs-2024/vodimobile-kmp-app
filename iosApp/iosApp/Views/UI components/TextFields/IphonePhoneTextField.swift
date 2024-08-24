@@ -16,12 +16,12 @@ struct IphonePhoneTextField: View {
     @Binding var inputErrorType: InputErrorType?
     @State var errorMessage: String = ""
     @FocusState.Binding var isFocused: Bool
-    
-    let errorHandler: (inout String) -> ()
+
+    let errorHandler: (inout String) -> Void
     let fieldName: String = TextFieldType.phone.localizedStr
     let placeholder: String = R.string.localizable.phonePlaceholder()
     let keyboardType: UIKeyboardType = .phonePad
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             iPhoneNumberField(placeholder, text: $fieldContent)
@@ -50,14 +50,14 @@ struct IphonePhoneTextField: View {
                 }
                 .font(.paragraph4)
                 .padding(16)
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color(R.color.text))
                 .multilineTextAlignment(.leading)
-                .background(Color(R.color.grayLightColor))
+                .background(Color(R.color.grayTheme))
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(
-                            !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                            !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDark),
                             lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
                         )
                 )
@@ -79,7 +79,7 @@ struct IphonePhoneTextField: View {
                             self.isEditing = false
                         }) {
                             Image.xmark
-                                .foregroundColor(Color(R.color.grayDarkColor))
+                                .foregroundColor(Color(R.color.grayDark))
                                 .padding(8)
                         }
                     }
@@ -89,8 +89,8 @@ struct IphonePhoneTextField: View {
                 .onChange(of: inputErrorType) { _ in
                     errorHandler(&errorMessage)
                 }
-            
-            if let _ = inputErrorType {
+
+            if inputErrorType != nil {
                 Text(errorMessage)
                     .font(.paragraph6)
                     .foregroundStyle(Color(R.color.redColor))

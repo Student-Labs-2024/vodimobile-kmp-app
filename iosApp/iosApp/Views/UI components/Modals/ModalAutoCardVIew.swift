@@ -36,7 +36,7 @@ struct ModalAutoView: View {
         )
         .presentationDetents([.fraction(0.64)])
         .presentationDragIndicator(.visible)
-        
+
         if #available(iOS 16.4, *) {
             ModalAutoCardView.presentationCornerRadius(24)
         } else {
@@ -44,7 +44,6 @@ struct ModalAutoView: View {
         }
     }
 }
-
 
 struct ModalAutoCardView: View {
     @Binding var showModalView: Bool
@@ -56,7 +55,7 @@ struct ModalAutoCardView: View {
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
     ]
-    
+
     init(
         carModel: Binding<Car>,
         showModal: Binding<Bool>,
@@ -68,7 +67,7 @@ struct ModalAutoCardView: View {
         self._showModalView = showModal
         self._showSignSuggestModal = showSignSuggestModal
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -79,112 +78,73 @@ struct ModalAutoCardView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 10, height: 10)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .foregroundStyle(Color(R.color.grayDark))
                 }
                 .frame(width: 30, height: 30)
-                .background(Circle().fill(Color(R.color.grayLightColor)))
+                .background(Circle().fill(Color(R.color.grayTheme)))
                 .onTapGesture {
                     showModalView.toggle()
                 }
             }
             .padding(.top, 30)
-            
+
             Spacer()
-            
+
             VStack {
                 viewModel.carPreview
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(maxHeight: 200)
                     .padding(.horizontal, 55)
-                
+
                 HStack {
                     Text(viewModel.carModel.model.resource).font(.header3)
                     Spacer()
                     if let carPrice = viewModel.carModel.tariffs.first?.cost {
-                        Text("\(R.string.localizable.prepositionPriceText()) \(Int(carPrice)) \(R.string.localizable.currencyPriceText())")
-                            .font(.header4)
-                            .foregroundStyle(Color(R.color.blueColor))
-                            .fontWeight(.bold)
+                        Text(
+                            R.string.localizable.prepositionPriceText() +
+                            " \(Int(carPrice)) " +
+                            R.string.localizable.currencyPriceText()
+                        )
+                        .font(.header4)
+                        .foregroundStyle(Color(R.color.blueColor))
+                        .fontWeight(.bold)
                     }
                 }
                 .padding(.vertical, 15)
-                
+
                 VStack(alignment: .leading, spacing: 10) {
                     Text(R.string.localizable.characteristicsTitle)
                         .font(.paragraph2)
-                    
+                        .foregroundStyle(Color(R.color.background))
+
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 15) {
-                        HStack(spacing: 18) {
-                            Image(R.image.transmission)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.transmissionTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                Text(viewModel.carModel.transmission.resource)
-                                    .foregroundStyle(Color(R.color.grayTextColor))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                            }
+                        CarGridItem(
+                            gridItemType: .transmission,
+                            value: viewModel.carModel.transmission.resource
+                        )
+
+                        CarGridItem(
+                            gridItemType: .gear,
+                            value: viewModel.carModel.wheelDrive.resource
+                        )
+
+                        if let carYear = viewModel.carModel.year {
+                            CarGridItem(
+                                gridItemType: .yearDev,
+                                value: carYear.stringValue
+                            )
                         }
-                        
-                        HStack(spacing: 18) {
-                            Image(R.image.gear)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.driveTypeTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                Text(viewModel.carModel.wheelDrive.resource)
-                                    .foregroundStyle(Color(R.color.grayTextColor))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                            }
-                        }
-                        
-                        HStack(spacing: 18) {
-                            Image(R.image.calendarYear)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.yearOfManufactureTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                if let carYear = viewModel.carModel.year {
-                                    Text("\(carYear)".replacingOccurrences(of: " ", with: ""))
-                                        .foregroundStyle(Color(R.color.grayTextColor))
-                                        .font(.caption1)
-                                        .fontWeight(.bold)
-                                }
-                            }
-                        }
-                        
-                        HStack(spacing: 18) {
-                            Image(R.image.gasoline)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(R.string.localizable.tankTitle)
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                                Text("\(viewModel.carModel.tankValue.resource) \(R.string.localizable.literText())")
-                                    .foregroundStyle(Color(R.color.grayTextColor))
-                                    .font(.caption1)
-                                    .fontWeight(.bold)
-                            }
-                        }
+
+                        CarGridItem(
+                            gridItemType: .gasoline,
+                            value: viewModel.carModel.tankValue.resource
+                        )
                     }
                     .padding(.vertical, 10)
                 }
             }
-            
+
             Button(R.string.localizable.bookButton()) {
                 showModalView.toggle()
                 if authManager.isAuthenticated {
@@ -194,12 +154,12 @@ struct ModalAutoCardView: View {
                 }
             }
             .buttonStyle(FilledBtnStyle())
-            
+
             Spacer()
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 16)
-        .background(Color.white)
+        .background(Color(R.color.background))
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

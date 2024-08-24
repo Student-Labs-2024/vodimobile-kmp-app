@@ -6,7 +6,7 @@ struct SignSuggestView: View {
     @Binding var showSignSuggestModal: Bool
     @ObservedObject var appState = AppState.shared
     private var authManager = AuthManager.shared
-    
+
     init(showSignSuggestModal: Binding<Bool>) {
         self._showSignSuggestModal = showSignSuggestModal
     }
@@ -21,7 +21,7 @@ struct SignSuggestView: View {
                     } label: {
                         Image.xmark
                             .resizable()
-                            .foregroundColor(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                             .frame(width: SignSuggestConfig.xmarkSize, height: SignSuggestConfig.xmarkSize)
                     }
                     .padding(.top, SignSuggestConfig.xmarkTopPadding)
@@ -41,15 +41,15 @@ struct SignSuggestView: View {
                 }
                 .padding(SignSuggestConfig.verticalPaddingTextBlock)
                 .multilineTextAlignment(.center)
-                
+
                 NavigationLink(destination: RegistrationScreenView(showSignSuggestModal: $showSignSuggestModal)) {
                     Text(R.string.localizable.regButtonTitle)
                 }.buttonStyle(FilledBtnStyle())
-                
+
                 NavigationLink(destination: AuthScreenView(showSignSuggestModal: $showSignSuggestModal)) {
                     Text(R.string.localizable.authButtonTitle)
                 }.buttonStyle(BorderedBtnStyle())
-                
+
                 Spacer()
             }
             .padding(.horizontal, horizontalPadding)

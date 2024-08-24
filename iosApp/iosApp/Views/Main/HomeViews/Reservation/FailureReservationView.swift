@@ -15,7 +15,7 @@ struct FailureReservationView: View {
                 NavigationLink(destination: MainTabbarView()) {
                     Image.chevronLeft
                         .resizable()
-                        .foregroundColor(Color.black)
+                        .foregroundStyle(Color(R.color.text))
                         .fontWeight(.bold)
                         .frame(width: 12, height: 18)
                 }
@@ -23,32 +23,32 @@ struct FailureReservationView: View {
                 .padding(.horizontal, 5)
                 Spacer()
             }
-            
+
             Image(R.image.failureCoin)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .foregroundStyle(.black)
+                .foregroundStyle(Color(R.color.text))
                 .padding(.horizontal, 110)
                 .padding(.top, 40)
-            
+
             VStack(alignment: .center, spacing: 24) {
                 Text(R.string.localizable.requestFailedTitle)
                     .font(.header1).foregroundStyle(.black)
                     .multilineTextAlignment(.center)
                 Text(R.string.localizable.requestFailedText)
                     .font(.paragraph2)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
-            
+
             NavigationLink(R.string.localizable.reconnectButton(), destination: {
                 MainTabbarView()
                 // TODO: - Make to move back on rootViewController
             })
             .buttonStyle(BorderedBtnStyle())
-            
+
             Spacer()
         }
         .navigationBarBackButtonHidden()

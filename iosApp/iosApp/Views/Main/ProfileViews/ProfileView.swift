@@ -10,27 +10,27 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var authManager = AuthManager.shared
-    @ObservedObject private var viewModel: ProfileViewModel
     @State private var showAlert: Bool = false
     @State private var showSignSuggestModal: Bool = false
+    private var viewModel: ProfileViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 12),
         GridItem(.flexible(), spacing: 12)
     ]
-    
+
     init() {
         self.viewModel = .init()
     }
-    
+
     var body: some View {
         NavigationView {
             VStack {
                 Text(R.string.localizable.profileScreenTitle)
                     .font(.header1)
-                    .foregroundStyle(Color.black)
-                
+                    .foregroundStyle(Color(R.color.text))
+
                 Spacer()
-                
+
                 VStack(spacing: ProfileConfig.spacingBetweenBlocks) {
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(viewModel.profileMenuData) { cell in
@@ -40,7 +40,7 @@ struct ProfileView: View {
                             )
                         }
                     }
-                    
+
                     if authManager.isAuthenticated {
                         VStack {
                             Button(action: {
@@ -48,9 +48,9 @@ struct ProfileView: View {
                             }, label: {
                                 HStack(spacing: 20) {
                                     Image(R.image.exitIcon)
-                                    
+
                                     Text(R.string.localizable.exitText)
-                                    
+
                                     Spacer()
                                 }
                                 .foregroundStyle(Color(R.color.redColor))
@@ -58,7 +58,12 @@ struct ProfileView: View {
                         }
                         .padding(.horizontal, 30)
                         .padding(.vertical, ProfileConfig.insetPaddingExitButton)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.white))
+                        .background(
+                            RoundedRectangle(
+                                cornerRadius: 10,
+                                style: .continuous
+                            )
+                            .fill(Color(R.color.container)))
                         .alert(
                             R.string.localizable.exitAlertTitle(),
                             isPresented: $showAlert
@@ -66,7 +71,7 @@ struct ProfileView: View {
                             Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {
                                 authManager.logout()
                             }
-                            
+
                             Button(R.string.localizable.exitSecondBtnText(), role: .cancel) {
                                 showAlert.toggle()
                             }
@@ -75,11 +80,11 @@ struct ProfileView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
             }
             .padding(.horizontal, horizontalPadding)
-            .background(Color(R.color.grayLightColor))
+            .background(Color(R.color.grayLight))
             .navigationBarBackButtonHidden()
         }
         .fullScreenCover(isPresented: $showSignSuggestModal) {

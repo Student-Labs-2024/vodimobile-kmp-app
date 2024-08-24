@@ -11,37 +11,37 @@ import SwiftUI
 struct PersonDataView: View {
     @ObservedObject private var viewModel: UserDataViewModel
     @FocusState private var focusedField: Field?
-    
+
     enum Field {
         case fullname, phone
     }
-    
+
     init() {
         self.viewModel = .init()
         self.viewModel.fetchUserData()
     }
-    
+
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 25) {
                 Text(R.string.localizable.yourDataText).font(.header3)
-                
+
                 UnderlineTextField(
                     text: $viewModel.fullname,
                     isValid: $viewModel.isFullnameValid,
                     fieldType: .fullName
                 )
                 .focused($focusedField, equals: .fullname)
-                
+
                 ButtonLikeUnderlinedTextField()
-                
+
                 UnderlineTextField(
                     text: $viewModel.phone,
                     isValid: $viewModel.isPhoneValid,
                     fieldType: .phone
                 )
                 .focused($focusedField, equals: .phone)
-                
+
                 Button(R.string.localizable.saveChangePersonalData()) {
                     focusedField = nil
                     viewModel.saveEditedUserData()
@@ -54,11 +54,11 @@ struct PersonDataView: View {
             }
             .padding(.horizontal, 32)
             .padding(.vertical, 40)
-            .background(Color(R.color.blueBoxColor))
+            .background(Color(R.color.blueBox))
             .cornerRadius(20)
             .padding(.horizontal, 16)
             .padding(.top, 50)
-            
+
             Spacer()
         }
         .onChange(of: focusedField) { newValue in

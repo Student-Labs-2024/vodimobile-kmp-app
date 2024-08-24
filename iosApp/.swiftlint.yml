@@ -7,10 +7,6 @@ excluded: # paths to ignore during linting
   - iosApp/SupportingFiles/Launch Screen.storyboard
   - iosApp/SupportingFiles/Localizable
   - rswift
-  
-included: # paths to include during linting
-  - iosApp/SupportingFiles/AppTheme.swift
-  - iosApp/SupportingFiles/Constants.swift
 
 disabled_rules: # rule identifiers turned on by default to exclude from running
   - multiple_closures_with_trailing_closure

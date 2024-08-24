@@ -18,7 +18,7 @@ final class AutoCardViewModel: ObservableObject {
             return Image.questionFolder
         }
     }
-    
+
     init(carModel: Binding<Car>) {
         self._carModel = carModel
     }

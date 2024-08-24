@@ -15,7 +15,7 @@ struct BorderedTextField: View {
     @Binding var fieldContent: String
     @Binding var isValid: Bool
     @Binding var inputErrorType: InputErrorType?
-    
+
     private let isForgetBtnEnabled: Bool
     private let fieldType: TextFieldType
     private let placeholder: String
@@ -23,7 +23,7 @@ struct BorderedTextField: View {
     private var contentIsNotValid: Bool {
         !isValid && !fieldContent.isEmpty
     }
-    
+
     init(
         fieldContent: Binding<String>,
         isValid: Binding<Bool>,
@@ -36,7 +36,7 @@ struct BorderedTextField: View {
         self._inputErrorType = inputErrorType
         self.fieldType = fieldType
         self.isForgetBtnEnabled = isForgetBtnEnabled
-        
+
         switch fieldType {
         case .email:
             placeholder = "example@gmail.com"
@@ -55,11 +55,12 @@ struct BorderedTextField: View {
             keyboardType = .default
         }
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
-            Text(fieldType.localizedStr).font(.header4).foregroundStyle(Color.black)
-            
+            Text(fieldType.localizedStr).font(.header4)
+                .foregroundStyle(Color(R.color.text))
+
             switch fieldType {
             case .phone:
                 IphonePhoneTextField(
@@ -111,25 +112,25 @@ struct BorderedTextField: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 14, height: 14)
-                                .foregroundColor(Color(R.color.grayDarkColor))
+                                .foregroundColor(Color(R.color.grayDark))
                         }
                     }
                 }
                 .frame(alignment: .leading)
                 .font(.paragraph4)
                 .padding(16)
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color(R.color.text))
                 .multilineTextAlignment(.leading)
-                .background(Color(R.color.grayLightColor))
+                .background(Color(R.color.grayTheme))
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(
-                            contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDarkColor),
+                            contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDark),
                             lineWidth: isFocused || contentIsNotValid ? 1 : 0
                         )
                 )
-                
+
                 if inputErrorType != nil {
                     Text(errorMessage)
                         .font(.paragraph6)
@@ -139,49 +140,69 @@ struct BorderedTextField: View {
             }
         }
     }
-    
     private func handleErrorTypeChanging(errorMsg: inout String) {
-        if let inputErrorType = inputErrorType {
-            switch inputErrorType {
-            case .alreadyExistsPhone:
-                if fieldType == .phone {
-                    errorMsg = InputErrorType.alreadyExistsPhone.errorString
-                }
-            case .incorrectFullName:
-                if fieldType == .fullName {
-                    errorMsg = InputErrorType.incorrectFullName.errorString
-                }
-            case .incorrectPass:
-                if fieldType == .password {
-                    errorMsg = InputErrorType.incorrectPass.errorString
-                }
-            case .incorrectPhone:
-                if fieldType == .phone {
-                    errorMsg = InputErrorType.incorrectPhone.errorString
-                }
-            case .noSpecSymboldsInPass:
-                if fieldType == .password {
-                    errorMsg = InputErrorType.noSpecSymboldsInPass.errorString
-                }
-            case .noUpperLettersInPass:
-                if fieldType == .password {
-                    errorMsg = InputErrorType.noUpperLettersInPass.errorString
-                }
-            case .tooShortPass:
-                if fieldType == .password {
-                    errorMsg = InputErrorType.tooShortPass.errorString
-                }
-            case .invalidPass:
-                if fieldType == .password {
-                    errorMsg = InputErrorType.invalidPass.errorString
-                }
-            case .selectDayTime, .selectNightTime:
-                errorMsg = ""
-            case .oldPasswordIsWrong:
-                if fieldType == .oldPassword {
-                    errorMsg = InputErrorType.oldPasswordIsWrong.errorString
-                }
-            }
+        let errorMappings: [InputErrorType: (TextFieldType, String)] = [
+            .alreadyExistsPhone: (.phone, InputErrorType.alreadyExistsPhone.errorString),
+            .incorrectFullName: (.fullName, InputErrorType.incorrectFullName.errorString),
+            .incorrectPass: (.password, InputErrorType.incorrectPass.errorString),
+            .incorrectPhone: (.phone, InputErrorType.incorrectPhone.errorString),
+            .noSpecSymboldsInPass: (.password, InputErrorType.noSpecSymboldsInPass.errorString),
+            .noUpperLettersInPass: (.password, InputErrorType.noUpperLettersInPass.errorString),
+            .tooShortPass: (.password, InputErrorType.tooShortPass.errorString),
+            .invalidPass: (.password, InputErrorType.invalidPass.errorString),
+            .oldPasswordIsWrong: (.oldPassword, InputErrorType.oldPasswordIsWrong.errorString)
+        ]
+        if let inputErrorType = inputErrorType,
+           let mapping = errorMappings[inputErrorType],
+           fieldType == mapping.0 {
+            errorMsg = mapping.1
+        } else if inputErrorType == .selectDayTime || inputErrorType == .selectNightTime {
+            errorMsg = ""
         }
     }
+
+//    private func handleErrorTypeChanging(errorMsg: inout String) {
+//        if let inputErrorType = inputErrorType {
+//            switch inputErrorType {
+//            case .alreadyExistsPhone:
+//                if fieldType == .phone {
+//                    errorMsg = InputErrorType.alreadyExistsPhone.errorString
+//                }
+//            case .incorrectFullName:
+//                if fieldType == .fullName {
+//                    errorMsg = InputErrorType.incorrectFullName.errorString
+//                }
+//            case .incorrectPass:
+//                if fieldType == .password {
+//                    errorMsg = InputErrorType.incorrectPass.errorString
+//                }
+//            case .incorrectPhone:
+//                if fieldType == .phone {
+//                    errorMsg = InputErrorType.incorrectPhone.errorString
+//                }
+//            case .noSpecSymboldsInPass:
+//                if fieldType == .password {
+//                    errorMsg = InputErrorType.noSpecSymboldsInPass.errorString
+//                }
+//            case .noUpperLettersInPass:
+//                if fieldType == .password {
+//                    errorMsg = InputErrorType.noUpperLettersInPass.errorString
+//                }
+//            case .tooShortPass:
+//                if fieldType == .password {
+//                    errorMsg = InputErrorType.tooShortPass.errorString
+//                }
+//            case .invalidPass:
+//                if fieldType == .password {
+//                    errorMsg = InputErrorType.invalidPass.errorString
+//                }
+//            case .selectDayTime, .selectNightTime:
+//                errorMsg = ""
+//            case .oldPasswordIsWrong:
+//                if fieldType == .oldPassword {
+//                    errorMsg = InputErrorType.oldPasswordIsWrong.errorString
+//                }
+//            }
+//        }
+//    }
 }

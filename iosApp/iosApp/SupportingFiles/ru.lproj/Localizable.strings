@@ -27,6 +27,7 @@
 "resetPassScreenTitle" = "Сброс пароля";
 "changePassword" = "Изменить пароль";
 "reservationScreenTitle" = "Оформление брони";
+"aboutOrder" = "О заказе";
 
 // Buttons titles
 "authButtonTitle" = "Войти";
@@ -44,6 +45,9 @@
 "leaveReuqestButton" = "Оставить заявку";
 "loginToAccount" = "Войти в аккаунт";
 "saveChangePersonalData" = "Сохранить изменения";
+"backButton" = "Назад";
+"cancelShortButton" = "Отменить";
+"cancelBidButton" = "Отменить заявку";
 
 // Field names
 "email" = "Email";
@@ -87,6 +91,7 @@
 "alertErrorSavingTitle" = "Ошибка сохранения";
 "alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
 "alertSavePersonDataTitle" = "Ваши данные были успешно сохранены";
+"alertCancelBidTitle" = "Вы уверены, что хотите отменить заявку?";
 
 // Info strings
 "conditionLink" = "Пользовательского соглашения";
@@ -123,7 +128,8 @@
 "driveTypeTitle" = "Привод";
 "tankTitle" = "Бак";
 "prepositionPriceText" = "от";
-"currencyPriceText" = "руб.";
+"currencyPriceText" = "р/сут.";
+"currencyText" = "руб.";
 "yearOfManufactureTitle" = "Год выпуска";
 "characteristicsTitle" = "Характеристики:";
 "generalAutoCardTitle" = "Перейти ко всему автопарку";
@@ -142,6 +148,15 @@
 "requestSubmittedText" = "Менеджер скоро свяжется с вами. Управлять заявкой можно в разделе \"Мои заказы\".";
 "requestFailedTitle" = "Заявка не оформлена";
 "requestFailedText" = "Пожалуйста, попробуйте еще раз через несколько минут.";
+/// my orders screen
+"activeTab" = "Активные";
+"completedTab" = "Завершенные";
+"emptyDataTitle" = "Здесь будут ваши заказы";
+"emptyDataText" = "Оформить заявку можно на главной";
+/// my order detail screen
+"rentalPeriod" = "Период аренды";
+"orderStatus" = "Статус заказа";
+"changeBidData" = "Изменить заявку";
 
 // Rules and Condition resources
 "ruleTitle1" = "Условия аренды для водителей";

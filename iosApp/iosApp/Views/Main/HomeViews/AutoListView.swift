@@ -17,16 +17,26 @@ struct AutoListView: View {
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
     @ObservedObject private var viewModel = AutoListViewModel()
-    
+
+    init(
+        selectedAuto: Binding<Car>,
+        showModalReservation: Binding<Bool>,
+        showSignSuggestModal: Binding<Bool>
+    ) {
+        self._selectedAuto = selectedAuto
+        self._showModalReservation = showModalReservation
+        self._showSignSuggestModal = showSignSuggestModal
+    }
+
     var body: some View {
         VStack {
             TabBarView(index: $selectedTab)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(.white)
+                        .fill(Color(R.color.background))
                         .ignoresSafeArea(.all)
                 )
-            
+
             TabView(selection: $selectedTab) {
                 switch selectedTab {
                 case 1:
@@ -92,7 +102,7 @@ struct AutoListView: View {
                     .onEnded { value in
                         let horizontalAmount = value.translation.width
                         let verticalAmount = value.translation.height
-                        
+
                         if abs(horizontalAmount) > abs(verticalAmount) {
                             if horizontalAmount < -50 {
                                 withAnimation {
@@ -119,8 +129,13 @@ struct AutoListView: View {
                 )
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchAllCars()
+            }
+        }
         .loadingOverlay(isLoading: $viewModel.isLoading)
-        .background(Color(R.color.grayLightColor))
+        .background(Color(R.color.bgContainer))
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)

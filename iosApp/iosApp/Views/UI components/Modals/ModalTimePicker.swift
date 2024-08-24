@@ -11,7 +11,7 @@ import SwiftUI
 struct ModalTimePicker: View {
     @Binding var selectedTime: Date?
     @Binding var showTimePicker: Bool
-    
+
     var body: some View {
         Color.black.opacity(0.4)
             .edgesIgnoringSafeArea(.all)
@@ -31,7 +31,7 @@ struct ModalTimePicker: View {
             .labelsHidden()
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.white)
+                    .fill(Color(R.color.background))
             )
         }
         .background(.white)

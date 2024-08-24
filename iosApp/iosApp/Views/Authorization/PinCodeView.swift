@@ -10,20 +10,10 @@ import SwiftUI
 import shared
 
 struct PinCodeView: View {
-    @State private var pin: [String] = ["", "", "", ""]
-    @FocusState private var focusedField: Int?
-    @State private var isButtonEnabled: Bool = false
-    @Binding var showSignSuggestModal: Bool
-    private let authFlowType: AuthFlowType
-    private var sendCodeOnPhoneText: String {
-        "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
-    }
-    private let fullname: String
-    private let phoneNumber: String
-    private let pass: String
-    private let authManager = AuthManager.shared
+    @ObservedObject var viewModel: PinCodeViewModel
+    @FocusState var focusedField: Int?
     @Environment(\.dismiss) private var dismiss
-    
+
     init(
         showSignSuggestModal: Binding<Bool>,
         authFlowType: AuthFlowType,
@@ -31,72 +21,73 @@ struct PinCodeView: View {
         pass: String,
         fullname: String? = nil
     ) {
-        self._showSignSuggestModal = showSignSuggestModal
-        self.fullname = fullname ?? ""
-        self.phoneNumber = phoneNumber
-        self.pass = pass
-        self.authFlowType = authFlowType
+        self.viewModel = .init(
+            showSignSuggestModal: showSignSuggestModal,
+            authFlowType: authFlowType,
+            phoneNumber: phoneNumber,
+            pass: pass
+        )
     }
-    
+
     var body: some View {
         VStack(spacing: PinCodeConfig.spacingBetweenGroupAndResendText) {
             VStack(spacing: PinCodeConfig.spacingBetweenMainComponents) {
                 Text(R.string.localizable.inputCodeText)
                     .font(.header2)
                     .padding(.top, PinCodeConfig.contentTopPadding)
-                    .foregroundColor(Color.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.center)
-                
-                Text(sendCodeOnPhoneText)
+
+                Text(viewModel.sendCodeOnPhoneText)
                     .font(.paragraph2)
-                    .foregroundColor(Color(R.color.grayTextColor))
+                    .foregroundColor(Color(R.color.grayText))
                     .multilineTextAlignment(.center)
-                
+
                 HStack(spacing: PinCodeConfig.spacingBetweenPincodeCells) {
                     ForEach(0..<4) { index in
                         PinCodeTextField(index: index)
                     }
                 }
                 .padding(.vertical, PinCodeConfig.verticalSpacingBetweenPincodeField)
-                .onChange(of: pin) { _ in
+                .onChange(of: viewModel.pin) { _ in
                     toggleButtonEnabled()
                 }
-                
-                switch authFlowType {
+
+                switch viewModel.authFlowType {
                 case .registration:
                     Button(R.string.localizable.nextBtnName(), action: {
                         Task {
-                            await authManager.signUp(
-                                fullname: fullname,
-                                phone: phoneNumber,
-                                password: pass
+                            await viewModel.authManager.signUp(
+                                fullname: viewModel.fullname,
+                                phone: viewModel.phoneNumber,
+                                password: viewModel.pass
                             )
                         }
-                        showSignSuggestModal.toggle()
+                        viewModel.showSignSuggestModal.toggle()
                     })
                     .buttonStyle(FilledBtnStyle())
-                    .disabled(!isButtonEnabled)
+                    .disabled(!viewModel.isButtonEnabled)
                 case .auth:
                     Button(R.string.localizable.nextBtnName(), action: {
                         Task {
-                            await authManager.login(phone: phoneNumber, pass: pass)
+                            await viewModel.authManager.login(phone: viewModel.phoneNumber, pass: viewModel.pass)
                         }
-                        showSignSuggestModal.toggle()
+                        viewModel.showSignSuggestModal.toggle()
                     })
                     .buttonStyle(FilledBtnStyle())
-                    .disabled(!isButtonEnabled)
+                    .disabled(!viewModel.isButtonEnabled)
                 case .resetPassword:
                     NavigationLink(destination: ResetPasswordPassView()) {
                         Text(R.string.localizable.nextBtnName)
                     }
                     .buttonStyle(FilledBtnStyle())
-                    .disabled(!isButtonEnabled)
+                    .disabled(!viewModel.isButtonEnabled)
                 }
             }
-            
+
             HStack {
                 Text(R.string.localizable.notGetCodeText)
-                    .foregroundColor(.black)
+                    .foregroundStyle(Color(R.color.text))
                     .font(.paragraph4)
                 Button(
                     action: {
@@ -109,7 +100,7 @@ struct PinCodeView: View {
                         .underline()
                 }
             }
-            
+
             Spacer()
         }
         .padding()
@@ -125,37 +116,37 @@ struct PinCodeView: View {
     @ViewBuilder
     private func PinCodeTextField(index: Int) -> some View {
         let isFieldFocused = focusedField == index
-        let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDarkColor)
-        let lineWidth: CGFloat = pin[index].isEmpty && !isFieldFocused ? 0 : 2
+        let strokeColor = isFieldFocused ? Color(R.color.blueColor) : Color(R.color.grayDark)
+        let lineWidth: CGFloat = viewModel.pin[index].isEmpty && !isFieldFocused ? 0 : 2
 
-        TextField("", text: $pin[index])
+        TextField("", text: $viewModel.pin[index])
             .keyboardType(.numberPad)
             .multilineTextAlignment(.center)
             .font(.paragraph1)
             .frame(width: 56, height: 56)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color(R.color.grayLightColor))
+                    .fill(Color(R.color.grayTheme))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(strokeColor, lineWidth: lineWidth)
             )
             .focused($focusedField, equals: index)
-            .onChange(of: pin[index]) { newValue in
+            .onChange(of: viewModel.pin[index]) { newValue in
                 if newValue.count == 1, index < 3 {
                     focusedField = index + 1
                 } else if newValue.isEmpty, index > 0 {
                     focusedField = index - 1
                 } else if newValue.count > 1 {
-                    pin[index] = String(newValue.prefix(1))
-                } else if index == pin.count - 1 && !pin[index].isEmpty {
+                    viewModel.pin[index] = String(newValue.prefix(1))
+                } else if index == viewModel.pin.count - 1 && !viewModel.pin[index].isEmpty {
                     focusedField = nil
                 }
             }
     }
-    
+
     private func toggleButtonEnabled() {
-        isButtonEnabled = pin.joined().count == 4
+        viewModel.isButtonEnabled = viewModel.pin.joined().count == 4
     }
 }

@@ -10,11 +10,11 @@ import Foundation
 
 final class ConditionViewModel: ObservableObject {
     @Published var conditionText: String = ""
-    
+
     init() {
         loadUserAgreement()
     }
-    
+
     func loadUserAgreement() {
         if let filePath = Bundle.main.path(forResource: "terms_and_conditions", ofType: "txt") {
             do {

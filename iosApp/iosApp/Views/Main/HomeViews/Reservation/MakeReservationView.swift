@@ -12,7 +12,8 @@ import shared
 struct MakeReservationView: View {
     @Binding private var showModal: Bool
     @ObservedObject var viewModel: MakeReservationViewModel
-    
+    @Environment(\.dismiss) private var dismiss
+
     @ViewBuilder private var destinationView: some View {
         if viewModel.isSuccessed == .success {
             SuccessfulReservationView()
@@ -20,7 +21,7 @@ struct MakeReservationView: View {
             FailureReservationView()
         }
     }
-    
+
     init(
         car: Car,
         dates: String?,
@@ -29,7 +30,7 @@ struct MakeReservationView: View {
         self.viewModel = .init(car: car, dates: dates)
         self._showModal = showModal ?? Binding.constant(false)
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -37,12 +38,15 @@ struct MakeReservationView: View {
                     HStack {
                         Button(action: {
                             showModal.toggle()
+                            dismiss()
                         }, label: {
-                            Image.chevronLeft.foregroundStyle(Color.black).fontWeight(.bold)
+                            Image.chevronLeft
+                                .foregroundStyle(Color(R.color.text))
+                                .fontWeight(.bold)
                         })
                         Text(R.string.localizable.reservationScreenTitle)
                             .font(.header1)
-                            .foregroundColor(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                             .frame(maxWidth: .infinity)
                     }
                     ScrollView(.vertical, showsIndicators: false) {
@@ -52,23 +56,23 @@ struct MakeReservationView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(maxWidth: screenWidth / 2.3)
-                                
+
                                 Spacer()
-                                
+
                                 VStack(alignment: .leading, spacing: 12) {
                                     VStack(alignment: .leading) {
                                         Text(R.string.localizable.autoNameTitle)
                                             .font(.paragraph5)
-                                            .foregroundStyle(Color(R.color.grayTextColor))
+                                            .foregroundStyle(Color(R.color.grayText))
                                         Text(viewModel.car.model.resource)
                                             .font(.header5)
                                     }
-                                    
+
                                     if let dates = viewModel.dates {
                                         VStack(alignment: .leading) {
                                             Text(R.string.localizable.autoDatesTitle)
                                                 .font(.paragraph5)
-                                                .foregroundStyle(Color(R.color.grayTextColor))
+                                                .foregroundStyle(Color(R.color.grayText))
                                             Text(dates).font(.header5)
                                         }
                                     }
@@ -79,9 +83,9 @@ struct MakeReservationView: View {
                             .padding(.vertical, 24)
                             .background(
                                 RoundedRectangle(cornerRadius: 16)
-                                    .fill(Color(R.color.blueBoxColor))
+                                    .fill(Color(R.color.blueBox))
                             )
-                            
+
                             if viewModel.dates == nil {
                                 ButtonLikeBorderedTextField(
                                     fieldType: .datePicker,
@@ -90,31 +94,28 @@ struct MakeReservationView: View {
                                     dateRange: $viewModel.dateRange
                                 )
                             }
-                            
+
                             ButtonLikeBorderedTextField(
                                 fieldType: .placePicker,
                                 inputErrorType: $viewModel.inputErrorType,
                                 selectedPlace: $viewModel.selectedPlace,
                                 placesDataSource: $viewModel.placesWithCost
                             )
-                            
+
                             ButtonLikeBorderedTextField(
                                 fieldType: .timePicker,
                                 inputErrorType: $viewModel.inputErrorType,
                                 time: $viewModel.time,
                                 showTimePicker: $viewModel.showTimePicker
                             )
-                            
+
                             AutoSizingTextEditor(text: $viewModel.comment, isFocused: $viewModel.focuseOnCommentField)
-                            
-                            
+
                             Spacer()
-                            
-                            
-                            
+
                         }
                     }
-                    
+
                     VStack(spacing: 20) {
                         HStack {
                             Text(R.string.localizable.totalPriceTitle)
@@ -123,7 +124,7 @@ struct MakeReservationView: View {
                             Text("\(viewModel.totalPrice) \(R.string.localizable.currencyPriceText())")
                                 .font(.header3)
                         }
-                        
+
                         NavigationLink(R.string.localizable.leaveReuqestButton()) {
                             destinationView
                         }
@@ -138,7 +139,7 @@ struct MakeReservationView: View {
                     .padding(.vertical, 20)
                 }
                 .padding(.horizontal, horizontalPadding)
-                
+
                 if viewModel.showDatePicker {
                     ModalDatePickerView(
                         showDatePicker: $viewModel.showDatePicker,
@@ -149,8 +150,8 @@ struct MakeReservationView: View {
                 }
             }
             .loadingOverlay(isLoading: $viewModel.isLoading)
-            .navigationBarBackButtonHidden()
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

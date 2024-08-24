@@ -11,16 +11,16 @@ import SwiftUI
 struct ConditionScreenView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel: ConditionViewModel
-    
+
     init(viewModel: ConditionViewModel = .init()) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             Text(viewModel.conditionText)
                 .font(.paragraph2)
-                .foregroundStyle(Color.black)
+                .foregroundStyle(Color(R.color.text))
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.leading)
         }

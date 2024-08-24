@@ -27,6 +27,7 @@
 "resetPassScreenTitle" = "Reset password";
 "changePassword" = "Change the password";
 "reservationScreenTitle" = "Making reservation";
+"aboutOrder" = "About order";
 
 // Buttons titles
 "regButtonTitle" = "Create account";
@@ -46,6 +47,9 @@
 "leaveReuqestButton" = "Request for booking";
 "loginToAccount" = "Login to account";
 "saveChangePersonalData" = "Save changes";
+"backButton" = "Back";
+"cancelShortButton" = "Cancel";
+"cancelBidButton" = "Cancel the bid";
 
 // Field names
 "email" = "Email";
@@ -88,6 +92,7 @@
 "alertErrorSavingTitle" = "Saving error";
 "alertErrorSavingText" = "Your data has not been saved. Please try again";
 "alertSavePersonDataTitle" = "Your data has been successfully saved";
+"alertCancelBidTitle" = "Are you sure you want to cancel your bid?";
 
 // Info strings
 "conditionLink" = "the user agreement";
@@ -125,6 +130,7 @@
 "tankTitle" = "Tank";
 "prepositionPriceText" = "from";
 "currencyPriceText" = "rub. per day";
+"currencyText" = "rub.";
 "yearOfManufactureTitle" = "Year of manufacture";
 "characteristicsTitle" = "Characteristics:";
 "generalAutoCardTitle" = "Go to the entire car park";
@@ -143,6 +149,15 @@
 "requestSubmittedText" = "The manager will contact you soon. You can manage the request in the \"My orders\" section.";
 "requestFailedTitle" = "Request not submitted";
 "requestFailedText" = "Please try again in a few minutes.";
+/// my orders screen
+"activeTab" = "Active";
+"completedTab" = "Completed";
+"emptyDataTitle" = "Your orders will be here";
+"emptyDataText" = "You can submit your application on the main page";
+/// my order detail screen
+"rentalPeriod" = "Rental period";
+"orderStatus" = "Order status";
+"changeBidData" = "Change the bid";
 
 
 // Rules and Condition resources

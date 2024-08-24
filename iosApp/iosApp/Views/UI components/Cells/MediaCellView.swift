@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MediaCellView: View {
     let cell: MediaLink
-    
+
     var body: some View {
         if let url = URL(string: cell.url) {
             Link(destination: url) {
@@ -19,12 +19,13 @@ struct MediaCellView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 32, height: 32)
-                    Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
-                    
+                    Text(cell.title).font(.paragraph2)
+                        .foregroundStyle(Color(R.color.text))
+
                     Spacer()
-                    
+
                     Image.chevronRight
-                        .foregroundStyle(Color(R.color.grayDarkColor))
+                        .foregroundStyle(Color(R.color.grayDark))
                         .fontWeight(.bold)
                 }
             }
@@ -34,12 +35,13 @@ struct MediaCellView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 32, height: 32)
-                Text(cell.title).font(.paragraph2).foregroundStyle(Color.black)
-                
+                Text(cell.title).font(.paragraph2)
+                    .foregroundStyle(Color(R.color.text))
+
                 Spacer()
-                
+
                 Image.chevronRight
-                    .foregroundStyle(Color(R.color.grayDarkColor))
+                    .foregroundStyle(Color(R.color.grayDark))
                     .fontWeight(.bold)
             }
         }

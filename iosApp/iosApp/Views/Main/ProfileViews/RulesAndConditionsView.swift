@@ -10,11 +10,11 @@ import SwiftUI
 
 struct RulesAndConditionsView: View {
     private var viewModel: RulesAndConditionsViewModel
-    
+
     init() {
         self.viewModel = RulesAndConditionsViewModel()
     }
-    
+
     var body: some View {
         VStack {
             List(viewModel.listOfRules, id: \.self) { rule in
@@ -22,7 +22,7 @@ struct RulesAndConditionsView: View {
                     HStack {
                         Text(rule.title)
                             .font(.paragraph2)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color(R.color.text))
                     }
                 })
                 .listRowSeparator(.hidden)
@@ -31,7 +31,7 @@ struct RulesAndConditionsView: View {
             .listStyle(.plain)
         }
         .padding(.vertical, 15)
-        .background(Color.white.ignoresSafeArea())
+//        .background(Color.white.ignoresSafeArea())
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: R.string.localizable.rulesScreenTitle)

@@ -15,14 +15,14 @@ struct ExpandableToolbar: View {
     @Binding var showDatePicker: Bool
     @Binding var headerHeight: CGFloat
     @Binding var dragOffset: CGSize
-    
+
     var body: some View {
         VStack {
             GeometryReader { geometry in
                 VStack {
                     HStack {
                         Spacer()
-                        
+
                         Button(action: {
                             // TODO: - Action for bell button
                         }) {
@@ -34,15 +34,15 @@ struct ExpandableToolbar: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 65)
-                    .background(Color(R.color.blueDarkColor))
+                    .background(Color(R.color.blueDark))
                     .padding(.bottom, !isExpanded ? 25 : 0)
-                    
+
                     if isExpanded {
                         VStack {
                             VStack(spacing: 20) {
                                 Text(R.string.localizable.dateTextFieldTitle)
                                     .font(.header3)
-                                
+
                                 Button(action: {
                                     showDatePicker = true
                                 }) {
@@ -50,21 +50,29 @@ struct ExpandableToolbar: View {
                                         Image(R.image.calendar)
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(width: 30 , height: 30)
-                                            .foregroundColor(.gray)
+                                            .frame(width: 30, height: 30)
+                                            .foregroundColor(Color(R.color.grayDark))
                                         
                                         Text(formatDateRange())
-                                            .foregroundColor(dateRange == nil ? .gray : .black)
+                                            .foregroundColor(
+                                                dateRange == nil
+                                                ? Color(R.color.grayDark)
+                                                : Color(R.color.background)
+                                            )
                                         Spacer()
                                     }
                                     .frame(alignment: .leading)
                                     .padding(.all, 16)
                                     .background(
                                         RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color.gray, lineWidth: 1)
+                                            .fill(Color(R.color.containerItem))
                                     )
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color(R.color.grayDark), lineWidth: 1)
+                                    }
                                 }
-                                
+
                                 Button(R.string.localizable.findAutoButton()) {
                                     // TODO: - Make a navigation link into view
                                 }
@@ -72,7 +80,10 @@ struct ExpandableToolbar: View {
                             }
                             .padding(.vertical, 20)
                             .padding(.horizontal, 16)
-                            .background(RoundedRectangle(cornerRadius: 24).fill(.white))
+                            .background(
+                                RoundedRectangle(cornerRadius: 24)
+                                .fill(Color(R.color.container))
+                            )
                         }
                         .padding(.vertical, 16)
                         .padding(.horizontal, 16)
@@ -80,7 +91,7 @@ struct ExpandableToolbar: View {
                         .animation(.spring(), value: isExpanded)
                     }
                 }
-                .background(Color(R.color.blueDarkColor))
+                .background(Color(R.color.blueDark))
                 .cornerRadius(24)
                 .animation(.spring(), value: isExpanded)
                 .onAppear {
@@ -90,18 +101,18 @@ struct ExpandableToolbar: View {
             .frame(height: isExpanded ? 200 : 100)
         }
     }
-    
+
     private func formatDateRange() -> String {
         guard let dateRange = dateRange else {
             return R.string.localizable.dateTextFieldPlaceholder()
         }
-        
+
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        
+
         let startDate = formatter.string(from: dateRange.lowerBound)
         let endDate = formatter.string(from: dateRange.upperBound)
-        
+
         if startDate == endDate {
             return startDate
         } else if calendar.compare(dateRange.lowerBound, to: dateRange.upperBound, toGranularity: .day) == .orderedAscending {
