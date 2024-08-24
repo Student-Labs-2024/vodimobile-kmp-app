@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.sms
 
 import kotlin.random.Random
 
