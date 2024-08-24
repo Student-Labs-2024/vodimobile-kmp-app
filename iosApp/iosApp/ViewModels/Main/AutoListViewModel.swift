@@ -17,7 +17,7 @@ final class AutoListViewModel: ObservableObject {
         self.isLoading.toggle()
         let carsList = await KMPApiManager.shared.fetchCars()
 
-        DispatchQueue.main.async {
+        await MainActor.run {
             self.listOfAllCar = carsList
             self.isLoading.toggle()
         }

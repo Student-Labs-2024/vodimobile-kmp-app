@@ -30,9 +30,9 @@ final class UserDataViewModel: ObservableObject {
     @Published var dataHasBeenSaved: Bool = false
     @Published var dataIsEditing: Bool = false
     @Published var showErrorAlert: Bool = false
-    @Published var isLoading: Bool = false
     // data storage
     @ObservedObject var dataStorage = KMPDataStorage.shared
+    @ObservedObject var apiManager = KMPApiManager.shared
     // observable set
     private var cancellableSet: Set<AnyCancellable> = []
 
@@ -85,7 +85,6 @@ final class UserDataViewModel: ObservableObject {
     }
 
     func saveEditedUserData() {
-        isLoading = true
         if let storageUser = dataStorage.gettingUser {
             let newUserData = User(
                 id: storageUser.id,
@@ -106,16 +105,13 @@ final class UserDataViewModel: ObservableObject {
                 }
             }
         }
-        self.isLoading.toggle()
     }
 
     func fetchUserData() {
-        isLoading.toggle()
 
         Task {
-//            await self.dataStorage.getUser()
+            await self.dataStorage.getUser()
         }
-        isLoading.toggle()
     }
 
     func comparePasswords() -> Bool {

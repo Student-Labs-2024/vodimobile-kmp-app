@@ -149,7 +149,6 @@ struct MakeReservationView: View {
                     ModalTimePicker(selectedTime: $viewModel.time, showTimePicker: $viewModel.showTimePicker)
                 }
             }
-            .loadingOverlay(isLoading: $viewModel.isLoading)
         }
         .navigationBarBackButtonHidden()
     }

@@ -26,11 +26,17 @@ final class KMPApiManager: ObservableObject {
 
     func getSupaUser(pass: String, phone: String) async -> User? {
         if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
             do {
                 let supaUser = try await helper.getUser(password: pass, phone: phone.cleanUp())
                 return supaUser != User.companion.empty() ? supaUser : nil
             } catch {
                 print(error)
+            }
+            await MainActor.run {
+                isLoading = false
             }
         }
         return nil
@@ -65,38 +71,41 @@ final class KMPApiManager: ObservableObject {
 
     func setUserTokens() async {
         if appState.isConnected {
-            await MainActor.run {
-                isLoading = false
-            }
-            do {
-                let response = try await helper.postUser()
-                switch onEnum(of: response) {
-                case .crmData(let success):
-                    if let user = success.data {
-                        if let storageUser = dataStorage.gettingUser {
-                            let newUser = User(
-                                id: storageUser.id,
-                                fullName: storageUser.fullName,
-                                password: storageUser.password,
-                                accessToken: user.accessToken,
-                                refreshToken: user.refreshToken,
-                                phone: storageUser.phone
-                            )
-                            await MainActor.run {
-                                self.dataStorage.gettingUser = newUser
+            if let storageUser = dataStorage.gettingUser,
+               storageUser.accessToken.isEmpty {
+                await MainActor.run {
+                    isLoading = true
+                }
+                do {
+                    let response = try await helper.postUser()
+                    switch onEnum(of: response) {
+                    case .crmData(let success):
+                        if let user = success.data {
+                            if let storageUser = dataStorage.gettingUser {
+                                let newUser = User(
+                                    id: storageUser.id,
+                                    fullName: storageUser.fullName,
+                                    password: storageUser.password,
+                                    accessToken: user.accessToken,
+                                    refreshToken: user.refreshToken,
+                                    phone: storageUser.phone
+                                )
+                                await MainActor.run {
+                                    self.dataStorage.gettingUser = newUser
+                                }
                             }
                         }
+                    case .crmError(let error):
+                        print(error.status?.value ?? "Empty error")
+                    case .crmLoading:
+                        print("loading...")
                     }
-                case .crmError(let error):
-                    print(error.status?.value ?? "Empty error")
-                case .crmLoading:
-                    print("loading...")
+                } catch {
+                    print(error)
                 }
-            } catch {
-                print(error)
-            }
-            await MainActor.run {
-                isLoading = false
+                await MainActor.run {
+                    isLoading = false
+                }
             }
         }
     }
@@ -104,7 +113,7 @@ final class KMPApiManager: ObservableObject {
     func fetchCars() async -> [Car] {
         if appState.isConnected {
             await MainActor.run {
-                isLoading = false
+                isLoading = true
             }
             do {
                 if let storageUser = dataStorage.gettingUser {
@@ -136,7 +145,7 @@ final class KMPApiManager: ObservableObject {
     func fetchPlaces() async -> [Place] {
         if appState.isConnected {
             await MainActor.run {
-                isLoading = false
+                isLoading = true
             }
             do {
                 if let storageUser = dataStorage.gettingUser {
@@ -172,6 +181,7 @@ final class KMPApiManager: ObservableObject {
                 isLoading = true
             }
             do {
+                await getAuthIfNeed()
                 if let storageUser = dataStorage.gettingUser {
                     let orders = try await helper.getOrders(
                         userId: storageUser.id,
@@ -219,6 +229,16 @@ final class KMPApiManager: ObservableObject {
         }
         return itemList
     }
+
+    private func getAuthIfNeed() async {
+        if let storageUser = dataStorage.gettingUser, storageUser.id < 0 {
+            await setUserTokens()
+            let supaUser = await getSupaUser(pass: storageUser.password, phone: storageUser.phone)
+            await MainActor.run {
+                dataStorage.gettingUser = supaUser
+            }
+        }
+    }
 }
 
 final class AuthManager: ObservableObject {
@@ -237,7 +257,8 @@ final class AuthManager: ObservableObject {
             }
             .store(in: &cancellables)
         Task {
-            if let user = dataStorage.gettingUser, user != User.companion.empty() {
+            if let user = dataStorage.gettingUser,
+                user == User.companion.empty() || user.id < 0 {
                 await login(phone: user.phone, pass: user.password)
             }
         }

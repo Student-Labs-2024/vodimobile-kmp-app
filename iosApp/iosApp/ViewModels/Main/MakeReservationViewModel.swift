@@ -12,7 +12,6 @@ import shared
 final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
     @Published var isSuccessed: RequestReservationState = .success
-    @Published var isLoading: Bool = false
     @Published var showDatePicker = false
     @Published var dateRange: ClosedRange<Date>?
     @Published var inputErrorType: InputErrorType?
@@ -21,6 +20,7 @@ final class MakeReservationViewModel: ObservableObject {
     @Published var selectedPlace: PlaceShort?
     @Published var totalPrice: Int = 0
     @Published var comment: String?
+    @ObservedObject var apiManager = KMPApiManager.shared
     @FocusState var focuseOnCommentField: Bool
 
     let car: Car
@@ -46,12 +46,10 @@ final class MakeReservationViewModel: ObservableObject {
     }
 
     func fetchPlaceList() async {
-        isLoading.toggle()
         let places = await KMPApiManager.shared.fetchPlaces()
 
-        DispatchQueue.main.async {
+        await MainActor.run {
             self.handlerPlaceItems(places)
-            self.isLoading.toggle()
         }
     }
 

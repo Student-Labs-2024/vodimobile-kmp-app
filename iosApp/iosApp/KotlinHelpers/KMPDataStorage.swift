@@ -32,8 +32,7 @@ final class KMPDataStorage: ObservableObject {
         var cycleCounter = 0
 
         for await flowUser in repository.getUserData() {
-            if flowUser != User.companion.empty() &&
-                flowUser.id >= 0 {
+            if flowUser != User.companion.empty() {
                 self.gettingUser = flowUser
                 break
             } else if cycleCounter >= 10 {

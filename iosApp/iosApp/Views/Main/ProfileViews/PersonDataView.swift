@@ -64,7 +64,6 @@ struct PersonDataView: View {
         .onChange(of: focusedField) { newValue in
             $viewModel.dataIsEditing.wrappedValue = newValue != nil ? true : false
         }
-        .loadingOverlay(isLoading: $viewModel.isLoading)
         .alert(
             R.string.localizable.alertErrorSavingTitle(),
             isPresented: $viewModel.showErrorAlert,
