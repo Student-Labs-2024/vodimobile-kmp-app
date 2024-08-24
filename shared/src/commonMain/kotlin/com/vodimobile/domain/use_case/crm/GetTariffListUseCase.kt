@@ -4,6 +4,8 @@ import com.vodimobile.domain.model.remote.dto.tariff_list.TariffListDTO
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 class GetTariffListUseCase(private val crmRepository: CrmRepository) {
     suspend operator fun invoke(
@@ -11,6 +13,7 @@ class GetTariffListUseCase(private val crmRepository: CrmRepository) {
         accessToken: String,
         refreshToken: String
     ): CrmEither<TariffListDTO, HttpStatusCode> {
+        delay(100.milliseconds)
         val either = crmRepository.getTariffList(
             carId = carId,
             accessToken = accessToken,

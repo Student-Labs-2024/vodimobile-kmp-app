@@ -6,11 +6,10 @@ import com.vodimobile.domain.model.remote.dto.car_list.CarListDTO
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.utils.cars.carsMap
-import com.vodimobile.utils.cars.hyundai_creta_1
 import com.vodimobile.utils.cars.hyundai_solaris_1
-import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.isSuccess
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 class GetCarListUseCase(
     private val crmRepository: CrmRepository
@@ -19,7 +18,7 @@ class GetCarListUseCase(
         accessToken: String,
         refreshToken: String
     ): CrmEither<List<Car>, HttpStatusCode> {
-
+        delay(400.milliseconds)
         val crmEither: CrmEither<CarListDTO, HttpStatusCode> =
             crmRepository.getCarList(accessToken, refreshToken)
 
