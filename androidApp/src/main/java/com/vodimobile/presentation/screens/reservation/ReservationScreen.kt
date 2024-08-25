@@ -1,7 +1,12 @@
 package com.vodimobile.presentation.screens.reservation
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
@@ -83,6 +90,7 @@ import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
+import com.vodimobile.service.notification.VodimobileNotificationManager
 import com.vodimobile.shared.resources.SharedRes
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -101,6 +109,11 @@ fun ReservationScreen(
     carId: Int
 ) {
     val defaultStatusForBid = stringResource(id = SharedRes.strings.cancelled_order.resourceId)
+    val context = LocalContext.current
+
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { }
     LaunchedEffect(key1 = Unit) {
         reservationEffect.collect { effect ->
             when (effect) {
@@ -155,9 +168,10 @@ fun ReservationScreen(
 
     LaunchedEffect(key1 = Unit) {
         onReservationIntent(ReservationIntent.GetAllPLaces)
+    }
+    LaunchedEffect(key1 = Unit) {
         onReservationIntent(ReservationIntent.GetAllServices)
     }
-
     LaunchedEffect(carId) {
         onReservationIntent(ReservationIntent.CarIdChange(carId))
         onReservationIntent(ReservationIntent.GetAllCars)
@@ -170,6 +184,18 @@ fun ReservationScreen(
     }
     LaunchedEffect(endTime) {
         onReservationIntent(ReservationIntent.EndTimeChange(endTime))
+    }
+
+    SideEffect {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     }
 
     if (!reservationState.value.errorGetPlace &&
@@ -357,8 +383,14 @@ fun ReservationScreen(
                                         !reservationState.value.errorDate &&
                                         !reservationState.value.errorStartTime &&
                                         !reservationState.value.errorEndTime
-                                    )
-                                        onReservationIntent(ReservationIntent.PutBid(value = defaultStatusForBid))
+                                    ) {
+                                        onReservationIntent(
+                                            ReservationIntent.PutBid(
+                                                value = defaultStatusForBid,
+                                                context = context
+                                            )
+                                        )
+                                    }
                                 }
                             )
                         }
