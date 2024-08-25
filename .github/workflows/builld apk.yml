@@ -35,4 +35,4 @@ jobs:
       - name: Build gradle project
         run: ./gradlew build
       - name: Build apk debug project (APK)
-        run: ./gradlew assembleDebug
+        run: ./gradlew androidApp:assembleDebug
