@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -78,12 +79,14 @@ import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
+import com.vodimobile.presentation.screens.edit_profile.components.ProfileNameBlock
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.InputMasks
+import com.vodimobile.presentation.utils.NameValidator
 import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -183,15 +186,12 @@ fun EditProfileScreen(
                                 style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onBackground),
                                 modifier = textModifier
                             )
-
-                            ProfileField(
-                                text = editProfileState.value.fullName,
+                            ProfileNameBlock(
                                 modifier = textModifier,
-                                onValueChange = {
-                                    onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
-                                },
-                                label = stringResource(id = R.string.full_name),
-                                enabled = true
+                                editProfileState = editProfileState.value,
+                                onNameChanged = {
+                                   onEditProfileIntent(EditProfileIntent.EditFullName(fullName = it))
+                               }
                             )
 
                             ProfileField(
@@ -258,6 +258,7 @@ private fun EditProfileScreenDarkPreview() {
             createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
         )
         val editProfileViewModel = EditProfileViewModel(
+            nameValidator = NameValidator(),
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
@@ -332,6 +333,7 @@ private fun EditProfileScreenLightPreview() {
             createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
         )
         val editProfileViewModel = EditProfileViewModel(
+            nameValidator = NameValidator(),
             userDataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(

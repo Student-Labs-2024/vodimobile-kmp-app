@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.edit_profile
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.android.R
@@ -11,7 +10,6 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.utils.NameValidator
-import com.vodimobile.presentation.utils.name_validator.validateName
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +20,7 @@ import kotlinx.coroutines.launch
 class EditProfileViewModel(
     private val userDataStoreStorage: UserDataStoreStorage,
     private val supabaseStorage: SupabaseStorage,
+    private val nameValidator: NameValidator,
 ) : ViewModel() {
 
     val editProfileState = MutableStateFlow(EditProfileState())
@@ -49,10 +48,15 @@ class EditProfileViewModel(
     fun onIntent(intent: EditProfileIntent) {
         when (intent) {
             is EditProfileIntent.EditFullName -> {
-                if (!validateName(name = intent.fullName))
+                viewModelScope.launch {
+                    val isValidName = validateName(intent.fullName)
                     editProfileState.update {
-                        it.copy(fullName = intent.fullName)
+                        it.copy(
+                            fullName = intent.fullName,
+                            isFullNameError = !isValidName
+                        )
                     }
+                }
             }
 
             EditProfileIntent.EditPasswordClick -> {
@@ -70,7 +74,7 @@ class EditProfileViewModel(
             EditProfileIntent.SaveData -> {
                 editProfileState.update {
                     it.copy(
-                        isFullNameError = editProfileState.value.fullName.isEmpty()
+                        isFullNameError = editProfileState.value.fullName.isEmpty()&&!validateName(name = editProfileState.value.fullName)
                     )
                 }
 
@@ -122,5 +126,8 @@ class EditProfileViewModel(
                 }
             }
         }
+    }
+    private fun validateName(name: String): Boolean {
+        return nameValidator.isValidName(name)
     }
 }
