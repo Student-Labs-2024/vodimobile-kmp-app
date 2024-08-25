@@ -109,6 +109,73 @@ final class KMPApiManager: ObservableObject {
             }
         }
     }
+    
+    func fetchFreeCarIdsForDate(for carFreeListParamsDTO: CarFreeListParamsDTO) async -> [Int] {
+        if appState.isConnected {
+            if let storageUser = dataStorage.gettingUser,
+               storageUser.accessToken.isEmpty {
+                await MainActor.run {
+                    isLoading = true
+                }
+                do {
+                    let response = try await helper.getFreeCars(
+                        accessToken: storageUser.accessToken,
+                        refreshToken: storageUser.refreshToken,
+                        carFreeListParamsDTO: carFreeListParamsDTO
+                    )
+                    switch onEnum(of: response) {
+                    case .crmData(let success):
+                        if let freeCars = success.data {
+                            return (0..<freeCars.cars.size).compactMap { index in
+                                guard let kotlinInt = freeCars.cars.get(index: index) else { return nil }
+                                return kotlinInt.intValue
+                            }
+                        }
+                    case .crmError(let error):
+                        print(error.status?.value ?? "Empty error")
+                    case .crmLoading:
+                        print("loading...")
+                    }
+                } catch {
+                    print(error)
+                }
+                await MainActor.run {
+                    isLoading = false
+                }
+            }
+        }
+        return []
+    }
+    
+    func fetchCarFreeDateRange(carId: Int32, beginDate: Int64, endDate: Int64) async -> [(Int64, Int64)] {
+        if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
+            do {
+                if let storageUser = dataStorage.gettingUser {
+                    let response = try await helper.getCarFreeDateRange(
+                        accessToken: storageUser.accessToken,
+                        refreshToken: storageUser.refreshToken,
+                        carId: carId,
+                        begin: beginDate,
+                        end: endDate
+                    )
+                    return response.map { pair in
+                        let first = pair.first?.int64Value ?? 0
+                        let second = pair.second?.int64Value ?? 0
+                        return (first, second)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+            await MainActor.run {
+                isLoading = false
+            }
+        }
+        return []
+    }
 
     func fetchCars() async -> [Car] {
         if appState.isConnected {

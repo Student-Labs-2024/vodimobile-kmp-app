@@ -11,11 +11,36 @@ import SwiftUI
 
 final class AutoListViewModel: ObservableObject {
     @Published var listOfAllCar = [Car]()
+    @Binding var datesRange: ClosedRange<Date>?
     @Published var isLoading = false
+    private let apiManager = KMPApiManager.shared
+    
+    init() {
+        Task {
+            await fetchAllCars()
+        }
+    }
+    
+    func fetchCarIdsForDateRange() async {
+        self.isLoading.toggle()
+        let carIdsList = await apiManager.fetchFreeCarIdsForDate(for: CarFreeListParamsDTO(
+            begin: Int(datesRange.lowerBound.timeIntervalSince1970)
+            end: Int(datesRange.upperBound.timeIntervalSince1970),
+            includeReserves: true,
+            includeIdles: true,
+            cityId: 2
+        )
+        )
+
+        await MainActor.run {
+            self.listOfAllCar = carsList
+            self.isLoading.toggle()
+        }
+    }
 
     func fetchAllCars() async {
         self.isLoading.toggle()
-        let carsList = await KMPApiManager.shared.fetchCars()
+        let carsList = await apiManager.fetchCars()
 
         await MainActor.run {
             self.listOfAllCar = carsList

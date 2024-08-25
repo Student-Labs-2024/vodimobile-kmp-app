@@ -13,6 +13,7 @@ struct AutoListView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
+    @Binding var dateRange: ClosedRange<Date>?
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
@@ -21,15 +22,43 @@ struct AutoListView: View {
     init(
         selectedAuto: Binding<Car>,
         showModalReservation: Binding<Bool>,
-        showSignSuggestModal: Binding<Bool>
+        showSignSuggestModal: Binding<Bool>,
+        dateRange: Binding<ClosedRange<Date>?>? = nil
     ) {
         self._selectedAuto = selectedAuto
         self._showModalReservation = showModalReservation
         self._showSignSuggestModal = showSignSuggestModal
+        self._dateRange = dateRange ?? nil
     }
 
     var body: some View {
         VStack {
+            if dateRange != nil {
+                HStack(spacing: 10) {
+                    Image(R.image.calendar)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(Color(R.color.grayDark))
+                    Text(formatDateRange())
+                        .foregroundColor(
+                            dateRange == nil
+                            ? Color(R.color.grayDark)
+                            : Color(R.color.background)
+                        )
+                    Spacer()
+                }
+                .frame(alignment: .leading)
+                .padding(.all, 16)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(R.color.containerItem))
+                )
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(R.color.grayDark), lineWidth: 1)
+                }
+            }
             TabBarView(index: $selectedTab)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
@@ -139,6 +168,26 @@ struct AutoListView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)
+        }
+    }
+    
+    func formatDateRange() -> String {
+        guard let dateRange = dateRange else {
+            return R.string.localizable.dateTextFieldPlaceholder()
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM yyyy"
+        
+        let startDate = formatter.string(from: dateRange.lowerBound)
+        let endDate = formatter.string(from: dateRange.upperBound)
+        
+        if startDate == endDate {
+            return startDate
+        } else if calendar.compare(dateRange.lowerBound, to: dateRange.upperBound, toGranularity: .day) == .orderedAscending {
+            return "\(startDate) - \(endDate)"
+        } else {
+            return "\(endDate) - \(startDate)"
         }
     }
 }

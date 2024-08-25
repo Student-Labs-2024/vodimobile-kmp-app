@@ -65,6 +65,7 @@
 "newPasswordPlaceholder" = "Input your new password";
 "fullnamePlaceholder" = "Input your full name";
 // make reservation screen
+"rentalDatesTitle" = "Rental dates";
 "rentalDatesPlaceholder" = "Select dates";
 "startPlaceOfObtainingTitle" = "Where will you pick up the car?";
 "endPlaceOfObtainingTitle" = "How will you return the car?";

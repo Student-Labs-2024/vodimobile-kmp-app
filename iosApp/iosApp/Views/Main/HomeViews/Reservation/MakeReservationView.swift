@@ -22,7 +22,7 @@ struct MakeReservationView: View {
 
     init(
         car: Car,
-        dates: String?,
+        dates: ClosedRange<Date>? = nil,
         showModal: Binding<Bool>? = nil
     ) {
         self.viewModel = .init(car: car, dates: dates)

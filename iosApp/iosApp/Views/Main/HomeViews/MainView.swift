@@ -63,6 +63,9 @@ struct MainView: View {
 
                 // Expandable Toolbar
                 ExpandableToolbar(
+                    selectedAuto: $selectedAuto,
+                    showModalReservation: $showModalReservation,
+                    showSignSuggestModal: $showSignSuggestModal,
                     isExpanded: $isExpanded,
                     dateRange: $dateRange,
                     showDatePicker: $showDatePicker,
@@ -94,7 +97,7 @@ struct MainView: View {
             content: {
                 MakeReservationView(
                     car: selectedAuto,
-                    dates: nil,
+                    dates: dateRange,
                     showModal: $showModalReservation
                 )
             }

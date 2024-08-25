@@ -46,7 +46,7 @@ final class MakeReservationViewModel: ObservableObject {
     @FocusState var focuseOnCommentField: Bool
 
     let car: Car
-    let dates: String?
+    let dates: ClosedRange<Date>?
     var carPreview: Image {
         if let image = car.images.first {
             return Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
@@ -57,7 +57,7 @@ final class MakeReservationViewModel: ObservableObject {
 
     init(
         car: Car,
-        dates: String?
+        dates: ClosedRange<Date>? = nil
     ) {
         self.car = car
         self.dates = dates
