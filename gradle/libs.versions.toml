@@ -54,8 +54,6 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
-google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 gotrue-kt = { module = "io.github.jan-tennert.supabase:gotrue-kt" }
 bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "bom" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
