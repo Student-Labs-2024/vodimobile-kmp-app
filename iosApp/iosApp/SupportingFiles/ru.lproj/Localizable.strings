@@ -55,7 +55,7 @@
 "phonePlaceholder" = "+X (XXX) XXX-XX-XX";
 "fullName" = "ФИО";
 "dateTextFieldPlaceholder" = "Когда?";
-"dateTextFieldTitle" = "Выберите даты аренды";
+"dateTextFieldTitle" = "Даты аренды";
 "password" = "Пароль";
 "passwordPlaceholder" = "Придумайте пароль";
 "fullnamePlaceholder" = "Введите свое ФИО";
@@ -63,12 +63,16 @@
 "newPassword" = "Новый пароль";
 "passwordPlaceholder" = "Введите пароль";
 "newPasswordPlaceholder" = "Придумайте пароль";
-"methodOfObtainingTitle" = "Где заберёте авто?";
-"methodOfObtaining" = "Выберите способ";
-"rentalTime" = "В какое время?";
+// make reservation screen
+"rentalDatesTitle" = "Даты аренды";
+"rentalDatesPlaceholder" = "Выберите даты";
+"startPlaceOfObtainingTitle" = "Где заберете авто?";
+"endPlaceOfObtainingTitle" = "Как вернете авто?";
+"placeOfObtainingPlaceholder" = "Выберите способ";
+"startRentalTime" = "Когда заберете?";
+"endRentalTime" = "Когда вернете?";
 "rentalTimePlaceholder" = "Выберите время";
-"commentToReservation" = "Комментарий к бронированию";
-"commentToReservationPlaceholder" = "Введите комментарий...";
+"extraServicesTitle" = "Дополнительные услуги";
 
 // Error strings
 "incorrectFullName" = "Неверный формат. Для ввода допускается только буквы без спец.символов";

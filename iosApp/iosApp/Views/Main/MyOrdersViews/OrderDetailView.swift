@@ -91,13 +91,13 @@ struct OrderDetailView: View {
                             )
                         }
                         HStack {
-                            Text("\(R.string.localizable.methodOfObtainingTitle()):")
+                            Text("\(R.string.localizable.startPlaceOfObtainingTitle()):")
                                 .font(.paragraph5)
                             Spacer()
                             Text(viewModel.order.startLocation)
                         }
                         HStack {
-                            Text("\(R.string.localizable.rentalTime()):")
+                            Text("\(R.string.localizable.startRentalTime()):")
                                 .font(.paragraph5)
                             Spacer()
                             Text(CustomDateFormatter.shared.formatTimes(

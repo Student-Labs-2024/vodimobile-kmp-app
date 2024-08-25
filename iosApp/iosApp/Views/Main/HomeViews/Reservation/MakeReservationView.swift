@@ -96,23 +96,38 @@ struct MakeReservationView: View {
                             }
 
                             ButtonLikeBorderedTextField(
-                                fieldType: .placePicker,
+                                fieldType: .startPlacePicker,
                                 inputErrorType: $viewModel.inputErrorType,
-                                selectedPlace: $viewModel.selectedPlace,
+                                selectedPlace: $viewModel.startPlace,
                                 placesDataSource: $viewModel.placesWithCost
                             )
 
                             ButtonLikeBorderedTextField(
-                                fieldType: .timePicker,
+                                fieldType: .startTimePicker,
                                 inputErrorType: $viewModel.inputErrorType,
-                                time: $viewModel.time,
-                                showTimePicker: $viewModel.showTimePicker
+                                time: $viewModel.startTime,
+                                showTimePicker: $viewModel.showStartTimePicker
                             )
 
-                            AutoSizingTextEditor(text: $viewModel.comment, isFocused: $viewModel.focuseOnCommentField)
+                            ButtonLikeBorderedTextField(
+                                fieldType: .endPlacePicker,
+                                inputErrorType: $viewModel.inputErrorType,
+                                selectedPlace: $viewModel.endPlace,
+                                placesDataSource: $viewModel.placesWithCost
+                            )
 
+                            ButtonLikeBorderedTextField(
+                                fieldType: .endTimePicker,
+                                inputErrorType: $viewModel.inputErrorType,
+                                time: $viewModel.endTime,
+                                showTimePicker: $viewModel.showEndTimePicker
+                            )
+
+                            HorizontalServicesScrollView(
+                                servicesList: $viewModel.servicesList,
+                                selectedServicesList: $viewModel.selectedServices
+                            )
                             Spacer()
-
                         }
                     }
 
@@ -130,8 +145,8 @@ struct MakeReservationView: View {
                         }
                         .buttonStyle(FilledBtnStyle())
                         .disabled(
-                            viewModel.selectedPlace == nil &&
-                            viewModel.time == nil &&
+                            viewModel.startPlace == nil &&
+                            viewModel.endPlace == nil &&
                             viewModel.dateRange == nil
                         )
                     }
@@ -145,11 +160,20 @@ struct MakeReservationView: View {
                         showDatePicker: $viewModel.showDatePicker,
                         dateRange: $viewModel.dateRange
                     )
-                } else if viewModel.showTimePicker {
-                    ModalTimePicker(selectedTime: $viewModel.time, showTimePicker: $viewModel.showTimePicker)
+                } else if viewModel.showStartTimePicker {
+                    ModalTimePicker(
+                        selectedTime: $viewModel.startTime,
+                        showTimePicker: $viewModel.showStartTimePicker
+                    )
+                } else if viewModel.showEndTimePicker {
+                    ModalTimePicker(
+                        selectedTime: $viewModel.endTime,
+                        showTimePicker: $viewModel.showEndTimePicker
+                    )
                 }
             }
         }
+        .loadingOverlay(isLoading: $viewModel.isLoading)
         .navigationBarBackButtonHidden()
     }
 }
@@ -159,4 +183,70 @@ struct MakeReservationView: View {
         car: Car.companion.empty(),
         dates: nil
     )
+}
+
+struct HorizontalServicesScrollView: View {
+    @Binding var servicesList: [ServicesDTO]
+    @Binding var selectedServicesList: [ServicesDTO]
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 16) {
+                ForEach(servicesList, id: \.service_id) { service in
+                    AdditionalServiceCell(
+                        service: service,
+                        selectedServicesList: $selectedServicesList
+                    )
+                }
+            }
+        }
+    }
+}
+
+struct AdditionalServiceCell: View {
+    let service: ServicesDTO
+    @State var isSelected: Bool = false
+    @Binding var selectedServicesList: [ServicesDTO]
+
+    var body: some View {
+        Button(action: {
+            if !selectedServicesList.contains(where: { $0 == service }) {
+                isSelected = true
+                selectedServicesList.append(service)
+            } else {
+                isSelected = false
+                if let selectedServiceIndex = selectedServicesList.firstIndex(of: service) {
+                    selectedServicesList.remove(at: selectedServiceIndex)
+                }
+            }
+        }, label: {
+            if isSelected {
+                VStack(spacing: 5) {
+                    Text(service.title)
+                        .font(.buttonTabbar)
+                        .foregroundStyle(.white)
+                    Text("+\(Int(service.cost)) \(R.string.localizable.currencyText())")
+                        .font(.buttonTabbar)
+                        .foregroundStyle(.white)
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 8)
+                .background(RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(R.color.blueColor)))
+            } else {
+                VStack(spacing: 5) {
+                    Text(service.title)
+                        .font(.buttonTabbar)
+                        .foregroundStyle(Color(R.color.text))
+                    Text("+\(Int(service.cost)) \(R.string.localizable.currencyText())")
+                        .font(.buttonTabbar)
+                        .foregroundStyle(Color(R.color.blueColor))
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 8)
+                .background(RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(R.color.blueBox)))
+            }
+        })
+    }
 }

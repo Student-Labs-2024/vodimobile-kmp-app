@@ -54,13 +54,14 @@ struct ButtonLikeBorderedTextField: View {
                     showDatePicker: $showDatePicker,
                     rightImage: Image(R.image.calendar)
                 )
-            case .placePicker:
+            case .startPlacePicker, .endPlacePicker:
                 PlacePickerField(
+                    fieldType: fieldType,
                     selectedPlace: $selectedPlace,
                     placesDataSource: placesDataSource,
                     icon: Image.chevronDown
                 )
-            case .timePicker:
+            case .startTimePicker, .endTimePicker:
                 TimePickerField(selectedTime: $time, showTimePicker: $showTimePicker)
 
                 if inputErrorType != nil {

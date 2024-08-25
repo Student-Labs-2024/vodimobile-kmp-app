@@ -151,6 +151,7 @@ final class KMPApiManager: ObservableObject {
                 isLoading = true
             }
             do {
+                await getAuthIfNeed()
                 if let storageUser = dataStorage.gettingUser {
                     let response = try await helper.getPlaces(
                         accessToken: storageUser.accessToken,
@@ -161,6 +162,39 @@ final class KMPApiManager: ObservableObject {
                         print(success.data ?? "Empty data")
                         if let places = success.data {
                             return convertNSArrayToArray(nsArray: places)
+                        }
+                    case .crmError(let error):
+                        print(error.status?.value ?? "Empty error")
+                    case .crmLoading:
+                        print("loading...")
+                    }
+                }
+            } catch {
+                print(error)
+            }
+            await MainActor.run {
+                isLoading = false
+            }
+        }
+        return []
+    }
+
+    func fetchServices() async -> [ServicesDTO] {
+        if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
+            do {
+                if let storageUser = dataStorage.gettingUser {
+                    let response = try await helper.getServices(
+                        accessToken: storageUser.accessToken,
+                        refreshToken: storageUser.refreshToken
+                    )
+                    switch onEnum(of: response) {
+                    case .crmData(let success):
+                        print(success.data ?? "Empty data")
+                        if let services = success.data {
+                            return convertNSArrayToArray(nsArray: services)
                         }
                     case .crmError(let error):
                         print(error.status?.value ?? "Empty error")
@@ -219,8 +253,8 @@ final class KMPApiManager: ObservableObject {
             }
         }
     }
-    
-    func fetchBidCost(for bidCostParams: BidCostParams) async -> Bid {
+
+    func fetchBidCost(for bidCostParams: BidCostParams) async -> Bid? {
         do {
             if let storageUser = dataStorage.gettingUser {
                 let response = try await helper.getBidCost(
@@ -243,6 +277,17 @@ final class KMPApiManager: ObservableObject {
         } catch {
             print(error)
         }
+        return nil
+    }
+
+    private func getAuthIfNeed() async {
+        if let storageUser = dataStorage.gettingUser, storageUser.id < 0 {
+            await setUserTokens()
+            let supaUser = await getSupaUser(pass: storageUser.password, phone: storageUser.phone)
+            await MainActor.run {
+                dataStorage.gettingUser = supaUser
+            }
+        }
     }
 
     private func convertNSArrayToArray<T>(nsArray: NSArray) -> [T] {
@@ -256,16 +301,6 @@ final class KMPApiManager: ObservableObject {
             }
         }
         return itemList
-    }
-
-    private func getAuthIfNeed() async {
-        if let storageUser = dataStorage.gettingUser, storageUser.id < 0 {
-            await setUserTokens()
-            let supaUser = await getSupaUser(pass: storageUser.password, phone: storageUser.phone)
-            await MainActor.run {
-                dataStorage.gettingUser = supaUser
-            }
-        }
     }
 }
 

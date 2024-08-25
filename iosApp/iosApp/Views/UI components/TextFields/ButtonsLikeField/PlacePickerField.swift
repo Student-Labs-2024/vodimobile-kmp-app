@@ -11,16 +11,19 @@ import shared
 
 struct PlacePickerField: View {
     @Binding var selectedPlace: PlaceShort?
+    private let fieldType: ButtonLikeTextFieldType
     private let placesDataSource: [PlaceShort]
     private let backgroundColor: SwiftUI.Color
     private let icon: Image
 
     init(
+        fieldType: ButtonLikeTextFieldType,
         selectedPlace: Binding<PlaceShort?>,
         placesDataSource: [PlaceShort],
         icon: Image = Image.clock,
         backgroundColor: SwiftUI.Color = Color(R.color.blueBox)
     ) {
+        self.fieldType = fieldType
         self._selectedPlace = selectedPlace
         self.placesDataSource = placesDataSource
         self.icon = icon
@@ -38,14 +41,13 @@ struct PlacePickerField: View {
             }
         } label: {
             HStack {
-                Text(selectedPlace?.nameWithCost ?? R.string.localizable.methodOfObtaining())
+                Text(selectedPlace?.nameWithCost ?? R.string.localizable.placeOfObtainingPlaceholder())
                     .foregroundColor(selectedPlace != nil ? Color(R.color.blueColor) : Color(R.color.grayDark))
                     .font(.paragraph4)
 
                 Spacer()
 
-                icon
-                    .foregroundColor(Color(R.color.grayDark))
+                icon.foregroundColor(Color(R.color.grayDark))
             }
             .padding(16)
             .background(
