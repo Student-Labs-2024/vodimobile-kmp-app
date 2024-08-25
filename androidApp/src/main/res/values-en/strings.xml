@@ -90,7 +90,7 @@ The current version of the Policy is freely available on the Internet at http://
     <string name="contacts">Contacts</string>
     <string name="profile_title">Profile</string>
     <string name="exit_account">Log out of account</string>
-    <string name="personal_data_title">Personal\ndata</string>
+    <string name="personal_data_title">Personal data</string>
     <string name="personal_data_subtitle">Full name, phone number, email</string>
     <string name="edit_data">Edit data</string>
 
