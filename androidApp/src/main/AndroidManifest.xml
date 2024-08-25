@@ -55,15 +55,15 @@
         </activity>
 
         <service
-            android:name="com.vodimobile.service.fcm.FirebaseMessagingService"
+            android:name="com.vodimobile.service.fcm.VodimobileFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/logo3" />
         </service>
-        <service
-            android:name="com.vodimobile.service.bid.BidForegroundService"
-            android:exported="false" />
     </application>
 
 </manifest>
