@@ -1,8 +1,19 @@
 package com.vodimobile.presentation.screens.reservation
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.util.Log
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.stringResource
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.MainActivity
+import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.order.CarStatus
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
@@ -17,6 +28,7 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
 import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
+import com.vodimobile.service.notification.VodimobileNotificationManager
 import com.vodimobile.utils.bid.bidGripReverse
 import com.vodimobile.utils.date_formats.parseToCrmDate
 import com.vodimobile.utils.date_formats.parseToSupabaseDate
@@ -231,6 +243,24 @@ class ReservationViewModel(
             }
 
             is ReservationIntent.PutBid -> {
+                val newIntent = Intent(intent.context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                val title = intent.context.resources.getString(R.string.bid_in_progress_notif_title)
+                val model = intent.context.resources.getString(reservationState.value.selectedCar.model.resourceId)
+                val body = intent.context.resources.getString(
+                    R.string.bid_in_progress_notif_body,
+                    model
+                )
+                val vodimobileNotificationManager = VodimobileNotificationManager(context = intent.context)
+                val notif = vodimobileNotificationManager.buildNotification(
+                    intent = newIntent,
+                    title = title,
+                    body = body,
+                    notifLogo = R.drawable.bid_notif_in_progress,
+                    color = Color(246, 246, 246, 1).toArgb()
+                )
+                vodimobileNotificationManager.sendNotification(notification = notif)
                 viewModelScope.launch(supervisorCoroutineContext) {
                     reservationEffect.emit(ReservationEffect.ShowLoadingDialog)
                     val crmEither = crmStorage.createBid(

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bid_in_progress_notif_title">Заявка в обработке</string>
+    <string name="bid_in_progress_notif_body">Ваша заявка %s рассматривается. Менеджер скоро свяжется с вами.</string>
+</resources>
