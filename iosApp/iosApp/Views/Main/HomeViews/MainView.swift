@@ -35,7 +35,8 @@ struct MainView: View {
                                 AutoListView(
                                     selectedAuto: $selectedAuto,
                                     showModalReservation: $showModalReservation,
-                                    showSignSuggestModal: $showSignSuggestModal
+                                    showSignSuggestModal: $showSignSuggestModal,
+                                    dateRange: $dateRange
                                 )
                             }
                             .font(.buttonTabbar)
@@ -53,6 +54,7 @@ struct MainView: View {
                         }
                         AutoGeneralCardView(
                             selectedAuto: $selectedAuto,
+                            dateRange: $dateRange,
                             showModalReservation: $showModalReservation,
                             showSignSuggestModal: $showSignSuggestModal
                         )

@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct AutoListView: View {
+    @Environment(\.calendar) var calendar
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
@@ -17,47 +18,29 @@ struct AutoListView: View {
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
-    @ObservedObject private var viewModel = AutoListViewModel()
+    @ObservedObject private var viewModel: AutoListViewModel
 
     init(
         selectedAuto: Binding<Car>,
         showModalReservation: Binding<Bool>,
         showSignSuggestModal: Binding<Bool>,
-        dateRange: Binding<ClosedRange<Date>?>? = nil
+        dateRange: Binding<ClosedRange<Date>?>
     ) {
         self._selectedAuto = selectedAuto
         self._showModalReservation = showModalReservation
         self._showSignSuggestModal = showSignSuggestModal
-        self._dateRange = dateRange ?? nil
+        self._dateRange = dateRange
+        self.viewModel = .init(datesRange: dateRange)
     }
 
     var body: some View {
         VStack {
             if dateRange != nil {
-                HStack(spacing: 10) {
-                    Image(R.image.calendar)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(Color(R.color.grayDark))
-                    Text(formatDateRange())
-                        .foregroundColor(
-                            dateRange == nil
-                            ? Color(R.color.grayDark)
-                            : Color(R.color.background)
-                        )
-                    Spacer()
-                }
-                .frame(alignment: .leading)
-                .padding(.all, 16)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color(R.color.containerItem))
+                ButtonLikeDateField(
+                    showDatePicker: Binding.constant(false),
+                    dateRange: $dateRange
                 )
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(R.color.grayDark), lineWidth: 1)
-                }
+                .padding(.horizontal, horizontalPadding)
             }
             TabBarView(index: $selectedTab)
                 .background(
@@ -75,7 +58,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 2:
                     ScrollableAutoListView(
@@ -84,7 +67,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 3:
                     ScrollableAutoListView(
@@ -93,7 +76,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 4:
                     ScrollableAutoListView(
@@ -102,7 +85,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 5:
                     ScrollableAutoListView(
@@ -111,7 +94,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 default:
                     ScrollableAutoListView(
@@ -120,7 +103,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 }
             }
@@ -160,7 +143,7 @@ struct AutoListView: View {
         }
         .onAppear {
             Task {
-                await viewModel.fetchAllCars()
+                await viewModel.fetchCars()
             }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
@@ -170,18 +153,18 @@ struct AutoListView: View {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)
         }
     }
-    
+
     func formatDateRange() -> String {
         guard let dateRange = dateRange else {
             return R.string.localizable.dateTextFieldPlaceholder()
         }
-        
+
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
-        
+
         let startDate = formatter.string(from: dateRange.lowerBound)
         let endDate = formatter.string(from: dateRange.upperBound)
-        
+
         if startDate == endDate {
             return startDate
         } else if calendar.compare(dateRange.lowerBound, to: dateRange.upperBound, toGranularity: .day) == .orderedAscending {
@@ -190,12 +173,4 @@ struct AutoListView: View {
             return "\(endDate) - \(startDate)"
         }
     }
-}
-
-#Preview {
-    AutoListView(
-        selectedAuto: Binding.constant(Car.companion.empty()),
-        showModalReservation: Binding.constant(false),
-        showSignSuggestModal: Binding.constant(false)
-    )
 }

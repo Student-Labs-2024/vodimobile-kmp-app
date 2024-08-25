@@ -9,43 +9,46 @@
 import shared
 import SwiftUI
 
+@MainActor
 final class AutoListViewModel: ObservableObject {
     @Published var listOfAllCar = [Car]()
     @Binding var datesRange: ClosedRange<Date>?
     @Published var isLoading = false
     private let apiManager = KMPApiManager.shared
-    
-    init() {
+
+    init(datesRange: Binding<ClosedRange<Date>?>) {
+        self._datesRange = datesRange
         Task {
-            await fetchAllCars()
-        }
-    }
-    
-    func fetchCarIdsForDateRange() async {
-        self.isLoading.toggle()
-        let carIdsList = await apiManager.fetchFreeCarIdsForDate(for: CarFreeListParamsDTO(
-            begin: Int(datesRange.lowerBound.timeIntervalSince1970)
-            end: Int(datesRange.upperBound.timeIntervalSince1970),
-            includeReserves: true,
-            includeIdles: true,
-            cityId: 2
-        )
-        )
-
-        await MainActor.run {
-            self.listOfAllCar = carsList
-            self.isLoading.toggle()
+            await self.fetchCars()
         }
     }
 
-    func fetchAllCars() async {
-        self.isLoading.toggle()
-        let carsList = await apiManager.fetchCars()
+    func fetchCars() async {
+        self.isLoading = true
+        let fetchedCars: [Car]
+        let freeCarIds: Set<Int>
 
-        await MainActor.run {
-            self.listOfAllCar = carsList
-            self.isLoading.toggle()
+        if let datesRange = datesRange {
+            async let fetchedCarsResult = apiManager.fetchCars()
+            async let carIdsResult = apiManager.fetchFreeCarIdsForDate(for: CarFreeListParamsDTO(
+                begin: Int64(datesRange.lowerBound.timeIntervalSince1970),
+                end: Int64(datesRange.upperBound.timeIntervalSince1970),
+                includeReserves: true,
+                includeIdles: true,
+                cityId: 2
+            ))
+
+            fetchedCars = await fetchedCarsResult
+            freeCarIds = Set(await carIdsResult)
+        } else {
+            fetchedCars = await apiManager.fetchCars()
+            freeCarIds = Set()
         }
+
+        let filteredCars = fetchedCars.filter { freeCarIds.contains(Int($0.carId)) }
+
+        self.listOfAllCar = filteredCars
+        self.isLoading = false
     }
 
     func filterCars(by autoType: CarType) -> Binding<[Car]> {

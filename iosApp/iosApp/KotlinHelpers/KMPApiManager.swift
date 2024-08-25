@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 import Combine
 
+// swiftlint:disable type_body_length
 final class KMPApiManager: ObservableObject {
     private var helper = KoinHelper()
     @ObservedObject var dataStorage = KMPDataStorage.shared
@@ -109,7 +110,7 @@ final class KMPApiManager: ObservableObject {
             }
         }
     }
-    
+
     func fetchFreeCarIdsForDate(for carFreeListParamsDTO: CarFreeListParamsDTO) async -> [Int] {
         if appState.isConnected {
             if let storageUser = dataStorage.gettingUser,
@@ -146,7 +147,7 @@ final class KMPApiManager: ObservableObject {
         }
         return []
     }
-    
+
     func fetchCarFreeDateRange(carId: Int32, beginDate: Int64, endDate: Int64) async -> [(Int64, Int64)] {
         if appState.isConnected {
             await MainActor.run {
@@ -402,6 +403,7 @@ final class KMPApiManager: ObservableObject {
         return itemList
     }
 }
+// swiftlint:enable type_body_length
 
 final class AuthManager: ObservableObject {
     static let shared = AuthManager()
