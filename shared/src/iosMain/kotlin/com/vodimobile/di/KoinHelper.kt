@@ -4,6 +4,7 @@ import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
+import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.supabase.OrderDTO
@@ -66,6 +67,28 @@ class KoinHelper : KoinComponent {
         bidCostParams: BidCostParams
     ) = crmStorage.getBidCost(accessToken, refreshToken, bidCostParams)
 
+    suspend fun createBid(
+        accessToken: String,
+        refreshToken: String,
+        bidCreateParams: BidCreateParams
+    ) = crmStorage.createBid(
+        accessToken = accessToken,
+        refreshToken = refreshToken,
+        bidCreateParams = bidCreateParams
+    )
+
+    suspend fun getCarFreeDateRange(
+        accessToken: String,
+        refreshToken: String,
+        carId: Int,
+        begin: Long, end: Long
+    ) = crmStorage.getCarFreeDateRange(
+        accessToken = accessToken,
+        refreshToken = refreshToken,
+        carId = carId,
+        begin = begin, end = end
+    )
+
 
     suspend fun getUser(password: String, phone: String) = supabaseStorage.getUser(password, phone)
     suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = user)
@@ -83,7 +106,12 @@ class KoinHelper : KoinComponent {
         supabaseStorage.insertOrder(orderDTO = orderDTO)
 
     suspend fun getOrders(userId: Int, accessToken: String, refreshToken: String, phone: String) =
-        supabaseStorage.getOrders(userId = userId, accessToken = accessToken, refreshToken = refreshToken, phone = phone)
+        supabaseStorage.getOrders(
+            userId = userId,
+            accessToken = accessToken,
+            refreshToken = refreshToken,
+            phone = phone
+        )
 
     suspend fun updateStatus(userId: Int, orderId: Int, status: String) =
         supabaseStorage.updateStatus(userId, orderId, status)
