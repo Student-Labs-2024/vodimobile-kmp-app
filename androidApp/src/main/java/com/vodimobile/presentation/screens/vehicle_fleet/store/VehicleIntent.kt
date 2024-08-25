@@ -26,4 +26,5 @@ sealed class VehicleIntent {
     data object ShowProgressDialog : VehicleIntent()
     data object DismissProgressDialog : VehicleIntent()
     data class InitCarList(val value: List<Car>) : VehicleIntent()
+    data object CancelCoroutines : VehicleIntent()
 }

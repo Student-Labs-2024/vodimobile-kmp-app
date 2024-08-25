@@ -24,7 +24,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -41,7 +43,6 @@ import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
-import com.vodimobile.domain.model.order.CarStatus
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -78,7 +79,6 @@ import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.components.SmallProgressDialogIndicator
 import com.vodimobile.presentation.screens.about_order.components.AboutCarItem
-import com.vodimobile.presentation.screens.about_order.components.ButtonsItem
 import com.vodimobile.presentation.screens.about_order.components.OrderStatusEnum
 import com.vodimobile.presentation.screens.about_order.components.SumItem
 import com.vodimobile.presentation.screens.about_order.store.AboutOrderEffect
@@ -121,7 +121,14 @@ fun AboutOrderScreen(
         }
     }
 
-    onAboutOrderIntent(AboutOrderIntent.InitOrder(orderId = orderId))
+    SideEffect {
+        onAboutOrderIntent(AboutOrderIntent.InitOrder(orderId = orderId))
+    }
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            onAboutOrderIntent(AboutOrderIntent.CanselCoroutines)
+        }
+    }
 
     Scaffold(
         modifier = modifier,
@@ -212,7 +219,11 @@ private fun AboutOrderScreenDarkPreview() {
             updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
             updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
             insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
+            getOrdersUseCase = GetOrdersUseCase(
+                SupabaseRepositoryImpl(),
+                crmStorage,
+                crmRepository
+            ),
             updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
             updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
             updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -291,7 +302,11 @@ private fun AboutOrderScreenLightPreview() {
             updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
             updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
             insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-            getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
+            getOrdersUseCase = GetOrdersUseCase(
+                SupabaseRepositoryImpl(),
+                crmStorage,
+                crmRepository
+            ),
             updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
             updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
             updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),

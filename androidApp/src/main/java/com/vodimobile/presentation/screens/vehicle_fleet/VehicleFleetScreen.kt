@@ -16,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -115,6 +116,11 @@ fun VehicleFleetScreen(
     }
     LaunchedEffect(key1 = vehicleState.value.cars) {
         onVehicleIntent(VehicleIntent.InitCars(dateRange = dateRange))
+    }
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            onVehicleIntent(VehicleIntent.CancelCoroutines)
+        }
     }
     ExtendedTheme {
         Scaffold(
