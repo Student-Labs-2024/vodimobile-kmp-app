@@ -179,6 +179,38 @@ final class KMPApiManager: ObservableObject {
         return []
     }
 
+    func createBidToReserving(for bidCreateParams: BidCreateParams) async -> BidCreateDTO? {
+        if appState.isConnected {
+            await MainActor.run {
+                isLoading = true
+            }
+            if let storageUser = dataStorage.gettingUser {
+                do {
+                    let response = try await helper.createBid(
+                        accessToken: storageUser.accessToken,
+                        refreshToken: storageUser.refreshToken,
+                        bidCreateParams: bidCreateParams)
+                    switch onEnum(of: response) {
+                    case .crmData(let success):
+                        if let bidCreateDTO = success.data {
+                            return bidCreateDTO
+                        }
+                    case .crmError(let error):
+                        print(error.status?.value ?? "Empty error")
+                    case .crmLoading:
+                        print("loading...")
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            await MainActor.run {
+                isLoading = false
+            }
+        }
+        return nil
+    }
+
     func fetchServices() async -> [ServicesDTO] {
         if appState.isConnected {
             await MainActor.run {

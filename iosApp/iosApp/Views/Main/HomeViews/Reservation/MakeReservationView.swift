@@ -12,14 +12,12 @@ import shared
 struct MakeReservationView: View {
     @Binding private var showModal: Bool
     @ObservedObject var viewModel: MakeReservationViewModel
+    @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) private var dismiss
 
-    @ViewBuilder private var destinationView: some View {
-        if viewModel.isSuccessed == .success {
-            SuccessfulReservationView()
-        } else {
-            FailureReservationView()
-        }
+    enum Destination: Hashable {
+        case successView
+        case failureView
     }
 
     init(
@@ -140,15 +138,29 @@ struct MakeReservationView: View {
                                 .font(.header3)
                         }
 
-                        NavigationLink(R.string.localizable.leaveReuqestButton()) {
-                            destinationView
+                        NavigationStack(path: $navigationPath) {
+                            VStack {
+                                Button(R.string.localizable.leaveReuqestButton(), action: {
+                                    Task {
+                                        await viewModel.createBidToReserve()
+                                    }
+                                })
+                                .buttonStyle(FilledBtnStyle())
+                                .disabled(
+                                    viewModel.startPlace == nil &&
+                                    viewModel.endPlace == nil &&
+                                    viewModel.dateRange == nil
+                                )
+                            }
+                            .navigationDestination(for: Destination.self) { destination in
+                                switch destination {
+                                case .successView:
+                                    SuccessfulReservationView()
+                                case .failureView:
+                                    FailureReservationView()
+                                }
+                            }
                         }
-                        .buttonStyle(FilledBtnStyle())
-                        .disabled(
-                            viewModel.startPlace == nil &&
-                            viewModel.endPlace == nil &&
-                            viewModel.dateRange == nil
-                        )
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 20)

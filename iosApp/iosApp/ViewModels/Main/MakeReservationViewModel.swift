@@ -11,7 +11,7 @@ import shared
 
 final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
-    @Published var isSuccessed: RequestReservationState = .success
+    @Published var isSuccessed = false
     @Published var showDatePicker = false
     @Published var dateRange: ClosedRange<Date>?
     @Published var inputErrorType: InputErrorType?
@@ -68,6 +68,29 @@ final class MakeReservationViewModel: ObservableObject {
                 await fetchServiceList()
             }
         }
+    }
+
+    func createBidToReserve() async -> BidCreateDTO? {
+        var createdBid: BidCreateDTO?
+        if let storageUser = apiManager.dataStorage.gettingUser,
+           let startPlace = startPlace,
+           let endPlace = endPlace {
+            createdBid = await apiManager.createBidToReserving(for: BidCreateParams(
+                fio: storageUser.fullName,
+                phone: storageUser.phone,
+                car_id: car.carId,
+                begin: startTime?.formatted() ?? "",
+                end: endTime?.formatted() ?? "",
+                begin_place_id: startPlace.id,
+                end_place_id: endPlace.id,
+                services: selectedServices.map({ KotlinInt(value: $0.service_id) }),
+                prepayment: nil,
+                files: nil
+            )
+            )
+        }
+        isSuccessed = createdBid != nil ? true : false
+        return createdBid
     }
 
     func fetchPlaceList() async {
@@ -135,7 +158,7 @@ final class MakeReservationViewModel: ObservableObject {
             return KotlinInt(int: Int32(swiftArray[Int(truncating: index)].service_id))
         }
     }
-    
+
     private func handlerFieldsChanged() {
         if startPlace != nil && endPlace != nil {
             Task {
