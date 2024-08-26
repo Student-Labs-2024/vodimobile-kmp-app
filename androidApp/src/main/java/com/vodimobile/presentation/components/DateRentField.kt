@@ -41,6 +41,7 @@ fun DateRentField(
                     style = MaterialTheme.typography.bodyMedium
                 )
             },
+            readOnly = true,
             colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = if (showTrailingIcon) ExtendedTheme.colorScheme.containerBack
                 else ExtendedTheme.colorScheme.onSecondaryBackground,
