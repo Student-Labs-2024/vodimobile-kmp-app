@@ -91,7 +91,7 @@
     <string name="contacts">Контакты</string>
     <string name="profile_title">Профиль</string>
     <string name="exit_account">Выйти из аккаунта</string>
-    <string name="personal_data_title">Личные данные</string>
+    <string name="personal_data_title">Личные\nданные</string>
     <string name="personal_data_subtitle">ФИО, номер телефона, почта</string>
     <string name="edit_data">Редактировать личные данные</string>
     <string name="home_screen_label">Главная</string>
@@ -99,7 +99,7 @@
     <string name="profile_screen_label">Профиль</string>
     <string name="str_rules">Правила и условия</string>
     <string name="str_arrowforward">Перейти</string>
-    <string name="str_rules_and_conditions_title">Правила и условия</string>
+    <string name="str_rules_and_conditions_title">Правила условия</string>
 
     <string name="str_rules1">Условия аренды для водителей</string>
     <string name="str_rules2">Этапы аренды автомобиля</string>
