@@ -1,3 +1,4 @@
+![Инструмент Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
 ## build.gragle.kts
 
 Сборщик для KMP модуля. Содержит в себе зависимости, а также получает переменныя из local.properties.
