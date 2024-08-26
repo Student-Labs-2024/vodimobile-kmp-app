@@ -90,6 +90,7 @@ import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
+import com.vodimobile.presentation.utils.arguments_parser.pairListToLongList
 import com.vodimobile.service.notification.VodimobileNotificationManager
 import com.vodimobile.shared.resources.SharedRes
 import com.vodimobile.utils.data_store.getDataStore
@@ -138,16 +139,11 @@ fun ReservationScreen(
                 }
 
                 ReservationEffect.ShowDatePicker -> {
-                    navHostController.navigate(DialogIdentifiers.DATE_SELECT_DIALOG)
+                    navHostController.navigate(route= DialogIdentifiers.DATE_SELECT_DIALOG)
                 }
 
                 ReservationEffect.EmitGeneralStateChange -> {
-                    onGeneralIntent(GeneralIntent.ChangeAvailablePeriods(value = reservationState.value.freeDates.map {
-                        DateRange(
-                            startDate = it.first,
-                            endDate = it.second
-                        )
-                    }))
+
                 }
 
                 ReservationEffect.Fail -> {
@@ -161,29 +157,31 @@ fun ReservationScreen(
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
-        onReservationIntent(ReservationIntent.DateChange(value = date))
-        onReservationIntent(ReservationIntent.InitUser)
-    }
+    SideEffect {
+        onReservationIntent(ReservationIntent.GetCarFreeDate(value = date))
 
-    LaunchedEffect(key1 = Unit) {
+        onReservationIntent(ReservationIntent.DateChange(value = date))
+
+        onReservationIntent(ReservationIntent.InitUser)
+
         onReservationIntent(ReservationIntent.GetAllPLaces)
-    }
-    LaunchedEffect(key1 = Unit) {
+
         onReservationIntent(ReservationIntent.GetAllServices)
-    }
-    LaunchedEffect(carId) {
+
         onReservationIntent(ReservationIntent.CarIdChange(carId))
         onReservationIntent(ReservationIntent.GetAllCars)
-    }
-    LaunchedEffect(date) {
+
         onReservationIntent(ReservationIntent.DateChange(date))
-    }
-    LaunchedEffect(startTime) {
+
         onReservationIntent(ReservationIntent.StartTimeChange(startTime))
-    }
-    LaunchedEffect(endTime) {
         onReservationIntent(ReservationIntent.EndTimeChange(endTime))
+
+        onGeneralIntent(GeneralIntent.ChangeAvailablePeriods(value = reservationState.value.freeDates.map {
+            DateRange(
+                startDate = it.first,
+                endDate = it.second
+            )
+        }))
     }
 
     SideEffect {
@@ -196,15 +194,6 @@ fun ReservationScreen(
                 launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
-    }
-
-    if (!reservationState.value.errorGetPlace &&
-        !reservationState.value.errorReturnPlace &&
-        !reservationState.value.errorDate &&
-        !reservationState.value.errorStartTime &&
-        !reservationState.value.errorEndTime
-    ) {
-        onReservationIntent(ReservationIntent.GetBidCost)
     }
 
     val isButtonClicked = remember { mutableStateOf(false) }
