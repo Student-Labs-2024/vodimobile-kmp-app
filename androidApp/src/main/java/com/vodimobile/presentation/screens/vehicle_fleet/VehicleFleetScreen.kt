@@ -159,7 +159,7 @@ fun VehicleFleetScreen(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(
                     20.dp,
-                    alignment = Alignment.CenterVertically
+                    alignment = Alignment.Top
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
