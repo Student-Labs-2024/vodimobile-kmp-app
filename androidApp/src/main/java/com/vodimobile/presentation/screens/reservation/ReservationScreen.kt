@@ -150,7 +150,6 @@ fun ReservationScreen(
                     navHostController.navigate(route = LeafOrdersScreen.ERROR_APP_SCREEN)
                 }
                 ReservationEffect.Success -> {
-                    navHostController.navigateUp()
                     navHostController.navigate(route = LeafOrdersScreen.SUCCESSFUL_SCREEN)
                 }
             }
