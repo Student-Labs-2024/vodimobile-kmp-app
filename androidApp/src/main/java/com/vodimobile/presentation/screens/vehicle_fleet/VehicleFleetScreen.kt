@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -114,7 +115,8 @@ fun VehicleFleetScreen(
             }
         }
     }
-    LaunchedEffect(key1 = vehicleState.value.cars) {
+    SideEffect {
+        onVehicleIntent(VehicleIntent.InitDateRange(dateRange = dateRange))
         onVehicleIntent(VehicleIntent.InitCars(dateRange = dateRange))
     }
     DisposableEffect(key1 = Unit) {
@@ -199,7 +201,9 @@ fun VehicleFleetScreen(
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_UNDEFINED
+)
 @Composable
 private fun VehicleFleetScreenPreview() {
     VodimobileTheme(dynamicColor = false) {

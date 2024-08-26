@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.vehicle_fleet
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
@@ -12,6 +13,7 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.utils.cars.carCategoryMap
+import com.vodimobile.utils.date_formats.parseToSupabaseDate
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
@@ -79,7 +81,7 @@ class VehicleFleetViewModel(
 
             is VehicleIntent.InitCars -> {
                 viewModelScope.launch(context = supervisorCoroutineContext) {
-                    if (intent.dateRange[0] == 0L && intent.dateRange[1] == 0L) {
+                    if (vehicleState.value.dateRange[0] == 0L && vehicleState.value.dateRange[1] == 0L) {
                         getAllCars()
                     } else {
                         getRangeCars(begin = intent.dateRange[0], end = intent.dateRange[1])
@@ -110,6 +112,14 @@ class VehicleFleetViewModel(
 
             VehicleIntent.CancelCoroutines -> {
                 supervisorCoroutineContext.cancelChildren()
+            }
+
+            is VehicleIntent.InitDateRange -> {
+                vehicleState.update {
+                    it.copy(
+                        dateRange = intent.dateRange
+                    )
+                }
             }
         }
     }
