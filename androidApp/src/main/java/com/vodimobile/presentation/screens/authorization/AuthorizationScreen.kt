@@ -191,7 +191,9 @@ fun AuthorizationScreen(
                     isButtonClicked.value = true
                     if (!authorizationState.value.phoneNumberError && !authorizationState.value.passwordError)
                         onAuthorizationIntent(AuthorizationIntent.AskPermission)
-                }
+                },
+                enabled =  authorizationState.value.phoneNumber.isNotEmpty()
+                        && authorizationState.value.password.isNotEmpty()
             )
         }
     }

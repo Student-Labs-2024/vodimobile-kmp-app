@@ -145,7 +145,6 @@ fun RegistrationScreen(
     fun resetButtonClicked() {
         if (isButtonClicked.value) isButtonClicked.value = false
     }
-
     Scaffold(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
@@ -192,8 +191,11 @@ fun RegistrationScreen(
                         !registrationState.value.phoneNumberError &&
                         !registrationState.value.passwordError
                     )
-                        onRegistrationIntent(RegistrationIntent.AskPermission)
-                }
+                      onRegistrationIntent(RegistrationIntent.AskPermission)
+                },
+                enabled = registrationState.value.name.isNotEmpty()
+                        &&registrationState.value.phoneNumber.isNotEmpty()
+                        &&registrationState.value.password.isNotEmpty()
             )
         }
     }
