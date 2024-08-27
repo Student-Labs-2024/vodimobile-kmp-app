@@ -6,4 +6,5 @@ sealed class VehicleEffect {
     data object DismissLoadingDialog : VehicleEffect()
     data object ShowLoadingDialog : VehicleEffect()
     data object ServerError : VehicleEffect()
+    data object UnauthedUser : VehicleEffect()
 }

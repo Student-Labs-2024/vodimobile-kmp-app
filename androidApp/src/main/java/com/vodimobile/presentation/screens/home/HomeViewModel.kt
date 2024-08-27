@@ -65,11 +65,17 @@ class HomeViewModel(
 
             is HomeIntent.BookCarClick -> {
                 viewModelScope.launch {
-                    homeEffect.emit(
-                        HomeEffect.BookCarClick(
-                            carId = intent.carId
-                        )
-                    )
+                    userDataStoreStorage.getUser().collect { user->
+                        if (user == User.empty()) {
+                            homeEffect.emit(HomeEffect.OpenStartScreen)
+                        } else {
+                            homeEffect.emit(
+                                HomeEffect.BookCarClick(
+                                    carId = intent.carId
+                                )
+                            )
+                        }
+                    }
                 }
             }
 

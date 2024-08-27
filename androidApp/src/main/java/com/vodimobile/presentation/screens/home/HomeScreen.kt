@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -88,12 +89,18 @@ fun HomeScreen(
                         }
                     }
                 }
+
+                HomeEffect.OpenStartScreen -> {
+                    navHostController.navigate(route = RootScreen.START_SCREEN)
+                }
             }
         }
     }
 
-    if (noAuth)
-        onHomeIntent(HomeIntent.InitUser)
+    SideEffect {
+        if (noAuth)
+            onHomeIntent(HomeIntent.InitUser)
+    }
 
     ExtendedTheme {
         Scaffold(

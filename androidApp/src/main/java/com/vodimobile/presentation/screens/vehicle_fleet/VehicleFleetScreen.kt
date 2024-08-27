@@ -68,6 +68,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
@@ -111,6 +112,12 @@ fun VehicleFleetScreen(
 
                 VehicleEffect.ServerError -> {
                     navHostController.navigate(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/${LeafHomeScreen.ALL_CARS}")
+                }
+
+                VehicleEffect.UnauthedUser -> {
+                    navHostController.navigate(route = RootScreen.START_SCREEN) {
+                        popUpTo(RootScreen.START_SCREEN)
+                    }
                 }
             }
         }
