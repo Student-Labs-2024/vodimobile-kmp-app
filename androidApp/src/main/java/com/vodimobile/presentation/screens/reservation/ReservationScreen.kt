@@ -370,7 +370,8 @@ fun ReservationScreen(
                                         ) &&
                                         !reservationState.value.errorDate &&
                                         !reservationState.value.errorStartTime &&
-                                        !reservationState.value.errorEndTime
+                                        !reservationState.value.errorEndTime &&
+                                        reservationState.value.bidCost.isNotEmpty()
                                     ) {
                                         onReservationIntent(
                                             ReservationIntent.PutBid(

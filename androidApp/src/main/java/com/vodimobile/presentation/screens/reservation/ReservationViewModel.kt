@@ -88,7 +88,7 @@ class ReservationViewModel(
                     when (crmEither) {
                         is CrmEither.CrmData -> {
                             reservationState.update {
-                                it.copy(placeList = crmEither.data.filter { item -> !item.archive })
+                                it.copy(placeList = crmEither.data)
                             }
                         }
 
@@ -182,7 +182,6 @@ class ReservationViewModel(
 
             is ReservationIntent.ServiceIdChange -> {
                 reservationState.update {
-                    Log.d("TAG", it.selectedServiceIdList.joinToString(prefix = "[", postfix = "]"))
                     it.copy(
                         selectedServiceIdList =
                         if (intent.value in it.selectedServiceIdList) it.selectedServiceIdList - intent.value
