@@ -1,15 +1,9 @@
 package com.vodimobile.presentation.screens.reservation
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.util.Log
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.stringResource
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.MainActivity
@@ -133,6 +127,7 @@ class ReservationViewModel(
                         errorGetPlace = intent.value.second.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.ReturnPlaceChange -> {
@@ -143,6 +138,7 @@ class ReservationViewModel(
                         errorReturnPlace = intent.value.second.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.StartTimeChange -> {
@@ -151,6 +147,7 @@ class ReservationViewModel(
                         startTime = intent.value, errorStartTime = intent.value.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.EndTimeChange -> {
@@ -159,6 +156,7 @@ class ReservationViewModel(
                         endTime = intent.value, errorEndTime = intent.value.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.DateChange -> {
@@ -168,6 +166,7 @@ class ReservationViewModel(
                         errorDate = intent.value.contentEquals(longArrayOf(0L, 0L))
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.CarIdChange -> {

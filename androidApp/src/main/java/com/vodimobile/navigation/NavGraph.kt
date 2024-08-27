@@ -1,6 +1,5 @@
 package com.vodimobile.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -55,7 +54,6 @@ import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.reservation.ReservationScreen
 import com.vodimobile.presentation.screens.reservation.ReservationViewModel
-import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
@@ -77,12 +75,10 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
-import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
-import com.vodimobile.utils.date_formats.parseToSupabaseDate
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
