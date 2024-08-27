@@ -32,7 +32,7 @@ fun AgreementBlock(
     ) {
         PrimaryButton(
             text = stringResource(id = R.string.text_next_button),
-            enabled = enabled,
+            enabled = enabled && isAgreementChecked,
             onClick = onClickNextButton
         )
         Spacer(modifier = Modifier.height(12.dp))
