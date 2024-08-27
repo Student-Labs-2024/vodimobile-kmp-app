@@ -36,7 +36,7 @@ struct MainView: View {
                                     selectedAuto: $selectedAuto,
                                     showModalReservation: $showModalReservation,
                                     showSignSuggestModal: $showSignSuggestModal,
-                                    dateRange: $dateRange
+                                    dateRange: dateRange
                                 )
                             }
                             .font(.buttonTabbar)

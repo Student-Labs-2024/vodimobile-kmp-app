@@ -48,7 +48,7 @@ struct ExpandableToolbar: View {
 
                                 ButtonLikeDateField(
                                     showDatePicker: $showDatePicker,
-                                    dateRange: $dateRange
+                                    dateRange: dateRange
                                 )
 
                                 NavigationLink(R.string.localizable.findAutoButton()) {
@@ -56,7 +56,7 @@ struct ExpandableToolbar: View {
                                         selectedAuto: $selectedAuto,
                                         showModalReservation: $showModalReservation,
                                         showSignSuggestModal: $showSignSuggestModal,
-                                        dateRange: $dateRange
+                                        dateRange: dateRange
                                     )
                                 }
                                 .buttonStyle(FilledBtnStyle())
@@ -89,7 +89,7 @@ struct ExpandableToolbar: View {
 struct ButtonLikeDateField: View {
     @Environment(\.calendar) var calendar
     @Binding var showDatePicker: Bool
-    @Binding var dateRange: ClosedRange<Date>?
+    var dateRange: ClosedRange<Date>?
 
     var body: some View {
         Button(action: {
@@ -105,7 +105,7 @@ struct ButtonLikeDateField: View {
                     .foregroundColor(
                         dateRange == nil
                         ? Color(R.color.grayDark)
-                        : Color(R.color.background)
+                        : Color(R.color.text)
                     )
                 Spacer()
             }

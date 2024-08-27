@@ -9,26 +9,32 @@
 import shared
 import SwiftUI
 
-@MainActor
 final class AutoListViewModel: ObservableObject {
-    @Published var listOfAllCar = [Car]()
-    @Binding var datesRange: ClosedRange<Date>?
+    @Published var listOfAllCar = [Car]() {
+        didSet {
+            print(listOfAllCar)
+        }
+    }
+    var dateRange: ClosedRange<Date>?
     @Published var isLoading = false
     private let apiManager = KMPApiManager.shared
 
-    init(datesRange: Binding<ClosedRange<Date>?>) {
-        self._datesRange = datesRange
+    init(dateRange: ClosedRange<Date>?) {
+        self.dateRange = dateRange
         Task {
             await self.fetchCars()
         }
     }
 
     func fetchCars() async {
-        self.isLoading = true
+        await MainActor.run {
+            self.isLoading = true
+        }
         let fetchedCars: [Car]
         let freeCarIds: Set<Int>
+        let filteredCars: [Car]
 
-        if let datesRange = datesRange {
+        if let datesRange = dateRange {
             async let fetchedCarsResult = apiManager.fetchCars()
             async let carIdsResult = apiManager.fetchFreeCarIdsForDate(for: CarFreeListParamsDTO(
                 begin: Int64(datesRange.lowerBound.timeIntervalSince1970),
@@ -40,15 +46,17 @@ final class AutoListViewModel: ObservableObject {
 
             fetchedCars = await fetchedCarsResult
             freeCarIds = Set(await carIdsResult)
+            filteredCars = fetchedCars.filter { freeCarIds.contains(Int($0.carId)) }
         } else {
             fetchedCars = await apiManager.fetchCars()
             freeCarIds = Set()
+            filteredCars = fetchedCars
         }
 
-        let filteredCars = fetchedCars.filter { freeCarIds.contains(Int($0.carId)) }
-
-        self.listOfAllCar = filteredCars
-        self.isLoading = false
+        await MainActor.run {
+            self.listOfAllCar = filteredCars
+            self.isLoading = false
+        }
     }
 
     func filterCars(by autoType: CarType) -> Binding<[Car]> {

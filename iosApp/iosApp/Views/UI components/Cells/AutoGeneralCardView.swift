@@ -29,7 +29,7 @@ struct AutoGeneralCardView: View {
                     selectedAuto: $selectedAuto,
                     showModalReservation: $showModalReservation,
                     showSignSuggestModal: $showSignSuggestModal,
-                    dateRange: $dateRange
+                    dateRange: dateRange
                 )
                 ) {
                     Image.rightArrowCircleFill

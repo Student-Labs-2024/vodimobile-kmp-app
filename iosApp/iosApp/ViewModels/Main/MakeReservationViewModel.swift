@@ -64,8 +64,8 @@ final class MakeReservationViewModel: ObservableObject {
 
         if placesWithCost.isEmpty && servicesList.isEmpty {
             Task {
-                await fetchPlaceList()
                 await fetchServiceList()
+                await fetchPlaceList()
             }
         }
     }
@@ -89,32 +89,40 @@ final class MakeReservationViewModel: ObservableObject {
             )
             )
         }
-        isSuccessed = createdBid != nil ? true : false
+        await MainActor.run {
+            isSuccessed = createdBid != nil ? true : false
+        }
         return createdBid
     }
 
     func fetchPlaceList() async {
-        isLoading = true
+        await MainActor.run {
+            isLoading = true
+        }
         let places = await apiManager.fetchPlaces()
 
         await MainActor.run {
             self.handlerPlaceItems(places)
+            isLoading = false
         }
-        isLoading = false
     }
 
     func fetchServiceList() async {
-        isLoading = true
+        await MainActor.run {
+            isLoading = true
+        }
         let services = await apiManager.fetchServices()
 
         await MainActor.run {
             servicesList = services
+            isLoading = false
         }
-        isLoading = false
     }
 
     func fetchBigCost() async {
-        isLoading = true
+        await MainActor.run {
+            isLoading = true
+        }
         if let startPlace = startPlace, let endPlace = endPlace {
             let bidInfo = await apiManager.fetchBidCost(for: BidCostParams(
                 car_id: car.carId,
@@ -127,7 +135,9 @@ final class MakeReservationViewModel: ObservableObject {
             )
             bidCost = bidInfo?.cost ?? 0
         }
-        isLoading = false
+        await MainActor.run {
+            isLoading = false
+        }
     }
 
     private func handlerPlaceItems(_ places: [Place]) {
@@ -160,7 +170,7 @@ final class MakeReservationViewModel: ObservableObject {
     }
 
     private func handlerFieldsChanged() {
-        if startPlace != nil && endPlace != nil {
+        if startPlace != nil && startTime != nil && endPlace != nil {
             Task {
                 await self.fetchBigCost()
             }

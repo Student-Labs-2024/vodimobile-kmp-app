@@ -193,7 +193,7 @@ final class KMPApiManager: ObservableObject {
                     case .crmData(let success):
                         if let cars = success.data {
                             await MainActor.run {
-                                isLoading = false
+                                self.isLoading = false
                             }
                             return convertNSArrayToArray(nsArray: cars)
                         }
@@ -292,7 +292,6 @@ final class KMPApiManager: ObservableObject {
                     )
                     switch onEnum(of: response) {
                     case .crmData(let success):
-                        print(success.data ?? "Empty data")
                         if let services = success.data {
                             return convertNSArrayToArray(nsArray: services)
                         }
