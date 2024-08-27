@@ -143,11 +143,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     VehicleFleetScreen(
                         onVehicleIntent = vehicleFleetModel::onIntent,
                         vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
-                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(
-                            initial = VehicleState(
-                                dateRange = generalState.value.selectedDate
-                            )
-                        ),
+                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
                         navHostController = navHostController,
                         dateRange = generalState.value.selectedDate
                     )

@@ -27,4 +27,18 @@ sealed class VehicleIntent {
     data object DismissProgressDialog : VehicleIntent()
     data class InitCarList(val value: List<Car>) : VehicleIntent()
     data object CancelCoroutines : VehicleIntent()
+    data class InitDateRange(val dateRange: LongArray) : VehicleIntent() {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as InitDateRange
+
+            return dateRange.contentEquals(other.dateRange)
+        }
+
+        override fun hashCode(): Int {
+            return dateRange.contentHashCode()
+        }
+    }
 }
