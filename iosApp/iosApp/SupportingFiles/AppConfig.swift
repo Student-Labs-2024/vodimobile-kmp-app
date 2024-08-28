@@ -74,7 +74,7 @@ public let contactLocation = R.string.localizable.officeLocation()
 public let whatsappLink = "https://wa.me/79507831440"
 public let vkLink = "https://vk.com/vodimobil"
 public let tgLink = "https://t.me/vodimobilomsk"
-let appVersion = "1.0 (v.4)"
+let appVersion = "1.0 (v.5)"
 
 // extension for phone string
 extension String {

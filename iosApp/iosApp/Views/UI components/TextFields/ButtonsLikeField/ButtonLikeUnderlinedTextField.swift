@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct ButtonLikeUnderlinedTextField: View {
+    @ObservedObject var viewModel: UserDataViewModel
+
     var body: some View {
-        NavigationLink(destination: ChangePasswordView()) {
+        NavigationLink(destination: ChangePasswordView(viewModel: viewModel)) {
             HStack {
                 HStack {
                     Text(R.string.localizable.changePassword)
@@ -37,5 +39,5 @@ struct ButtonLikeUnderlinedTextField: View {
 }
 
 #Preview {
-    ButtonLikeUnderlinedTextField()
+    ButtonLikeUnderlinedTextField(viewModel: UserDataViewModel())
 }

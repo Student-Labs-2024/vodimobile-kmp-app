@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ChangePasswordView: View {
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject private var viewModel = UserDataViewModel()
+    @ObservedObject var viewModel: UserDataViewModel
 
     @Environment(\.dismiss) private var dismiss
 
@@ -56,5 +56,5 @@ struct ChangePasswordView: View {
 }
 
 #Preview {
-    ChangePasswordView()
+    ChangePasswordView(viewModel: UserDataViewModel())
 }

@@ -421,7 +421,7 @@ final class AuthManager: ObservableObject {
             .store(in: &cancellables)
         Task {
             if let user = dataStorage.gettingUser,
-                user == User.companion.empty() || user.id < 0 {
+                user == User.companion.empty() {
                 await login(phone: user.phone, pass: user.password)
             }
         }
