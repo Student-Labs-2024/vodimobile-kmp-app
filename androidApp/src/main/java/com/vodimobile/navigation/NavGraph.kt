@@ -44,6 +44,7 @@ import com.vodimobile.presentation.screens.home.HomeScreen
 import com.vodimobile.presentation.screens.home.HomeViewModel
 import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
+import com.vodimobile.presentation.screens.logout.LogOutViewModel
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
 import com.vodimobile.presentation.screens.orders.OrderViewModel
@@ -478,9 +479,12 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             dialog(route = DialogIdentifiers.LOG_OUT_DIALOG) {
+                val logOutViewModel: LogOutViewModel = koinViewModel()
                 LogOutConfirmationDialog(
-                    onDismiss = { navHostController.navigateUp() },
-                    onConfirm = { navHostController.navigate(RootScreen.START_SCREEN) })
+                    logOutEffect = logOutViewModel.logOutEffect,
+                    onLogOutIntent = logOutViewModel::onIntent,
+                    navHostController = navHostController
+                )
             }
             composable(route = LeafScreen.FAQ_SCREEN) {
                 val faqViewModel: FaqViewModel = koinViewModel()
