@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 
@@ -20,6 +21,7 @@ import com.vodimobile.android.R
 fun AgreementBlock(
     onClickUserAgreement: () -> Unit,
     onClickNextButton: () -> Unit,
+    enabled: Boolean,
 ) {
 
     var isAgreementChecked by remember { mutableStateOf(false) }
@@ -30,7 +32,7 @@ fun AgreementBlock(
     ) {
         PrimaryButton(
             text = stringResource(id = R.string.text_next_button),
-            enabled = isAgreementChecked,
+            enabled = enabled && isAgreementChecked,
             onClick = onClickNextButton
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -42,4 +44,15 @@ fun AgreementBlock(
             onClickUserAgreement = onClickUserAgreement
         )
     }
+}
+
+
+@Preview
+@Composable
+private fun AgreementBlocddk() {
+    AgreementBlock(
+        onClickUserAgreement = { /*TODO*/ },
+        onClickNextButton = { /*TODO*/ },
+        enabled = false
+    )
 }

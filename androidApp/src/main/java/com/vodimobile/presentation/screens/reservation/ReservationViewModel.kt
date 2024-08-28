@@ -1,8 +1,13 @@
 package com.vodimobile.presentation.screens.reservation
 
+import android.content.Intent
 import android.util.Log
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.MainActivity
+import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.order.CarStatus
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
@@ -17,8 +22,10 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.utils.date_formats.increaseFreeYear
 import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
+import com.vodimobile.service.notification.VodimobileNotificationManager
 import com.vodimobile.utils.bid.bidGripReverse
 import com.vodimobile.utils.date_formats.parseToCrmDate
+import com.vodimobile.utils.date_formats.parseToCrmDateTime
 import com.vodimobile.utils.date_formats.parseToSupabaseDate
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
@@ -76,7 +83,7 @@ class ReservationViewModel(
                     when (crmEither) {
                         is CrmEither.CrmData -> {
                             reservationState.update {
-                                it.copy(placeList = crmEither.data.filter { item -> !item.archive })
+                                it.copy(placeList = crmEither.data)
                             }
                         }
 
@@ -121,6 +128,7 @@ class ReservationViewModel(
                         errorGetPlace = intent.value.second.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.ReturnPlaceChange -> {
@@ -131,6 +139,7 @@ class ReservationViewModel(
                         errorReturnPlace = intent.value.second.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.StartTimeChange -> {
@@ -139,6 +148,7 @@ class ReservationViewModel(
                         startTime = intent.value, errorStartTime = intent.value.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.EndTimeChange -> {
@@ -147,6 +157,7 @@ class ReservationViewModel(
                         endTime = intent.value, errorEndTime = intent.value.isEmpty()
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.DateChange -> {
@@ -156,6 +167,7 @@ class ReservationViewModel(
                         errorDate = intent.value.contentEquals(longArrayOf(0L, 0L))
                     )
                 }
+                getBidCostIfPossible()
             }
 
             is ReservationIntent.CarIdChange -> {
@@ -170,7 +182,6 @@ class ReservationViewModel(
 
             is ReservationIntent.ServiceIdChange -> {
                 reservationState.update {
-                    Log.d("TAG", it.selectedServiceIdList.joinToString(prefix = "[", postfix = "]"))
                     it.copy(
                         selectedServiceIdList =
                         if (intent.value in it.selectedServiceIdList) it.selectedServiceIdList - intent.value
@@ -192,8 +203,8 @@ class ReservationViewModel(
                         accessToken = reservationState.value.user.accessToken,
                         refreshToken = reservationState.value.user.refreshToken,
                         carId = reservationState.value.carId,
-                        begin = start,
-                        end = end
+                        begin = start.parseToCrmDateTime(),
+                        end = end.parseToCrmDateTime()
                     )
                     reservationState.update {
                         it.copy(freeDates = freeDates)
@@ -231,6 +242,24 @@ class ReservationViewModel(
             }
 
             is ReservationIntent.PutBid -> {
+                val newIntent = Intent(intent.context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                val title = intent.context.resources.getString(R.string.bid_in_progress_notif_title)
+                val model = intent.context.resources.getString(reservationState.value.selectedCar.model.resourceId)
+                val body = intent.context.resources.getString(
+                    R.string.bid_in_progress_notif_body,
+                    model
+                )
+                val vodimobileNotificationManager = VodimobileNotificationManager(context = intent.context)
+                val notif = vodimobileNotificationManager.buildNotification(
+                    intent = newIntent,
+                    title = title,
+                    body = body,
+                    notifLogo = R.drawable.bid_notif_in_progress,
+                    color = Color(246, 246, 246, 1).toArgb()
+                )
+                vodimobileNotificationManager.sendNotification(notification = notif)
                 viewModelScope.launch(supervisorCoroutineContext) {
                     reservationEffect.emit(ReservationEffect.ShowLoadingDialog)
                     val crmEither = crmStorage.createBid(

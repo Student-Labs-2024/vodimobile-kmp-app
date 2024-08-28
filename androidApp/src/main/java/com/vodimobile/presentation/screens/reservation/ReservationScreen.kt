@@ -1,7 +1,12 @@
 package com.vodimobile.presentation.screens.reservation
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
@@ -83,6 +90,8 @@ import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
+import com.vodimobile.presentation.utils.arguments_parser.pairListToLongList
+import com.vodimobile.service.notification.VodimobileNotificationManager
 import com.vodimobile.shared.resources.SharedRes
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -101,6 +110,11 @@ fun ReservationScreen(
     carId: Int
 ) {
     val defaultStatusForBid = stringResource(id = SharedRes.strings.cancelled_order.resourceId)
+    val context = LocalContext.current
+
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { }
     LaunchedEffect(key1 = Unit) {
         reservationEffect.collect { effect ->
             when (effect) {
@@ -125,60 +139,60 @@ fun ReservationScreen(
                 }
 
                 ReservationEffect.ShowDatePicker -> {
-                    navHostController.navigate(DialogIdentifiers.DATE_SELECT_DIALOG)
+                    navHostController.navigate(route= DialogIdentifiers.DATE_SELECT_DIALOG)
                 }
 
                 ReservationEffect.EmitGeneralStateChange -> {
-                    onGeneralIntent(GeneralIntent.ChangeAvailablePeriods(value = reservationState.value.freeDates.map {
-                        DateRange(
-                            startDate = it.first,
-                            endDate = it.second
-                        )
-                    }))
+
                 }
 
                 ReservationEffect.Fail -> {
                     navHostController.navigate(route = LeafOrdersScreen.ERROR_APP_SCREEN)
                 }
                 ReservationEffect.Success -> {
-                    navHostController.navigateUp()
                     navHostController.navigate(route = LeafOrdersScreen.SUCCESSFUL_SCREEN)
                 }
             }
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
+    SideEffect {
+        onReservationIntent(ReservationIntent.GetCarFreeDate(value = date))
+
         onReservationIntent(ReservationIntent.DateChange(value = date))
+
         onReservationIntent(ReservationIntent.InitUser)
-    }
 
-    LaunchedEffect(key1 = Unit) {
         onReservationIntent(ReservationIntent.GetAllPLaces)
-        onReservationIntent(ReservationIntent.GetAllServices)
-    }
 
-    LaunchedEffect(carId) {
+        onReservationIntent(ReservationIntent.GetAllServices)
+
         onReservationIntent(ReservationIntent.CarIdChange(carId))
         onReservationIntent(ReservationIntent.GetAllCars)
-    }
-    LaunchedEffect(date) {
+
         onReservationIntent(ReservationIntent.DateChange(date))
-    }
-    LaunchedEffect(startTime) {
+
         onReservationIntent(ReservationIntent.StartTimeChange(startTime))
-    }
-    LaunchedEffect(endTime) {
         onReservationIntent(ReservationIntent.EndTimeChange(endTime))
+
+        onGeneralIntent(GeneralIntent.ChangeAvailablePeriods(value = reservationState.value.freeDates.map {
+            DateRange(
+                startDate = it.first,
+                endDate = it.second
+            )
+        }))
     }
 
-    if (!reservationState.value.errorGetPlace &&
-        !reservationState.value.errorReturnPlace &&
-        !reservationState.value.errorDate &&
-        !reservationState.value.errorStartTime &&
-        !reservationState.value.errorEndTime
-    ) {
-        onReservationIntent(ReservationIntent.GetBidCost)
+    SideEffect {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     }
 
     val isButtonClicked = remember { mutableStateOf(false) }
@@ -356,9 +370,16 @@ fun ReservationScreen(
                                         ) &&
                                         !reservationState.value.errorDate &&
                                         !reservationState.value.errorStartTime &&
-                                        !reservationState.value.errorEndTime
-                                    )
-                                        onReservationIntent(ReservationIntent.PutBid(value = defaultStatusForBid))
+                                        !reservationState.value.errorEndTime &&
+                                        reservationState.value.bidCost.isNotEmpty()
+                                    ) {
+                                        onReservationIntent(
+                                            ReservationIntent.PutBid(
+                                                value = defaultStatusForBid,
+                                                context = context
+                                            )
+                                        )
+                                    }
                                 }
                             )
                         }

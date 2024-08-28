@@ -23,7 +23,7 @@ jobs:
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" >> ./androidApp/google-services.json
 
       - name: Unit Test
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew androidApp:testDebugUnitTest
 
       - name: Android Test Report
         uses: asadmansr/android-test-report-action@v1.2.0

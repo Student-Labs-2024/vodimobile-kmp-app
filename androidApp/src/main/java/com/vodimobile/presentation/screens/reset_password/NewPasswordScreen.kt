@@ -138,7 +138,8 @@ fun NewPasswordScreen(
                 isButtonClicked.value = true
                 if (!newPasswordState.value.passwordError)
                     onNewPasswordIntent(NewPasswordIntent.SaveData)
-            }
+            },
+            enabled = newPasswordState.value.password.isNotEmpty()
         )
     }
 }

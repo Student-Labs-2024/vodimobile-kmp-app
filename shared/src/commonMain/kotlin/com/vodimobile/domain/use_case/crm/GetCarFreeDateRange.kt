@@ -15,8 +15,8 @@ class GetCarFreeDateRange(private val crmRepository: CrmRepository) {
         accessToken: String,
         refreshToken: String,
         carId: Int,
-        begin: Long,
-        end: Long
+        begin: String,
+        end: String
     ): List<Pair<Long, Long>> {
         val carFreeDateRangeEither: CrmEither<CarFreeDateRangeDTO, HttpStatusCode> =
             crmRepository.getCarFreeDateRange(
@@ -24,8 +24,8 @@ class GetCarFreeDateRange(private val crmRepository: CrmRepository) {
                 refreshToken,
                 CarFreeDateRangeParams(
                     car_id = carId,
-                    begin = begin.parseToCrmDateTime(),
-                    end = end.parseToCrmDateTime()
+                    begin = begin,
+                    end = end
                 )
             )
 

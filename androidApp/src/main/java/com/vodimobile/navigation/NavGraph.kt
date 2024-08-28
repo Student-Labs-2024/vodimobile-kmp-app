@@ -54,7 +54,6 @@ import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.reservation.ReservationScreen
 import com.vodimobile.presentation.screens.reservation.ReservationViewModel
-import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
@@ -76,7 +75,6 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
-import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
@@ -141,11 +139,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     VehicleFleetScreen(
                         onVehicleIntent = vehicleFleetModel::onIntent,
                         vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
-                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(
-                            initial = VehicleState(
-                                dateRange = generalState.value.selectedDate
-                            )
-                        ),
+                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
                         navHostController = navHostController,
                         dateRange = generalState.value.selectedDate
                     )
@@ -171,9 +165,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
 
-                val carId = backStackEntry.arguments?.getInt("carId") ?: 0
+                    val carId = backStackEntry.arguments?.getInt("carId") ?: 0
 
-                val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
+                    val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
                     val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                         "selected-date",
                         initialValue = longArrayOf(0L, 0L),
@@ -191,14 +185,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
                     val reservationViewModel: ReservationViewModel = koinViewModel()
                     ReservationScreen(
-                        reservationState = reservationViewModel.reservationState.collectAsState(
-                            initial = ReservationState(
-                                startTime = selectedStartTime,
-                                endTime = selectedEndTime,
-                                date = finalDate,
-                                carId = carId
-                            )
-                        ),
+                        reservationState = reservationViewModel.reservationState.collectAsState(),
                         onReservationIntent = reservationViewModel::onIntent,
                         onGeneralIntent = generalViewModel::onIntent,
                         reservationEffect = reservationViewModel.reservationEffect,
@@ -520,7 +507,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
             }
             composable(route = LeafScreen.EDIT_PROFILE) {
                 val isConnected =
-                checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val editProfileViewModel: EditProfileViewModel = koinViewModel()
                     EditProfileScreen(
@@ -554,7 +541,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(
                         "screen",
                         LeafScreen.CHANGE_PASSWORD_SCREEN
-                        )
+                    )
                     navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${LeafScreen.CHANGE_PASSWORD_SCREEN}")
                 }
             }

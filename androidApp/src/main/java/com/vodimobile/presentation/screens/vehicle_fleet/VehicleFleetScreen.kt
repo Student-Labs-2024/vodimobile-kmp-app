@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -67,6 +68,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
+import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.AutoTypeTagList
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
@@ -111,10 +113,17 @@ fun VehicleFleetScreen(
                 VehicleEffect.ServerError -> {
                     navHostController.navigate(route = "${LeafHomeScreen.SERVER_ERROR_SCREEN}/${LeafHomeScreen.ALL_CARS}")
                 }
+
+                VehicleEffect.UnauthedUser -> {
+                    navHostController.navigate(route = RootScreen.START_SCREEN) {
+                        popUpTo(RootScreen.START_SCREEN)
+                    }
+                }
             }
         }
     }
-    LaunchedEffect(key1 = vehicleState.value.cars) {
+    SideEffect {
+        onVehicleIntent(VehicleIntent.InitDateRange(dateRange = dateRange))
         onVehicleIntent(VehicleIntent.InitCars(dateRange = dateRange))
     }
     DisposableEffect(key1 = Unit) {
@@ -159,7 +168,7 @@ fun VehicleFleetScreen(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(
                     20.dp,
-                    alignment = Alignment.CenterVertically
+                    alignment = Alignment.Top
                 ),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -199,7 +208,9 @@ fun VehicleFleetScreen(
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_UNDEFINED
+)
 @Composable
 private fun VehicleFleetScreenPreview() {
     VodimobileTheme(dynamicColor = false) {
