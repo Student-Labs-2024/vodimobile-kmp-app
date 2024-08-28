@@ -12,7 +12,6 @@ import shared
 final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
     @Published var isSuccessed = false
-    @Published var showDatePicker = false
     @Published var dateRange: ClosedRange<Date>? {
         didSet {
             handlerFieldsChanged()

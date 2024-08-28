@@ -12,6 +12,7 @@ import shared
 struct MakeReservationView: View {
     @Binding var showModal: Bool
     @Binding var selectedTab: TabType
+    @Binding var showDatePicker: Bool
     @ObservedObject var viewModel: MakeReservationViewModel
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) private var dismiss
@@ -25,11 +26,13 @@ struct MakeReservationView: View {
         car: Car,
         selectedTab: Binding<TabType>,
         dates: ClosedRange<Date>? = nil,
-        showModal: Binding<Bool>? = nil
+        showModal: Binding<Bool>? = nil,
+        showDatePicker: Binding<Bool>
     ) {
         self.viewModel = .init(car: car, dates: dates)
         self._selectedTab = selectedTab
         self._showModal = showModal ?? Binding.constant(false)
+        self._showDatePicker = showDatePicker
     }
 
     var body: some View {
@@ -90,7 +93,7 @@ struct MakeReservationView: View {
                             if viewModel.dates == nil {
                                 ButtonLikeBorderedTextField(
                                     fieldType: .datePicker,
-                                    showDatePicker: $viewModel.showDatePicker,
+                                    showDatePicker: $showDatePicker,
                                     inputErrorType: $viewModel.inputErrorType,
                                     dateRange: $viewModel.dateRange
                                 )
@@ -176,12 +179,7 @@ struct MakeReservationView: View {
                 }
                 .padding(.horizontal, horizontalPadding)
 
-                if viewModel.showDatePicker {
-                    ModalDatePickerView(
-                        showDatePicker: $viewModel.showDatePicker,
-                        dateRange: $viewModel.dateRange
-                    )
-                } else if viewModel.showStartTimePicker {
+                if viewModel.showStartTimePicker {
                     ModalTimePicker(
                         selectedTime: $viewModel.startTime,
                         showTimePicker: $viewModel.showStartTimePicker
@@ -195,6 +193,10 @@ struct MakeReservationView: View {
             }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
+        .datePickerModalOverlay(
+            showDatePicker: $showDatePicker,
+            dateRange: $viewModel.dateRange
+        )
         .navigationBarBackButtonHidden()
         .fullScreenCover(isPresented: $viewModel.showSuccessModal) {
             SuccessfulReservationView(showModal: $showModal, selectedTab: $selectedTab)
@@ -211,72 +213,7 @@ struct MakeReservationView: View {
     MakeReservationView(
         car: Car.companion.empty(),
         selectedTab: Binding.constant(.main),
-        dates: nil
+        dates: nil,
+        showDatePicker: Binding.constant(true)
     )
-}
-
-struct HorizontalServicesScrollView: View {
-    @Binding var servicesList: [ServicesDTO]
-    @Binding var selectedServicesList: [ServicesDTO]
-
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 16) {
-                ForEach(servicesList, id: \.service_id) { service in
-                    AdditionalServiceCell(
-                        service: service,
-                        selectedServicesList: $selectedServicesList
-                    )
-                }
-            }
-        }
-    }
-}
-
-struct AdditionalServiceCell: View {
-    let service: ServicesDTO
-    @State var isSelected: Bool = false
-    @Binding var selectedServicesList: [ServicesDTO]
-
-    var body: some View {
-        Button(action: {
-            if !selectedServicesList.contains(where: { $0 == service }) {
-                isSelected = true
-                selectedServicesList.append(service)
-            } else {
-                isSelected = false
-                if let selectedServiceIndex = selectedServicesList.firstIndex(of: service) {
-                    selectedServicesList.remove(at: selectedServiceIndex)
-                }
-            }
-        }, label: {
-            if isSelected {
-                VStack(spacing: 5) {
-                    Text(service.title)
-                        .font(.buttonTabbar)
-                        .foregroundStyle(.white)
-                    Text("+\(Int(service.cost)) \(R.string.localizable.currencyText())")
-                        .font(.buttonTabbar)
-                        .foregroundStyle(.white)
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 8)
-                .background(RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(R.color.blueColor)))
-            } else {
-                VStack(spacing: 5) {
-                    Text(service.title)
-                        .font(.buttonTabbar)
-                        .foregroundStyle(Color(R.color.text))
-                    Text("+\(Int(service.cost)) \(R.string.localizable.currencyText())")
-                        .font(.buttonTabbar)
-                        .foregroundStyle(Color(R.color.blueColor))
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 8)
-                .background(RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(R.color.blueBox)))
-            }
-        })
-    }
 }

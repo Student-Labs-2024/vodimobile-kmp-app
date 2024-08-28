@@ -13,6 +13,7 @@ struct AutoGeneralCardView: View {
     @Binding var selectedAuto: Car
     @Binding var dateRange: ClosedRange<Date>?
     @Binding var showModalReservation: Bool
+    @Binding var showDatePicker: Bool
     @Binding var showSignSuggestModal: Bool
 
     var body: some View {
@@ -29,7 +30,8 @@ struct AutoGeneralCardView: View {
                     selectedAuto: $selectedAuto,
                     showModalReservation: $showModalReservation,
                     showSignSuggestModal: $showSignSuggestModal,
-                    dateRange: dateRange
+                    showDatePicker: $showDatePicker,
+                    dateRange: $dateRange
                 )
                 ) {
                     Image.rightArrowCircleFill

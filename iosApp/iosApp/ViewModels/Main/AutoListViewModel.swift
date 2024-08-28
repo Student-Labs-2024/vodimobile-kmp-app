@@ -10,20 +10,20 @@ import shared
 import SwiftUI
 
 final class AutoListViewModel: ObservableObject {
-    @Published var listOfAllCar = [Car]() {
+    @Published var listOfAllCar = [Car]()
+    @Binding var dateRange: ClosedRange<Date>? {
         didSet {
-            print(listOfAllCar)
+            Task {
+                await fetchCars()
+            }
         }
     }
-    var dateRange: ClosedRange<Date>?
     @Published var isLoading = false
     private let apiManager = KMPApiManager.shared
+    private let DateFormatter = CustomDateFormatter.shared
 
-    init(dateRange: ClosedRange<Date>?) {
-        self.dateRange = dateRange
-        Task {
-            await self.fetchCars()
-        }
+    init(dateRange: Binding<ClosedRange<Date>?>) {
+        self._dateRange = dateRange
     }
 
     func fetchCars() async {
@@ -37,8 +37,8 @@ final class AutoListViewModel: ObservableObject {
         if let datesRange = dateRange {
             async let fetchedCarsResult = apiManager.fetchCars()
             async let carIdsResult = apiManager.fetchFreeCarIdsForDate(for: CarFreeListParamsDTO(
-                begin: Int64(datesRange.lowerBound.timeIntervalSince1970),
-                end: Int64(datesRange.upperBound.timeIntervalSince1970),
+                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: nil),
+                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: nil),
                 includeReserves: true,
                 includeIdles: true,
                 cityId: 2

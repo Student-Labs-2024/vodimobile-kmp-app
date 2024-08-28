@@ -56,7 +56,8 @@ struct ExpandableToolbar: View {
                                         selectedAuto: $selectedAuto,
                                         showModalReservation: $showModalReservation,
                                         showSignSuggestModal: $showSignSuggestModal,
-                                        dateRange: dateRange
+                                        showDatePicker: $showDatePicker,
+                                        dateRange: $dateRange
                                     )
                                 }
                                 .buttonStyle(FilledBtnStyle())

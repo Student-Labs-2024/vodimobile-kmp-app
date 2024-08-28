@@ -11,6 +11,7 @@ import shared
 
 struct MyOrdersView: View {
     @Binding var selectedMainTab: TabType
+    @Binding var showDatePicker: Bool
     @State private var selectedTab: MyOrderTab = .active
     @State var selectedOrder: Order = Order.companion.empty()
     @State var showOrderModal: Bool = false
@@ -63,7 +64,8 @@ struct MyOrdersView: View {
                 OrderDetailView(
                     order: selectedOrder,
                     showOrderModal: $showOrderModal,
-                    selectedTab: $selectedMainTab
+                    selectedTab: $selectedMainTab,
+                    showDatePicker: $showDatePicker
                 )
             })
             .padding(.horizontal, horizontalPadding)
@@ -78,5 +80,5 @@ struct MyOrdersView: View {
 }
 
 #Preview {
-    MyOrdersView(selectedMainTab: Binding.constant(.main))
+    MyOrdersView(selectedMainTab: Binding.constant(.main), showDatePicker: Binding.constant(false))
 }

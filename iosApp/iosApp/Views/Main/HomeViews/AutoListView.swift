@@ -14,6 +14,7 @@ struct AutoListView: View {
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
+    @Binding var showDatePicker: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
@@ -23,11 +24,13 @@ struct AutoListView: View {
         selectedAuto: Binding<Car>,
         showModalReservation: Binding<Bool>,
         showSignSuggestModal: Binding<Bool>,
-        dateRange: ClosedRange<Date>?
+        showDatePicker: Binding<Bool>,
+        dateRange: Binding<ClosedRange<Date>?>
     ) {
         self._selectedAuto = selectedAuto
         self._showModalReservation = showModalReservation
         self._showSignSuggestModal = showSignSuggestModal
+        self._showDatePicker = showDatePicker
         self.viewModel = .init(dateRange: dateRange)
     }
 
@@ -35,7 +38,7 @@ struct AutoListView: View {
         VStack {
             if viewModel.dateRange != nil {
                 ButtonLikeDateField(
-                    showDatePicker: Binding.constant(false),
+                    showDatePicker: $showDatePicker,
                     dateRange: viewModel.dateRange
                 )
                 .padding(.horizontal, horizontalPadding)

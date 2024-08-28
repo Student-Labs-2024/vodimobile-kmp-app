@@ -148,7 +148,7 @@ final class KMPApiManager: ObservableObject {
         return []
     }
 
-    func fetchCarFreeDateRange(carId: Int32, beginDate: Int64, endDate: Int64) async -> [(Int64, Int64)] {
+    func fetchCarFreeDateRange(carId: Int32, beginDate: String, endDate: String) async -> [(Int64, Int64)] {
         if appState.isConnected {
             await MainActor.run {
                 isLoading = true

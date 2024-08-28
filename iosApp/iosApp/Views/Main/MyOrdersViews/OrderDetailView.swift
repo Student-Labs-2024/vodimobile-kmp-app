@@ -13,6 +13,7 @@ struct OrderDetailView: View {
     @State private var showCancelAlert = false
     @Binding var showOrderModal: Bool
     @Binding var selectedTab: TabType
+    @Binding var showDatePicker: Bool
     @ObservedObject var viewModel: OrderDetailViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 20),
@@ -22,11 +23,13 @@ struct OrderDetailView: View {
     init(
         order: Order,
         showOrderModal: Binding<Bool>? = nil,
-        selectedTab: Binding<TabType>? = nil
+        selectedTab: Binding<TabType>? = nil,
+        showDatePicker: Binding<Bool>
     ) {
         self.viewModel = .init(order: order)
         self._showOrderModal = showOrderModal ?? Binding.constant(false)
         self._selectedTab = selectedTab ?? Binding.constant(.main)
+        self._showDatePicker = showDatePicker
     }
 
     var body: some View {
@@ -178,7 +181,8 @@ struct OrderDetailView: View {
                             NavigationLink(R.string.localizable.changeBidData()) {
                                 MakeReservationView(
                                     car: viewModel.order.car,
-                                    selectedTab: $selectedTab
+                                    selectedTab: $selectedTab,
+                                    showDatePicker: $showDatePicker
                                 )
                             }
                             .buttonStyle(FilledBtnWithoutDisabledStyle())
@@ -235,5 +239,5 @@ struct OrderDetailView: View {
 }
 
 #Preview {
-    OrderDetailView(order: Order.companion.empty())
+    OrderDetailView(order: Order.companion.empty(), showDatePicker: Binding.constant(false))
 }
