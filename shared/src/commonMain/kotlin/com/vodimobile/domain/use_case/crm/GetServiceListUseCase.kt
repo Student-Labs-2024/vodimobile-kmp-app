@@ -9,7 +9,6 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class GetServiceListUseCase(private val crmRepository: CrmRepository) {
     suspend operator fun invoke(accessToken: String, refreshToken: String): CrmEither<List<ServicesDTO>, HttpStatusCode> {
-//        delay(400.milliseconds)
         return crmRepository.getAllServices(accessToken, refreshToken)
     }
 }

@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct MainView: View {
+    @Binding var selectedTab: TabType
     @State private var isExpanded = true
     @State private var showDatePicker = false
     @State private var dateRange: ClosedRange<Date>?
@@ -99,6 +100,7 @@ struct MainView: View {
             content: {
                 MakeReservationView(
                     car: selectedAuto,
+                    selectedTab: $selectedTab,
                     dates: dateRange,
                     showModal: $showModalReservation
                 )
@@ -119,5 +121,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(selectedTab: Binding.constant(.main))
 }

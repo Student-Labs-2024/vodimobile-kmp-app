@@ -18,8 +18,8 @@ struct MainTabbarView: View {
 
             ZStack(alignment: Alignment.bottom) {
                 TabView(selection: $selectedTab) {
-                    MainView().tag(TabType.main)
-                    MyOrdersView().tag(TabType.myOrders)
+                    MainView(selectedTab: $selectedTab).tag(TabType.main)
+                    MyOrdersView(selectedMainTab: $selectedTab).tag(TabType.myOrders)
                     ProfileView().tag(TabType.profile)
                 }
 

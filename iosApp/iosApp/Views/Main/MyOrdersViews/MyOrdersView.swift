@@ -10,6 +10,7 @@ import SwiftUI
 import shared
 
 struct MyOrdersView: View {
+    @Binding var selectedMainTab: TabType
     @State private var selectedTab: MyOrderTab = .active
     @State var selectedOrder: Order = Order.companion.empty()
     @State var showOrderModal: Bool = false
@@ -61,7 +62,8 @@ struct MyOrdersView: View {
             .fullScreenCover(isPresented: $showOrderModal, content: {
                 OrderDetailView(
                     order: selectedOrder,
-                    showOrderModal: $showOrderModal
+                    showOrderModal: $showOrderModal,
+                    selectedTab: $selectedMainTab
                 )
             })
             .padding(.horizontal, horizontalPadding)
@@ -76,5 +78,5 @@ struct MyOrdersView: View {
 }
 
 #Preview {
-    MyOrdersView()
+    MyOrdersView(selectedMainTab: Binding.constant(.main))
 }

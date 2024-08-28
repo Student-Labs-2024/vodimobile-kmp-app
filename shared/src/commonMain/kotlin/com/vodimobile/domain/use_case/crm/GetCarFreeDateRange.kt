@@ -18,7 +18,6 @@ class GetCarFreeDateRange(private val crmRepository: CrmRepository) {
         begin: Long,
         end: Long
     ): List<Pair<Long, Long>> {
-        delay(400.milliseconds)
         val carFreeDateRangeEither: CrmEither<CarFreeDateRangeDTO, HttpStatusCode> =
             crmRepository.getCarFreeDateRange(
                 accessToken,

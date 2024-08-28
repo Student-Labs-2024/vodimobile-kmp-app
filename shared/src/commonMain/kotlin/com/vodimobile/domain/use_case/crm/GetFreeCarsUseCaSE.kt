@@ -14,7 +14,6 @@ class GetFreeCarsUseCaSE(private val crmRepository: CrmRepository) {
         refreshToken: String,
         carFreeListParamsDTO: CarFreeListParamsDTO
     ): CrmEither<CarFreeListDTO, HttpStatusCode> {
-        delay(400.milliseconds)
         val carFreeListDTOHttpStatusCodeCrmEither: CrmEither<CarFreeListDTO, HttpStatusCode> =
             crmRepository.getFreeCars(accessToken, refreshToken, carFreeListParamsDTO)
 

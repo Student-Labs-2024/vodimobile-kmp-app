@@ -13,8 +13,11 @@ final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
     @Published var isSuccessed = false
     @Published var showDatePicker = false
-    @Published var dateRange: ClosedRange<Date>?
-    @Published var inputErrorType: InputErrorType?
+    @Published var dateRange: ClosedRange<Date>? {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
     @Published var startTime: Date? {
         didSet {
             handlerFieldsChanged()
@@ -25,8 +28,6 @@ final class MakeReservationViewModel: ObservableObject {
             handlerFieldsChanged()
         }
     }
-    @Published var showStartTimePicker: Bool = false
-    @Published var showEndTimePicker: Bool = false
     @Published var startPlace: PlaceShort? {
         didSet {
             handlerFieldsChanged()
@@ -37,13 +38,21 @@ final class MakeReservationViewModel: ObservableObject {
             handlerFieldsChanged()
         }
     }
+    @Published var selectedServices = [ServicesDTO]() {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
     @Published var servicesList = [ServicesDTO]()
-    @Published var selectedServices = [ServicesDTO]()
-    @Published var totalPrice: Int = 0
+    @Published var showStartTimePicker: Bool = false
+    @Published var showEndTimePicker: Bool = false
+    @Published var inputErrorType: InputErrorType?
     @Published var bidCost: Double = 0
     @Published var isLoading = false
+    @Published var showSuccessModal = false
+    @Published var showErrorModal = false
     @ObservedObject var apiManager = KMPApiManager.shared
-    @FocusState var focuseOnCommentField: Bool
+    private let DateFormatter = CustomDateFormatter.shared
 
     let car: Car
     let dates: ClosedRange<Date>?
@@ -79,8 +88,8 @@ final class MakeReservationViewModel: ObservableObject {
                 fio: storageUser.fullName,
                 phone: storageUser.phone,
                 car_id: car.carId,
-                begin: startTime?.formatted() ?? "",
-                end: endTime?.formatted() ?? "",
+                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: startTime),
+                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: endTime),
                 begin_place_id: startPlace.id,
                 end_place_id: endPlace.id,
                 services: selectedServices.map({ KotlinInt(value: $0.service_id) }),
@@ -90,7 +99,8 @@ final class MakeReservationViewModel: ObservableObject {
             )
         }
         await MainActor.run {
-            isSuccessed = createdBid != nil ? true : false
+            showSuccessModal = createdBid != nil ? true : false
+            showErrorModal = createdBid == nil ? true : false
         }
         return createdBid
     }
@@ -126,14 +136,16 @@ final class MakeReservationViewModel: ObservableObject {
         if let startPlace = startPlace, let endPlace = endPlace {
             let bidInfo = await apiManager.fetchBidCost(for: BidCostParams(
                 car_id: car.carId,
-                begin: startTime?.formatted() ?? "",
-                end: endTime?.formatted() ?? "",
+                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: startTime),
+                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: endTime),
                 begin_place_id: startPlace.id,
                 end_place_id: endPlace.id,
                 services: convertSwiftArrayToKotlinArray(swiftArray: selectedServices)
             )
             )
-            bidCost = bidInfo?.cost ?? 0
+            await MainActor.run {
+                bidCost = bidInfo?.cost ?? 0
+            }
         }
         await MainActor.run {
             isLoading = false
@@ -170,7 +182,8 @@ final class MakeReservationViewModel: ObservableObject {
     }
 
     private func handlerFieldsChanged() {
-        if startPlace != nil && startTime != nil && endPlace != nil {
+        if dateRange != nil && startPlace != nil &&
+            startTime != nil && endPlace != nil {
             Task {
                 await self.fetchBigCost()
             }

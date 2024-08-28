@@ -10,7 +10,8 @@ import SwiftUI
 import shared
 
 struct MakeReservationView: View {
-    @Binding private var showModal: Bool
+    @Binding var showModal: Bool
+    @Binding var selectedTab: TabType
     @ObservedObject var viewModel: MakeReservationViewModel
     @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) private var dismiss
@@ -22,10 +23,12 @@ struct MakeReservationView: View {
 
     init(
         car: Car,
+        selectedTab: Binding<TabType>,
         dates: ClosedRange<Date>? = nil,
         showModal: Binding<Bool>? = nil
     ) {
         self.viewModel = .init(car: car, dates: dates)
+        self._selectedTab = selectedTab
         self._showModal = showModal ?? Binding.constant(false)
     }
 
@@ -134,7 +137,7 @@ struct MakeReservationView: View {
                             Text(R.string.localizable.totalPriceTitle)
                                 .font(.header3)
                             Spacer()
-                            Text("\(viewModel.totalPrice) \(R.string.localizable.currencyPriceText())")
+                            Text("\(Int(viewModel.bidCost)) \(R.string.localizable.currencyText())")
                                 .font(.header3)
                         }
 
@@ -155,12 +158,18 @@ struct MakeReservationView: View {
                             .navigationDestination(for: Destination.self) { destination in
                                 switch destination {
                                 case .successView:
-                                    SuccessfulReservationView()
+                                    SuccessfulReservationView(
+                                        showModal: $showModal,
+                                        selectedTab: $selectedTab
+                                    )
                                 case .failureView:
-                                    FailureReservationView()
+                                    FailureReservationView(showModal: $showModal) {
+                                        await viewModel.createBidToReserve()
+                                    }
                                 }
                             }
                         }
+                        .frame(maxHeight: 100)
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 20)
@@ -187,12 +196,21 @@ struct MakeReservationView: View {
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
         .navigationBarBackButtonHidden()
+        .fullScreenCover(isPresented: $viewModel.showSuccessModal) {
+            SuccessfulReservationView(showModal: $showModal, selectedTab: $selectedTab)
+        }
+        .fullScreenCover(isPresented: $viewModel.showErrorModal) {
+            FailureReservationView(showModal: $showModal) {
+                await viewModel.createBidToReserve()
+            }
+        }
     }
 }
 
 #Preview {
     MakeReservationView(
         car: Car.companion.empty(),
+        selectedTab: Binding.constant(.main),
         dates: nil
     )
 }

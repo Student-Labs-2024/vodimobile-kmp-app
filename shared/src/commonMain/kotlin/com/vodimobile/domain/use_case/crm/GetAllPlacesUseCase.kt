@@ -13,7 +13,6 @@ class GetAllPlacesUseCase(private val crmRepository: CrmRepository) {
         accessToken: String,
         refreshToken: String
     ) : CrmEither<List<Place>, HttpStatusCode> {
-//        delay(400.seconds)
         return when(val crm = crmRepository.getAllPlaces(accessToken, refreshToken)) {
             is CrmEither.CrmData -> {
                 val list = crm.data.places.map {
