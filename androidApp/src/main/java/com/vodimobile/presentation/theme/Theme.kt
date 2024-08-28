@@ -78,7 +78,7 @@ private val darkScheme = darkColorScheme(
 @Composable
 fun VodimobileTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
