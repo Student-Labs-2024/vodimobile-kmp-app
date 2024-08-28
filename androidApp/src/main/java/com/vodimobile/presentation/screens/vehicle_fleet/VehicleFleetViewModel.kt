@@ -13,6 +13,7 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.utils.cars.carCategoryMap
+import com.vodimobile.utils.date_formats.parseToCrmDate
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
@@ -178,8 +179,8 @@ class VehicleFleetViewModel(
                     accessToken = userFromRemote.accessToken,
                     refreshToken = userFromRemote.refreshToken,
                     carFreeListParamsDTO = CarFreeListParamsDTO(
-                        begin = begin,
-                        end = end,
+                        begin = begin.parseToCrmDate(),
+                        end = end.parseToCrmDate(),
                         includeIdles = true,
                         includeReserves = true,
                         cityId = 2

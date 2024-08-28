@@ -81,7 +81,7 @@ class KoinHelper : KoinComponent {
         accessToken: String,
         refreshToken: String,
         carId: Int,
-        begin: Long, end: Long
+        begin: String, end: String
     ) = crmStorage.getCarFreeDateRange(
         accessToken = accessToken,
         refreshToken = refreshToken,

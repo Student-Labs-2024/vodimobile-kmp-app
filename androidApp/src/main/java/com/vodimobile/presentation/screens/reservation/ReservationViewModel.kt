@@ -25,6 +25,7 @@ import com.vodimobile.presentation.utils.date_formats.reduceFreeYear
 import com.vodimobile.service.notification.VodimobileNotificationManager
 import com.vodimobile.utils.bid.bidGripReverse
 import com.vodimobile.utils.date_formats.parseToCrmDate
+import com.vodimobile.utils.date_formats.parseToCrmDateTime
 import com.vodimobile.utils.date_formats.parseToSupabaseDate
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
@@ -202,8 +203,8 @@ class ReservationViewModel(
                         accessToken = reservationState.value.user.accessToken,
                         refreshToken = reservationState.value.user.refreshToken,
                         carId = reservationState.value.carId,
-                        begin = start,
-                        end = end
+                        begin = start.parseToCrmDateTime(),
+                        end = end.parseToCrmDateTime()
                     )
                     reservationState.update {
                         it.copy(freeDates = freeDates)
