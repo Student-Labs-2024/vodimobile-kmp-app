@@ -46,14 +46,13 @@ import java.util.Locale
 fun TimePickerSwitchableSample(
     onTimeSelected: (String) -> Unit,
     onCancel: () -> Unit,
-    minHour: Int = 10,
-    maxHour: Int = 20,
 ) {
     val state = rememberTimePickerState()
     val formatter = remember { SimpleDateFormat("HH:mm", Locale.getDefault()) }
     val showingPicker = remember { mutableStateOf(true) }
     val configuration = LocalConfiguration.current
     val cal = Calendar.getInstance()
+    cal.timeInMillis = System.currentTimeMillis()
     var finalTime by remember {
         mutableStateOf(formatter.format(cal.time))
     }
@@ -79,18 +78,9 @@ fun TimePickerSwitchableSample(
         onConfirm = {
             cal.set(Calendar.HOUR_OF_DAY, state.hour)
             cal.set(Calendar.MINUTE, state.minute)
-            cal.isLenient = false
-
-            if (cal.get(Calendar.HOUR_OF_DAY) < minHour) {
-                cal.set(Calendar.HOUR_OF_DAY, minHour)
-                cal.set(Calendar.MINUTE, 0)
-            } else if (cal.get(Calendar.HOUR_OF_DAY) > maxHour) {
-                cal.set(Calendar.HOUR_OF_DAY, maxHour)
-                cal.set(Calendar.MINUTE, 0)
-            }
 
             finalTime = formatter.format(cal.timeInMillis)
-            onTimeSelected(SimpleDateFormat("HH:mm", Locale.getDefault()).format(cal.time))
+            onTimeSelected(finalTime)
         },
         toggle = {
             if (isExpanded) {
