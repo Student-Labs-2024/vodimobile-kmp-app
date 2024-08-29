@@ -97,8 +97,8 @@ class CrmStorage(
         accessToken: String,
         refreshToken: String,
         carId: Int,
-        begin: Long,
-        end: Long
+        begin: String,
+        end: String
     ) = getCarFreeDateRange.invoke(
         accessToken = accessToken,
         refreshToken = refreshToken,

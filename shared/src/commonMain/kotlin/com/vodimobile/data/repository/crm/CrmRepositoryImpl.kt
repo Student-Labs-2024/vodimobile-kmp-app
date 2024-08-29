@@ -22,7 +22,6 @@ import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
 import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
-import com.vodimobile.utils.date_formats.parseToCrmDate
 import com.vodimobile.utils.file.getName
 import com.vodimobile.utils.file.readBytes
 import com.vodimobile.utils.local_properties.getCrmServerDataFromLocalProperties
@@ -159,11 +158,11 @@ class CrmRepositoryImpl : CrmRepository {
                         parameters {
                             parameter(
                                 CrmRouting.CarFreeList.PARAM.BEGIN,
-                                carFreeListParamsDTO.begin.parseToCrmDate()
+                                carFreeListParamsDTO.begin
                             )
                             parameter(
                                 CrmRouting.CarFreeList.PARAM.END,
-                                carFreeListParamsDTO.end.parseToCrmDate()
+                                carFreeListParamsDTO.end
                             )
                             parameter(
                                 CrmRouting.CarFreeList.PARAM.CITY_ID,
