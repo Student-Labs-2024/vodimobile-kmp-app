@@ -143,7 +143,7 @@ fun VehicleFleetScreen(
                     ScreenHeader(
                         modifier = Modifier
                             .background(MaterialTheme.colorScheme.background)
-                            .padding(top = 12.dp),
+                            .padding(top = 12.dp, start = 16.dp, end = 16.dp),
                         title = stringResource(R.string.vehicle_fleet),
                         onNavigateBack = {
                             onVehicleIntent(VehicleIntent.BackClick)

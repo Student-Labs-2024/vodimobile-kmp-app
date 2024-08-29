@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Icon
@@ -66,17 +65,10 @@ fun StartScreen(
         }
     }
 
-    LazyColumn(
-        Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(horizontal = 16.dp, vertical = 64.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
-    ) {
-        item {
-            Row {
-                Spacer(modifier = Modifier.weight(1.0f))
+    Scaffold(
+        topBar = {
+            Row(modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp)) {
+                Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
                         onStartScreenIntent(StartScreenIntent.CloseClick)
@@ -88,6 +80,17 @@ fun StartScreen(
                     )
                 }
             }
+        }
+    ) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(it)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.profile),
                 contentDescription = null,
@@ -95,8 +98,6 @@ fun StartScreen(
                     .padding(top = 60.dp)
                     .size(128.dp)
             )
-        }
-        item {
             Column(
                 modifier = Modifier.padding(vertical = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(
@@ -116,16 +117,12 @@ fun StartScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }
-        }
-        item {
             PrimaryButton(
                 text = stringResource(id = R.string.requister_str),
                 enabled = true,
                 onClick = {
                     onStartScreenIntent(StartScreenIntent.ClickRegistration)
                 })
-        }
-        item {
             SecondaryButton(
                 text = stringResource(id = R.string.login_str),
                 enabled = true,
