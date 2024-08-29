@@ -136,6 +136,14 @@ fun RegistrationScreen(
                             duration = SnackbarDuration.Short
                         )
                 }
+
+                RegistrationEffect.NotUniquePhone -> {
+                    snackbarHostState
+                        .showSnackbar(
+                            message = App.INSTANCE.resources.getString(R.string.user_phone_not_unique),
+                            duration = SnackbarDuration.Short
+                        )
+                }
             }
         }
     }
