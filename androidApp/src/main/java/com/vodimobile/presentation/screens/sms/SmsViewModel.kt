@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.sms
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.telephony.SmsManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -111,7 +112,11 @@ class SmsViewModel : ViewModel() {
 
     private fun sendSms(context: Context, phone: String) {
         val smsManager: SmsManager =
-            context.getSystemService(SmsManager::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                context.getSystemService(SmsManager::class.java)
+            } else {
+                SmsManager.getDefault()
+            }
 
         val msg = smsState.value.code.toString()
         val sentPI: PendingIntent = PendingIntent.getBroadcast(

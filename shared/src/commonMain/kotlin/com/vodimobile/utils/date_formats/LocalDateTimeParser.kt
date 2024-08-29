@@ -30,7 +30,8 @@ fun String.parseDateToLong(): Long {
 }
 
 @OptIn(FormatStringsInDatetimeFormats::class)
-fun String.parseTimeToLong(timeZone: TimeZone = TimeZone.currentSystemDefault()): Long {
+fun String.parseTimeToLong(): Long {
+    val timeZone: TimeZone = TimeZone.currentSystemDefault()
     val formatPattern = "HH:mm"
 
     val localTime = LocalTime.Format {

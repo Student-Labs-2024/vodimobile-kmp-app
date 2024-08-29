@@ -33,7 +33,7 @@ data class Order(
                 rentalDatePeriod = DateRange(startDate = Clock.System.now().epochSeconds, endDate = Clock.System.now().epochSeconds),
                 startLocation = "",
                 finishLocation = "",
-                rentalTimePeriod = TimeRange(startTime = Clock.System.now().epochSeconds, finishTime = Clock.System.now().epochSeconds),
+                rentalTimePeriod = TimeRange(startTime = "12:00", finishTime = "14:00"),
                 car = Car.empty(),
                 services = arrayOf("1","2","3")
             )
