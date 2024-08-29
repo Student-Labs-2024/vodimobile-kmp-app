@@ -178,6 +178,7 @@
 
     <string name="auth_user_supabase_error">Такой пользователь уже существует.</string>
     <string name="auth_2_user_supabase_error">Такого пользователь не существует.</string>
+    <string name="phone_not_unique">Такой номер телефона уже зарегистрирован</string>
     <string name="active_order">Активные</string>
     <string name="completed_order">Завершенные</string>
     <string name="order_title1">Здесь будут ваши заказы</string>
