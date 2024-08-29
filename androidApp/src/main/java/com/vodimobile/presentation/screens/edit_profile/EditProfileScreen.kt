@@ -152,7 +152,7 @@ fun EditProfileScreen(
             topBar = {
                 ScreenHeader(
                     modifier = Modifier.padding(top = 12.dp),
-                    title = stringResource(id = R.string.personal_data_title),
+                    title = stringResource(id = R.string.personal_edit_data_title),
                     onNavigateBack = { onEditProfileIntent(EditProfileIntent.ClickBack) }
                 )
             },
