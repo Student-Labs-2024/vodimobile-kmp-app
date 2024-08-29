@@ -151,7 +151,7 @@ fun EditProfileScreen(
         Scaffold(
             topBar = {
                 ScreenHeader(
-                    modifier = Modifier.padding(top = 12.dp),
+                    modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
                     title = stringResource(id = R.string.personal_edit_data_title),
                     onNavigateBack = { onEditProfileIntent(EditProfileIntent.ClickBack) }
                 )

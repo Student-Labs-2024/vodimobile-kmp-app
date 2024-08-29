@@ -97,7 +97,7 @@ fun ChangePasswordScreen(
     Scaffold(
         topBar = {
             ScreenHeader(
-                modifier = Modifier.padding(top = 12.dp),
+                modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
                 title = stringResource(
                     id = R.string.title_change_password_screen
                 ),

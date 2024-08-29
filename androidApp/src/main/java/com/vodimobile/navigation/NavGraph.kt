@@ -315,7 +315,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 if (isConnected) {
                     val orderViewModel: OrderViewModel = koinViewModel()
                     OrdersScreen(
-                        modifier = modifier,
                         orderIntent = orderViewModel::onIntent,
                         orderState = orderViewModel.orderState.collectAsState(),
                         orderEffect = orderViewModel.orderEffect,
@@ -493,8 +492,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onFaqIntent = faqViewModel::onIntent,
                     faqEffect = faqViewModel.faqEffect,
                     faqState = faqViewModel.faqState.collectAsState(),
-                    navHostController = navHostController,
-                    modifier = modifier
+                    navHostController = navHostController
                 )
             }
             composable(route = LeafScreen.CONTACTS_SCREEN) {
@@ -505,8 +503,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     contactEffect = contactViewModel.contactEffect,
                     contactState = contactViewModel.contactState.collectAsState(),
                     validYear = contactViewModel.getValidYear(startYear = stringResource(id = R.string.version_year_str)),
-                    navHostController = navHostController,
-                    modifier = modifier
+                    navHostController = navHostController
                 )
             }
             composable(route = LeafScreen.EDIT_PROFILE) {
@@ -515,7 +512,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 if (isConnected) {
                     val editProfileViewModel: EditProfileViewModel = koinViewModel()
                     EditProfileScreen(
-                        modifier = modifier,
                         onEditProfileIntent = editProfileViewModel::onIntent,
                         editProfileState = editProfileViewModel.editProfileState.collectAsState(),
                         editProfileEffect = editProfileViewModel.editProfileEffect,
