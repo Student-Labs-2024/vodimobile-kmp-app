@@ -1,7 +1,5 @@
 package com.vodimobile.presentation.screens.sms
 
-//import com.google.android.gms.auth.api.identity.GetPhoneNumberHintIntentRequest
-//import com.google.android.gms.auth.api.identity.Identity
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -69,7 +68,7 @@ fun SmsScreen(
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
+    SideEffect {
         onIntent(SmsIntent.SendSmsCode(phone = phone, context = context))
     }
 

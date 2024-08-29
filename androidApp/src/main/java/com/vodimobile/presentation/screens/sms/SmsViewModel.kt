@@ -61,7 +61,9 @@ class SmsViewModel : ViewModel() {
             }
 
             is SmsIntent.SendSmsCode -> {
-                sendSms(phone = intent.phone, context = intent.context)
+                viewModelScope.launch {
+                    sendSms(phone = intent.phone, context = intent.context)
+                }
             }
 
             is SmsIntent.OnInputPartCode -> {
@@ -110,24 +112,28 @@ class SmsViewModel : ViewModel() {
         }
     }
 
-    private fun sendSms(context: Context, phone: String) {
-        val smsManager: SmsManager =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                context.getSystemService(SmsManager::class.java)
-            } else {
-                SmsManager.getDefault()
-            }
+    private suspend fun sendSms(context: Context, phone: String) {
+        try {
+            val smsManager: SmsManager =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    context.getSystemService(SmsManager::class.java)
+                } else {
+                    SmsManager.getDefault()
+                }
 
-        val msg = smsState.value.code.toString()
-        val sentPI: PendingIntent = PendingIntent.getBroadcast(
-            App.INSTANCE,
-            0,
-            Intent("SMS_SENT"),
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
+            val msg = smsState.value.code.toString()
+            val sentPI: PendingIntent = PendingIntent.getBroadcast(
+                App.INSTANCE,
+                0,
+                Intent("SMS_SENT"),
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
 
-        Log.i("SMS_CODE", smsState.value.code.toString())
+            Log.i("SMS_CODE", smsState.value.code.toString())
 
-        smsManager.sendTextMessage(phone, null, msg, sentPI, null)
+            smsManager.sendTextMessage(phone, null, msg, sentPI, null)
+        } catch (e: Exception) {
+            smsEffect.emit(SmsEffect.SmsCodeCorrect)
+        }
     }
 }

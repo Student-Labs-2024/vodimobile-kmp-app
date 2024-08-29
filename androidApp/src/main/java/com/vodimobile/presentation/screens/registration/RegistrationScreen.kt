@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -173,7 +174,8 @@ fun RegistrationScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .padding(vertical = 100.dp, horizontal = 16.dp)
+                .padding(vertical = 16.dp, horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center
         ) {
             RegistrationBlock(
                 registrationState = registrationState.value,
