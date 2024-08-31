@@ -11,7 +11,7 @@ import SwiftUI
 
 final class KMPDataStorage: ObservableObject {
     private let repository = UserDataStoreRepositoryImpl(dataStore: CreateDataStore_iosKt.createDataStore())
-    @Published var gettingUser: User?
+    @Published var gettingUser: User? = User.companion.empty()
     static let shared = KMPDataStorage()
 
     init() {

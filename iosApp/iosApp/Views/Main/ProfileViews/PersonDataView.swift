@@ -9,16 +9,11 @@
 import SwiftUI
 
 struct PersonDataView: View {
-    @ObservedObject private var viewModel: UserDataViewModel
+    @ObservedObject private var viewModel = UserDataViewModel.shared
     @FocusState private var focusedField: Field?
 
     enum Field {
         case fullname, phone
-    }
-
-    init() {
-        self.viewModel = .init()
-        self.viewModel.fetchUserData()
     }
 
     var body: some View {
@@ -33,7 +28,7 @@ struct PersonDataView: View {
                 )
                 .focused($focusedField, equals: .fullname)
 
-                ButtonLikeUnderlinedTextField()
+                ButtonLikeUnderlinedTextField(viewModel: viewModel)
 
                 UnderlineTextField(
                     text: $viewModel.phone,
@@ -64,6 +59,9 @@ struct PersonDataView: View {
         .onChange(of: focusedField) { newValue in
             $viewModel.dataIsEditing.wrappedValue = newValue != nil ? true : false
         }
+        .onAppear {
+            viewModel.fetchUserData()
+        }
         .alert(
             R.string.localizable.alertErrorSavingTitle(),
             isPresented: $viewModel.showErrorAlert,
@@ -83,13 +81,13 @@ struct PersonDataView: View {
             }
             .onAppear {
                 viewModel.fetchUserData()
-        }
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            CustomToolbar(
-                title: R.string.localizable.profileScreenTitle
-            )
-        }
+            }
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                CustomToolbar(
+                    title: R.string.localizable.profileScreenTitle
+                )
+            }
     }
 }
 

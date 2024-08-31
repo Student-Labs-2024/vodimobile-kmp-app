@@ -12,7 +12,7 @@ struct AuthScreenView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
-    @ObservedObject private var viewModel = UserDataViewModel()
+    @StateObject private var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
@@ -20,7 +20,7 @@ struct AuthScreenView: View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
                 BorderedTextField(
-                    fieldContent: $viewModel.phone,
+                    fieldContent: $viewModel.phoneField,
                     isValid: $viewModel.isPhoneValid,
                     fieldType: .phone,
                     inputErrorType: $viewModel.inputError
@@ -30,7 +30,7 @@ struct AuthScreenView: View {
                 }
 
                 BorderedTextField(
-                    fieldContent: $viewModel.password,
+                    fieldContent: $viewModel.passwordField,
                     isValid: $viewModel.isPasswordValid,
                     fieldType: .password,
                     inputErrorType: $viewModel.inputError,
@@ -43,8 +43,8 @@ struct AuthScreenView: View {
                 NavigationLink(destination: PinCodeView(
                     showSignSuggestModal: $showSignSuggestModal,
                     authFlowType: .auth,
-                    phoneNumber: viewModel.phone,
-                    pass: viewModel.password
+                    phoneNumber: viewModel.phoneField,
+                    pass: viewModel.passwordField
                 )
                 ) {
                     Text(R.string.localizable.nextBtnName)

@@ -25,7 +25,8 @@ struct PinCodeView: View {
             showSignSuggestModal: showSignSuggestModal,
             authFlowType: authFlowType,
             phoneNumber: phoneNumber,
-            pass: pass
+            pass: pass,
+            fullname: fullname
         )
     }
 

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ButtonLikeUnderlinedTextField: View {
-    @ObservedObject var viewModel: UserDataViewModel
+    @StateObject var viewModel: UserDataViewModel
 
     var body: some View {
         NavigationLink(destination: ChangePasswordView(viewModel: viewModel)) {

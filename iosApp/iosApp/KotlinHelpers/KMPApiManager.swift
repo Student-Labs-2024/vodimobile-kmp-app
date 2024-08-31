@@ -57,7 +57,7 @@ final class KMPApiManager: ObservableObject {
                             password: password,
                             accessToken: storageUser.accessToken,
                             refreshToken: storageUser.refreshToken,
-                            phone: phone
+                            phone: phone.cleanUp()
                         )
                     )
                 } catch {
@@ -72,49 +72,79 @@ final class KMPApiManager: ObservableObject {
 
     func setUserTokens() async {
         if appState.isConnected {
-            if let storageUser = dataStorage.gettingUser,
-               storageUser.accessToken.isEmpty {
-                await MainActor.run {
-                    isLoading = true
-                }
-                do {
-                    let response = try await helper.postUser()
-                    switch onEnum(of: response) {
-                    case .crmData(let success):
-                        if let user = success.data {
-                            if let storageUser = dataStorage.gettingUser {
-                                let newUser = User(
-                                    id: storageUser.id,
-                                    fullName: storageUser.fullName,
-                                    password: storageUser.password,
-                                    accessToken: user.accessToken,
-                                    refreshToken: user.refreshToken,
-                                    phone: storageUser.phone
-                                )
-                                await MainActor.run {
-                                    self.dataStorage.gettingUser = newUser
-                                }
-                            }
+            await MainActor.run {
+                isLoading = true
+            }
+            let storageUser: User
+            if let storageUserData = dataStorage.gettingUser {
+                storageUser = storageUserData
+            } else {
+                storageUser = User.companion.empty()
+            }
+            do {
+                let response = try await helper.postUser()
+                switch onEnum(of: response) {
+                case .crmData(let success):
+                    if let user = success.data {
+                        let newUser = User(
+                            id: storageUser.id,
+                            fullName: storageUser.fullName,
+                            password: storageUser.password,
+                            accessToken: user.accessToken,
+                            refreshToken: user.refreshToken,
+                            phone: storageUser.phone
+                        )
+                        await MainActor.run {
+                            self.dataStorage.gettingUser = newUser
                         }
-                    case .crmError(let error):
-                        print(error.status?.value ?? "Empty error")
-                    case .crmLoading:
-                        print("loading...")
                     }
-                } catch {
-                    print(error)
+                case .crmError(let error):
+                    print(error.status?.value ?? "Empty error")
+                case .crmLoading:
+                    print("loading...")
                 }
-                await MainActor.run {
-                    isLoading = false
-                }
+            } catch {
+                print(error)
+            }
+            await MainActor.run {
+                isLoading = false
             }
         }
     }
 
+    func changeUserPassword(newPassword: String) async -> Bool {
+        if appState.isConnected {
+            await getAuthIfNeed()
+            if let storageUser = dataStorage.gettingUser {
+                do {
+                    try await helper.updatePassword(userId: storageUser.id, password: newPassword)
+                    return true
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        return false
+    }
+
+    func changeUserFullname(newFullname: String) async -> Bool {
+        if appState.isConnected {
+            await getAuthIfNeed()
+            if let storageUser = dataStorage.gettingUser {
+                do {
+                    try await helper.updateFullName(userId: storageUser.id, fullName: newFullname)
+                    return true
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        return false
+    }
+
     func fetchFreeCarIdsForDate(for carFreeListParamsDTO: CarFreeListParamsDTO) async -> [Int] {
         if appState.isConnected {
-            if let storageUser = dataStorage.gettingUser,
-               storageUser.accessToken.isEmpty {
+            if let storageUser = dataStorage.gettingUser {
                 await MainActor.run {
                     isLoading = true
                 }
@@ -380,7 +410,8 @@ final class KMPApiManager: ObservableObject {
     }
 
     private func getAuthIfNeed() async {
-        if let storageUser = dataStorage.gettingUser, storageUser.id < 0 {
+        if let storageUser = dataStorage.gettingUser, storageUser.id < 0 &&
+            storageUser != User.companion.empty() {
             await setUserTokens()
             let supaUser = await getSupaUser(pass: storageUser.password, phone: storageUser.phone)
             await MainActor.run {
@@ -421,7 +452,7 @@ final class AuthManager: ObservableObject {
             .store(in: &cancellables)
         Task {
             if let user = dataStorage.gettingUser,
-                user == User.companion.empty() {
+               !user.phone.isEmpty && !user.password.isEmpty {
                 await login(phone: user.phone, pass: user.password)
             }
         }
@@ -430,13 +461,14 @@ final class AuthManager: ObservableObject {
 
     @MainActor
     func signUp(fullname: String, phone: String, password: String) async {
+        await apiManager.setUserTokens()
         await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
         await login(phone: fullname, pass: password)
     }
 
     @MainActor
     func login(phone: String, pass: String) async {
-        let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone)
+        let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone.cleanUp())
         if let supaUser = supaUser, supaUser.id >= 0 {
             dataStorage.gettingUser = supaUser
             let savingUser = User(
@@ -452,7 +484,7 @@ final class AuthManager: ObservableObject {
             } catch {
                 print(error)
             }
-            self.isAuthenticated = true
+            self.handleUserChange()
         } else {
             self.errorType = .incorrectPhone
         }

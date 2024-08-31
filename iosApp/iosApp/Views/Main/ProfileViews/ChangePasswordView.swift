@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ChangePasswordView: View {
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject var viewModel: UserDataViewModel
+    @StateObject var viewModel: UserDataViewModel
 
     @Environment(\.dismiss) private var dismiss
 
@@ -27,7 +27,7 @@ struct ChangePasswordView: View {
                 )
 
                 BorderedTextField(
-                    fieldContent: $viewModel.password,
+                    fieldContent: $viewModel.passwordField,
                     isValid: $viewModel.isPasswordValid,
                     fieldType: .newPassword,
                     inputErrorType: $viewModel.inputError
@@ -37,8 +37,11 @@ struct ChangePasswordView: View {
                 }
 
                 Button(R.string.localizable.nextBtnName()) {
-                    viewModel.saveEditedUserData()
+                    viewModel.changePassword(to: viewModel.password)
                     dismiss()
+                    viewModel.oldPassword = ""
+                    viewModel.password = ""
+                    viewModel.dataHasBeenSaved = false
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -49,8 +52,15 @@ struct ChangePasswordView: View {
         .padding(.horizontal, horizontalPadding)
         .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
-        .toolbar {
-            CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
+        .alert(
+            R.string.localizable.alertSavePersonDataTitle(),
+            isPresented: $viewModel.dataHasBeenSaved) {
+                Button(R.string.localizable.closeButton(), role: .cancel) {
+                    viewModel.dataHasBeenSaved.toggle()
+                }
+            }
+            .toolbar {
+                CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
         }
     }
 }
