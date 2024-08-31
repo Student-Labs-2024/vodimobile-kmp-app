@@ -20,7 +20,7 @@ class IosGreetingTest {
         val koinHelper = KoinHelper()
         initKoin()
         runBlocking {
-            val actualUser = koinHelper.getUser(password = "10101010K+", phone = "+79029994148")
+            val actualUser = koinHelper.getUser(password = "10101010Kk+", phone = "+79029994148")
             assertEquals(expected = User.empty(), actual = actualUser)
         }
     }
@@ -30,7 +30,7 @@ class IosGreetingTest {
         val koinHelper = KoinHelper()
         initKoin()
         runBlocking {
-            val actualUser = koinHelper.supabaseStorage.getUser(password = "10101010K+", phone = "+79029994148")
+            val actualUser = koinHelper.supabaseStorage.getUser(password = "10101010Kk+", phone = "+79029994148")
             assertEquals(expected = User.empty(), actual = actualUser)
         }
     }
