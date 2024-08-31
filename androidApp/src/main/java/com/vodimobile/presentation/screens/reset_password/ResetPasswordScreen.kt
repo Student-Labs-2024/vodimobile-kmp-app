@@ -95,53 +95,62 @@ fun ResetPasswordScreen(
         if (isButtonClicked.value) isButtonClicked.value = false
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 64.dp, horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        ScreenHeader(
-            title = stringResource(
-                id = R.string.header_reset_password
-            ),
-            onNavigateBack = {
-                onResetPasswordIntent(ResetPasswordIntent.ReturnBack)
-            }
-        )
-        Column(
-            modifier = Modifier.padding(vertical = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.title_reset_password),
-                style = MaterialTheme.typography.headlineLarge
-            )
-            Text(
-                text = stringResource(id = R.string.subtitle_reset_password),
-                style = MaterialTheme.typography.headlineSmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+    Scaffold(
+        topBar = {
+            ScreenHeader(
+                modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
+                title = stringResource(
+                    id = R.string.header_reset_password
+                ),
+                onNavigateBack = {
+                    onResetPasswordIntent(ResetPasswordIntent.ReturnBack)
+                }
             )
         }
-        PhoneField(
-            value = resetPasswordState.value.phoneNumber,
-            isError = resetPasswordState.value.phoneNumberError && isButtonClicked.value,
-            onPhoneNumberChanged = {
-                onResetPasswordIntent(ResetPasswordIntent.PhoneNumberChange(it))
-                resetButtonClicked()
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .padding(vertical = 20.dp, horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Column(
+                modifier = Modifier.padding(vertical = 24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.title_reset_password),
+                    style = MaterialTheme.typography.headlineLarge
+                )
+                Text(
+                    text = stringResource(id = R.string.subtitle_reset_password),
+                    style = MaterialTheme.typography.headlineSmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+                )
             }
-        )
-        PrimaryButton(
-            text = stringResource(id = R.string.text_next_button),
-            enabled = true,
-            onClick = {
-                isButtonClicked.value = true
-                if (!resetPasswordState.value.phoneNumberError)
-                    onResetPasswordIntent(ResetPasswordIntent.AskPermission)
-            }
-        )
+            PhoneField(
+                value = resetPasswordState.value.phoneNumber,
+                isError = resetPasswordState.value.phoneNumberError && isButtonClicked.value,
+                onPhoneNumberChanged = {
+                    onResetPasswordIntent(ResetPasswordIntent.PhoneNumberChange(it))
+                    resetButtonClicked()
+                }
+            )
+            PrimaryButton(
+                text = stringResource(id = R.string.text_next_button),
+                enabled = true,
+                onClick = {
+                    isButtonClicked.value = true
+                    if (!resetPasswordState.value.phoneNumberError)
+                        onResetPasswordIntent(ResetPasswordIntent.AskPermission)
+                }
+            )
+        }
     }
+
+
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

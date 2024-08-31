@@ -97,8 +97,8 @@ class GetOrdersUseCase(
                 startLocation = orderDTO.place_start,
                 finishLocation = orderDTO.place_finish,
                 rentalTimePeriod = TimeRange(
-                    startTime = orderDTO.time_start.parseTimeToLong(),
-                    finishTime = orderDTO.time_finish.parseTimeToLong()
+                    startTime = orderDTO.time_start,
+                    finishTime = orderDTO.time_finish
                 ),
                 car = cars.single { it.carId == orderDTO.car_id },
                 services = orderDTO.services.toStringArray()

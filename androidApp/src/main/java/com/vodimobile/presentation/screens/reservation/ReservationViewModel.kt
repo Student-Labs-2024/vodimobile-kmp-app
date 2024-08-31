@@ -1,7 +1,6 @@
 package com.vodimobile.presentation.screens.reservation
 
 import android.content.Intent
-import android.util.Log
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
@@ -83,7 +82,7 @@ class ReservationViewModel(
                     when (crmEither) {
                         is CrmEither.CrmData -> {
                             reservationState.update {
-                                it.copy(placeList = crmEither.data)
+                                it.copy(placeList = crmEither.data.filter { place -> !place.archive })
                             }
                         }
 

@@ -93,25 +93,30 @@ class RegistrationViewModel(
             RegistrationIntent.AskPermission -> {
                 viewModelScope.launch(context = supervisorCoroutineContext) {
 
-                    val crmEither: CrmEither<UserResponse, HttpStatusCode> =
-                        crmStorage.authUser()
+                    try {
+                        val crmEither: CrmEither<UserResponse, HttpStatusCode> =
+                            crmStorage.authUser()
 
-                    when (crmEither) {
-                        is CrmEither.CrmData -> {
-                            with(crmEither.data) {
-                                saveInRemote(accessToken, refreshToken)
-                                saveInLocal()
+                        when (crmEither) {
+                            is CrmEither.CrmData -> {
+                                with(crmEither.data) {
+                                    saveInRemote(accessToken, refreshToken)
+                                    saveInLocal()
+                                }
+                                registrationEffect.emit(RegistrationEffect.AskPermission)
                             }
-                            registrationEffect.emit(RegistrationEffect.AskPermission)
+
+                            is CrmEither.CrmError -> {
+                                registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
+                            }
+
+                            CrmEither.CrmLoading -> {
+
+                            }
                         }
 
-                        is CrmEither.CrmError -> {
-
-                        }
-
-                        CrmEither.CrmLoading -> {
-
-                        }
+                    } catch (e: Exception) {
+                        registrationEffect.emit(RegistrationEffect.NotUniquePhone)
                     }
                 }
             }

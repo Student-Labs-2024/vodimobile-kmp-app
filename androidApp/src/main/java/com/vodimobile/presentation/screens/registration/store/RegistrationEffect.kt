@@ -6,4 +6,5 @@ sealed class RegistrationEffect {
     data object ReturnBack : RegistrationEffect()
     data object AskPermission : RegistrationEffect()
     data object SupabaseAuthUserError : RegistrationEffect()
+    data object NotUniquePhone : RegistrationEffect()
 }

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -51,14 +52,14 @@ import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
-import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
-import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePhoneUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateTokensUseCase
+import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
+import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateCostUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateCrmOrderUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateNumberUseCase
@@ -68,12 +69,12 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
+import com.vodimobile.presentation.components.AgreementBlock
 import com.vodimobile.presentation.components.ScreenHeader
 import com.vodimobile.presentation.screens.authorization.components.AuthorizationBlock
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
-import com.vodimobile.presentation.components.AgreementBlock
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.PasswordValidator
 import com.vodimobile.presentation.utils.PhoneNumberValidator
@@ -150,16 +151,9 @@ fun AuthorizationScreen(
     }
 
     Scaffold(
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
-        },
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(vertical = 64.dp, horizontal = 16.dp)
-        ) {
+        topBar = {
             ScreenHeader(
+                modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
                 title = stringResource(
                     id = R.string.login_str
                 ),
@@ -167,7 +161,18 @@ fun AuthorizationScreen(
                     onAuthorizationIntent(AuthorizationIntent.ReturnBack)
                 }
             )
-            Spacer(modifier = Modifier.height(100.dp))
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .padding(vertical = 16.dp, horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
             AuthorizationBlock(
                 authorizationState = authorizationState.value,
                 isShowError = isButtonClicked.value,
@@ -192,7 +197,7 @@ fun AuthorizationScreen(
                     if (!authorizationState.value.phoneNumberError && !authorizationState.value.passwordError)
                         onAuthorizationIntent(AuthorizationIntent.AskPermission)
                 },
-                enabled =  authorizationState.value.phoneNumber.isNotEmpty()
+                enabled = authorizationState.value.phoneNumber.isNotEmpty()
                         && authorizationState.value.password.isNotEmpty()
             )
         }
@@ -258,7 +263,11 @@ private fun AuthorizationScreenPreviewDark() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
+                    getOrdersUseCase = GetOrdersUseCase(
+                        SupabaseRepositoryImpl(),
+                        crmStorage,
+                        crmRepository
+                    ),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                     updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
@@ -337,7 +346,11 @@ private fun AuthorizationScreenPreviewLight() {
                     updateTokensUseCase = UpdateTokensUseCase(SupabaseRepositoryImpl()),
                     updatePhoneUseCase = UpdatePhoneUseCase(SupabaseRepositoryImpl()),
                     insertOrderUseCase = InsertOrderUseCase(SupabaseRepositoryImpl()),
-                    getOrdersUseCase = GetOrdersUseCase(SupabaseRepositoryImpl(), crmStorage, crmRepository),
+                    getOrdersUseCase = GetOrdersUseCase(
+                        SupabaseRepositoryImpl(),
+                        crmStorage,
+                        crmRepository
+                    ),
                     updateOrderStatusUseCase = UpdateOrderStatusUseCase(SupabaseRepositoryImpl()),
                     updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                     updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
