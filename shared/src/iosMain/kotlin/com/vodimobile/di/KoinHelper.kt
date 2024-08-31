@@ -8,6 +8,7 @@ import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.supabase.OrderDTO
+import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -30,7 +31,8 @@ fun initKoin() {
 class KoinHelper : KoinComponent {
     private val carsStorage by inject<CarsStorage>()
     private val crmStorage by inject<CrmStorage>()
-    private val supabaseStorage by inject<SupabaseStorage>()
+    val crmRepository by inject<CrmRepository>()
+    val supabaseStorage by inject<SupabaseStorage>()
 
     fun getPopularCars(): List<Car> = carsStorage.getPopularCars()
 
