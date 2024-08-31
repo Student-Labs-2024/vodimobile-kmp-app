@@ -84,21 +84,30 @@ class OrderViewModel(
 
         userFlow.collect { value ->
             var user: User = value
-            user = supabaseStorage.getUser(password = user.password, phone = user.phone)
+            if (user == User.empty()) {
+                orderState.update { it ->
+                    it.copy(
+                        orders = emptyList(),
+                        isLoading = false
+                    )
+                }
+            } else {
+                user = supabaseStorage.getUser(password = user.password, phone = user.phone)
 
-            val orders: List<Order> =
-                supabaseStorage.getOrders(
-                    userId = user.id,
-                    accessToken = user.accessToken,
-                    refreshToken = user.refreshToken,
-                    phone = user.phone
-                )
+                val orders: List<Order> =
+                    supabaseStorage.getOrders(
+                        userId = user.id,
+                        accessToken = user.accessToken,
+                        refreshToken = user.refreshToken,
+                        phone = user.phone
+                    )
 
-            orderState.update { it ->
-                it.copy(
-                    orders = orders.filter { it.status.filterByCarStatus(key = index) },
-                    isLoading = false
-                )
+                orderState.update { it ->
+                    it.copy(
+                        orders = orders.filter { it.status.filterByCarStatus(key = index) },
+                        isLoading = false
+                    )
+                }
             }
         }
     }

@@ -6,4 +6,5 @@ sealed class HomeEffect {
     data object AllCarsClick : HomeEffect()
     data class BookCarClick(val carId: Int) : HomeEffect()
     data object UnauthedUser : HomeEffect()
+    data object OpenStartScreen: HomeEffect()
 }

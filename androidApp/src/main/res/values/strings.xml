@@ -91,7 +91,7 @@
     <string name="contacts">Контакты</string>
     <string name="profile_title">Профиль</string>
     <string name="exit_account">Выйти из аккаунта</string>
-    <string name="personal_data_title">Личные данные</string>
+    <string name="personal_data_title">Личные\nданные</string>
     <string name="personal_data_subtitle">ФИО, номер телефона, почта</string>
     <string name="edit_data">Редактировать личные данные</string>
     <string name="home_screen_label">Главная</string>
@@ -178,6 +178,7 @@
 
     <string name="auth_user_supabase_error">Такой пользователь уже существует.</string>
     <string name="auth_2_user_supabase_error">Такого пользователь не существует.</string>
+    <string name="user_phone_not_unique">Такой номер телефона уже зарегистрирован</string>
     <string name="active_order">Активные</string>
     <string name="completed_order">Завершенные</string>
     <string name="order_title1">Здесь будут ваши заказы</string>

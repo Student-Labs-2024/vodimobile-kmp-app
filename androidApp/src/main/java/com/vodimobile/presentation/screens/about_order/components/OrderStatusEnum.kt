@@ -78,7 +78,7 @@ fun OrderStatusEnum(order: Order, modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1.0f)
             )
             Text(
-                text = DatePatterns.formatRentalTime(order = order),
+                text = "${order.rentalTimePeriod.startTime} - ${order.rentalTimePeriod.finishTime}",
                 style = MaterialTheme.typography.labelMedium,
             )
         }

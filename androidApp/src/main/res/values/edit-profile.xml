@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="return_">Вернуться назад</string>
+    <string name="personal_edit_data_title">Личные данные</string>
     <string name="save_personal_data">Сохранить персональные данные</string>
     <string name="change_password">Изменить пароль</string>
     <string name="full_name">ФИО</string>

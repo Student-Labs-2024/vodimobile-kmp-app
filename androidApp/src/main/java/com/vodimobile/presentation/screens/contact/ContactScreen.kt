@@ -80,7 +80,7 @@ fun ContactScreen(
     Scaffold(
         topBar = {
             ScreenHeader(
-                modifier = Modifier.padding(top = 23.dp),
+                modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp),
                 title = stringResource(R.string.title_contact_screen),
                 onNavigateBack = {
                     onContactIntent(ContactIntent.BackClick)

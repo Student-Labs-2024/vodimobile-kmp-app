@@ -14,13 +14,13 @@ class SuccessfulAppViewModel : ViewModel() {
         when (intent) {
             SuccessfulIntent.ClickOrders -> {
                 viewModelScope.launch {
-                    successfulEffect.emit(SuccessfulEffect.CloseClick)
+                    successfulEffect.emit(SuccessfulEffect.ClickOrders)
                 }
             }
 
             SuccessfulIntent.CloseClick -> {
                 viewModelScope.launch {
-                    successfulEffect.emit(SuccessfulEffect.ClickOrders)
+                    successfulEffect.emit(SuccessfulEffect.CloseClick)
                 }
             }
         }

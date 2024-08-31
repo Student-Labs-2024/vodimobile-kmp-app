@@ -1,12 +1,14 @@
 package com.vodimobile.presentation.screens.vehicle_fleet.store
 
+import androidx.compose.runtime.Immutable
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
 
+@Immutable
 data class VehicleState(
     val selectedCar: Car = Car.empty(),
     val showBottomSheet: Boolean = false,
-    val dateRange: LongArray = longArrayOf(),
+    val dateRange: LongArray = longArrayOf(0L, 0L),
     val cars: List<Car> = emptyList(),
     val filteredCars: List<Car> = emptyList(),
     val isLoading: Boolean = false,

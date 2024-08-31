@@ -125,7 +125,7 @@ fun OrdersScreen(
     }
     ExtendedTheme {
         Scaffold(
-            modifier = Modifier
+            modifier = modifier
                 .padding(bottom = 44.dp),
             containerColor = ExtendedTheme.colorScheme.secondaryBackground,
             topBar = {

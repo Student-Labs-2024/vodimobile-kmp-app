@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.vehicle_fleet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListDTO
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.either.CrmEither
@@ -12,6 +13,7 @@ import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.utils.cars.carCategoryMap
+import com.vodimobile.utils.date_formats.parseToCrmDate
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
@@ -19,7 +21,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
 
 class VehicleFleetViewModel(
     private val crmStorage: CrmStorage,
@@ -40,8 +41,14 @@ class VehicleFleetViewModel(
             }
 
             is VehicleIntent.BookCarClick -> {
-                viewModelScope.launch {
-                    vehicleFleetEffect.emit(VehicleEffect.BookCarClick(carId = intent.car.carId))
+                viewModelScope.launch(context = supervisorCoroutineContext) {
+                    userDataStoreStorage.getUser().collect { user ->
+                        if (user == User.empty()) {
+                            vehicleFleetEffect.emit(VehicleEffect.UnauthedUser)
+                        } else {
+                            vehicleFleetEffect.emit(VehicleEffect.BookCarClick(carId = intent.car.carId))
+                        }
+                    }
                 }
             }
 
@@ -79,7 +86,7 @@ class VehicleFleetViewModel(
 
             is VehicleIntent.InitCars -> {
                 viewModelScope.launch(context = supervisorCoroutineContext) {
-                    if (intent.dateRange[0] == 0L && intent.dateRange[1] == 0L) {
+                    if (vehicleState.value.dateRange[0] == 0L && vehicleState.value.dateRange[1] == 0L) {
                         getAllCars()
                     } else {
                         getRangeCars(begin = intent.dateRange[0], end = intent.dateRange[1])
@@ -110,6 +117,14 @@ class VehicleFleetViewModel(
 
             VehicleIntent.CancelCoroutines -> {
                 supervisorCoroutineContext.cancelChildren()
+            }
+
+            is VehicleIntent.InitDateRange -> {
+                vehicleState.update {
+                    it.copy(
+                        dateRange = intent.dateRange
+                    )
+                }
             }
         }
     }
@@ -164,8 +179,8 @@ class VehicleFleetViewModel(
                     accessToken = userFromRemote.accessToken,
                     refreshToken = userFromRemote.refreshToken,
                     carFreeListParamsDTO = CarFreeListParamsDTO(
-                        begin = begin,
-                        end = end,
+                        begin = begin.parseToCrmDate(),
+                        end = end.parseToCrmDate(),
                         includeIdles = true,
                         includeReserves = true,
                         cityId = 2

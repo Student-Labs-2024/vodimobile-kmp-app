@@ -44,6 +44,7 @@ import com.vodimobile.presentation.screens.home.HomeScreen
 import com.vodimobile.presentation.screens.home.HomeViewModel
 import com.vodimobile.presentation.screens.home.store.HomeState
 import com.vodimobile.presentation.screens.logout.LogOutConfirmationDialog
+import com.vodimobile.presentation.screens.logout.LogOutViewModel
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorScreen
 import com.vodimobile.presentation.screens.network_error.ConnectionErrorViewModel
 import com.vodimobile.presentation.screens.orders.OrderViewModel
@@ -54,7 +55,6 @@ import com.vodimobile.presentation.screens.registration.RegistrationScreen
 import com.vodimobile.presentation.screens.registration.RegistrationViewModel
 import com.vodimobile.presentation.screens.reservation.ReservationScreen
 import com.vodimobile.presentation.screens.reservation.ReservationViewModel
-import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.screens.reset_password.NewPasswordScreen
 import com.vodimobile.presentation.screens.reset_password.NewPasswordViewModel
@@ -76,7 +76,6 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
-import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleState
 import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
@@ -141,11 +140,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     VehicleFleetScreen(
                         onVehicleIntent = vehicleFleetModel::onIntent,
                         vehicleEffect = vehicleFleetModel.vehicleFleetEffect,
-                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(
-                            initial = VehicleState(
-                                dateRange = generalState.value.selectedDate
-                            )
-                        ),
+                        vehicleState = vehicleFleetModel.vehicleState.collectAsState(),
                         navHostController = navHostController,
                         dateRange = generalState.value.selectedDate
                     )
@@ -171,9 +166,9 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
 
-                val carId = backStackEntry.arguments?.getInt("carId") ?: 0
+                    val carId = backStackEntry.arguments?.getInt("carId") ?: 0
 
-                val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
+                    val date = backStackEntry.arguments?.getLongArray("date") ?: longArrayOf(0L, 0L)
                     val selectedDate = backStackEntry.savedStateHandle.getStateFlow(
                         "selected-date",
                         initialValue = longArrayOf(0L, 0L),
@@ -191,14 +186,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         if (date.contentEquals(longArrayOf(0L, 0L))) selectedDate else date
                     val reservationViewModel: ReservationViewModel = koinViewModel()
                     ReservationScreen(
-                        reservationState = reservationViewModel.reservationState.collectAsState(
-                            initial = ReservationState(
-                                startTime = selectedStartTime,
-                                endTime = selectedEndTime,
-                                date = finalDate,
-                                carId = carId
-                            )
-                        ),
+                        reservationState = reservationViewModel.reservationState.collectAsState(),
                         onReservationIntent = reservationViewModel::onIntent,
                         onGeneralIntent = generalViewModel::onIntent,
                         reservationEffect = reservationViewModel.reservationEffect,
@@ -327,7 +315,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 if (isConnected) {
                     val orderViewModel: OrderViewModel = koinViewModel()
                     OrdersScreen(
-                        modifier = modifier,
                         orderIntent = orderViewModel::onIntent,
                         orderState = orderViewModel.orderState.collectAsState(),
                         orderEffect = orderViewModel.orderEffect,
@@ -491,9 +478,12 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 )
             }
             dialog(route = DialogIdentifiers.LOG_OUT_DIALOG) {
+                val logOutViewModel: LogOutViewModel = koinViewModel()
                 LogOutConfirmationDialog(
-                    onDismiss = { navHostController.navigateUp() },
-                    onConfirm = { navHostController.navigate(RootScreen.START_SCREEN) })
+                    logOutEffect = logOutViewModel.logOutEffect,
+                    onLogOutIntent = logOutViewModel::onIntent,
+                    navHostController = navHostController
+                )
             }
             composable(route = LeafScreen.FAQ_SCREEN) {
                 val faqViewModel: FaqViewModel = koinViewModel()
@@ -502,8 +492,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     onFaqIntent = faqViewModel::onIntent,
                     faqEffect = faqViewModel.faqEffect,
                     faqState = faqViewModel.faqState.collectAsState(),
-                    navHostController = navHostController,
-                    modifier = modifier
+                    navHostController = navHostController
                 )
             }
             composable(route = LeafScreen.CONTACTS_SCREEN) {
@@ -514,17 +503,15 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     contactEffect = contactViewModel.contactEffect,
                     contactState = contactViewModel.contactState.collectAsState(),
                     validYear = contactViewModel.getValidYear(startYear = stringResource(id = R.string.version_year_str)),
-                    navHostController = navHostController,
-                    modifier = modifier
+                    navHostController = navHostController
                 )
             }
             composable(route = LeafScreen.EDIT_PROFILE) {
                 val isConnected =
-                checkInternet(connection = getCurrentConnectivityStatus(context = context))
+                    checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
                     val editProfileViewModel: EditProfileViewModel = koinViewModel()
                     EditProfileScreen(
-                        modifier = modifier,
                         onEditProfileIntent = editProfileViewModel::onIntent,
                         editProfileState = editProfileViewModel.editProfileState.collectAsState(),
                         editProfileEffect = editProfileViewModel.editProfileEffect,
@@ -554,7 +541,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(
                         "screen",
                         LeafScreen.CHANGE_PASSWORD_SCREEN
-                        )
+                    )
                     navHostController.navigate("${LeafErrorScreen.NO_INTERNET}/${LeafScreen.CHANGE_PASSWORD_SCREEN}")
                 }
             }

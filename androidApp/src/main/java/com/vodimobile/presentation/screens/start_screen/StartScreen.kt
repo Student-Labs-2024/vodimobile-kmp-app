@@ -56,6 +56,7 @@ fun StartScreen(
                     )
                     navHostController.navigateUp()
                 }
+
                 StartScreenEffect.ClickLogin -> navHostController.navigate(RegistrationScreens.AUTHORIZATION_SCREEN)
                 StartScreenEffect.ClickRegistration -> {
                     navHostController.navigate(route = RegistrationScreens.REGISTRATION_SCREEN)
@@ -64,65 +65,71 @@ fun StartScreen(
         }
     }
 
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(horizontal = 16.dp, vertical = 64.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
-    ) {
-        Row {
-            Spacer(modifier = Modifier.weight(1.0f))
-            IconButton(
-                onClick = {
-                    onStartScreenIntent(StartScreenIntent.CloseClick)
+    Scaffold(
+        topBar = {
+            Row(modifier = Modifier.padding(top = 12.dp, start = 16.dp, end = 16.dp)) {
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = {
+                        onStartScreenIntent(StartScreenIntent.CloseClick)
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = stringResource(id = R.string.close_button_content_description)
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Close,
-                    contentDescription = stringResource(id = R.string.close_button_content_description)
-                )
             }
         }
-        Image(
-            painter = painterResource(id = R.drawable.profile),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(top = 60.dp)
-                .size(128.dp)
-        )
+    ) {
         Column(
-            modifier = Modifier.padding(vertical = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(
-                space = 12.dp,
-                alignment = Alignment.CenterVertically
-            ),
-            horizontalAlignment = Alignment.CenterHorizontally
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(it)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(space = 20.dp, alignment = Alignment.Top)
         ) {
-            Text(
-                text = stringResource(id = R.string.login_or_create_title),
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold),
-                color = MaterialTheme.colorScheme.onBackground
+            Image(
+                painter = painterResource(id = R.drawable.profile),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 60.dp)
+                    .size(128.dp)
             )
-            Text(
-                text = stringResource(id = R.string.login_or_create_subtitle),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+            Column(
+                modifier = Modifier.padding(vertical = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(
+                    space = 12.dp,
+                    alignment = Alignment.CenterVertically
+                ),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(id = R.string.login_or_create_title),
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Text(
+                    text = stringResource(id = R.string.login_or_create_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
+            PrimaryButton(
+                text = stringResource(id = R.string.requister_str),
+                enabled = true,
+                onClick = {
+                    onStartScreenIntent(StartScreenIntent.ClickRegistration)
+                })
+            SecondaryButton(
+                text = stringResource(id = R.string.login_str),
+                enabled = true,
+                onClick = {
+                    onStartScreenIntent(StartScreenIntent.ClickLogin)
+                })
         }
-        PrimaryButton(
-            text = stringResource(id = R.string.requister_str),
-            enabled = true,
-            onClick = {
-                onStartScreenIntent(StartScreenIntent.ClickRegistration)
-            })
-        SecondaryButton(
-            text = stringResource(id = R.string.login_str),
-            enabled = true,
-            onClick = {
-                onStartScreenIntent(StartScreenIntent.ClickLogin)
-            })
     }
 }
 
