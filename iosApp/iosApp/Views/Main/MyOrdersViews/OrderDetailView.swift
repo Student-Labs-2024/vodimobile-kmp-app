@@ -106,10 +106,7 @@ struct OrderDetailView: View {
                             Text("\(R.string.localizable.startRentalTime()):")
                                 .font(.paragraph5)
                             Spacer()
-                            Text(CustomDateFormatter.shared.formatTimes(
-                                startTimeInMillis: viewModel.order.rentalTimePeriod.startTime,
-                                endTimeInMillis: viewModel.order.rentalTimePeriod.finishTime
-                            )
+                            Text("\(viewModel.order.rentalTimePeriod.startTime) - \(viewModel.order.rentalTimePeriod.finishTime)"
                             )
                         }
 

@@ -37,11 +37,7 @@ struct ChangePasswordView: View {
                 }
 
                 Button(R.string.localizable.nextBtnName()) {
-                    viewModel.changePassword(to: viewModel.password)
-                    dismiss()
-                    viewModel.oldPassword = ""
-                    viewModel.password = ""
-                    viewModel.dataHasBeenSaved = false
+                    viewModel.changePassword(to: viewModel.passwordField)
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -56,7 +52,9 @@ struct ChangePasswordView: View {
             R.string.localizable.alertSavePersonDataTitle(),
             isPresented: $viewModel.dataHasBeenSaved) {
                 Button(R.string.localizable.closeButton(), role: .cancel) {
-                    viewModel.dataHasBeenSaved.toggle()
+                    dismiss()
+                    viewModel.cleanAllFields()
+                    viewModel.dataHasBeenSaved = false
                 }
             }
             .toolbar {

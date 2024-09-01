@@ -92,15 +92,16 @@ final class UserDataViewModel: ObservableObject {
         if let storageUser = dataStorage.gettingUser {
             let newUserData = User(
                 id: storageUser.id,
-                fullName: storageUser.fullName != fullname && !fullname.isEmpty ? fullname : storageUser.fullName,
-                password: storageUser.password != password && !password.isEmpty ? password : storageUser.password,
+                fullName: storageUser.fullName != fullnameField && !fullnameField.isEmpty ? fullnameField : storageUser.fullName,
+                password: storageUser.password != passwordField && !passwordField.isEmpty ? passwordField : storageUser.password,
                 accessToken: storageUser.accessToken,
                 refreshToken: storageUser.refreshToken,
-                phone: storageUser.phone != phone && !phone.isEmpty ? phone : storageUser.phone
+                phone: storageUser.phone != phoneField && !phoneField.isEmpty ? phoneField : storageUser.phone
             )
 
             Task {
                 do {
+                    _ = await apiManager.changeUserFullname(newFullname: fullnameField)
                     try await self.dataStorage.editUserData(newUserData)
                     self.dataHasBeenSaved.toggle()
                 } catch {
@@ -133,8 +134,10 @@ final class UserDataViewModel: ObservableObject {
             await MainActor.run {
                 isLoading = true
             }
-            _ = await apiManager.changeUserPassword(newPassword: newPassword)
-            dataHasBeenSaved = true
+            if comparePasswords() {
+                _ = await apiManager.changeUserPassword(newPassword: newPassword)
+                dataHasBeenSaved = true
+            }
             await MainActor.run {
                 isLoading = false
             }
@@ -170,13 +173,13 @@ final class UserDataViewModel: ObservableObject {
             .replacingOccurrences(of: ")", with: "")
             .range(of: pattern, options: .regularExpression)
     }
-    
+
     private func formatPhoneNumber(_ phoneNumber: String) -> String {
         let digits = phoneNumber.filter { $0.isNumber }
         guard digits.count == 11, digits.hasPrefix("7") else { return phoneNumber }
-        
+
         let formatted = "+\(digits.prefix(1)) \(digits.dropFirst(1).prefix(3)) \(digits.dropFirst(4).prefix(3))-\(digits.dropFirst(7).prefix(2))-\(digits.dropFirst(9))"
-        
+
         return formatted
     }
 

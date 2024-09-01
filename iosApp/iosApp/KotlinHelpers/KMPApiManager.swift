@@ -31,8 +31,15 @@ final class KMPApiManager: ObservableObject {
                 isLoading = true
             }
             do {
-                let supaUser = try await helper.getUser(password: pass, phone: phone.cleanUp())
-                return supaUser != User.companion.empty() ? supaUser : nil
+                let supaUser = try await helper.helpGetUser(password: pass, phone: phone.cleanUp())
+                return User(
+                    id: supaUser.user_id,
+                    fullName: supaUser.full_name,
+                    password: supaUser.password,
+                    accessToken: supaUser.access_token,
+                    refreshToken: supaUser.refresh_token,
+                    phone: supaUser.phone
+                )
             } catch {
                 print(error)
             }
@@ -118,6 +125,15 @@ final class KMPApiManager: ObservableObject {
             if let storageUser = dataStorage.gettingUser {
                 do {
                     try await helper.updatePassword(userId: storageUser.id, password: newPassword)
+                    let newUserData = User(
+                        id: storageUser.id,
+                        fullName: storageUser.fullName,
+                        password: newPassword,
+                        accessToken: storageUser.accessToken,
+                        refreshToken: storageUser.refreshToken,
+                        phone: storageUser.phone
+                    )
+                    try await dataStorage.editUserData(newUserData)
                     return true
                 } catch {
                     print(error)
@@ -413,7 +429,7 @@ final class KMPApiManager: ObservableObject {
         if let storageUser = dataStorage.gettingUser, storageUser.id < 0 &&
             storageUser != User.companion.empty() {
             await setUserTokens()
-            let supaUser = await getSupaUser(pass: storageUser.password, phone: storageUser.phone)
+            let supaUser = await getSupaUser(pass: storageUser.password, phone: storageUser.phone.cleanUp())
             await MainActor.run {
                 dataStorage.gettingUser = supaUser
             }
@@ -497,6 +513,6 @@ final class AuthManager: ObservableObject {
 
     private func handleUserChange() {
         self.isAuthenticated = dataStorage.gettingUser != User.companion.empty() &&
-        dataStorage.gettingUser != nil
+        dataStorage.gettingUser != nil && dataStorage.gettingUser?.fullName != ""
     }
 }
