@@ -3,12 +3,8 @@ name: android lint
 on:
   pull_request:
     paths:
-      - .github/workflows/android-lint.yml
-      - '*/src/**'
-      - gradle/**
-      - '**.gradle'
-      - gradle.properties
-      - gradlew*
+      - .github/workflows/android lint.yml
+      - 'androidApp/**'
 
 jobs:
   android-lint:
