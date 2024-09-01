@@ -12,6 +12,7 @@ on:
       - 'shared/src/commonMain/kotlin/com/vodimobile/data/supabase/**'
       - 'shared/src/commonMain/kotlin/com/vodimobile/utils/date_formats/**'
       - 'shared/src/commonTest/kotlin/com/vodimobile/**'
+      - '.github/workflows/shared unit test.yml'
   push:
     paths:
       - 'shared/src/commonMain/kotlin/com/vodimobile/domain/storage/supabase/**'
@@ -24,6 +25,7 @@ on:
       - 'shared/src/commonMain/kotlin/com/vodimobile/data/supabase/**'
       - 'shared/src/commonMain/kotlin/com/vodimobile/utils/date_formats/**'
       - 'shared/src/commonTest/kotlin/com/vodimobile/**'
+      - '.github/workflows/shared unit test.yml'
 
 jobs:
   test:
