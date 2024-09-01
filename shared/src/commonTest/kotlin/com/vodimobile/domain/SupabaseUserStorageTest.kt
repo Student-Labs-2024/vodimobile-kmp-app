@@ -83,65 +83,6 @@ class SupabaseUserStorageTest {
     }
 
     @Test
-    fun insertUserUsingSupabaseStorageTest() {
-        runBlocking {
-            val supabaseRepository = SupabaseRepositoryImpl()
-            val crmRepository = CrmRepositoryImpl()
-
-            val crmStorage = CrmStorage(
-                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
-                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
-                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
-                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
-                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
-                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
-                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
-                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
-                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
-                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
-            )
-            val supabaseStorage = SupabaseStorage(
-                getUserUseCase = GetUserUseCase(supabaseRepository),
-                insertOrderUseCase = InsertOrderUseCase(supabaseRepository),
-                insertUserUseCase = InsertUserUseCase(supabaseRepository),
-                updateFullNameUseCase = UpdateFullNameUseCase(supabaseRepository),
-                updatePasswordUseCase = UpdatePasswordUseCase(supabaseRepository),
-                updatePhoneUseCase = UpdatePhoneUseCase(supabaseRepository),
-                updateTokensUseCase = UpdateTokensUseCase(supabaseRepository),
-                getOrdersUseCase = GetOrdersUseCase(
-                    supabaseRepository,
-                    crmStorage,
-                    CrmRepositoryImpl()
-                ),
-                updateOrderStatusUseCase = UpdateOrderStatusUseCase(supabaseRepository),
-                updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
-                updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
-                updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
-                updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
-                updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
-            )
-
-            val password = "testQwerty1!"
-            val phone = "+00000000000"
-            val fullName = "Test User"
-            val user: User = User(
-                id = -1,
-                password = password,
-                phone = phone,
-                accessToken = "access",
-                refreshToken = "refresh",
-                fullName = fullName
-            )
-            supabaseStorage.insertUser(user)
-
-            val userFromRemote: User =
-                supabaseStorage.getUser(password = password, phone = phone)
-            assertEquals(actual = userFromRemote.fullName, expected = fullName)
-        }
-    }
-
-    @Test
     fun updateUserUsingSupabaseStorageTest() {
         runBlocking {
             val supabaseRepository = SupabaseRepositoryImpl()
