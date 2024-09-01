@@ -47,8 +47,8 @@ class NewPasswordViewModel(
                     with(newPasswordState.value) {
                         dataStoreStorage.getUser().collect {
                             val remoteUser = supabaseStorage.getUser(password = it.password, phone = it.phone)
-                            supabaseStorage.updatePassword(userId = remoteUser.id, password= password)
-                            dataStoreStorage.editPassword(password = password)
+                            supabaseStorage.updatePassword(userId = remoteUser.id, password = newPasswordState.value.password)
+                            dataStoreStorage.editPassword(password = newPasswordState.value.password)
                             newPasswordEffect.emit(NewPasswordEffect.SaveData)
                         }
                     }

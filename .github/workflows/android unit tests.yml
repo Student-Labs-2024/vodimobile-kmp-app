@@ -1,5 +1,10 @@
 name: android unit test
-on: [push]
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/android unit test.yml
+      - 'androidApp/**'
 
 jobs:
   test:

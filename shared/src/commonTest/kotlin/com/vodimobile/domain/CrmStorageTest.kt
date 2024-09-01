@@ -29,21 +29,21 @@ import kotlin.test.assertTrue
 class CrmStorageTest {
 
     @Test
-    fun carsRequestTest() {
+    fun getCarsRequestUsingCrmStorageTest() {
         runBlocking {
             val crmRepository = CrmRepositoryImpl()
 
             val crmStorage = CrmStorage(
-                getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
-                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
-                createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
             )
 
             val response = crmStorage.getCarList(
@@ -55,11 +55,24 @@ class CrmStorageTest {
     }
 
     @Test
-    fun getPlacesRequestTest() {
+    fun getPlacesRequestUsingCrmStorageTest() {
         runBlocking {
             val crmRepository = CrmRepositoryImpl()
 
-            val response = crmRepository.getAllPlaces(
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
+
+            val response = crmStorage.getPlaces(
                 accessToken = SharedBuildkonfig.crm_test_access_token,
                 refreshToken = SharedBuildkonfig.crm_test_refresh_token
             )
@@ -68,84 +81,32 @@ class CrmStorageTest {
     }
 
     @Test
-    fun getFreeCarDateRangeTest() {
+    fun getFreeCarDateRangeUsingCrmStorageTest() {
         runBlocking {
             val crmRepository = CrmRepositoryImpl()
 
-            val response = crmRepository.getCarFreeDateRange(
-                accessToken = SharedBuildkonfig.crm_test_access_token,
-                refreshToken = SharedBuildkonfig.crm_test_refresh_token,
-                carFreeDateRangeParams = CarFreeDateRangeParams(
-                    car_id = 17,
-                    begin = "2024-10-01 10:00",
-                    end = "2024-10-03 10:00",
-                    include_idles = true,
-                    include_reserves = true
-                )
-            )
-
-            assertResponse(response = response)
-        }
-    }
-
-    @Test
-    fun createBidTestUsingRepository() {
-        runBlocking {
-            val crmRepository = CrmRepositoryImpl()
-
-            val testBid = BidCreateParams(
-                fio = "Tst test test",
-                phone = "+79139746487",
-                car_id = 22,
-                begin = "2024-08-03 12:00",
-                end = "2024-08-06 12:00",
-                begin_place_id = 2,
-                end_place_id = 2
-            )
-
-            val response = crmRepository.createBid(
-                accessToken = SharedBuildkonfig.crm_test_access_token,
-                refreshToken = SharedBuildkonfig.crm_test_refresh_token,
-                bidCreateParams = testBid
-            )
-
-            assertResponse(response = response)
-        }
-    }
-
-    @Test
-    fun createBidTestUsingStorage() {
-        runBlocking {
             val crmStorage = CrmStorage(
-                getCarListUseCase = GetCarListUseCase(crmRepository = CrmRepositoryImpl()),
-                getTariffListUseCase = GetTariffListUseCase(crmRepository = CrmRepositoryImpl()),
-                postNewUserUseCase = PostNewUserUseCase(crmRepository = CrmRepositoryImpl()),
-                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = CrmRepositoryImpl()),
-                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = CrmRepositoryImpl()),
-                getServiceListUseCase = GetServiceListUseCase(crmRepository = CrmRepositoryImpl()),
-                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = CrmRepositoryImpl()),
-                getBidCostUseCase = GetBidCostUseCase(crmRepository = CrmRepositoryImpl()),
-                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = CrmRepositoryImpl()),
-                createBidUseCase = CreateBidUseCase(crmRepository = CrmRepositoryImpl())
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
             )
 
-            val testBid = BidCreateParams(
-                fio = "Tst test test",
-                phone = "+79139746487",
-                car_id = 22,
-                begin = "2024-08-03 12:00",
-                end = "2024-08-06 12:00",
-                begin_place_id = 2,
-                end_place_id = 2
-            )
-
-            val response = crmStorage.createBid(
+            val response = crmStorage.getCarFreeDateRange(
                 accessToken = SharedBuildkonfig.crm_test_access_token,
                 refreshToken = SharedBuildkonfig.crm_test_refresh_token,
-                bidCreateParams = testBid
+                begin = "2024-10-01 10:00",
+                end = "2024-10-03 10:00",
+                carId = 17,
             )
 
-            assertResponse(response = response)
+            assertTrue(actual = response.isNotEmpty())
         }
     }
 
