@@ -12,6 +12,18 @@ on:
       - '*/shared/src/commonMain/kotlin/com/vodimobile/data/supabase/**'
       - '*/shared/src/commonMain/kotlin/com/vodimobile/utils/date_formats/**'
       - '*/shared/src/commonTest/kotlin/com/vodimobile/**'
+  push:
+    paths:
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/domain/storage/supabase/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/domain/storage/crm/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/domain/repository/crm/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/domain/repository/supabase/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/domain/use_case/supabase/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/domain/use_case/crm/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/data/crm/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/data/supabase/**'
+      - '*/shared/src/commonMain/kotlin/com/vodimobile/utils/date_formats/**'
+      - '*/shared/src/commonTest/kotlin/com/vodimobile/**'
 
 jobs:
   test:
