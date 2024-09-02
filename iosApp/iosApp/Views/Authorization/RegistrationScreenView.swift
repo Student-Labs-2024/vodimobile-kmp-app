@@ -56,8 +56,9 @@ struct RegistrationScreenView: View {
                         authFlowType: .registration,
                         phoneNumber: viewModel.phoneField,
                         pass: viewModel.passwordField,
-                        fullname: viewModel.fullnameField
-                    )
+                        fullname: viewModel.fullnameField) {
+                            viewModel.cleanAllFields()
+                        }
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

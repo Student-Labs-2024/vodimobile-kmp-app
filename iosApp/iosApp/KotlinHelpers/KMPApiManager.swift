@@ -479,7 +479,7 @@ final class AuthManager: ObservableObject {
     func signUp(fullname: String, phone: String, password: String) async {
         await apiManager.setUserTokens()
         await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
-        await login(phone: fullname, pass: password)
+        await login(phone: phone, pass: password)
     }
 
     @MainActor

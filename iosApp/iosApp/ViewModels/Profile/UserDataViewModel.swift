@@ -42,13 +42,15 @@ final class UserDataViewModel: ObservableObject {
     private var cancellableSet: Set<AnyCancellable> = []
 
     init() {
+        fetchUserData()
+
         dataStorage.$gettingUser
-            .sink { newValue in
-                print(newValue)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] newValue in
                 if let storageUser = newValue {
-                    self.oldStoragedPassword = storageUser.password
-                    self.fullname = storageUser.fullName
-                    self.phone = self.formatPhoneNumber(storageUser.phone)
+                    self?.oldStoragedPassword = storageUser.password
+                    self?.fullname = storageUser.fullName
+                    self?.phone = self?.formatPhoneNumber(storageUser.phone) ?? ""
                 }
             }
             .store(in: &cancellableSet)
@@ -112,6 +114,7 @@ final class UserDataViewModel: ObservableObject {
         }
     }
 
+    @MainActor
     func fetchUserData() {
         Task {
             await MainActor.run {
@@ -119,9 +122,11 @@ final class UserDataViewModel: ObservableObject {
             }
             await self.dataStorage.getUser()
             if let storageUser = dataStorage.gettingUser {
-                fullname = storageUser.fullName
-                phone = storageUser.phone
-                oldStoragedPassword = storageUser.password
+                await MainActor.run {
+                    fullname = storageUser.fullName
+                    phone = storageUser.phone
+                    oldStoragedPassword = storageUser.password
+                }
             }
             await MainActor.run {
                 isLoading = false

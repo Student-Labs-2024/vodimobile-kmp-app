@@ -44,8 +44,9 @@ struct AuthScreenView: View {
                     showSignSuggestModal: $showSignSuggestModal,
                     authFlowType: .auth,
                     phoneNumber: viewModel.phoneField,
-                    pass: viewModel.passwordField
-                )
+                    pass: viewModel.passwordField) {
+                        viewModel.cleanAllFields()
+                    }
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

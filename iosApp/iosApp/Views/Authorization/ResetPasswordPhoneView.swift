@@ -43,8 +43,9 @@ struct ResetPasswordPhoneView: View {
                         showSignSuggestModal: $showSignSuggestModal,
                         authFlowType: .resetPassword,
                         phoneNumber: viewModel.phoneField,
-                        pass: viewModel.passwordField
-                    )
+                        pass: viewModel.passwordField) {
+                            viewModel.cleanAllFields()
+                        }
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

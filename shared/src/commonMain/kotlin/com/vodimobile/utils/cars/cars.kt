@@ -44,7 +44,7 @@ internal val hyundai_creta_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2500f
+            cost = 3500f
         )
     ),
     images = listOf(
@@ -136,7 +136,7 @@ internal val lexus_nx200_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 6000f
         )
     ),
     images = listOf(
@@ -159,7 +159,7 @@ internal val nissan_qashqai_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 4000f
         )
     ),
     images = listOf(
@@ -182,7 +182,7 @@ internal val kia_rio_x_line_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 2500f
         )
     ),
     images = listOf(
@@ -206,7 +206,7 @@ internal val renault_duster_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 3500f
         )
     ),
     images = listOf(
@@ -229,7 +229,7 @@ internal val kia_sportage_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 4500f
         )
     ),
     images = listOf(
@@ -253,7 +253,7 @@ internal val skoda_octavia_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 3500f
         )
     ),
     images = listOf(
@@ -276,7 +276,7 @@ internal val omoda_s5_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 3500f
         )
     ),
     images = listOf(
@@ -299,7 +299,7 @@ internal val mazda_6_1 = Car(
         Tariff(
             min = 5,
             max = 10,
-            cost = 2000f
+            cost = 4500f
         )
     ),
     images = listOf(

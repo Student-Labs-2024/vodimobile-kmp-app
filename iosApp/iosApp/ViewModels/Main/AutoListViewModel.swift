@@ -37,8 +37,8 @@ final class AutoListViewModel: ObservableObject {
         if let datesRange = dateRange {
             async let fetchedCarsResult = apiManager.fetchCars()
             async let carIdsResult = apiManager.fetchFreeCarIdsForDate(for: CarFreeListParamsDTO(
-                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: nil),
-                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: nil),
+                begin: DateFormatter.transformDateToString(date: datesRange.lowerBound, time: nil),
+                end: DateFormatter.transformDateToString(date: datesRange.upperBound, time: nil),
                 includeReserves: true,
                 includeIdles: true,
                 cityId: 2

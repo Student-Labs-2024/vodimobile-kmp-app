@@ -12,6 +12,7 @@ import shared
 struct PinCodeView: View {
     @ObservedObject var viewModel: PinCodeViewModel
     @FocusState var focusedField: Int?
+    private let cleanUpField: () -> Void
     @Environment(\.dismiss) private var dismiss
 
     init(
@@ -19,7 +20,8 @@ struct PinCodeView: View {
         authFlowType: AuthFlowType,
         phoneNumber: String,
         pass: String,
-        fullname: String? = nil
+        fullname: String? = nil,
+        cleanUpFieldClosure: @escaping () -> Void
     ) {
         self.viewModel = .init(
             showSignSuggestModal: showSignSuggestModal,
@@ -28,6 +30,7 @@ struct PinCodeView: View {
             pass: pass,
             fullname: fullname
         )
+        self.cleanUpField = cleanUpFieldClosure
     }
 
     var body: some View {
@@ -63,8 +66,11 @@ struct PinCodeView: View {
                                 phone: viewModel.phoneNumber,
                                 password: viewModel.pass
                             )
+                            await MainActor.run {
+                                viewModel.showSignSuggestModal.toggle()
+                                cleanUpField()
+                            }
                         }
-                        viewModel.showSignSuggestModal.toggle()
                     })
                     .buttonStyle(FilledBtnStyle())
                     .disabled(!viewModel.isButtonEnabled)
@@ -73,7 +79,10 @@ struct PinCodeView: View {
                         Task {
                             await viewModel.authManager.login(phone: viewModel.phoneNumber, pass: viewModel.pass)
                             if viewModel.authManager.isAuthenticated {
-                                viewModel.showSignSuggestModal.toggle()
+                                await MainActor.run {
+                                    viewModel.showSignSuggestModal.toggle()
+                                    cleanUpField()
+                                }
                             } else {
                                 viewModel.showErrorAlert = true
                             }

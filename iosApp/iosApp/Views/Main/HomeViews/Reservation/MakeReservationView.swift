@@ -167,7 +167,7 @@ struct MakeReservationView: View {
                                     )
                                 case .failureView:
                                     FailureReservationView(showModal: $showModal) {
-                                        await viewModel.createBidToReserve()
+                                        let _ = await viewModel.createBidToReserve()
                                     }
                                 }
                             }
@@ -203,7 +203,7 @@ struct MakeReservationView: View {
         }
         .fullScreenCover(isPresented: $viewModel.showErrorModal) {
             FailureReservationView(showModal: $showModal) {
-                await viewModel.createBidToReserve()
+                let _ = await viewModel.createBidToReserve()
             }
         }
     }

@@ -62,6 +62,7 @@ struct PersonDataView: View {
         .onAppear {
             viewModel.fetchUserData()
         }
+        .loadingOverlay(isLoading: $viewModel.isLoading)
         .alert(
             R.string.localizable.alertErrorSavingTitle(),
             isPresented: $viewModel.showErrorAlert,
