@@ -96,8 +96,11 @@
 "alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
 "alertSavePersonDataTitle" = "Ваши данные были успешно сохранены";
 "alertCancelBidTitle" = "Вы уверены, что хотите отменить заявку?";
+"authErrorAlertTitle" = "Ошибка авторизации";
+"authErrorAlertText" = "Неверное имя пользователя или пароль. Попробуйте ещё раз.";
 
 // Info strings
+"copyText" = "Копировать";
 "conditionLink" = "Пользовательского соглашения";
 "conditionText" = "Я прочитал и согласен с условиями ";
 "inputCodeText" = "Введите СМС-код";

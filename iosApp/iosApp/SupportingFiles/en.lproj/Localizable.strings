@@ -97,8 +97,11 @@
 "alertErrorSavingText" = "Your data has not been saved. Please try again";
 "alertSavePersonDataTitle" = "Your data has been successfully saved";
 "alertCancelBidTitle" = "Are you sure you want to cancel your bid?";
+"authErrorAlertTitle" = "Authorization error";
+"authErrorAlertText" = "Incorrect username or password. Please try again.";
 
 // Info strings
+"copyText" = "Copy";
 "conditionLink" = "the user agreement";
 "conditionText" = "I have read and agree to the terms of ";
 "inputCodeText" = "Enter SMS code";

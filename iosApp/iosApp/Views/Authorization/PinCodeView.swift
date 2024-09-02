@@ -108,9 +108,16 @@ struct PinCodeView: View {
 
             Spacer()
         }
-        .alert("Unauthorized", isPresented: $viewModel.showErrorAlert, actions: {
-            Button(R.string.localizable.closeButton(), role: .cancel) { }
-        })
+        .alert(
+            R.string.localizable.authErrorAlertTitle(),
+            isPresented: $viewModel.showErrorAlert,
+            actions: {
+                Button(R.string.localizable.closeButton(), role: .cancel) { }
+            },
+            message: {
+                Text(R.string.localizable.authErrorAlertText)
+            }
+        )
         .padding()
         .onAppear {
             focusedField = 0
