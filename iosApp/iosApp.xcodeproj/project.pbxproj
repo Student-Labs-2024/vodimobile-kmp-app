@@ -275,7 +275,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				937DBD532C4FCEBE00C43A86 /* KotlinHelpers */,
+				937DBD532C4FCEBE00C43A86 /* KMPHelpers */,
 				934F0D4E2C3D692A000B256E /* AppDelegate.swift */,
 				934F0D4F2C3D692A000B256E /* SceneDelegate.swift */,
 				935481DF2C5256770085B6CE /* Enums.swift */,
@@ -475,13 +475,13 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		937DBD532C4FCEBE00C43A86 /* KotlinHelpers */ = {
+		937DBD532C4FCEBE00C43A86 /* KMPHelpers */ = {
 			isa = PBXGroup;
 			children = (
 				937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */,
 				9359D2392C614D5800FD9A25 /* KMPApiManager.swift */,
 			);
-			path = KotlinHelpers;
+			path = KMPHelpers;
 			sourceTree = "<group>";
 		};
 		93A257732C40F22700316EDE /* HomeViews */ = {

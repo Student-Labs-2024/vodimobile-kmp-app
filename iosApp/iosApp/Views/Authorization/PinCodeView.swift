@@ -15,6 +15,9 @@ struct PinCodeView: View {
     private let cleanUpField: () -> Void
     @Environment(\.dismiss) private var dismiss
 
+    @State private var alertErrorTitle = ""
+    @State private var alertErrorText = ""
+
     init(
         showSignSuggestModal: Binding<Bool>,
         authFlowType: AuthFlowType,
@@ -66,9 +69,13 @@ struct PinCodeView: View {
                                 phone: viewModel.phoneNumber,
                                 password: viewModel.pass
                             )
-                            await MainActor.run {
-                                viewModel.showSignSuggestModal.toggle()
-                                cleanUpField()
+                            if viewModel.authManager.isAuthenticated {
+                                await MainActor.run {
+                                    viewModel.showSignSuggestModal.toggle()
+                                    cleanUpField()
+                                }
+                            } else {
+                                handleError(viewModel.authManager.errorType)
                             }
                         }
                     })
@@ -84,7 +91,7 @@ struct PinCodeView: View {
                                     cleanUpField()
                                 }
                             } else {
-                                viewModel.showErrorAlert = true
+                                handleError(viewModel.authManager.errorType)
                             }
                         }
                     })
@@ -118,13 +125,13 @@ struct PinCodeView: View {
             Spacer()
         }
         .alert(
-            R.string.localizable.authErrorAlertTitle(),
+            alertErrorTitle,
             isPresented: $viewModel.showErrorAlert,
             actions: {
                 Button(R.string.localizable.closeButton(), role: .cancel) { }
             },
             message: {
-                Text(R.string.localizable.authErrorAlertText)
+                Text(alertErrorText)
             }
         )
         .padding()
@@ -168,6 +175,23 @@ struct PinCodeView: View {
                     focusedField = nil
                 }
             }
+    }
+
+    private func handleError(_ error: InputErrorType?) {
+        if let error = error {
+            switch error {
+            case .incorrectPhone:
+                alertErrorText = R.string.localizable.authErrorAlertText()
+                alertErrorTitle = R.string.localizable.authErrorAlertTitle()
+            case .alreadyExistsPhone:
+                alertErrorText = R.string.localizable.alreadyExistsPhone()
+                alertErrorTitle = R.string.localizable.authErrorAlertTitle()
+            default:
+                alertErrorText = ""
+                alertErrorTitle = ""
+            }
+            viewModel.showErrorAlert = true
+        }
     }
 
     private func toggleButtonEnabled() {

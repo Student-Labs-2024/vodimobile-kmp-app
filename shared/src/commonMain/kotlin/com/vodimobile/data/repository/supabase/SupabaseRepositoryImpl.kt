@@ -18,6 +18,13 @@ class SupabaseRepositoryImpl : SupabaseRepository {
         return userDTO
     }
 
+    override suspend fun hasUserWithPhone(phone: String): Boolean {
+        val listUserDTO: List<UserDTO> =
+            supabaseClient.from(SupabaseTables.USER_TABLE).select().decodeList<UserDTO>()
+        val userDTO: UserDTO? = listUserDTO.find { it.phone == phone }
+        return userDTO != null
+    }
+
     override suspend fun insertUser(userDTO: UserDTO) {
         with(userDTO) {
             supabaseClient.from(SupabaseTables.USER_TABLE).insert(

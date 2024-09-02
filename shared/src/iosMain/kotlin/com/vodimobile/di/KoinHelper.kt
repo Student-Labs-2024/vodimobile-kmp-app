@@ -104,6 +104,7 @@ class KoinHelper : KoinComponent {
 
 
     suspend fun getUser(password: String, phone: String) = supabaseStorage.getUser(password, phone)
+    suspend fun hasUserWithPhone(phone: String) = supabaseStorage.hasUserWithPhone(phone)
     suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = user)
     suspend fun updatePhone(userId: Int, phone: String) = supabaseStorage.updatePhone(userId, phone)
     suspend fun updatePassword(userId: Int, password: String) =

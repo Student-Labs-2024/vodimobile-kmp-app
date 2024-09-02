@@ -25,21 +25,23 @@ final class KMPApiManager: ObservableObject {
         }
     }
 
+    func isPhoneAlreadyExists(_ phone: String) async -> Bool? {
+        do {
+            return try await helper.hasUserWithPhone(phone: phone).boolValue
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+
     func getSupaUser(pass: String, phone: String) async -> User? {
         if appState.isConnected {
             await MainActor.run {
                 isLoading = true
             }
             do {
-                let supaUser = try await helper.helpGetUser(password: pass, phone: phone.cleanUp())
-                return User(
-                    id: supaUser.user_id,
-                    fullName: supaUser.full_name,
-                    password: supaUser.password,
-                    accessToken: supaUser.access_token,
-                    refreshToken: supaUser.refresh_token,
-                    phone: supaUser.phone
-                )
+                let supaUser = try await helper.getUser(password: pass, phone: phone.cleanUp())
+                return supaUser
             } catch {
                 print(error)
             }
@@ -455,7 +457,7 @@ final class AuthManager: ObservableObject {
     static let shared = AuthManager()
     @Published var isAuthenticated = false
     @Published var errorType: InputErrorType?
-    @ObservedObject var dataStorage = KMPDataStorage.shared
+    private var dataStorage = KMPDataStorage.shared
     private var apiManager = KMPApiManager.shared
     private var cancellables = Set<AnyCancellable>()
 
@@ -477,9 +479,14 @@ final class AuthManager: ObservableObject {
 
     @MainActor
     func signUp(fullname: String, phone: String, password: String) async {
-        await apiManager.setUserTokens()
-        await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
-        await login(phone: phone, pass: password)
+        let suchPhoneAlreadyExists = await apiManager.isPhoneAlreadyExists(phone.cleanUp())
+        if let suchPhoneAlreadyExists = suchPhoneAlreadyExists, !suchPhoneAlreadyExists {
+            await apiManager.setUserTokens()
+            await apiManager.regNewUser(fullname: fullname, phone: phone, password: password)
+            await login(phone: phone, pass: password)
+        } else {
+            errorType = .alreadyExistsPhone
+        }
     }
 
     @MainActor

@@ -137,7 +137,6 @@ class CrmRepositoryImpl : CrmRepository {
                         url(url = Url(crmServerData.buildUrl(CrmRouting.Places.ALL_PLACES)))
                     }
                 )
-        println(httpResponse.body())
         return if (httpResponse.status.isSuccess()) {
             CrmEither.CrmData(data = httpResponse.body())
         } else {
@@ -199,7 +198,7 @@ class CrmRepositoryImpl : CrmRepository {
                         url(url = Url(crmServerData.buildUrl(CrmRouting.ServiceList.SERVICE_LIST)))
                     }
                 )
-        println(httpResponse.body())
+        println(httpResponse.body<Any?>().toString())
         return if (httpResponse.status.isSuccess()) {
             val serviceDTO: ServiceDTO = httpResponse.body()
             CrmEither.CrmData(data = serviceDTO.services.toList())
