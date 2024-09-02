@@ -129,5 +129,53 @@ class SupabaseUserStorageTest {
             assertEquals(actual = userFromRemote.fullName, expected = "0")
         }
     }
+
+    @Test
+    fun insertNewUserUsingSupabaseStorageTest() {
+        runBlocking {
+            val supabaseRepository = SupabaseRepositoryImpl()
+            val crmRepository = CrmRepositoryImpl()
+
+            val crmStorage = CrmStorage(
+                getCarListUseCase = GetCarListUseCase(crmRepository = crmRepository),
+                getTariffListUseCase = GetTariffListUseCase(crmRepository = crmRepository),
+                postNewUserUseCase = PostNewUserUseCase(crmRepository = crmRepository),
+                getAllPlacesUseCase = GetAllPlacesUseCase(crmRepository = crmRepository),
+                refreshTokenUseCase = RefreshTokenUseCase(crmRepository = crmRepository),
+                getServiceListUseCase = GetServiceListUseCase(crmRepository = crmRepository),
+                getFreeCarsUseCaSE = GetFreeCarsUseCaSE(crmRepository = crmRepository),
+                getBidCostUseCase = GetBidCostUseCase(crmRepository = crmRepository),
+                getCarFreeDateRange = GetCarFreeDateRange(crmRepository = crmRepository),
+                createBidUseCase = CreateBidUseCase(crmRepository = crmRepository)
+            )
+            val supabaseStorage = SupabaseStorage(
+                getUserUseCase = GetUserUseCase(supabaseRepository),
+                insertOrderUseCase = InsertOrderUseCase(supabaseRepository),
+                insertUserUseCase = InsertUserUseCase(supabaseRepository),
+                updateFullNameUseCase = UpdateFullNameUseCase(supabaseRepository),
+                updatePasswordUseCase = UpdatePasswordUseCase(supabaseRepository),
+                updatePhoneUseCase = UpdatePhoneUseCase(supabaseRepository),
+                updateTokensUseCase = UpdateTokensUseCase(supabaseRepository),
+                getOrdersUseCase = GetOrdersUseCase(
+                    supabaseRepository,
+                    crmStorage,
+                    CrmRepositoryImpl()
+                ),
+                updateOrderStatusUseCase = UpdateOrderStatusUseCase(supabaseRepository),
+                updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
+                updateCrmOrderUseCase = UpdateCrmOrderUseCase(SupabaseRepositoryImpl()),
+                updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
+                updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
+                updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+            )
+
+            supabaseStorage.insertUser(user = User(id = -1, fullName = "Testovich", password = "Qwerty1!", accessToken = "access", refreshToken = "refresh", phone = "+70000000000"))
+
+            val actualUser = supabaseStorage.getUser(password = "Qwerty1!", phone = "+70000000000")
+
+            assertEquals(actual = actualUser.accessToken, expected = "access")
+        }
+    }
 }
 //Well, We were told that we don't have a blank line at the end of the file. Here it is! The super important part of our module is right here!

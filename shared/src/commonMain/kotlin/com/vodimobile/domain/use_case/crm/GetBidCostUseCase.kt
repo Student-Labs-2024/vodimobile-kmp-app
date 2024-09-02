@@ -25,8 +25,8 @@ class GetBidCostUseCase(private val crmRepository: CrmRepository) {
                     CrmEither.CrmData(
                         data = Bid(
                             cost = cost ?: 0.0,
-                            deposit = deposit,
-                            prepay = prepay,
+                            deposit = deposit ?: 0.0,
+                            prepay = prepay ?: 0.0,
                             errorMessage = error_message
                         )
                     )
