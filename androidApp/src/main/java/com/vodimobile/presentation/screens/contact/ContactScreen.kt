@@ -92,7 +92,7 @@ fun ContactScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .padding(top = 16.dp)
+                .padding(top = 16.dp, bottom = 8.dp)
                 .background(color = MaterialTheme.colorScheme.background)
         ) {
             item {
