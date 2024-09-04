@@ -3,7 +3,6 @@ package com.vodimobile.presentation.screens.rule_details
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.rule_details.components.RuleInformationItem
 import com.vodimobile.presentation.screens.rule_details.components.RuleTitleItem
 import com.vodimobile.presentation.screens.rule_details.store.RuleDetailsEffect

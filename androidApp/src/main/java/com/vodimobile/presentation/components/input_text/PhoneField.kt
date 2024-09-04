@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.input_text
 
 
 import androidx.compose.material3.MaterialTheme

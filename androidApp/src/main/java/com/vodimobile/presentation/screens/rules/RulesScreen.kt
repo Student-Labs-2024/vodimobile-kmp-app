@@ -21,7 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
 import com.vodimobile.presentation.LeafScreen
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.rules.components.RulesItem
 import com.vodimobile.presentation.screens.rules.store.RulesEffect
 import com.vodimobile.presentation.screens.rules.store.RulesState

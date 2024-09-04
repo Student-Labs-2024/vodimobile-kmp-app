@@ -22,9 +22,9 @@ import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
-import com.vodimobile.presentation.components.ProgressDialogIndicator
-import com.vodimobile.presentation.components.SmallProgressDialogIndicator
-import com.vodimobile.presentation.components.TimePickerSwitchableSample
+import com.vodimobile.presentation.components.dialog.ProgressDialogIndicator
+import com.vodimobile.presentation.components.dialog.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.pickers.TimePickerSwitchableSample
 import com.vodimobile.presentation.screens.about_order.AboutOrderScreen
 import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen

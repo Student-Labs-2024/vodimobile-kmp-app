@@ -1,6 +1,7 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.user_actions
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,6 +38,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.splitTextByDelimiter
 
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun AgreementCheckBox(
     isChecked: Boolean,

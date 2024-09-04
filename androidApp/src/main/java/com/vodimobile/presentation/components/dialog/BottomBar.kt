@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.dialog
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -30,10 +30,7 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 
 @Composable
-fun BottomBar(
-    modifier: Modifier = Modifier,
-    navController: NavController
-) {
+fun BottomBar(navController: NavController, modifier: Modifier = Modifier) {
     val navigationItems = listOf(
         BottomNavItemScreen.Home,
         BottomNavItemScreen.Order,

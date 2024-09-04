@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.components.PhoneField
+import com.vodimobile.presentation.components.input_text.PhoneField
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
-import com.vodimobile.presentation.components.OldPasswordField
+import com.vodimobile.presentation.components.input_text.OldPasswordField
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("ComposeModifierMissing")

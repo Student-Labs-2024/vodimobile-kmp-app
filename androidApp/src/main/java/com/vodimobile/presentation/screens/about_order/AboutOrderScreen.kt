@@ -78,7 +78,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
-import com.vodimobile.presentation.components.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.dialog.SmallProgressDialogIndicator
 import com.vodimobile.presentation.screens.about_order.components.AboutCarItem
 import com.vodimobile.presentation.screens.about_order.components.OrderStatusEnum
 import com.vodimobile.presentation.screens.about_order.components.SumItem

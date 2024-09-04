@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.block.tag
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

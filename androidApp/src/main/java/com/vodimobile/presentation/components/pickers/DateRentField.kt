@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.pickers
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke

@@ -31,8 +31,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.RegistrationScreens
-import com.vodimobile.presentation.components.PrimaryButton
-import com.vodimobile.presentation.components.SecondaryButton
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
+import com.vodimobile.presentation.components.user_actions.SecondaryButton
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenEffect
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
 import com.vodimobile.presentation.general.store.GeneralIntent

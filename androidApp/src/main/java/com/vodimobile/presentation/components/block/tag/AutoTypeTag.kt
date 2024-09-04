@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.block.tag
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,9 +16,9 @@ import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
 fun AutoTypeTag(
-    modifier: Modifier = Modifier,
     text: String,
     isSelected: Boolean,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     Button(
@@ -41,7 +41,7 @@ fun AutoTypeTag(
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun AutoTagButtonUnselectedLightPreview() {
+private fun AutoTagButtonUnselectedLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         AutoTypeTag(text = "Все авто", isSelected = false, onClick = {})
     }
@@ -49,7 +49,7 @@ fun AutoTagButtonUnselectedLightPreview() {
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun AutoTagButtonSelectedLightPreview() {
+private fun AutoTagButtonSelectedLightPreview() {
     VodimobileTheme(dynamicColor = false) {
         AutoTypeTag(text = "Все авто", isSelected = true, onClick = {})
     }
@@ -57,7 +57,7 @@ fun AutoTagButtonSelectedLightPreview() {
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun AutoTagButtonUnselectedNightPreview() {
+private fun AutoTagButtonUnselectedNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         AutoTypeTag(text = "Все авто", isSelected = false, onClick = {})
     }
@@ -65,7 +65,7 @@ fun AutoTagButtonUnselectedNightPreview() {
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun AutoTagButtonSelectedNightPreview() {
+private fun AutoTagButtonSelectedNightPreview() {
     VodimobileTheme(dynamicColor = false) {
         AutoTypeTag(text = "Все авто", isSelected = true, onClick = {})
     }

@@ -25,7 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.contact.components.ListContactItem
 import com.vodimobile.presentation.screens.contact.components.ListInfoContact
 import com.vodimobile.presentation.screens.contact.components.VersionItem

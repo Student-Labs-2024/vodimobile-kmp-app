@@ -20,7 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.repository.faq.FaqRepositoryImpl
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.faq.components.FaqHeader
 import com.vodimobile.presentation.screens.faq.components.FaqItem
 import com.vodimobile.presentation.screens.faq.store.FaqEffect

@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.block
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -24,11 +24,7 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable
-fun ScreenHeader(
-    modifier: Modifier = Modifier,
-    title: String,
-    onNavigateBack: () -> Unit,
-) {
+fun ScreenHeader(title: String, modifier: Modifier = Modifier, onNavigateBack: () -> Unit) {
 
     Row(
         modifier = modifier.fillMaxWidth(),

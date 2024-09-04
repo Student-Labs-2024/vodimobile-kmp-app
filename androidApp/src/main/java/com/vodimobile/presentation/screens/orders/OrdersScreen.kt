@@ -77,7 +77,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafOrdersScreen
-import com.vodimobile.presentation.components.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.dialog.SmallProgressDialogIndicator
 import com.vodimobile.presentation.components.order_card.OrderCard
 import com.vodimobile.presentation.screens.orders.components.NoOrders
 import com.vodimobile.presentation.screens.orders.components.SegmentedButtonList

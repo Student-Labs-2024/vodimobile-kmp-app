@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
-import com.vodimobile.presentation.components.PrimaryButton
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 

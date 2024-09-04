@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.block
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
+import com.vodimobile.presentation.components.user_actions.SecondaryButton
 import com.vodimobile.presentation.screens.network_error.store.ConnectionErrorIntent
 
 @Composable

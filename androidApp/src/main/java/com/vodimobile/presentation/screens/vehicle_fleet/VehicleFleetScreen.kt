@@ -70,8 +70,8 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.RootScreen
-import com.vodimobile.presentation.components.AutoTypeTagList
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.tag.AutoTypeTagList
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent

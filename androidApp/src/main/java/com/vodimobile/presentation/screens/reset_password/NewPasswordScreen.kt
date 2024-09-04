@@ -60,9 +60,9 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.RegistrationScreens
-import com.vodimobile.presentation.components.AgreementBlock
-import com.vodimobile.presentation.components.NewPasswordField
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.AgreementBlock
+import com.vodimobile.presentation.components.input_text.NewPasswordField
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordEffect
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordState

@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.components
+package com.vodimobile.presentation.components.block
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
+import com.vodimobile.presentation.components.user_actions.AgreementCheckBox
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
 
 @SuppressLint("ComposeModifierMissing")
 @Composable
