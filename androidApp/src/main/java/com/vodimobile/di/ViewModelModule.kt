@@ -24,6 +24,7 @@ import com.vodimobile.presentation.screens.error_app.ErrorAppViewModel
 import com.vodimobile.presentation.screens.logout.LogOutViewModel
 import com.vodimobile.presentation.screens.successful_app.SuccessfulAppViewModel
 import com.vodimobile.presentation.screens.orders.OrderViewModel
+import com.vodimobile.presentation.store.GeneralViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -61,4 +62,5 @@ val viewModelModule = module {
     viewModelOf(::OrderViewModel)
     viewModelOf(::AboutOrderViewModel)
     viewModelOf(::LogOutViewModel)
+    viewModelOf(::GeneralViewModel)
 }

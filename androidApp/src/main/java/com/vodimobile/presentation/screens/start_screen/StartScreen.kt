@@ -35,6 +35,7 @@ import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenEffect
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
+import com.vodimobile.presentation.store.GeneralIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -42,6 +43,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 @Composable
 fun StartScreen(
     onStartScreenIntent: (StartScreenIntent) -> Unit,
+    onGeneralIntent: (GeneralIntent) -> Unit,
     @SuppressLint("ComposeMutableParameters") startScreenEffect: MutableSharedFlow<StartScreenEffect>,
     navHostController: NavHostController
 ) {
@@ -50,10 +52,7 @@ fun StartScreen(
         startScreenEffect.collect { effect ->
             when (effect) {
                 StartScreenEffect.CloseClick -> {
-                    navHostController.previousBackStackEntry?.savedStateHandle?.set(
-                        "no-auth",
-                        false,
-                    )
+                    onGeneralIntent(GeneralIntent.NoAuth)
                     navHostController.navigateUp()
                 }
 
@@ -143,6 +142,7 @@ private fun StartScreenLightPreview() {
             StartScreen(
                 onStartScreenIntent = startScreenViewModel::onIntent,
                 startScreenEffect = startScreenViewModel.startScreenEffect,
+                onGeneralIntent = {},
                 navHostController = rememberNavController()
             )
         }
@@ -159,6 +159,7 @@ private fun StartScreenDarkPreview() {
             StartScreen(
                 onStartScreenIntent = startScreenViewModel::onIntent,
                 startScreenEffect = startScreenViewModel.startScreenEffect,
+                onGeneralIntent = {},
                 navHostController = rememberNavController()
             )
         }

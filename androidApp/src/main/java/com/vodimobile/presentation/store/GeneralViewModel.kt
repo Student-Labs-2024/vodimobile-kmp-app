@@ -1,13 +1,28 @@
 package com.vodimobile.presentation.store
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.vodimobile.utils.date_formats.parseToSupabaseDate
+import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
-class GeneralViewModel : ViewModel() {
+class GeneralViewModel(
+    private val userDataStoreStorage: UserDataStoreStorage
+) : ViewModel() {
     val generalState = MutableStateFlow(GeneralState(selectedDate = longArrayOf(0L, 0L)))
+    val generalEffect = MutableSharedFlow<GeneralEffect>()
+
+    init {
+        viewModelScope.launch {
+            userDataStoreStorage.getUser().collect {
+                if (it.phone.isEmpty()){
+                    generalEffect.emit(GeneralEffect.UnauthedUser)
+                }
+            }
+        }
+    }
 
     fun onIntent(intent: GeneralIntent) {
         when (intent) {
@@ -20,6 +35,12 @@ class GeneralViewModel : ViewModel() {
             is GeneralIntent.ChangeAvailablePeriods -> {
                 generalState.update {
                     it.copy(availableDates = intent.value)
+                }
+            }
+
+            is GeneralIntent.NoAuth -> {
+                generalState.update {
+                    it.copy(noAuth = false)
                 }
             }
         }

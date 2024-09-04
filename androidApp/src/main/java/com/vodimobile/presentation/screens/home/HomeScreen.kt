@@ -4,6 +4,7 @@ import BottomCard
 import CarsCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -46,6 +47,9 @@ import com.vodimobile.presentation.screens.home.components.SnapVodimobileTopAppB
 import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.home.store.HomeState
+import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.store.GeneralState
+import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.utils.data_store.getDataStore
@@ -60,7 +64,6 @@ fun HomeScreen(
     onHomeIntent: (HomeIntent) -> Unit,
     navHostController: NavHostController,
     selectedDate: LongArray,
-    noAuth: Boolean,
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -83,10 +86,8 @@ fun HomeScreen(
                 }
 
                 HomeEffect.UnauthedUser -> {
-                    if (noAuth) {
-                        navHostController.navigate(route = RootScreen.START_SCREEN) {
-                            popUpTo(RootScreen.START_SCREEN)
-                        }
+                    navHostController.navigate(route = RootScreen.START_SCREEN) {
+                        popUpTo(RootScreen.START_SCREEN)
                     }
                 }
 
@@ -95,11 +96,6 @@ fun HomeScreen(
                 }
             }
         }
-    }
-
-    SideEffect {
-        if (noAuth)
-            onHomeIntent(HomeIntent.InitUser)
     }
 
     ExtendedTheme {
@@ -138,11 +134,11 @@ fun HomeScreen(
                 itemsIndexed(homeState.value.carList) { _, item: Car ->
                     CarsCard(
                         carItem = item,
-                        onBookClick = {
-                            carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem))
+                        onBookClick = { carItem ->
+                            onHomeIntent(HomeIntent.ShowModal(car = carItem))
                         },
-                        onInfoClick = {
-                            carItem -> onHomeIntent(HomeIntent.ShowModal(car = carItem))
+                        onInfoClick = { carItem ->
+                            onHomeIntent(HomeIntent.ShowModal(car = carItem))
                         }
                     )
                 }
@@ -201,13 +197,13 @@ private fun HomeScreenDarkPreview() {
                 )
             )
         )
+
         HomeScreen(
             homeState = homeViewModel.homeState.collectAsState(),
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
-            noAuth = false
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
         )
     }
 }
@@ -256,8 +252,7 @@ private fun HomeScreenLightPreview() {
             homeEffect = homeViewModel.homeEffect,
             onHomeIntent = homeViewModel::onIntent,
             navHostController = rememberNavController(),
-            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis()),
-            noAuth = false
+            selectedDate = longArrayOf(System.currentTimeMillis(), System.currentTimeMillis())
         )
     }
 }
