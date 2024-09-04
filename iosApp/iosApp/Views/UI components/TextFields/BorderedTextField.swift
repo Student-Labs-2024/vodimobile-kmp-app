@@ -13,8 +13,10 @@ struct BorderedTextField: View {
     @State private var isEditing: Bool = false
     @FocusState private var isFocused: Bool
     @Binding var fieldContent: String
+    @Binding var showSignSuggetsModal: Bool
     @Binding var isValid: Bool
     @Binding var inputErrorType: InputErrorType?
+    @Binding var navPath: NavigationPath
 
     private let isForgetBtnEnabled: Bool
     private let fieldType: TextFieldType
@@ -29,11 +31,15 @@ struct BorderedTextField: View {
         isValid: Binding<Bool>,
         fieldType: TextFieldType,
         inputErrorType: Binding<InputErrorType?>,
-        isForgetBtnEnabled: Bool = false
+        showSignSuggestModal: Binding<Bool>? = nil,
+        isForgetBtnEnabled: Bool = false,
+        navPath: Binding<NavigationPath>? = nil
     ) {
         self._fieldContent = fieldContent
         self._isValid = isValid
         self._inputErrorType = inputErrorType
+        self._showSignSuggetsModal = showSignSuggestModal ?? Binding.constant(true)
+        self._navPath = navPath ?? Binding.constant(NavigationPath())
         self.fieldType = fieldType
         self.isForgetBtnEnabled = isForgetBtnEnabled
 
@@ -73,6 +79,7 @@ struct BorderedTextField: View {
                 )
             case .password, .oldPassword, .newPassword:
                 PasswordTextField(
+                    showSignSuggestModal: $showSignSuggetsModal,
                     fieldContent: $fieldContent,
                     isValid: $isValid,
                     isEditing: $isEditing,
@@ -80,12 +87,14 @@ struct BorderedTextField: View {
                     isFocused: $isFocused,
                     errorHandler: handleErrorTypeChanging,
                     isForgetButtonEnabled: isForgetBtnEnabled,
-                    fieldType: fieldType
+                    fieldType: fieldType,
+                    navPath: $navPath
                 )
             case .email, .fullName:
                 HStack {
                     TextField(placeholder, text: $fieldContent)
                         .keyboardType(keyboardType)
+                        .textInputAutocapitalization(.words)
                         .onChange(of: fieldContent, perform: { _ in
                             isEditing = true
                             if isValid {

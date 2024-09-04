@@ -1,6 +1,7 @@
 package com.vodimobile.data.repository.supabase
 
 import com.vodimobile.domain.client.provideSupabaseClient
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.model.supabase.UserDTO
 import com.vodimobile.domain.repository.supabase.SupabaseRepository
@@ -23,6 +24,21 @@ class SupabaseRepositoryImpl : SupabaseRepository {
             supabaseClient.from(SupabaseTables.USER_TABLE).select().decodeList<UserDTO>()
         val userDTO: UserDTO? = listUserDTO.find { it.phone == phone }
         return userDTO != null
+    }
+
+    override suspend fun getUserWithPhone(phone: String): User {
+        val listUserDTO: List<UserDTO> =
+            supabaseClient.from(SupabaseTables.USER_TABLE).select().decodeList<UserDTO>()
+        val userFromList = listUserDTO.find { it.phone == phone } ?: UserDTO.empty()
+        return User(
+                id = userFromList.user_id,
+                fullName = userFromList.full_name,
+                phone = userFromList.phone,
+                password = userFromList.password,
+                accessToken = userFromList.access_token,
+                refreshToken = userFromList.refresh_token
+            )
+
     }
 
     override suspend fun insertUser(userDTO: UserDTO) {

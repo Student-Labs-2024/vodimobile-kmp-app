@@ -76,6 +76,7 @@ enum InputErrorType: String {
     case incorrectFullName
     case incorrectPhone
     case alreadyExistsPhone
+    case notExistsPhone
     case incorrectPass
     case invalidPass
     case tooShortPass
@@ -92,6 +93,8 @@ enum InputErrorType: String {
             return R.string.localizable.incorrectPhone()
         case .alreadyExistsPhone:
             return R.string.localizable.alreadyExistsPhone()
+        case .notExistsPhone:
+            return R.string.localizable.notExistsPhone()
         case .incorrectPass:
             return R.string.localizable.incorrectPass()
         case .tooShortPass:

@@ -4,6 +4,7 @@ import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.GetUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
@@ -22,6 +23,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 class SupabaseStorage(
     private val getUserUseCase: GetUserUseCase,
     private val hasUserWithPhoneUseCase: HasUserWithPhoneUseCase,
+    private val getUsersWithPhoneUseCase: GetUserWithPhoneUseCase,
     private val insertUserUseCase: InsertUserUseCase,
     private val updatePasswordUseCase: UpdatePasswordUseCase,
     private val updateFullNameUseCase: UpdateFullNameUseCase,
@@ -39,6 +41,9 @@ class SupabaseStorage(
 ) {
     suspend fun getUser(password: String, phone: String) =
         getUserUseCase(password = password, phone = phone)
+
+    suspend fun getUserWithPhone(phone: String) =
+        getUsersWithPhoneUseCase(phone = phone)
 
     suspend fun hasUserWithPhone(phone: String) = hasUserWithPhoneUseCase(phone = phone)
 

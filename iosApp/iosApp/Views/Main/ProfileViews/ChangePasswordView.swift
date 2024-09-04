@@ -37,7 +37,9 @@ struct ChangePasswordView: View {
                 }
 
                 Button(R.string.localizable.nextBtnName()) {
-                    viewModel.changePassword(to: viewModel.passwordField)
+                    Task {
+                        await viewModel.changePassword(to: viewModel.passwordField)
+                    }
                 }
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)

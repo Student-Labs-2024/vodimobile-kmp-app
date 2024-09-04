@@ -35,6 +35,7 @@ final class UserDataViewModel: ObservableObject {
     @Published var dataIsEditing: Bool = false
     @Published var showErrorAlert: Bool = false
     @Published var isLoading: Bool = false
+    @Published var phoneNotExist: Bool = false
     // data storage
     @ObservedObject var dataStorage = KMPDataStorage.shared
     @ObservedObject var apiManager = KMPApiManager.shared
@@ -90,6 +91,15 @@ final class UserDataViewModel: ObservableObject {
         observeToPassword()
     }
 
+    func checkExistenceOfPhone(_ phone: String) async {
+        let isPhoneExist = await apiManager.isPhoneAlreadyExists(phone)
+        if let isPhoneExist = isPhoneExist {
+            await MainActor.run {
+                phoneNotExist = !isPhoneExist
+            }
+        }
+    }
+
     func saveEditedUserData() {
         if let storageUser = dataStorage.gettingUser {
             let newUserData = User(
@@ -134,23 +144,27 @@ final class UserDataViewModel: ObservableObject {
         }
     }
 
-    func changePassword(to newPassword: String) {
-        Task {
-            await MainActor.run {
-                isLoading = true
-            }
+    func changePassword(to newPassword: String, isResetPassFlow: Bool = false, phone: String = "") async {
+        var passChanged = false
+        await MainActor.run {
+            isLoading = true
+        }
+
+        if !isResetPassFlow {
             if comparePasswords() {
-                _ = await apiManager.changeUserPassword(newPassword: newPassword)
-                dataHasBeenSaved = true
+                passChanged = await apiManager.changeUserPassword(newPassword: newPassword)
             }
-            await MainActor.run {
-                isLoading = false
-            }
+        } else {
+            passChanged = await apiManager.changeUserPassword(newPassword: newPassword, isResetPassFlow: true, phone: phone)
+        }
+        await MainActor.run {
+            dataHasBeenSaved = passChanged
+            isLoading = false
         }
     }
 
     func comparePasswords() -> Bool {
-        if oldStoragedPassword == oldPassword && isPhoneValid {
+        if oldStoragedPassword == oldPassword && isPasswordValid {
             return true
         } else {
             inputError = .oldPasswordIsWrong

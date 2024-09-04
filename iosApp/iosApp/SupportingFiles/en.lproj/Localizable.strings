@@ -79,6 +79,7 @@
 "incorrectFullName" = "Invalid format. Only letters without special symbols are allowed for input.";
 "incorrectPhone" = "Incorrect phone number format";
 "alreadyExistsPhone" = "Such a phone already exists. Log in";
+"notExistsPhone" = "We don't have such a phone number. Please sign up";
 "incorrectPass" = "The password is incorrect. Please try again.";
 "tooShortPass" ="Password less than 8 characters";
 "noSpecSymboldsInPass" = "Password must contain at least one special character";
@@ -98,7 +99,7 @@
 "alertSavePersonDataTitle" = "Your data has been successfully saved";
 "alertCancelBidTitle" = "Are you sure you want to cancel your bid?";
 "authErrorAlertTitle" = "Authorization error";
-"authErrorAlertText" = "Incorrect username or password. Please try again.";
+"authErrorAlertText" = "Inputed incorrect password. Please try again.";
 
 // Info strings
 "copyText" = "Copy";

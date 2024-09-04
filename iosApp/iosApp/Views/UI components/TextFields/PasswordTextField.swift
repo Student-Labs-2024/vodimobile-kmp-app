@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct PasswordTextField: View {
+    @Binding var showSignSuggestModal: Bool
     @Binding var fieldContent: String
     @Binding var isValid: Bool
     @Binding var isEditing: Bool
     @Binding var inputErrorType: InputErrorType?
+    @Binding var navPath: NavigationPath
     @State var errorMessage: String = ""
     @State var isSecured: Bool = true
     @FocusState.Binding var isFocused: Bool
@@ -28,6 +30,7 @@ struct PasswordTextField: View {
     }
 
     init(
+        showSignSuggestModal: Binding<Bool>,
         fieldContent: Binding<String>,
         isValid: Binding<Bool>,
         isEditing: Binding<Bool>,
@@ -35,13 +38,16 @@ struct PasswordTextField: View {
         isFocused: FocusState<Bool>.Binding,
         errorHandler: @escaping (inout String) -> Void,
         isForgetButtonEnabled: Bool,
-        fieldType: TextFieldType
+        fieldType: TextFieldType,
+        navPath: Binding<NavigationPath>? = nil
     ) {
+        self._showSignSuggestModal = showSignSuggestModal
         self._isFocused = isFocused
         self._fieldContent = fieldContent
         self._isValid = isValid
         self._isEditing = isEditing
         self._inputErrorType = inputErrorType
+        self._navPath = navPath ?? Binding.constant(NavigationPath())
         self.errorHandler = errorHandler
         self.isForgetButtonEnabled = isForgetButtonEnabled
         self.fieldType = fieldType
@@ -146,7 +152,10 @@ struct PasswordTextField: View {
                 if isForgetButtonEnabled {
                     NavigationLink(R.string.localizable.forgetPassword()) {
                         // TODO: - Make modal ResetPasswordPhoneView
-                        ResetPasswordPhoneView(showSignSuggestModal: Binding.constant(false))
+                        ResetPasswordPhoneView(
+                            showSignSuggestModal: $showSignSuggestModal,
+                            navPath: $navPath
+                        )
                     }
                     .font(.paragraph5)
                     .foregroundStyle(Color(R.color.grayText))

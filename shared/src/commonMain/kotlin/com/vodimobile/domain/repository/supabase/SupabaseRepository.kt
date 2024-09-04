@@ -1,11 +1,13 @@
 package com.vodimobile.domain.repository.supabase
 
+import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.model.supabase.UserDTO
 
 interface SupabaseRepository {
     suspend fun getUser(password: String, phone: String): UserDTO
     suspend fun hasUserWithPhone(phone: String): Boolean
+    suspend fun getUserWithPhone(phone: String): User
     suspend fun insertUser(userDTO: UserDTO)
     suspend fun updatePassword(userId: Int, password: String)
     suspend fun updateFullName(userId: Int, fullName: String)

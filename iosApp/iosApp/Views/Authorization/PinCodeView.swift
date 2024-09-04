@@ -10,8 +10,10 @@ import SwiftUI
 import shared
 
 struct PinCodeView: View {
+    @Binding var navPath: NavigationPath
     @ObservedObject var viewModel: PinCodeViewModel
     @FocusState var focusedField: Int?
+    @ObservedObject var userViewModel = UserDataViewModel.shared
     private let cleanUpField: () -> Void
     @Environment(\.dismiss) private var dismiss
 
@@ -23,6 +25,7 @@ struct PinCodeView: View {
         authFlowType: AuthFlowType,
         phoneNumber: String,
         pass: String,
+        navPath: Binding<NavigationPath>? = nil,
         fullname: String? = nil,
         cleanUpFieldClosure: @escaping () -> Void
     ) {
@@ -33,6 +36,7 @@ struct PinCodeView: View {
             pass: pass,
             fullname: fullname
         )
+        self._navPath = navPath ?? Binding.constant(NavigationPath())
         self.cleanUpField = cleanUpFieldClosure
     }
 
@@ -98,7 +102,8 @@ struct PinCodeView: View {
                     .buttonStyle(FilledBtnStyle())
                     .disabled(!viewModel.isButtonEnabled)
                 case .resetPassword:
-                    NavigationLink(destination: ResetPasswordPassView()) {
+                    NavigationLink(destination: ResetPasswordPassView(
+                        showSignSuggestModal: $viewModel.showSignSuggestModal, navPath: $navPath)) {
                         Text(R.string.localizable.nextBtnName)
                     }
                     .buttonStyle(FilledBtnStyle())
@@ -180,11 +185,14 @@ struct PinCodeView: View {
     private func handleError(_ error: InputErrorType?) {
         if let error = error {
             switch error {
-            case .incorrectPhone:
+            case .incorrectPass:
                 alertErrorText = R.string.localizable.authErrorAlertText()
                 alertErrorTitle = R.string.localizable.authErrorAlertTitle()
             case .alreadyExistsPhone:
                 alertErrorText = R.string.localizable.alreadyExistsPhone()
+                alertErrorTitle = R.string.localizable.authErrorAlertTitle()
+            case .notExistsPhone:
+                alertErrorText = R.string.localizable.notExistsPhone()
                 alertErrorTitle = R.string.localizable.authErrorAlertTitle()
             default:
                 alertErrorText = ""

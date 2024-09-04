@@ -36,7 +36,7 @@ struct MakeReservationView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack(alignment: .top) {
                 VStack {
                     HStack {

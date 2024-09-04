@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct ResetPasswordPassView: View {
+    @Binding var showSignSuggestModal: Bool
+    @Binding var navPath: NavigationPath
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
-    @StateObject var viewModel = UserDataViewModel.shared
+    @ObservedObject var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
@@ -29,7 +31,13 @@ struct ResetPasswordPassView: View {
                     }
 
                 Button(R.string.localizable.saveButton(), action: {
-                    viewModel.changePassword(to: viewModel.passwordField)
+                    Task {
+                        await viewModel.changePassword(
+                            to: viewModel.passwordField,
+                            isResetPassFlow: true,
+                            phone: viewModel.phoneField
+                        )
+                    }
                 })
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
@@ -61,6 +69,8 @@ struct ResetPasswordPassView: View {
             isPresented: $viewModel.dataHasBeenSaved) {
                 Button(R.string.localizable.closeButton(), role: .cancel) {
                     viewModel.dataHasBeenSaved.toggle()
+                    viewModel.cleanAllFields()
+                    dismiss()
                 }
             }
         .padding(.horizontal, horizontalPadding)
@@ -75,8 +85,4 @@ struct ResetPasswordPassView: View {
     private func toggleButtonEnabled() {
         isButtonEnabled = viewModel.isPasswordValid && checkboxSelected
     }
-}
-
-#Preview {
-    ResetPasswordPassView()
 }

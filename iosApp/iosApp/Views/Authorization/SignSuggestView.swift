@@ -3,6 +3,7 @@ import shared
 
 struct SignSuggestView: View {
     @State private var isButtonEnabled: Bool = true
+    @State private var navigationPath = NavigationPath()
     @Binding var showSignSuggestModal: Bool
     @ObservedObject var appState = AppState.shared
     private var authManager = AuthManager.shared
@@ -12,7 +13,7 @@ struct SignSuggestView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             VStack(spacing: SignSuggestConfig.spacingBetweenComponents) {
                 HStack {
                     Spacer()
@@ -46,7 +47,10 @@ struct SignSuggestView: View {
                     Text(R.string.localizable.regButtonTitle)
                 }.buttonStyle(FilledBtnStyle())
 
-                NavigationLink(destination: AuthScreenView(showSignSuggestModal: $showSignSuggestModal)) {
+                NavigationLink(destination: AuthScreenView(
+                    showSignSuggestModal: $showSignSuggestModal,
+                    navPath: $navigationPath
+                )) {
                     Text(R.string.localizable.authButtonTitle)
                 }.buttonStyle(BorderedBtnStyle())
 

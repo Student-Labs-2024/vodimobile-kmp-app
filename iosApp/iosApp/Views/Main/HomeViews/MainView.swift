@@ -23,7 +23,7 @@ struct MainView: View {
     @ObservedObject private var viewModel = MainViewModel()
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack(alignment: .top) {
                 ScrollViewWithOffset(onScroll: handleScroll) {
                     LazyVStack(spacing: 20) {

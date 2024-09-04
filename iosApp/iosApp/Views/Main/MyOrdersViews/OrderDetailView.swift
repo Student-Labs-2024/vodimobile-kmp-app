@@ -33,7 +33,7 @@ struct OrderDetailView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 HStack {
                     Button(action: {

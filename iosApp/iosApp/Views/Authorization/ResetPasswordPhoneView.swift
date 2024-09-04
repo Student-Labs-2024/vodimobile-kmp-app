@@ -11,59 +11,80 @@ import SwiftUI
 struct ResetPasswordPhoneView: View {
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
-    @StateObject var viewModel = UserDataViewModel.shared
+    @Binding var navPath: NavigationPath
+    @State private var pushToNextView = false
+    @ObservedObject var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
-            VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
-                VStack(spacing: 12) {
-                    Text(R.string.localizable.resetScreenTitle)
-                        .font(.header2)
+        NavigationStack {
+            VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
+                VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
+                    VStack(spacing: 12) {
+                        Text(R.string.localizable.resetScreenTitle)
+                            .font(.header2)
 
-                    Text(R.string.localizable.resetScreenSubtitle)
-                        .font(.paragraph2)
-                        .foregroundStyle(Color(R.color.grayText))
-                }
-                .padding(.vertical, 24)
+                        Text(R.string.localizable.resetScreenSubtitle)
+                            .font(.paragraph2)
+                            .foregroundStyle(Color(R.color.grayText))
+                    }
+                    .padding(.vertical, 24)
 
-                BorderedTextField(
-                    fieldContent: $viewModel.phoneField,
-                    isValid: $viewModel.isPhoneValid,
-                    fieldType: .phone,
-                    inputErrorType: $viewModel.inputError
-                )
-                .onChange(of: viewModel.isPhoneValid) { _ in
-                    isButtonEnabled = true
-                }
+                    BorderedTextField(
+                        fieldContent: $viewModel.phoneField,
+                        isValid: $viewModel.isPhoneValid,
+                        fieldType: .phone,
+                        inputErrorType: $viewModel.inputError
+                    )
+                    .onChange(of: viewModel.isPhoneValid) { _ in
+                        isButtonEnabled = true
+                    }
 
-                NavigationLink(
-                    destination: PinCodeView(
-                        showSignSuggestModal: $showSignSuggestModal,
-                        authFlowType: .resetPassword,
-                        phoneNumber: viewModel.phoneField,
-                        pass: viewModel.passwordField) {
-                            viewModel.cleanAllFields()
+                    Button(R.string.localizable.nextBtnName()) {
+                        Task {
+                            await viewModel.checkExistenceOfPhone(viewModel.phoneField.cleanUp())
+                            if !viewModel.phoneNotExist {
+                                await MainActor.run {
+                                    pushToNextView.toggle()
+                                }
+                            }
                         }
-                ) {
-                    Text(R.string.localizable.nextBtnName)
+                    }
+                    .buttonStyle(FilledBtnStyle())
+                    .disabled(!isButtonEnabled)
+                    .padding(.vertical, 10)
                 }
-                .buttonStyle(FilledBtnStyle())
-                .disabled(!isButtonEnabled)
-                .padding(.vertical, 10)
+                Spacer()
             }
-            Spacer()
-        }
-        .padding(.horizontal, horizontalPadding)
-        .padding(.top, аuthScreencontentTopPadding)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
+            .alert(
+                R.string.localizable.authErrorAlertTitle(),
+                isPresented: $viewModel.phoneNotExist,
+                actions: {
+                    Button(R.string.localizable.closeButton(), role: .cancel) {
+                        viewModel.phoneNotExist.toggle()
+                    }
+                },
+                message: {
+                    Text(R.string.localizable.notExistsPhone())
+                }
+            )
+            .padding(.horizontal, horizontalPadding)
+            .padding(.top, аuthScreencontentTopPadding)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
+            }
+            .navigationDestination(isPresented: $pushToNextView) {
+                PinCodeView(
+                    showSignSuggestModal: $showSignSuggestModal,
+                    authFlowType: .resetPassword,
+                    phoneNumber: viewModel.phoneField,
+                    pass: viewModel.passwordField,
+                    navPath: $navPath) {
+                        viewModel.cleanAllFields()
+                    }
+            }
         }
     }
-}
-
-#Preview {
-    ResetPasswordPhoneView(showSignSuggestModal: Binding.constant(false))
 }

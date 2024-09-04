@@ -121,22 +121,42 @@ final class KMPApiManager: ObservableObject {
         }
     }
 
-    func changeUserPassword(newPassword: String) async -> Bool {
+    func changeUserPassword(
+        newPassword: String,
+        isResetPassFlow: Bool = false,
+        phone: String = ""
+    ) async -> Bool {
         if appState.isConnected {
-            await getAuthIfNeed()
-            if let storageUser = dataStorage.gettingUser {
+            if !isResetPassFlow {
+                await getAuthIfNeed()
+                if let storageUser = dataStorage.gettingUser {
+                    do {
+                        try await helper.updatePassword(userId: storageUser.id, password: newPassword)
+                        let newUserData = User(
+                            id: storageUser.id,
+                            fullName: storageUser.fullName,
+                            password: newPassword,
+                            accessToken: storageUser.accessToken,
+                            refreshToken: storageUser.refreshToken,
+                            phone: storageUser.phone
+                        )
+                        try await dataStorage.editUserData(newUserData)
+                        return true
+                    } catch {
+                        print(error)
+                    }
+                }
+            } else {
                 do {
-                    try await helper.updatePassword(userId: storageUser.id, password: newPassword)
-                    let newUserData = User(
-                        id: storageUser.id,
-                        fullName: storageUser.fullName,
-                        password: newPassword,
-                        accessToken: storageUser.accessToken,
-                        refreshToken: storageUser.refreshToken,
-                        phone: storageUser.phone
-                    )
-                    try await dataStorage.editUserData(newUserData)
-                    return true
+                    let userWithPhone = try await helper.getUserWithPhone(phone: phone.cleanUp())
+                    if userWithPhone.id > 0 {
+                        do {
+                            try await helper.updatePassword(userId: userWithPhone.id, password: newPassword)
+                            return true
+                        } catch {
+                            print(error)
+                        }
+                    }
                 } catch {
                     print(error)
                 }
@@ -491,25 +511,30 @@ final class AuthManager: ObservableObject {
 
     @MainActor
     func login(phone: String, pass: String) async {
-        let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone.cleanUp())
-        if let supaUser = supaUser, supaUser.id >= 0 {
-            dataStorage.gettingUser = supaUser
-            let savingUser = User(
-                id: supaUser.id,
-                fullName: supaUser.fullName,
-                password: pass,
-                accessToken: supaUser.accessToken,
-                refreshToken: supaUser.refreshToken,
-                phone: phone
-            )
-            do {
-                try await dataStorage.editUserData(savingUser)
-            } catch {
-                print(error)
+        let suchPhoneAlreadyExists = await apiManager.isPhoneAlreadyExists(phone.cleanUp())
+        if let suchPhoneAlreadyExists = suchPhoneAlreadyExists, suchPhoneAlreadyExists {
+            let supaUser = await apiManager.getSupaUser(pass: pass, phone: phone.cleanUp())
+            if let supaUser = supaUser, supaUser.id >= 0 {
+                dataStorage.gettingUser = supaUser
+                let savingUser = User(
+                    id: supaUser.id,
+                    fullName: supaUser.fullName,
+                    password: pass,
+                    accessToken: supaUser.accessToken,
+                    refreshToken: supaUser.refreshToken,
+                    phone: phone
+                )
+                do {
+                    try await dataStorage.editUserData(savingUser)
+                } catch {
+                    print(error)
+                }
+                self.handleUserChange()
+            } else {
+                self.errorType = .incorrectPass
             }
-            self.handleUserChange()
         } else {
-            self.errorType = .incorrectPhone
+            self.errorType = .notExistsPhone
         }
     }
 

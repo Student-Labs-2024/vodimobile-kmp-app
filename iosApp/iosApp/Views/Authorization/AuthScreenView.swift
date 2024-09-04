@@ -12,7 +12,8 @@ struct AuthScreenView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
-    @StateObject private var viewModel = UserDataViewModel.shared
+    @Binding var navPath: NavigationPath
+    @ObservedObject private var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
@@ -23,7 +24,8 @@ struct AuthScreenView: View {
                     fieldContent: $viewModel.phoneField,
                     isValid: $viewModel.isPhoneValid,
                     fieldType: .phone,
-                    inputErrorType: $viewModel.inputError
+                    inputErrorType: $viewModel.inputError,
+                    showSignSuggestModal: $showSignSuggestModal
                 )
                 .onChange(of: viewModel.isPhoneValid) { _ in
                     toggleButtonEnabled()
@@ -34,7 +36,9 @@ struct AuthScreenView: View {
                     isValid: $viewModel.isPasswordValid,
                     fieldType: .password,
                     inputErrorType: $viewModel.inputError,
-                    isForgetBtnEnabled: true
+                    showSignSuggestModal: $showSignSuggestModal,
+                    isForgetBtnEnabled: true,
+                    navPath: $navPath
                 )
                 .onChange(of: viewModel.isPasswordValid) { _ in
                     toggleButtonEnabled()
@@ -44,7 +48,8 @@ struct AuthScreenView: View {
                     showSignSuggestModal: $showSignSuggestModal,
                     authFlowType: .auth,
                     phoneNumber: viewModel.phoneField,
-                    pass: viewModel.passwordField) {
+                    pass: viewModel.passwordField,
+                    navPath: $navPath) {
                         viewModel.cleanAllFields()
                     }
                 ) {
@@ -86,8 +91,4 @@ struct AuthScreenView: View {
     private func toggleButtonEnabled() {
         isButtonEnabled = viewModel.isPhoneValid && checkboxSelected
     }
-}
-
-#Preview {
-    AuthScreenView(showSignSuggestModal: Binding.constant(false))
 }

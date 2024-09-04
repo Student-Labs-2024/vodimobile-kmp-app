@@ -18,7 +18,7 @@ struct MyOrdersView: View {
     @ObservedObject var viewModel = MyOrdersViewModel()
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 20) {
                 OrdersTopPickerView(selectedTab: $selectedTab)
 

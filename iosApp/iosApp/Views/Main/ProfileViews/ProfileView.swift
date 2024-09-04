@@ -23,7 +23,7 @@ struct ProfileView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Text(R.string.localizable.profileScreenTitle)
                     .font(.header1)
@@ -71,6 +71,7 @@ struct ProfileView: View {
                             Button(R.string.localizable.exitFirstBtnText(), role: .destructive) {
                                 Task {
                                     await authManager.logout()
+                                    showSignSuggestModal.toggle()
                                 }
                             }
 
