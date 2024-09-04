@@ -68,7 +68,7 @@ fun SmsScreen(
         }
     }
 
-    SideEffect {
+    LaunchedEffect(key1 = Unit) {
         onIntent(SmsIntent.SendSmsCode(phone = phone, context = context))
     }
 

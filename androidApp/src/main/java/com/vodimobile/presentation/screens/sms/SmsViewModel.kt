@@ -61,9 +61,7 @@ class SmsViewModel : ViewModel() {
             }
 
             is SmsIntent.SendSmsCode -> {
-                viewModelScope.launch {
-                    sendSms(phone = intent.phone, context = intent.context)
-                }
+                sendSms(phone = intent.phone, context = intent.context)
             }
 
             is SmsIntent.OnInputPartCode -> {
@@ -112,7 +110,7 @@ class SmsViewModel : ViewModel() {
         }
     }
 
-    private suspend fun sendSms(context: Context, phone: String) {
+    private fun sendSms(context: Context, phone: String) {
         try {
             val smsManager: SmsManager =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -133,7 +131,9 @@ class SmsViewModel : ViewModel() {
 
             smsManager.sendTextMessage(phone, null, msg, sentPI, null)
         } catch (e: Exception) {
-            smsEffect.emit(SmsEffect.SmsCodeCorrect)
+            viewModelScope.launch {
+                smsEffect.emit(SmsEffect.SmsCodeCorrect)
+            }
         }
     }
 }
