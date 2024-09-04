@@ -42,6 +42,7 @@ import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
@@ -176,7 +177,8 @@ private fun ChangePasswordScreenPreviewLight() {
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 ),
                 dataStoreStorage = UserDataStoreStorage(
                     editUserDataStoreUseCase = EditUserDataStoreUseCase(
@@ -255,7 +257,8 @@ private fun ChangePasswordScreenPreviewNight() {
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 ),
                 dataStoreStorage = UserDataStoreStorage(
                     editUserDataStoreUseCase = EditUserDataStoreUseCase(

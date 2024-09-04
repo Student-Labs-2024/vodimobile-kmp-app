@@ -17,6 +17,7 @@ import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
@@ -73,7 +74,8 @@ class SupabaseUserStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             val user: User =
@@ -119,7 +121,8 @@ class SupabaseUserStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             supabaseStorage.updateFullName(userId = 0, fullName = "0")
