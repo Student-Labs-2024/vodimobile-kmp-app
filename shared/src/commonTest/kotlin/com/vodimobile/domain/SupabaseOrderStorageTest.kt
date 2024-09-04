@@ -15,6 +15,7 @@ import com.vodimobile.domain.use_case.crm.GetTariffListUseCase
 import com.vodimobile.domain.use_case.crm.PostNewUserUseCase
 import com.vodimobile.domain.use_case.crm.RefreshTokenUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -71,7 +72,8 @@ class SupabaseOrderStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             supabaseStorage.updateStatus(userId = 0, orderId = 11, status = "Test")
@@ -115,7 +117,8 @@ class SupabaseOrderStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             supabaseStorage.updateCost(userId = 0, orderId = 11, coast = 100.0f)
@@ -159,7 +162,8 @@ class SupabaseOrderStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             supabaseStorage.updateServices(userId = 0, orderId = 11, services = "1, 2, 3")
@@ -203,7 +207,8 @@ class SupabaseOrderStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             supabaseStorage.updatePlaceStart(userId = 0, orderId = 11, placeStart = "Офис")
@@ -247,7 +252,8 @@ class SupabaseOrderStorageTest {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
             supabaseStorage.updatePlaceFinish(userId = 0, orderId = 11, placeFinish = "Офис")
