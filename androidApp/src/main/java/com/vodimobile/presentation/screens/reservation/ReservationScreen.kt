@@ -90,7 +90,7 @@ import com.vodimobile.presentation.screens.reservation.utils.TimeType
 import com.vodimobile.presentation.general.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
+import com.vodimobile.presentation.utils.date_formats.DatePatterns.fullDateToStringRU
 import com.vodimobile.shared.resources.SharedRes
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -85,9 +85,9 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.InputMasks
-import com.vodimobile.presentation.utils.NameValidator
-import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
+import com.vodimobile.presentation.utils.mask.InputMasks
+import com.vodimobile.presentation.utils.validator.NameValidator
+import com.vodimobile.presentation.utils.mask.PhoneMaskVisualTransformation
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 

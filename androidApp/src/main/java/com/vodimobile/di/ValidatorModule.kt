@@ -1,8 +1,8 @@
 package com.vodimobile.di
 
-import com.vodimobile.presentation.utils.NameValidator
-import com.vodimobile.presentation.utils.PasswordValidator
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.NameValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 

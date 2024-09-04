@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.mask
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

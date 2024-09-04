@@ -64,7 +64,7 @@ import com.vodimobile.presentation.screens.change_password.store.ChangePasswordE
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordIntent
 import com.vodimobile.presentation.screens.change_password.store.PasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 

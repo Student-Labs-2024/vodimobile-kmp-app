@@ -77,8 +77,8 @@ import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffe
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.PasswordValidator
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 

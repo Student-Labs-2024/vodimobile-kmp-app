@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.date_formats
 
 import android.annotation.SuppressLint
 import com.vodimobile.domain.model.order.Order

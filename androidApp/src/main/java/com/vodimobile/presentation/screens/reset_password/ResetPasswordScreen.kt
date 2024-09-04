@@ -36,7 +36,7 @@ import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordEff
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")

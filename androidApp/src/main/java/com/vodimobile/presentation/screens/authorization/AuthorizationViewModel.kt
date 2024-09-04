@@ -8,8 +8,8 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
-import com.vodimobile.presentation.utils.PasswordValidator
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

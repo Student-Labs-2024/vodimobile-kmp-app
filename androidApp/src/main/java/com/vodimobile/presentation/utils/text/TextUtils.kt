@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.text
 
 fun splitTextByDelimiter(text: String, delimiter: Char): Pair<String, String> {
     val newlineIndex = text.indexOf(delimiter)

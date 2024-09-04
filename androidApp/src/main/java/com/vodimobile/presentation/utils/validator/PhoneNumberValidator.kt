@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.utils
+package com.vodimobile.presentation.utils.validator
 
 import android.util.Patterns
 

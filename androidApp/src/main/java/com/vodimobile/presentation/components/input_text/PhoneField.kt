@@ -9,8 +9,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.InputMasks
-import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
+import com.vodimobile.presentation.utils.mask.InputMasks
+import com.vodimobile.presentation.utils.mask.PhoneMaskVisualTransformation
 
 
 @Composable

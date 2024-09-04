@@ -77,9 +77,9 @@ import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
 import com.vodimobile.presentation.screens.registration.store.RegistrationState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.NameValidator
-import com.vodimobile.presentation.utils.PasswordValidator
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.NameValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 

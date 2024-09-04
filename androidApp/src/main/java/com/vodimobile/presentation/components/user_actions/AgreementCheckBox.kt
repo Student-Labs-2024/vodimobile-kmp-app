@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.splitTextByDelimiter
+import com.vodimobile.presentation.utils.text.splitTextByDelimiter
 
 
 @SuppressLint("ComposeModifierMissing")

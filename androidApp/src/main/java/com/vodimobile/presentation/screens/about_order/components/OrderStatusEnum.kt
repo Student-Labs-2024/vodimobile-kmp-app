@@ -26,7 +26,7 @@ import com.vodimobile.domain.model.order.Order
 import com.vodimobile.presentation.components.cars_card.CarSpecif
 import com.vodimobile.presentation.components.order_card.OrderState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.DatePatterns
+import com.vodimobile.presentation.utils.date_formats.DatePatterns
 
 @Composable
 fun OrderStatusEnum(order: Order, modifier: Modifier = Modifier) {
