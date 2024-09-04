@@ -3,8 +3,6 @@ package com.vodimobile.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -79,9 +77,9 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
-import com.vodimobile.presentation.store.GeneralEffect
-import com.vodimobile.presentation.store.GeneralIntent
-import com.vodimobile.presentation.store.GeneralViewModel
+import com.vodimobile.presentation.general.store.GeneralEffect
+import com.vodimobile.presentation.general.store.GeneralIntent
+import com.vodimobile.presentation.general.GeneralViewModel
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
 import org.koin.androidx.compose.koinViewModel

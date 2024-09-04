@@ -1,4 +1,4 @@
-package com.vodimobile.presentation.store
+package com.vodimobile.presentation.general.store
 
 import com.vodimobile.domain.model.order.DateRange
 

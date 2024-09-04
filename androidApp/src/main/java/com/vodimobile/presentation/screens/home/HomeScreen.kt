@@ -4,7 +4,6 @@ import BottomCard
 import CarsCard
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -16,7 +15,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -47,9 +45,6 @@ import com.vodimobile.presentation.screens.home.components.SnapVodimobileTopAppB
 import com.vodimobile.presentation.screens.home.store.HomeEffect
 import com.vodimobile.presentation.screens.home.store.HomeIntent
 import com.vodimobile.presentation.screens.home.store.HomeState
-import com.vodimobile.presentation.store.GeneralIntent
-import com.vodimobile.presentation.store.GeneralState
-import com.vodimobile.presentation.store.GeneralViewModel
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.utils.data_store.getDataStore

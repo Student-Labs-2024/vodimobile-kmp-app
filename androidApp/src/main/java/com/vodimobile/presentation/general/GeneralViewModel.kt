@@ -1,8 +1,11 @@
-package com.vodimobile.presentation.store
+package com.vodimobile.presentation.general
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
+import com.vodimobile.presentation.general.store.GeneralEffect
+import com.vodimobile.presentation.general.store.GeneralIntent
+import com.vodimobile.presentation.general.store.GeneralState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

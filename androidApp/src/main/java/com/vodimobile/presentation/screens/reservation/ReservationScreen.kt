@@ -87,7 +87,7 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.DescribableItem
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
-import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.general.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
 import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU

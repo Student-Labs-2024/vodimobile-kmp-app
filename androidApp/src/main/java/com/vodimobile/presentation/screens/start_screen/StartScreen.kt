@@ -35,7 +35,7 @@ import com.vodimobile.presentation.components.PrimaryButton
 import com.vodimobile.presentation.components.SecondaryButton
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenEffect
 import com.vodimobile.presentation.screens.start_screen.store.StartScreenIntent
-import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.general.store.GeneralIntent
 import com.vodimobile.presentation.theme.VodimobileTheme
 import kotlinx.coroutines.flow.MutableSharedFlow
 
