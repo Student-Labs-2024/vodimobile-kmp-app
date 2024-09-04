@@ -12,7 +12,7 @@ struct RegistrationScreenView: View {
     @State private var checkboxSelected = false
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
-    @ObservedObject private var viewModel = UserDataViewModel()
+    @StateObject var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
@@ -20,7 +20,7 @@ struct RegistrationScreenView: View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
                 BorderedTextField(
-                    fieldContent: $viewModel.fullname,
+                    fieldContent: $viewModel.fullnameField,
                     isValid: $viewModel.isFullnameValid,
                     fieldType: .fullName,
                     inputErrorType: $viewModel.inputError
@@ -30,7 +30,7 @@ struct RegistrationScreenView: View {
                 }
 
                 BorderedTextField(
-                    fieldContent: $viewModel.phone,
+                    fieldContent: $viewModel.phoneField,
                     isValid: $viewModel.isPhoneValid,
                     fieldType: .phone,
                     inputErrorType: $viewModel.inputError
@@ -40,7 +40,7 @@ struct RegistrationScreenView: View {
                 }
 
                 BorderedTextField(
-                    fieldContent: $viewModel.password,
+                    fieldContent: $viewModel.passwordField,
                     isValid: $viewModel.isPasswordValid,
                     fieldType: .password,
                     inputErrorType: $viewModel.inputError,
@@ -54,10 +54,11 @@ struct RegistrationScreenView: View {
                     destination: PinCodeView(
                         showSignSuggestModal: $showSignSuggestModal,
                         authFlowType: .registration,
-                        phoneNumber: viewModel.phone,
-                        pass: viewModel.password,
-                        fullname: viewModel.fullname
-                    )
+                        phoneNumber: viewModel.phoneField,
+                        pass: viewModel.passwordField,
+                        fullname: viewModel.fullnameField) {
+                            viewModel.cleanAllFields()
+                        }
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

@@ -11,20 +11,50 @@ import shared
 
 final class MakeReservationViewModel: ObservableObject {
     @Published var placesWithCost = [PlaceShort]()
-    @Published var isSuccessed: RequestReservationState = .success
-    @Published var showDatePicker = false
-    @Published var dateRange: ClosedRange<Date>?
+    @Published var isSuccessed = false
+    @Published var dateRange: ClosedRange<Date>? {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
+    @Published var startTime: Date? {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
+    @Published var endTime: Date? {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
+    @Published var startPlace: PlaceShort? {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
+    @Published var endPlace: PlaceShort? {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
+    @Published var selectedServices = [ServicesDTO]() {
+        didSet {
+            handlerFieldsChanged()
+        }
+    }
+    @Published var servicesList = [ServicesDTO]()
+    @Published var showStartTimePicker: Bool = false
+    @Published var showEndTimePicker: Bool = false
     @Published var inputErrorType: InputErrorType?
-    @Published var time: Date?
-    @Published var showTimePicker: Bool = false
-    @Published var selectedPlace: PlaceShort?
-    @Published var totalPrice: Int = 0
-    @Published var comment: String?
+    @Published var bidCost: Double = 0
+    @Published var isLoading = false
+    @Published var showSuccessModal = false
+    @Published var showErrorModal = false
     @ObservedObject var apiManager = KMPApiManager.shared
-    @FocusState var focuseOnCommentField: Bool
+    private let DateFormatter = CustomDateFormatter.shared
 
     let car: Car
-    let dates: String?
+    let dates: ClosedRange<Date>?
     var carPreview: Image {
         if let image = car.images.first {
             return Image(ImageResource(name: image.assetImageName, bundle: image.bundle))
@@ -35,21 +65,89 @@ final class MakeReservationViewModel: ObservableObject {
 
     init(
         car: Car,
-        dates: String?
+        dates: ClosedRange<Date>? = nil
     ) {
         self.car = car
         self.dates = dates
 
-        Task {
-            await fetchPlaceList()
+        if placesWithCost.isEmpty && servicesList.isEmpty {
+            Task {
+                await fetchServiceList()
+                await fetchPlaceList()
+            }
         }
     }
 
+    func createBidToReserve() async -> BidCreateDTO? {
+        var createdBid: BidCreateDTO?
+        if let storageUser = apiManager.dataStorage.gettingUser,
+           let startPlace = startPlace,
+           let endPlace = endPlace {
+            createdBid = await apiManager.createBidToReserving(for: BidCreateParams(
+                fio: storageUser.fullName,
+                phone: storageUser.phone,
+                car_id: car.carId,
+                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: startTime),
+                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: endTime),
+                begin_place_id: startPlace.id,
+                end_place_id: endPlace.id,
+                services: selectedServices.map({ KotlinInt(value: $0.service_id) }),
+                prepayment: nil,
+                files: nil
+            )
+            )
+        }
+        await MainActor.run {
+            showSuccessModal = createdBid != nil ? true : false
+            showErrorModal = createdBid == nil ? true : false
+        }
+        return createdBid
+    }
+
     func fetchPlaceList() async {
-        let places = await KMPApiManager.shared.fetchPlaces()
+        await MainActor.run {
+            isLoading = true
+        }
+        let places = await apiManager.fetchPlaces()
 
         await MainActor.run {
             self.handlerPlaceItems(places)
+            isLoading = false
+        }
+    }
+
+    func fetchServiceList() async {
+        await MainActor.run {
+            isLoading = true
+        }
+        let services = await apiManager.fetchServices()
+
+        await MainActor.run {
+            servicesList = services
+            isLoading = false
+        }
+    }
+
+    func fetchBigCost() async {
+        await MainActor.run {
+            isLoading = true
+        }
+        if let startPlace = startPlace, let endPlace = endPlace {
+            let bidInfo = await apiManager.fetchBidCost(for: BidCostParams(
+                car_id: car.carId,
+                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: startTime),
+                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: endTime),
+                begin_place_id: startPlace.id,
+                end_place_id: endPlace.id,
+                services: convertSwiftArrayToKotlinArray(swiftArray: selectedServices)
+            )
+            )
+            await MainActor.run {
+                bidCost = bidInfo?.cost ?? 0
+            }
+        }
+        await MainActor.run {
+            isLoading = false
         }
     }
 
@@ -71,6 +169,22 @@ final class MakeReservationViewModel: ObservableObject {
                 )
             } else {
                 continue
+            }
+        }
+    }
+
+    private func convertSwiftArrayToKotlinArray(swiftArray: [ServicesDTO]) -> KotlinArray<KotlinInt> {
+        let size = Int32(swiftArray.count)
+        return KotlinArray(size: size) { index in
+            return KotlinInt(int: Int32(swiftArray[Int(truncating: index)].service_id))
+        }
+    }
+
+    private func handlerFieldsChanged() {
+        if dateRange != nil && startPlace != nil &&
+            startTime != nil && endPlace != nil {
+            Task {
+                await self.fetchBigCost()
             }
         }
     }

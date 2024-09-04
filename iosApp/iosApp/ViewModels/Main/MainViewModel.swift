@@ -9,6 +9,8 @@ import SwiftUI
 import shared
 
 final class MainViewModel: ObservableObject {
+    @Published var dateRange: ClosedRange<Date>?
+    @Published var selectedAuto: Car = Car.companion.empty()
     @Published var listOfPopularCar: [Car]
 
     init() {

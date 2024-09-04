@@ -13,7 +13,6 @@ class GetTariffListUseCase(private val crmRepository: CrmRepository) {
         accessToken: String,
         refreshToken: String
     ): CrmEither<TariffListDTO, HttpStatusCode> {
-        delay(100.milliseconds)
         val either = crmRepository.getTariffList(
             carId = carId,
             accessToken = accessToken,

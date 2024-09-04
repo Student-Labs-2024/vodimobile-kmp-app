@@ -10,25 +10,29 @@ import SwiftUI
 import shared
 
 struct MakeReservationView: View {
-    @Binding private var showModal: Bool
+    @Binding var showModal: Bool
+    @Binding var selectedTab: TabType
+    @Binding var showDatePicker: Bool
     @ObservedObject var viewModel: MakeReservationViewModel
+    @State private var navigationPath = NavigationPath()
     @Environment(\.dismiss) private var dismiss
 
-    @ViewBuilder private var destinationView: some View {
-        if viewModel.isSuccessed == .success {
-            SuccessfulReservationView()
-        } else {
-            FailureReservationView()
-        }
+    enum Destination: Hashable {
+        case successView
+        case failureView
     }
 
     init(
         car: Car,
-        dates: String?,
-        showModal: Binding<Bool>? = nil
+        selectedTab: Binding<TabType>,
+        dates: ClosedRange<Date>? = nil,
+        showModal: Binding<Bool>? = nil,
+        showDatePicker: Binding<Bool>
     ) {
         self.viewModel = .init(car: car, dates: dates)
+        self._selectedTab = selectedTab
         self._showModal = showModal ?? Binding.constant(false)
+        self._showDatePicker = showDatePicker
     }
 
     var body: some View {
@@ -89,30 +93,45 @@ struct MakeReservationView: View {
                             if viewModel.dates == nil {
                                 ButtonLikeBorderedTextField(
                                     fieldType: .datePicker,
-                                    showDatePicker: $viewModel.showDatePicker,
+                                    showDatePicker: $showDatePicker,
                                     inputErrorType: $viewModel.inputErrorType,
                                     dateRange: $viewModel.dateRange
                                 )
                             }
 
                             ButtonLikeBorderedTextField(
-                                fieldType: .placePicker,
+                                fieldType: .startPlacePicker,
                                 inputErrorType: $viewModel.inputErrorType,
-                                selectedPlace: $viewModel.selectedPlace,
+                                selectedPlace: $viewModel.startPlace,
                                 placesDataSource: $viewModel.placesWithCost
                             )
 
                             ButtonLikeBorderedTextField(
-                                fieldType: .timePicker,
+                                fieldType: .startTimePicker,
                                 inputErrorType: $viewModel.inputErrorType,
-                                time: $viewModel.time,
-                                showTimePicker: $viewModel.showTimePicker
+                                time: $viewModel.startTime,
+                                showTimePicker: $viewModel.showStartTimePicker
                             )
 
-                            AutoSizingTextEditor(text: $viewModel.comment, isFocused: $viewModel.focuseOnCommentField)
+                            ButtonLikeBorderedTextField(
+                                fieldType: .endPlacePicker,
+                                inputErrorType: $viewModel.inputErrorType,
+                                selectedPlace: $viewModel.endPlace,
+                                placesDataSource: $viewModel.placesWithCost
+                            )
 
+                            ButtonLikeBorderedTextField(
+                                fieldType: .endTimePicker,
+                                inputErrorType: $viewModel.inputErrorType,
+                                time: $viewModel.endTime,
+                                showTimePicker: $viewModel.showEndTimePicker
+                            )
+
+                            HorizontalServicesScrollView(
+                                servicesList: $viewModel.servicesList,
+                                selectedServicesList: $viewModel.selectedServices
+                            )
                             Spacer()
-
                         }
                     }
 
@@ -121,42 +140,80 @@ struct MakeReservationView: View {
                             Text(R.string.localizable.totalPriceTitle)
                                 .font(.header3)
                             Spacer()
-                            Text("\(viewModel.totalPrice) \(R.string.localizable.currencyPriceText())")
+                            Text("\(Int(viewModel.bidCost)) \(R.string.localizable.currencyText())")
                                 .font(.header3)
                         }
 
-                        NavigationLink(R.string.localizable.leaveReuqestButton()) {
-                            destinationView
+                        NavigationStack(path: $navigationPath) {
+                            VStack {
+                                Button(R.string.localizable.leaveReuqestButton(), action: {
+                                    Task {
+                                        await viewModel.createBidToReserve()
+                                    }
+                                })
+                                .buttonStyle(FilledBtnStyle())
+                                .disabled(
+                                    viewModel.startPlace == nil &&
+                                    viewModel.endPlace == nil &&
+                                    viewModel.dateRange == nil
+                                )
+                            }
+                            .navigationDestination(for: Destination.self) { destination in
+                                switch destination {
+                                case .successView:
+                                    SuccessfulReservationView(
+                                        showModal: $showModal,
+                                        selectedTab: $selectedTab
+                                    )
+                                case .failureView:
+                                    FailureReservationView(showModal: $showModal) {
+                                        _ = await viewModel.createBidToReserve()
+                                    }
+                                }
+                            }
                         }
-                        .buttonStyle(FilledBtnStyle())
-                        .disabled(
-                            viewModel.selectedPlace == nil &&
-                            viewModel.time == nil &&
-                            viewModel.dateRange == nil
-                        )
+                        .frame(maxHeight: 100)
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 20)
                 }
                 .padding(.horizontal, horizontalPadding)
 
-                if viewModel.showDatePicker {
-                    ModalDatePickerView(
-                        showDatePicker: $viewModel.showDatePicker,
-                        dateRange: $viewModel.dateRange
+                if viewModel.showStartTimePicker {
+                    ModalTimePicker(
+                        selectedTime: $viewModel.startTime,
+                        showTimePicker: $viewModel.showStartTimePicker
                     )
-                } else if viewModel.showTimePicker {
-                    ModalTimePicker(selectedTime: $viewModel.time, showTimePicker: $viewModel.showTimePicker)
+                } else if viewModel.showEndTimePicker {
+                    ModalTimePicker(
+                        selectedTime: $viewModel.endTime,
+                        showTimePicker: $viewModel.showEndTimePicker
+                    )
                 }
             }
         }
+        .loadingOverlay(isLoading: $viewModel.isLoading)
+        .datePickerModalOverlay(
+            showDatePicker: $showDatePicker,
+            dateRange: $viewModel.dateRange
+        )
         .navigationBarBackButtonHidden()
+        .fullScreenCover(isPresented: $viewModel.showSuccessModal) {
+            SuccessfulReservationView(showModal: $showModal, selectedTab: $selectedTab)
+        }
+        .fullScreenCover(isPresented: $viewModel.showErrorModal) {
+            FailureReservationView(showModal: $showModal) {
+                _ = await viewModel.createBidToReserve()
+            }
+        }
     }
 }
 
 #Preview {
     MakeReservationView(
         car: Car.companion.empty(),
-        dates: nil
+        selectedTab: Binding.constant(.main),
+        dates: nil,
+        showDatePicker: Binding.constant(true)
     )
 }

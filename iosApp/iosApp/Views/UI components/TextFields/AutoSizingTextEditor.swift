@@ -25,12 +25,12 @@ struct AutoSizingTextEditor: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(R.string.localizable.commentToReservation)
+            Text(R.string.localizable.emptyDataText)
                 .font(.header4)
             GeometryReader { _ in
                 Group {
                     if text.isEmpty && isPlaceholderVisible {
-                        Text(R.string.localizable.commentToReservationPlaceholder)
+                        Text(R.string.localizable.emptyDataText)
                             .font(.paragraph4)
                             .foregroundStyle(Color(R.color.grayText))
                     } else {

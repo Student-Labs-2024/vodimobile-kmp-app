@@ -7,9 +7,12 @@
 //
 
 import SwiftUI
+import shared
 
 struct ExpandableToolbar: View {
-    @Environment(\.calendar) var calendar
+    @Binding var selectedAuto: Car
+    @Binding var showModalReservation: Bool
+    @Binding var showSignSuggestModal: Bool
     @Binding var isExpanded: Bool
     @Binding var dateRange: ClosedRange<Date>?
     @Binding var showDatePicker: Bool
@@ -43,37 +46,19 @@ struct ExpandableToolbar: View {
                                 Text(R.string.localizable.dateTextFieldTitle)
                                     .font(.header3)
 
-                                Button(action: {
-                                    showDatePicker = true
-                                }) {
-                                    HStack(spacing: 10) {
-                                        Image(R.image.calendar)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 30, height: 30)
-                                            .foregroundColor(Color(R.color.grayDark))
-                                        Text(formatDateRange())
-                                            .foregroundColor(
-                                                dateRange == nil
-                                                ? Color(R.color.grayDark)
-                                                : Color(R.color.background)
-                                            )
-                                        Spacer()
-                                    }
-                                    .frame(alignment: .leading)
-                                    .padding(.all, 16)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color(R.color.containerItem))
-                                    )
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color(R.color.grayDark), lineWidth: 1)
-                                    }
-                                }
+                                ButtonLikeDateField(
+                                    showDatePicker: $showDatePicker,
+                                    dateRange: dateRange
+                                )
 
-                                Button(R.string.localizable.findAutoButton()) {
-                                    // TODO: - Make a navigation link into view
+                                NavigationLink(R.string.localizable.findAutoButton()) {
+                                    AutoListView(
+                                        selectedAuto: $selectedAuto,
+                                        showModalReservation: $showModalReservation,
+                                        showSignSuggestModal: $showSignSuggestModal,
+                                        showDatePicker: $showDatePicker,
+                                        dateRange: $dateRange
+                                    )
                                 }
                                 .buttonStyle(FilledBtnStyle())
                             }
@@ -81,7 +66,7 @@ struct ExpandableToolbar: View {
                             .padding(.horizontal, 16)
                             .background(
                                 RoundedRectangle(cornerRadius: 24)
-                                .fill(Color(R.color.container))
+                                    .fill(Color(R.color.container))
                             )
                         }
                         .padding(.vertical, 16)
@@ -100,8 +85,45 @@ struct ExpandableToolbar: View {
             .frame(height: isExpanded ? 200 : 100)
         }
     }
+}
 
-    private func formatDateRange() -> String {
+struct ButtonLikeDateField: View {
+    @Environment(\.calendar) var calendar
+    @Binding var showDatePicker: Bool
+    var dateRange: ClosedRange<Date>?
+
+    var body: some View {
+        Button(action: {
+            showDatePicker = true
+        }) {
+            HStack(spacing: 10) {
+                Image(R.image.calendar)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(Color(R.color.grayDark))
+                Text(formatDateRange())
+                    .foregroundColor(
+                        dateRange == nil
+                        ? Color(R.color.grayDark)
+                        : Color(R.color.text)
+                    )
+                Spacer()
+            }
+            .frame(alignment: .leading)
+            .padding(.all, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(R.color.containerItem))
+            )
+            .overlay {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color(R.color.grayDark), lineWidth: 1)
+            }
+        }
+    }
+
+    func formatDateRange() -> String {
         guard let dateRange = dateRange else {
             return R.string.localizable.dateTextFieldPlaceholder()
         }
@@ -114,7 +136,9 @@ struct ExpandableToolbar: View {
 
         if startDate == endDate {
             return startDate
-        } else if calendar.compare(dateRange.lowerBound, to: dateRange.upperBound, toGranularity: .day) == .orderedAscending {
+        } else if calendar.compare(dateRange.lowerBound,
+                                   to: dateRange.upperBound,
+                                   toGranularity: .day) == .orderedAscending {
             return "\(startDate) - \(endDate)"
         } else {
             return "\(endDate) - \(startDate)"

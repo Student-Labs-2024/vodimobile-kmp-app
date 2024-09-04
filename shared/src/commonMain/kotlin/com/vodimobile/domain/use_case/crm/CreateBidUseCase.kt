@@ -14,7 +14,6 @@ class CreateBidUseCase(private val crmRepository: CrmRepository) {
         refreshToken: String,
         bidCreateParams: BidCreateParams
     ): CrmEither<BidCreateDTO, HttpStatusCode> {
-        delay(1.seconds)
         return crmRepository.createBid(accessToken, refreshToken, bidCreateParams)
     }
 }

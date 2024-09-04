@@ -31,7 +31,7 @@ struct OrdersListView: View {
                 }
             }) {
                 LazyVStack(spacing: 20) {
-                    ForEach(ordersList, id: \.self) { order in
+                    ForEach(ordersList, id: \.orderId) { order in
                         OrderCell(order: order)
                             .onTapGesture {
                                 selectedOrder = order

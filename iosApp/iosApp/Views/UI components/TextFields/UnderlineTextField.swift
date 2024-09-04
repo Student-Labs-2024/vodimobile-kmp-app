@@ -64,7 +64,7 @@ struct UnderlineTextField: View {
                 }
 
                 if fieldType == .phone {
-                    iPhoneNumberField(text, text: $text)
+                    iPhoneNumberField("", text: $text)
                         .formatted()
                         .prefixHidden(false)
                         .clearButtonMode(.never)
@@ -94,10 +94,18 @@ struct UnderlineTextField: View {
                                 isPlaceholderVisible = text.isEmpty && !isFocused
                             }
                         }
+                    // TODO: - Fix and remove below solution
+                        .overlay {
+                            Text(text)
+                                .foregroundStyle(Color(R.color.text))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .multilineTextAlignment(.leading)
+                        }
                         .disabled(!text.isEmpty && !isFocused)
                 } else {
-                    TextField(text, text: $text)
+                    TextField("", text: $text)
                         .font(.paragraph2)
+                        .textInputAutocapitalization(.words)
                         .focused($isFocused)
                         .padding(.bottom, 5)
                         .opacity(isPlaceholderVisible ? 0 : 1)
@@ -111,6 +119,13 @@ struct UnderlineTextField: View {
                             withAnimation {
                                 isPlaceholderVisible = text.isEmpty && !isFocused
                             }
+                        }
+                    // TODO: - Fix and remove below solution
+                        .overlay {
+                            Text(text)
+                                .foregroundStyle(Color(R.color.text))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .multilineTextAlignment(.leading)
                         }
                 }
             }

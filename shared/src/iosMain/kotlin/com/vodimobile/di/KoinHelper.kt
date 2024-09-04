@@ -38,7 +38,7 @@ class KoinHelper : KoinComponent {
     val crmRepository by inject<CrmRepository>()
     val supabaseStorage by inject<SupabaseStorage>()
 
-    suspend fun helpGetUser(password: String, phone: String) : UserDTO{
+    suspend fun helpGetUser(password: String, phone: String) : UserDTO {
         val usersDto = provideSupabaseClient().from(SupabaseTables.USER_TABLE).select().decodeList<UserDTO>()
         val userDTO: UserDTO =
             usersDto.find { it.password == password && it.phone == phone } ?: UserDTO.empty()
@@ -104,6 +104,7 @@ class KoinHelper : KoinComponent {
 
 
     suspend fun getUser(password: String, phone: String) = supabaseStorage.getUser(password, phone)
+    suspend fun hasUserWithPhone(phone: String) = supabaseStorage.hasUserWithPhone(phone)
     suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = user)
     suspend fun updatePhone(userId: Int, phone: String) = supabaseStorage.updatePhone(userId, phone)
     suspend fun updatePassword(userId: Int, password: String) =

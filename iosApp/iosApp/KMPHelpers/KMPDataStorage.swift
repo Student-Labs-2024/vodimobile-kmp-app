@@ -11,7 +11,7 @@ import SwiftUI
 
 final class KMPDataStorage: ObservableObject {
     private let repository = UserDataStoreRepositoryImpl(dataStore: CreateDataStore_iosKt.createDataStore())
-    @Published var gettingUser: User?
+    @Published var gettingUser: User? = User.companion.empty()
     static let shared = KMPDataStorage()
 
     init() {
@@ -22,18 +22,17 @@ final class KMPDataStorage: ObservableObject {
 
     @MainActor
     func editUserData(_ userData: User) async throws {
-        if userData != gettingUser {
-            try await repository.editUserData(user: userData)
-        }
+        try await repository.editUserData(user: userData)
     }
 
-    @MainActor
     func getUser() async {
         var cycleCounter = 0
 
         for await flowUser in repository.getUserData() {
             if flowUser != User.companion.empty() {
-                self.gettingUser = flowUser
+                await MainActor.run {
+                    self.gettingUser = flowUser
+                }
                 break
             } else if cycleCounter >= 10 {
                 cycleCounter = 0

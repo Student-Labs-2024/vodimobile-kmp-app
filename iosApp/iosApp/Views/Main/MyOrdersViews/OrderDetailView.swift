@@ -12,6 +12,8 @@ import shared
 struct OrderDetailView: View {
     @State private var showCancelAlert = false
     @Binding var showOrderModal: Bool
+    @Binding var selectedTab: TabType
+    @Binding var showDatePicker: Bool
     @ObservedObject var viewModel: OrderDetailViewModel
     private let columns = [
         GridItem(.flexible(), spacing: 20),
@@ -20,10 +22,14 @@ struct OrderDetailView: View {
 
     init(
         order: Order,
-        showOrderModal: Binding<Bool>? = nil
+        showOrderModal: Binding<Bool>? = nil,
+        selectedTab: Binding<TabType>? = nil,
+        showDatePicker: Binding<Bool>
     ) {
         self.viewModel = .init(order: order)
         self._showOrderModal = showOrderModal ?? Binding.constant(false)
+        self._selectedTab = selectedTab ?? Binding.constant(.main)
+        self._showDatePicker = showDatePicker
     }
 
     var body: some View {
@@ -91,19 +97,16 @@ struct OrderDetailView: View {
                             )
                         }
                         HStack {
-                            Text("\(R.string.localizable.methodOfObtainingTitle()):")
+                            Text("\(R.string.localizable.startPlaceOfObtainingTitle()):")
                                 .font(.paragraph5)
                             Spacer()
                             Text(viewModel.order.startLocation)
                         }
                         HStack {
-                            Text("\(R.string.localizable.rentalTime()):")
+                            Text("\(R.string.localizable.startRentalTime()):")
                                 .font(.paragraph5)
                             Spacer()
-                            Text(CustomDateFormatter.shared.formatTimes(
-                                startTimeInMillis: viewModel.order.rentalTimePeriod.startTime,
-                                endTimeInMillis: viewModel.order.rentalTimePeriod.finishTime
-                            )
+                            Text("\(viewModel.order.rentalTimePeriod.startTime) - \(viewModel.order.rentalTimePeriod.finishTime)"
                             )
                         }
 
@@ -173,7 +176,11 @@ struct OrderDetailView: View {
                             })
                         case .processing:
                             NavigationLink(R.string.localizable.changeBidData()) {
-                                MakeReservationView(car: viewModel.order.car, dates: nil)
+                                MakeReservationView(
+                                    car: viewModel.order.car,
+                                    selectedTab: $selectedTab,
+                                    showDatePicker: $showDatePicker
+                                )
                             }
                             .buttonStyle(FilledBtnWithoutDisabledStyle())
                             .font(.buttonSmall)
@@ -229,5 +236,5 @@ struct OrderDetailView: View {
 }
 
 #Preview {
-    OrderDetailView(order: Order.companion.empty())
+    OrderDetailView(order: Order.companion.empty(), showDatePicker: Binding.constant(false))
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ResetPasswordPhoneView: View {
     @State private var isButtonEnabled: Bool = false
     @Binding var showSignSuggestModal: Bool
-    @ObservedObject private var viewModel = UserDataViewModel()
+    @StateObject var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
@@ -29,7 +29,7 @@ struct ResetPasswordPhoneView: View {
                 .padding(.vertical, 24)
 
                 BorderedTextField(
-                    fieldContent: $viewModel.phone,
+                    fieldContent: $viewModel.phoneField,
                     isValid: $viewModel.isPhoneValid,
                     fieldType: .phone,
                     inputErrorType: $viewModel.inputError
@@ -42,9 +42,10 @@ struct ResetPasswordPhoneView: View {
                     destination: PinCodeView(
                         showSignSuggestModal: $showSignSuggestModal,
                         authFlowType: .resetPassword,
-                        phoneNumber: viewModel.phone,
-                        pass: viewModel.password
-                    )
+                        phoneNumber: viewModel.phoneField,
+                        pass: viewModel.passwordField) {
+                            viewModel.cleanAllFields()
+                        }
                 ) {
                     Text(R.string.localizable.nextBtnName)
                 }

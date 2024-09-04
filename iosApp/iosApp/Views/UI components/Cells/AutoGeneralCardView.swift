@@ -11,7 +11,9 @@ import shared
 
 struct AutoGeneralCardView: View {
     @Binding var selectedAuto: Car
+    @Binding var dateRange: ClosedRange<Date>?
     @Binding var showModalReservation: Bool
+    @Binding var showDatePicker: Bool
     @Binding var showSignSuggestModal: Bool
 
     var body: some View {
@@ -27,7 +29,9 @@ struct AutoGeneralCardView: View {
                 NavigationLink(destination: AutoListView(
                     selectedAuto: $selectedAuto,
                     showModalReservation: $showModalReservation,
-                    showSignSuggestModal: $showSignSuggestModal
+                    showSignSuggestModal: $showSignSuggestModal,
+                    showDatePicker: $showDatePicker,
+                    dateRange: $dateRange
                 )
                 ) {
                     Image.rightArrowCircleFill

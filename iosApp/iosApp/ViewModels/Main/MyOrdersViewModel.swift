@@ -27,10 +27,6 @@ final class MyOrdersViewModel: ObservableObject {
                 self.completedOrderList = self.filterOrderList(by: .completed)
             }
             .store(in: &cancellableSet)
-
-        Task {
-            await getAllOrders()
-        }
     }
 
     func getAllOrders() async {

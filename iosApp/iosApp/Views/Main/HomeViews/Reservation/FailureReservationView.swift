@@ -9,16 +9,21 @@
 import SwiftUI
 
 struct FailureReservationView: View {
+    @Binding var showModal: Bool
+    let executeClosure: () async -> Void
+
     var body: some View {
         VStack(spacing: 36) {
             HStack {
-                NavigationLink(destination: MainTabbarView()) {
-                    Image.chevronLeft
+                Button(action: {
+                    showModal.toggle()
+                }, label: {
+                    Image.xmark
                         .resizable()
                         .foregroundStyle(Color(R.color.text))
                         .fontWeight(.bold)
-                        .frame(width: 12, height: 18)
-                }
+                        .frame(width: 18, height: 18)
+                })
                 .padding(.top, 10)
                 .padding(.horizontal, 5)
                 Spacer()
@@ -43,9 +48,10 @@ struct FailureReservationView: View {
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
 
-            NavigationLink(R.string.localizable.reconnectButton(), destination: {
-                MainTabbarView()
-                // TODO: - Make to move back on rootViewController
+            Button(R.string.localizable.reconnectButton(), action: {
+                Task {
+                    await executeClosure()
+                }
             })
             .buttonStyle(BorderedBtnStyle())
 
@@ -57,5 +63,7 @@ struct FailureReservationView: View {
 }
 
 #Preview {
-    FailureReservationView()
+    FailureReservationView(showModal: Binding.constant(true)) {
+        print("retry button tapped")
+    }
 }

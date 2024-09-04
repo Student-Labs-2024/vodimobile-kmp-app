@@ -5,6 +5,7 @@ import com.vodimobile.domain.repository.supabase.SupabaseRepository
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
@@ -26,6 +27,7 @@ val supabaseModule = module {
     singleOf(::SupabaseRepositoryImpl).bind<SupabaseRepository>()
 
     singleOf(::GetUserUseCase)
+    singleOf(::HasUserWithPhoneUseCase)
     singleOf(::InsertUserUseCase)
     singleOf(::UpdatePhoneUseCase)
     singleOf(::UpdateTokensUseCase)

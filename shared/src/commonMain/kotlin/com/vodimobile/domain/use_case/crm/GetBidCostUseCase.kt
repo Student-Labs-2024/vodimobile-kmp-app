@@ -15,7 +15,6 @@ class GetBidCostUseCase(private val crmRepository: CrmRepository) {
         refreshToken: String,
         bidCostParams: BidCostParams
     ): CrmEither<Bid, HttpStatusCode> {
-        delay(400.milliseconds)
         val bidCost: CrmEither<BidCostDTO, HttpStatusCode> =
             crmRepository.getBidCost(accessToken, refreshToken, bidCostParams)
 

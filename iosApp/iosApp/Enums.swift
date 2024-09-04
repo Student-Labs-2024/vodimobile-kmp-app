@@ -144,16 +144,20 @@ enum TextFieldType: String {
 }
 
 enum ButtonLikeTextFieldType {
-    case placePicker, timePicker, datePicker
+    case startPlacePicker, endPlacePicker, startTimePicker, endTimePicker, datePicker
 
     var localizedStr: String {
         switch self {
         case .datePicker:
             return R.string.localizable.dateTextFieldTitle()
-        case .timePicker:
-            return R.string.localizable.rentalTime()
-        case .placePicker:
-            return R.string.localizable.methodOfObtaining()
+        case .startTimePicker:
+            return R.string.localizable.startRentalTime()
+        case .endTimePicker:
+            return R.string.localizable.endRentalTime()
+        case .startPlacePicker:
+            return R.string.localizable.startPlaceOfObtainingTitle()
+        case .endPlacePicker:
+            return R.string.localizable.endPlaceOfObtainingTitle()
         }
     }
 }
