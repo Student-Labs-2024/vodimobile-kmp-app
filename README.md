@@ -90,6 +90,7 @@ crm.test.refresh.token =
 - [Skie](https://skie.touchlab.co/configuration/)
 - [Buildkonfig](https://github.com/yshrsmz/BuildKonfig)
 - [Date time](https://github.com/Kotlin/kotlinx-datetime)
+- [Cryptography kotlin](https://github.com/whyoleg/cryptography-kotlin?tab=readme-ov-file)
 
 ## Git flow 📀
 **Коммиты**
