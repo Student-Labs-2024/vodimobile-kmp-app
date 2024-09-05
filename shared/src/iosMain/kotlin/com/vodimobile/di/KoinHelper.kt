@@ -8,10 +8,10 @@ import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
 import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
-import com.vodimobile.domain.model.remote.dto.user_auth.UserRequest
 import com.vodimobile.domain.model.supabase.OrderDTO
 import com.vodimobile.domain.model.supabase.UserDTO
 import com.vodimobile.domain.repository.crm.CrmRepository
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -24,7 +24,7 @@ fun initKoin() {
     try {
         startKoin {
             // Declare modules
-            modules(carModule, crmModule, supabaseModule)
+            modules(carModule, crmModule, supabaseModule, hashModule)
         }
     } catch (e: Exception) {
         // Handle or log the exception
@@ -37,6 +37,7 @@ class KoinHelper : KoinComponent {
     private val crmStorage by inject<CrmStorage>()
     val crmRepository by inject<CrmRepository>()
     val supabaseStorage by inject<SupabaseStorage>()
+    private val hashRepository by inject<HashRepository>()
 
     suspend fun helpGetUser(password: String, phone: String) : UserDTO {
         val usersDto = provideSupabaseClient().from(SupabaseTables.USER_TABLE).select().decodeList<UserDTO>()
@@ -147,4 +148,7 @@ class KoinHelper : KoinComponent {
 
     suspend fun updateServices(userId: Int, orderId: Int, services: String) =
         supabaseStorage.updateServices(userId, orderId, services)
+
+    suspend fun hash(text: String) = hashRepository.hash(text = text)
+    suspend fun verify(text: String, byteArray: ByteArray) = hashRepository.verify(text, byteArray)
 }

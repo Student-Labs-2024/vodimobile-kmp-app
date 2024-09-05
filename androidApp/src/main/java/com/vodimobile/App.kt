@@ -5,6 +5,7 @@ import com.vodimobile.di.androidModule
 import android.content.Context
 import com.vodimobile.di.carModule
 import com.vodimobile.di.crmModule
+import com.vodimobile.di.hashModule
 import com.vodimobile.di.repositoryModule
 import com.vodimobile.di.supabaseModule
 import com.vodimobile.di.validatorModule
@@ -35,7 +36,8 @@ class App : Application() {
                 repositoryModule,
                 carModule,
                 crmModule,
-                supabaseModule
+                supabaseModule,
+                hashModule
             )
         }
     }

@@ -79,12 +79,19 @@ kotlin {
             //Okio
             implementation(libs.okio)
 
+            //Hash
+            implementation(project.dependencies.platform("dev.whyoleg.cryptography:cryptography-bom:0.3.1"))
+            implementation("dev.whyoleg.cryptography:cryptography-core")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation("dev.whyoleg.cryptography:cryptography-provider-openssl3-prebuilt")
+        }
+        androidMain.dependencies {
+            implementation("dev.whyoleg.cryptography:cryptography-provider-jdk")
         }
     }
 }
