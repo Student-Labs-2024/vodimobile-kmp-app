@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -27,7 +28,8 @@ class RegistrationViewModel(
     private val nameValidator: NameValidator,
     private val dataStoreStorage: UserDataStoreStorage,
     private val crmStorage: CrmStorage,
-    private val supabaseStorage: SupabaseStorage
+    private val supabaseStorage: SupabaseStorage,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val registrationState = MutableStateFlow(RegistrationState())
@@ -136,24 +138,31 @@ class RegistrationViewModel(
     }
 
     private suspend inline fun saveInLocal() {
-        val user: User = supabaseStorage.getUser(
-            password = registrationState.value.password,
-            phone = registrationState.value.phoneNumber
-        )
-        dataStoreStorage.edit(user = user)
+        with (registrationState.value) {
+            val hashedPassword = hashRepository.hash(text = password)
+            val hashedPhone = hashRepository.hash(text = phoneNumber)
+            val user: User = supabaseStorage.getUser(
+                password = hashedPassword.decodeToString(),
+                phone = hashedPhone.decodeToString()
+            )
+            dataStoreStorage.edit(user = user)
+        }
     }
 
     private suspend inline fun saveInRemote(accessToken: String, refreshToken: String) {
         with(registrationState.value) {
             try {
+                val hashedPassword = hashRepository.hash(text = password)
+                val hashedPhone = hashRepository.hash(text = phoneNumber)
+
                 supabaseStorage.insertUser(
                     user = User(
                         id = 0,
                         fullName = name,
-                        password = password,
+                        password = hashedPassword.decodeToString(),
                         accessToken = accessToken,
                         refreshToken = refreshToken,
-                        phone = phoneNumber
+                        phone = hashedPhone.decodeToString(),
                     )
                 )
             } catch (e: Exception) {

@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.authorization
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
@@ -19,7 +20,8 @@ class AuthorizationViewModel(
     private val phoneNumberValidator: PhoneNumberValidator,
     private val passwordValidator: PasswordValidator,
     private val dataStoreStorage: UserDataStoreStorage,
-    private val supabaseStorage: SupabaseStorage
+    private val supabaseStorage: SupabaseStorage,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val authorizationState = MutableStateFlow(AuthorizationState())
@@ -72,7 +74,8 @@ class AuthorizationViewModel(
             AuthorizationIntent.AskPermission -> {
                 viewModelScope.launch {
                     with(authorizationState.value) {
-                        dataStoreStorage.editPassword(password = password)
+                        val hashPassword = hashRepository.hash(text = password)
+                        dataStoreStorage.editPassword(password = hashPassword.decodeToString())
                     }
                     getFrom()
                 }
@@ -95,9 +98,13 @@ class AuthorizationViewModel(
     }
 
     private suspend fun getFrom() {
+
+        val hashPassword = hashRepository.hash(text = authorizationState.value.password)
+        val hashPhone = hashRepository.hash(text = authorizationState.value.phoneNumber)
+
         val user: User = supabaseStorage.getUser(
-            password = authorizationState.value.password,
-            phone = authorizationState.value.phoneNumber
+            password = hashPassword.decodeToString(),
+            phone = hashPhone.decodeToString()
         )
 
         if (user == User.empty()) {
