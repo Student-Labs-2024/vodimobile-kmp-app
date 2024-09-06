@@ -139,11 +139,9 @@ class RegistrationViewModel(
 
     private suspend inline fun saveInLocal() {
         with (registrationState.value) {
-            val hashedPassword = hashRepository.hash(text = password)
-            val hashedPhone = hashRepository.hash(text = phoneNumber)
             val user: User = supabaseStorage.getUser(
-                password = hashedPassword.decodeToString(),
-                phone = hashedPhone.decodeToString()
+                password = password,
+                phone = phoneNumber
             )
             dataStoreStorage.edit(user = user)
         }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
@@ -16,11 +17,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.nio.charset.StandardCharsets
 
 class EditProfileViewModel(
     private val userDataStoreStorage: UserDataStoreStorage,
     private val supabaseStorage: SupabaseStorage,
     private val nameValidator: NameValidator,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val editProfileState = MutableStateFlow(EditProfileState())

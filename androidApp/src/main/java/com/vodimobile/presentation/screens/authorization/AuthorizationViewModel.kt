@@ -74,8 +74,7 @@ class AuthorizationViewModel(
             AuthorizationIntent.AskPermission -> {
                 viewModelScope.launch {
                     with(authorizationState.value) {
-                        val hashPassword = hashRepository.hash(text = password)
-                        dataStoreStorage.editPassword(password = hashPassword.decodeToString())
+                        dataStoreStorage.editPassword(password = password)
                     }
                     getFrom()
                 }
@@ -111,7 +110,7 @@ class AuthorizationViewModel(
             authorizationEffect.emit(AuthorizationEffect.AuthError)
         } else {
             authorizationEffect.emit(AuthorizationEffect.AskPermission)
-            dataStoreStorage.edit(user = user)
+            dataStoreStorage.edit(user = user.copy(password = authorizationState.value.password, phone = authorizationState.value.phoneNumber))
         }
     }
 }
