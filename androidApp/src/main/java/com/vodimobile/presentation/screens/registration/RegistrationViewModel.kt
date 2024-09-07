@@ -151,7 +151,6 @@ class RegistrationViewModel(
         with(registrationState.value) {
             try {
                 val hashedPassword = hashRepository.hash(text = password)
-                val hashedPhone = hashRepository.hash(text = phoneNumber)
 
                 supabaseStorage.insertUser(
                     user = User(
@@ -160,7 +159,7 @@ class RegistrationViewModel(
                         password = hashedPassword.decodeToString(),
                         accessToken = accessToken,
                         refreshToken = refreshToken,
-                        phone = hashedPhone.decodeToString(),
+                        phone = phoneNumber,
                     )
                 )
             } catch (e: Exception) {
