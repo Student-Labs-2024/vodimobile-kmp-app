@@ -36,7 +36,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.presentation.DialogIdentifiers
-import com.vodimobile.presentation.components.SecondaryButton
+import com.vodimobile.presentation.components.user_actions.SecondaryButton
 import com.vodimobile.presentation.screens.error_app.store.ErrorAppEffect
 import com.vodimobile.presentation.screens.error_app.store.ErrorAppIntent
 import com.vodimobile.presentation.theme.VodimobileTheme

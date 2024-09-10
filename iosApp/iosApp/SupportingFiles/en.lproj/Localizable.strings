@@ -57,19 +57,23 @@
 "phonePlaceholder" = "+X (XXX) XXX-XX-XX";
 "fullName" = "Full name";
 "dateTextFieldPlaceholder" = "When?";
-"dateTextFieldTitle" = "Select the rental dates";
+"dateTextFieldTitle" = "Rental dates";
 "password" = "Password";
 "oldPassword" = "Old password";
 "newPassword" = "New password";
 "passwordPlaceholder" = "Input your password";
 "newPasswordPlaceholder" = "Input your new password";
 "fullnamePlaceholder" = "Input your full name";
-"methodOfObtainingTitle" = "Where will you pick up the car?";
-"methodOfObtaining" = "Select method";
-"rentalTime" = "What time?";
+// make reservation screen
+"rentalDatesTitle" = "Rental dates";
+"rentalDatesPlaceholder" = "Select dates";
+"startPlaceOfObtainingTitle" = "Where will you pick up the car?";
+"endPlaceOfObtainingTitle" = "How will you return the car?";
+"placeOfObtainingPlaceholder" = "Select method";
+"startRentalTime" = "When will you pick it up?";
+"endRentalTime" = "When will you return it?";
 "rentalTimePlaceholder" = "Select time";
-"commentToReservation" = "Comment to reservation";
-"commentToReservationPlaceholder" = "Enter comment...";
+"extraServicesTitle" = "Additional services";
 
 // Error strings
 "incorrectFullName" = "Invalid format. Only letters without special symbols are allowed for input.";
@@ -93,8 +97,11 @@
 "alertErrorSavingText" = "Your data has not been saved. Please try again";
 "alertSavePersonDataTitle" = "Your data has been successfully saved";
 "alertCancelBidTitle" = "Are you sure you want to cancel your bid?";
+"authErrorAlertTitle" = "Authorization error";
+"authErrorAlertText" = "Incorrect username or password. Please try again.";
 
 // Info strings
+"copyText" = "Copy";
 "conditionLink" = "the user agreement";
 "conditionText" = "I have read and agree to the terms of ";
 "inputCodeText" = "Enter SMS code";

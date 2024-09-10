@@ -8,7 +8,7 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordEffect
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordIntent
 import com.vodimobile.presentation.screens.change_password.store.PasswordState
-import com.vodimobile.presentation.utils.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

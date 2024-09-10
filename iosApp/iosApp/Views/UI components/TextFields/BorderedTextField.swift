@@ -140,22 +140,35 @@ struct BorderedTextField: View {
             }
         }
     }
+
     private func handleErrorTypeChanging(errorMsg: inout String) {
-        let errorMappings: [InputErrorType: (TextFieldType, String)] = [
-            .alreadyExistsPhone: (.phone, InputErrorType.alreadyExistsPhone.errorString),
-            .incorrectFullName: (.fullName, InputErrorType.incorrectFullName.errorString),
-            .incorrectPass: (.password, InputErrorType.incorrectPass.errorString),
-            .incorrectPhone: (.phone, InputErrorType.incorrectPhone.errorString),
-            .noSpecSymboldsInPass: (.password, InputErrorType.noSpecSymboldsInPass.errorString),
-            .noUpperLettersInPass: (.password, InputErrorType.noUpperLettersInPass.errorString),
-            .tooShortPass: (.password, InputErrorType.tooShortPass.errorString),
-            .invalidPass: (.password, InputErrorType.invalidPass.errorString),
-            .oldPasswordIsWrong: (.oldPassword, InputErrorType.oldPasswordIsWrong.errorString)
+        let errorMappings: [InputErrorType: [(TextFieldType, String)]] = [
+            .alreadyExistsPhone: [(.phone, InputErrorType.alreadyExistsPhone.errorString)],
+            .incorrectFullName: [(.fullName, InputErrorType.incorrectFullName.errorString)],
+            .incorrectPhone: [(.phone, InputErrorType.incorrectPhone.errorString)],
+            .incorrectPass: [(.password, InputErrorType.incorrectPass.errorString)],
+            .noSpecSymboldsInPass: [
+                (.password, InputErrorType.noSpecSymboldsInPass.errorString),
+                (.newPassword, InputErrorType.noSpecSymboldsInPass.errorString)
+            ],
+            .noUpperLettersInPass: [
+                (.password, InputErrorType.noUpperLettersInPass.errorString),
+                (.newPassword, InputErrorType.noUpperLettersInPass.errorString)
+            ],
+            .tooShortPass: [
+                (.password, InputErrorType.tooShortPass.errorString),
+                (.newPassword, InputErrorType.tooShortPass.errorString)
+            ],
+            .invalidPass: [(.password, InputErrorType.invalidPass.errorString)],
+            .oldPasswordIsWrong: [(.oldPassword, InputErrorType.oldPasswordIsWrong.errorString)]
         ]
+
         if let inputErrorType = inputErrorType,
-           let mapping = errorMappings[inputErrorType],
-           fieldType == mapping.0 {
-            errorMsg = mapping.1
+           let mappings = errorMappings[inputErrorType] {
+            for mapping in mappings where fieldType == mapping.0 {
+                errorMsg = mapping.1
+                return
+            }
         } else if inputErrorType == .selectDayTime || inputErrorType == .selectNightTime {
             errorMsg = ""
         }

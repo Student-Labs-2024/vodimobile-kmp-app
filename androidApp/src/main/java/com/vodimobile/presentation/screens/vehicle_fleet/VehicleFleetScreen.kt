@@ -52,6 +52,7 @@ import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -69,8 +70,8 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafHomeScreen
 import com.vodimobile.presentation.RootScreen
-import com.vodimobile.presentation.components.AutoTypeTagList
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.tag.AutoTypeTagList
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.components.cars_card.CardsSearch
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleEffect
 import com.vodimobile.presentation.screens.vehicle_fleet.store.VehicleIntent
@@ -290,7 +291,8 @@ private fun VehicleFleetScreenPreview() {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
         )
 

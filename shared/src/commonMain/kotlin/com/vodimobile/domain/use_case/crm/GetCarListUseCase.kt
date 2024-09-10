@@ -18,7 +18,6 @@ class GetCarListUseCase(
         accessToken: String,
         refreshToken: String
     ): CrmEither<List<Car>, HttpStatusCode> {
-        delay(400.milliseconds)
         val crmEither: CrmEither<CarListDTO, HttpStatusCode> =
             crmRepository.getCarList(accessToken, refreshToken)
 

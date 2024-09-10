@@ -11,7 +11,7 @@ import SwiftUI
 struct ResetPasswordPassView: View {
     @State private var checkboxSelected: Bool = false
     @State private var isButtonEnabled: Bool = false
-    @ObservedObject private var viewModel = UserDataViewModel()
+    @StateObject var viewModel = UserDataViewModel.shared
 
     @Environment(\.dismiss) private var dismiss
 
@@ -19,7 +19,7 @@ struct ResetPasswordPassView: View {
         VStack(spacing: AuthAndRegScreensConfig.spacingBetweenGroupAndCheckbox) {
             VStack(spacing: AuthAndRegScreensConfig.spacingBetweenComponents) {
                     BorderedTextField(
-                        fieldContent: $viewModel.password,
+                        fieldContent: $viewModel.passwordField,
                         isValid: $viewModel.isPasswordValid,
                         fieldType: .password,
                         inputErrorType: $viewModel.inputError
@@ -28,9 +28,9 @@ struct ResetPasswordPassView: View {
                         toggleButtonEnabled()
                     }
 
-                NavigationLink(destination: MainTabbarView()) {
-                    Text(R.string.localizable.saveButton)
-                }
+                Button(R.string.localizable.saveButton(), action: {
+                    viewModel.changePassword(to: viewModel.passwordField)
+                })
                 .buttonStyle(FilledBtnStyle())
                 .disabled(!isButtonEnabled)
             }
@@ -56,9 +56,17 @@ struct ResetPasswordPassView: View {
             }
             Spacer()
         }
+        .alert(
+            R.string.localizable.alertSavePersonDataTitle(),
+            isPresented: $viewModel.dataHasBeenSaved) {
+                Button(R.string.localizable.closeButton(), role: .cancel) {
+                    viewModel.dataHasBeenSaved.toggle()
+                }
+            }
         .padding(.horizontal, horizontalPadding)
         .padding(.top, аuthScreencontentTopPadding)
         .navigationBarBackButtonHidden()
+        .loadingOverlay(isLoading: $viewModel.isLoading)
         .toolbar {
             CustomToolbar(title: R.string.localizable.resetPassScreenTitle)
         }

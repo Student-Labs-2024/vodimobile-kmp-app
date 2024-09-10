@@ -57,6 +57,7 @@ import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -74,8 +75,8 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.RootScreen
-import com.vodimobile.presentation.components.PrimaryButton
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.reservation.components.DateField
 import com.vodimobile.presentation.screens.reservation.components.DropDownField
 import com.vodimobile.presentation.screens.reservation.components.ReservationCarDescription
@@ -86,12 +87,10 @@ import com.vodimobile.presentation.screens.reservation.store.ReservationIntent
 import com.vodimobile.presentation.screens.reservation.store.ReservationState
 import com.vodimobile.presentation.screens.reservation.utils.DescribableItem
 import com.vodimobile.presentation.screens.reservation.utils.TimeType
-import com.vodimobile.presentation.store.GeneralIntent
+import com.vodimobile.presentation.general.store.GeneralIntent
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.DatePatterns.fullDateToStringRU
-import com.vodimobile.presentation.utils.arguments_parser.pairListToLongList
-import com.vodimobile.service.notification.VodimobileNotificationManager
+import com.vodimobile.presentation.utils.date_formats.DatePatterns.fullDateToStringRU
 import com.vodimobile.shared.resources.SharedRes
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -462,7 +461,8 @@ private fun ReservationScreenLightPreview() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             ReservationScreen(
@@ -547,7 +547,8 @@ private fun ReservationScreenDarkPreview() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updateNumberUseCase = UpdateNumberUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
 
                 )
             )

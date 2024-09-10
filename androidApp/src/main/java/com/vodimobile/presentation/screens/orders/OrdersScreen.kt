@@ -59,6 +59,7 @@ import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -76,7 +77,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafOrdersScreen
-import com.vodimobile.presentation.components.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.dialog.SmallProgressDialogIndicator
 import com.vodimobile.presentation.components.order_card.OrderCard
 import com.vodimobile.presentation.screens.orders.components.NoOrders
 import com.vodimobile.presentation.screens.orders.components.SegmentedButtonList
@@ -246,7 +247,8 @@ private fun OrdersScreenLightPreview() {
             updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
             updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
             updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-            updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+            updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+            hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
         )
 
         val userDataStoreStorage = UserDataStoreStorage(
@@ -331,7 +333,8 @@ private fun OrdersScreenDarkPreview() {
             updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
             updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
             updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-            updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+            updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+            hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
         )
 
         val userDataStoreStorage = UserDataStoreStorage(

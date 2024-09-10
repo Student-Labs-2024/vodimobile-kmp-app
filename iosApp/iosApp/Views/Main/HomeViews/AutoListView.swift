@@ -10,26 +10,39 @@ import SwiftUI
 import shared
 
 struct AutoListView: View {
+    @Environment(\.calendar) var calendar
     @Binding var selectedAuto: Car
     @Binding var showModalReservation: Bool
     @Binding var showSignSuggestModal: Bool
+    @Binding var showDatePicker: Bool
     @State private var selectedTab: Int = 0
     @State private var showModalCard: Bool = false
     @State private var dragOffset: CGSize = .zero
-    @ObservedObject private var viewModel = AutoListViewModel()
+    @ObservedObject private var viewModel: AutoListViewModel
 
     init(
         selectedAuto: Binding<Car>,
         showModalReservation: Binding<Bool>,
-        showSignSuggestModal: Binding<Bool>
+        showSignSuggestModal: Binding<Bool>,
+        showDatePicker: Binding<Bool>,
+        dateRange: Binding<ClosedRange<Date>?>
     ) {
         self._selectedAuto = selectedAuto
         self._showModalReservation = showModalReservation
         self._showSignSuggestModal = showSignSuggestModal
+        self._showDatePicker = showDatePicker
+        self.viewModel = .init(dateRange: dateRange)
     }
 
     var body: some View {
         VStack {
+            if viewModel.dateRange != nil {
+                ButtonLikeDateField(
+                    showDatePicker: $showDatePicker,
+                    dateRange: viewModel.dateRange
+                )
+                .padding(.horizontal, horizontalPadding)
+            }
             TabBarView(index: $selectedTab)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
@@ -46,7 +59,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 2:
                     ScrollableAutoListView(
@@ -55,7 +68,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 3:
                     ScrollableAutoListView(
@@ -64,7 +77,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 4:
                     ScrollableAutoListView(
@@ -73,7 +86,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 case 5:
                     ScrollableAutoListView(
@@ -82,7 +95,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 default:
                     ScrollableAutoListView(
@@ -91,7 +104,7 @@ struct AutoListView: View {
                         showModalCard: $showModalCard,
                         showModalReservation: $showModalReservation,
                         showSignSuggestModal: $showSignSuggestModal,
-                        refreshAction: viewModel.fetchAllCars
+                        refreshAction: viewModel.fetchCars
                     )
                 }
             }
@@ -131,7 +144,7 @@ struct AutoListView: View {
         }
         .onAppear {
             Task {
-                await viewModel.fetchAllCars()
+                await viewModel.fetchCars()
             }
         }
         .loadingOverlay(isLoading: $viewModel.isLoading)
@@ -141,12 +154,24 @@ struct AutoListView: View {
             CustomToolbar(title: R.string.localizable.carParkScreenTitle)
         }
     }
-}
 
-#Preview {
-    AutoListView(
-        selectedAuto: Binding.constant(Car.companion.empty()),
-        showModalReservation: Binding.constant(false),
-        showSignSuggestModal: Binding.constant(false)
-    )
+    func formatDateRange() -> String {
+        guard let dateRange = viewModel.dateRange else {
+            return R.string.localizable.dateTextFieldPlaceholder()
+        }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM yyyy"
+
+        let startDate = formatter.string(from: dateRange.lowerBound)
+        let endDate = formatter.string(from: dateRange.upperBound)
+
+        if startDate == endDate {
+            return startDate
+        } else if calendar.compare(dateRange.lowerBound, to: dateRange.upperBound, toGranularity: .day) == .orderedAscending {
+            return "\(startDate) - \(endDate)"
+        } else {
+            return "\(endDate) - \(startDate)"
+        }
+    }
 }

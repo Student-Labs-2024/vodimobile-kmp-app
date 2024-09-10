@@ -13,7 +13,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.navigation.NavGraph
-import com.vodimobile.presentation.components.BottomBar
+import com.vodimobile.presentation.components.dialog.BottomBar
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @SuppressLint("ComposeModifierMissing")

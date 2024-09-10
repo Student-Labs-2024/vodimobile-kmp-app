@@ -20,17 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vodimobile.data.repository.rules_and_condition.RulesAndConditionRepositoryImpl
-import com.vodimobile.domain.model.RulesAndConditionModel
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.screens.rules.RulesViewModel
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.splitTextByDelimiter
+import com.vodimobile.presentation.utils.text.splitTextByDelimiter
 
 @Composable
-fun RuleTitleItem(
-    modifier: Modifier = Modifier,
-    title: String
-) {
+fun RuleTitleItem(title: String, modifier: Modifier = Modifier) {
     val delimiter = '~'
     val (titlePart1, titlePart2) = splitTextByDelimiter(
         text = title,

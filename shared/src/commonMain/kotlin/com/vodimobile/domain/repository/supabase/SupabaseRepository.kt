@@ -5,6 +5,7 @@ import com.vodimobile.domain.model.supabase.UserDTO
 
 interface SupabaseRepository {
     suspend fun getUser(password: String, phone: String): UserDTO
+    suspend fun hasUserWithPhone(phone: String): Boolean
     suspend fun insertUser(userDTO: UserDTO)
     suspend fun updatePassword(userId: Int, password: String)
     suspend fun updateFullName(userId: Int, fullName: String)

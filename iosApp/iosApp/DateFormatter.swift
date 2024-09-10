@@ -67,4 +67,26 @@ final class CustomDateFormatter {
             return "\(min(startTimeString, endTimeString)) - \(max(startTimeString, endTimeString))"
         }
     }
+
+    func transformDateToString(date: Date?, time: Date?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        guard let date = date else { return dateFormatter.string(from: Date.now) }
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: time ?? Date.now)
+
+        var combinedComponents = DateComponents()
+        combinedComponents.year = dateComponents.year
+        combinedComponents.month = dateComponents.month
+        combinedComponents.day = dateComponents.day
+        combinedComponents.hour = timeComponents.hour
+        combinedComponents.minute = timeComponents.minute
+
+        if let combinedDate = calendar.date(from: combinedComponents) {
+            return dateFormatter.string(from: combinedDate)
+        }
+
+        return dateFormatter.string(from: Date.now)
+    }
 }

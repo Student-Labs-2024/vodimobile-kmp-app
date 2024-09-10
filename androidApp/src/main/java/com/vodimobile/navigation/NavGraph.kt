@@ -1,6 +1,7 @@
 package com.vodimobile.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -21,9 +22,9 @@ import com.vodimobile.presentation.LeafOrdersScreen
 import com.vodimobile.presentation.LeafScreen
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
-import com.vodimobile.presentation.components.ProgressDialogIndicator
-import com.vodimobile.presentation.components.SmallProgressDialogIndicator
-import com.vodimobile.presentation.components.TimePickerSwitchableSample
+import com.vodimobile.presentation.components.dialog.ProgressDialogIndicator
+import com.vodimobile.presentation.components.dialog.SmallProgressDialogIndicator
+import com.vodimobile.presentation.components.pickers.TimePickerSwitchableSample
 import com.vodimobile.presentation.screens.about_order.AboutOrderScreen
 import com.vodimobile.presentation.screens.about_order.AboutOrderViewModel
 import com.vodimobile.presentation.screens.authorization.AuthorizationScreen
@@ -76,8 +77,9 @@ import com.vodimobile.presentation.screens.user_agreement.UserAgreementScreen
 import com.vodimobile.presentation.screens.user_agreement.UserAgreementViewModel
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetScreen
 import com.vodimobile.presentation.screens.vehicle_fleet.VehicleFleetViewModel
-import com.vodimobile.presentation.store.GeneralIntent
-import com.vodimobile.presentation.store.GeneralViewModel
+import com.vodimobile.presentation.general.store.GeneralEffect
+import com.vodimobile.presentation.general.store.GeneralIntent
+import com.vodimobile.presentation.general.GeneralViewModel
 import com.vodimobile.presentation.utils.internet.ConnectionStatus
 import com.vodimobile.presentation.utils.internet.getCurrentConnectivityStatus
 import org.koin.androidx.compose.koinViewModel
@@ -87,8 +89,18 @@ import org.koin.androidx.compose.koinViewModel
 fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
-    val generalViewModel = GeneralViewModel()
+    val generalViewModel: GeneralViewModel = koinViewModel()
     val generalState = generalViewModel.generalState.collectAsState()
+
+    LaunchedEffect(key1 = Unit) {
+        generalViewModel.generalEffect.collect { effect ->
+            when (effect) {
+                GeneralEffect.UnauthedUser -> {
+                    navHostController.navigate(route = RootScreen.START_SCREEN)
+                }
+            }
+        }
+    }
 
     NavHost(
         navController = navHostController,
@@ -105,11 +117,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 val isConnected =
                     checkInternet(connection = getCurrentConnectivityStatus(context = context))
                 if (isConnected) {
-                    val noAuth = backStackEntry.savedStateHandle.getStateFlow(
-                        "no-auth",
-                        initialValue = true,
-                    ).collectAsState().value
-
                     val homeViewModel: HomeViewModel = koinViewModel()
                     HomeScreen(
                         homeState = homeViewModel.homeState.collectAsState(
@@ -122,7 +129,6 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                         navHostController = navHostController,
                         selectedDate = generalState.value.selectedDate,
                         modifier = modifier,
-                        noAuth = noAuth,
                     )
                 } else {
                     navHostController.previousBackStackEntry?.savedStateHandle?.set(
@@ -588,6 +594,7 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
                 StartScreen(
                     onStartScreenIntent = startScreenViewModel::onIntent,
                     startScreenEffect = startScreenViewModel.startScreenEffect,
+                    onGeneralIntent = generalViewModel::onIntent,
                     navHostController = navHostController
                 )
             }

@@ -26,8 +26,9 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.splitTextIntoIntervalsByDelimiter
+import com.vodimobile.presentation.utils.text.splitTextIntoIntervalsByDelimiter
 
+@SuppressLint("ComposeModifierMissing")
 @Composable
 fun FaqHeader() {
 

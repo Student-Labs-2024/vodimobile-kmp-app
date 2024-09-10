@@ -17,7 +17,7 @@ final class PinCodeViewModel: ObservableObject {
     var sendCodeOnPhoneText: String {
         "\(R.string.localizable.sendCodeMsg())\n\(phoneNumber)"
     }
-    let fullname: String = ""
+    let fullname: String
     let phoneNumber: String
     let pass: String
     let authManager = AuthManager.shared
@@ -26,11 +26,13 @@ final class PinCodeViewModel: ObservableObject {
         showSignSuggestModal: Binding<Bool>,
         authFlowType: AuthFlowType,
         phoneNumber: String,
-        pass: String
+        pass: String,
+        fullname: String? = nil
     ) {
         self._showSignSuggestModal = showSignSuggestModal
         self.authFlowType = authFlowType
         self.phoneNumber = phoneNumber
         self.pass = pass
+        self.fullname = fullname ?? ""
     }
 }

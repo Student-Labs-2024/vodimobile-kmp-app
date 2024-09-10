@@ -11,9 +11,9 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.registration.store.RegistrationEffect
 import com.vodimobile.presentation.screens.registration.store.RegistrationIntent
 import com.vodimobile.presentation.screens.registration.store.RegistrationState
-import com.vodimobile.presentation.utils.NameValidator
-import com.vodimobile.presentation.utils.PasswordValidator
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.NameValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow

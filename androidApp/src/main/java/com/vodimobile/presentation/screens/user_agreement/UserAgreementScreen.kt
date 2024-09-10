@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementEffect
 import com.vodimobile.presentation.screens.user_agreement.store.UserAgreementIntent
 import com.vodimobile.presentation.theme.VodimobileTheme

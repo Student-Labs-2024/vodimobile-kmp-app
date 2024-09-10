@@ -9,7 +9,7 @@ import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
-import com.vodimobile.presentation.utils.NameValidator
+import com.vodimobile.presentation.utils.validator.NameValidator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

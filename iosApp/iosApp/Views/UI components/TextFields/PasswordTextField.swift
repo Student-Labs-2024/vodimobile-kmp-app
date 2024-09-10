@@ -85,8 +85,8 @@ struct PasswordTextField: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                !isValid && !fieldContent.isEmpty ? Color(R.color.redColor) : Color(R.color.grayDark),
-                                lineWidth: isFocused || (!isValid && !fieldContent.isEmpty) ? 1 : 0
+                                contentIsNotValid ? Color(R.color.redColor) : Color(R.color.grayDark),
+                                lineWidth: isFocused || contentIsNotValid ? 1 : 0
                             )
                     )
                 } else {
@@ -117,9 +117,9 @@ struct PasswordTextField: View {
                     .frame(alignment: .leading)
                     .font(.paragraph4)
                     .padding(16)
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Color(R.color.text))
                     .multilineTextAlignment(.leading)
-                    .background(Color(R.color.grayLight))
+                    .background(Color(R.color.grayTheme))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)

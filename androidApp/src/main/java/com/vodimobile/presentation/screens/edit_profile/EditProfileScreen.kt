@@ -27,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,6 +60,7 @@ import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.order.GetOrdersUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.order.InsertOrderUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
@@ -76,8 +76,8 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafScreen
-import com.vodimobile.presentation.components.PrimaryButton
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileField
 import com.vodimobile.presentation.screens.edit_profile.components.ProfileNameBlock
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
@@ -85,9 +85,9 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.theme.ExtendedTheme
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.InputMasks
-import com.vodimobile.presentation.utils.NameValidator
-import com.vodimobile.presentation.utils.PhoneMaskVisualTransformation
+import com.vodimobile.presentation.utils.mask.InputMasks
+import com.vodimobile.presentation.utils.validator.NameValidator
+import com.vodimobile.presentation.utils.mask.PhoneMaskVisualTransformation
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -302,7 +302,8 @@ private fun EditProfileScreenDarkPreview() {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(
@@ -377,7 +378,8 @@ private fun EditProfileScreenLightPreview() {
                 updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                 updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                 updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
         )
         EditProfileScreen(

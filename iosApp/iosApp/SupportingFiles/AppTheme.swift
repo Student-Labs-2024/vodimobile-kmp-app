@@ -30,6 +30,7 @@ extension Image {
     static let eye: Image = Image(systemName: "eye")
     static let eyeSlash: Image = Image(systemName: "eye.slash")
     static let clock: Image = Image(systemName: "clock")
+    static let copyIcon: Image = Image(systemName: "doc.on.doc")
 }
 
 extension Image {

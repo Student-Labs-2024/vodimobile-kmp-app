@@ -44,6 +44,8 @@
 		934F0D5D2C3D8BCC000B256E /* MainTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */; };
 		934F0D5F2C3D9136000B256E /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D5E2C3D9136000B256E /* CheckboxView.swift */; };
 		934F0D612C3D93B3000B256E /* ConditionScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934F0D602C3D93B3000B256E /* ConditionScreenView.swift */; };
+		934FDC5D2C7EFF7A00FE1A52 /* DatePickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FDC5C2C7EFF7A00FE1A52 /* DatePickerModalView.swift */; };
+		934FDC5F2C7F11C000FE1A52 /* HorizontalServicesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934FDC5E2C7F11C000FE1A52 /* HorizontalServicesScrollView.swift */; };
 		935058322C6F6C85009BF02F /* EmptyOrderListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935058312C6F6C85009BF02F /* EmptyOrderListView.swift */; };
 		935058342C6F6E52009BF02F /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935058332C6F6E52009BF02F /* MyOrdersViewModel.swift */; };
 		935058362C6F74AD009BF02F /* OrderTopPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935058352C6F74AD009BF02F /* OrderTopPickerView.swift */; };
@@ -162,6 +164,8 @@
 		934F0D5C2C3D8BCC000B256E /* MainTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarView.swift; sourceTree = "<group>"; };
 		934F0D5E2C3D9136000B256E /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		934F0D602C3D93B3000B256E /* ConditionScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionScreenView.swift; sourceTree = "<group>"; };
+		934FDC5C2C7EFF7A00FE1A52 /* DatePickerModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModalView.swift; sourceTree = "<group>"; };
+		934FDC5E2C7F11C000FE1A52 /* HorizontalServicesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalServicesScrollView.swift; sourceTree = "<group>"; };
 		935058312C6F6C85009BF02F /* EmptyOrderListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyOrderListView.swift; sourceTree = "<group>"; };
 		935058332C6F6E52009BF02F /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
 		935058352C6F74AD009BF02F /* OrderTopPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTopPickerView.swift; sourceTree = "<group>"; };
@@ -271,7 +275,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				937DBD532C4FCEBE00C43A86 /* KotlinHelpers */,
+				937DBD532C4FCEBE00C43A86 /* KMPHelpers */,
 				934F0D4E2C3D692A000B256E /* AppDelegate.swift */,
 				934F0D4F2C3D692A000B256E /* SceneDelegate.swift */,
 				935481DF2C5256770085B6CE /* Enums.swift */,
@@ -391,6 +395,8 @@
 				935481DD2C524C6B0085B6CE /* TopTabBarView.swift */,
 				9358EABB2C62BC4D00488093 /* ScrollableAutoListView.swift */,
 				934CAAC72C7715E50084F4B1 /* RoundedShape.swift */,
+				934FDC5C2C7EFF7A00FE1A52 /* DatePickerModalView.swift */,
+				934FDC5E2C7F11C000FE1A52 /* HorizontalServicesScrollView.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -469,13 +475,13 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		937DBD532C4FCEBE00C43A86 /* KotlinHelpers */ = {
+		937DBD532C4FCEBE00C43A86 /* KMPHelpers */ = {
 			isa = PBXGroup;
 			children = (
 				937DBD542C4FCF3800C43A86 /* KMPDataStorage.swift */,
 				9359D2392C614D5800FD9A25 /* KMPApiManager.swift */,
 			);
-			path = KotlinHelpers;
+			path = KMPHelpers;
 			sourceTree = "<group>";
 		};
 		93A257732C40F22700316EDE /* HomeViews */ = {
@@ -744,6 +750,7 @@
 				936198892C3F133E00B0198D /* TabbarItemView.swift in Sources */,
 				936B68642C5D3C140046175B /* ServerErrorView.swift in Sources */,
 				937FE56F2C70B40A00298609 /* OrderDetailView.swift in Sources */,
+				934FDC5F2C7F11C000FE1A52 /* HorizontalServicesScrollView.swift in Sources */,
 				934F0D502C3D692A000B256E /* AppDelegate.swift in Sources */,
 				935058322C6F6C85009BF02F /* EmptyOrderListView.swift in Sources */,
 				934D5DFA2C3D3FA30070904B /* AppTheme.swift in Sources */,
@@ -783,6 +790,7 @@
 				9359D23A2C614D5800FD9A25 /* KMPApiManager.swift in Sources */,
 				93BF9E782C5AAE7800A6EE91 /* ChangePasswordView.swift in Sources */,
 				937361422C54C9D200132C14 /* PasswordTextField.swift in Sources */,
+				934FDC5D2C7EFF7A00FE1A52 /* DatePickerModalView.swift in Sources */,
 				935E1A922C51443F00A35E4E /* AutoSimpleCardView.swift in Sources */,
 				93A257772C40F27900316EDE /* ContactsView.swift in Sources */,
 				936B184C2C4648B3000AC6F8 /* DetailRuleViewModel.swift in Sources */,

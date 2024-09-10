@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordEffect
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordState
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

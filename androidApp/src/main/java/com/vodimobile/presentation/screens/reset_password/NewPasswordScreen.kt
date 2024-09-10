@@ -44,6 +44,7 @@ import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -59,14 +60,14 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.RegistrationScreens
-import com.vodimobile.presentation.components.AgreementBlock
-import com.vodimobile.presentation.components.NewPasswordField
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.AgreementBlock
+import com.vodimobile.presentation.components.input_text.NewPasswordField
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordEffect
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -208,7 +209,8 @@ private fun NewPasswordScreenPreviewLight() {
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             NewPasswordScreen(
@@ -285,7 +287,8 @@ private fun NewPasswordScreenPreviewDark() {
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 ),
             )
             NewPasswordScreen(

@@ -21,8 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vodimobile.android.R
-import com.vodimobile.presentation.components.DateRentField
-import com.vodimobile.presentation.components.PrimaryButton
+import com.vodimobile.presentation.components.pickers.DateRentField
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
 import com.vodimobile.presentation.theme.VodimobileTheme
 
 @Composable

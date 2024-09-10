@@ -74,12 +74,14 @@ public let contactLocation = R.string.localizable.officeLocation()
 public let whatsappLink = "https://wa.me/79507831440"
 public let vkLink = "https://vk.com/vodimobil"
 public let tgLink = "https://t.me/vodimobilomsk"
-let appVersion = "1.0.0"
+let appVersion = "1.0 (v.7)"
 
 // extension for phone string
 extension String {
     func cleanUp() -> String {
         self.replacingOccurrences(of: " ", with: "")
             .replacingOccurrences(of: "-", with: "")
+            .replacingOccurrences(of: "(", with: "")
+            .replacingOccurrences(of: ")", with: "")
     }
 }

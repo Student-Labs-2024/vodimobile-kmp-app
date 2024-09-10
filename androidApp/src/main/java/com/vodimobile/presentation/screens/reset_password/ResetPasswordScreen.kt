@@ -29,14 +29,14 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.presentation.RegistrationScreens
-import com.vodimobile.presentation.components.PhoneField
-import com.vodimobile.presentation.components.PrimaryButton
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.input_text.PhoneField
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordEffect
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordIntent
 import com.vodimobile.presentation.screens.reset_password.store.ResetPasswordState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @SuppressLint("ComposeModifierMissing")

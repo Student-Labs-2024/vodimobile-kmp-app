@@ -219,7 +219,7 @@ final class KMPApiManager: ObservableObject {
             }
         }
     }
-    
+
     func fetchBidCost(for bidCostParams: BidCostParams) async -> Bid {
         do {
             if let storageUser = dataStorage.gettingUser {

@@ -9,16 +9,21 @@
 import SwiftUI
 
 struct SuccessfulReservationView: View {
+    @Binding var showModal: Bool
+    @Binding var selectedTab: TabType
+
     var body: some View {
         VStack(spacing: 36) {
             HStack {
-                NavigationLink(destination: MainTabbarView()) {
+                Button(action: {
+                    showModal.toggle()
+                }, label: {
                     Image.xmark
                         .resizable()
                         .foregroundStyle(Color(R.color.text))
                         .fontWeight(.bold)
                         .frame(width: 18, height: 18)
-                }
+                })
                 .padding(.top, 10)
                 .padding(.horizontal, 5)
                 Spacer()
@@ -44,8 +49,9 @@ struct SuccessfulReservationView: View {
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, 12)
 
-            NavigationLink(R.string.localizable.myOrdersScreenTitle(), destination: {
-                MyOrdersView()
+            Button(R.string.localizable.myOrdersScreenTitle(), action: {
+                showModal.toggle()
+                selectedTab = .myOrders
             })
             .buttonStyle(FilledBtnWithoutDisabledStyle())
 
@@ -57,5 +63,5 @@ struct SuccessfulReservationView: View {
 }
 
 #Preview {
-    SuccessfulReservationView()
+    SuccessfulReservationView(showModal: Binding.constant(true), selectedTab: Binding.constant(.main))
 }

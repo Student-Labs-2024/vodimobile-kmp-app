@@ -1,7 +1,6 @@
 ![Логотип компании "Водимобиль"](https://github.com/Student-Labs-2024/vodimobile-kmp-app/blob/git-flow/repository-docs/androidApp/src/main/res/drawable/logoapp.png?raw=true)
 
-![Язык программирования Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white) ![Язык программирования Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white) ![Инструмент Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white) ![Android Studio](https://img.shields.io/badge/android%20studio-346ac1?style=for-the-badge&logo=android%20studio&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-
+![Язык программирования Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white) ![Язык программирования Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white) ![Инструмент Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white) ![Android Studio](https://img.shields.io/badge/android%20studio-346ac1?style=for-the-badge&logo=android%20studio&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) 
 ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white) ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
 ## Суть проекта 💫
@@ -53,7 +52,7 @@ crm.test.refresh.token =
 Для того, чтобы собрать исполняемый файл для ОС Android (APK) впишите в терминале следующую команду ```./gradlew assembleDebug```. Дождитель выполнения. При успешном выполнении, Вы увидите надпись "Build Successfull". Далее Вы сможете найти APK в корне проекта по следующему пути `app/build/outputs/apk/app-debug.apk`.
 
 <a name="build-ios"><h3>Собрать для IOS</h3></a>
-_Будет позже_
+Для того, чтобы собрать исполняемый файл для IOS нужно заархивировать директорию с кодом и отправить в TestFlight.
 
 <a name="project"><h2>Структура проекта 📋</h2></a>
 Проект сделан с использованием технологии KMP - _Kotlin Multiplatform_. В архитектуре используется три модуля AndroidApp, IosApp, Shared.
@@ -91,6 +90,7 @@ _Будет позже_
 - [Skie](https://skie.touchlab.co/configuration/)
 - [Buildkonfig](https://github.com/yshrsmz/BuildKonfig)
 - [Date time](https://github.com/Kotlin/kotlinx-datetime)
+- [Cryptography kotlin](https://github.com/whyoleg/cryptography-kotlin?tab=readme-ov-file)
 
 ## Git flow 📀
 **Коммиты**

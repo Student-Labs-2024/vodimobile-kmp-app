@@ -78,17 +78,6 @@ class HomeViewModel(
                     }
                 }
             }
-
-            HomeIntent.InitUser -> {
-                viewModelScope.launch {
-                    val userFlow = userDataStoreStorage.getUser()
-                    userFlow.collect { value: User ->
-                        if (value.phone.isEmpty()) {
-                            homeEffect.emit(HomeEffect.UnauthedUser)
-                        }
-                    }
-                }
-            }
         }
     }
 }

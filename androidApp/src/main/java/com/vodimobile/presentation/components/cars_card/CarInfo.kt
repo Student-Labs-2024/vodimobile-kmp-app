@@ -16,16 +16,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.domain.model.Car
-import com.vodimobile.presentation.components.PrimaryButton
+import com.vodimobile.presentation.components.user_actions.PrimaryButton
 import com.vodimobile.presentation.components.cars_card.CarSpecif
 import com.vodimobile.presentation.components.cars_card.CarsTitle
 import com.vodimobile.presentation.theme.VodimobileTheme
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @SuppressLint("ComposeModifierMissing")
 @Composable

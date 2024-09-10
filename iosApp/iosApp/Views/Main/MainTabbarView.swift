@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MainTabbarView: View {
     @State private var selectedTab: TabType = .main
+    @State var showDatePicker: Bool = false
     @ObservedObject var appState = AppState.shared
 
     var body: some View {
@@ -18,8 +19,15 @@ struct MainTabbarView: View {
 
             ZStack(alignment: Alignment.bottom) {
                 TabView(selection: $selectedTab) {
-                    MainView().tag(TabType.main)
-                    MyOrdersView().tag(TabType.myOrders)
+                    MainView(
+                        selectedTab: $selectedTab,
+                        showDatePicker: $showDatePicker)
+                        .tag(TabType.main)
+                    MyOrdersView(
+                        selectedMainTab: $selectedTab,
+                        showDatePicker: $showDatePicker
+                    )
+                    .tag(TabType.myOrders)
                     ProfileView().tag(TabType.profile)
                 }
 

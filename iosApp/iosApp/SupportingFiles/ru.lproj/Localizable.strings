@@ -55,7 +55,7 @@
 "phonePlaceholder" = "+X (XXX) XXX-XX-XX";
 "fullName" = "ФИО";
 "dateTextFieldPlaceholder" = "Когда?";
-"dateTextFieldTitle" = "Выберите даты аренды";
+"dateTextFieldTitle" = "Даты аренды";
 "password" = "Пароль";
 "passwordPlaceholder" = "Придумайте пароль";
 "fullnamePlaceholder" = "Введите свое ФИО";
@@ -63,12 +63,16 @@
 "newPassword" = "Новый пароль";
 "passwordPlaceholder" = "Введите пароль";
 "newPasswordPlaceholder" = "Придумайте пароль";
-"methodOfObtainingTitle" = "Где заберёте авто?";
-"methodOfObtaining" = "Выберите способ";
-"rentalTime" = "В какое время?";
+// make reservation screen
+"rentalDatesTitle" = "Даты аренды";
+"rentalDatesPlaceholder" = "Выберите даты";
+"startPlaceOfObtainingTitle" = "Где заберете авто?";
+"endPlaceOfObtainingTitle" = "Как вернете авто?";
+"placeOfObtainingPlaceholder" = "Выберите способ";
+"startRentalTime" = "Когда заберете?";
+"endRentalTime" = "Когда вернете?";
 "rentalTimePlaceholder" = "Выберите время";
-"commentToReservation" = "Комментарий к бронированию";
-"commentToReservationPlaceholder" = "Введите комментарий...";
+"extraServicesTitle" = "Дополнительные услуги";
 
 // Error strings
 "incorrectFullName" = "Неверный формат. Для ввода допускается только буквы без спец.символов";
@@ -92,8 +96,11 @@
 "alertErrorSavingText" = "Ваши данные не были сохранены. Повторите попытку";
 "alertSavePersonDataTitle" = "Ваши данные были успешно сохранены";
 "alertCancelBidTitle" = "Вы уверены, что хотите отменить заявку?";
+"authErrorAlertTitle" = "Ошибка авторизации";
+"authErrorAlertText" = "Неверное имя пользователя или пароль. Попробуйте ещё раз.";
 
 // Info strings
+"copyText" = "Копировать";
 "conditionLink" = "Пользовательского соглашения";
 "conditionText" = "Я прочитал и согласен с условиями ";
 "inputCodeText" = "Введите СМС-код";

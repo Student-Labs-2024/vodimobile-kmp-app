@@ -19,7 +19,7 @@ import com.vodimobile.android.R
 import com.vodimobile.presentation.screens.edit_profile.components.FlexibleTopBar
 import com.vodimobile.presentation.screens.edit_profile.components.FlexibleTopBarDefaults
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.DatePatterns
+import com.vodimobile.presentation.utils.date_formats.DatePatterns
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

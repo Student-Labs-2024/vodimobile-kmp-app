@@ -53,6 +53,7 @@ import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
 import com.vodimobile.domain.use_case.data_store.GetUserDataUseCase
 import com.vodimobile.domain.use_case.data_store.PreRegisterUserUseCase
 import com.vodimobile.domain.use_case.supabase.GetUserUseCase
+import com.vodimobile.domain.use_case.supabase.HasUserWithPhoneUseCase
 import com.vodimobile.domain.use_case.supabase.InsertUserUseCase
 import com.vodimobile.domain.use_case.supabase.UpdateFullNameUseCase
 import com.vodimobile.domain.use_case.supabase.UpdatePasswordUseCase
@@ -69,15 +70,15 @@ import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
-import com.vodimobile.presentation.components.AgreementBlock
-import com.vodimobile.presentation.components.ScreenHeader
+import com.vodimobile.presentation.components.block.AgreementBlock
+import com.vodimobile.presentation.components.block.ScreenHeader
 import com.vodimobile.presentation.screens.authorization.components.AuthorizationBlock
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationIntent
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
 import com.vodimobile.presentation.theme.VodimobileTheme
-import com.vodimobile.presentation.utils.PasswordValidator
-import com.vodimobile.presentation.utils.PhoneNumberValidator
+import com.vodimobile.presentation.utils.validator.PasswordValidator
+import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import com.vodimobile.utils.data_store.getDataStore
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -274,7 +275,8 @@ private fun AuthorizationScreenPreviewDark() {
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             AuthorizationScreen(
@@ -357,7 +359,8 @@ private fun AuthorizationScreenPreviewLight() {
                     updateServicesUseCase = UpdateServicesUseCase(SupabaseRepositoryImpl()),
                     updateCostUseCase = UpdateCostUseCase(SupabaseRepositoryImpl()),
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
-                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl())
+                    updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
+                    hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 )
             )
             AuthorizationScreen(

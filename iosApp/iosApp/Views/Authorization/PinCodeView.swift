@@ -12,21 +12,28 @@ import shared
 struct PinCodeView: View {
     @ObservedObject var viewModel: PinCodeViewModel
     @FocusState var focusedField: Int?
+    private let cleanUpField: () -> Void
     @Environment(\.dismiss) private var dismiss
+
+    @State private var alertErrorTitle = ""
+    @State private var alertErrorText = ""
 
     init(
         showSignSuggestModal: Binding<Bool>,
         authFlowType: AuthFlowType,
         phoneNumber: String,
         pass: String,
-        fullname: String? = nil
+        fullname: String? = nil,
+        cleanUpFieldClosure: @escaping () -> Void
     ) {
         self.viewModel = .init(
             showSignSuggestModal: showSignSuggestModal,
             authFlowType: authFlowType,
             phoneNumber: phoneNumber,
-            pass: pass
+            pass: pass,
+            fullname: fullname
         )
+        self.cleanUpField = cleanUpFieldClosure
     }
 
     var body: some View {
@@ -62,8 +69,15 @@ struct PinCodeView: View {
                                 phone: viewModel.phoneNumber,
                                 password: viewModel.pass
                             )
+                            if viewModel.authManager.isAuthenticated {
+                                await MainActor.run {
+                                    viewModel.showSignSuggestModal.toggle()
+                                    cleanUpField()
+                                }
+                            } else {
+                                handleError(viewModel.authManager.errorType)
+                            }
                         }
-                        viewModel.showSignSuggestModal.toggle()
                     })
                     .buttonStyle(FilledBtnStyle())
                     .disabled(!viewModel.isButtonEnabled)
@@ -72,9 +86,12 @@ struct PinCodeView: View {
                         Task {
                             await viewModel.authManager.login(phone: viewModel.phoneNumber, pass: viewModel.pass)
                             if viewModel.authManager.isAuthenticated {
-                                viewModel.showSignSuggestModal.toggle()
+                                await MainActor.run {
+                                    viewModel.showSignSuggestModal.toggle()
+                                    cleanUpField()
+                                }
                             } else {
-                                viewModel.showErrorAlert = true
+                                handleError(viewModel.authManager.errorType)
                             }
                         }
                     })
@@ -107,9 +124,16 @@ struct PinCodeView: View {
 
             Spacer()
         }
-        .alert("Unauthorized", isPresented: $viewModel.showErrorAlert, actions: {
-            Button(R.string.localizable.closeButton(), role: .cancel) { }
-        })
+        .alert(
+            alertErrorTitle,
+            isPresented: $viewModel.showErrorAlert,
+            actions: {
+                Button(R.string.localizable.closeButton(), role: .cancel) { }
+            },
+            message: {
+                Text(alertErrorText)
+            }
+        )
         .padding()
         .onAppear {
             focusedField = 0
@@ -151,6 +175,23 @@ struct PinCodeView: View {
                     focusedField = nil
                 }
             }
+    }
+
+    private func handleError(_ error: InputErrorType?) {
+        if let error = error {
+            switch error {
+            case .incorrectPhone:
+                alertErrorText = R.string.localizable.authErrorAlertText()
+                alertErrorTitle = R.string.localizable.authErrorAlertTitle()
+            case .alreadyExistsPhone:
+                alertErrorText = R.string.localizable.alreadyExistsPhone()
+                alertErrorTitle = R.string.localizable.authErrorAlertTitle()
+            default:
+                alertErrorText = ""
+                alertErrorTitle = ""
+            }
+            viewModel.showErrorAlert = true
+        }
     }
 
     private func toggleButtonEnabled() {
