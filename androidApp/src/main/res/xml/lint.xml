@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint xmlns:android="http://schemas.android.com/apk/res/android">
+    <issue
+        id="androidx.compose.lint.ComposePreview"
+        severity="warning" />
+
+    <issue
+        id="PreviewNamingDetector"
+        severity="warning" />
+
+    <issue
+        id="ComposeMultipleContentEmitters"
+        severity="warning">
+        <option
+            name="allowed-composition-locals"
+            value="CustomEmitter,AnotherEmitter" />
+    </issue>
+
+    <issue
+        id="ComposeMutableParameters"
+        severity="ignore" />
+    <issue
+        id="ComposeParameterOrder"
+        severity="ignore" />
+
+    <issue
+        id="ComposeNamingUppercase,ComposeNamingLowercase"
+        severity="warning">
+        <option
+            name="allowed-composable-function-names"
+            value=".*Presenter" />
+    </issue>
+
+    <issue
+        id="UnstableReceiverDetector"
+        severity="ignore" />
+
+    <issue
+        id="ComposeModifierReused"
+        severity="warning" />
+
+    <issue
+        id="ComposeM2Api"
+        severity="warning" />
+</lint>

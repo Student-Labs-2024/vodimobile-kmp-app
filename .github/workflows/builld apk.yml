@@ -1,0 +1,43 @@
+name: Generated APK
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+  pull_request:
+    branches:
+      - 'main'
+      - 'develop'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+          cache: gradle
+      - name: Create local.properties
+        run: | 
+          echo "sdk.dir=$(pwd)/android-sdk" >> local.properties
+          echo "${{ secrets.LOCAL_PROPERTIES }}" >> local.properties
+      - name: Create file
+        run: cat ./androidApp/google-services.json | base64
+      - name: Put data google-services.json
+        run: | 
+         echo "${{ secrets.GOOGLE_SERVICES_JSON }}" >> ./androidApp/google-services.json
+      - name: Build gradle project
+        run: ./gradlew androidApp:build
+      - name: Build apk debug project (APK)
+        run: ./gradlew androidApp:assembleDebug
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dsTemplate.apk
+          path: androidApp/build/outputs/apk/debug/app-debug.apk

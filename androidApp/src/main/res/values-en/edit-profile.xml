@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="return_">Return back</string>
+    <string name="personal_edit_data_title">Личные данные</string>
+    <string name="save_personal_data">Save personal data</string>
+    <string name="change_password">Change password</string>
+    <string name="full_name">Full name</string>
+    <string name="your_data">Your data</string>
+    <string name="snackbar_error">Error! Your data has not been saved. Please try again</string>
+    <string name="snackbar_try_again">Try again</string>
+    <string name="save_successfully">Your data has been successfully saved</string>
+</resources>

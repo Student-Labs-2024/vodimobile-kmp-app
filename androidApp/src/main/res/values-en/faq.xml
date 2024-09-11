@@ -1,0 +1,155 @@
+<resources>
+    <array name="questions">
+        <item>Where can you go?</item>
+        <item>Where and how to pick up and return the car?</item>
+        <item>How do you pay for a reserved car?</item>
+        <item>Do I need to pay for the delivery of the car?</item>
+        <item>Is daily mileage limited?</item>
+        <item>Do you have a child seat?</item>
+        <item>Do I need to pay a deposit?</item>
+        <item>Do I need to wash my car before returning it?</item>
+        <item>How do you rent a car?</item>
+        <item>What do you need to rent a car?</item>
+        <item>Do I need to pay for gasoline?</item>
+        <item>Do you provide reporting?</item>
+        <item>Do you have car insurance?</item>
+        <item>Are the cars covered, like car sharing?</item>
+        <item>What are the fines for failure to comply with conditions or violation of traffic
+            rules?
+        </item>
+        <item>Is it possible to transfer a car to another person?</item>
+        <item>What to do if the car breaks down?</item>
+        <item>If the car was towed?</item>
+        <item>Is it possible to rent a car with pets?</item>
+        <item>What to do if you forgot things in the car?</item>
+    </array>
+    <array name="answers">
+        <item>There are no restrictions on travel within the Siberian Federal District. Intersection
+            The Siberian Federal District, as well as the borders of the Russian Federation, is
+            agreed with the manager.
+        </item>
+        <item>The car is provided in a clean condition, with a full tank of fuel and completely
+            ready for
+            travel at the point of issue or delivered to the desired location. Returned in the same
+            form and with
+            the same amount of fuel in a place convenient for you, but according to preliminary
+            agreements.
+        </item>
+        <item>You can pay for the reserved car using a credit card or cash
+            or bank transfer, payment is made for the entire period of car rental. If the car
+            returns earlier than the specified period, we will recalculate, and only
+            time of use.
+        </item>
+        <item>If you need a car delivery in the city, then you pay for it separately at
+            following tariffs:
+            500 – night time from the office (from 20:00 to 9:00)
+            1000 – daytime, anywhere in the city (from 9:00 to 20:00)
+            2000 – night time, anywhere in the city (from 20:00 to 9:00)
+
+            When renting for 7 days or more, delivery is free!
+        </item>
+        <item><![CDATA[There is a daily mileage limit of 200 km, which is included in the rental price. You
+            You can exceed this limit, in which case overmileage is calculated at the rate of 5
+            rubles/km
+            (economy), 10 rubles/km (comfort and premium).]]>
+        </item>
+        <item>Yes, we can provide you with a child seat and other additional equipment -
+            for free. Before renting, you must first clarify which equipment you will need.
+            required.
+        </item>
+        <item><![CDATA[Yes, a deposit is required. The deposit is a guarantee of the tenant\'s performance of
+            the contract.
+            The security deposit is not part of the rental price and is paid separately. Collateral
+            is a fixed amount of money - auto section \"Economy\" - 5,000 rubles, auto
+            sections \"Comfort\" and \"Premium\" - 10,000 rubles. Personal belongings, passport, and
+            other documents
+            are not collateral. We return the deposit to you at the time of handing over the car and
+            signing the certificate.
+            reception/transmission, so you don’t have to wait.]]>
+        </item>
+        <item>No, if the car is provided in a clean condition.
+            Yes, washing is paid separately - 1,000 rubles.
+
+            In what case does the client pay for the car wash:
+            1. The car is dirty outside and inside;
+            2. The car is clean on the outside, but dirty on the inside (rugs, crumbs, stains);
+            3. The car is clean inside, but dirty outside (sills, wheels, individual parts
+            car);
+            4. The car is covered in sand or dust.
+
+            Weather conditions are not a condition for non-fulfillment of contractual obligations
+            regarding
+            car washes.
+
+            If at the time of booking the car is in a dirty condition, we offer you
+            choose what type of car to rent in order to save your money on
+            washing
+
+            Emergency car delivery (30 – 90 minutes) does not guarantee a clean car delivery
+            form, because It takes at least 2 hours to wash a car. Therefore, we recommend booking
+            car in advance.
+        </item>
+        <item>Renting a car occurs in several stages:
+
+            1. You choose the car you like;
+            2. Familiarize yourself with the terms of car rental on the website, or consult with
+            manager by phone or messenger;
+            3. Send the documents for verification by the security service. This stage takes no more
+            20 minutes;
+            4. The manager confirms the reservation with a reply message.
+
+            At the appointed date and time we meet with you to sign the contract and transfer
+            selected car. The conclusion of a contract is possible only if the client has
+            Passport and driver\'s license in hand.
+        </item>
+        <item>Age of 22 years, driver\'s license category B with at least 2 years of experience and
+            general civil passport of the Russian Federation.
+        </item>
+        <item>You refuel the car yourself, only with AI-95 gasoline. The car is delivered with
+            the amount of fuel remaining after previous use.
+            Accordingly, the car must be returned at the same level. If there is fuel in the tank
+            less than it was when the car was handed over to you, then payment is made at the rate
+            of 50
+            rubles - one liter. A car with a full tank is provided exclusively upon the client\'s
+            request.
+        </item>
+        <item>Yes, a complete package of documents with all receipts.</item>
+        <item>Cars are insured by the MTPL policy.
+
+            If the accident occurred through no fault of yours, and all certificates from the scene
+            of the accident are provided - the amount
+            responsibility is zero.
+
+            If the accident occurred due to the fault of the client, then responsibility for
+            compensation lies with
+            per client. If it is impossible to prove the guilt of a third party, liability
+            also falls on the client.
+        </item>
+        <item>No, the cars are not branded.</item>
+        <item><![CDATA[Fines for traffic violations are paid by the client. Once the fine is received by us,
+            manager we will send you information about him. You only need to transfer the fine
+            amount via
+            landlord\'s details.
+
+            Fine for smoking in the cabin – 5000
+            Fine for late payment for car renewal – 1000 rubles/day
+            Fine for loss of documents – 10,000 rubles/unit
+            Fine for loss of key/alarm – 10,000 rubles/unit]]>
+        </item>
+        <item>Yes, if it meets the requirements of the Vodimobil rental terms. Agreement for the
+            second
+            driver - 300 rubles.
+        </item>
+        <item>In case of an accident or any damage to the car, call us and report
+            happened: we will tell you how to act in this situation. If an accident occurs
+            not through your fault, and all certificates from the scene of the accident are provided
+            - the amount of liability is equal to
+            zero.
+        </item>
+        <item>Contact support by phone or write to us on social media. networks and us
+            We\`ll tell you how to act and what to do in such a situation.
+        </item>
+        <item>Unfortunately, this option is not available when renting.</item>
+        <item>Write or call us, we will do our best to return your items.</item>
+    </array>
+</resources>

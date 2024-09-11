@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vodimobile</string>
+
+    <string name="requister_str">Sign up</string>
+    <string name="login_str">Login</string>
+
+    <string name="login_or_create_title">Log in or create a profile</string>
+    <string name="login_or_create_subtitle">To submit a request, you must have an account</string>
+
+    <string name="label_name">Full name</string>
+    <string name="placeholder_name">Enter your full name</string>
+    <string name="name_error">Invalid format. Only letters without characters are allowed to be entered</string>
+    <string name="empty_name">This field is required</string>
+
+    <string name="label_phoneNumber">Phone Number</string>
+    <string name="placeholder_phoneNumber">+7</string>
+    <string name="phoneNumber_not_exist_error">There is no such phone number. Please try again</string>
+    <string name="phoneNumber_in_storage_error">The number has already been registered. Log in</string>
+
+    <string name="clear_registration_input">Clear input</string>
+
+    <string name="agreement_checkBox_desc">Consent to data processing</string>
+    <string name="agreement_text">I have read and agree to the terms\nUser Agreement</string>
+
+    <string name="text_next_button">Next</string>
+    <string name="header_back_content_desc">Back</string>
+    <string name="title_screen_registration">Registration</string>
+
+    <string name="title_user_agreement">Terms of the agreement</string>
+    <string name="text_user_agreement">
+        <![CDATA[
+ 1. General Provisions
+This personal data processing policy has been drawn up in accordance with the requirements of the Federal Law of 27.07.2006. No. 152-FZ «On Personal Data» and defines the procedure for processing personal data and measures to ensure the security of personal data of Max-Auto LLC (hereinafter referred to as the Operator).
+
+The Operator sets as its most important goal and condition for carrying out its activities the observance of the rights and freedoms of a person and citizen when processing his personal data, including the protection of the rights to privacy, personal and family secrets.
+This Operator policy regarding the processing of personal data (hereinafter referred to as the Policy) applies to all information that the Operator can receive about visitors to the website https://vodimobil.ru
+
+2. Basic concepts used in the Policy
+Automated processing of personal data is the processing of personal data using computer technology;
+Blocking of personal data is a temporary cessation of the processing of personal data (except in cases where processing is necessary to clarify personal data);
+Website – a collection of graphic and information materials, as well as computer programs and databases that make them available on the Internet at the network address https://vodimobil.ru;
+Personal data information system – a collection of personal data contained in databases and the information technologies and technical means that ensure their processing;
+Depersonalization of personal data – actions that make it impossible to determine, without the use of additional information, the ownership of personal data by a specific User or other subject of personal data;
+Personal data processing – any action (operation) or set of actions (operations) performed with the use of automation tools or without the use of such tools with personal data, including collection, recording, systematization, accumulation, storage, clarification (updating, modification), extraction, use, transfer (distribution, provision, access), depersonalization, blocking, deletion, destruction of personal data;
+Operator – a government agency, municipal agency, legal entity or individual, independently or jointly with other persons, organizing and (or) processing personal data, as well as determining the purposes of processing personal data, the composition of personal data to be processed, actions (operations) performed with personal data;
+Personal data – any information directly or indirectly related to a specific or determinable User of the website https://vodimobil.ru;
+User – any visitor to the website https://vodimobil.ru;
+Provision of personal data – actions aimed at disclosing personal data to a specific person or a specific circle of persons;
+Dissemination of personal data – any actions aimed at disclosing personal data to an indefinite circle of persons (transfer of personal data) or familiarizing an unlimited number of persons with personal data, including disclosure of personal data in the media, posting in information and telecommunication networks or providing access to personal data in any other way;
+Cross-border transfer of personal data – transfer of personal data to the territory of a foreign state to a foreign government body, foreign individual or foreign legal entity;
+Destruction of personal data – any actions as a result of which personal data are destroyed irrevocably with the impossibility of further restoration of the content of personal data in the personal data information system and (or) as a result of which tangible media of personal data are destroyed.
+
+3. The Operator may process the following personal data of the User
+Surname, first name, patronymic;
+E-mail address;
+Phone numbers;
+The website also collects and processes anonymized data about visitors (including cookies) using Internet statistics services (Yandex Metrica and Google Analytics and others).
+The above data are further united in the text of the Policy by the general concept of Personal data.
+
+4. Purposes of personal data processing
+The purpose of processing the User`s personal data is to inform the User by sending emails; to provide the User with access to services, information and/or materials contained on the website.
+The Operator also has the right to send the User notifications about new products and services, special offers and various events. The User can always opt out of receiving informational messages by sending the Operator an email to help@vodimobil.ru with the subject line «Opt-out of notifications about new products and services and special offers».
+The anonymized data of Users collected using Internet statistics services is used to collect information about the actions of Users on the website, to improve the quality of the website and its content.
+
+5. Legal grounds for processing personal data
+The Operator processes the User`s personal data only if they are filled in and/or sent by the User independently through special forms located on the website https://vodimobil.ru. By filling in the relevant forms and/or sending their personal data to the Operator, the User expresses their consent to this Policy.
+The Operator processes anonymized data about the User if this is permitted in the User`s browser settings (the storage of cookies and the use of JavaScript technology are enabled).
+
+6. The procedure for collecting, storing, transferring and other types of processing personal data
+The security of personal data processed by the Operator is ensured by implementing legal, organizational and technical measures necessary to fully comply with the requirements of the current legislation in the field of personal data protection.
+The Operator ensures the safety of personal data and takes all possible measures to prevent unauthorized persons from accessing personal data.
+The User`s personal data will never, under any circumstances, be transferred to third parties, except in cases related to compliance with current legislation.
+In the event of inaccuracies in personal data, the User can update them independently by sending a notification to the Operator`s e-mail address help@vodimobil.ru with the subject line «Updating personal data».
+The period for processing personal data is unlimited. The User may revoke their consent to the processing of personal data at any time by sending a notification to the Operator via e-mail to the Operator`s e-mail address help@vodimobil.ru with the subject line «Revocation of consent to the processing of personal data».
+
+7. Cross-border transfer of personal data
+Before commencing the cross-border transfer of personal data, the Operator is obliged to ensure that the foreign state to whose territory the personal data is to be transferred ensures reliable protection of the rights of personal data subjects.
+Cross-border transfer of personal data to the territory of foreign states that do not meet the above requirements may only be carried out if there is written consent from the personal data subject to the cross-border transfer of their personal data and/or execution of an agreement to which the personal data subject is a party.
+
+8. Final provisions
+The User may receive any clarifications on issues of interest regarding the processing of their personal data by contacting the Operator via e-mail help@vodimobil.ru.
+This document will reflect any changes to the Operator`s personal data processing policy. The policy is valid indefinitely until it is replaced by a new version.
+The current version of the Policy is freely available on the Internet at http://vodimobil.ru/PrivacyPolicy.]]></string>
+
+    <string name="close_button_content_description">Close</string>
+
+    <string name="rules_and_conditions">Rules and\nconditions</string>
+    <string name="faq">FAQ</string>
+    <string name="contacts">Contacts</string>
+    <string name="profile_title">Profile</string>
+    <string name="exit_account">Log out of account</string>
+    <string name="personal_data_title">Personal\ndata</string>
+    <string name="personal_data_subtitle">Full name, phone number, email</string>
+    <string name="edit_data">Edit data</string>
+
+    <string name="home_screen_label">Home</string>
+    <string name="orders_screen_label">My orders</string>
+    <string name="profile_screen_label">Profile</string>
+    <string name="str_rules_and_conditions_title">Rules and conditions</string>
+
+    <string name="str_rules">Rules and conditions</string>
+    <string name="str_arrowforward">Go over</string>
+
+    <string name="str_rules1">Rental conditions for drivers</string>
+    <string name="str_rules2">Stages of car rental</string>
+
+    <string name="str_rules3">Возраст от 22 лет и не менее 2 года стажа водительского удостоверения категории B.</string>
+    <string name="str_rules4">Это все условия, под которые должен подходить водитель, который берет на себя ответственность управления автомобилями Водимобиль.</string>
+    <string name="whatsapp_str">Whatsapp</string>
+    <string name="telegram_str">Telegram</string>
+
+    <string name="title_list_contact">Our social networks</string>
+    <string name="vk_str">Vkontakte</string>
+    <string name="mail_str">Mail</string>
+    <string name="mail1_str">vodimobil@vodimobil.ru</string>
+    <string name="telephone_str">Phone number</string>
+    <string name="telephone1_str">+7 (950) 783 14-40</string>
+    <string name="adress_str">Office address:</string>
+    <string name="adress2_str">Omsk, Dmitrieva str., 5/6</string>
+    <string name="version_str">Version %s</string>
+
+    <string name="version_year_str">© 2016</string>
+    <string name="version1_str">Vodimobile</string>
+    <string name="title_contact_screen">Contacts</string>
+
+    <string name="faq_title">Question-answer from driver</string>
+    <string name="faq_subtitle">Find the answer to any question you are interested in.</string>
+
+    <string name="log_out_confirmation_title">Log out of your account?</string>
+    <string name="log_out_confirmation_body">You will not be able to rent cars without an account</string>
+    <string name="confirmation_cancel_button">Cancel</string>
+    <string name="confirmation_logout_button">Log out</string>
+
+    <string name="tariff">from %s rub per day.</string>
+    <string name="car">%s liters</string>
+    <string name="spec_tile">Specifications:</string>
+    <string name="transmis">Gearbox</string>
+    <string name="wheel_drive">Drive</string>
+    <string name="year_of_release">Year of release</string>
+    <string name="tank_value">Tank </string>
+    <string name="to_book">To book</string>
+
+
+    <string name="connection_error">Connection error</string>
+    <string name="connection_error_subtitle">There is no internet connection. Check the network and try the connection again.</string>
+    <string name="try_again_bt">Try again</string>
+
+    <string name="auto_tag_all">All cars</string>
+    <string name="auto_tag_economy">Economy</string>
+    <string name="auto_tag_comfort">Comfort</string>
+    <string name="auto_tag_premium">Premium</string>
+    <string name="auto_tag_sedan">Sedans</string>
+    <string name="auto_tag_off_road">Off-road cars</string>
+
+    <string name="choose_date_rent">Select the rental dates</string>
+    <string name="date_rent_placeholder">When?</string>
+    <string name="find_car_button">Find a car</string>
+    <string name="icon_calendar">Calendar</string>
+
+    <string name="notification_desc">Notifications</string>
+
+    <string name="server_error">Error on the server</string>
+    <string name="server_error_subtitle">Something went wrong on the server side. Try the connection again.</string>
+
+    <string name="vehicle_fleet">Vehicle fleet</string>
+
+    <string name="error_app">error</string>
+    <string name="error_app_title">Something went wrong</string>
+    <string name="error_app_title2">Failed to submit request. Try again</string>
+    <string name="error_bt">Try again</string>
+    <string name="error_icon">back</string>
+
+    <string name="time_cancel">Cancel</string>
+    <string name="ok_time">OK</string>
+    <string name="select_time">Select time</string>
+    <string name="input_time">Input time</string>
+    <string name="switch_to_text_input">Switch to Text Input</string>
+    <string name="switch_to_touch_input">Switch to Touch Input</string>
+
+
+    <string name="success_str">success</string>
+    <string name="succes_title">The application has been left</string>
+    <string name="success_bt">My orders</string>
+    <string name="success2_title">The manager will contact you soon. You can change the order and view its status in the orders</string>
+
+    <string name="auth_user_supabase_error">This user is already exists.</string>
+    <string name="auth_2_user_supabase_error">This user does not exist.</string>
+    <string name="user_phone_not_unique">This phone number is already registered</string>
+    <string name="active_order">Active</string>
+    <string name="completed_order">Completed</string>
+    <string name="order_title1">Your orders will be here</string>
+    <string name="order_titile2">You can apply in the main page</string>
+    <string name="my_orders">My orders</string>
+    <string name="coast_order">%s rub</string>
+    <string name="about_the_order">About the order</string>
+
+    <string name="delete_order">Are you sure you want to delete order?</string>
+    <string name="delete_order_back">Cansel</string>
+    <string name="delete_order_cansel">Delete</string>
+
+    <string name="auto">Automobile</string>
+    <string name="order_status">Order status</string>
+    <string name="rent_period">Rent period:</string>
+    <string name="where_take_auto">Place to take auto</string>
+    <string name="what_time">Rent time:</string>
+    <string name="auto_charestiristics">Automobile characteristics:</string>
+    <string name="sum_order">Summary:</string>
+    <string name="change_order">Change bid</string>
+
+    <string name="simple_password_error">The password is incorrect. Try again.</string>
+    <string name="name_too_long">The full name must not exceed 100 characters.</string>
+</resources>
