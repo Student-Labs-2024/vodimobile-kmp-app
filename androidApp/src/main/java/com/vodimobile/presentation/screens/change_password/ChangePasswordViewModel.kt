@@ -36,11 +36,11 @@ class ChangePasswordViewModel(
                     userFlow.collect {
                         val user = supabaseStorage.getUser(
                             password = hashRepository.hash(text = it.password).decodeToString(),
-                            phone = hashRepository.hash(text = it.phone).decodeToString()
+                            phone = it.phone
                         )
                         supabaseStorage.updatePassword(
                             userId = user.id,
-                            password = newPasswordState.value.password
+                            password = hashRepository.hash(text = newPasswordState.value.password).decodeToString()
                         )
                         changePasswordEffect.emit(ChangePasswordEffect.SaveChanges)
                     }

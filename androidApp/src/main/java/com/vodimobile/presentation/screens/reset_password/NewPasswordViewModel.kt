@@ -46,19 +46,17 @@ class NewPasswordViewModel(
 
             NewPasswordIntent.SaveData -> {
                 viewModelScope.launch {
-                    with(newPasswordState.value) {
-                        dataStoreStorage.getUser().collect {
-                            val remoteUser = supabaseStorage.getUser(
-                                password = hashRepository.hash(text = it.password).decodeToString(),
-                                phone = hashRepository.hash(text = it.phone).decodeToString()
-                            )
-                            supabaseStorage.updatePassword(
-                                userId = remoteUser.id,
-                                password = hashRepository.hash(text = newPasswordState.value.password).decodeToString()
-                            )
-                            dataStoreStorage.editPassword(password = newPasswordState.value.password)
-                            newPasswordEffect.emit(NewPasswordEffect.SaveData)
-                        }
+                    dataStoreStorage.getUser().collect {
+                        val remoteUser = supabaseStorage.getUser(
+                            password = hashRepository.hash(text = it.password).decodeToString(),
+                            phone = it.phone
+                        )
+                        supabaseStorage.updatePassword(
+                            userId = remoteUser.id,
+                            password = hashRepository.hash(text = newPasswordState.value.password).decodeToString()
+                        )
+                        dataStoreStorage.editPassword(password = newPasswordState.value.password)
+                        newPasswordEffect.emit(NewPasswordEffect.SaveData)
                     }
                 }
             }

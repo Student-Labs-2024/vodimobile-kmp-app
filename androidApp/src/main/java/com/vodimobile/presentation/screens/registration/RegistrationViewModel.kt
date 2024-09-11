@@ -1,5 +1,6 @@
 package com.vodimobile.presentation.screens.registration
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
@@ -94,7 +95,6 @@ class RegistrationViewModel(
 
             RegistrationIntent.AskPermission -> {
                 viewModelScope.launch(context = supervisorCoroutineContext) {
-
                     try {
                         val crmEither: CrmEither<UserResponse, HttpStatusCode> =
                             crmStorage.authUser()
@@ -102,8 +102,18 @@ class RegistrationViewModel(
                         when (crmEither) {
                             is CrmEither.CrmData -> {
                                 with(crmEither.data) {
-                                    saveInRemote(accessToken, refreshToken)
-                                    saveInLocal()
+                                    with(registrationState.value) {
+                                        val user = User(
+                                            id = 0,
+                                            fullName = name,
+                                            password = password,
+                                            accessToken = accessToken,
+                                            refreshToken = refreshToken,
+                                            phone = phoneNumber,
+                                        )
+
+                                        saveInRemote(user = user)
+                                    }
                                 }
                                 registrationEffect.emit(RegistrationEffect.AskPermission)
                             }
@@ -137,34 +147,26 @@ class RegistrationViewModel(
         return passwordValidator.isValidPassword(password)
     }
 
-    private suspend inline fun saveInLocal() {
-        with (registrationState.value) {
-            val user: User = supabaseStorage.getUser(
-                password = password,
-                phone = phoneNumber
-            )
-            dataStoreStorage.edit(user = user)
-        }
+    private suspend inline fun saveInLocal(user: User) {
+        val userFromRemote: User = supabaseStorage.getUser(
+            password = hashRepository.hash(text = user.password).decodeToString(),
+            phone = user.phone
+        )
+        Log.d("TAG", userFromRemote.toString())
+        dataStoreStorage.edit(user = userFromRemote)
     }
 
-    private suspend inline fun saveInRemote(accessToken: String, refreshToken: String) {
-        with(registrationState.value) {
-            try {
-                val hashedPassword = hashRepository.hash(text = password)
+    private suspend inline fun saveInRemote(user: User) {
+        try {
+            val hashedPassword = hashRepository.hash(text = user.password).decodeToString()
 
-                supabaseStorage.insertUser(
-                    user = User(
-                        id = 0,
-                        fullName = name,
-                        password = hashedPassword.decodeToString(),
-                        accessToken = accessToken,
-                        refreshToken = refreshToken,
-                        phone = phoneNumber,
-                    )
-                )
-            } catch (e: Exception) {
-                registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
-            }
+            supabaseStorage.insertUser(
+                user = user.copy(password = hashedPassword)
+            )
+
+            saveInLocal(user = user)
+        } catch (e: Exception) {
+            registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
         }
     }
 }
