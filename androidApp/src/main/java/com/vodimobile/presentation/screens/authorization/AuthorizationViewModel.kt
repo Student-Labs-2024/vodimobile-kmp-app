@@ -46,31 +46,28 @@ class AuthorizationViewModel(
             }
 
             is AuthorizationIntent.PhoneNumberChange -> {
-                viewModelScope.launch {
-                    val isValidPhoneNumber = validatePhoneNumber(intent.value)
-                    authorizationState.update {
-                        it.copy(
-                            phoneNumber = intent.value,
-                            phoneNumberError = !isValidPhoneNumber
-                        )
-                    }
+                val isValidPhoneNumber = validatePhoneNumber(intent.value)
+                authorizationState.update {
+                    it.copy(
+                        phoneNumber = intent.value,
+                        phoneNumberError = !isValidPhoneNumber
+                    )
                 }
             }
 
             is AuthorizationIntent.PasswordChange -> {
-                viewModelScope.launch {
-                    val isValidPassword = validatePassword(intent.value)
-                    authorizationState.update {
-                        it.copy(
-                            password = intent.value,
-                            passwordError = !isValidPassword
-                        )
-                    }
+                val isValidPassword = validatePassword(intent.value)
+                authorizationState.update {
+                    it.copy(
+                        password = intent.value,
+                        passwordError = !isValidPassword
+                    )
                 }
             }
 
             AuthorizationIntent.AskPermission -> {
                 viewModelScope.launch {
+                    authorizationEffect.emit(AuthorizationEffect.ShowLoadingDialog)
                     with(authorizationState.value) {
                         dataStoreStorage.editPassword(password = password)
                     }
@@ -95,16 +92,18 @@ class AuthorizationViewModel(
     }
 
     private suspend fun getFrom() {
-        val user: User = supabaseStorage.getUser(
+        val user = supabaseStorage.getUser(
             password = authorizationState.value.password,
             phone = authorizationState.value.phoneNumber
         )
 
-        if (user == User.empty()) {
-            authorizationEffect.emit(AuthorizationEffect.AuthError)
-        } else {
+        if (user != User.empty()) {
+            authorizationEffect.emit(AuthorizationEffect.DismissLoadingDialog)
             authorizationEffect.emit(AuthorizationEffect.AskPermission)
             dataStoreStorage.edit(user = user)
+        } else {
+            authorizationEffect.emit(AuthorizationEffect.DismissLoadingDialog)
+            authorizationEffect.emit(AuthorizationEffect.AuthError)
         }
     }
 }

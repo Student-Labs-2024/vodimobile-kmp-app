@@ -68,6 +68,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.block.AgreementBlock
@@ -140,6 +141,13 @@ fun AuthorizationScreen(
                             message = App.INSTANCE.resources.getString(R.string.auth_2_user_supabase_error),
                             duration = SnackbarDuration.Short
                         )
+                }
+
+                AuthorizationEffect.DismissLoadingDialog -> {
+                    navHostController.navigateUp()
+                }
+                AuthorizationEffect.ShowLoadingDialog -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
                 }
             }
         }

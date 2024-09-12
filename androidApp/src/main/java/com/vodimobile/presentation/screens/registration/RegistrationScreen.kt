@@ -68,6 +68,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.block.AgreementBlock
@@ -145,6 +146,13 @@ fun RegistrationScreen(
                             message = App.INSTANCE.resources.getString(R.string.user_phone_not_unique),
                             duration = SnackbarDuration.Short
                         )
+                }
+
+                RegistrationEffect.DismissLoadingDialog -> {
+                    navHostController.navigateUp()
+                }
+                RegistrationEffect.ShowLoadingDialog -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
                 }
             }
         }

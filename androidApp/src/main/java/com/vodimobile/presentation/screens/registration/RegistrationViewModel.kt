@@ -15,11 +15,13 @@ import com.vodimobile.presentation.utils.validator.NameValidator
 import com.vodimobile.presentation.utils.validator.PasswordValidator
 import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import io.ktor.http.HttpStatusCode
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RegistrationViewModel(
     private val phoneNumberValidator: PhoneNumberValidator,
@@ -32,7 +34,7 @@ class RegistrationViewModel(
 
     val registrationState = MutableStateFlow(RegistrationState())
     val registrationEffect = MutableSharedFlow<RegistrationEffect>()
-    private val supervisorCoroutineContext = viewModelScope.coroutineContext + SupervisorJob()
+    private val supervisorIOCoroutineContext = Dispatchers.IO + SupervisorJob()
 
     fun onIntent(intent: RegistrationIntent) {
         when (intent) {
@@ -67,31 +69,30 @@ class RegistrationViewModel(
             }
 
             is RegistrationIntent.PhoneNumberChange -> {
-                viewModelScope.launch {
-                    val isValidPhoneNumber = validatePhoneNumber(intent.value)
-                    registrationState.update {
-                        it.copy(
-                            phoneNumber = intent.value,
-                            phoneNumberError = !isValidPhoneNumber
-                        )
-                    }
+                val isValidPhoneNumber = validatePhoneNumber(intent.value)
+                registrationState.update {
+                    it.copy(
+                        phoneNumber = intent.value,
+                        phoneNumberError = !isValidPhoneNumber
+                    )
                 }
             }
 
             is RegistrationIntent.PasswordChange -> {
-                viewModelScope.launch {
-                    val isValidPassword = validatePassword(intent.value)
-                    registrationState.update {
-                        it.copy(
-                            password = intent.value,
-                            passwordError = !isValidPassword
-                        )
-                    }
+                val isValidPassword = validatePassword(intent.value)
+                registrationState.update {
+                    it.copy(
+                        password = intent.value,
+                        passwordError = !isValidPassword
+                    )
                 }
             }
 
             RegistrationIntent.AskPermission -> {
-                viewModelScope.launch(context = supervisorCoroutineContext) {
+                viewModelScope.launch(context = supervisorIOCoroutineContext) {
+                    withContext(context = viewModelScope.coroutineContext) {
+                        registrationEffect.emit(RegistrationEffect.ShowLoadingDialog)
+                    }
 
                     try {
                         val crmEither: CrmEither<UserResponse, HttpStatusCode> =
@@ -103,7 +104,10 @@ class RegistrationViewModel(
                                     saveInRemote(accessToken, refreshToken)
                                     saveInLocal()
                                 }
-                                registrationEffect.emit(RegistrationEffect.AskPermission)
+                                withContext(context = viewModelScope.coroutineContext) {
+                                    registrationEffect.emit(RegistrationEffect.DismissLoadingDialog)
+                                    registrationEffect.emit(RegistrationEffect.AskPermission)
+                                }
                             }
 
                             is CrmEither.CrmError -> {
@@ -157,7 +161,9 @@ class RegistrationViewModel(
                     )
                 )
             } catch (e: Exception) {
-                registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
+                withContext(context = viewModelScope.coroutineContext) {
+                    registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
+                }
             }
         }
     }
