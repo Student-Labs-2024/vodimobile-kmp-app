@@ -2,6 +2,7 @@ package com.vodimobile.domain.client
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.json
@@ -18,4 +19,5 @@ internal fun provideKtorClient() = HttpClient(CIO) {
         level = LogLevel.ALL
         logger = Logger.DEFAULT
     }
+    install(HttpCache)
 }
