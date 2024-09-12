@@ -16,7 +16,9 @@ import com.vodimobile.presentation.utils.validator.PasswordValidator
 import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,6 +37,7 @@ class RegistrationViewModel(
     val registrationState = MutableStateFlow(RegistrationState())
     val registrationEffect = MutableSharedFlow<RegistrationEffect>()
     private val supervisorIOCoroutineContext = Dispatchers.IO + SupervisorJob()
+    private var authJob: Job = Job()
 
     fun onIntent(intent: RegistrationIntent) {
         when (intent) {
@@ -123,6 +126,11 @@ class RegistrationViewModel(
                         registrationEffect.emit(RegistrationEffect.NotUniquePhone)
                     }
                 }
+            }
+
+            RegistrationIntent.DismissAllCoroutines -> {
+                authJob.cancel()
+                viewModelScope.cancel()
             }
         }
     }
