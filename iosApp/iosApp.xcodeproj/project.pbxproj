@@ -129,7 +129,6 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* SignSuggestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignSuggestView.swift; sourceTree = "<group>"; };
-		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931FDDA52C46F8BF007954FC /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		931FDDB02C46FA6D007954FC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		931FDDB22C46FA8A007954FC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -189,6 +188,7 @@
 		935EE3002C4E28FD0039A2DC /* InternetConnectErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectErrorView.swift; sourceTree = "<group>"; };
 		935EE3022C4E2E6B0039A2DC /* NetworkErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		935F02992C5A8809003DA751 /* ResetPasswordPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPhoneView.swift; sourceTree = "<group>"; };
+		936013D92C9866BA00B8F4FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		936045B32C5C07E6002D0507 /* NetworkMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitorManager.swift; sourceTree = "<group>"; };
 		93604F9D2C711285009952C0 /* CarGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarGridItemView.swift; sourceTree = "<group>"; };
 		93604F9F2C711453009952C0 /* BidStatusTextVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidStatusTextVIew.swift; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 			children = (
 				931FDDA52C46F8BF007954FC /* R.generated.swift */,
 				93654DF12C3EC5D5001CFB7D /* terms_and_conditions.txt */,
-				7555FF8C242A565B00829871 /* Info.plist */,
+				936013D92C9866BA00B8F4FA /* Info.plist */,
 				934D5DF92C3D3FA30070904B /* AppTheme.swift */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				934D5DF22C3D3D8B0070904B /* Font */,
@@ -967,6 +967,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Vodimobile;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1005,6 +1006,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Vodimobile;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
