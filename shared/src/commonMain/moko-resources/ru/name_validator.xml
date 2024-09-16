@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="name_is_empty">ФИО не должен быть пустым</string>
+    <string name="name_contains_signs">В ФИО не должно быть символов</string>
+</resources>
