@@ -57,7 +57,7 @@ class GeneralViewModel(
                 }
             }
 
-            is GeneralIntent.NoAuth -> {7
+            is GeneralIntent.NoAuth -> {
                 generalState.update {
                     it.copy(noAuth = false)
                 }
