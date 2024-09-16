@@ -104,48 +104,68 @@ class RegistrationViewModel(
                         registrationEffect.emit(RegistrationEffect.ShowLoadingDialog)
                     }
 
-                viewModelScope.launch(context = supervisorCoroutineContext) {
-                    try {
-                        val crmEither: CrmEither<UserResponse, HttpStatusCode> =
-                            crmStorage.authUser()
+                    viewModelScope.launch(context = supervisorIOCoroutineContext) {
+                        val hasUserWithPhone: Boolean =
+                            supabaseStorage.hasUserWithPhone(phone = registrationState.value.phoneNumber)
 
-                        when (crmEither) {
-                            is CrmEither.CrmData -> {
-                                with(crmEither.data) {
-                                    with(registrationState.value) {
-                                        val user = User(
-                                            id = 0,
-                                            fullName = name,
-                                            password = password,
-                                            accessToken = accessToken,
-                                            refreshToken = refreshToken,
-                                            phone = phoneNumber,
-                                        )
+                        if (!hasUserWithPhone) {
+                            try {
+                                val crmEither: CrmEither<UserResponse, HttpStatusCode> =
+                                    crmStorage.authUser()
 
-                                        saveInRemote(user = user)
+                                when (crmEither) {
+                                    is CrmEither.CrmData -> {
+                                        with(crmEither.data) {
+                                            with(registrationState.value) {
+                                                val user = User(
+                                                    id = 0,
+                                                    fullName = name,
+                                                    password = password,
+                                                    accessToken = accessToken,
+                                                    refreshToken = refreshToken,
+                                                    phone = phoneNumber,
+                                                )
+
+                                                saveInRemote(
+                                                    user = user,
+                                                    accessToken = accessToken,
+                                                    refreshToken = refreshToken
+                                                )
+                                            }
+                                        }
+                                        withContext(context = viewModelScope.coroutineContext) {
+                                            registrationEffect.emit(RegistrationEffect.DismissLoadingDialog)
+                                            registrationEffect.emit(RegistrationEffect.AskPermission)
+                                        }
+                                    }
+
+                                    is CrmEither.CrmError -> {
+                                        withContext(context = viewModelScope.coroutineContext) {
+                                            registrationEffect.emit(RegistrationEffect.DismissLoadingDialog)
+                                            registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
+                                        }
+                                    }
+
+                                    CrmEither.CrmLoading -> {
+
                                     }
                                 }
+
+                            } catch (e: Exception) {
                                 withContext(context = viewModelScope.coroutineContext) {
                                     registrationEffect.emit(RegistrationEffect.DismissLoadingDialog)
-                                    registrationEffect.emit(RegistrationEffect.AskPermission)
+                                    registrationEffect.emit(RegistrationEffect.NotUniquePhone)
                                 }
                             }
-
-                            is CrmEither.CrmError -> {
+                        } else {
+                            withContext(context = viewModelScope.coroutineContext) {
+                                registrationEffect.emit(RegistrationEffect.DismissLoadingDialog)
                                 registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
                             }
-
-                            CrmEither.CrmLoading -> {
-
-                            }
                         }
-
-                    } catch (e: Exception) {
-                        registrationEffect.emit(RegistrationEffect.NotUniquePhone)
                     }
                 }
             }
-                }
 
             RegistrationIntent.DismissAllCoroutines -> {
                 authJob.cancel()
@@ -175,7 +195,7 @@ class RegistrationViewModel(
         dataStoreStorage.edit(user = userFromRemote)
     }
 
-    private suspend inline fun saveInRemote(user: User, accessToken: String, refreshToken: String) {
+    private suspend fun saveInRemote(user: User, accessToken: String, refreshToken: String) {
         with(registrationState.value) {
             try {
                 val hashedPassword = hashRepository.hash(text = user.password).decodeToString()
@@ -184,7 +204,7 @@ class RegistrationViewModel(
                     user = User(
                         id = 0,
                         fullName = name,
-                        password = password,
+                        password = hashedPassword,
                         accessToken = accessToken,
                         refreshToken = refreshToken,
                         phone = phoneNumber
