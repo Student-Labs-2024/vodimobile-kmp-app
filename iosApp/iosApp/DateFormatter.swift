@@ -89,4 +89,38 @@ final class CustomDateFormatter {
 
         return dateFormatter.string(from: Date.now)
     }
+
+    func transformDateToShortString(date: Date?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+
+        guard let date = date else { return dateFormatter.string(from: Date.now) }
+
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+
+        if let combinedDate = calendar.date(from: dateComponents) {
+            return dateFormatter.string(from: combinedDate)
+        }
+
+        return dateFormatter.string(from: Date.now)
+    }
+
+    func transformDateToTimeString(time: Date?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        guard let time = time else { return dateFormatter.string(from: Date.now) }
+        let calendar = Calendar.current
+        let timeComponents = calendar.dateComponents([.hour, .minute], from: time)
+
+        var combinedComponents = DateComponents()
+        combinedComponents.hour = timeComponents.hour
+        combinedComponents.minute = timeComponents.minute
+
+        if let combinedDate = calendar.date(from: combinedComponents) {
+            return dateFormatter.string(from: combinedDate)
+        }
+
+        return dateFormatter.string(from: Date.now)
+    }
 }
