@@ -34,6 +34,7 @@ import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.hash.HashRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -277,7 +278,8 @@ private fun AuthorizationScreenPreviewDark() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                     hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
-                )
+                ),
+                hashRepository = HashRepositoryImpl()
             )
             AuthorizationScreen(
                 onAuthorizationIntent = authorizationViewModel::onIntent,
@@ -361,7 +363,8 @@ private fun AuthorizationScreenPreviewLight() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                     hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
-                )
+                ),
+                hashRepository = HashRepositoryImpl()
             )
             AuthorizationScreen(
                 onAuthorizationIntent = authorizationViewModel::onIntent,

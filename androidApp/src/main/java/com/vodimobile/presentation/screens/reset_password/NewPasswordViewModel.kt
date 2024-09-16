@@ -2,6 +2,7 @@ package com.vodimobile.presentation.screens.reset_password
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.reset_password.store.NewPasswordEffect
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 class NewPasswordViewModel(
     private val passwordValidator: PasswordValidator,
     private val dataStoreStorage: UserDataStoreStorage,
-    private val supabaseStorage: SupabaseStorage
+    private val supabaseStorage: SupabaseStorage,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val newPasswordState = MutableStateFlow(NewPasswordState())
@@ -44,13 +46,17 @@ class NewPasswordViewModel(
 
             NewPasswordIntent.SaveData -> {
                 viewModelScope.launch {
-                    with(newPasswordState.value) {
-                        dataStoreStorage.getUser().collect {
-                            val remoteUser = supabaseStorage.getUser(password = it.password, phone = it.phone)
-                            supabaseStorage.updatePassword(userId = remoteUser.id, password = newPasswordState.value.password)
-                            dataStoreStorage.editPassword(password = newPasswordState.value.password)
-                            newPasswordEffect.emit(NewPasswordEffect.SaveData)
-                        }
+                    dataStoreStorage.getUser().collect {
+                        val remoteUser = supabaseStorage.getUser(
+                            password = hashRepository.hash(text = it.password).decodeToString(),
+                            phone = it.phone
+                        )
+                        supabaseStorage.updatePassword(
+                            userId = remoteUser.id,
+                            password = hashRepository.hash(text = newPasswordState.value.password).decodeToString()
+                        )
+                        dataStoreStorage.editPassword(password = newPasswordState.value.password)
+                        newPasswordEffect.emit(NewPasswordEffect.SaveData)
                     }
                 }
             }
