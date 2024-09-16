@@ -83,17 +83,30 @@ final class MakeReservationViewModel: ObservableObject {
         if let storageUser = apiManager.dataStorage.gettingUser,
            let startPlace = startPlace,
            let endPlace = endPlace {
+            let beginDateTime = DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: startTime)
+            let endDateTime = DateFormatter.transformDateToString(date: dateRange?.upperBound, time: endTime)
+
             createdBid = await apiManager.createBidToReserving(for: BidCreateParams(
                 fio: storageUser.fullName,
                 phone: storageUser.phone,
                 car_id: car.carId,
-                begin: DateFormatter.transformDateToString(date: dateRange?.lowerBound, time: startTime),
-                end: DateFormatter.transformDateToString(date: dateRange?.upperBound, time: endTime),
+                begin: beginDateTime,
+                end: endDateTime,
                 begin_place_id: startPlace.id,
                 end_place_id: endPlace.id,
                 services: selectedServices.map({ KotlinInt(value: $0.service_id) }),
                 prepayment: nil,
                 files: nil
+            ),
+            inputDate: ReservationInputData(
+                startDate: DateFormatter.transformDateToShortString(date: dateRange?.lowerBound),
+                endDate: DateFormatter.transformDateToShortString(date: dateRange?.upperBound),
+                startTime: DateFormatter.transformDateToTimeString(time: startTime),
+                endTime: DateFormatter.transformDateToTimeString(time: endTime),
+                startPlace: startPlace.title,
+                endPlace: endPlace.title,
+                cost: Float(bidCost),
+                services: selectedServices.map({ $0.service_id.description }).joined(separator: ", ")
             )
             )
         }
@@ -157,14 +170,16 @@ final class MakeReservationViewModel: ObservableObject {
                 placesWithCost.append(
                     PlaceShort(
                         id: place.placeId,
-                        nameWithCost: "\(place.title) - \(Int(place.deliveryCost)) \(R.string.localizable.currencyPriceText())"
+                        nameWithCost: "\(place.title) - \(Int(place.deliveryCost)) \(R.string.localizable.currencyPriceText())",
+                        title: place.title
                     )
                 )
             } else if place.deliveryCost == 0 {
                 placesWithCost.append(
                     PlaceShort(
                         id: place.placeId,
-                        nameWithCost: "\(place.title) - \(R.string.localizable.freeText().lowercased())"
+                        nameWithCost: "\(place.title) - \(R.string.localizable.freeText().lowercased())",
+                        title: place.title
                     )
                 )
             } else {
@@ -193,4 +208,16 @@ final class MakeReservationViewModel: ObservableObject {
 struct PlaceShort: Identifiable {
     let id: Int32
     let nameWithCost: String
+    let title: String
+}
+
+struct ReservationInputData {
+    let startDate: String
+    let endDate: String
+    let startTime: String
+    let endTime: String
+    let startPlace: String
+    let endPlace: String
+    let cost: Float
+    let services: String
 }
