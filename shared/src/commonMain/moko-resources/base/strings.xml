@@ -69,4 +69,12 @@
     <string name="completed_order">Завершено</string>
     <string name="cancelled_order">Отменено</string>
     <string name="accepted_as_reserve">Создана бронь</string>
+
+    <string name="name_is_empty">ФИО не должен быть пустым</string>
+    <string name="name_contains_signs">В ФИО не должно быть символов</string>
+
+    <string name="password_is_empty">Пароль не должен быть пустым</string>
+    <string name="password_must_contain_signs">Пароль должен содержать специальные символы</string>
+    <string name="password_must_contain_upper_case">Пароль должен содержать заглавные буквы</string>
+    <string name="password_must_be_longer">Пароль должен содержать заглавные буквы</string>
 </resources>
