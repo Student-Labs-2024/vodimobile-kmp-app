@@ -1,10 +1,12 @@
 package com.vodimobile.presentation.screens.registration
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.user_auth.UserResponse
 import com.vodimobile.domain.model.remote.either.CrmEither
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -31,7 +33,8 @@ class RegistrationViewModel(
     private val nameValidator: NameValidator,
     private val dataStoreStorage: UserDataStoreStorage,
     private val crmStorage: CrmStorage,
-    private val supabaseStorage: SupabaseStorage
+    private val supabaseStorage: SupabaseStorage,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val registrationState = MutableStateFlow(RegistrationState())
@@ -72,22 +75,26 @@ class RegistrationViewModel(
             }
 
             is RegistrationIntent.PhoneNumberChange -> {
-                val isValidPhoneNumber = validatePhoneNumber(intent.value)
-                registrationState.update {
-                    it.copy(
-                        phoneNumber = intent.value,
-                        phoneNumberError = !isValidPhoneNumber
-                    )
+                viewModelScope.launch {
+                    val isValidPhoneNumber = validatePhoneNumber(intent.value)
+                    registrationState.update {
+                        it.copy(
+                            phoneNumber = intent.value,
+                            phoneNumberError = !isValidPhoneNumber
+                        )
+                    }
                 }
             }
 
             is RegistrationIntent.PasswordChange -> {
-                val isValidPassword = validatePassword(intent.value)
-                registrationState.update {
-                    it.copy(
-                        password = intent.value,
-                        passwordError = !isValidPassword
-                    )
+                viewModelScope.launch {
+                    val isValidPassword = validatePassword(intent.value)
+                    registrationState.update {
+                        it.copy(
+                            password = intent.value,
+                            passwordError = !isValidPassword
+                        )
+                    }
                 }
             }
 
@@ -97,6 +104,7 @@ class RegistrationViewModel(
                         registrationEffect.emit(RegistrationEffect.ShowLoadingDialog)
                     }
 
+                viewModelScope.launch(context = supervisorCoroutineContext) {
                     try {
                         val crmEither: CrmEither<UserResponse, HttpStatusCode> =
                             crmStorage.authUser()
@@ -104,8 +112,18 @@ class RegistrationViewModel(
                         when (crmEither) {
                             is CrmEither.CrmData -> {
                                 with(crmEither.data) {
-                                    saveInRemote(accessToken, refreshToken)
-                                    saveInLocal()
+                                    with(registrationState.value) {
+                                        val user = User(
+                                            id = 0,
+                                            fullName = name,
+                                            password = password,
+                                            accessToken = accessToken,
+                                            refreshToken = refreshToken,
+                                            phone = phoneNumber,
+                                        )
+
+                                        saveInRemote(user = user)
+                                    }
                                 }
                                 withContext(context = viewModelScope.coroutineContext) {
                                     registrationEffect.emit(RegistrationEffect.DismissLoadingDialog)
@@ -127,6 +145,7 @@ class RegistrationViewModel(
                     }
                 }
             }
+                }
 
             RegistrationIntent.DismissAllCoroutines -> {
                 authJob.cancel()
@@ -147,17 +166,20 @@ class RegistrationViewModel(
         return passwordValidator.isValidPassword(password)
     }
 
-    private suspend inline fun saveInLocal() {
-        val user: User = supabaseStorage.getUser(
-            password = registrationState.value.password,
-            phone = registrationState.value.phoneNumber
+    private suspend inline fun saveInLocal(user: User) {
+        val userFromRemote: User = supabaseStorage.getUser(
+            password = hashRepository.hash(text = user.password).decodeToString(),
+            phone = user.phone
         )
-        dataStoreStorage.edit(user = user)
+        Log.d("TAG", userFromRemote.toString())
+        dataStoreStorage.edit(user = userFromRemote)
     }
 
-    private suspend inline fun saveInRemote(accessToken: String, refreshToken: String) {
+    private suspend inline fun saveInRemote(user: User, accessToken: String, refreshToken: String) {
         with(registrationState.value) {
             try {
+                val hashedPassword = hashRepository.hash(text = user.password).decodeToString()
+
                 supabaseStorage.insertUser(
                     user = User(
                         id = 0,
@@ -168,10 +190,9 @@ class RegistrationViewModel(
                         phone = phoneNumber
                     )
                 )
+                saveInLocal(user = user)
             } catch (e: Exception) {
-                withContext(context = viewModelScope.coroutineContext) {
-                    registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
-                }
+                registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
             }
         }
     }

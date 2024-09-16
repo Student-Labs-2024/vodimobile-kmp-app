@@ -39,11 +39,15 @@ class KoinHelper : KoinComponent {
     val supabaseStorage by inject<SupabaseStorage>()
     private val hashRepository by inject<HashRepository>()
 
-    suspend fun helpGetUser(password: String, phone: String) : UserDTO {
-        val usersDto = provideSupabaseClient().from(SupabaseTables.USER_TABLE).select().decodeList<UserDTO>()
-        val userDTO: UserDTO =
-            usersDto.find { it.password == password && it.phone == phone } ?: UserDTO.empty()
-        return userDTO
+    private suspend fun userWithHashedPass(user: User): User {
+        return User(
+            id = user.id,
+            fullName = user.fullName,
+            password = hash(user.password).decodeToString(),
+            accessToken = user.accessToken,
+            refreshToken = user.refreshToken,
+            phone = user.phone
+        )
     }
 
     fun getPopularCars(): List<Car> = carsStorage.getPopularCars()
@@ -103,13 +107,13 @@ class KoinHelper : KoinComponent {
         begin = begin, end = end
     )
 
-
-    suspend fun getUser(password: String, phone: String) = supabaseStorage.getUser(password, phone)
+    suspend fun getUser(password: String, phone: String) =
+        supabaseStorage.getUser(hash(password).decodeToString(), phone)
     suspend fun hasUserWithPhone(phone: String) = supabaseStorage.hasUserWithPhone(phone)
-    suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = user)
+    suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = userWithHashedPass(user))
     suspend fun updatePhone(userId: Int, phone: String) = supabaseStorage.updatePhone(userId, phone)
     suspend fun updatePassword(userId: Int, password: String) =
-        supabaseStorage.updatePassword(userId, password)
+        supabaseStorage.updatePassword(userId, hash(password).toString())
 
     suspend fun updateFullName(userId: Int, fullName: String) =
         supabaseStorage.updateFullName(userId, fullName)

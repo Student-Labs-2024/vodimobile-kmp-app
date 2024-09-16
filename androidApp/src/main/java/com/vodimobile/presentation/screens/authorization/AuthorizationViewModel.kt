@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.authorization
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationEffect
@@ -24,7 +25,8 @@ class AuthorizationViewModel(
     private val phoneNumberValidator: PhoneNumberValidator,
     private val passwordValidator: PasswordValidator,
     private val dataStoreStorage: UserDataStoreStorage,
-    private val supabaseStorage: SupabaseStorage
+    private val supabaseStorage: SupabaseStorage,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val authorizationState = MutableStateFlow(AuthorizationState())
@@ -53,22 +55,26 @@ class AuthorizationViewModel(
             }
 
             is AuthorizationIntent.PhoneNumberChange -> {
-                val isValidPhoneNumber = validatePhoneNumber(intent.value)
-                authorizationState.update {
-                    it.copy(
-                        phoneNumber = intent.value,
-                        phoneNumberError = !isValidPhoneNumber
-                    )
+                viewModelScope.launch {
+                    val isValidPhoneNumber = validatePhoneNumber(intent.value)
+                    authorizationState.update {
+                        it.copy(
+                            phoneNumber = intent.value,
+                            phoneNumberError = !isValidPhoneNumber
+                        )
+                    }
                 }
             }
 
             is AuthorizationIntent.PasswordChange -> {
-                val isValidPassword = validatePassword(intent.value)
-                authorizationState.update {
-                    it.copy(
-                        password = intent.value,
-                        passwordError = !isValidPassword
-                    )
+                viewModelScope.launch {
+                    val isValidPassword = validatePassword(intent.value)
+                    authorizationState.update {
+                        it.copy(
+                            password = intent.value,
+                            passwordError = !isValidPassword
+                        )
+                    }
                 }
             }
 
@@ -106,8 +112,11 @@ class AuthorizationViewModel(
     }
 
     private suspend fun getFrom() {
-        val user = supabaseStorage.getUser(
-            password = authorizationState.value.password,
+
+        val hashPassword = hashRepository.hash(text = authorizationState.value.password)
+
+        val user: User = supabaseStorage.getUser(
+            password = hashPassword.decodeToString(),
             phone = authorizationState.value.phoneNumber
         )
 
@@ -116,7 +125,7 @@ class AuthorizationViewModel(
                 authorizationEffect.emit(AuthorizationEffect.DismissLoadingDialog)
                 authorizationEffect.emit(AuthorizationEffect.AskPermission)
             }
-            dataStoreStorage.edit(user = user)
+            dataStoreStorage.edit(user = user.copy(password = authorizationState.value.password))
         } else {
             withContext(context = viewModelScope.coroutineContext) {
                 authorizationEffect.emit(AuthorizationEffect.DismissLoadingDialog)

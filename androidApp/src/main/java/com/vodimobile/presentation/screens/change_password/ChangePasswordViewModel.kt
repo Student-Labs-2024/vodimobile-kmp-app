@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.change_password
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
 import com.vodimobile.presentation.screens.change_password.store.ChangePasswordEffect
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 class ChangePasswordViewModel(
     private val passwordValidator: PasswordValidator,
     private val supabaseStorage: SupabaseStorage,
-    private val dataStoreStorage: UserDataStoreStorage
+    private val dataStoreStorage: UserDataStoreStorage,
+    private val hashRepository: HashRepository
 ) : ViewModel() {
 
     val oldPasswordState = MutableStateFlow(PasswordState())
@@ -32,10 +34,13 @@ class ChangePasswordViewModel(
                 viewModelScope.launch {
                     val userFlow: Flow<User> = dataStoreStorage.getUser()
                     userFlow.collect {
-                        val user = supabaseStorage.getUser(password = it.password, phone = it.phone)
+                        val user = supabaseStorage.getUser(
+                            password = hashRepository.hash(text = it.password).decodeToString(),
+                            phone = it.phone
+                        )
                         supabaseStorage.updatePassword(
                             userId = user.id,
-                            password = newPasswordState.value.password
+                            password = hashRepository.hash(text = newPasswordState.value.password).decodeToString()
                         )
                         changePasswordEffect.emit(ChangePasswordEffect.SaveChanges)
                     }

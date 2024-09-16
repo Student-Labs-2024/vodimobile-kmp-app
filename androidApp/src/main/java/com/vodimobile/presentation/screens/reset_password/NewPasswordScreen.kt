@@ -25,7 +25,9 @@ import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.hash.HashRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
@@ -211,7 +213,8 @@ private fun NewPasswordScreenPreviewLight() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                     hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
-                )
+                ),
+                hashRepository = HashRepositoryImpl()
             )
             NewPasswordScreen(
                 onNewPasswordIntent = newPasswordViewModel::onIntent,
@@ -290,6 +293,7 @@ private fun NewPasswordScreenPreviewDark() {
                     updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                     hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
                 ),
+                hashRepository = HashRepositoryImpl()
             )
             NewPasswordScreen(
                 onNewPasswordIntent = newPasswordViewModel::onIntent,
