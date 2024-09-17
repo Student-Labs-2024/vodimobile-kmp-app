@@ -22,6 +22,8 @@ object SmallProgressDialog {
 
 object Anim{
     const val fastAnimDuration = 200
+    const val SLOW_SCREEN_ANIM = 1000
+    const val MEDIUM_SCREEN_ANIM = 700
 }
 
 object DateFormat {
