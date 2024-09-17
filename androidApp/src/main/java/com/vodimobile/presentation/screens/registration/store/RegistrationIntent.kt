@@ -8,4 +8,5 @@ sealed class RegistrationIntent {
     data class PhoneNumberChange(val value: String) : RegistrationIntent()
     data class PasswordChange(val value: String): RegistrationIntent()
     data object AskPermission : RegistrationIntent()
+    data object DismissAllCoroutines : RegistrationIntent()
 }

@@ -17,6 +17,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -69,6 +70,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.block.AgreementBlock
@@ -147,7 +149,20 @@ fun RegistrationScreen(
                             duration = SnackbarDuration.Short
                         )
                 }
+
+                RegistrationEffect.DismissLoadingDialog -> {
+                    navHostController.navigateUp()
+                }
+                RegistrationEffect.ShowLoadingDialog -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
+                }
             }
+        }
+    }
+
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            onRegistrationIntent(RegistrationIntent.DismissAllCoroutines)
         }
     }
 

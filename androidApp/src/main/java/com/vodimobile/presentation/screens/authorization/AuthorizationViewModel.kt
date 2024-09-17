@@ -11,10 +11,15 @@ import com.vodimobile.presentation.screens.authorization.store.AuthorizationInte
 import com.vodimobile.presentation.screens.authorization.store.AuthorizationState
 import com.vodimobile.presentation.utils.validator.PasswordValidator
 import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AuthorizationViewModel(
     private val phoneNumberValidator: PhoneNumberValidator,
@@ -26,6 +31,8 @@ class AuthorizationViewModel(
 
     val authorizationState = MutableStateFlow(AuthorizationState())
     val authorizationEffect = MutableSharedFlow<AuthorizationEffect>()
+    private val supervisorIOCoroutineContext = Dispatchers.IO + SupervisorJob()
+    private var getFromJob: Job = Job()
 
     fun onIntent(intent: AuthorizationIntent) {
         when (intent) {
@@ -72,7 +79,10 @@ class AuthorizationViewModel(
             }
 
             AuthorizationIntent.AskPermission -> {
-                viewModelScope.launch {
+                getFromJob = viewModelScope.launch(supervisorIOCoroutineContext) {
+                    withContext(context = viewModelScope.coroutineContext) {
+                        authorizationEffect.emit(AuthorizationEffect.ShowLoadingDialog)
+                    }
                     with(authorizationState.value) {
                         dataStoreStorage.editPassword(password = password)
                     }
@@ -84,6 +94,11 @@ class AuthorizationViewModel(
                 viewModelScope.launch {
                     authorizationEffect.emit(AuthorizationEffect.RememberPassword)
                 }
+            }
+
+            AuthorizationIntent.DismissAllCoroutines -> {
+                getFromJob.cancel()
+                viewModelScope.cancel()
             }
         }
     }
@@ -105,11 +120,17 @@ class AuthorizationViewModel(
             phone = authorizationState.value.phoneNumber
         )
 
-        if (user == User.empty()) {
-            authorizationEffect.emit(AuthorizationEffect.AuthError)
-        } else {
-            authorizationEffect.emit(AuthorizationEffect.AskPermission)
+        if (user != User.empty()) {
+            withContext(context = viewModelScope.coroutineContext) {
+                authorizationEffect.emit(AuthorizationEffect.DismissLoadingDialog)
+                authorizationEffect.emit(AuthorizationEffect.AskPermission)
+            }
             dataStoreStorage.edit(user = user.copy(password = authorizationState.value.password))
+        } else {
+            withContext(context = viewModelScope.coroutineContext) {
+                authorizationEffect.emit(AuthorizationEffect.DismissLoadingDialog)
+                authorizationEffect.emit(AuthorizationEffect.AuthError)
+            }
         }
     }
 }
