@@ -99,18 +99,17 @@ class AuthorizationViewModel(
     private suspend fun getFrom() {
 
         val hashPassword = hashRepository.hash(text = authorizationState.value.password)
-        val dPhone = hashRepository.decrypt(key = )
 
         val user: User = supabaseStorage.getUser(
             password = hashPassword.decodeToString(),
-            phone = dPhone
+            phone = authorizationState.value.phoneNumber
         )
 
         if (user == User.empty()) {
             authorizationEffect.emit(AuthorizationEffect.AuthError)
         } else {
             authorizationEffect.emit(AuthorizationEffect.AskPermission)
-            dataStoreStorage.edit(user = user.copy(password = authorizationState.value.password))
+            dataStoreStorage.edit(user = user.copy(password = hashPassword.decodeToString()))
         }
     }
 }

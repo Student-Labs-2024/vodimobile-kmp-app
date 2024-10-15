@@ -23,7 +23,7 @@ actual class Cryptography {
         val keyData = NSData(key, key.size)
         val plainTextData = plainText.encodeToByteArray()
         val cipherTextData = encryptData(keyData, plainTextData)
-        return cipherTextData.toByteArray()
+        return cipherTextData.toByteArray().toHexString()
     }
 
     actual fun decrypt(key: ByteArray, cipherText: ByteArray): String {

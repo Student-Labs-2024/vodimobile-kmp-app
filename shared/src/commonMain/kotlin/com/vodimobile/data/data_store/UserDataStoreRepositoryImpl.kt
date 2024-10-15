@@ -4,11 +4,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.vodimobile.domain.repository.data_store.UserDataStoreRepository
 import com.vodimobile.domain.model.User
-import com.vodimobile.shared.buildkonfig.SharedBuildkonfig
 import com.vodimobile.utils.data_store.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -31,7 +29,6 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = user.password
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] = user.phone
-            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_AES_KEY)] = user.key
         }
     }
 
@@ -43,7 +40,6 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             val password =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: ""
             val phone = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: ""
-            val key = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_AES_KEY)] ?: ""
 
             return@map User(
                 id = id,

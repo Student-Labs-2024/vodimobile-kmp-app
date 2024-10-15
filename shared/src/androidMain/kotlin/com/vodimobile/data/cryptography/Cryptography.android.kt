@@ -1,6 +1,7 @@
 package com.vodimobile.data.cryptography
 
 import android.annotation.SuppressLint
+import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
@@ -10,9 +11,10 @@ actual class Cryptography {
     actual val algorithm: String = "AES"
 
     actual fun generateKey(): ByteArray {
-        val keyGenerator = javax.crypto.KeyGenerator.getInstance(algorithm)
-        keyGenerator.init(128)
-        return keyGenerator.generateKey().encoded
+        val random = SecureRandom()
+        val keyBytes = ByteArray(16)
+        random.nextBytes(keyBytes)
+        return keyBytes
     }
 
     // Шифрование
@@ -21,7 +23,8 @@ actual class Cryptography {
         val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
         val secretKey = SecretKeySpec(key, algorithm)
         cipher.init(Cipher.ENCRYPT_MODE, secretKey)
-        return cipher.doFinal(plainText.toByteArray())
+        val encryptedBytes = cipher.doFinal(plainText.toByteArray())
+        return encryptedBytes
     }
 
     // Дешифрование
@@ -30,6 +33,7 @@ actual class Cryptography {
         val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
         val secretKey = SecretKeySpec(key, algorithm)
         cipher.init(Cipher.DECRYPT_MODE, secretKey)
-        return String(cipher.doFinal(cipherText))
+        val decodedBytes = cipher.doFinal(cipherText)
+        return String(decodedBytes, Charsets.UTF_8)
     }
 }

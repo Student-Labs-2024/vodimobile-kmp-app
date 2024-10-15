@@ -1,7 +1,5 @@
 package com.vodimobile.di
 
-import com.vodimobile.data.repository.supabase.SupabaseTables
-import com.vodimobile.domain.client.provideSupabaseClient
 import com.vodimobile.domain.model.Car
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.model.remote.dto.bid_cost.BidCostParams
@@ -9,13 +7,11 @@ import com.vodimobile.domain.model.remote.dto.car_free_list.CarFreeListParamsDTO
 import com.vodimobile.domain.model.remote.dto.create_bid.BidCreateParams
 import com.vodimobile.domain.model.remote.dto.refresh_token.RefreshTokenRequest
 import com.vodimobile.domain.model.supabase.OrderDTO
-import com.vodimobile.domain.model.supabase.UserDTO
 import com.vodimobile.domain.repository.crm.CrmRepository
 import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.cars.CarsStorage
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.supabase.SupabaseStorage
-import io.github.jan.supabase.postgrest.from
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -156,6 +152,6 @@ class KoinHelper : KoinComponent {
 
     suspend fun hash(text: String) = hashRepository.hash(text = text)
     suspend fun verify(text: String, byteArray: ByteArray) = hashRepository.verify(text, byteArray)
-    suspend fun encrypt(text: String) = hashRepository.encrypt(text = text)
-    suspend fun decrypt(text: String) = hashRepository.decrypt(text = text)
+    fun encrypt(key: ByteArray, plainText: String) = hashRepository.encrypt(key, plainText)
+    fun decrypt(key: ByteArray, cipherText: ByteArray) = hashRepository.decrypt(key, cipherText)
 }

@@ -11,14 +11,15 @@ import com.vodimobile.presentation.screens.edit_profile.store.EditProfileEffect
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileIntent
 import com.vodimobile.presentation.screens.edit_profile.store.EditProfileState
 import com.vodimobile.presentation.utils.validator.NameValidator
+import com.vodimobile.utils.cryptography.hexToByteArray
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.nio.charset.StandardCharsets
 
+@OptIn(ExperimentalStdlibApi::class)
 class EditProfileViewModel(
     private val userDataStoreStorage: UserDataStoreStorage,
     private val supabaseStorage: SupabaseStorage,
@@ -37,11 +38,22 @@ class EditProfileViewModel(
                     //TODO() Catch error here
                 }
                 .collect { value: User ->
+
+                    val userFromRemote = supabaseStorage.getUser(
+                        password = value.password, //Hashed password
+                        phone = value.phone
+                    )
+
+                    val fullName = hashRepository.decrypt(
+                        key = userFromRemote.key.hexToByteArray(),
+                        cipherText = userFromRemote.fullName.hexToByteArray()
+                    )
+
                     editProfileState.update {
                         it.copy(
-                            user = value,
-                            fullName = hashRepository.decrypt(text = value.fullName),
-                            phone = hashRepository.decrypt(text = value.phone)
+                            user = userFromRemote,
+                            fullName = fullName,
+                            phone = userFromRemote.phone
                         )
                     }
                 }
@@ -77,7 +89,9 @@ class EditProfileViewModel(
             EditProfileIntent.SaveData -> {
                 editProfileState.update {
                     it.copy(
-                        isFullNameError = editProfileState.value.fullName.isEmpty()&&!validateName(name = editProfileState.value.fullName)
+                        isFullNameError = editProfileState.value.fullName.isEmpty() && !validateName(
+                            name = editProfileState.value.fullName
+                        )
                     )
                 }
 
@@ -100,23 +114,24 @@ class EditProfileViewModel(
                         action = -1
 
                         editProfileEffect.emit(EditProfileEffect.ProgressDialog)
-                        val user = supabaseStorage.getUser(
-                            password = editProfileState.value.user.password,
-                            phone = hashRepository.encrypt(text = editProfileState.value.user.phone)
-                        )
+
+                        val fullName = hashRepository.encrypt(
+                            key = editProfileState.value.user.key.hexToByteArray(),
+                            plainText = editProfileState.value.fullName
+                        ).toHexString()
                         userDataStoreStorage.edit(
                             user = User(
-                                fullName = hashRepository.encrypt(text = editProfileState.value.fullName),
+                                fullName = fullName,
                                 password = editProfileState.value.user.password,
-                                phone = hashRepository.encrypt(text = editProfileState.value.user.phone),
+                                phone = editProfileState.value.user.phone,
                                 accessToken = editProfileState.value.user.accessToken,
                                 refreshToken = editProfileState.value.user.refreshToken,
-                                id = user.id,
+                                id = editProfileState.value.user.id,
                             )
                         )
                         supabaseStorage.updateFullName(
-                            userId = user.id,
-                            fullName = hashRepository.encrypt(text = editProfileState.value.user.fullName)
+                            userId = editProfileState.value.user.id,
+                            fullName = fullName
                         )
                         editProfileEffect.emit(EditProfileEffect.RemoveProgressDialog)
                         editProfileEffect.emit(
@@ -130,6 +145,7 @@ class EditProfileViewModel(
             }
         }
     }
+
     private fun validateName(name: String): Boolean {
         return nameValidator.isValidName(name)
     }

@@ -2,7 +2,6 @@ package com.vodimobile.presentation.screens.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vodimobile.data.repository.hash.HashRepositoryImpl
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -61,17 +60,8 @@ class ProfileViewModel(
             ProfileIntent.InitUser -> {
                 viewModelScope.launch {
                     dataStoreStorage.getUser().collect { value ->
-
-                        val dFullName = hashRepository.decrypt(text = value.fullName)
-                        val dPhone = hashRepository.decrypt(text = value.phone)
-
-                        val dUser = value.copy(
-                            fullName = dFullName,
-                            phone = dPhone
-                        )
-
                         profileState.update {
-                            it.copy(user = dUser)
+                            it.copy(user = value)
                         }
                     }
                 }
