@@ -31,6 +31,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_FULL_NAME)] = user.fullName
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] = user.password
             preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] = user.phone
+            preferences[stringPreferencesKey(Constants.DATA_STORE_USER_AES_KEY)] = user.key
         }
     }
 
@@ -42,6 +43,7 @@ class UserDataStoreRepositoryImpl(private val dataStore: DataStore<Preferences>)
             val password =
                 preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PASSWORD)] ?: ""
             val phone = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_PHONE)] ?: ""
+            val key = preferences[stringPreferencesKey(Constants.DATA_STORE_USER_AES_KEY)] ?: ""
 
             return@map User(
                 id = id,

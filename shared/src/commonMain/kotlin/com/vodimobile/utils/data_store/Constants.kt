@@ -11,4 +11,5 @@ internal object Constants {
     const val DATA_STORE_USER_EXPIRES_TOKEN = "user_expires_token"
     const val DATA_STORE_USER_PHONE = "user_phone"
     const val DATA_STORE_USER_EMAIL = "user_email"
+    const val DATA_STORE_USER_AES_KEY = "user_aes_key"
 }

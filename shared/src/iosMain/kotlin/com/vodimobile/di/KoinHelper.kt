@@ -109,6 +109,7 @@ class KoinHelper : KoinComponent {
 
     suspend fun getUser(password: String, phone: String) =
         supabaseStorage.getUser(hash(password).decodeToString(), phone)
+
     suspend fun hasUserWithPhone(phone: String) = supabaseStorage.hasUserWithPhone(phone)
     suspend fun insertUser(user: User) = supabaseStorage.insertUser(user = userWithHashedPass(user))
     suspend fun updatePhone(userId: Int, phone: String) = supabaseStorage.updatePhone(userId, phone)
@@ -155,4 +156,6 @@ class KoinHelper : KoinComponent {
 
     suspend fun hash(text: String) = hashRepository.hash(text = text)
     suspend fun verify(text: String, byteArray: ByteArray) = hashRepository.verify(text, byteArray)
+    suspend fun encrypt(text: String) = hashRepository.encrypt(text = text)
+    suspend fun decrypt(text: String) = hashRepository.decrypt(text = text)
 }

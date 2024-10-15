@@ -148,23 +148,25 @@ class RegistrationViewModel(
     }
 
     private suspend inline fun saveInLocal(user: User) {
-        val userFromRemote: User = supabaseStorage.getUser(
-            password = hashRepository.hash(text = user.password).decodeToString(),
-            phone = user.phone
-        )
-        Log.d("TAG", userFromRemote.toString())
-        dataStoreStorage.edit(user = userFromRemote)
+        Log.d("TAG", user.toString())
+        dataStoreStorage.edit(user = user)
     }
 
     private suspend inline fun saveInRemote(user: User) {
         try {
+            val key: ByteArray = hashRepository.generateKey()
+
             val hashedPassword = hashRepository.hash(text = user.password).decodeToString()
+            val eFullName = hashRepository.encrypt(key = key, plainText = user.fullName).decodeToString()
+            val ePhone = hashRepository.encrypt(key = key, plainText = user.phone).decodeToString()
+
+            val userCopy = user.copy(password = hashedPassword, fullName = eFullName, phone = ePhone, key = key.decodeToString())
 
             supabaseStorage.insertUser(
-                user = user.copy(password = hashedPassword)
+                user = userCopy
             )
 
-            saveInLocal(user = user)
+            saveInLocal(user = userCopy)
         } catch (e: Exception) {
             registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
         }

@@ -40,8 +40,8 @@ class EditProfileViewModel(
                     editProfileState.update {
                         it.copy(
                             user = value,
-                            fullName = value.fullName,
-                            phone = value.phone
+                            fullName = hashRepository.decrypt(text = value.fullName),
+                            phone = hashRepository.decrypt(text = value.phone)
                         )
                     }
                 }
@@ -102,13 +102,13 @@ class EditProfileViewModel(
                         editProfileEffect.emit(EditProfileEffect.ProgressDialog)
                         val user = supabaseStorage.getUser(
                             password = editProfileState.value.user.password,
-                            phone = editProfileState.value.user.phone
+                            phone = hashRepository.encrypt(text = editProfileState.value.user.phone)
                         )
                         userDataStoreStorage.edit(
                             user = User(
-                                fullName = editProfileState.value.fullName,
+                                fullName = hashRepository.encrypt(text = editProfileState.value.fullName),
                                 password = editProfileState.value.user.password,
-                                phone = editProfileState.value.user.phone,
+                                phone = hashRepository.encrypt(text = editProfileState.value.user.phone),
                                 accessToken = editProfileState.value.user.accessToken,
                                 refreshToken = editProfileState.value.user.refreshToken,
                                 id = user.id,
@@ -116,7 +116,7 @@ class EditProfileViewModel(
                         )
                         supabaseStorage.updateFullName(
                             userId = user.id,
-                            fullName = editProfileState.value.user.fullName
+                            fullName = hashRepository.encrypt(text = editProfileState.value.user.fullName)
                         )
                         editProfileEffect.emit(EditProfileEffect.RemoveProgressDialog)
                         editProfileEffect.emit(

@@ -99,10 +99,11 @@ class AuthorizationViewModel(
     private suspend fun getFrom() {
 
         val hashPassword = hashRepository.hash(text = authorizationState.value.password)
+        val dPhone = hashRepository.decrypt(key = )
 
         val user: User = supabaseStorage.getUser(
             password = hashPassword.decodeToString(),
-            phone = authorizationState.value.phoneNumber
+            phone = dPhone
         )
 
         if (user == User.empty()) {
