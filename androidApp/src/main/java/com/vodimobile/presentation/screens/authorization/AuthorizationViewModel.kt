@@ -109,7 +109,7 @@ class AuthorizationViewModel(
             authorizationEffect.emit(AuthorizationEffect.AuthError)
         } else {
             authorizationEffect.emit(AuthorizationEffect.AskPermission)
-            dataStoreStorage.edit(user = user.copy(password = authorizationState.value.password))
+            dataStoreStorage.edit(user = user.copy(password = hashPassword.decodeToString()))
         }
     }
 }

@@ -9,7 +9,8 @@ data class UserDTO(
     val phone: String,
     val access_token: String,
     val refresh_token: String,
-    val full_name: String
+    val full_name: String,
+    val aes_key: String
 ) {
     companion object {
         fun empty() = UserDTO(
@@ -18,7 +19,8 @@ data class UserDTO(
             phone = "",
             access_token = "",
             refresh_token = "",
-            full_name = ""
+            full_name = "",
+            aes_key = ""
         )
     }
 }

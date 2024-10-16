@@ -9,7 +9,8 @@ data class User(
     val password: String,
     val accessToken: String,
     val refreshToken: String,
-    val phone: String
+    val phone: String,
+    val key: String = ""
 ) {
 
     constructor(
@@ -42,6 +43,7 @@ data class User(
                 "",
                 "",
                 "",
+                ""
             )
         }
 
@@ -60,7 +62,8 @@ data class User(
                 full_name = this.fullName,
                 access_token = this.accessToken,
                 refresh_token = this.refreshToken,
-                phone = this.phone
+                phone = this.phone,
+                aes_key = this.key
             )
         }
     }

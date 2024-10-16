@@ -8,6 +8,7 @@ object SupabaseColumns {
         const val ACCESS_TOKEN = "access_token"
         const val REFRESH_TOKEN = "refresh_token"
         const val FULL_NAME = "full_name"
+        const val AES_KEY = "aes_key"
     }
     object Orders {
         const val BID_ID = "bid_id"

@@ -13,7 +13,8 @@ class GetUserUseCase(private val supabaseRepository: SupabaseRepository) {
             password = userDTO.password,
             accessToken = userDTO.access_token,
             refreshToken = userDTO.refresh_token,
-            phone = userDTO.phone
+            phone = userDTO.phone,
+            key = userDTO.aes_key
         )
     }
 }

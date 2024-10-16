@@ -6,9 +6,5 @@ internal object Constants {
     const val DATA_STORE_USER_ID = "user_id"
     const val DATA_STORE_USER_FULL_NAME = "user_full_name"
     const val DATA_STORE_USER_PASSWORD = "user_password"
-    const val DATA_STORE_USER_ACCESS_TOKEN = "user_access_token"
-    const val DATA_STORE_USER_REFRESH_TOKEN = "user_refresh_token"
-    const val DATA_STORE_USER_EXPIRES_TOKEN = "user_expires_token"
     const val DATA_STORE_USER_PHONE = "user_phone"
-    const val DATA_STORE_USER_EMAIL = "user_email"
 }

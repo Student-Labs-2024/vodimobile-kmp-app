@@ -34,6 +34,7 @@ class SupabaseRepositoryImpl : SupabaseRepository {
                     SupabaseColumns.User.ACCESS_TOKEN to access_token,
                     SupabaseColumns.User.REFRESH_TOKEN to refresh_token,
                     SupabaseColumns.User.FULL_NAME to full_name,
+                    SupabaseColumns.User.AES_KEY to aes_key
                 )
             ) { single() }
         }
@@ -87,6 +88,7 @@ class SupabaseRepositoryImpl : SupabaseRepository {
             set(SupabaseColumns.User.ACCESS_TOKEN, userDTO.access_token)
             set(SupabaseColumns.User.REFRESH_TOKEN, userDTO.refresh_token)
             set(SupabaseColumns.User.FULL_NAME, userDTO.full_name)
+            set(SupabaseColumns.User.AES_KEY, userDTO.aes_key)
         }) {
             filter {
                 eq(SupabaseColumns.User.USER_ID, userDTO.user_id)

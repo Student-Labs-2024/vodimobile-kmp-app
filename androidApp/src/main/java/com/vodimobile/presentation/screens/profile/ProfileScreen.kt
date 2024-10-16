@@ -29,7 +29,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
+import com.vodimobile.data.repository.hash.HashRepositoryImpl
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.domain.use_case.data_store.EditPasswordUseCase
 import com.vodimobile.domain.use_case.data_store.EditUserDataStoreUseCase
@@ -194,6 +196,7 @@ fun ProfileScreen(
 private fun ProfileScreenPreviewLight() {
     VodimobileTheme(dynamicColor = false) {
         val profileViewModel = ProfileViewModel(
+            hashRepository = HashRepositoryImpl(),
             dataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(
@@ -237,6 +240,7 @@ private fun ProfileScreenPreviewLight() {
 private fun ProfileScreenPreviewNight() {
     VodimobileTheme(dynamicColor = false) {
         val profileViewModel = ProfileViewModel(
+            hashRepository = HashRepositoryImpl(),
             dataStoreStorage = UserDataStoreStorage(
                 editUserDataStoreUseCase = EditUserDataStoreUseCase(
                     userDataStoreRepository = UserDataStoreRepositoryImpl(

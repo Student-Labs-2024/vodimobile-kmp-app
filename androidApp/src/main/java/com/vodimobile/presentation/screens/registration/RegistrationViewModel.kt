@@ -1,6 +1,5 @@
 package com.vodimobile.presentation.screens.registration
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
@@ -16,6 +15,7 @@ import com.vodimobile.presentation.screens.registration.store.RegistrationState
 import com.vodimobile.presentation.utils.validator.NameValidator
 import com.vodimobile.presentation.utils.validator.PasswordValidator
 import com.vodimobile.presentation.utils.validator.PhoneNumberValidator
+import com.vodimobile.utils.cryptography.hexToByteArray
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -148,23 +148,24 @@ class RegistrationViewModel(
     }
 
     private suspend inline fun saveInLocal(user: User) {
-        val userFromRemote: User = supabaseStorage.getUser(
-            password = hashRepository.hash(text = user.password).decodeToString(),
-            phone = user.phone
-        )
-        Log.d("TAG", userFromRemote.toString())
-        dataStoreStorage.edit(user = userFromRemote)
+        dataStoreStorage.edit(user = user)
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     private suspend inline fun saveInRemote(user: User) {
         try {
+            val key: String = hashRepository.generateKey().toHexString()
+
             val hashedPassword = hashRepository.hash(text = user.password).decodeToString()
+            val eFullName = hashRepository.encrypt(key = key.hexToByteArray(), plainText = user.fullName).toHexString()
+
+            val userCopy = user.copy(password = hashedPassword, fullName = eFullName, key = key)
 
             supabaseStorage.insertUser(
-                user = user.copy(password = hashedPassword)
+                user = userCopy
             )
 
-            saveInLocal(user = user)
+            saveInLocal(user = userCopy)
         } catch (e: Exception) {
             registrationEffect.emit(RegistrationEffect.SupabaseAuthUserError)
         }

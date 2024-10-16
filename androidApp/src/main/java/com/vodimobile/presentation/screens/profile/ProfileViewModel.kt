@@ -3,6 +3,7 @@ package com.vodimobile.presentation.screens.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vodimobile.domain.model.User
+import com.vodimobile.domain.repository.hash.HashRepository
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
 import com.vodimobile.presentation.screens.profile.store.ProfileEffect
 import com.vodimobile.presentation.screens.profile.store.ProfileIntent
@@ -12,7 +13,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val dataStoreStorage: UserDataStoreStorage) : ViewModel() {
+class ProfileViewModel(
+    private val hashRepository: HashRepository,
+    private val dataStoreStorage: UserDataStoreStorage
+) : ViewModel() {
     val profileEffect = MutableSharedFlow<ProfileEffect>()
     val profileState = MutableStateFlow(ProfileState())
 
