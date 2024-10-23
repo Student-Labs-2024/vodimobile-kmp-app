@@ -1,6 +1,7 @@
 package com.vodimobile.domain
 
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.hash.HashRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.model.User
 import com.vodimobile.domain.storage.crm.CrmStorage
@@ -77,9 +78,13 @@ class SupabaseUserStorageTest {
                 updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                 hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
+            val hashRepository = HashRepositoryImpl()
 
             val user: User =
-                supabaseStorage.getUser(password = "HelloWorld1", phone = "+71111111111")
+                supabaseStorage.getUser(
+                    password = hashRepository.hash(text = "HelloWorld1!").decodeToString(),
+                    phone = "+71111111111"
+                )
             assertEquals(user.fullName, "Slava")
         }
     }
@@ -124,11 +129,15 @@ class SupabaseUserStorageTest {
                 updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                 hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
+            val hashRepository = HashRepositoryImpl()
 
-            supabaseStorage.updateFullName(userId = 288, fullName = "Slava")
+            supabaseStorage.updateFullName(userId = 293, fullName = "Slava")
 
             val userFromRemote =
-                supabaseStorage.getUser(password = "HelloWorld1", phone = "+71111111111")
+                supabaseStorage.getUser(
+                    password = hashRepository.hash(text = "HelloWorld1!").decodeToString(),
+                    phone = "+71111111111"
+                )
             assertEquals(actual = userFromRemote.fullName, expected = "Slava")
         }
     }
