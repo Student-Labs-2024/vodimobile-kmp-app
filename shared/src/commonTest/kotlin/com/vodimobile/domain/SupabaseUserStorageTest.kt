@@ -79,8 +79,8 @@ class SupabaseUserStorageTest {
             )
 
             val user: User =
-                supabaseStorage.getUser(password = "0", phone = "0")
-            assertEquals(user.fullName, "0")
+                supabaseStorage.getUser(password = "HelloWorld1", phone = "+71111111111")
+            assertEquals(user.fullName, "Slava")
         }
     }
 
@@ -125,11 +125,11 @@ class SupabaseUserStorageTest {
                 hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
             )
 
-            supabaseStorage.updateFullName(userId = 0, fullName = "0")
+            supabaseStorage.updateFullName(userId = 288, fullName = "Slava")
 
             val userFromRemote =
-                supabaseStorage.getUser(password = "0", phone = "0")
-            assertEquals(actual = userFromRemote.fullName, expected = "0")
+                supabaseStorage.getUser(password = "HelloWorld1", phone = "+71111111111")
+            assertEquals(actual = userFromRemote.fullName, expected = "Slava")
         }
     }
 }
