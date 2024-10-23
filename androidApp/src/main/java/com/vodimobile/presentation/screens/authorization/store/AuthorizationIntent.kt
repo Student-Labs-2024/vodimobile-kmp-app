@@ -8,4 +8,5 @@ sealed class AuthorizationIntent {
     data class PasswordChange(val value: String): AuthorizationIntent()
     data object AskPermission : AuthorizationIntent()
     data object RememberPassword: AuthorizationIntent()
+    data object DismissAllCoroutines : AuthorizationIntent()
 }

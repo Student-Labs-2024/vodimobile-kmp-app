@@ -5,4 +5,6 @@ sealed class EditProfileIntent {
     data object SaveData : EditProfileIntent()
     data object EditPasswordClick : EditProfileIntent()
     data object ClickBack : EditProfileIntent()
+    data object ClearResources : EditProfileIntent()
+    data object InitUser : EditProfileIntent()
 }

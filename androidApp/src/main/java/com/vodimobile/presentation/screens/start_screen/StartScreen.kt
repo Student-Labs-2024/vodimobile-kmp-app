@@ -52,7 +52,6 @@ fun StartScreen(
         startScreenEffect.collect { effect ->
             when (effect) {
                 StartScreenEffect.CloseClick -> {
-                    onGeneralIntent(GeneralIntent.NoAuth)
                     navHostController.navigateUp()
                 }
 
@@ -70,6 +69,7 @@ fun StartScreen(
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
+                        onGeneralIntent(GeneralIntent.NoAuth)
                         onStartScreenIntent(StartScreenIntent.CloseClick)
                     }
                 ) {
