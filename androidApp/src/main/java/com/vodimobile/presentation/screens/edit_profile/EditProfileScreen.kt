@@ -24,6 +24,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -146,6 +147,14 @@ fun EditProfileScreen(
                     navHostController.navigateUp()
                 }
             }
+        }
+    }
+    LaunchedEffect(key1 = Unit) {
+        onEditProfileIntent(EditProfileIntent.InitUser)
+    }
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            onEditProfileIntent(EditProfileIntent.ClearResources)
         }
     }
     ExtendedTheme {

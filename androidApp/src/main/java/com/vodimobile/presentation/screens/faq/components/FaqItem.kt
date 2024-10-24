@@ -5,8 +5,8 @@ import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -47,6 +47,7 @@ import com.vodimobile.presentation.BottomAppBarAlpha
 import com.vodimobile.presentation.TestTags
 import com.vodimobile.presentation.theme.divider
 
+@SuppressLint("ComposeModifierMissing")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FaqItem(faqModel: FaqModel) {
@@ -118,8 +119,8 @@ fun FaqItem(faqModel: FaqModel) {
 
                 AnimatedVisibility(
                     visible = expanded,
-                    enter = fadeIn(animationSpec = tween(Anim.fastAnimDuration)),
-                    exit = fadeOut(animationSpec = tween(Anim.fastAnimDuration))
+                    enter = slideInVertically(animationSpec = tween(Anim.fastAnimDuration)),
+                    exit = slideOutVertically(animationSpec = tween(Anim.fastAnimDuration))
                 ) {
                     Text(
                         text = faqModel.answer,
