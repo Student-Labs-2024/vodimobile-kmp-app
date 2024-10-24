@@ -295,7 +295,7 @@ final class KMPApiManager: ObservableObject {
         return []
     }
 
-    func createBidToReserving(for bidCreateParams: BidCreateParams) async -> BidCreateDTO? {
+    func createBidToReserving(for bidCreateParams: BidCreateParams, inputDate: ReservationInputData) async -> BidCreateDTO? {
         if appState.isConnected {
             await MainActor.run {
                 isLoading = true
@@ -309,6 +309,22 @@ final class KMPApiManager: ObservableObject {
                     switch onEnum(of: response) {
                     case .crmData(let success):
                         if let bidCreateDTO = success.data {
+                            try await helper.insertOrder(orderDTO: OrderDTO(
+                                bid_id: Int32(truncating: bidCreateDTO.bid_id ?? 0),
+                                bid_number: Int32(truncating: bidCreateDTO.bid_number ?? 0),
+                                user_id: storageUser.id,
+                                crm_bid_id: Int32(truncating: bidCreateDTO.bid_id ?? 0),
+                                car_id: bidCreateParams.car_id,
+                                bid_status: CarStatus.Processing.description(),
+                                date_start: inputDate.startDate,
+                                time_start: inputDate.startTime,
+                                date_finish: inputDate.endDate,
+                                time_finish: inputDate.endTime,
+                                place_start: inputDate.startPlace,
+                                place_finish: inputDate.endPlace,
+                                cost: inputDate.cost,
+                                services: inputDate.services)
+                            )
                             return bidCreateDTO
                         }
                     case .crmError(let error):

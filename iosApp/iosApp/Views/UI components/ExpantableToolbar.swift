@@ -76,7 +76,7 @@ struct ExpandableToolbar: View {
                     }
                 }
                 .background(Color(R.color.blueDark))
-                .cornerRadius(24)
+                .clipShape(.rect(bottomLeadingRadius: 24, bottomTrailingRadius: 24))
                 .animation(.spring(), value: isExpanded)
                 .onAppear {
                     headerHeight = geometry.size.height

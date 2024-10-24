@@ -7,4 +7,6 @@ sealed class RegistrationEffect {
     data object AskPermission : RegistrationEffect()
     data object SupabaseAuthUserError : RegistrationEffect()
     data object NotUniquePhone : RegistrationEffect()
+    data object ShowLoadingDialog : RegistrationEffect()
+    data object DismissLoadingDialog : RegistrationEffect()
 }

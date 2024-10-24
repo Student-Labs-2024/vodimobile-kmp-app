@@ -61,8 +61,8 @@ struct MainTabbarView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color(R.color.container))
-                .padding(.vertical, 25)
             }
+            .padding(.vertical, 25)
             .frame(width: geometry.size.width, height: geometry.size.height)
         }
         .ignoresSafeArea()

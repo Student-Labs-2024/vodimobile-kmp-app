@@ -1,5 +1,9 @@
 package com.vodimobile.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -15,6 +19,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vodimobile.android.R
+import com.vodimobile.presentation.Anim
 import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.LeafErrorScreen
 import com.vodimobile.presentation.LeafHomeScreen
@@ -104,7 +109,22 @@ fun NavGraph(navHostController: NavHostController, modifier: Modifier = Modifier
 
     NavHost(
         navController = navHostController,
-        startDestination = RootScreen.HOME_SCREEN
+        startDestination = RootScreen.HOME_SCREEN,
+        enterTransition = {
+            fadeIn(tween(Anim.SLOW_SCREEN_ANIM))
+        },
+        exitTransition = {
+            fadeOut(tween(Anim.SLOW_SCREEN_ANIM))
+        },
+        popEnterTransition = {
+            fadeIn(tween(Anim.SLOW_SCREEN_ANIM))
+        },
+        popExitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(Anim.MEDIUM_SCREEN_ANIM)
+            )
+        }
     ) {
         navigation(
             route = RootScreen.HOME_SCREEN,

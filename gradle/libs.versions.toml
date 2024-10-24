@@ -43,6 +43,8 @@ kotlinxSerializationJson = "1.7.1"
 #Buildconfig
 buildkonfigGradlePlugin = "0.15.1"
 kotlinGradlePlugin = "1.9.0"
+
+#Firebase
 googleGmsGoogleServices = "4.4.2"
 firebaseMessaging = "24.0.0"
 
@@ -73,6 +75,7 @@ androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-te
 androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 skie-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 
+#Koin
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -105,7 +108,6 @@ ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
-
 #Coroutines
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "androidCoroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
@@ -122,6 +124,11 @@ moko-resources = { module = "dev.icerock.moko:resources", version.ref = "mokoRes
 #Exports
 moko-graphics-export = { module = "dev.icerock.moko:graphics", version.ref = "mokoGraphicsExport"}
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+
+#Cryptographing
+cryptography-core = { module = "dev.whyoleg.cryptography:cryptography-core" }
+cryptography-provider-jdk = { module = "dev.whyoleg.cryptography:cryptography-provider-jdk" }
+cryptography-provider-openssl3-prebuilt = { module = "dev.whyoleg.cryptography:cryptography-provider-openssl3-prebuilt" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

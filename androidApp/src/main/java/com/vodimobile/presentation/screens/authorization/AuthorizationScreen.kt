@@ -17,6 +17,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -34,6 +35,7 @@ import com.vodimobile.App
 import com.vodimobile.android.R
 import com.vodimobile.data.data_store.UserDataStoreRepositoryImpl
 import com.vodimobile.data.repository.crm.CrmRepositoryImpl
+import com.vodimobile.data.repository.hash.HashRepositoryImpl
 import com.vodimobile.data.repository.supabase.SupabaseRepositoryImpl
 import com.vodimobile.domain.storage.crm.CrmStorage
 import com.vodimobile.domain.storage.data_store.UserDataStoreStorage
@@ -68,6 +70,7 @@ import com.vodimobile.domain.use_case.supabase.order.UpdateOrderStatusUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceFinishUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdatePlaceStartUseCase
 import com.vodimobile.domain.use_case.supabase.order.UpdateServicesUseCase
+import com.vodimobile.presentation.DialogIdentifiers
 import com.vodimobile.presentation.RegistrationScreens
 import com.vodimobile.presentation.RootScreen
 import com.vodimobile.presentation.components.block.AgreementBlock
@@ -141,7 +144,19 @@ fun AuthorizationScreen(
                             duration = SnackbarDuration.Short
                         )
                 }
+
+                AuthorizationEffect.DismissLoadingDialog -> {
+                    navHostController.navigateUp()
+                }
+                AuthorizationEffect.ShowLoadingDialog -> {
+                    navHostController.navigate(route = DialogIdentifiers.LOADING_DIALOG)
+                }
             }
+        }
+    }
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            onAuthorizationIntent(AuthorizationIntent.DismissAllCoroutines)
         }
     }
 
@@ -277,7 +292,8 @@ private fun AuthorizationScreenPreviewDark() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                     hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
-                )
+                ),
+                hashRepository = HashRepositoryImpl()
             )
             AuthorizationScreen(
                 onAuthorizationIntent = authorizationViewModel::onIntent,
@@ -361,7 +377,8 @@ private fun AuthorizationScreenPreviewLight() {
                     updatePlaceFinishUseCase = UpdatePlaceFinishUseCase(SupabaseRepositoryImpl()),
                     updatePlaceStartUseCase = UpdatePlaceStartUseCase(SupabaseRepositoryImpl()),
                     hasUserWithPhoneUseCase = HasUserWithPhoneUseCase(SupabaseRepositoryImpl())
-                )
+                ),
+                hashRepository = HashRepositoryImpl()
             )
             AuthorizationScreen(
                 onAuthorizationIntent = authorizationViewModel::onIntent,
